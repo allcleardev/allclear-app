@@ -9,9 +9,9 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import HomeIcon from '@material-ui/icons/Home';
-import FavoriteIcon from '@material-ui/icons/Favorite';
+import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
+import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 
 const useStyles = makeStyles({
   root: {
@@ -35,12 +35,12 @@ export default function SimpleBottomNavigation() {
         className={classes.root}
         >
             <BottomNavigationAction
-                label="Home" icon={<HomeIcon />}
+                label="Am I sick?" icon={<AssignmentTurnedInIcon />}
                 component={Link}
                 to="/"
             />
-            <BottomNavigationAction label="My Health" icon={<FavoriteIcon />} component={Link} to="/health"/>
-            <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} component={Link} to="/location"/>
+            <BottomNavigationAction label="Health Status" icon={<AssignmentIndIcon />} component={Link} to="/health"/>
+            <BottomNavigationAction label="Nearby Testing" icon={<LocationOnIcon />} component={Link} to="/location"/>
         </BottomNavigation>
   );
 }
