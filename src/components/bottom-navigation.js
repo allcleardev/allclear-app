@@ -13,11 +13,6 @@ import HomeIcon from '@material-ui/icons/Home';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 
-import Health from '../pages/health'
-import Home from '../pages/home'
-import Location from '../pages/location'
-
-
 const useStyles = makeStyles({
   root: {
     width: '100%',
@@ -26,18 +21,11 @@ const useStyles = makeStyles({
   },
 });
 
-
-
 export default function SimpleBottomNavigation() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
   return (
-    <Router>
-        <Route path="/health" component={Health} />
-        <Route path="/location" component={Location}/>
-        <Route exact path="/" component={Home}/>
-
         <BottomNavigation
         value={value}
         onChange={(event, newValue) => {
@@ -54,6 +42,5 @@ export default function SimpleBottomNavigation() {
             <BottomNavigationAction label="My Health" icon={<FavoriteIcon />} component={Link} to="/health"/>
             <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} component={Link} to="/location"/>
         </BottomNavigation>
-    </Router>
   );
 }
