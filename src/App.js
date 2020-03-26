@@ -15,6 +15,7 @@ import login from './pages/login';
 import Location from './pages/location';
 import Health from './pages/health';
 import Home from './pages/home';
+import ForgotPassword from './pages/forgot-password'; 
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
           <SimpleBottomNavigation />
         </Box>
         <Route exact path="/" component={Home}/>
+        <Route path="/forgot" component={ForgotPassword} />
         <Route path="/health" component={Health} />
         <Route path="/location" component={Location}/>
         <Route path="/login" component={login} />
