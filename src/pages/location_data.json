@@ -1,0 +1,3739 @@
+[
+  {
+    "Name": "Common Ground Health Clinic - Algiers",
+    "Address": "1400 Teche Street, New Orleans, LA 70114",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Hours": "8:00 am - 4:00 pm",
+    "Latitude": 29.9410979,
+    "Longitude": -90.0516889,
+    "State": "Louisiana",
+    "Phone": "(504) 361-9800",
+    "Main Website": "https://cghcnola.org/"
+  },
+  {
+    "Name": "Cape Cod Healthcare Urgent Care",
+    "Address": "Cape Cod Healthcare Urgent Care - Harwich525 Long Pond Drive, Harwich, MA 02645",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 41.722568,
+    "Longitude": -70.0370091,
+    "State": "Massachusetts",
+    "Phone": "508-430-3330",
+    "Main Website": "https://www.capecodhealth.org/locations/profile/cape-cod-healthcare-urgent-care-harwich/"
+  },
+  {
+    "Name": "Barnstable County Department of Public Health",
+    "Address": "Barnstable County Department of Public Health3195 Main Street, Barnstable, MA",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 41.6993653,
+    "Longitude": -70.3043457,
+    "State": "Massachusetts",
+    "Phone": "211, 508-375-6613",
+    "Main Website": "https://www.barnstablecountyhealth.org/"
+  },
+  {
+    "Name": "Cape Cod Healthcare Urgent Care",
+    "Address": "Cape Cod Healthcare Urgent Care - Hyannis\n 1220 Iyannough Road, Hyannis, MA 02601",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 41.6754502,
+    "Longitude": -70.3091955,
+    "State": "Massachusetts",
+    "Phone": "508-862-7900",
+    "Main Website": "https://www.capecodhealth.org/locations/profile/cape-cod-healthcare-urgent-care-hyannis/"
+  },
+  {
+    "Name": "Cape Cod Healthcare Urgent Care",
+    "Address": "Cape Cod Healthcare Urgent Care - Sandwich\n 2 Jan Sebastian Drive, Sandwich, MA 02563",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 41.7174682,
+    "Longitude": -70.4879366,
+    "State": "Massachusetts",
+    "Phone": "508-833-2639",
+    "Main Website": "https://www.capecodhealth.org/locations/profile/cape-cod-healthcare-urgent-care-sandwich/"
+  },
+  {
+    "Name": "Cape Cod Healthcare Urgent Care",
+    "Address": "Cape Cod Healthcare Urgent Care - Falmouth\n 273 Teaticket Highway, Falmouth, MA 02540",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 41.567619,
+    "Longitude": -70.5946335,
+    "State": "Massachusetts",
+    "Phone": "508-495-8000",
+    "Main Website": "https://www.capecodhealth.org/locations/profile/cape-cod-healthcare-urgent-care-falmouth/"
+  },
+  {
+    "Name": "Fall River Health Department",
+    "Address": "Fall River Health Department\n 1 Government Center, Fall River, MA",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 41.7009163,
+    "Longitude": -71.154541,
+    "State": "Massachusetts",
+    "Phone": "211, 508-324-2410",
+    "Main Website": "https://www.fallriverma.org/department/corona-virus-information/"
+  },
+  {
+    "Name": "Cambridge Public Health Department",
+    "Address": "Cambridge Public Health Department\n 119 Windsor Street, Cambridge, MA",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 42.3646889,
+    "Longitude": -71.0967971,
+    "State": "Massachusetts",
+    "Phone": "617-665-3800, 211",
+    "Main Website": "http://cambridgepublichealth.org/services/diseases-conditions/coronavirus.php"
+  },
+  {
+    "Name": "Boston Public Health Commission",
+    "Address": "Boston Public Health Commission\n 1010 Massachusetts Avenue, Boston, MA",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 42.3279958,
+    "Longitude": -71.0672402,
+    "State": "Massachusetts",
+    "Phone": "617-534-5394",
+    "Main Website": "https://bphc.org"
+  },
+  {
+    "Name": "Massachusetts Department of Public Health",
+    "Address": "Massachusetts Department of Public Health\n 250 Washington Street, Boston, MA",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 42.35807,
+    "Longitude": -71.057716,
+    "State": "Massachusetts",
+    "Phone": "617-624-6000",
+    "Main Website": "https://www.mass.gov/resource/information-on-the-outbreak-of-coronavirus-disease-2019-covid-19"
+  },
+  {
+    "Name": "Lemuel Shattuck Hospital",
+    "Address": "Lemuel Shattuck Hospital\n 170 Morton St., Jamaica Plain, MA",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 42.2993311,
+    "Longitude": -71.101671,
+    "State": "Massachusetts",
+    "Phone": "617-522-8110, 211",
+    "Main Website": "https://www.mass.gov/locations/lemuel-shattuck-hospital"
+  },
+  {
+    "Name": "Amesbury Health Department",
+    "Address": "Amesbury Health Department\n 68 Elm Street, 2nd Floor, Suite 206, Amesbury, MA",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 42.8583925,
+    "Longitude": -70.9300376,
+    "State": "Massachusetts",
+    "Phone": "978-388-8134",
+    "Main Website": "https://www.amesburyma.gov/health-department/news/coronavirus-covid-19-updates"
+  },
+  {
+    "Name": "Wentworth-Douglass Express Care",
+    "Address": "Wentworth-Douglass Express Care - Lee\n 65 Calef Highway, Lee, NH 03861",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 43.1530507,
+    "Longitude": -71.0044943,
+    "State": "New Hampshire",
+    "Phone": "603-868-8507",
+    "Main Website": "https://www.wdhospital.org/express"
+  },
+  {
+    "Name": "Wentworth-Douglass Outpatient Center",
+    "Address": "Wentworth-Douglass Outpatient Center - Dover\n 10 Members Way, Lee, NH 03820",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 43.214181,
+    "Longitude": -70.9030215,
+    "State": "New Hampshire",
+    "Phone": "603-609-6930",
+    "Main Website": "https://www.wdhospital.org/wdh/about-wdh/locations-and-directions/lee-outpatient-center-2"
+  },
+  {
+    "Name": "Wentworth-Douglass Hospital",
+    "Address": "Wentworth-Douglass Hospital\n 789 Central Avenue, Dover, NH 03820",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 43.2127546,
+    "Longitude": -70.8736964,
+    "State": "New Hampshire",
+    "Phone": "603-742-5252",
+    "Main Website": "https://www.wdhospital.org/wdh"
+  },
+  {
+    "Name": "Wentworth-Douglass Express Care",
+    "Address": "Wentworth-Douglass Express Care - Dover\n 701 Central Avenue, Dover, NH 03820",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 43.2079664,
+    "Longitude": -70.8745898,
+    "State": "New Hampshire",
+    "Phone": "603-609-6700",
+    "Main Website": "https://www.wdhospital.org/express"
+  },
+  {
+    "Name": "Cleveland Clinic Florida",
+    "Address": "Cleveland Clinic Florida\n 2950 Cleveland Clinic Blvd., Weston, Florida 33331",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 26.0817288,
+    "Longitude": -80.3649907,
+    "State": "Florida",
+    "Phone": "954.659.5000, 855-697-3750",
+    "Main Website": "https://my.clevelandclinic.org/locations/directions/203-cleveland-clinic-florida"
+  },
+  {
+    "Address": "Parkland\n 7857 N. University Dr., Suite 401, Parkland, Florida 33067",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 26.3285159,
+    "Longitude": -80.2523747,
+    "State": "Florida",
+    "Phone": "855-697-3750, 954.518.7000",
+    "Main Website": "https://my.clevelandclinic.org/locations/directions/220-parkland"
+  },
+  {
+    "Name": "Coral Springs Family Health Center",
+    "Address": "Coral Springs Family Health Center\n 5701 North University Drive, Coral Springs, Florida 33067",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 26.3002605,
+    "Longitude": -80.2491836,
+    "State": "Florida",
+    "Phone": "855-697-3750, 954.518.7500",
+    "Main Website": "https://my.clevelandclinic.org/locations/directions/504-coral-springs-family-health-center"
+  },
+  {
+    "Name": "Cleveland Clinic Florida Wellington",
+    "Address": "Cleveland Clinic Florida Wellington\n 2789 S. State Road 7, Suites 100/200, Wellington, Florida 33414",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 26.6387183,
+    "Longitude": -80.20555,
+    "State": "Florida",
+    "Phone": "855-697-3750, 561.898.5100",
+    "Main Website": "https://my.clevelandclinic.org/locations/directions/480-cleveland-clinic-florida-wellington"
+  },
+  {
+    "Name": "Palm Beach Gardens",
+    "Address": "Palm Beach Gardens\n 4520 Donald Ross Rd. Suite 200, Palm Beach Gardens, Florida 33418",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 26.8814089,
+    "Longitude": -80.104863,
+    "State": "Florida",
+    "Phone": "855-697-3750, 561.904.7200",
+    "Main Website": "https://my.clevelandclinic.org/locations/directions/232-palm-beach-gardens"
+  },
+  {
+    "Name": "Martin Health at Palm City",
+    "Address": "Martin Health at Palm City\n 3066 SW Martin Downs Blvd., Palm City, Florida 34990",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 27.1708698,
+    "Longitude": -80.2944775,
+    "State": "Florida",
+    "Phone": "855-697-3750",
+    "Main Website": "https://my.clevelandclinic.org/locations/directions/553-martin-health-at-palm-city"
+  },
+  {
+    "Name": "Tomsich Health and Medical Center of Palm Beach County.",
+    "Address": "Tomsich Health and Medical Center of Palm Beach County. 525 Okeechobee Blvd., Rosemary Square, 14th Floor, West Palm Beach, Florida 33401",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 26.7065972,
+    "Longitude": -80.056343,
+    "State": "Florida",
+    "Phone": "855-697-3750, 561.804.0200",
+    "Main Website": "https://my.clevelandclinic.org/locations/directions/202-tomsich-health-and-medical-center-of-palm-beach-county"
+  },
+  {
+    "Name": "AdventHealth Centra Care South Tampa",
+    "Address": "AdventHealth Centra Care South Tampa\n 301 North Dale Mabry Highway, Tampa, FL 33609",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 27.947591,
+    "Longitude": -82.505273,
+    "State": "Florida",
+    "Phone": "813-284-0985,",
+    "Main Website": "https://centracare.adventhealth.com/urgent-care/south-tampa"
+  },
+  {
+    "Name": "AdventHealth Centra Care Temple Terrace",
+    "Address": "AdventHealth Centra Care Temple Terrace\n 5802 East Fowler Avenue, Temple Terrace, FL 33617",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 28.0548375,
+    "Longitude": -82.3912267,
+    "State": "Florida",
+    "Phone": "813-442-7493",
+    "Main Website": "https://centracare.adventhealth.com/urgent-care/temple-terrace"
+  },
+  {
+    "Name": "AdventHealth Centra Care Wesley Chapel",
+    "Address": "AdventHealth Centra Care Wesley Chapel\n 1127 Bruce B Downs Boulevard, Wesley Chapel, FL 33543",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 28.1726668,
+    "Longitude": -82.3543013,
+    "State": "Florida",
+    "Phone": "813-536-1865",
+    "Main Website": "https://centracare.adventhealth.com/urgent-care/wesley-chapel"
+  },
+  {
+    "Name": "AdventHealth Centra Care Winter Haven",
+    "Address": "AdventHealth Centra Care Winter Haven\n 7375 Cypress Gardens Boulevard, Winter Haven, FL 33884",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 27.9790833,
+    "Longitude": -81.6532833,
+    "State": "Florida",
+    "Phone": "863-325-8185",
+    "Main Website": "https://centracare.adventhealth.com/urgent-care/winter-haven"
+  },
+  {
+    "Name": "AdventHealth Centra Care Leesburg",
+    "Address": "AdventHealth Centra Care Leesburg\n 1103 North 14th Street, Leesburg, FL 34748",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 28.8258059,
+    "Longitude": -81.8878946,
+    "State": "Florida",
+    "Phone": "352-314-2328",
+    "Main Website": "https://centracare.adventhealth.com/urgent-care/leesburg"
+  },
+  {
+    "Name": "AdventHealth Centra Care Mt. Dora",
+    "Address": "AdventHealth Centra Care Mt. Dora\n 19015 US Highway 441, Mount Dora, FL 32757",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 28.8246419,
+    "Longitude": -81.6411226,
+    "State": "Florida",
+    "Phone": "352-383-3484",
+    "Main Website": "https://centracare.adventhealth.com/urgent-care/mount-dora"
+  },
+  {
+    "Name": "AdventHealth Centra Care Poinciana",
+    "Address": "AdventHealth Centra Care Poinciana\n 3759 Pleasant Hill Road, Kissimmee, FL 34746",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 28.1842956,
+    "Longitude": -81.4385937,
+    "State": "Florida",
+    "Phone": "863-419-2723",
+    "Main Website": "https://centracare.adventhealth.com/urgent-care/poinciana"
+  },
+  {
+    "Name": "AdventHealth Centra Care St. Cloud",
+    "Address": "AdventHealth Centra Care St. Cloud\n 4660 13th Street, Saint Cloud, FL 34769",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 28.2566303,
+    "Longitude": -81.320279,
+    "State": "Florida",
+    "Phone": "321-805-4650",
+    "Main Website": "https://centracare.adventhealth.com/urgent-care/st-cloud"
+  },
+  {
+    "Name": "AdventHealth Centra Care Kissimmee",
+    "Address": "AdventHealth Centra Care Kissimmee\n 4320 West Vine Street, Kissimmee, FL 34746",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 28.303348,
+    "Longitude": -81.454044,
+    "State": "Florida",
+    "Phone": "407-390-1888",
+    "Main Website": "https://centracare.adventhealth.com/urgent-care/kissimmee"
+  },
+  {
+    "Name": "AdventHealth Centra Care Hunter's Creek",
+    "Address": "AdventHealth Centra Care Hunter's Creek\n 3293 Greenwald Way North, Kissimmee, FL 34741",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 28.3475,
+    "Longitude": -81.41897,
+    "State": "Florida",
+    "Phone": "407-847-2796",
+    "Main Website": "https://centracare.adventhealth.com/urgent-care/hunters-creek"
+  },
+  {
+    "Name": "AdventHealth Centra Care Orange Lake",
+    "Address": "AdventHealth Centra Care Orange Lake\n 8201 West Irlo Bronson Highway, Kissimmee, FL 34747",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 28.347701,
+    "Longitude": -81.613935,
+    "State": "Florida",
+    "Phone": "407-465-0846",
+    "Main Website": "https://centracare.adventhealth.com/urgent-care/orange-lake"
+  },
+  {
+    "Name": "AdventHealth Centra Care Lake Buena Vista",
+    "Address": "AdventHealth Centra Care Lake Buena Vista\n 12500 South Apopka Vineland Road, Orlando, FL 32836",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 28.3830668,
+    "Longitude": -81.5070452,
+    "State": "Florida",
+    "Phone": "407-934-2273",
+    "Main Website": "https://centracare.adventhealth.com/urgent-care/lake-buena-vista"
+  },
+  {
+    "Name": "AdventHealth Centra Care Lake Nona",
+    "Address": "AdventHealth Centra Care Lake Nona\n 9637 Lake Nona Village Place, Orlando, FL 32827",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 28.4261037,
+    "Longitude": -81.2542655,
+    "State": "Florida",
+    "Phone": "407-723-1365",
+    "Main Website": "https://centracare.adventhealth.com/urgent-care/lake-nona"
+  },
+  {
+    "Name": "AdventHealth Centra Care Sand Lake Road",
+    "Address": "AdventHealth Centra Care Sand Lake Road\n 2301 Sand Lake Road, Orlando, FL 32809",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 28.451105,
+    "Longitude": -81.412741,
+    "State": "Florida",
+    "Phone": "407-851-6478",
+    "Main Website": "https://centracare.adventhealth.com/urgent-care/sand-lake"
+  },
+  {
+    "Name": "AdventHealth Centra Care Dr. Phillip's",
+    "Address": "AdventHealth Centra Care Dr. Phillip's\n 8014 Conroy-Windermere Road, Suite 104, Orlando, FL 32835",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 28.493147,
+    "Longitude": -81.492222,
+    "State": "Florida",
+    "Phone": "407-291-8975",
+    "Main Website": "https://centracare.adventhealth.com/urgent-care/dr-phillips"
+  },
+  {
+    "Name": "AdventHealth Centra Care Winter Garden",
+    "Address": "AdventHealth Centra Care Winter Garden\n 3005 Daniels Road, Winter Garden, FL 34787",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 28.525358,
+    "Longitude": -81.584791,
+    "State": "Florida",
+    "Phone": "407-654-8186",
+    "Main Website": "https://centracare.adventhealth.com/urgent-care/winter-garden"
+  },
+  {
+    "Name": "AdventHealth Centra Care South Orange",
+    "Address": "AdventHealth Centra Care South Orange\n 2609 South Orange Avenue, Orlando, FL 32806",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 28.5135702,
+    "Longitude": -81.3760542,
+    "State": "Florida",
+    "Phone": "407-914-2926",
+    "Main Website": "https://centracare.adventhealth.com/urgent-care/south-orange"
+  },
+  {
+    "Name": "AdventHealth Centra Care Lee Road",
+    "Address": "AdventHealth Centra Care Lee Road\n 2540 Lee Road, Winter Park, FL 32789",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 28.605389,
+    "Longitude": -81.383025,
+    "State": "Florida",
+    "Phone": "407-629-9281",
+    "Main Website": "https://centracare.adventhealth.com/urgent-care/lee-road"
+  },
+  {
+    "Name": "AdventHealth Centra Care Winter Park",
+    "Address": "AdventHealth Centra Care Winter Park\n 3099 Aloma Avenue, Winter Park, FL 32792",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 28.604812,
+    "Longitude": -81.307905,
+    "State": "Florida",
+    "Phone": "407-951-6302",
+    "Main Website": "https://centracare.adventhealth.com/urgent-care/winter-park"
+  },
+  {
+    "Name": "AdventHealth Centra Care Waterford Lakes",
+    "Address": "AdventHealth Centra Care Waterford Lakes\n 250 North Alafaya Trail, Suite 135, Orlando, FL 32825",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 28.5483252,
+    "Longitude": -81.2044651,
+    "State": "Florida",
+    "Phone": "407-381-4810",
+    "Main Website": "https://centracare.adventhealth.com/urgent-care/waterford-lakes"
+  },
+  {
+    "Name": "AdventHealth Centra Care University",
+    "Address": "AdventHealth Centra Care University\n 11550 University Boulevard, Orlando, FL 32817",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 28.597214,
+    "Longitude": -81.220011,
+    "State": "Florida",
+    "Phone": "407-384-0080",
+    "Main Website": "https://centracare.adventhealth.com/urgent-care/university"
+  },
+  {
+    "Name": "AdventHealth Centra Care Oviedo",
+    "Address": "AdventHealth Centra Care Oviedo\n 8010 Red Bug Lake Road, Oviedo, FL 32765",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 28.6569671,
+    "Longitude": -81.2399621,
+    "State": "Florida",
+    "Phone": "407-200-2512",
+    "Main Website": "https://centracare.adventhealth.com/urgent-care/oviedo"
+  },
+  {
+    "Name": "AdventHealth Centra Care Longwood",
+    "Address": "AdventHealth Centra Care Longwood\n 855 South US Highway 17-92, Longwood, FL 32750",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 28.6929003,
+    "Longitude": -81.3269197,
+    "State": "Florida",
+    "Phone": "407-699-8400",
+    "Main Website": "https://centracare.adventhealth.com/urgent-care/longwood"
+  },
+  {
+    "Name": "AdventHealth Centra Care Lake Mary",
+    "Address": "AdventHealth Centra Care Lake Mary\n 2948 West Lake Mary Boulevard, Lake Mary, FL 32746",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 28.7566135,
+    "Longitude": -81.331011,
+    "State": "Florida",
+    "Phone": "407-732-7478",
+    "Main Website": "https://centracare.adventhealth.com/urgent-care/lake-mary"
+  },
+  {
+    "Name": "AdventHealth Centra Care Sanford",
+    "Address": "AdventHealth Centra Care Sanford\n 4451 West 1st Street, Sanford, FL 32771",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 28.811103,
+    "Longitude": -81.329997,
+    "State": "Florida",
+    "Phone": "407-330-3412",
+    "Main Website": "https://centracare.adventhealth.com/urgent-care/sanford"
+  },
+  {
+    "Name": "AdventHealth Centra Care DeLand",
+    "Address": "AdventHealth Centra Care DeLand\n 2293 South Woodland Boulevard, DeLand, FL 32720",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 28.9881947,
+    "Longitude": -81.2997869,
+    "State": "Florida",
+    "Phone": "386-279-7010",
+    "Main Website": "https://centracare.adventhealth.com/urgent-care/deland"
+  },
+  {
+    "Name": "AdventHealth Centra Care Orange City",
+    "Address": "AdventHealth Centra Care Orange City\n 1360 Saxon Boulevard, Orange City, FL 32763",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 28.9104721,
+    "Longitude": -81.2746643,
+    "State": "Florida",
+    "Phone": "386-917-0074",
+    "Main Website": "https://centracare.adventhealth.com/urgent-care/orange-city"
+  },
+  {
+    "Name": "AdventHealth Centra Care Mt. Dora",
+    "Address": "AdventHealth Centra Care Mt. Dora\n 19015 US Highway 441, Mount Dora, FL 32757",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 28.8246419,
+    "Longitude": -81.6411226,
+    "State": "Florida",
+    "Phone": "352-383-3484",
+    "Main Website": "https://centracare.adventhealth.com/urgent-care/mount-dora"
+  },
+  {
+    "Name": "AdventHealth Centra Care Leesburg",
+    "Address": "AdventHealth Centra Care Leesburg\n 1103 North 14th Street, Leesburg, FL 34748",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 28.8258059,
+    "Longitude": -81.8878946,
+    "State": "Florida",
+    "Phone": "352-314-2328",
+    "Main Website": "https://centracare.adventhealth.com/urgent-care/leesburg"
+  },
+  {
+    "Name": "AdventHealth Centra Care Port Orange",
+    "Address": "AdventHealth Centra Care Port Orange\n 1208 Dunlawton Avenue, Port Orange, FL 32127",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 29.1232267,
+    "Longitude": -81.0111877,
+    "State": "Florida",
+    "Phone": "386-304-7320",
+    "Main Website": "https://centracare.adventhealth.com/urgent-care/port-orange"
+  },
+  {
+    "Name": "AdventHealth Centra Care Daytona",
+    "Address": "AdventHealth Centra Care Daytona\n 1014 West International Speedway Boulevard, Daytona, FL 32114",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 29.2027847,
+    "Longitude": -81.0423496,
+    "State": "Florida",
+    "Phone": "386-872-5044",
+    "Main Website": "https://centracare.adventhealth.com/urgent-care/daytona"
+  },
+  {
+    "Name": "AdventHealth Centra Care Ormond Beach",
+    "Address": "AdventHealth Centra Care Ormond Beach\n 1245 West Granada Boulevard, Ormond Beach, FL 32174",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 29.2661518,
+    "Longitude": -81.1045443,
+    "State": "Florida",
+    "Phone": "386-317-9055",
+    "Main Website": "https://centracare.adventhealth.com/urgent-care/ormond-beach"
+  },
+  {
+    "Name": "AdventHealth Centra Care Palm Coast",
+    "Address": "AdventHealth Centra Care Palm Coast\n 1270 Palm Coast Parkway Northwest, Palm Coast, FL 32137",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 29.5539016,
+    "Longitude": -81.2329556,
+    "State": "Florida",
+    "Phone": "386-225-4631",
+    "Main Website": "https://centracare.adventhealth.com/urgent-care/palm-coast"
+  },
+  {
+    "Name": "Klickitat County Health Department",
+    "Address": "Klickitat County Health Department\n 501 Northeast Washington Street, White Salmon, WA",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 45.7294552,
+    "Longitude": -121.4807452,
+    "State": "Washington",
+    "Phone": "509-493-0499, 800-525-0127",
+    "Main Website": "https://www.doh.wa.gov/Emergencies/NovelCoronavirusOutbreak2020/TestingforCOVID19"
+  },
+  {
+    "Name": "Goldendale Health Department",
+    "Address": "Goldendale Health Department\n 228 West Main Street, Goldendale, WA",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 45.8222225,
+    "Longitude": -120.825095,
+    "State": "Washington",
+    "Phone": "509-773-4565, 800-525-0127",
+    "Main Website": "https://www.doh.wa.gov/Emergencies/NovelCoronavirusOutbreak2020/TestingforCOVID19"
+  },
+  {
+    "Name": "Whitman County Health Department",
+    "Address": "Whitman County Health Department\n 1205 Southeast Professional Mall Boulevard, Pullman, WA",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 46.7186338,
+    "Longitude": -117.1657694,
+    "State": "Washington",
+    "Phone": "509-332-6752, 800-525-0127",
+    "Main Website": "https://www.doh.wa.gov/Emergencies/NovelCoronavirusOutbreak2020/TestingforCOVID19"
+  },
+  {
+    "Name": "Whitman County Public Health",
+    "Address": "Whitman County Public Health\n 310 North Main Street, Colfax, WA",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 46.883233,
+    "Longitude": -117.3644031,
+    "State": "Washington",
+    "Phone": "509-397-6280, 800-525-0127",
+    "Main Website": "http://www.whitmancounty.org/page.aspx?pn=public+health"
+  },
+  {
+    "Name": "Benton County Health Department",
+    "Address": "Benton County Health Department\n 800 West Canal Drive, Kennewick, WA",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 46.2232794,
+    "Longitude": -119.2164502,
+    "State": "Washington",
+    "Phone": "509-582-7761, 800-525-0127",
+    "Main Website": "https://www.doh.wa.gov/Emergencies/NovelCoronavirusOutbreak2020/TestingforCOVID19"
+  },
+  {
+    "Name": "Benton Franklin Health District",
+    "Address": "Benton Franklin Health District\n 7102 West Okanogan Place, Kennewick, WA",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 46.2232794,
+    "Longitude": -119.2164502,
+    "State": "Washington",
+    "Phone": "509-460-4200",
+    "Main Website": "https://www.bfhd.wa.gov/"
+  },
+  {
+    "Name": "Benton Franklin Health Department",
+    "Address": "Benton Franklin Health Department\n 310 7th St, Prosser, WA",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 46.2232794,
+    "Longitude": -119.2164502,
+    "State": "Washington",
+    "Phone": "509-786-1633, 800-525-0127",
+    "Main Website": "https://www.doh.wa.gov/Emergencies/NovelCoronavirusOutbreak2020/TestingforCOVID19"
+  },
+  {
+    "Name": "Grandview Health Department",
+    "Address": "Grandview Health Department\n 1000 Wallace Way, Grandview, WA",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 46.2660901,
+    "Longitude": -119.9225654,
+    "State": "Washington",
+    "Phone": "509-882-2094, 800-525-0127",
+    "Main Website": "https://www.doh.wa.gov/Emergencies/NovelCoronavirusOutbreak2020/TestingforCOVID19"
+  },
+  {
+    "Name": "Wapato Health Department",
+    "Address": "Wapato Health Department\n 620 West 1st Street, Wapato, WA",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 46.4483227,
+    "Longitude": -120.4271273,
+    "State": "Washington",
+    "Phone": "509-877-0474, 800-525-0127",
+    "Main Website": "https://www.doh.wa.gov/Emergencies/NovelCoronavirusOutbreak2020/TestingforCOVID19"
+  },
+  {
+    "Name": "Toppenish Health Department",
+    "Address": "Toppenish Health Department\n 518 West 1st Avenue, Toppenish, WA",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 46.3748481,
+    "Longitude": -120.3190456,
+    "State": "Washington",
+    "Phone": "509-865-2725, 800-525-0127",
+    "Main Website": "https://www.doh.wa.gov/Emergencies/NovelCoronavirusOutbreak2020/TestingforCOVID19"
+  },
+  {
+    "Name": "Yakima Health District",
+    "Address": "Yakima Health District\n 1210 Ahtanum Ridge Drive, Union Gap, WA",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 46.5562067,
+    "Longitude": -120.4943326,
+    "State": "Washington",
+    "Phone": "509-575-4040",
+    "Main Website": "http://www.yakimahealthdistrict.org/"
+  },
+  {
+    "Name": "Grant County Health District",
+    "Address": "Grant County Health District\n 1038 W. Ivy Suite 1, Moses Lake, WA 98837",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 47.12266,
+    "Longitude": -119.289971,
+    "State": "Washington",
+    "Phone": "509-766-7960",
+    "Main Website": "http://granthealth.org/updates-for-covid-19-in-grant-county/"
+  },
+  {
+    "Name": "Kittitas County Health Department",
+    "Address": "Kittitas County Health Department\n 507 North Nanum Street, Ellensburg, WA",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Latitude": 46.9972771,
+    "Longitude": -120.5531129,
+    "State": "Washington",
+    "Phone": "509-674-2584, 800-525-0127",
+    "Main Website": "https://www.doh.wa.gov/Emergencies/NovelCoronavirusOutbreak2020/TestingforCOVID19"
+  },
+  {
+    "Name": "Church of the Highlands Grants Mill",
+    "Address": "4700 Highlands Way, Irondale, AL 35210",
+    "Hours": "Line up for drive through testing starts at 6:30am, testing begins at 9:00am",
+    "Latitude": 33.516727,
+    "Longitude": -86.655858,
+    "State": "Alabama",
+    "Phone": "(855) 319-4459"
+  },
+  {
+    "Name": "Urgent Care for Children - Highway 280",
+    "Address": "500 Cahaba Park Circle Suite 100 Birmingham, AL 35242",
+    "Hours": "2pm - 10 pm Monday - Friday; 10am - 8pm Saturday - Sunday",
+    "Latitude": 33.4307422,
+    "Longitude": -86.7064615,
+    "State": "Alabama",
+    "Phone": "(205) 848-2273"
+  },
+  {
+    "Name": "Urgent Care for Children - Trussville",
+    "Address": "117 North Chalkville Road Trussville, AL 35173",
+    "Hours": "2pm - 10 pm Monday - Friday; 10am - 8pm Saturday - Sunday",
+    "Latitude": 33.6214073,
+    "Longitude": -86.6086818,
+    "State": "Alabama",
+    "Phone": "(205) 848-2273"
+  },
+  {
+    "Name": "Urgent Care for Children - Vestavia",
+    "Address": "520 Montgomery Highway Vestavia, AL 35216",
+    "Hours": "2pm - 10 pm Monday - Friday; 10am - 8pm Saturday - Sunday",
+    "Latitude": 33.4500631,
+    "Longitude": -86.7895963,
+    "State": "Alabama",
+    "Phone": "(205) 848-2273"
+  },
+  {
+    "Name": "Urgent Care for Children - Madison",
+    "Address": "8490 Highway 72 West Madison, AL 35758",
+    "Hours": "2pm - 10 pm Monday - Friday; 10am - 8pm Saturday - Sunday",
+    "Latitude": 34.749287,
+    "Longitude": -86.769155,
+    "State": "Alabama",
+    "Phone": "(256) 724-3587"
+  },
+  {
+    "Name": "Urgent Care for Children - Tuscaloosa",
+    "Address": "4700 Rice Mine Rd Northeast Tuscaloosa, AL 35406",
+    "Hours": "2pm - 10 pm Monday - Friday; 10am - 8pm Saturday - Sunday",
+    "Latitude": 33.2604261,
+    "Longitude": -87.5156847,
+    "State": "Alabama",
+    "Phone": "(205) 614-5628"
+  },
+  {
+    "Name": "Rogers Community Clinic",
+    "Address": "1233 W. Poplar Street Rogers, AR 72756",
+    "Hours": "Monday 7:30 to 6 p.m.; Tuesday 7:30 a.m. to 7 p.m.; Wednesday 7:30 a.m. to 6 p.m.; Thursday: 7:30 a.m. to 6 p.m.; Friday: 7:30 a.m. to 5 p.m.",
+    "Latitude": 36.3325901,
+    "Longitude": -94.1341388,
+    "State": "Arkansas",
+    "Phone": "(855) 438-2280"
+  },
+  {
+    "Name": "Siloam Springs Community Clinic",
+    "Address": "500 S. Mt. Olive Street #200 Siloam Springs, AR 72761",
+    "Hours": "Monday: 7 a.m. to 5 p.m.; Tuesday: 8 a.m. to 7 p.m.; Wednesday through Friday: 8 a.m. to 5 p.m",
+    "Latitude": 36.1811515,
+    "Longitude": -94.5420558,
+    "State": "Arkansas",
+    "Phone": "(855) 438-2280"
+  },
+  {
+    "Name": "Elmdale Elementary",
+    "Address": "420 North West End, Suite B Springdale, AR 72764",
+    "Hours": "Monday through Friday: 8 a.m. to 4:30 p.m.",
+    "Latitude": 36.1908951,
+    "Longitude": -94.1479339,
+    "State": "Arkansas",
+    "Phone": "(855) 438-2281"
+  },
+  {
+    "Name": "Eureka Springs Family Medical Clinic",
+    "Address": "146 Passion Play Rd, Eureka Springs, AR 72632",
+    "Hours": "8:00 a.m. - 4:30 p.m. Monday - Friday",
+    "Latitude": 36.3950928,
+    "Longitude": -93.7107101,
+    "State": "Arkansas",
+    "Phone": "(479) 253-9746"
+  },
+  {
+    "Name": "Prairie Grove Elementary School",
+    "Address": "801 Viney Grove Road Prairie Grove, AR 72753",
+    "Hours": "Monday through Friday, 8:30 a.m. to 4:30 p.m.",
+    "Latitude": 35.9841514,
+    "Longitude": -94.3259325,
+    "State": "Arkansas",
+    "Phone": "(855) 438-2280"
+  },
+  {
+    "Name": "Elmdale Elementary",
+    "Address": "420 North West End, Suite B Springdale, AR 72764",
+    "Hours": "Monday through Friday: 8 a.m. to 4:30 p.m.",
+    "Latitude": 36.1908951,
+    "Longitude": -94.1479339,
+    "State": "Arkansas",
+    "Phone": "(855) 438-2281"
+  },
+  {
+    "Name": "Washington Regional Coronavirus Screening Clinic",
+    "Address": "3318 N Northhills Blvd, Fayetteville, AR 72703",
+    "Hours": "10 a.m. - 10 p.m., 7 days per week",
+    "Latitude": 36.1117526,
+    "Longitude": -94.1568951,
+    "State": "Arkansas",
+    "Phone": "(479) 463-2055"
+  },
+  {
+    "Name": "Carbon Health",
+    "Address": "2920 Telegraph Ave, Berkeley, CA 94705",
+    "Hours": "9 am - 7 pm",
+    "Latitude": 37.8569028,
+    "Longitude": -122.2600272,
+    "State": "California",
+    "Phone": "(510) 686-3621"
+  },
+  {
+    "Name": "Carbon Health",
+    "Address": "411 Grand Ave, Oakland, CA 94610",
+    "Hours": "8 am - 6 pm",
+    "Latitude": 37.8085267,
+    "Longitude": -122.2535429,
+    "State": "California",
+    "Phone": "(510) 844-4097"
+  },
+  {
+    "Name": "UCLA Health",
+    "Address": "757 Westwood Plaza, Los Angeles, CA 90095",
+    "Hours": "24 hours\n UCLA is only testing patients who need hospitalization and have a history of travel to impacted countries or who have had contact with others who have tested positive for COVID-19.",
+    "Latitude": 34.0664764,
+    "Longitude": -118.4465738,
+    "State": "California",
+    "Phone": "(310) 825-9111"
+  },
+  {
+    "Name": "Carbon Health",
+    "Address": "2110 Sunset Blvd, Suite M, Los Angeles CA 90026",
+    "Hours": "9 am - 7 pm",
+    "Latitude": 34.077189,
+    "Longitude": -118.2641266,
+    "State": "California",
+    "Phone": "(833) 873-2852"
+  },
+  {
+    "Name": "Sierra Nevada Memorial Hospital",
+    "Address": "155 Glasson Way, Grass Valley, CA 95945",
+    "Hours": "Call to confirm",
+    "Latitude": 39.2281029,
+    "Longitude": -121.0468913,
+    "State": "California",
+    "Phone": "(530) 274-6000"
+  },
+  {
+    "Name": "UC Davis Medical Center",
+    "Address": "2315 Stockton Blvd, Sacramento, CA 95817",
+    "Hours": "24 hours",
+    "Latitude": 38.5549492,
+    "Longitude": -121.4546344,
+    "State": "California",
+    "Phone": "(916) 734-2011"
+  },
+  {
+    "Name": "UC San Diego Medical Center",
+    "Address": "200 W Arbor Dr, San Diego, CA 92103",
+    "Hours": "24 hours",
+    "Latitude": 32.7542698,
+    "Longitude": -117.166135,
+    "State": "California",
+    "Phone": "(858) 657-7000"
+  },
+  {
+    "Name": "UC San Francisco",
+    "Address": "1600 Divisadero St, San Francisco, CA 94115",
+    "Hours": "24 hours",
+    "Latitude": 37.784695,
+    "Longitude": -122.4392274,
+    "State": "California",
+    "Phone": "(415) 567-6600"
+  },
+  {
+    "Name": "UC San Francisco",
+    "Address": "505 Parnassus Ave, San Francisco, CA 94143",
+    "Hours": "24 hours",
+    "Latitude": 37.7631182,
+    "Longitude": -122.4578207,
+    "State": "California",
+    "Phone": "(415) 476-1000"
+  },
+  {
+    "Name": "UC San Francisco",
+    "Address": "1825 4th St, San Francisco, CA 94158",
+    "Hours": "24 hours",
+    "Latitude": 37.7663741,
+    "Longitude": -122.3901304,
+    "State": "California",
+    "Phone": "(415) 353-3000"
+  },
+  {
+    "Name": "Carbon Health",
+    "Address": "55 Pacific Ave, San Francisco, CA 94111",
+    "Hours": "Call to confirm",
+    "Latitude": 37.797992,
+    "Longitude": -122.3980774,
+    "State": "California",
+    "Phone": "(415) 200-2099"
+  },
+  {
+    "Name": "Carbon Health",
+    "Address": "1998 Market St, San Francisco, CA 94102",
+    "Hours": "9 am - 7 pm",
+    "Latitude": 37.7699654,
+    "Longitude": -122.4262419,
+    "State": "California",
+    "Phone": "(415) 792-6040"
+  },
+  {
+    "Name": "Stanford Primary Care in Portola Valley",
+    "Address": "3250 Alpine Rd, Portola Valley, CA 94028",
+    "Hours": "8 am - 5 pm, Monday - Friday",
+    "Latitude": 37.3990635,
+    "Longitude": -122.1929315,
+    "State": "California",
+    "Phone": "(650) 736-1384"
+  },
+  {
+    "Name": "Stanford Medical Center",
+    "Address": "300 Pasteur Dr, Stanford, CA 94305",
+    "Hours": "24 hours",
+    "Latitude": 37.4330746,
+    "Longitude": -122.1750485,
+    "State": "California",
+    "Phone": "(650) 723-4000"
+  },
+  {
+    "Name": "Stanford Express Care Palo Alto",
+    "Address": "211 Quarry Road Suite 102 Palo Alto, CA 94304",
+    "Hours": "9 am - 6 pm, Every day",
+    "Latitude": 37.4415149,
+    "Longitude": -122.1686795,
+    "State": "California",
+    "Phone": "(650) 736-5211"
+  },
+  {
+    "Name": "Menlo Medical Clinic",
+    "Address": "1300 Crane Street, Menlo Park CA 94025",
+    "Hours": "8:30 am - 5:30 pm Monday - Friday; 8:30 am - 12:30 pm Saturday",
+    "Latitude": 37.4531251,
+    "Longitude": -122.1874648,
+    "State": "California",
+    "Phone": "(650) 498-6500"
+  },
+  {
+    "Name": "Menlo Medical Clinic",
+    "Address": "321 Middlefield Rd., Menlo Park, CA 94025",
+    "Hours": "8:30 am - 5:30 pm Monday - Friday; 8:30 am - 12:30 pm Saturday",
+    "Latitude": 37.4562716,
+    "Longitude": -122.1683519,
+    "State": "California",
+    "Phone": "(650) 498-6500"
+  },
+  {
+    "Name": "El Camino Health Urgent Care",
+    "Address": "1150 West El Camino Real, Mountain View, CA 94040",
+    "Hours": "9 am - 7 pm",
+    "Latitude": 37.3880548,
+    "Longitude": -122.0877361,
+    "State": "California",
+    "Phone": "(650) 695-5008"
+  },
+  {
+    "Name": "El Camino Health Urgent Care",
+    "Address": "4150 N 1st St, San Jose, CA 95134",
+    "Hours": "9 am - 7 pm",
+    "Latitude": 37.4170465,
+    "Longitude": -121.9540153,
+    "State": "California",
+    "Phone": "(669) 200-4558"
+  },
+  {
+    "Name": "El Camino Health Urgent Care",
+    "Address": "19600 Vallco Pkwy Ste 170, Cupertino, CA 95014",
+    "Hours": "9 am - 7 pm",
+    "Latitude": 37.3252875,
+    "Longitude": -122.0119343,
+    "State": "California",
+    "Phone": "(650) 338-4776"
+  },
+  {
+    "Name": "Stanford Primary Care in Los Altos",
+    "Address": "960 N. San Antonio Road, Ste. 101, Los Altos, CA 94022",
+    "Hours": "8 am - 5 pm, Monday - Friday",
+    "Latitude": 37.399016,
+    "Longitude": -122.114663,
+    "State": "California",
+    "Phone": "(650) 498-9000"
+  },
+  {
+    "Name": "Stanford Primary Care in Santa Clara",
+    "Address": "2518 Mission College Blvd #101, Santa Clara, CA 95054",
+    "Hours": "8 am - 5 pm, Monday - Friday",
+    "Latitude": 37.3885747,
+    "Longitude": -121.9705061,
+    "State": "California",
+    "Phone": "(408) 688-9720"
+  },
+  {
+    "Name": "Carbon Health",
+    "Address": "1679 E Monte Vista Ave, Suite 104, Vacaville, CA 95688",
+    "Hours": "9 am - 7 pm",
+    "Latitude": 38.3700674,
+    "Longitude": -121.9606114,
+    "State": "California",
+    "Phone": "(707) 624-7400"
+  },
+  {
+    "Name": "Carbon Health",
+    "Address": "1320 Travis Blvd, Suite C, Fairfield, CA 94533",
+    "Hours": "11 am - 9 pm",
+    "Latitude": 38.2584,
+    "Longitude": -122.0506373,
+    "State": "California",
+    "Phone": "(707) 646-4000"
+  },
+  {
+    "Name": "NorthBay HealthCare - Vacaville",
+    "Address": "1679 E Monte Vista Ave, Suite 104, Vacaville CA 95688",
+    "Hours": "8 am - 5 pm Monday - Friday",
+    "Latitude": 38.3700674,
+    "Longitude": -121.9606114,
+    "State": "California",
+    "Phone": "(707) 624-7400"
+  },
+  {
+    "Name": "Bridgeport Hospital",
+    "Address": "267 Grant St., Bridgeport, CT 06610",
+    "Hours": "8 am - 5 pm Monday - Friday; 9 am - 3 pm Saturday",
+    "Latitude": 41.1889873,
+    "Longitude": -73.1664362,
+    "State": "Connecticut",
+    "Phone": "(203) 384-3000"
+  },
+  {
+    "Name": "Murphy Medical Associates",
+    "Address": "589 Bedford St. Stamford, CT 06901",
+    "Hours": "7 am - 9 am Monday - Friday",
+    "Latitude": 41.0591509,
+    "Longitude": -73.5372121,
+    "State": "Connecticut",
+    "Phone": "(203) 658-6051"
+  },
+  {
+    "Name": "Cummings Beach",
+    "Address": "Shippan Ave, Stamford, CT 06902",
+    "Hours": "Testing requires a referral from a physician.",
+    "Latitude": 41.0354845,
+    "Longitude": -73.5273922,
+    "State": "Connecticut"
+  },
+  {
+    "Name": "Greenwich Hospital",
+    "Address": "5 Perryridge Rd, Greenwich, CT 06830",
+    "Hours": "8 am - 5 pm Monday - Friday; 9 am - 3 pm Saturday - Sunday",
+    "Latitude": 41.0344955,
+    "Longitude": -73.6301985,
+    "State": "Connecticut",
+    "Phone": "(203) 863-3000"
+  },
+  {
+    "Name": "Murphy Medical Associates",
+    "Address": "1000 Main St. Stratford, CT 06614",
+    "Hours": "7 am - 9 am Monday - Friday",
+    "Latitude": 41.1737099,
+    "Longitude": -73.1289006,
+    "State": "Connecticut",
+    "Phone": "(203) 658-6051"
+  },
+  {
+    "Name": "Murphy Medical Associates",
+    "Address": "2 Renshaw Road, Darien, CT 06820",
+    "Hours": "7 am - 9 am Monday - Friday",
+    "Latitude": 41.0664903,
+    "Longitude": -73.4843581,
+    "State": "Connecticut",
+    "Phone": "(203) 658-6051"
+  },
+  {
+    "Name": "Murphy Medical Associates",
+    "Address": "564 South Ave. New Canaan, CT 06840",
+    "Hours": "7 am - 9 am Monday - Friday",
+    "Latitude": 41.1287835,
+    "Longitude": -73.4847705,
+    "State": "Connecticut",
+    "Phone": "(203) 658-6051"
+  },
+  {
+    "Name": "St. Vincent’s Medical Center",
+    "Address": "2979 Main St, Bridgeport, CT 06606; Across from the campus",
+    "Hours": "9 am - 5 pm seven days a week",
+    "Latitude": 41.2025484,
+    "Longitude": -73.2045874,
+    "State": "Connecticut",
+    "Phone": "(860) 972-8100"
+  },
+  {
+    "Name": "Stamford Hospital",
+    "Address": "One Hospital Plaza, Stamford, CT 06902",
+    "Hours": "7 am - 7 pm seven days a week",
+    "Latitude": 41.0556181,
+    "Longitude": -73.5519519,
+    "State": "Connecticut",
+    "Phone": "(203) 276-4111"
+  },
+  {
+    "Name": "Danbury Hospital",
+    "Address": "24 Hospital Ave, Danbury, CT 06810",
+    "Hours": "8:30 am - 3:30 pm Monday - Saturday",
+    "Latitude": 41.4050552,
+    "Longitude": -73.444497,
+    "State": "Connecticut",
+    "Phone": "(203) 739-7000"
+  },
+  {
+    "Name": "Norwalk Hospital",
+    "Address": "34 Maple St, Norwalk, CT 06856; Parking lot at the intersection of Stevens Street and Elmcrest Terrance",
+    "Hours": "8:30 am - 3:30 pm Monday - Saturday",
+    "Latitude": 41.1111249,
+    "Longitude": -73.4222417,
+    "State": "Connecticut",
+    "Phone": "(203) 852-2000"
+  },
+  {
+    "Name": "Bristol Hospital",
+    "Address": "145 Queen St, Bristol, CT 06010; intersection of Queen St and Goodman St",
+    "Hours": "8 am - 4 pm seven days a week",
+    "Latitude": 41.6756801,
+    "Longitude": -72.9373553,
+    "State": "Connecticut",
+    "Phone": "(860) 261-6855"
+  },
+  {
+    "Name": "Hartford Hospital",
+    "Address": "560 Hudson St, Hartford, CT 06106; Education and Resource Center",
+    "Hours": "9 am - 5 pm seven days a week",
+    "Latitude": 41.755482,
+    "Longitude": -72.677489,
+    "State": "Connecticut",
+    "Phone": "(860) 972-8100"
+  },
+  {
+    "Name": "Manchester Memorial Hospital",
+    "Address": "71 Haynes St, Manchester, CT 06040",
+    "Hours": "Testing at this location is by appointment only and requires a referral from a physician.",
+    "Latitude": 41.7815772,
+    "Longitude": -72.5260287,
+    "State": "Connecticut",
+    "Phone": "(860) 646-1222"
+  },
+  {
+    "Name": "St. Francis Hospital",
+    "Address": "1000 Asylum AveHartford, CT 06105; Directly in front of the Gengras Building on the Saint Francis Hospital campus",
+    "Hours": "8 am - 4 pm seven days a week",
+    "Latitude": 41.7728057,
+    "Longitude": -72.6987963,
+    "State": "Connecticut",
+    "Phone": "(860) 714-4000"
+  },
+  {
+    "Name": "Charlotte Hungerford Hospital (Torrington)",
+    "Address": "540 Litchfield St, Torrington, CT 06790; Adjacent to the outpatient entrance",
+    "Hours": "9 am - 5 pm seven days a week",
+    "Latitude": 41.792143,
+    "Longitude": -73.133854,
+    "State": "Connecticut",
+    "Phone": "(860) 972-8100"
+  },
+  {
+    "Name": "MidState Medical Center",
+    "Address": "435 Lewis Ave, Meriden, CT 06451; Across from the main entrance",
+    "Hours": "9 am - 5 pm seven days a week",
+    "Latitude": 41.5493063,
+    "Longitude": -72.8011451,
+    "State": "Connecticut",
+    "Phone": "(860) 972-8100"
+  },
+  {
+    "Name": "Yale New Haven Hospital Diagnostic Radiology",
+    "Address": "150 Sargent Dr, New Haven, CT 06511",
+    "Hours": "7 am - 7 pm, Monday - Saturday",
+    "Latitude": 41.2926681,
+    "Longitude": -72.9219715,
+    "State": "Connecticut",
+    "Phone": "(203) 688-1010"
+  },
+  {
+    "Name": "Saint Mary's Hospital",
+    "Address": "56 Franklin St, Waterbury, CT 06706; Located at the lower level of the Visitor's Garage on Cole Street (Corner of East Elm)",
+    "Hours": "9 am - 3 pm seven days a week",
+    "Latitude": 41.5525708,
+    "Longitude": -73.0364301,
+    "State": "Connecticut",
+    "Phone": "(203) 709-6000"
+  },
+  {
+    "Name": "Waterbury Hospital",
+    "Address": "68 Robbins Street, Waterbury, CT 06708; Emergency Department Entrance",
+    "Hours": "8 am - 4 pm seven days a week",
+    "Latitude": 41.559422,
+    "Longitude": -73.058838,
+    "State": "Connecticut",
+    "Phone": "(203) 575-5250"
+  },
+  {
+    "Name": "Backus Hospital",
+    "Address": "326 Washington Street, Norwich, CT 06360; Main Parking Lot",
+    "Hours": "9 am - 5 pm seven days a week",
+    "Latitude": 41.5432439,
+    "Longitude": -72.0889953,
+    "State": "Connecticut",
+    "Phone": "(860) 972-8100"
+  },
+  {
+    "Name": "Lawrence and Memorial Hospital (New London)",
+    "Address": "365 Montauk Ave, New London, CT 06320",
+    "Hours": "Not available",
+    "Latitude": 41.3363078,
+    "Longitude": -72.1056047,
+    "State": "Connecticut",
+    "Phone": "(833) 275-9644"
+  },
+  {
+    "Name": "Johnson Memorial Hospital (Stafford)",
+    "Address": "201 Chestnut Hill Rd, Stafford Springs, CT 06076; Directly in front of the Community Medical Education Center",
+    "Hours": "9 am - 4 pm seven days a week",
+    "Latitude": 41.9794231,
+    "Longitude": -72.3914838,
+    "State": "Connecticut",
+    "Phone": "(317) 736-3300"
+  },
+  {
+    "Name": "ChristianaCare - GoHealth Urgent Care",
+    "Address": "200 Hygeia Drive, Newark, DE",
+    "Hours": "8 am - 11 am, Monday - Friday",
+    "Latitude": 39.6924956,
+    "Longitude": -75.6750425,
+    "State": "Delaware",
+    "Phone": "(302) 273-1701"
+  },
+  {
+    "Name": "ChristianaCare - Wilmington Campus",
+    "Address": "625 W 12th St, Wilmington, DE",
+    "Hours": "10 am - 1 pm, Monday - Friday",
+    "Latitude": 39.749985,
+    "Longitude": -75.551342,
+    "State": "Delaware",
+    "Phone": "(302) 255-1000"
+  },
+  {
+    "Name": "Florida Department of Health in Alachua - Main Site - Gainesville",
+    "Address": "224 SE 24th Street Gainesville, FL 32641",
+    "Hours": "8:00am to 5:00pm, Monday - Friday",
+    "Latitude": 29.6493236,
+    "Longitude": -82.2956049,
+    "State": "Florida",
+    "Phone": "(352) 334-7900"
+  },
+  {
+    "Name": "Main Health Department",
+    "Address": "480 West Lowder Street Macclenny, FL 32063",
+    "Hours": "8am - 5pm, Monday - Friday",
+    "Latitude": 30.2719342,
+    "Longitude": -82.1288178,
+    "State": "Florida",
+    "Phone": "(904) 259-6291"
+  },
+  {
+    "Name": "Main Location - Ullman Building",
+    "Address": "Health Department\n 597 West 11th Street Panama City, FL 32401",
+    "Hours": "8am - 5pm, Monday - Friday",
+    "Latitude": 30.1668144,
+    "Longitude": -85.6668837,
+    "State": "Florida",
+    "Phone": "(850) 872-4455"
+  },
+  {
+    "Name": "New River Health",
+    "Address": "1801 N. Temple Avenue Starke, FL 32091",
+    "Hours": "7:30am - 5:30pm, Monday - Friday",
+    "Latitude": 29.9639503,
+    "Longitude": -82.1061109,
+    "State": "Florida",
+    "Phone": "(904) 964-7732"
+  },
+  {
+    "Name": "Main Office - Viera Clinic",
+    "Address": "2555 Judge Fran Jamieson Way Viera, FL 32940",
+    "Hours": "8am - 5pm, Monday - Friday",
+    "Latitude": 28.2470154,
+    "Longitude": -80.7322688,
+    "State": "Florida",
+    "Phone": "(321) 639-5800"
+  },
+  {
+    "Name": "Memorial Healthcare System",
+    "Address": "3501 Johnson St, Hollywood, FL 33021",
+    "Hours": "Open 24hrs",
+    "Latitude": 26.0195318,
+    "Longitude": -80.179802,
+    "State": "Florida",
+    "Phone": "(954) 987-2000"
+  },
+  {
+    "Name": "Broward Health",
+    "Address": "Pompano Beach",
+    "Hours": "8am - 5pm, Monday - Friday",
+    "Latitude": 26.2378597,
+    "Longitude": -80.1247667,
+    "State": "Florida",
+    "Phone": "(954) 320-5730"
+  },
+  {
+    "Name": "Cleveland Clinic Florida",
+    "Address": "2950 Cleveland Clinic Blvd, Weston, FL 33331",
+    "Hours": "8am - 5pm, Monday - Friday",
+    "Latitude": 26.0817163,
+    "Longitude": -80.3638858,
+    "State": "Florida",
+    "Phone": "(954) 659-595"
+  },
+  {
+    "Name": "Krupa Center",
+    "Address": "3250 Meridian Parkway Weston, Florida 33331",
+    "Hours": "8am - 5pm, Monday - Friday",
+    "Latitude": 26.0769425,
+    "Longitude": -80.3673439,
+    "State": "Florida",
+    "Phone": "(954) 659-5951"
+  },
+  {
+    "Name": "St. Vincent's Hospital",
+    "Address": "1 Shircliff Way, Jacksonville, FL 32204",
+    "Hours": "Open 24hrs",
+    "Latitude": 30.3071111,
+    "Longitude": -81.6900767,
+    "State": "Florida",
+    "Phone": "(904) 308-7300"
+  },
+  {
+    "Name": "Main Health Department",
+    "Address": "1105 E. Kennedy Blvd Tampa, FL 33602",
+    "Hours": "8am - 5pm, Monday - Friday",
+    "Latitude": 27.9499162,
+    "Longitude": -82.450776,
+    "State": "Florida",
+    "Phone": "(813) 307-8000"
+  },
+  {
+    "Name": "BayCare Urgent Care (Bloomingdale)",
+    "Address": "2442 Bloomingdale Ave., Valrico, FL 33596",
+    "Hours": "8am - 8pm, Monday - Saturday",
+    "Latitude": 27.894543,
+    "Longitude": -82.2411244,
+    "State": "Florida",
+    "Phone": "(813) 586-8686"
+  },
+  {
+    "Name": "BayCare Urgent Care (Haines City)",
+    "Address": "36245 U.S. Highway 27, Haines City, FL 33844",
+    "Hours": "8am - 8pm, Monday - Saturday",
+    "Latitude": 28.1270787,
+    "Longitude": -81.6385489,
+    "State": "Florida",
+    "Phone": "(813) 586-8686"
+  },
+  {
+    "Name": "BayCare Urgent Care (New Tampa)",
+    "Address": "17512 Dona Michelle Drive, Suite 5, Tampa, FL 33647",
+    "Hours": "8am - 8pm, Monday - Saturday",
+    "Latitude": 28.1262702,
+    "Longitude": -82.3711665,
+    "State": "Florida",
+    "Phone": "(813) 533-3494"
+  },
+  {
+    "Name": "BayCare Urgent Care (Tampa)",
+    "Address": "3440 W. Dr. MLK Jr. Blvd., Suite 100, Tampa, FL 33607",
+    "Hours": "8am - 8pm, Monday - Saturday",
+    "Latitude": 27.980877,
+    "Longitude": -82.500401,
+    "State": "Florida",
+    "Phone": "(813) 559-1888"
+  },
+  {
+    "Name": "BayCare Urgent Care (Countryside)",
+    "Address": "3351 N. McMullen-Booth Road, Clearwater, FL 33761",
+    "Hours": "7am - 11pm, Monday - Friday",
+    "Latitude": 28.0428127,
+    "Longitude": -82.7085154,
+    "State": "Florida",
+    "Phone": "(727) 314-4774"
+  },
+  {
+    "Name": "BayCare Urgent Care (New Port Richey)",
+    "Address": "4821 U.S. Highway 19, New Port Richey, FL 34652",
+    "Hours": "8am - 8pm, Monday - Saturday",
+    "Latitude": 28.2294363,
+    "Longitude": -82.7324181,
+    "State": "Florida",
+    "Phone": "(813) 586-8686"
+  },
+  {
+    "Name": "BayCare Urgent Care (Carillon)",
+    "Address": "900 Carillon Parkway, Suite. 106, St. Petersburg, FL 33716",
+    "Hours": "8am - 8pm, Monday - Saturday",
+    "Latitude": 27.8929763,
+    "Longitude": -82.6671928,
+    "State": "Florida",
+    "Phone": "(813) 586-8686"
+  },
+  {
+    "Name": "Premier Medical Associates",
+    "Address": "1004 N 14th St, Leesburg, FL 34748",
+    "Hours": "8:30am - 5pm, Monday - Friday",
+    "Latitude": 28.8231345,
+    "Longitude": -81.8869219,
+    "State": "Florida",
+    "Phone": "(352) 259-2159"
+  },
+  {
+    "Name": "Premier Medical Associates",
+    "Address": "25327 US-27 SUITE 204-205, Leesburg, FL 34748",
+    "Hours": "8:30am - 5pm, Monday - Friday",
+    "Latitude": 28.7167131,
+    "Longitude": -81.862005,
+    "State": "Florida",
+    "Phone": "(352) 259-2159"
+  },
+  {
+    "Name": "Premier Medical Associates",
+    "Address": "1800 SE 17th St, Ocala, FL 34471",
+    "Hours": "8:30am - 5pm, Monday - Friday",
+    "Latitude": 29.1711202,
+    "Longitude": -82.1131725,
+    "State": "Florida",
+    "Phone": "(352) 259-2159"
+  },
+  {
+    "Name": "Cleveland Clinic - Martin Health",
+    "Address": "200 SE Hospital Ave, Stuart, FL 34994",
+    "Hours": "8am - 5pm, Monday - Friday",
+    "Latitude": 27.1992955,
+    "Longitude": -80.2432645,
+    "State": "Florida",
+    "Phone": "(772) 419-3360"
+  },
+  {
+    "Name": "Miami VA Medical Center",
+    "Address": "1201 NW 16th St, FL 33125",
+    "Hours": "Open 24hrs",
+    "Latitude": 25.7909495,
+    "Longitude": -80.2166357,
+    "State": "Florida",
+    "Phone": "(305) 575-7000"
+  },
+  {
+    "Name": "Doris Ison Health Center",
+    "Address": "10300 SW 216th St., Miami, FL 33190",
+    "Hours": "9am - 12pm, Monday - Friday",
+    "Latitude": 25.5653817,
+    "Longitude": -80.3576855,
+    "State": "Florida",
+    "Phone": "(305) 252-4820"
+  },
+  {
+    "Name": "Larkin Community Hospital",
+    "Address": "1475 West 49th Place, Hialeah, FL 33012",
+    "Hours": "9am-5pm, Daily",
+    "Latitude": 25.8690179,
+    "Longitude": -80.3128235,
+    "State": "Florida",
+    "Phone": "(305) 558-2500"
+  },
+  {
+    "Name": "Marathon Health Center",
+    "Address": "2805 Overseas Hwy, Marathon, FL 33050",
+    "Hours": "NOT OPEN YET. WILL OPEN WEEK OF 3/24.",
+    "Latitude": 24.7098675,
+    "Longitude": -81.098187,
+    "State": "Florida",
+    "Phone": "(305) 743-4000"
+  },
+  {
+    "Name": "FoundCare",
+    "Address": "2330 S Congress Ave, West Palm Beach, FL 33406",
+    "Hours": "THIS SITE IS NOT ACCEPTING NEW APPOINTMENTS UNTIL APRIL 10th.",
+    "Latitude": 26.6417485,
+    "Longitude": -80.0875828,
+    "State": "Florida",
+    "Phone": "(561) 432-5849"
+  },
+  {
+    "Name": "West Palm Beach VA Medical Center",
+    "Address": "305 N Military Trl, West Palm Beach, FL 33410",
+    "Hours": "Open 24hrs",
+    "Latitude": 26.6818468,
+    "Longitude": -80.1122917,
+    "State": "Florida",
+    "Phone": "(561) 422-8262"
+  },
+  {
+    "Name": "West Palm Beach-Health Department Main Office",
+    "Address": "800 Clematis St. West Palm Beach, FL 33401",
+    "Hours": "8am - 5pm, Monday - Friday",
+    "Latitude": 26.7132682,
+    "Longitude": -80.0599099,
+    "State": "Florida",
+    "Phone": "(855) 438-2778"
+  },
+  {
+    "Name": "Premier Medical Associates",
+    "Address": "910 Old Camp Rd Suite 130, The Villages, FL 32162",
+    "Hours": "8:30am - 5pm, Monday - Friday",
+    "Latitude": 28.9057889,
+    "Longitude": -81.9724675,
+    "State": "Florida",
+    "Phone": "(352) 259-2159"
+  },
+  {
+    "Name": "Premier Medical Associates",
+    "Address": "1580 Santa Barbara Blvd, The Villages, FL 32159",
+    "Hours": "8:30am - 5pm, Monday - Friday",
+    "Latitude": 28.9515977,
+    "Longitude": -81.9625589,
+    "State": "Florida",
+    "Phone": "(352) 259-2159"
+  },
+  {
+    "Name": "Jim Miller Park",
+    "Address": "2245 Callaway Rd SW, Marietta, GA 30008",
+    "Hours": "Call to confirm",
+    "Latitude": 33.8987756,
+    "Longitude": -84.5907024,
+    "State": "Georgia",
+    "Phone": "(844) 442-2681"
+  },
+  {
+    "Name": "Page Field Convenient Care",
+    "Address": "4771 S Cleveland Ave, Fort Myers, FL 33907",
+    "Hours": "7am - 7pm, Monday - Friday",
+    "Latitude": 26.5918877,
+    "Longitude": -81.871373,
+    "State": "Georgia",
+    "Phone": "(239) 343-9800"
+  },
+  {
+    "Name": "SGMC Urgent Care",
+    "Address": "4280 North Valdosta Road Valdosta, GA 31602",
+    "Hours": "9am - 8pm, Monday - Sunday",
+    "Latitude": 30.8981862,
+    "Longitude": -83.3357181,
+    "State": "Georgia",
+    "Phone": "(229) 433-8200"
+  },
+  {
+    "Name": "Oconee Health Campus",
+    "Address": "1305 Jennings Mill Road, Watkinsville, GA 30677",
+    "Hours": "9 a.m. - 3 p.m.",
+    "Latitude": 33.915664,
+    "Longitude": -83.4645048,
+    "State": "Georgia",
+    "Phone": "(866) 460-1119"
+  },
+  {
+    "Name": "Queen’s North Hawaii Community Hospital",
+    "Address": "67-1125 Mamalahoa Highway, Kamuela, Hawaii 96743",
+    "Hours": "10am - 2pm, Mondays, Tuesdays and Thursdays",
+    "Latitude": 20.0232419,
+    "Longitude": -155.6653736,
+    "State": "Hawaii",
+    "Phone": "(808) 885-4444"
+  },
+  {
+    "Name": "Walgreens",
+    "Address": "46-021 Kamehameha Hwy Kaneohe, HI 96744",
+    "Hours": "Not specified at this time.",
+    "Latitude": 21.419389,
+    "Longitude": -157.8021829,
+    "State": "Hawaii",
+    "Phone": "(808) 234-1490"
+  },
+  {
+    "Name": "St. Luke's Meridian Medical Center",
+    "Address": "520 S Eagle Rd, Meridian, ID 83642",
+    "Hours": "Open 24 hrs",
+    "Latitude": 43.5995289,
+    "Longitude": -116.352618,
+    "State": "Idaho",
+    "Phone": "(208) 381-9500"
+  },
+  {
+    "Name": "Saint Alphonsus",
+    "Address": "3025 W Cherry Ln B, Meridian, ID 83642",
+    "Hours": "8am-8pm, Daily",
+    "Latitude": 43.6185905,
+    "Longitude": -116.4306295,
+    "State": "Idaho",
+    "Phone": "(208) 381-9500"
+  },
+  {
+    "Name": "St. Luke's Multispecialty Clinic: Ketchum",
+    "Address": "100 Hospital Dr, Ketchum, ID 83340",
+    "Hours": "Open 24 hrs",
+    "Latitude": 43.6485714,
+    "Longitude": -114.3494597,
+    "State": "Idaho",
+    "Phone": "(208) 381-9500"
+  },
+  {
+    "Name": "Saltzer Health’s Nampa",
+    "Address": "9850 W. St. Luke’s Drive Nampa, ID 83687",
+    "Hours": "8am-8pm, Daily",
+    "Latitude": 43.6182142,
+    "Longitude": -116.5902083,
+    "State": "Idaho",
+    "Phone": "(208) 463-3000"
+  },
+  {
+    "Name": "Saltzer Health’s Nampa",
+    "Address": "215 E. Hawaii Ave Nampa, ID 83686",
+    "Hours": "8am-8pm, Daily",
+    "Latitude": 43.5546194,
+    "Longitude": -116.570825,
+    "State": "Idaho",
+    "Phone": "(208) 463-3000"
+  },
+  {
+    "Name": "Advocate Lutheran General in Park Ridge",
+    "Address": "1775 Dempster Street, Park Ridge, IL 60068",
+    "Hours": "Open 24hrs",
+    "Latitude": 42.0384783,
+    "Longitude": -87.847611,
+    "State": "Illinois",
+    "Phone": "(847) 723-2210"
+  },
+  {
+    "Name": "Advocate Christ Medical Center",
+    "Address": "4440 W 95th St, Oak Lawn, IL 60453",
+    "Hours": "NOT YET OPERATIONAL. PROJECTED FOR END OF WEEK.",
+    "Latitude": 41.721808,
+    "Longitude": -87.7326182,
+    "State": "Illinois",
+    "Phone": "(866) 443-2584"
+  },
+  {
+    "Name": "NorthShore University HealthSystem",
+    "Address": "1729 Benson Ave, Evanston, IL 60201",
+    "Hours": "Open 24hrs",
+    "Latitude": 42.0495925,
+    "Longitude": -87.6830408,
+    "State": "Illinois",
+    "Phone": "(847) 570-7170"
+  },
+  {
+    "Name": "Advocate Good Shepherd Hospital",
+    "Address": "450 W Highway 22, Barrington, IL 60010",
+    "Hours": "Open 24hrs",
+    "Latitude": 42.1956043,
+    "Longitude": -88.1732048,
+    "State": "Illinois",
+    "Phone": "(847) 381-0123"
+  },
+  {
+    "Name": "Swedish Hospital",
+    "Address": "5140 N California Ave, Chicago, IL 60625",
+    "Hours": "Open 24hrs",
+    "Latitude": 41.9753019,
+    "Longitude": -87.6994813,
+    "State": "Illinois",
+    "Phone": "(773) 878-8200"
+  },
+  {
+    "Name": "Express Care",
+    "Address": "2400 N Ashland Avenue Chicago, IL 60614",
+    "Hours": "8am - 8pm, Monday - Friday; 9pm - 5pm, Saturday - Sunday",
+    "Latitude": 41.9253097,
+    "Longitude": -87.6684047,
+    "State": "Illinois",
+    "Phone": "(773) 270-5600"
+  },
+  {
+    "Name": "Walmart (Parking Lot)",
+    "Address": "137 W North Ave, Northlake, IL 60164",
+    "Hours": "Not Open Yet",
+    "Latitude": 41.90645,
+    "Longitude": -87.9415806,
+    "State": "Illinois"
+  },
+  {
+    "Name": "Advocate Medical Group Outpatient Center",
+    "Address": "2285 Sequoia Dr Aurora, IL 60506",
+    "Hours": "NOT YET OPERATIONAL. PROJECTED FOR END OF WEEK.",
+    "Latitude": 41.7936298,
+    "Longitude": -88.3680185,
+    "State": "Illinois",
+    "Phone": "(630) 859-6700"
+  },
+  {
+    "Name": "Advocate Medical Group Outpatient Center",
+    "Address": "2285 Sequoia Dr Aurora, IL 60506",
+    "Hours": "NOT YET OPERATIONAL. PROJECTED FOR END OF WEEK.",
+    "Latitude": 41.7936298,
+    "Longitude": -88.3680185,
+    "State": "Illinois",
+    "Phone": "(630) 859-6700"
+  },
+  {
+    "Name": "Advocate Medical Group Outpatient Center",
+    "Address": "2285 Sequoia Dr Aurora, IL 60506",
+    "Hours": "NOT YET OPERATIONAL. PROJECTED FOR END OF WEEK.",
+    "Latitude": 41.7936298,
+    "Longitude": -88.3680185,
+    "State": "Illinois",
+    "Phone": "(630) 859-6700"
+  },
+  {
+    "Name": "Advocate Good Shepherd Hospital",
+    "Address": "450 W Highway 22, Barrington, IL 60010",
+    "Hours": "Open 24hrs",
+    "Latitude": 42.1956043,
+    "Longitude": -88.1732048,
+    "State": "Illinois",
+    "Phone": "(847) 381-0123"
+  },
+  {
+    "Name": "Respiratory Clinic at DMH ExpressCare East",
+    "Address": "4455 E. U.S. 36, Decatur, IL 62521",
+    "Hours": "8am-6pm, 7 days per week",
+    "Latitude": 39.8222296,
+    "Longitude": -88.8863963,
+    "State": "Illinois",
+    "Phone": "(217) 876-1200"
+  },
+  {
+    "Name": "Respiratory Clinic at Memorial Physician Services",
+    "Address": "2950 South Sixth Street, Springfield, IL 62703",
+    "Hours": "8am-8pm, 7 days per week",
+    "Latitude": 39.7619461,
+    "Longitude": -89.6473265,
+    "State": "Illinois",
+    "Phone": "(217) 588-4019"
+  },
+  {
+    "Name": "HSHS St. John’s",
+    "Address": "800 E Carpenter St, Springfield, IL 62769",
+    "Hours": "Open 24hrs",
+    "Latitude": 39.8046865,
+    "Longitude": -89.6459353,
+    "State": "Illinois",
+    "Phone": "(217) 544-6464"
+  },
+  {
+    "Name": "Advocate Medical Group Outpatient Center",
+    "Address": "2285 Sequoia Dr Aurora, IL 60506",
+    "Hours": "NOT YET OPERATIONAL. PROJECTED FOR END OF WEEK.",
+    "Latitude": 41.7936298,
+    "Longitude": -88.3680185,
+    "State": "Illinois",
+    "Phone": "(630) 859-6700"
+  },
+  {
+    "Name": "Eli Lilly and Company Corporate Center",
+    "Address": "893 Delaware St, Indianapolis, IN 46225",
+    "Hours": "8am-6pm, Monday - Friday",
+    "Latitude": 39.7559098,
+    "Longitude": -86.1531573,
+    "State": "Indiana",
+    "Phone": "(800) 630-6939"
+  },
+  {
+    "Name": "Deaconess Midtown Hospital",
+    "Address": "600 Mary St, Evansville, IN 47710",
+    "Hours": "Open 24hrs",
+    "Latitude": 37.9830836,
+    "Longitude": -87.5712565,
+    "State": "Indiana",
+    "Phone": "(812) 450-5000"
+  },
+  {
+    "Name": "North Iowa Event Center (MercyOne North Iowa)",
+    "Address": "3700 4th St SW, Mason City, IA 50401",
+    "Hours": "9am-5pm, Monday-Friday. This testing site if only for those who have been pre-screened and referred. You must contact the COVID-19 call center at (641) 494-3543, (641) 494-3546 or (641) 494-3547",
+    "Latitude": 43.150421,
+    "Longitude": -93.2580214,
+    "State": "Lowa",
+    "Phone": "(641) 494-3543"
+  },
+  {
+    "Name": "The Iowa Clinic - West Des Moines Campus",
+    "Address": "5950 University Avenue, West Des Moines, IA 50266",
+    "Hours": "8am-4pm, Monday - Friday",
+    "Latitude": 41.5987441,
+    "Longitude": -93.792489,
+    "State": "Lowa",
+    "Phone": "(515) 875-9268"
+  },
+  {
+    "Name": "The Iowa Clinic - West Des Moines Campus",
+    "Address": "5950 University Avenue, West Des Moines, IA 50266",
+    "Hours": "8am-4pm, Monday - Friday",
+    "Latitude": 41.5987441,
+    "Longitude": -93.792489,
+    "State": "Lowa",
+    "Phone": "(515) 875-9268"
+  },
+  {
+    "Name": "The Iowa Clinic - West Des Moines Campus",
+    "Address": "5950 University Avenue, West Des Moines, IA 50266",
+    "Hours": "8am-4pm, Monday - Friday",
+    "Latitude": 41.5987441,
+    "Longitude": -93.792489,
+    "State": "Lowa",
+    "Phone": "(515) 875-9268"
+  },
+  {
+    "Name": "Genesis Health System",
+    "Address": "1520 West 53rd Street Davenport, IA 52806",
+    "Hours": "8am - 8pm, Monday - Friday",
+    "Latitude": 41.5750405,
+    "Longitude": -90.5949245,
+    "State": "Lowa",
+    "Phone": "(563) 421-4900"
+  },
+  {
+    "Name": "Sharon Lee Family Health Clinic",
+    "Address": "340 Southwest Blvd Kansas City, KS 66103",
+    "Hours": "8am-8pm, Daily",
+    "Latitude": 39.0682721,
+    "Longitude": -94.6134431,
+    "State": "Kansas",
+    "Phone": "(913) 396-7070"
+  },
+  {
+    "Name": "Integrity Extended Healthcare",
+    "Address": "124 Daniel Drive, Danville, Kentucky 40422",
+    "Hours": "8am-4:30pm, Monday - Friday",
+    "Latitude": 37.6201849,
+    "Longitude": -84.7634039,
+    "State": "Kentucky",
+    "Phone": "(606) 303-4389"
+  },
+  {
+    "Name": "Bluegrass Extended Care Medicine",
+    "Address": "989 Governors Ln UNIT 180, Lexington, KY 40513",
+    "Hours": "8am - 5pm, Monday - Friday",
+    "Latitude": 38.0194562,
+    "Longitude": -84.5570253,
+    "State": "Kentucky",
+    "Phone": "(859) 338-3958"
+  },
+  {
+    "Name": "OUR LADY OF THE LAKE",
+    "Address": "1125 Hwy. 30 W Gonzales, LA 70737",
+    "Hours": "Testing at this site is by appointment only and is only for patients in the Lake Health System. Those who wish to be tested must call the phone number listed to get a referral from a doctor.",
+    "Latitude": 30.2098401,
+    "Longitude": -90.9318357,
+    "State": "Louisiana",
+    "Phone": "(225) 765-5500"
+  },
+  {
+    "Name": "St. Elizabeth Hospital",
+    "Address": "17609 Old Jefferson Hwy B, Prairieville, LA 70769",
+    "Hours": "8:00 a.m. - 5:00 p.m., Monday - Thursday; 8:00 a.m. - 4:30 p.m. Fridays",
+    "Latitude": 30.3248318,
+    "Longitude": -90.9784842,
+    "State": "Louisiana",
+    "Phone": "(225) 673-0205"
+  },
+  {
+    "Name": "Central Maine Medical Center Emergency Department",
+    "Address": "300 Main St, Lewiston, ME 04240",
+    "Hours": "24 hours",
+    "Latitude": 44.1021568,
+    "Longitude": -70.2145298,
+    "State": "Maine",
+    "Phone": "(207) 795-2200"
+  },
+  {
+    "Name": "Houlton Regional Hospital",
+    "Address": "20 Hartford St, Houlton, ME 04730",
+    "Hours": "24 hours",
+    "Latitude": 46.1315712,
+    "Longitude": -67.8435603,
+    "State": "Maine",
+    "Phone": "(207) 532-2900"
+  },
+  {
+    "Name": "Maine Medical Center",
+    "Address": "22 Bramhall St, Portland, ME 04102",
+    "Hours": "24 hours",
+    "Latitude": 43.6532195,
+    "Longitude": -70.2751785,
+    "State": "Maine",
+    "Phone": "(207) 662-0111"
+  },
+  {
+    "Name": "Franklin Memorial Hospital",
+    "Address": "111 Franklin health commons, Farmington, ME 04938",
+    "Hours": "24 hours",
+    "Latitude": 44.6261394,
+    "Longitude": -70.1632104,
+    "State": "Maine",
+    "Phone": "(207) 778-6031"
+  },
+  {
+    "Name": "Northern Light Maine Coast Hospital",
+    "Address": "50 Union St, Ellsworth, ME 04605",
+    "Hours": "24 hours",
+    "Latitude": 44.5470352,
+    "Longitude": -68.4161186,
+    "State": "Maine",
+    "Phone": "(207) 664-5311"
+  },
+  {
+    "Name": "Northern Light Inland Hospital",
+    "Address": "200 Kennedy Memorial Dr, Waterville, ME 04901",
+    "Hours": "24 hours",
+    "Latitude": 44.5428876,
+    "Longitude": -69.6625689,
+    "State": "Maine",
+    "Phone": "(207) 861-3000"
+  },
+  {
+    "Name": "Pen Bay Medical Center",
+    "Address": "6 Glen Cove Dr, Rockport, ME 04856",
+    "Hours": "24 hours",
+    "Latitude": 44.1441064,
+    "Longitude": -69.0842266,
+    "State": "Maine",
+    "Phone": "(207) 301-8000"
+  },
+  {
+    "Name": "LincolnHealth",
+    "Address": "35 Miles St, Damariscotta, ME 04543",
+    "Hours": "24 hours",
+    "Latitude": 44.0262218,
+    "Longitude": -69.5305152,
+    "State": "Maine",
+    "Phone": "(207) 563-1234"
+  },
+  {
+    "Name": "Western Maine Health",
+    "Address": "8 Pikes Hill, Norway, ME 04268",
+    "Hours": "24 hours",
+    "Latitude": 44.212686,
+    "Longitude": -70.5429661,
+    "State": "Maine",
+    "Phone": "(207) 743-5933"
+  },
+  {
+    "Name": "Bass Park in Bangor",
+    "Address": "100 Dutton StreetBangor, Maine 04401",
+    "Hours": "Call to confirm",
+    "Latitude": 44.7881343,
+    "Longitude": -68.7790255,
+    "State": "Maine",
+    "Phone": "(207) 947-5555"
+  },
+  {
+    "Name": "Northern Light CA Dean Hospital",
+    "Address": "364 Pritham Ave, Greenville Junction, ME 04442",
+    "Hours": "Call to confirm",
+    "Latitude": 45.4589126,
+    "Longitude": -69.6112889,
+    "State": "Maine",
+    "Phone": "(207) 695-5200"
+  },
+  {
+    "Name": "Redington-Fairview General Hospital",
+    "Address": "46 Fairview Ave, Skowhegan, ME 04976",
+    "Hours": "Call to confirm",
+    "Latitude": 44.7593498,
+    "Longitude": -69.7135128,
+    "State": "Maine",
+    "Phone": "(207) 474-5121"
+  },
+  {
+    "Name": "Waldo County General Hospital",
+    "Address": "118 Northport Ave, Belfast, ME 04915",
+    "Hours": "24 hours",
+    "Latitude": 44.4126255,
+    "Longitude": -68.9942489,
+    "State": "Maine",
+    "Phone": "(207) 338-2500"
+  },
+  {
+    "Name": "Southern Maine Health Care: Emergency Room",
+    "Address": "1 Medical Center Dr, Biddeford, ME 04005",
+    "Hours": "24 hours",
+    "Latitude": 43.4776176,
+    "Longitude": -70.4903747,
+    "State": "Maine",
+    "Phone": "(207) 294-5000"
+  },
+  {
+    "Name": "UPMC Western Maryland",
+    "Address": "12500 Willowbrook Rd, Cumberland, MD 21502",
+    "Hours": "24 hours",
+    "Latitude": 39.6481502,
+    "Longitude": -78.7325179,
+    "State": "Maryland",
+    "Phone": "(240) 964-7000"
+  },
+  {
+    "Name": "Chesapeake ERgent Care",
+    "Address": "1071 MD-3 #101, Gambrills, MD 21054",
+    "Hours": "Call to confirm",
+    "Latitude": 39.0255941,
+    "Longitude": -76.6889427,
+    "State": "Maryland",
+    "Phone": "(410) 721-2333"
+  },
+  {
+    "Name": "Anne Arundel Medical Center",
+    "Address": "2001 Medical Pkwy, Annapolis, MD 21401",
+    "Hours": "24 hours",
+    "Latitude": 38.9901469,
+    "Longitude": -76.5341382,
+    "State": "Maryland",
+    "Phone": "(443) 481-1000"
+  },
+  {
+    "Name": "John's Hopkins Hospital",
+    "Address": "1800 Orleans St, Baltimore, MD 21287",
+    "Hours": "24 hours",
+    "Latitude": 39.2961773,
+    "Longitude": -76.591756,
+    "State": "Maryland",
+    "Phone": "(410) 955-5000"
+  },
+  {
+    "Name": "MedStar Union Memorial Hospital",
+    "Address": "201 E University Pkwy, Baltimore, MD 21218",
+    "Hours": "24 hours",
+    "Latitude": 39.329267,
+    "Longitude": -76.614289,
+    "State": "Maryland",
+    "Phone": "(410) 554-2000"
+  },
+  {
+    "Name": "CalvertHealth Medical Center",
+    "Address": "100 Hospital Rd, Prince Frederick, MD 20678",
+    "Hours": "24 hours",
+    "Latitude": 38.5626456,
+    "Longitude": -76.5956632,
+    "State": "Maryland",
+    "Phone": "(410) 535-4000"
+  },
+  {
+    "Name": "Carroll Hospital",
+    "Address": "200 Memorial Ave, Westminster, MD 21157",
+    "Hours": "12 pm - 6 pm, Every day",
+    "Latitude": 39.5582432,
+    "Longitude": -76.9908346,
+    "State": "Maryland",
+    "Phone": "(410) 848-3000"
+  },
+  {
+    "Name": "Union Hospital of Cecil County",
+    "Address": "06 Bow St, Elkton, MD 21921",
+    "Hours": "24 hours",
+    "Latitude": 39.6092669,
+    "Longitude": -75.8311358,
+    "State": "Maryland",
+    "Phone": "(410) 398-4000"
+  },
+  {
+    "Name": "University of Maryland Charles Regional Medical Center",
+    "Address": "5 Garrett Ave, La Plata, MD 20646",
+    "Hours": "24 hours",
+    "Latitude": 38.52906,
+    "Longitude": -76.9724071,
+    "State": "Maryland",
+    "Phone": "(301) 609-4000"
+  },
+  {
+    "Name": "Frederick Health Hospital",
+    "Address": "400 W 7th St, Frederick, MD 21701",
+    "Hours": "9 am until supplies last",
+    "Latitude": 39.4224195,
+    "Longitude": -77.4149715,
+    "State": "Maryland",
+    "Phone": "(240) 566-3300"
+  },
+  {
+    "Name": "Garrett Regional Medical Center",
+    "Address": "251 N 4th St, Oakland, MD 21550",
+    "Hours": "24 hours",
+    "Latitude": 39.413393,
+    "Longitude": -79.4010325,
+    "State": "Maryland",
+    "Phone": "(301) 533-4000"
+  },
+  {
+    "Name": "Howard County General Hospital",
+    "Address": "Address: 5755 Cedar Ln, Columbia, MD 21044",
+    "Hours": "24 hours",
+    "Latitude": 39.2141113,
+    "Longitude": -76.885968,
+    "State": "Maryland",
+    "Phone": "(410) 740-7890"
+  },
+  {
+    "Name": "Holy Cross Hospital",
+    "Address": "1500 Forest Glen Rd, Silver Spring, MD 20910",
+    "Hours": "24 hours",
+    "Latitude": 39.0147079,
+    "Longitude": -77.0347487,
+    "State": "Maryland",
+    "Phone": "(301) 754-7000"
+  },
+  {
+    "Name": "Holy Cross Germantown Hospital Emergency Room",
+    "Address": "19801 Observation Dr, Germantown, MD 20876",
+    "Hours": "Call to confirm",
+    "Latitude": 39.1816721,
+    "Longitude": -77.242491,
+    "State": "Maryland",
+    "Phone": "(301) 557-6000"
+  },
+  {
+    "Name": "Adventist HealthCare Shady Grove Medical Center",
+    "Address": "9901 Medical Center Dr, Rockville, MD 20850",
+    "Hours": "24 hours",
+    "Latitude": 39.0980422,
+    "Longitude": -77.1982981,
+    "State": "Maryland",
+    "Phone": "(240) 826-6000"
+  },
+  {
+    "Name": "Suburban Hospital",
+    "Address": "Address: 8600 Old Georgetown Rd, Bethesda, MD 20814",
+    "Hours": "24 hours",
+    "Latitude": 38.9972577,
+    "Longitude": -77.110582,
+    "State": "Maryland",
+    "Phone": "(301) 896-3100"
+  },
+  {
+    "Name": "MedStar Montgomery Medical Center",
+    "Address": "18101 Prince Philip Dr, Olney, MD 20832",
+    "Hours": "24 hours",
+    "Latitude": 39.1540614,
+    "Longitude": -77.0547374,
+    "State": "Maryland",
+    "Phone": "(301) 774-8882"
+  },
+  {
+    "Name": "Adventist HealthCare White Oak Medical Center",
+    "Address": "11890 Healing Way, Silver Spring, MD 20904",
+    "Hours": "24 hours",
+    "Latitude": 39.0494367,
+    "Longitude": -76.9576649,
+    "State": "Maryland",
+    "Phone": "(240) 637-4000"
+  },
+  {
+    "Name": "MedStar St. Mary’s Hospital",
+    "Address": "25500 Point Lookout Rd, Leonardtown, MD 20650",
+    "Hours": "24 hours",
+    "Latitude": 38.3020953,
+    "Longitude": -76.6382144,
+    "State": "Maryland",
+    "Phone": "(301) 475-8981"
+  },
+  {
+    "Name": "Cape Cod Hospital",
+    "Address": "27 Park St, Hyannis, MA 02601",
+    "Hours": "Open 24 hrs",
+    "Latitude": 41.6535048,
+    "Longitude": -70.2730138,
+    "State": "Massachusetts",
+    "Phone": "(508) 771-1800"
+  },
+  {
+    "Name": "Falmouth Hospital",
+    "Address": "100 Ter Heun Dr, Falmouth, MA 02540",
+    "Hours": "Open 24 hrs",
+    "Latitude": 41.5649968,
+    "Longitude": -70.6195525,
+    "State": "Massachusetts",
+    "Phone": "(508) 548-5300"
+  },
+  {
+    "Name": "Cape Cod Community College",
+    "Address": "2240 Lyannough Rd, West Barnstable, MA 02668",
+    "Hours": "8 am - 6 pm, Monday - Friday",
+    "Latitude": 41.6915014,
+    "Longitude": -70.3370368,
+    "State": "Massachusetts",
+    "Phone": "(508) 771-1800"
+  },
+  {
+    "Name": "Cape Cod Healthcare Urgent Care - Falmouth",
+    "Address": "273 Teaticket Highway, Falmouth, MA",
+    "Hours": "This site is currently closed",
+    "Latitude": 41.5676288,
+    "Longitude": -70.5946545,
+    "State": "Massachusetts",
+    "Phone": "(508) 495-8000"
+  },
+  {
+    "Name": "Cape Cod Healthcare Urgent Care - Harwich",
+    "Address": "525 Long Pond Drive, Harwich MA",
+    "Hours": "8 am - 6 pm, Monday - Friday; 8 am - 4 pm Saturday - Sunday",
+    "Latitude": 41.722568,
+    "Longitude": -70.0370091,
+    "State": "Massachusetts",
+    "Phone": "(508) 430-3330"
+  },
+  {
+    "Name": "Cape Cod Healthcare Urgent Care - Hyannis",
+    "Address": "1220 Iyannough Road, Hyannis, MA",
+    "Hours": "9 am - 7 pm, Monday - Friday; 8 am - 4 pm Saturday - Sunday",
+    "Latitude": 41.6754133,
+    "Longitude": -70.3091459,
+    "State": "Massachusetts",
+    "Phone": "(508) 862-7900"
+  },
+  {
+    "Name": "Cape Cod Healthcare Urgent Care - Sandwich",
+    "Address": "2 Jan Sebastian Drive, Sandwich, MA",
+    "Hours": "9 am - 7 pm, Monday - Friday; 8 am - 4 pm Saturday - Sunday",
+    "Latitude": 41.7172636,
+    "Longitude": -70.4879119,
+    "State": "Massachusetts",
+    "Phone": "(508) 833-2639"
+  },
+  {
+    "Name": "Atrius Health: Peabody Site",
+    "Address": "2 Essex Center Dr, Peabody, MA 01960",
+    "Latitude": 42.5362829,
+    "Longitude": -70.9492001,
+    "State": "Massachusetts"
+  },
+  {
+    "Name": "Middleton Family Medicine",
+    "Address": "147 S Main St, Middleton, MA 01949",
+    "Hours": "8 am - 5:30 pm Monday - Friday; 8 am - 12 pm Saturday - Sunday",
+    "Latitude": 42.5838365,
+    "Longitude": -71.0071606,
+    "State": "Massachusetts",
+    "Phone": "(978) 774-2555"
+  },
+  {
+    "Name": "Cooley Dickinson Hospital",
+    "Address": "30 Locust St, Northampton, MA",
+    "Hours": "Open 24hrs",
+    "Latitude": 42.3305027,
+    "Longitude": -72.6531304,
+    "State": "Massachusetts",
+    "Phone": "(413) 582-2000"
+  },
+  {
+    "Name": "Cambridge Health Alliance: Somerville Hospital",
+    "Address": "33 Tower Street, Somerville MA 02143; Crown Street parking lot adjacent to Somerville Hospital",
+    "Hours": "9 am - 3 pm seven days a week",
+    "Latitude": 42.3900624,
+    "Longitude": -71.1094393,
+    "State": "Massachusetts",
+    "Phone": "(617) 591-4500"
+  },
+  {
+    "Name": "AFC Urgent Care",
+    "Address": "1030 Main Street Waltham, MA",
+    "Hours": "Saturday, March 21, 2020 9am to 5pm",
+    "Latitude": 42.3755082,
+    "Longitude": -71.2528044,
+    "State": "Massachusetts",
+    "Phone": "(781) 430-8161"
+  },
+  {
+    "Name": "Atrius Health: Braintree Site",
+    "Address": "111 Grossman Dr, Braintree, MA 02184",
+    "Latitude": 42.21001,
+    "Longitude": -70.9993522,
+    "State": "Massachusetts"
+  },
+  {
+    "Name": "Massachusetts General Hospital",
+    "Address": "55 Fruit Street, Boston, MA 02114",
+    "Hours": "Open 24hrs",
+    "Latitude": 42.3631541,
+    "Longitude": -71.0688333,
+    "State": "Massachusetts",
+    "Phone": "(617) 726-2000"
+  },
+  {
+    "Name": "Atrius Health: Parking Garage Near Fenway Park",
+    "Address": "4 Jersey St, Boston, MA 02215",
+    "Hours": "Call to confirm",
+    "Latitude": 42.3465694,
+    "Longitude": -71.0987712,
+    "State": "Massachusetts",
+    "Phone": "(617) 421-2933"
+  },
+  {
+    "Name": "UMass Medical Center, University Campus",
+    "Address": "55 Lake Avenue North, Worcester, MA 01655; UMass Medical School parking garage",
+    "Hours": "8 am - 5pm Monday - Friday",
+    "Latitude": 42.274896,
+    "Longitude": -71.761773,
+    "State": "Massachusetts",
+    "Phone": "(508) 334-1000"
+  },
+  {
+    "Name": "Saint Vincent Hospital",
+    "Address": "123 Summer St, Worcester, MA 01608",
+    "Hours": "Call to confirm",
+    "Latitude": 42.2647185,
+    "Longitude": -71.7968904,
+    "State": "Massachusetts",
+    "Phone": "(508) 363-5000"
+  },
+  {
+    "Name": "CVS Pharmacy Shrewsbury",
+    "Address": "720 Boston Turnpike, Shrewsbury, MA 01545",
+    "Hours": "Call to confirm",
+    "Latitude": 42.2766993,
+    "Longitude": -71.6959788,
+    "State": "Massachusetts",
+    "Phone": "(508) 845-6009"
+  },
+  {
+    "Name": "Henry Ford Allegiance Health",
+    "Address": "100 E Michigan Ave, Jackson, MI 49201",
+    "Hours": "Call to confirm",
+    "Latitude": 42.2478193,
+    "Longitude": -84.4055718,
+    "State": "Michigan",
+    "Phone": "(313) 874-7500"
+  },
+  {
+    "Name": "Mclaren Macomb Hospital",
+    "Address": "1000 Harrington St, Mt Clemens, MI 48043",
+    "Hours": "Call to confirm",
+    "Latitude": 42.5872771,
+    "Longitude": -82.8972013,
+    "State": "Michigan",
+    "Phone": "(586) 493-8000"
+  },
+  {
+    "Name": "Beaumont Hospital, Royal Oak",
+    "Address": "3601 W 13 Mile Rd, Royal Oak, MI 48073",
+    "Hours": "Call to confirm",
+    "Latitude": 42.5147113,
+    "Longitude": -83.1917212,
+    "State": "Michigan",
+    "Phone": "(248) 898-5000"
+  },
+  {
+    "Name": "North Ottawa Community Health System",
+    "Address": "1099 S. Beacon Boulevard Grand Haven, MI",
+    "Hours": "9 am - 5 pm",
+    "Latitude": 43.0503359,
+    "Longitude": -86.2215398,
+    "State": "Michigan",
+    "Phone": "(616) 935-7810"
+  },
+  {
+    "Name": "Michigan Medicine/West Ann Arbor Health Center",
+    "Address": "380 Parkland Plaza, Ann Arbor, MI 48103",
+    "Hours": "Call to confirm",
+    "Latitude": 42.279099,
+    "Longitude": -83.812398,
+    "State": "Michigan",
+    "Phone": "(734) 998-7380"
+  },
+  {
+    "Name": "Beaumont Health",
+    "Address": "Various Locations",
+    "Hours": "Call to confirm",
+    "State": "Michigan",
+    "Phone": "(800) 592-4784"
+  },
+  {
+    "Name": "Mayo Clinic",
+    "Address": "3rd Ave SW & 4th St SW, Rochester, MN 55902",
+    "Hours": "Call to confirm",
+    "Latitude": 44.0192966,
+    "Longitude": -92.467363,
+    "State": "Minnesota",
+    "Phone": "(507) 284-2511"
+  },
+  {
+    "Name": "MedPlus Urgent Care",
+    "Address": "407 Interchange Drive, Fulton, MS",
+    "Hours": "7 am - 7 pm, Monday - Friday; 8 am - 7 pm; Saturday; 12 pm - 7 pm, Sunday",
+    "Latitude": 34.240567,
+    "Longitude": -88.4003337,
+    "State": "Mississippi",
+    "Phone": "(662) 269-8000"
+  },
+  {
+    "Name": "MedPlus Family and Urgent Care",
+    "Address": "407 Interchange Drive, Fulton, MS 38843",
+    "Latitude": 34.240567,
+    "Longitude": -88.4003337,
+    "State": "Mississippi",
+    "Phone": "(662) 269-8000"
+  },
+  {
+    "Name": "Neshoba General Hospital",
+    "Address": "12000 MS-15 #1, Philadelphia, MS 39350",
+    "Hours": "Call to confirm",
+    "Latitude": 32.8101893,
+    "Longitude": -89.1057296,
+    "State": "Mississippi",
+    "Phone": "(601) 663-1213"
+  },
+  {
+    "Name": "MedPlus Family",
+    "Address": "874 Barnes Crossing Road, Tupelo, MS",
+    "Hours": "7 am - 7 pm, Monday - Friday; 8 am - 7 pm; Saturday; 12 pm - 7 pm, Sunday",
+    "Latitude": 34.3157366,
+    "Longitude": -88.7049921,
+    "State": "Mississippi",
+    "Phone": "(662) 841-0002"
+  },
+  {
+    "Name": "MedPlus Family and Urgent Care",
+    "Address": "874 Barnes Crossing Road, Tupelo, MS 38804",
+    "Latitude": 34.3157366,
+    "Longitude": -88.7049921,
+    "State": "Mississippi",
+    "Phone": "662) 841-0002"
+  },
+  {
+    "Name": "Boone Hospital",
+    "Address": "1600 E. Broadway, Columbia, MO 65201; Lot 1 by the Emergency Room",
+    "Hours": "Call to confirm",
+    "Latitude": 38.9488484,
+    "Longitude": -92.3152023,
+    "State": "Missouri",
+    "Phone": "(573) 815-8000"
+  },
+  {
+    "Name": "MU Health",
+    "Address": "1 Hospital Dr, Columbia, MO 65201",
+    "Hours": "7 am - 7 pm daily",
+    "Latitude": 38.938273,
+    "Longitude": -92.3273842,
+    "State": "Missouri",
+    "Phone": "(573) 882-4141"
+  },
+  {
+    "Name": "Capital Region Medical Center",
+    "Address": "1125 Madison St, Jefferson City, MO 65101",
+    "Hours": "Call to confirm",
+    "Latitude": 38.5656957,
+    "Longitude": -92.1816949,
+    "State": "Missouri",
+    "Phone": "(833) 763-0444"
+  },
+  {
+    "Name": "The Springfield-Greene County Health Department Testing Site",
+    "Address": "227 E Chestnut Expy, Springfield, MO 65802",
+    "Hours": "Call to confirm. To qualify for COVID-19 testing at this location, you must have a doctor's referral.",
+    "Latitude": 37.2159285,
+    "Longitude": -93.2911429,
+    "State": "Missouri",
+    "Phone": "(417) 864-1658"
+  },
+  {
+    "Name": "SSM St. Joseph Hospital-Lake St. Louis",
+    "Address": "100 Medical Plaza, Lake St Louis, MO 63367",
+    "Hours": "Call to confirm",
+    "Latitude": 38.8027808,
+    "Longitude": -90.7757153,
+    "State": "Missouri",
+    "Phone": "(636) 625-5200"
+  },
+  {
+    "Name": "Mercy Hospital",
+    "Address": "15740 S. Outer Forty Road, Chesterfield, Missouri",
+    "Hours": "Call to confirm",
+    "Latitude": 38.650831,
+    "Longitude": -90.5585076,
+    "State": "Missouri",
+    "Phone": "(314) 251-0500"
+  },
+  {
+    "Name": "Mercy Hospital Washington",
+    "Address": "901 E Fifth St, Washington, MO 63090",
+    "Hours": "Call to confirm",
+    "Latitude": 38.5524736,
+    "Longitude": -91.002236,
+    "State": "Missouri",
+    "Phone": "(636) 239-8000"
+  },
+  {
+    "Name": "Nebraska Medicine",
+    "Address": "4350 Dewey Ave, Omaha, NE",
+    "Hours": "Call to confirm",
+    "Latitude": 41.2565109,
+    "Longitude": -95.9779752,
+    "State": "Nebraska",
+    "Phone": "(402) 559-4000"
+  },
+  {
+    "Name": "CHI Health Lakeside",
+    "Address": "16901 Lakeside Hills Ct, Omaha, NE 68130",
+    "Hours": "24 hours",
+    "Latitude": 41.2375247,
+    "Longitude": -96.1806251,
+    "State": "Nebraska",
+    "Phone": "(402) 717-8000"
+  },
+  {
+    "Name": "Nebraska Methodist Health System",
+    "Address": "825 S 169th St, Omaha, NE",
+    "Hours": "24 hours",
+    "Latitude": 41.2506406,
+    "Longitude": -96.1781343,
+    "State": "Nebraska",
+    "Phone": "(402) 815-7425"
+  },
+  {
+    "Name": "Bryan Medical Center",
+    "Address": "2300 S. 16th St. Lincoln, NE",
+    "Hours": "24 hours. Please take this free, short online questionnaire to determine if you should seek care: https://bryanhealth.zipnosis.com/",
+    "Latitude": 40.7894293,
+    "Longitude": -96.6980919,
+    "State": "Nebraska",
+    "Phone": "(402) 481-0500"
+  },
+  {
+    "Name": "CHI Health St. Mary's",
+    "Address": "1301 Grundman Blvd, Nebraska City, NE 68410",
+    "Hours": "24 hours",
+    "Latitude": 40.6564185,
+    "Longitude": -95.8625877,
+    "State": "Nebraska",
+    "Phone": "(402) 873-3321"
+  },
+  {
+    "Name": "CHI Health Midlands",
+    "Address": "11111 S 84th St, Papillion, NE 68046",
+    "Hours": "24 hours",
+    "Latitude": 41.135853,
+    "Longitude": -96.040111,
+    "State": "Nebraska",
+    "Phone": "(402) 593-3000"
+  },
+  {
+    "Name": "Bellevue Hospital",
+    "Address": "2500 Bellevue Medical Center Dr, Bellevue, NE",
+    "Hours": "24 hours",
+    "Latitude": 41.1372483,
+    "Longitude": -95.9479998,
+    "State": "Nebraska",
+    "Phone": "(800) 922-0000"
+  },
+  {
+    "Name": "Sahara West Urgent Care",
+    "Address": "6125 W Sahara Ave #1B, Las Vegas, NV 89146",
+    "Hours": "9 am - 9 pm seven days a week",
+    "Latitude": 36.142563,
+    "Longitude": -115.2262914,
+    "State": "Nevada",
+    "Phone": "(702) 248-0554"
+  },
+  {
+    "Name": "Saint Mary's Medical Group - Galena",
+    "Address": "18653 Wedge Pkwy , Reno, NV 89511",
+    "Hours": "7 am - 7 pm Monday - Friday; 9 am - 5 pm Saturday & Sunday",
+    "Latitude": 39.3903954,
+    "Longitude": -119.7698625,
+    "State": "Nevada",
+    "Phone": "(775) 770-7210"
+  },
+  {
+    "Name": "Saint Mary's Medical Group - Northwest Reno",
+    "Address": "6255 Sharlands Ave , Reno, NV 89523",
+    "Hours": "7 am - 7 pm Monday - Friday; 9 am - 5 pm Saturday & Sunday",
+    "Latitude": 39.5178277,
+    "Longitude": -119.8827455,
+    "State": "Nevada",
+    "Phone": "(775) 770-7580"
+  },
+  {
+    "Name": "Saint Mary's Medical Group - North Valleys",
+    "Address": "280 Vista Knoll Pkwy , Reno, NV 89506",
+    "Hours": "8 am - 5 pm Monday, Tuesday, Thursday, Friday; 8 am -4 pm Wednesday; 9 am - 5 pm Saturday & Sunday",
+    "Latitude": 39.6169898,
+    "Longitude": -119.8544717,
+    "State": "Nevada",
+    "Phone": "(775) 770-7530"
+  },
+  {
+    "Name": "Saint Mary's Medical Group - Spanish Springs",
+    "Address": "5070 Ion Dr , Sparks, NV 89436",
+    "Hours": "7 am - 7 pm Monday - Friday; 9 am - 5 pm Saturday & Sunday",
+    "Latitude": 39.5846215,
+    "Longitude": -119.7305236,
+    "State": "Nevada",
+    "Phone": "(775) 770-7727"
+  },
+  {
+    "Name": "New Hampshire National Guard Armory",
+    "Address": "1059 Canal St, Manchester, NH 03101",
+    "Hours": "Call to confirm for hours",
+    "Latitude": 43.0023816,
+    "Longitude": -71.4670638,
+    "State": "New Hampshire",
+    "Phone": "(603) 623-9613"
+  },
+  {
+    "Name": "Elliot Hospital",
+    "Address": "1 Elliot Way, Manchester, NH 03103",
+    "Hours": "Call to confirm for hours",
+    "Latitude": 42.9840799,
+    "Longitude": -71.4366154,
+    "State": "New Hampshire",
+    "Phone": "(603) 669-5300"
+  },
+  {
+    "Name": "Valley Regional Urgent Care",
+    "Address": "2 Dunning St, Claremont, NH 03743; Outside on the Dunning Street side",
+    "Hours": "8 am - 7 pm Monday-Friday; 8 am - 4:30 pm Saturday & Sunday",
+    "Latitude": 43.3850123,
+    "Longitude": -72.340686,
+    "State": "New Hampshire",
+    "Phone": "(603) 542-7850"
+  },
+  {
+    "Name": "Keady Family Practice",
+    "Address": "214 Washington St, Claremont, NH 03743",
+    "Hours": "8:30 am – 6:30 pm Monday - Friday; 8 am – 12 pm Saturday; Closed Sunday",
+    "Latitude": 43.371364,
+    "Longitude": -72.3267425,
+    "State": "New Hampshire",
+    "Phone": "(603) 863-7777"
+  },
+  {
+    "Name": "Bergen County Community College",
+    "Address": "400 Paramus Rd, Paramus, NJ 07652; Parking Lots B & C",
+    "Hours": "8 am - 4 pm seven days a week",
+    "Latitude": 40.9516735,
+    "Longitude": -74.0939011,
+    "State": "New Jersey",
+    "Phone": "(201) 447-7100"
+  },
+  {
+    "Name": "Hackensack University Medical Center - Emergency Room",
+    "Address": "30 Prospect Avenue, Hackensack, NJ 07601",
+    "Hours": "Call to confirm for hours",
+    "Latitude": 40.8840335,
+    "Longitude": -74.0565417,
+    "State": "New Jersey",
+    "Phone": "(551) 996-2000"
+  },
+  {
+    "Name": "Joseph M. Sanzari Children's Hospital",
+    "Address": "30 Prospect Avenue, Hackensack, NJ 07601",
+    "Hours": "Call to confirm for hours",
+    "Latitude": 40.8840335,
+    "Longitude": -74.0565417,
+    "State": "New Jersey",
+    "Phone": "(551) 996-2000"
+  },
+  {
+    "Name": "Pascack Valley Medical Center",
+    "Address": "250 Old Hook Rd, Westwood, NJ 07675",
+    "Hours": "Call to confirm for hours",
+    "Latitude": 40.9854623,
+    "Longitude": -74.0152903,
+    "State": "New Jersey",
+    "Phone": "(201) 383-1035"
+  },
+  {
+    "Name": "PNC Bank Arts Center",
+    "Address": "116 Garden State Pkwy, Holmdel, NJ 07733",
+    "Hours": "8 am until supplies run out",
+    "Latitude": 40.3935926,
+    "Longitude": -74.1755569,
+    "State": "New Jersey",
+    "Phone": "(732) 203-2500"
+  },
+  {
+    "Name": "Cooper University Hospital",
+    "Address": "One Cooper Plazam 246 S 6th St, Camden, NJ 08103",
+    "Hours": "Call to confirm for hours",
+    "Latitude": 39.9416198,
+    "Longitude": -75.1170466,
+    "State": "New Jersey",
+    "Phone": "(800) 222-1222"
+  },
+  {
+    "Name": "Mountainside Medical Center",
+    "Address": "1 Bay St, Montclair, NJ, 07042",
+    "Hours": "Call to confirm for hours",
+    "Latitude": 40.8101189,
+    "Longitude": -74.2055733,
+    "State": "New Jersey",
+    "Phone": "(973) 429-6000"
+  },
+  {
+    "Name": "Hudson Regional Hospital",
+    "Address": "55 Meadowlands Pkwy, Secaucus, NJ 07094",
+    "Hours": "Call to confirm for hours",
+    "Latitude": 40.7917444,
+    "Longitude": -74.0734305,
+    "State": "New Jersey",
+    "Phone": "(201) 388-1097"
+  },
+  {
+    "Name": "Palisades Medical Center",
+    "Address": "7600 River Rd, North Bergen, NJ 07047",
+    "Hours": "Call to confirm for hours",
+    "Latitude": 40.7937964,
+    "Longitude": -73.9964049,
+    "State": "New Jersey",
+    "Phone": "(201) 854-5000"
+  },
+  {
+    "Name": "Riverside Medical Group",
+    "Address": "714 10th St, Secaucus, NJ 07094",
+    "Hours": "Call to confirm for hours",
+    "Latitude": 40.7936844,
+    "Longitude": -74.0687265,
+    "State": "New Jersey",
+    "Phone": "(201) 863-3346"
+  },
+  {
+    "Name": "InFocus Urgent Care",
+    "Address": "64 Princeton Hightstown Road, West Windsor, NJ 08550",
+    "Hours": "10 am - 8 pm Monday - Friday; 10 am - 5 pm Saturday & Sunday",
+    "Latitude": 40.3173936,
+    "Longitude": -74.6201086,
+    "State": "New Jersey",
+    "Phone": "(609) 799-7009"
+  },
+  {
+    "Name": "InFocus Urgent Care",
+    "Address": "100 Campus Town Circle Suite 100 Ewing Township, NJ 08638",
+    "Hours": "10 am - 8 pm Monday - Friday; 10 am - 4 pm Saturday & Sunday",
+    "Latitude": 40.2686973,
+    "Longitude": -74.7830967,
+    "State": "New Jersey",
+    "Phone": "(609) 799-7009"
+  },
+  {
+    "Name": "Princeton Health",
+    "Address": "1 Plainsboro Road, Plainsboro, NJ 08536",
+    "Hours": "24 hours",
+    "Latitude": 40.3398823,
+    "Longitude": -74.624372,
+    "State": "New Jersey",
+    "Phone": "(267) 785-8585"
+  },
+  {
+    "Name": "Robert Wood Johnson University Hospital",
+    "Address": "1 Robert Wood Johnson Place, New Brunswick, NJ 08901",
+    "Hours": "Call to confirm for hours",
+    "Latitude": 40.4864958,
+    "Longitude": -74.4155733,
+    "State": "New Jersey",
+    "Phone": "(732) 828-3000"
+  },
+  {
+    "Name": "JFK Medical Center",
+    "Address": "65 James Street, Edison, NJ 08820",
+    "Hours": "Call to confirm for hours",
+    "Latitude": 40.5563348,
+    "Longitude": -74.3504495,
+    "State": "New Jersey",
+    "Phone": "(732) 321-7000"
+  },
+  {
+    "Name": "Raritan Bay Medical Center Old Bridge",
+    "Address": "1 Hospital Plaza, Old Bridge, NJ 08857",
+    "Hours": "Call to confirm for hours",
+    "Latitude": 40.3859487,
+    "Longitude": -74.3234755,
+    "State": "New Jersey",
+    "Phone": "(732) 360-1000"
+  },
+  {
+    "Name": "Raritan Bay Medical Center Perth Amboy",
+    "Address": "530 New Brunswick Ave, Perth Amboy, NJ 08861",
+    "Hours": "Call to confirm for hours",
+    "Latitude": 40.5189218,
+    "Longitude": -74.2805577,
+    "State": "New Jersey",
+    "Phone": "(732) 442-3700"
+  },
+  {
+    "Name": "Bayshore Medical Center",
+    "Address": "727 North Beers St, Holmdel, NJ 07733",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "State": "New Jersey",
+    "Phone": "(732) 739-5900"
+  },
+  {
+    "Name": "Jersey Shore University Medical Center",
+    "Address": "1945 NJ-33, Neptune City, NJ 07753",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "State": "New Jersey",
+    "Phone": "(732) 775-5500"
+  },
+  {
+    "Name": "K. Hovnanian Children's Hospital",
+    "Address": "1945 NJ-33, Neptune City, NJ 07753",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "State": "New Jersey",
+    "Phone": "(732) 775-5500"
+  },
+  {
+    "Name": "Immediate Care at the Marlboro Medical Arts Building",
+    "Address": "479 ROUTE 520, MARLBORO, NJ 07746",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "State": "New Jersey",
+    "Phone": "(855) 925-5467"
+  },
+  {
+    "Name": "PNC Bank Arts Center",
+    "Address": "116 Garden State Pkwy, Holmdel, NJ 07733",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "State": "New Jersey",
+    "Phone": "(732) 203-2500"
+  },
+  {
+    "Name": "Riverview Medical Center",
+    "Address": "1 Riverview Plaza, Red Bank, NJ 07701",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "State": "New Jersey",
+    "Phone": "(732) 741-2700"
+  },
+  {
+    "Name": "Southern Ocean Medical Center",
+    "Address": "1140 Route 72 West, Manahawkin, NJ 08050",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "State": "New Jersey",
+    "Phone": "(609) 597-6011"
+  },
+  {
+    "Name": "Ocean Medical Center",
+    "Address": "Ocean Medical Center",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "State": "New Jersey",
+    "Phone": "(732) 840-2200"
+  },
+  {
+    "Name": "Kean University",
+    "Address": "1000 Morris Ave, Union, NJ 07083",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "State": "New Jersey",
+    "Phone": "(732) 775-5500"
+  },
+  {
+    "Name": "Lovelace Medical Center",
+    "Address": "601 Dr Martin Luther King Jr Ave NE, Albuquerque, NM 87102",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "7 A.M. to 7 P.M",
+    "State": "New Mexico"
+  },
+  {
+    "Name": "NYC Health + Hospitals/Gotham Health, Morrisania",
+    "Address": "1225 Gerard Avenue, Bronx, New York 10452",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Hours": "24 Hours",
+    "State": "New York",
+    "Phone": "(844) 692-4690"
+  },
+  {
+    "Name": "NYC Health + Hospitals/Gotham Health, Belvis",
+    "Address": "545 East 142nd Street, Bronx, New York 10454",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Hours": "24 Hours",
+    "State": "New York",
+    "Phone": "(844) 692-4691"
+  },
+  {
+    "Name": "NYC Health + Hospitals/Lincoln",
+    "Address": "234 East 149th Street, Bronx, New York 10451",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Hours": "24 Hours",
+    "State": "New York",
+    "Phone": "(844) 692-4692"
+  },
+  {
+    "Name": "NYC Health + Hospitals/Jacobi",
+    "Address": "1400 Pelham Parkway South, Bronx, New York 10461",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "24 Hours",
+    "State": "New York",
+    "Phone": "(844) 692-4692"
+  },
+  {
+    "Name": "The Brooklyn Hospital Center",
+    "Address": "121 Dekalb Ave, Brooklyn, NY 11201",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Hours": "8 A.M. - 7 P.M",
+    "State": "New York",
+    "Phone": "(718) 250-8199"
+  },
+  {
+    "Name": "NYC Health + Hospitals/Coney Island",
+    "Address": "2929 W 19th St, Brooklyn, NY, 11224",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "24 Hours",
+    "State": "New York",
+    "Phone": "(844) 692-4692"
+  },
+  {
+    "Name": "NYC Health + Hospitals/Kings County",
+    "Address": "451 Clarkson Avenue, Brooklyn, New York 11203",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Hours": "24 Hours",
+    "State": "New York",
+    "Phone": "844) 692-4692"
+  },
+  {
+    "Name": "NYC Health + Hospitals/Woodhull",
+    "Address": "760 Broadway, Brooklyn, New York 11206",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Hours": "24 Hours",
+    "State": "New York",
+    "Phone": "(844) 692-4692"
+  },
+  {
+    "Name": "NYC Health + Hospitals/Gotham Health, Cumberland",
+    "Address": "100 North Portland Avenue, Brooklyn, New York 11205",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Hours": "24 Hours",
+    "State": "New York",
+    "Phone": "(844) 692-4693"
+  },
+  {
+    "Name": "NYC Health + Hospitals/Gotham Health, East New York",
+    "Address": "2094 Pitkin Avenue, Brooklyn, New York 11207",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Hours": "24 Hours",
+    "State": "New York",
+    "Phone": "(844) 692-4694"
+  },
+  {
+    "Name": "Wilson Center Urgent Care - Rochester General Hospita",
+    "Address": "Wilson building, 1425 Portland Ave, Rochester, NY 14621",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "State": "New York",
+    "Phone": "(585) 753-5555"
+  },
+  {
+    "Name": "ProHEALTH Urgent Care - Jericho - EXPANDED HOURS",
+    "Address": "555 N Broadway, Jericho, NY 11753",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "State": "New York",
+    "Phone": "(516) 874-0411\n"
+  },
+  {
+    "Name": "Jones Beach State Park - Theodore Roosevelt Nature Center",
+    "Address": "1 Ocean Pkwy, Wantagh, NY 11793",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "8A.M.- 8P.M",
+    "State": "New York",
+    "Phone": "(888) 364-3065"
+  },
+  {
+    "Name": "NYC Health + Hospitals/Bellevue",
+    "Address": "462 First Avenue. New York, NY 10016",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "State": "New York",
+    "Phone": "(844) 692-4692"
+  },
+  {
+    "Name": "NYC Health + Hospitals/Harlem",
+    "Address": "506 Lenox Avenue, New York, New York 10037",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Hours": "24 Hours",
+    "State": "New York",
+    "Phone": "(844) 692-4692"
+  },
+  {
+    "Name": "NYC Health + Hospitals/Metropolitan",
+    "Address": "1901 First Avenue, New York, New York 10029",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Hours": "24 Hours",
+    "State": "New York",
+    "Phone": "(844) 692-4692"
+  },
+  {
+    "Name": "NYC Health + Hospitals/Gotham Health, Gouverneur",
+    "Address": "227 Madison Street, New York, New York 10002",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Hours": "24 Hours",
+    "State": "New York",
+    "Phone": "(844) 692-4693"
+  },
+  {
+    "Name": "NYC Health + Hospitals/Gotham Health, Sydenham",
+    "Address": "264 West 118th Street, New York, New York 10026",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Hours": "24 Hours",
+    "State": "New York",
+    "Phone": "(844) 692-4694"
+  },
+  {
+    "Name": "Harriman State Park",
+    "Address": "54 Seven Lakes Dr, Sloatsburg, NY 10974",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "7A.M.- 7P.M",
+    "State": "New York",
+    "Phone": "(888) 364-3065"
+  },
+  {
+    "Name": "ProHEALTH Urgent Care - Little Neck",
+    "Address": "254-61 Nassau Blvd, Little Neck, NY 11362",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "State": "New York",
+    "Phone": "(516) 874-0411"
+  },
+  {
+    "Name": "NYC Health + Hospitals/Elmhurst",
+    "Address": "79-01 Broadway, Elmhurst, New York, 11373",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Hours": "24 Hours",
+    "State": "New York",
+    "Phone": "(844) 692-4692"
+  },
+  {
+    "Name": "NYC Health + Hospitals/Queens",
+    "Address": "82-68 164th Street, Jamaica, New York 11432",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Hours": "24 Hours",
+    "State": "New York",
+    "Phone": "(844) 692-4692"
+  },
+  {
+    "Name": "NYC Health + Hospitals/Gotham Health, Vanderbilt",
+    "Address": "165 Vanderbilt Avenue, Staten Island, NY, 10304",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Hours": "24 Hours",
+    "State": "New York",
+    "Phone": "(844) 692-4692"
+  },
+  {
+    "Name": "South Beach Behavioral Health Center",
+    "Address": "777 Seaview Ave, Staten Island, NY 10305; Parking lot off Seaview Avenue",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "11A.M.- 7P.M",
+    "State": "New York",
+    "Phone": "(888) 364-3065"
+  },
+  {
+    "Name": "Crystal Run Healthcare",
+    "Address": "2 Centerock Rd, West Nyack, NY 10994",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "State": "New York",
+    "Phone": "(845) 643-3909"
+  },
+  {
+    "Name": "Good Samaritan Hospital",
+    "Address": "255 Lafayette Ave. (Route 59), Suffern, NY 10901",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "State": "New York"
+  },
+  {
+    "Name": "Medrite Urgent Care",
+    "Address": "193 Route 59, Spring Valley, NY, 10977",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "State": "New York",
+    "Phone": "(845) 271-6300"
+  },
+  {
+    "Name": "Harriman State Park",
+    "Address": "54 Seven Lakes Dr, Sloatsburg, NY 10974",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "7A.M.- 7P.M",
+    "State": "New York",
+    "Phone": "(888) 364-3065"
+  },
+  {
+    "Name": "Stony Brook University",
+    "Address": "Stony Brook, NY 11794; Stony Brook University’s South P Lot off Stony Brook Road",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "7A.M.- 7P.M",
+    "State": "New York",
+    "Phone": "(888) 364-3065"
+  },
+  {
+    "Name": "Glen Island Park",
+    "Address": "Weyman Ave, New Rochelle, NY 10805",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "State": "New York",
+    "Phone": "(888) 364-3065"
+  },
+  {
+    "Name": "Novant Health",
+    "Address": "13 Medical Campus Dr, Supply, NC 28462",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "1P.M.- 5P.M",
+    "State": "North Carolina",
+    "Phone": "(877) 966-8268"
+  },
+  {
+    "Name": "UNC Asheville Campus: Parking lot P28 on University Heights off of W.T. Weaver Boulevard, Asheville",
+    "Address": "1 University Heights, Asheville, NC 28804",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "2P.M.- 6P.M",
+    "State": "North Carolina",
+    "Phone": "(828) 250-5300"
+  },
+  {
+    "Name": "Biltmore Church - Arden Campus: 35 Clayton Rd, Arden",
+    "Address": "35 Clayton Rd, Arden, NC 28704",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "2P.M.- 6P.M",
+    "State": "North Carolina",
+    "Phone": "(828) 250-5300"
+  },
+  {
+    "Name": "UNC Medical Center in Chapel Hill",
+    "Address": "102 Mason Farm Rd, Chapel Hill, NC 27514",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "State": "North Carolina",
+    "Phone": "(919) 962-6637"
+  },
+  {
+    "Name": "Craven County Health Department",
+    "Address": "2818 Neuse Blvd, New Bern, NC 28562",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "9A.M.- 12P.M",
+    "State": "North Carolina",
+    "Phone": "(252) 636-4920"
+  },
+  {
+    "Name": "Novant Health",
+    "Address": "903 Randolph St, Thomasville, NC 27360",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "8A.M.- 5P.M",
+    "State": "North Carolina",
+    "Phone": "(877) 966-8268"
+  },
+  {
+    "Name": "UNC Medical Center in Chapel Hill",
+    "Address": "102 Mason Farm Rd, Chapel Hill, NC 27514",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "State": "North Carolina",
+    "Phone": "(919) 962-6637"
+  },
+  {
+    "Name": "Novant Health Urgent Care",
+    "Address": "600 Highland Oaks Dr, Winston-Salem, NC 27103",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Hours": "8A.M.- 5P.M",
+    "State": "North Carolina",
+    "Phone": "(877) 966-8268"
+  },
+  {
+    "Name": "Novant Health Urgent Care",
+    "Address": "111 Gateway Center Dr, Kernersville, NC 27284",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Hours": "8A.M.- 5P.M",
+    "State": "North Carolina",
+    "Phone": "(877) 966-8268"
+  },
+  {
+    "Name": "Cone Health",
+    "Address": "300 E. Wendover Ave.",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "7A.M.- 7P.M",
+    "State": "North Carolina",
+    "Phone": "(336) 832-7000"
+  },
+  {
+    "Name": "AdventHealth",
+    "Address": "50 Hospital DrHendersonville, NC 28792",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "8A.M.- 5P.M",
+    "State": "North Carolina",
+    "Phone": "(828) 681-2300"
+  },
+  {
+    "Name": "Novant Health Lakeside Family Physicians",
+    "Address": "16525 Holly Crest Ln #120, Huntersville, NC 28078",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "8A.M.- 5P.M",
+    "State": "North Carolina",
+    "Phone": "(877) 966-8268"
+  },
+  {
+    "Name": "Novant McKee Medical",
+    "Address": "3330 Siskey Pkwy, Matthews, NC 28105",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Hours": "8A.M.- 5P.M",
+    "State": "North Carolina",
+    "Phone": "(877) 966-8268"
+  },
+  {
+    "Name": "UNC Medical Center in Chapel Hill",
+    "Address": "102 Mason Farm Rd, Chapel Hill, NC 27514102 Mason Farm Rd, Chapel Hill, NC 27514",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "State": "North Carolina",
+    "Phone": "(919) 962-6637"
+  },
+  {
+    "Name": "Novant Health",
+    "Address": "315 Mocksville Ave, Salisbury, NC 28144",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "8A.M.- 5P.M",
+    "State": "North Carolina",
+    "Phone": "(877) 966-8268"
+  },
+  {
+    "Name": "Wake County Public Health Center",
+    "Address": "10 Sunnybrook Rd, Raleigh, NC 27610",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Hours": "8A.M.- 5P.M",
+    "State": "North Carolina",
+    "Phone": "(919) 212-7000"
+  },
+  {
+    "Name": "Sanford Health",
+    "Address": "1720 University Drive S. Fargo, North Dakota 58103",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "State": "North Dakota",
+    "Phone": "(701) 234-2000"
+  },
+  {
+    "Name": "Cleveland Clinic - Main Campus",
+    "Address": "W.O. Walker Building, 10524 Euclid Ave., Cleveland, OH, 44195",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Hours": "11A.M. - 5P.M",
+    "State": "Ohio",
+    "Phone": "(216) 444-2200"
+  },
+  {
+    "Name": "MetroHealth Medical Center",
+    "Address": "2500 Metrohealth Dr, Cleveland, OH 44109",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Hours": "11A.M. - 5P.M",
+    "State": "Ohio",
+    "Phone": "(440) 592-6843"
+  },
+  {
+    "Name": "University Hospitals Landerbrook Mayfield Heights",
+    "Address": "5850 Landerbrook Dr, Mayfield Heights, OH 44124",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "11A.M. - 5P.M",
+    "State": "Ohio"
+  },
+  {
+    "Name": "University of Cincinnati, Clifton Campus",
+    "Address": "West Professional Building, 3120 Burnet Ave, Cincinnati, OH 45229",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "7A.M.- 7P.M",
+    "State": "Ohio"
+  },
+  {
+    "Name": "University of Dayton Arena Parking Lot",
+    "Address": "1801 Edwin C. Moses Blvd., Dayton, OH, 45417",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "10A.M. - 6P.M",
+    "State": "Ohio"
+  },
+  {
+    "Name": "Access Solutions Medical Group - Okmulgee",
+    "Address": "100 W 7th st Okmulgee, OK 74447",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "State": "Oklahoma",
+    "Phone": "(918) 759-2200"
+  },
+  {
+    "Name": "Access Family Medical",
+    "Address": "6030 South 66th East Avenue Tulsa, OK 74145",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "10A.M. - 6P.M",
+    "State": "Oklahoma",
+    "Phone": "(918) 508-7440"
+  },
+  {
+    "Name": "Access Solutions Medical Group - Sand Springs",
+    "Address": "3905 South Highway 97 Sand Springs, OK 74063",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "10A.M. - 6P.M",
+    "State": "Oklahoma",
+    "Phone": "(918) 245-7500"
+  },
+  {
+    "Name": "Providence Willamette Memorial Hospital",
+    "Address": "1500 Division St. Oregon City, OR 97045",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Hours": "10A.M. - 6P.M",
+    "State": "Oregon",
+    "Phone": "(503) 656-1631"
+  },
+  {
+    "Name": "Providence Milwuakie Memorial Hospital",
+    "Address": "10150 SE 32nd Ave Milwaukie, OR 97222",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Hours": "10A.M. - 6P.M",
+    "State": "Oregon",
+    "Phone": "(503) 513-8300"
+  },
+  {
+    "Name": "Providence Seaside Memorial Hospital",
+    "Address": "725 S Wahanna Rd. Seaside, OR 97138",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Hours": "7A.M.- 7P.M",
+    "State": "Oregon",
+    "Phone": "(503) 717-7000"
+  },
+  {
+    "Name": "Providence Hood River Memorial Hospital",
+    "Address": "810 12th St. Hood River, OR 97031",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Hours": "24 hours",
+    "State": "Oregon",
+    "Phone": "(541) 386-3911"
+  },
+  {
+    "Name": "Providence Medford Memorial Hospital",
+    "Address": "1111 Crater Lake Ave Medford, OR 97504",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Hours": "24 hours",
+    "State": "Oregon",
+    "Phone": "(541) 732-5000"
+  },
+  {
+    "Name": "Providence Portland Memorial Hospital",
+    "Address": "4805 NE Glisan St. Portland, OR 97213",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Hours": "24 hours",
+    "State": "Oregon",
+    "Phone": "(503) 215-1111"
+  },
+  {
+    "Name": "Providence St. Vincent Memorial Hospital",
+    "Address": "9205 SW Barnes Rd. Portland, OR 97225",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Hours": "24 hours",
+    "State": "Oregon",
+    "Phone": "(503) 216-1234"
+  },
+  {
+    "Name": "Providence Newberg Memorial Hospital",
+    "Address": "1001 Providence Drive Newberg, OR 97132",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Hours": "24 hours",
+    "State": "Oregon",
+    "Phone": "(503) 537-1555"
+  },
+  {
+    "Name": "Pittsburgh Zoo & PPG Aquarium",
+    "Address": "7370 Baker Street, Pittsburgh, PA 15206",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "11A.M. - 4P.M",
+    "State": "Pennsylvania"
+  },
+  {
+    "Name": "Central Outreach Wellness Center - North Shore Location",
+    "Address": "127 Anderson Street, Suite 101 Timber Court Building, Pittsburgh, PA 15212",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "11A.M. - 4P.M",
+    "State": "Pennsylvania",
+    "Phone": "(412) 515-0000"
+  },
+  {
+    "Name": "Central Outreach Wellness Center",
+    "Address": "2360 Hospital Drive, Upper Suite 1, Aliquippa, PA 15001",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "11A.M. - 4P.M",
+    "State": "Pennsylvania",
+    "Phone": "(724) 707-1155"
+  },
+  {
+    "Name": "Chester County Hospital",
+    "Address": "701 E. Marshall Street, West Chester, PA 19380",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Hours": "24 hours",
+    "State": "Pennsylvania",
+    "Phone": "(267) 785-8585\n"
+  },
+  {
+    "Name": "Main Line Health - Newton Square",
+    "Address": "3855 West Chester Pike, Newtown Square, PA 19073",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "State": "Pennsylvania",
+    "Phone": "(866) 225-5654"
+  },
+  {
+    "Name": "Penn Medicine Radnor",
+    "Address": "201 King of Prussia Rd, Radnor, PA 19087, North Parking Lot (across from the Radnor train station)",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "State": "Pennsylvania",
+    "Phone": "(267) 414-2303"
+  },
+  {
+    "Name": "Lancaster General Health",
+    "Address": "555 N. Duke Street, Lancaster, PA 17602",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Hours": "24 hours",
+    "State": "Pennsylvania",
+    "Phone": "(267) 785-8585"
+  },
+  {
+    "Name": "Abington Hospital - Jefferson Health",
+    "Address": "1200 Old York Rd, Abington, PA 19001",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Hours": "8A.M.- 5P.M",
+    "State": "Pennsylvania"
+  },
+  {
+    "Name": "Temple University Ambler Campus",
+    "Address": "1440 East Butler Pike, Ambler, PA 19002; Approximately 100 feet northeast of the Community Ambulance Association of Ambler parking lot.",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "8A.M.- 5P.M",
+    "State": "Pennsylvania",
+    "Phone": "(610) 631-3000"
+  },
+  {
+    "Name": "Children's Hospital of Philadelphia",
+    "Address": "3401 Civic Center Blvd, Philadelphia, PA 19104",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "State": "Pennsylvania",
+    "Phone": "(800) 722-7112"
+  },
+  {
+    "Name": "Citizens Bank Park",
+    "Address": "1 Citizens Bank Way, Philadelphia, PA 19148",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "8A.M.- 5P.M",
+    "State": "Pennsylvania"
+  },
+  {
+    "Name": "Jefferson Frankford Hospital",
+    "Address": "4900 Frankford Ave, Philadelphia, PA 19124",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "8A.M.- 5P.M",
+    "State": "Pennsylvania",
+    "Phone": "(215) 831-2000"
+  },
+  {
+    "Name": "Jefferson Torresdale Hospital",
+    "Address": "10800 Knights Rd, Philadelphia, PA 19114",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "8A.M.- 5P.M",
+    "State": "Pennsylvania",
+    "Phone": "(215) 612-4000"
+  },
+  {
+    "Name": "Jefferson Health - Roosevelt Boulevard",
+    "Address": "2451 Grant Ave, Philadelphia, PA 19114",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "8A.M.- 5P.M",
+    "State": "Pennsylvania"
+  },
+  {
+    "Name": "Jefferson University Hospital - Center City",
+    "Address": "111 S 11th St, Philadelphia, PA 19107",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "8A.M.- 5P.M",
+    "State": "Pennsylvania",
+    "Phone": "(800) 533-3669"
+  },
+  {
+    "Name": "Penn Medicine Radnor",
+    "Address": "4122 Market St. Parking Lot, Philadelphia, PA 19104",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "State": "Pennsylvania",
+    "Phone": "(267) 414-2303"
+  },
+  {
+    "Name": "Hospital of the University of Pennsylvania",
+    "Address": "3400 Spruce Street, Philadelphia, PA 19104",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Hours": "24 hours",
+    "State": "Pennsylvania",
+    "Phone": "(267) 785-8585"
+  },
+  {
+    "Name": "Pennsylvania Hospital",
+    "Address": "800 Spruce Street, Philadelphia, PA 19107",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Hours": "24 hours",
+    "State": "Pennsylvania",
+    "Phone": "(267) 785-8585"
+  },
+  {
+    "Name": "Penn Presbyterian Medical Center",
+    "Address": "51 N. 39th Street, Philadelphia, PA 19104",
+    "Appointment Needed": "Y",
+    "Drive Through": "N",
+    "Hours": "24 hours",
+    "State": "Pennsylvania",
+    "Phone": "(267) 785-8585"
+  },
+  {
+    "Name": "Rite Aid",
+    "Address": "7401 Ogontz Ave., Philadelphia, PA 19138",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "8A.M.- 5P.M",
+    "State": "Pennsylvania"
+  },
+  {
+    "Name": "University of Pennsylvania Health System - West Philadelphia",
+    "Address": "4122 Market St, Philadelphia, PA 19104; Parking Lot at 41st and Market Streets",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "8A.M.- 5P.M",
+    "State": "Pennsylvania",
+    "Phone": "(267) 414-2303"
+  },
+  {
+    "Name": "Central Outreach Wellness Center - Washington",
+    "Address": "95 Leonard Ave, Suite 203, Washington, PA 15301",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "8A.M.- 5P.M",
+    "State": "Pennsylvania",
+    "Phone": "(724) 249-2517"
+  },
+  {
+    "Name": "MUSC Health West Ashley Medical Pavilion",
+    "Address": "2060 Sam Rittenberg Blvd, Charleston, SC 29407",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "8A.M.- 5P.M",
+    "State": "South Carolina",
+    "Phone": "(843) 792-1414"
+  },
+  {
+    "Name": "Prisma Health Greenville Memorial Medical Campus",
+    "Address": "701 Grove Rd, Greenville, SC 29605",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "8A.M.- 5P.M",
+    "State": "South Carolina",
+    "Phone": "(864) 455-7000"
+  },
+  {
+    "Name": "MUSC Health - Lancaster",
+    "Address": "800 West Meeting Street Lancaster, SC 29720",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "8A.M.- 5P.M",
+    "State": "South Carolina",
+    "Phone": "(803) 286-1214"
+  },
+  {
+    "Name": "Prisma Health Richland Hospital North Portal",
+    "Address": "5 Richland Medical Park Dr. Columbia, SC 29203",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "8A.M.- 5P.M",
+    "State": "South Carolina",
+    "Phone": "(803) 434-7000"
+  },
+  {
+    "Name": "Monument Health Urgent Care West",
+    "Address": "2116 Jackson Blvd. Rapid City, SD 57702",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "8A.M.- 5P.M",
+    "State": "South Dakota",
+    "Phone": "(800) 279-1466"
+  },
+  {
+    "Name": "East Tennessee Medical Group",
+    "Address": "266 Joule St, Alcoa, TN 37701",
+    "Appointment Needed": "Y",
+    "Drive Through": "Y",
+    "Hours": "8A.M.- 5P.M",
+    "State": "Tennessee",
+    "Phone": "(865) 984-3864"
+  }
+]
