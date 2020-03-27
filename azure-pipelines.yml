@@ -1,0 +1,26 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+#  Defines the host for agent (MS hosted)
+pool:
+  vmImage: 'ubuntu-latest'
+
+#  Build steps for the pipeline
+steps:
+- script: npm install 
+  displayName: 'Installing node modules'
+
+- script: |
+    npm run build
+  displayName: 'Running build'
+
+# Save artifacts to refer them in release builds
+- task: PublishPipelineArtifact@1
+  inputs:
+    path: $(Agent.BuildDirectory)/s/build
+    artifact: react-static-website-build-artifacts
