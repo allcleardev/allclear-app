@@ -50,7 +50,7 @@ export default function ButtonAppBar() {
             <Typography variant="h6" className={classes.title}>
                 All-Clear
             </Typography>
-            <Button className={classes.menuButton} color="inherit" component={Link} to="/login">Login / Signup</Button>
+            {/* <Button className={classes.menuButton} color="inherit" component={Link} to="/login">Login / Signup</Button> */}
             <Button className={classes.menuButton} variant="contained" color="primary" endIcon={<LinkIcon />}>Share</Button>
             </Toolbar>
         </AppBar>
