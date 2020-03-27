@@ -5,6 +5,10 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import { VariableSizeList } from 'react-window';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 
 import { makeStyles } from "@material-ui/styles";
 import React, { useState } from "react";
@@ -12,8 +16,13 @@ import { render } from "react-dom";
 import MapGL from "react-map-gl";
 import 'mapbox-gl/dist/mapbox-gl.css';
 
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+
 import Airtable from "airtable";
 import locationdata from "./location_data.json";
+
+let loc = locationdata
+console.log(loc)
 
 const MAPBOX_TOKEN =
   "pk.eyJ1IjoibmF2ZWVkbiIsImEiOiJjazg4aWRkczMwNXQxM21rOWFrbGVvNWtpIn0.-k1i0cSw_C5_0aKPlFFtLA";
@@ -97,6 +106,36 @@ function TabPanel(props) {
   );
 }
 
+function renderRow(props) {
+  const { index, style } = props;
+
+  return (
+    <ListItem button style={style} key={index}>
+      <ListItemIcon>
+        <LocationOnIcon />
+      </ListItemIcon>
+      <ListItemText primary={loc[index].Name} secondary={loc[index].Address}>
+        </ListItemText>
+    </ListItem>
+  );
+}
+
+function getRowHeight(index) {
+  return (loc[index].Address && loc[index].Address.length * 1.2 || 0) + (loc[index].Name && loc[index].Name.length * 1.2 || 0)
+}
+
+function VirtualizedList() {
+  const classes = useStyles();
+
+  return (
+    <div className={classes.root}>
+      <VariableSizeList height={400} width={300} itemSize={getRowHeight} itemCount={loc.length}>
+        {renderRow}
+      </VariableSizeList>
+    </div>
+  );
+}
+
 export default function Location() {
   const [value, setValue] = React.useState(1);
 
@@ -121,7 +160,7 @@ export default function Location() {
     </Paper>
 
       <TabPanel value={value} index={0}>
-        <h2>List View</h2>
+        <VirtualizedList />
       </TabPanel>
       <TabPanel value={value} index={1}>
         <Container >
