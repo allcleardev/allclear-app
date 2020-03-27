@@ -39,7 +39,7 @@ export default function SimpleBottomNavigation() {
                 component={Link}
                 to="/"
             />
-            <BottomNavigationAction label="Health Status" icon={<AssignmentIndIcon />} component={Link} to="/health"/>
+            {/* <BottomNavigationAction label="Health Status" icon={<AssignmentIndIcon />} component={Link} to="/health"/> */}
             <BottomNavigationAction label="Nearby Testing" icon={<LocationOnIcon />} component={Link} to="/location"/>
         </BottomNavigation>
   );
