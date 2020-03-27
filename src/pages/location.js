@@ -10,6 +10,8 @@ import { makeStyles } from "@material-ui/styles";
 import React, { useState } from "react";
 import { render } from "react-dom";
 import MapGL from "react-map-gl";
+import 'mapbox-gl/dist/mapbox-gl.css';
+
 import Airtable from "airtable";
 import locationdata from "./location_data.json";
 
