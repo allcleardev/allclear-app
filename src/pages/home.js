@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import VerticalLinearStepper from '../components/vertical-stepper';
 
 function getSteps() {
-  return ['Basic Demographic Info', 'Symptoms', 'Recent Activity'];
+  return ['Basic Demographic Information', 'Symptoms', 'Recent Activity'];
 }
 
 function getStepContent(step) {
