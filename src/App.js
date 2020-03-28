@@ -18,8 +18,10 @@ import Location from './pages/location';
 import Health from './pages/health';
 import Home from './pages/home';
 import ForgotPassword from './pages/forgot-password';
-import Symptom from './pages/Symptom/Symptom'
-import Result from './pages/Result/Result'
+import Symptom from './pages/Symptom/Symptom';
+import Success from './pages/Success/Success';
+import Result from './pages/Result/Result';
+import Condition from './pages/Condition/Condition';
 
 export default function App() {
   return (
@@ -33,7 +35,9 @@ export default function App() {
       <Route path="/register" component={SignIn} />
       <Route path="/symptom" component={Symptom} />
       <Route path="/result" component={Result} />
+      <Route path="/succcess" component={Success} />
       <Route path="/launch" component={Launch} />
+      <Route path="/condition" component={Condition} />
       <Route path="/create-account" component={CreateAccount} />
 
     </Router>
