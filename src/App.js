@@ -15,21 +15,23 @@ import login from './pages/login';
 import Location from './pages/location';
 import Health from './pages/health';
 import Home from './pages/home';
-import ForgotPassword from './pages/forgot-password'; 
+import ForgotPassword from './pages/forgot-password';
+import Symptom from './pages/Symptom/Symptom'
 
 export default function App() {
   return (
     <Router>
-        <Box>
-          <TopNavBar />
-          <SimpleBottomNavigation />
-        </Box>
-        <Route exact path="/" component={Home}/>
-        <Route path="/forgot" component={ForgotPassword} />
-        <Route path="/health" component={Health} />
-        <Route path="/location" component={Location}/>
-        <Route path="/login" component={login} />
-        <Route path="/register" component={SignIn} />
-      </Router>
+      <Box>
+        {/* <TopNavBar />
+        <SimpleBottomNavigation /> */}
+      </Box>
+      <Route exact path="/" component={Home} />
+      <Route path="/forgot" component={ForgotPassword} />
+      <Route path="/health" component={Health} />
+      <Route path="/location" component={Location} />
+      <Route path="/login" component={login} />
+      <Route path="/register" component={SignIn} />
+      <Route path="/symptom" component={Symptom} />
+    </Router>
   );
 }
