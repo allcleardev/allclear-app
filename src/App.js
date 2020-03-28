@@ -17,6 +17,7 @@ import Health from './pages/health';
 import Home from './pages/home';
 import ForgotPassword from './pages/forgot-password';
 import Symptom from './pages/Symptom/Symptom'
+import Result from './pages/Result/Result'
 
 export default function App() {
   return (
@@ -32,6 +33,7 @@ export default function App() {
       <Route path="/login" component={login} />
       <Route path="/register" component={SignIn} />
       <Route path="/symptom" component={Symptom} />
+      <Route path="/result" component={Result} />
     </Router>
   );
 }
