@@ -1,7 +1,8 @@
 import React from 'react';
-import Box from '@material-ui/core/Box';
-import SimpleBottomNavigation from './components/bottom-navigation'
-import TopNavBar from './components/top-appbar'
+import './styles/app.scss';
+
+import Launch from './pages/launch';
+import CreateAccount from './pages/create-account';
 
 import {
   BrowserRouter as Router,
@@ -10,26 +11,11 @@ import {
   Link
 } from "react-router-dom";
 
-import SignIn from './pages/signup';
-import login from './pages/login';
-import Location from './pages/location';
-import Health from './pages/health';
-import Home from './pages/home';
-import ForgotPassword from './pages/forgot-password'; 
-
 export default function App() {
   return (
     <Router>
-        <Box>
-          <TopNavBar />
-          <SimpleBottomNavigation />
-        </Box>
-        <Route exact path="/" component={Home}/>
-        <Route path="/forgot" component={ForgotPassword} />
-        <Route path="/health" component={Health} />
-        <Route path="/location" component={Location}/>
-        <Route path="/login" component={login} />
-        <Route path="/register" component={SignIn} />
-      </Router>
+      <Route path="/launch" component={Launch} />
+      <Route path="/create-account" component={CreateAccount} />
+    </Router>
   );
 }
