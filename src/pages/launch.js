@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect,  } from 'react';
+import { useHistory } from 'react-router-dom';
 
 // import Container from '@material-ui/core/Container';
 import { withStyles } from '@material-ui/core/styles';
@@ -27,7 +28,16 @@ const ContainerStyle = {
   alignItems: "center"
 };
 
-export default function Launch({}) {
+const Launch = ({props}) => {
+
+  const history = useHistory();
+
+  useEffect(() => {
+    console.log(props);
+    setTimeout(() => {
+      history.push('/create-account');
+    }, 3000);
+  })
 
   return (
     <div maxWidth="xs" style={ContainerStyle}>
@@ -41,3 +51,5 @@ export default function Launch({}) {
     </div>
   );
 }
+
+export default Launch;
