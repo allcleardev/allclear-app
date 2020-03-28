@@ -3,9 +3,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
-import locationdata from "../pages/location_data.json";
-
-let loc = locationdata
+import location_data from '../data/locations.json'
+let location = location_data;
 
 export default function renderRow(props) {
     const { index, style } = props;
@@ -15,7 +14,7 @@ export default function renderRow(props) {
         <ListItemIcon>
           <LocationOnIcon />
         </ListItemIcon>
-        <ListItemText primary={loc[index].Name} secondary={loc[index].Address}>
+        <ListItemText primary={location[index].Name} secondary={location[index].Address}>
           </ListItemText>
       </ListItem>
     );
