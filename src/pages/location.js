@@ -27,17 +27,17 @@ function TabPanel(props) {
 }
 
 export default function Location() {
-  const [value, setValue] = useState(1);
+  const [currTab, setTabValue] = useState(1);
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    setTabValue(newValue);
   };
 
   return (
     <Container>
     <Paper elevation={0} square>
       <Tabs
-        value={value}
+        value={currTab}
         indicatorColor="primary"
         textColor="primary"
         onChange={handleChange}
@@ -49,12 +49,12 @@ export default function Location() {
       </Tabs>
     </Paper>
 
-      <TabPanel value={value} index={0}>
-        <VirtualizedList />
+      <TabPanel value={currTab} index={0}>
+        <VirtualizedList changeTab={{otherTabIdx: 1, changeTabFn: setTabValue}}/>
       </TabPanel>
-      <TabPanel value={value} index={1}>
+      <TabPanel value={currTab} index={1}>
         <Container >
-          <MapComponent />
+          <MapComponent changeTab={{otherTabIdx: 0, changeTabFn: setTabValue}} />
         </Container>  
       </TabPanel>
     </Container>
