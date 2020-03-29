@@ -1,17 +1,20 @@
 import React from "react";
 import { VariableSizeList } from 'react-window';
 import renderRow from './location-card';
-import location_data from '../data/locations.json'
-let location = location_data;
+import locations from '../hooks/airtable';
 
 function getRowHeight(index) {
-    return (location[index].Address && location[index].Address.length * 1.2 || 0) + (location[index].Name && location[index].Name.length * 1.2 || 0)
+  console.log('index is:', index)
+  const { Name, Address } = locations.getById(index)
+  console.log('name:', Name, 'Address:', Address)
+  console.log('height:', ((Address.length * 1.2) + (Name.length * 1.2)))
+  return ((Address.length * 1.2) + (Name.length * 1.2))
 }
 
 export default function VirtualizedList() {  
     return (
       <div>
-        <VariableSizeList height={450} width={300} itemSize={getRowHeight} itemCount={location.length}>
+        <VariableSizeList height={450} width={300} itemSize={getRowHeight} itemCount={locations.length}>
           {renderRow}
         </VariableSizeList>
       </div>
