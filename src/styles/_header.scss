@@ -1,0 +1,18 @@
+.header {
+  @media (min-width: 768px) {
+    border-radius: 0 !important;
+  }
+
+  .logo-container {
+    display: flex;
+    justify-content: flex-start;
+  
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+}
+
+
+
+
