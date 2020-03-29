@@ -1,11 +1,4 @@
 import React from 'react';
-import './styles/app.scss';
-
-import Launch from './pages/launch';
-import CreateAccount from './pages/create-account';
-import PhoneVerify from './pages/phone-verify';
-
-
 import {
   BrowserRouter as Router,
   Switch,
@@ -13,6 +6,9 @@ import {
   Link
 } from "react-router-dom";
 
+import Launch from './pages/launch';
+import CreateAccount from './pages/create-account';
+import PhoneVerify from './pages/phone-verify';
 import SignIn from './pages/signup';
 import login from './pages/login';
 import Location from './pages/location';
@@ -24,6 +20,11 @@ import Success from './pages/Success/Success';
 import Result from './pages/Result/Result';
 import Condition from './pages/Condition/Condition';
 import CompleteProfile from './pages/completeProfile';
+import Background from './pages/Background/Background';
+import FindTest from './pages/ResultDetail/FindTest';
+import ResultDetail from './pages/ResultDetail/ResultDetail';
+
+import './styles/app.scss';
 
 export default function App() {
   return (
@@ -40,10 +41,12 @@ export default function App() {
       <Route path="/succcess" component={Success} />
       {/* <Route path="/launch" component={Launch} /> */}
       <Route path="/condition" component={Condition} />
+      <Route path="/background" component={Background} />
       <Route path="/create-account" component={CreateAccount} />
       <Route path="/phone-verify" component={PhoneVerify} />
       <Route path="/complete-profile" component={CompleteProfile} />
-
+      <Route path="/find-test" component={FindTest} />
+      <Route path="/result-detail" component={ResultDetail} />
     </Router>
   );
 }
