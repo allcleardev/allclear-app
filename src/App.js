@@ -1,8 +1,6 @@
 import React from 'react';
 import './styles/app.scss';
 
-
-
 import {
   BrowserRouter as Router,
   Switch,
@@ -12,6 +10,7 @@ import {
 
 import Launch from './pages/launch';
 import CreateAccount from './pages/create-account';
+import PhoneVerify from './pages/phone-verify';
 import SignIn from './pages/signup';
 import login from './pages/login';
 import Location from './pages/location';
@@ -39,7 +38,7 @@ export default function App() {
       <Route path="/launch" component={Launch} />
       <Route path="/condition" component={Condition} />
       <Route path="/create-account" component={CreateAccount} />
-
+      <Route path="/phone-verify" component={PhoneVerify} />
     </Router>
   );
 }
