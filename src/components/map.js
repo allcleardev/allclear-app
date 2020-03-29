@@ -17,6 +17,7 @@ function MapPoint(props) {
         Appointment Needed: {props['Appointment Needed']} <br />
         Drive Through: {props['Drive Through']} <br />
         Website: {props['Main Website']} <br />
+        {/* Here is where we would need to have a dynamic route to the full page for the testing facility*/}
       </Popup>
     </Marker>
   )
@@ -46,7 +47,7 @@ export default function MapComponent(props) {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
         <GeoSearch />
-        <LocateControl/>
+        <LocateControl initialZoomLevel={13} />
 
         {locations.getAll().map((x, idx) => MapPoint({...x, idx}))}
       </Map>
