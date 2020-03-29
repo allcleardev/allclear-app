@@ -19,8 +19,7 @@ const headerStyle = {
 export default function HeaderRound(props) {
   return (
     <div className="d-flex " style={headerStyle}>
-      <h1>{props.title}</h1>
-      <p>{props.description}</p>
+      {props.children}
     </div>
   );
 }
