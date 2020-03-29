@@ -23,7 +23,7 @@ import Symptom from './pages/Symptom/Symptom';
 import Success from './pages/Success/Success';
 import Result from './pages/Result/Result';
 import Condition from './pages/Condition/Condition';
-import CompleteProfile from './pages/complete-profile';
+import CompleteProfile from './pages/completeProfile';
 
 export default function App() {
   return (
