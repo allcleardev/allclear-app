@@ -1,6 +1,6 @@
-@import 'variable';
-@import 'header';
-@import 'complete-profile';
+@import "variable";
+@import "header";
+@import "complete-profile";
 
 .MuiLinearProgress-barColorPrimary {
   background-color: #eee !important;
@@ -14,9 +14,9 @@
   font-style: normal;
   font-weight: bold;
   font-size: 15px;
-  color: #FFF;
+  color: #fff;
   // font-family: 'Source Sans Pro', sans-serif;
-  color: #FFF;
+  color: #fff;
   margin: 5px 0;
 }
 
@@ -32,8 +32,12 @@
   font-style: normal;
   font-weight: 600;
   font-size: 20px;
-  color: #FFF;
+  color: #fff;
   // font-family: 'Source Sans Pro', sans-serif;
   color: #000;
   margin: 15px 0;
+}
+
+a {
+  text-decoration: none;
 }
