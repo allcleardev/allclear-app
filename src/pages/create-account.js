@@ -1,5 +1,5 @@
 import React from 'react';
-import HeaderRound from '../components/header-round';
+import Header from '../components/header-round';
 
 import Box from '@material-ui/core/Container';
 import { Button, TextField } from '@material-ui/core';
@@ -53,7 +53,10 @@ export default function CreateAccount({}) {
 
   return (
     <Box>
-      <HeaderRound title="Create Account" description="First, tell us a litte about yourself so we know how to help you best."></HeaderRound>
+      <Header>
+        <h1>Create Account</h1>
+        <p>First, tell us a litte about yourself so we know how to help you best.</p>
+      </Header>
       <div style={bodyStyle}>
         <h4>CORVID-19 TESTING</h4>
         <Button variant="outlined" size="small" color="primary" className={classes.margin} style={{width: "70%"}}>
