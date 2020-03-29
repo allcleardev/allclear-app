@@ -1,3 +1,9 @@
+# TODO
+- get all the points rendered on map
+- allow points from list to fly onto location on map
+- collect user current location from browser
+- filter list based on whats close to that person currently
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
