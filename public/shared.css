@@ -50,6 +50,13 @@ body {
     width: 360px;
 }
 
+.workSpaceAreaB {
+    display: table;
+    justify-content: center;
+    margin: 15px auto;
+    width: 360px;
+}
+
 .box1 {
 
     width: 102px;
@@ -302,8 +309,4 @@ input:checked+.slider:before {
     margin-bottom: 15px;
     font-weight: bold;
     cursor: pointer;
-}
-
- /deep/ .MuiInputBase-root {
-    width: 350px !important;
 }

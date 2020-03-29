@@ -21,12 +21,12 @@ class Background extends React.Component {
                     <div className="wrapScreen">
                         <div className="screenHead">
                             <div style={{ paddingTop: 60 }}></div>
-                            <div className="arrow"><i className="fa fa-angle-left" aria-hidden="true"></i></div>
+                            <div className="arrow">< i className="fa fa-angle-left" aria-hidden="true"></i></div>
                             <div className="headingTxt">Background</div>
                             <div className="subHeading">
                                 Provide information to let us recommand the best test sites.
 			        	</div>
-                        </div><div className="workSpaceArea">
+                        </div><div className="workSpaceAreaB">
                             <div className="btnXyx">
                                 <h3>Location*</h3>
                                 <h5>We can give localized test center recommendations with your location</h5>
@@ -36,7 +36,7 @@ class Background extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="workSpaceArea">
+                        <div className="workSpaceAreaB">
                             <div className="btnXyx">
                                 <h3>Date of Birth*</h3>
                                 <h5>Some test centers have minimum age requirements</h5>
@@ -54,7 +54,7 @@ class Background extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="workSpaceArea">
+                        <div className="workSpaceAreaB">
                             <div className="btnXyx">
                                 <h3>Exposure to COVID-19</h3>
                                 <h5>Select all that Apply</h5>
