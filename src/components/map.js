@@ -6,10 +6,11 @@ import { Map, Marker, Popup, TileLayer, MapControl, withLeaflet } from "react-le
 import './map.css'
 import locations from '../hooks/airtable'
 import GeoSearch from './map-components/geosearch';
+import LocateControl from './map-components/userlocation';
 
 function MapPoint(props) {
   return (
-    <Marker position={[props.Latitude, props.Longitude]}>
+    <Marker position={[props.Latitude, props.Longitude]} key={props.idx}>
       <Popup>
         Name: {props.Name} <br />
         Address: {props.Address} <br />
@@ -45,6 +46,7 @@ export default function MapComponent(props) {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
         <GeoSearch />
+        <LocateControl/>
 
         {locations.getAll().map((x, idx) => MapPoint({...x, idx}))}
       </Map>
