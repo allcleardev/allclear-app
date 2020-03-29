@@ -21,6 +21,7 @@ import Symptom from './pages/Symptom/Symptom';
 import Success from './pages/Success/Success';
 import Result from './pages/Result/Result';
 import Condition from './pages/Condition/Condition';
+import Background from './pages/Background/Background';
 
 export default function App() {
   return (
@@ -37,6 +38,7 @@ export default function App() {
       <Route path="/succcess" component={Success} />
       <Route path="/launch" component={Launch} />
       <Route path="/condition" component={Condition} />
+      <Route path="/background" component={Background} />
       <Route path="/create-account" component={CreateAccount} />
       <Route path="/phone-verify" component={PhoneVerify} />
     </Router>

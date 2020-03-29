@@ -144,6 +144,16 @@ input:checked+.slider {
     background-color: #35C759;
 }
 
+.inpStyles{
+    width: 100%;
+    border: none;
+    border: 1px #ccc solid;
+    color: #cac4c4;
+    font-size: 15px;
+    padding: 0px 0px 15px 0px;
+    outline: none;
+}
+
 input:focus+.slider {
     box-shadow: 0 0 1px #35C759;
 }
@@ -292,4 +302,8 @@ input:checked+.slider:before {
     margin-bottom: 15px;
     font-weight: bold;
     cursor: pointer;
+}
+
+ /deep/ .MuiInputBase-root {
+    width: 350px !important;
 }
