@@ -16,7 +16,7 @@ const headerStyle = {
   fontSize: "17px"
 }
 
-export default function HeaderRound(props) {
+export default function Header(props) {
   return (
     <div className="d-flex " style={headerStyle}>
       {props.children}

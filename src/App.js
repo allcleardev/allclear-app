@@ -27,8 +27,8 @@ import Condition from './pages/Condition/Condition';
 export default function App() {
   return (
     <Router>
-
-      <Route exact path="/" component={Home} />
+      <Route exact path="/" component={Launch} />
+      {/* <Route exact path="/" component={Home} /> */}
       <Route path="/forgot" component={ForgotPassword} />
       <Route path="/health" component={Health} />
       <Route path="/location" component={Location} />
@@ -37,7 +37,7 @@ export default function App() {
       <Route path="/symptom" component={Symptom} />
       <Route path="/result" component={Result} />
       <Route path="/succcess" component={Success} />
-      <Route path="/launch" component={Launch} />
+      {/* <Route path="/launch" component={Launch} /> */}
       <Route path="/condition" component={Condition} />
       <Route path="/create-account" component={CreateAccount} />
       <Route path="/phone-verify" component={PhoneVerify} />
