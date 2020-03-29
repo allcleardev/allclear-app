@@ -23,6 +23,7 @@ import Result from './pages/Result/Result';
 import Condition from './pages/Condition/Condition';
 import Background from './pages/Background/Background';
 import FindTest from './pages/ResultDetail/FindTest';
+import ResultDetail from './pages/ResultDetail/ResultDetail';
 
 export default function App() {
   return (
@@ -43,6 +44,7 @@ export default function App() {
       <Route path="/create-account" component={CreateAccount} />
       <Route path="/phone-verify" component={PhoneVerify} />
       <Route path="/find-test" component={FindTest} />
+      <Route path="/result-detail" component={ResultDetail} />
     </Router>
   );
 }
