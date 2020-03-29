@@ -40,11 +40,8 @@ export default function App() {
       <Route path="/launch" component={Launch} />
       <Route path="/condition" component={Condition} />
       <Route path="/create-account" component={CreateAccount} />
-<<<<<<< HEAD
       <Route path="/phone-verify" component={PhoneVerify} />
-=======
 
->>>>>>> d2f5e947963f564ab662e66f8dbf679a2c0f9aa1
     </Router>
   );
 }
