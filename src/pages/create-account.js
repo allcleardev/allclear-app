@@ -1,5 +1,5 @@
 import React from 'react';
-import HeaderRound from '../components/header-round';
+import Header from '../components/header-round';
 
 import Box from '@material-ui/core/Container';
 import { Button, TextField } from '@material-ui/core';
@@ -12,22 +12,6 @@ const ContainerStyle = {
   justifyContent: "center",
   alignItems: "center"
 };
-
-const headerStyle = {
-  background: "linear-gradient(to right, #28baff, #1195ff)",
-  borderRadius: "100%",
-  marginLeft: "-50vw",
-  marginRight: "-50vw",
-  padding: "120px 0",
-  textAlign: "center",
-  paddingLeft: "50vw",
-  marginTop: "-40px",
-  paddingRight: "50vw",
-  color: "#FFF",
-  lineHeight: "22px",
-  fontFamily: "'Source Sans Pro', sans-serif",
-  fontSize: "17px"
-}
 
 const bodyStyle = {
   display: "flex",
@@ -53,7 +37,10 @@ export default function CreateAccount({}) {
 
   return (
     <Box>
-      <HeaderRound title="Create Account" description="First, tell us a litte about yourself so we know how to help you best."></HeaderRound>
+      <Header>
+        <h1>Create Account</h1>
+        <p>First, tell us a litte about yourself so we know how to help you best.</p>
+      </Header>
       <div style={bodyStyle}>
         <h4>CORVID-19 TESTING</h4>
         <Button variant="outlined" size="small" color="primary" className={classes.margin} style={{width: "70%"}}>

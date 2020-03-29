@@ -1,7 +1,39 @@
+@import 'variable';
+@import 'header';
+@import 'complete-profile';
+
 .MuiLinearProgress-barColorPrimary {
   background-color: #eee !important;
 }
 
 .MuiLinearProgress-colorPrimary {
   margin-top: 45px;
+}
+
+.card-title {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 15px;
+  color: #FFF;
+  // font-family: 'Source Sans Pro', sans-serif;
+  color: #FFF;
+  margin: 5px 0;
+}
+
+.card-description {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 16px;
+  margin: 0;
+}
+
+.body-title {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  color: #FFF;
+  // font-family: 'Source Sans Pro', sans-serif;
+  color: #000;
+  margin: 15px 0;
 }
