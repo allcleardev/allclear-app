@@ -1,0 +1,23 @@
+.complete-profile {
+  span {
+    font-weight: 600;
+  }
+
+  .profile-card-content {
+    margin: 0;
+    font-weight: 500;
+    color: #929292
+  }
+
+  .btn-profile-setting {
+    display: flex;
+    margin: 0 16px;
+    margin-top: 16px;
+  }
+
+  .profile-body {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+  }
+}
