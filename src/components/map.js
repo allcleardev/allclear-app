@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/styles";
-import { Map, Marker, Popup, TileLayer } from "react-leaflet";
+import { Map, Marker, Popup, TileLayer, MapControl, withLeaflet } from "react-leaflet";
 import './map.css'
 import locations from '../hooks/airtable'
+import GeoSearch from './map-components/geosearch';
 
 function MapPoint(props) {
   return (
@@ -43,6 +44,8 @@ export default function MapComponent(props) {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
+        <GeoSearch />
+
         {locations.getAll().map((x, idx) => MapPoint({...x, idx}))}
       </Map>
     );

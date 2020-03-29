@@ -12,6 +12,7 @@
     "airtable": "^0.8.1",
     "clsx": "latest",
     "leaflet": "^1.6.0",
+    "leaflet-geosearch": "^2.7.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-leaflet": "2.6.0",
