@@ -136,7 +136,7 @@ export default function CreateAccount() {
             </Grid>
           </Grid>
         </div>
-        <ProgressBottom></ProgressBottom>
+        <ProgressBottom progress="0"></ProgressBottom>
       </Box>
     </div>
   );
