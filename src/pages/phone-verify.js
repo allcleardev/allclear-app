@@ -81,7 +81,7 @@ export default function PhoneVerify() {
                 Back
               </Button>
             </Link>
-            <Link to="/complete-profile">
+            <Link to="/background">
               <Button
                 variant="contained"
                 color="primary"

@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react';
 import states from './Symptom.state';
 import './Symptom.module.css';
+import { Link } from "react-router-dom";
+
 
 class Symptom extends React.Component {
     state = states
@@ -43,7 +45,7 @@ class Symptom extends React.Component {
                             <div className="box1">Symptom</div>
                             <div className="box1">Symptom</div>
                         </div>
-                        <div class="wrapBtn"><button>Submit Symptoms</button></div>
+                        <div class="wrapBtn"><Link to="/result"><button>Next</button></Link></div>
                     </div>
 
 
