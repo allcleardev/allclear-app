@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react';
 import states from './Result.state';
 import upload from '../../assets/images/uploadicon.png';
+import { Link } from "react-router-dom";
+
 class Result extends React.Component {
     state = states
 
@@ -53,8 +55,12 @@ class Result extends React.Component {
                             </div>
                         </div>
                         <div className="policyBtn"><a href="#">Privacy Policy</a></div>
-                        <div className="wrapBtn"><button>Submit Symptoms</button></div>
+                        <Link to="/complete-profile">
+                        <div className="wrapBtn"><button>Submit Test Results</button></div>
+                        </Link>
+                        <Link to="/complete-profile">
                         <div className="policyBtn"><a className="skipBtn" href="#">Skip</a></div>
+                        </Link>
                     </div>
 
                 </div>

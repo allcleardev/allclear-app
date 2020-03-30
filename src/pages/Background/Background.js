@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react';
 import states from './Background.state';
 import TextField from '@material-ui/core/TextField';
+import { Link } from "react-router-dom";
+
 
   
 class Background extends React.Component {
@@ -63,7 +65,7 @@ class Background extends React.Component {
                                 <div className="wrapBtns">Known contact with someone</div>
                                 <div className="wrapBtns">Not Sure</div>
                                 <div className="wrapBtns">No Contact (Self Quarantine)</div>
-                                <div className="wrapBtn"><button>Next</button></div>
+                                <div className="wrapBtn"><Link to="/condition"><button>Next</button></Link></div>
                             </div>
                         </div>
 

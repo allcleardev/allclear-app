@@ -4,6 +4,9 @@ import Box from '@material-ui/core/Box';
 import Paper from "@material-ui/core/Paper";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
+import NavBottom from "../components/navBottom";
+import Header from "../components/homescreen-header";
+
 
 import React, { useState } from "react";
 import MapComponent from "../components/map";
@@ -35,6 +38,9 @@ export default function Location() {
 
   return (
     <Container>
+      <Header>
+        <p>Allclear</p>
+      </Header>
     <Paper elevation={0} square>
       <Tabs
         value={currTab}
@@ -57,6 +63,8 @@ export default function Location() {
           <MapComponent changeTab={{otherTabIdx: 0, changeTabFn: setTabValue}} />
         </Container>  
       </TabPanel>
+    <NavBottom></NavBottom>
     </Container>
+
   );
 }
