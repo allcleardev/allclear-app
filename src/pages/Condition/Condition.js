@@ -1,5 +1,7 @@
 import React, { Fragment } from 'react';
 import states from './Condition.state';
+import { Link } from "react-router-dom";
+
 
 class Condition extends React.Component {
     state = states
@@ -36,7 +38,7 @@ class Condition extends React.Component {
                                 <div className="wrapBtns">Diabetes</div>
                                 <div className="wrapBtns">Pregnancy</div>
                                 <div className="wrapBtns">None</div>
-                                <div className="wrapBtn"><button>Send</button></div>
+                                <div className="wrapBtn"><Link to="/symptom"><button>Next</button></Link></div>
                             </div>
                         </div>
 
