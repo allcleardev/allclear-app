@@ -46,7 +46,7 @@ export default function CompleteProfile() {
         className={classes.root}
         style={{ justifyContent: "center", marginBottom: "56px" }}
       >
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={11}>
           <div
             className="profile-body"
             style={{ display: "flex", justifyContent: "center" }}
