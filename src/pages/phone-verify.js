@@ -1,32 +1,42 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import Box from "@material-ui/core/Container";
-import { Button, Input, Grid } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import FormGroup from "@material-ui/core/FormGroup";
+import { Button, Grid } from "@material-ui/core";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import TextField from "@material-ui/core/TextField";
+import Axios from "axios";
 
 import Header from "../components/header-round";
+import ProgressBottom from "../components/progressBottom";
 
-const bodyStyle = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  // height: "100vh",
-  flexDirection: "column",
-  alignContent: "space-between"
-};
-
-export default function PhoneVerify() {
+export default function PhoneVerify({ props }) {
   const [state, setState] = React.useState({
     checkedB: true
   });
 
+  const history = useHistory();
+  let textInput = React.createRef();
+
   const handleChange = event => {
     setState({ ...state, [event.target.name]: event.target.checked });
+  };
+
+  const verifyPhoneNumber = async () => {
+    // console.log(history);
+    // console.log(textInput.current.value);
+
+    const response = await Axios.post(
+      "https://allclear-dev.azurewebsites.net/",
+      {
+        phone: textInput.current.value,
+        beenTested: true,
+        haveSymptoms: true
+      }
+    );
+    console.log(response);
+    history.push("/complete-profile");
   };
 
   return (
@@ -42,6 +52,7 @@ export default function PhoneVerify() {
           <Grid container justify="center">
             <Grid item xs={12} sm={6}>
               <TextField
+                inputRef={textInput}
                 id="standard-basic"
                 label="Phone Number"
                 style={{
@@ -49,6 +60,7 @@ export default function PhoneVerify() {
                   justifyContent: "center",
                   margin: "80px 0"
                 }}
+                v
               />
             </Grid>
           </Grid>
@@ -81,18 +93,18 @@ export default function PhoneVerify() {
                 Back
               </Button>
             </Link>
-            <Link to="/background">
-              <Button
-                variant="contained"
-                color="primary"
-                fullWidth="true"
-                className="button btn-responsive btn-full-width"
-              >
-                Verify Phone Number
-              </Button>
-            </Link>
+            <Button
+              onClick={() => verifyPhoneNumber()}
+              variant="contained"
+              color="primary"
+              fullWidth="true"
+              className="button btn-responsive btn-full-width"
+            >
+              Verify Phone Number
+            </Button>
           </div>
         </form>
+        <ProgressBottom progress="100px"></ProgressBottom>
       </Box>
     </div>
   );
