@@ -1,6 +1,13 @@
 @import "variable";
 @import "header";
 @import "complete-profile";
+@import "create-account";
+@import "phone-verify";
+
+* {
+  font-family: $font-normal;
+  text-transform: none;
+}
 
 .MuiLinearProgress-barColorPrimary {
   background-color: #eee !important;
@@ -40,4 +47,63 @@
 
 a {
   text-decoration: none;
+}
+
+.progress-bottom {
+  height: 8px;
+  background-color: rgba(255, 255, 255, 0.21);
+  border-radius: 12px;
+  bottom: 45px !important;
+  margin: 30px 0;
+
+  .progress-bottom-bar {
+    height: 8px;
+    background-color: rgba(255, 255, 255, 0.21);
+    border-radius: 12px;
+  }
+}
+
+.MuiToggleButton-root {
+  text-transform: none !important;
+}
+
+.button {
+  border-radius: 14px !important;
+  height: 48px;
+  background-color: #007aff;
+  margin: 80px 0 !important;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    margin: 30px 0 !important;
+  }
+}
+
+.btn-responsive {
+  @media (min-width: 768px) {
+    background-color: #fff !important;
+    color: $primary-color !important;
+    font-size: 17px;
+  }
+}
+
+.text-grey {
+  color: #999999;
+  text-align: center;
+}
+
+.font-weight-600 {
+  font-weight: 600;
+}
+
+.hide-object {
+  @media (min-width: 768px) {
+    display: none;
+  }
+}
+
+.turn-white {
+  @media (min-width: 768px) {
+    color: #fff !important;
+  }
 }

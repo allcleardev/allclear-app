@@ -1,0 +1,34 @@
+@media (min-width: 768px) {
+  body {
+    background: linear-gradient(to right, #36d1bc, #1195ff) !important;
+
+    .header {
+      background: transparent !important;
+    }
+
+    h4 {
+      color: #fff;
+      font-size: 24px;
+    }
+  }
+}
+.phone-verify {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  @media (min-width: 768px) {
+    width: 922px !important;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .check-label {
+    font-size: 13px !important;
+    color: #999999;
+    margin-left: 0;
+    width: 85%;
+    display: flex;
+    justify-content: center;
+  }
+}
