@@ -1,19 +1,5 @@
-@media (min-width: 768px) {
-  body {
-    background: linear-gradient(to right, #36d1bc, #1195ff) !important;
-
-    .header {
-      background: transparent !important;
-    }
-
-    h4 {
-      color: #fff;
-      font-size: 24px;
-    }
-  }
-}
 .create-profile {
-  @media (min-width: 768px) {
+  @media (min-width: $md) {
     width: 922px !important;
     display: flex;
     justify-content: space-between;

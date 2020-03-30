@@ -1,4 +1,10 @@
 .complete-profile {
+  @media (min-width: $md) {
+    width: $md !important;
+    display: flex;
+    justify-content: space-between;
+  }
+
   span {
     // font-weight: 600;
   }
