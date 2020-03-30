@@ -2,21 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import Box from "@material-ui/core/Container";
-import { Button, Input } from "@material-ui/core";
+import { Button, Input, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 
 import Header from "../components/header-round";
-
-const ContainerStyle = {
-  height: "100vh",
-  background: "linear-gradient(to right, #28baff, #1195ff)",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center"
-};
 
 const bodyStyle = {
   display: "flex",
@@ -40,10 +32,7 @@ export default function PhoneVerify({}) {
   const classes = useStyles();
 
   const [state, setState] = React.useState({
-    checkedA: true,
-    checkedB: true,
-    checkedF: true,
-    checkedG: true
+    checkedB: true
   });
 
   const handleChange = event => {
@@ -53,15 +42,19 @@ export default function PhoneVerify({}) {
   return (
     <Box>
       <Header>
-        <h1>Phone Number</h1>
+        <h1 style={{ justifyContent: "center", margin: "0" }}>Phone Number</h1>
         <p>Enter your phone number to get started.</p>
       </Header>
       <FormGroup row style={bodyStyle}>
-        <Input
-          placeholder="Phone Number"
-          fullWidth="true"
-          style={{ margin: "120px 0" }}
-        ></Input>
+        <Grid container justify="center">
+          <Grid item xs={12} sm={6}>
+            <Input
+              placeholder="Phone Number"
+              fullWidth="true"
+              style={{ margin: "120px 0" }}
+            ></Input>
+          </Grid>
+        </Grid>
         <h4 style={{ color: "#999999", margin: "50px 0" }}>
           Please review and agree to the{" "}
           <span style={{ color: "#007AFF" }}>Terms & Conditions</span> and{" "}
