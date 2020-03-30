@@ -1,5 +1,6 @@
-import React from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import React from "react";
+
+import Logo from "../assets/images/logo.svg";
 
 const headerStyle = {
   background: "linear-gradient(to right, #28baff, #1195ff)",
@@ -15,15 +16,18 @@ const headerStyle = {
   lineHeight: "22px",
   fontFamily: "'Source Sans Pro', sans-serif",
   fontSize: "17px"
-}
+};
 
+const logoStyle = {
+  width: 45,
+  height: "auto"
+};
 
 export default function Header(props) {
-
   return (
     <div className="header" style={headerStyle}>
       <div className="logo-container">
-        <img src="logo.png" alt="logo"></img>
+        <img src={Logo} alt="logo" style={logoStyle} />
       </div>
       {props.children}
     </div>
