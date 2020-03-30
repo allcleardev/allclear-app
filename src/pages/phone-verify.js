@@ -19,18 +19,7 @@ const bodyStyle = {
   alignContent: "space-between"
 };
 
-const useStyles = makeStyles(theme => ({
-  margin: {
-    margin: theme.spacing(1)
-  },
-  extendedIcon: {
-    marginRight: theme.spacing(1)
-  }
-}));
-
-export default function PhoneVerify({}) {
-  const classes = useStyles();
-
+export default function PhoneVerify() {
   const [state, setState] = React.useState({
     checkedB: true
   });
@@ -40,7 +29,7 @@ export default function PhoneVerify({}) {
   };
 
   return (
-    <Box>
+    <Box className="phone-verify">
       <Header>
         <h1 style={{ justifyContent: "center", margin: "0" }}>Phone Number</h1>
         <p>Enter your phone number to get started.</p>
@@ -55,39 +44,30 @@ export default function PhoneVerify({}) {
             ></Input>
           </Grid>
         </Grid>
-        <h4 style={{ color: "#999999", margin: "50px 0" }}>
+        <p className="turn-white text-grey" style={{ padding: "30px" }}>
           Please review and agree to the{" "}
           <span style={{ color: "#007AFF" }}>Terms & Conditions</span> and{" "}
           <span style={{ color: "#007AFF" }}>Privacy Policy</span> before
           continuing
-        </h4>
+        </p>
         <FormControlLabel
-          style={{ width: "85%" }}
           control={
             <Checkbox
               checked={state.checkedB}
               onChange={handleChange}
               name="checkedB"
-              color="primary"
+              color="third"
             />
           }
           label="I have reviewed and agree to the Terms & Conditions and Privacy Policy"
-          style={{
-            fontSize: "13px !important",
-            color: "#999999",
-            marginLeft: "0"
-          }}
+          className="check-label turn-white"
         />
         <Link to="/complete-profile">
           <Button
             variant="contained"
             color="primary"
             fullWidth="true"
-            style={{
-              height: "48px",
-              backgroundColor: "#007AFF",
-              margin: "60px 0"
-            }}
+            className="button btn-responsive"
           >
             Verify Phone Number
           </Button>

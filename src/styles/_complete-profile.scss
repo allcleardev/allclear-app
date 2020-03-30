@@ -1,12 +1,12 @@
 .complete-profile {
   span {
-    font-weight: 600;
+    // font-weight: 600;
   }
 
   .profile-card-content {
     margin: 0;
     font-weight: 500;
-    color: #929292
+    color: #929292;
   }
 
   .btn-profile-setting {
@@ -19,5 +19,19 @@
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
+  }
+
+  .nav-bottom {
+    position: fixed;
+    bottom: 4px;
+    left: 4px;
+    right: 4px;
+    border-radius: 50px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+    display: none;
+
+    @media (max-width: 768px) {
+      display: inline-flex;
+    }
   }
 }
