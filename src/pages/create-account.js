@@ -1,10 +1,13 @@
 import React from "react";
 import Header from "../components/header-round";
+import ProgressBottom from "../components/progressBottom";
 
 import Box from "@material-ui/core/Container";
 import { Button, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
+import ToggleButton from "@material-ui/lab/ToggleButton";
+import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 
 const bodyStyle = {
   display: "flex",
@@ -16,18 +19,31 @@ const bodyStyle = {
 };
 
 const useStyles = makeStyles(theme => ({
-  button: {
-    margin: "6px 0",
-    borderRadius: "14px",
-    width: "100%"
+  toggleButtonStyle: {},
+  MuiToggleButton: {
+    color: "red"
   }
 }));
 
-export default function CreateAccount({}) {
+export default function CreateAccount() {
   const classes = useStyles();
 
+  const [valueSympotyms, setSymptomsValue] = React.useState("nosymptoms");
+
+  const [valueTesting, setValue] = React.useState("tested");
+
+  const handleSymtomsChange = (event, newValue) => {
+    if (!newValue) return;
+    setValue(newValue);
+  };
+
+  const handleChange = (event, newValue) => {
+    if (!newValue) return;
+    setSymptomsValue(newValue);
+  };
+
   return (
-    <Box>
+    <Box className="create-profile">
       <Header>
         <h1>Create Account</h1>
         <p>
@@ -37,70 +53,67 @@ export default function CreateAccount({}) {
 
       <div style={bodyStyle}>
         <h4>CORVID-19 TESTING</h4>
-        <Grid container justify="center">
-          <Grid item xs={8} sm={4}>
-            <Button
-              variant="outlined"
-              size="small"
-              color="primary"
-              className={classes.button}
-            >
-              I want to be tested
-            </Button>
-            <Button
-              variant="contained"
-              size="small"
-              color="primary"
-              className={classes.button}
-              style={{
-                backgroundColor: "#003297"
-              }}
-            >
-              I have been tested
-            </Button>
-            <Button
-              variant="outlined"
-              size="small"
-              color="primary"
-              className={classes.button}
-            >
-              Neither
-            </Button>
-          </Grid>
-        </Grid>
+
+        <ToggleButtonGroup
+          value={valueTesting}
+          exclusive
+          onChange={handleSymtomsChange}
+          aria-label="Testing"
+          className="toggleButtonGroup"
+        >
+          <ToggleButton
+            value="wantTest"
+            aria-label="wantTest"
+            className="toggleButton"
+          >
+            I want to be tested
+          </ToggleButton>
+          <ToggleButton
+            value="tested"
+            aria-label="tested"
+            className="toggleButton"
+          >
+            I have been tested
+          </ToggleButton>
+          <ToggleButton
+            value="neither"
+            aria-label="neither"
+            className="toggleButton"
+          >
+            Neither
+          </ToggleButton>
+        </ToggleButtonGroup>
 
         <h4>CORVID-19 SYMPTOMS</h4>
-        <Grid container justify="center">
-          <Grid item xs={8} sm={4}>
-            <Button
-              variant="outlined"
-              size="small"
-              color="primary"
-              className={classes.button}
-            >
-              I don't have symptoms
-            </Button>
-            <Button
-              variant="contained"
-              size="small"
-              color="primary"
-              className={classes.button}
-              style={{
-                backgroundColor: "#003297"
-              }}
-            >
-              I had symptoms
-            </Button>
-            <Button
-              variant="outlined"
-              size="small"
-              color="primary"
-              className={classes.button}
-            >
-              I have symptoms
-            </Button>
-          </Grid>
-        </Grid>
+        <ToggleButtonGroup
+          value={valueSympotyms}
+          exclusive
+          onChange={handleChange}
+          aria-label="Testing"
+          className="toggleButtonGroup"
+        >
+          <ToggleButton
+            value="nosymptoms"
+            aria-label="nosymptoms"
+            className="toggleButton"
+          >
+            I don't have symptoms
+          </ToggleButton>
+          <ToggleButton
+            value="hadsymtoms"
+            aria-label="hadsymtoms"
+            className="toggleButton"
+          >
+            I had symptoms
+          </ToggleButton>
+          <ToggleButton
+            value="havesymtoms"
+            aria-label="havesymtoms"
+            className="toggleButton"
+          >
+            I have symptoms
+          </ToggleButton>
+        </ToggleButtonGroup>
         <Grid container justify="center">
           <Grid item xs={12} sm={4}>
             <Link to="/phone-verify">
@@ -108,24 +121,20 @@ export default function CreateAccount({}) {
                 variant="contained"
                 color="primary"
                 fullWidth="true"
-                style={{
-                  height: "48px",
-                  backgroundColor: "#007AFF",
-                  margin: "30px 0",
-                  borderRadius: "14px"
-                }}
+                className="button btn-responsive font-weight-600"
               >
                 Create Account
               </Button>
             </Link>
 
-            <h4 style={{ color: "#999999", textAlign: "center" }}>
+            <p className="text-grey hide-object">
               Already have an account?{" "}
               <span style={{ color: "#007AFF" }}>Sign In</span>
-            </h4>
+            </p>
           </Grid>
         </Grid>
       </div>
+      <ProgressBottom></ProgressBottom>
     </Box>
   );
 }
