@@ -6,6 +6,8 @@ import {
   SvgIcon
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
+import { Link } from "react-router-dom";
+
 
 const useStyles = makeStyles({
   root: {},
@@ -32,6 +34,7 @@ export default function NavBottom() {
         className={classes.bottomNavAction}
         label="Home"
         icon={
+          <Link to="/complete-profile">
           <SvgIcon>
             <svg
               width="20"
@@ -48,11 +51,14 @@ export default function NavBottom() {
               />
             </svg>
           </SvgIcon>
+          </Link>
         }
       />
+      
       <BottomNavigationAction
         label="Tests"
         icon={
+          <Link to="/location">
           <SvgIcon>
             <svg
               width="18"
@@ -69,8 +75,10 @@ export default function NavBottom() {
               />
             </svg>
           </SvgIcon>
+          </Link>
         }
       />
+
       <BottomNavigationAction
         label="Tracing"
         icon={
