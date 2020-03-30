@@ -5,6 +5,7 @@
 
 trigger:
 - master
+- dev
 
 #  Defines the host for agent (MS hosted)
 pool:
@@ -12,7 +13,7 @@ pool:
 
 #  Build steps for the pipeline
 steps:
-- script: npm install 
+- script: npm install
   displayName: 'Installing node modules'
 
 - script: |
