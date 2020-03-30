@@ -9,6 +9,24 @@
   text-transform: none;
 }
 
+.background-responsive {
+  @media (min-width: 768px) {
+    background: linear-gradient(to right, #36d1bc, #1195ff) !important;
+    z-index: -1;
+    margin: 0;
+    min-height: 100vh;
+
+    .header {
+      background: transparent !important;
+    }
+
+    h4 {
+      color: #fff;
+      font-size: 24px;
+    }
+  }
+}
+
 .MuiLinearProgress-barColorPrimary {
   background-color: #eee !important;
 }
@@ -87,6 +105,16 @@ a {
   }
 }
 
+.btn-full-width {
+  width: 182px !important;
+}
+
+.btn-outlined-white {
+  background-color: transparent !important;
+  color: #fff;
+  border: 1px solid #fff !important;
+}
+
 .text-grey {
   color: #999999;
   text-align: center;
@@ -96,9 +124,15 @@ a {
   font-weight: 600;
 }
 
-.hide-object {
+.hide-desktop {
   @media (min-width: 768px) {
     display: none;
+  }
+}
+
+.hide-mobile {
+  @media (max-width: 768px) {
+    display: none !important;
   }
 }
 
@@ -106,4 +140,18 @@ a {
   @media (min-width: 768px) {
     color: #fff !important;
   }
+}
+
+.flexrow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
+}
+
+.wid100 {
+  width: 100%;
 }

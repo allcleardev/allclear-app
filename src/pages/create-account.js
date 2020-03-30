@@ -43,98 +43,103 @@ export default function CreateAccount() {
   };
 
   return (
-    <Box className="create-profile">
-      <Header>
-        <h1>Create Account</h1>
-        <p>
-          First, tell us a litte about yourself so we know how to help you best.
-        </p>
-      </Header>
+    <div className="background-responsive">
+      <Box className="create-profile">
+        <Header>
+          <h1>Create Account</h1>
+          <p>
+            First, tell us a litte about yourself so we know how to help you
+            best.
+          </p>
+        </Header>
+
 
       <div style={bodyStyle}>
         <h4>COVID-19 TESTING</h4>
 
-        <ToggleButtonGroup
-          value={valueTesting}
-          exclusive
-          onChange={handleSymtomsChange}
-          aria-label="Testing"
-          className="toggleButtonGroup"
-        >
-          <ToggleButton
-            value="wantTest"
-            aria-label="wantTest"
-            className="toggleButton"
-          >
-            I want to be tested
-          </ToggleButton>
-          <ToggleButton
-            value="tested"
-            aria-label="tested"
-            className="toggleButton"
-          >
-            I have been tested
-          </ToggleButton>
-          <ToggleButton
-            value="neither"
-            aria-label="neither"
-            className="toggleButton"
-          >
-            Neither
-          </ToggleButton>
-        </ToggleButtonGroup>
 
-        <h4>COVID-19 SYMPTOMS</h4>
-        <ToggleButtonGroup
-          value={valueSympotyms}
-          exclusive
-          onChange={handleChange}
-          aria-label="Testing"
-          className="toggleButtonGroup"
-        >
-          <ToggleButton
-            value="nosymptoms"
-            aria-label="nosymptoms"
-            className="toggleButton"
+          <ToggleButtonGroup
+            value={valueTesting}
+            exclusive
+            onChange={handleSymtomsChange}
+            aria-label="Testing"
+            className="toggleButtonGroup"
           >
-            I don't have symptoms
-          </ToggleButton>
-          <ToggleButton
-            value="hadsymtoms"
-            aria-label="hadsymtoms"
-            className="toggleButton"
-          >
-            I had symptoms
-          </ToggleButton>
-          <ToggleButton
-            value="havesymtoms"
-            aria-label="havesymtoms"
-            className="toggleButton"
-          >
-            I have symptoms
-          </ToggleButton>
-        </ToggleButtonGroup>
-        <Grid container justify="center">
-          <Grid item xs={12} sm={4}>
-            <Link to="/phone-verify">
-              <Button
-                variant="contained"
-                color="primary"
-                fullWidth="true"
-                className="button btn-responsive font-weight-600"
-              >
-                Create Account
-              </Button>
-            </Link>
+            <ToggleButton
+              value="wantTest"
+              aria-label="wantTest"
+              className="toggleButton"
+            >
+              I want to be tested
+            </ToggleButton>
+            <ToggleButton
+              value="tested"
+              aria-label="tested"
+              className="toggleButton"
+            >
+              I have been tested
+            </ToggleButton>
+            <ToggleButton
+              value="neither"
+              aria-label="neither"
+              className="toggleButton"
+            >
+              Neither
+            </ToggleButton>
+          </ToggleButtonGroup>
 
-            <p className="text-grey hide-object">
-              Already have an account?{" "}
-              <span style={{ color: "#007AFF" }}>Sign In</span>
-            </p>
+          <h4>CORVID-19 SYMPTOMS</h4>
+          <ToggleButtonGroup
+            value={valueSympotyms}
+            exclusive
+            onChange={handleChange}
+            aria-label="Testing"
+            className="toggleButtonGroup"
+          >
+            <ToggleButton
+              value="nosymptoms"
+              aria-label="nosymptoms"
+              className="toggleButton"
+            >
+              I don't have symptoms
+            </ToggleButton>
+            <ToggleButton
+              value="hadsymtoms"
+              aria-label="hadsymtoms"
+              className="toggleButton"
+            >
+              I had symptoms
+            </ToggleButton>
+            <ToggleButton
+              value="havesymtoms"
+              aria-label="havesymtoms"
+              className="toggleButton"
+            >
+              I have symptoms
+            </ToggleButton>
+          </ToggleButtonGroup>
+          <Grid container justify="center">
+            <Grid item xs={12} sm={4}>
+              <Link to="/phone-verify">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  fullWidth="true"
+                  className="button btn-responsive font-weight-600"
+                >
+                  Create Account
+                </Button>
+              </Link>
+
+              <p className="text-grey hide-desktop">
+                Already have an account?{" "}
+                <span style={{ color: "#007AFF" }}>Sign In</span>
+              </p>
+            </Grid>
           </Grid>
-        </Grid>
-      </div>
-      <ProgressBottom></ProgressBottom>
-    </Box>
+        </div>
+        <ProgressBottom></ProgressBottom>
+      </Box>
+    </div>
   );
 }
