@@ -5,10 +5,13 @@
   right: 4px;
   border-radius: 50px;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
-  display: none;
   z-index: 9999;
 
-  @media (max-width: 768px) {
-    display: inline-flex;
+  &.MuiBottomNavigation-root {
+    display: none;
+
+    @media (max-width: $sm) {
+      display: inline-flex;
+    }
   }
 }
