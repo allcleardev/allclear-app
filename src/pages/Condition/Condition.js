@@ -1,52 +1,134 @@
-import React, { Fragment } from 'react';
+import React, { Fragment } from "react";
+import Header from "../../components/header-round";
+import ProgressBottom from "../../components/progressBottom";
 import states from './Condition.state';
+import Box from "@material-ui/core/Container";
+import { Button, Grid } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
-
+import ToggleButton from "@material-ui/lab/ToggleButton";
+import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 
 class Condition extends React.Component {
     state = states
 
-    componentDidMount = () => {
+    handleSymtomsChange = (event, newValue) => {
+        if (!newValue) return;
+        // setValue(newValue);
+    };
 
-    }
-
-    handleInputChange = (event, name) => {
-
-    }
-
+    handleChange = (event, newValue) => {
+        if (!newValue) return;
+        // setSymptomsValue(newValue);
+    };
 
     render() {
         return (
             <Fragment>
-                <div className="mainWrapper">
-                    <div className="wrapScreen">
-                        <div className="screenHead">
-                            <div style={{ paddingTop: 60 }}></div>
-                            <div className="arrow"><i className="fa fa-angle-left" aria-hidden="true"></i></div>
-                            <div className="headingTxt">Conditions</div>
-                            <div className="subHeading">
-                                Some test centers are only seeing patients with certain health conditions
-			        	</div>
-                        </div>
-                        <div className="workSpaceArea">
-                            <div className="btnXyx">
-                                <h5>Select all that Apply</h5>
+                <div className="background-responsive">
+                    <Box className="condition-new">
+                        <Header>
+                            <h1>Conditions</h1>
+                            <p>
+                                Some test centers are only seeing patients with certain health conditions.
+                               </p>
+                        </Header>
 
-                                <div className="wrapBtns">Weakened Immune System</div>
-                                <div className="wrapBtns">Cardiovascular or Respiratory Disease</div>
-                                <div className="wrapBtns">Kidney Failure or Cirrhosis</div>
-                                <div className="wrapBtns">Diabetes</div>
-                                <div className="wrapBtns">Pregnancy</div>
-                                <div className="wrapBtns">None</div>
-                                <div className="wrapBtn"><Link to="/symptom"><button>Next</button></Link></div>
-                            </div>
-                        </div>
 
-                        <div style={{ marginBottom: 20, float: 'left', width: '100%' }}></div>
-                    </div>
+                        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', alignContent: 'space-between' }}>
+                            <h4>COVID-19 TESTING</h4>
+
+
+                            <ToggleButtonGroup
+                                value={this.state.condition}
+                                formatting
+                                onChange={() => this.state.handleSymtomsChange}
+                                aria-label="Testing"    
+                                className="toggleButtonGroup"
+                            >
+                                <ToggleButton
+                                    value="weakend"
+                                    
+                                    aria-label="wantTest"
+                                    className="toggleButton"
+                                >
+                                    Weakend Immune System
+                                 </ToggleButton>
+                                <ToggleButton
+                                    value="cardiovascular"
+                                    aria-label="tested"
+                                    className="toggleButton"
+                                    
+                                >
+                                    Respiratory Diseases
+                                </ToggleButton>
+                                <ToggleButton
+                                    value="kidneyFailure"
+                                    aria-label="neither"
+                                    
+                                    className="toggleButton"
+                                >
+                                    Kidney Failure or Cirrhosis
+                             </ToggleButton>
+                            </ToggleButtonGroup>
+                            <ToggleButtonGroup
+                                value={this.state.condition}
+                                formatting
+                                onChange={() => this.state.handleSymtomsChange}
+                                aria-label="Testing"
+                                className="toggleButtonGroup"
+                            >
+                                <ToggleButton
+                                    value="diabetes"
+                                    aria-label="wantTest"
+                                    className="toggleButton"
+                                    
+                                >
+                                    Diabetes
+                                 </ToggleButton>
+                                <ToggleButton
+                                    value="pregnancy"
+                                    aria-label="tested"
+                                    className="toggleButton"
+                                    
+                                >
+                                    Pregnancy
+                                </ToggleButton>
+                                <ToggleButton
+                                    value="none"
+                                    aria-label="neither"
+                                    
+                                    className="toggleButton"
+                                >
+                                    None
+                             </ToggleButton>
+                            </ToggleButtonGroup>
+                            <Grid container justify="center">
+                                <Grid item xs={12} sm={4}>
+                                    <Link to="/phone-verify">
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            fullWidth="true"
+                                            className="button btn-responsive font-weight-600"
+                                        >
+                                            Next
+                                        </Button>
+                                    </Link>
+                                </Grid>
+                            </Grid>
+                        </div>
+                        <ProgressBottom progress="0"></ProgressBottom>
+                    </Box>
                 </div>
             </Fragment>
         )
+
+
+
     }
+    //   return (
+
+    //   );
 }
 export default Condition
