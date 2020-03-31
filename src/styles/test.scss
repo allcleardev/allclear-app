@@ -69,12 +69,46 @@
       }
     }
 
-    .PrivateTabIndicator-colorSecondary-75 {
+    .MuiTabs-indicator {
       border-bottom: 4px solid $primary-color;
     }
   }
 
   .list {
     margin: 0;
+  }
+
+  .test-results {
+    margin-top: -36px;
+
+    .card-test-result {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+      border-radius: 15px;
+      padding: 7px 15px;
+
+      @media (min-width: $sm) {
+        padding: 16px 36px;
+      }
+
+      .MuiCardContent-root {
+        padding: 0;
+      }
+
+      @media (max-width: $sm) {
+        box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+        border-radius: 6px;
+      }
+
+      &:not(:first-child) {
+        margin: 7px 0;
+
+        @media (max-width: $sm) {
+          margin: 11px 0;
+        }
+      }
+    }
   }
 }
