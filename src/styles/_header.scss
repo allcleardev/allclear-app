@@ -89,7 +89,7 @@
   font-family: $font-normal;
   font-size: 17px;
 
-  @media (min-width: 768px) {
+  @media (min-width: $md) {
     border-radius: 0 !important;
     padding-left: 0;
     padding-right: 0;
