@@ -16,7 +16,7 @@
   font-family: $font-normal;
   font-size: 17px;
 
-  @media (min-width: 768px) {
+  @media (min-width: $md) {
     margin: 0 -130px;
     padding-left: 0;
     padding-right: 0;
@@ -31,7 +31,7 @@
       background-color: transparent !important;
       box-shadow: none;
 
-      @media (min-width: 768px) {
+      @media (min-width: $md) {
         display: none;
       }
     }
@@ -40,10 +40,12 @@
   .header-logo {
     display: none;
 
-    @media (min-width: 768px) {
+    @media (min-width: $md) {
       display: flex;
       justify-content: space-between;
       padding-bottom: 35px;
+      width: $md;
+      margin: auto;
     }
 
     .logo {
