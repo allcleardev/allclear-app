@@ -4,6 +4,7 @@
 @import "create-account";
 @import "phone-verify";
 @import "test";
+@import "footer";
 
 * {
   font-family: $font-normal;
@@ -59,6 +60,10 @@
   font-weight: 600;
   font-size: 20px;
   margin: 15px 0;
+
+  @media (max-width: $sm) {
+    font-size: 18px;
+  }
 }
 
 a {
@@ -107,6 +112,10 @@ a {
   &:not(:first-child) {
     margin: 0 7px;
   }
+
+  @media (max-width: $sm) {
+    padding: 0 3px !important;
+  }
 }
 
 .btn-responsive {
@@ -115,6 +124,21 @@ a {
     color: $primary-color !important;
     font-size: 17px;
   }
+}
+
+.btn {
+  box-sizing: border-box !important;
+  border-radius: 14px !important;
+  height: 28px;
+  padding: 0 25px !important;
+}
+
+.grey-back {
+  background-color: #e5e5ea !important;
+}
+
+.primary-back {
+  background-color: $primary-color !important;
 }
 
 .btn-full-width {
@@ -133,12 +157,12 @@ a {
 }
 
 .font-weight-600 {
-  font-weight: 600;
+  font-weight: 600 !important;
 }
 
 .hide-desktop {
   @media (min-width: 768px) {
-    display: none;
+    display: none !important;
   }
 }
 
@@ -172,6 +196,65 @@ a {
   color: $black-color;
 }
 
+.grey {
+  color: $grey-color;
+}
+
 .white {
   color: $white-color !important;
+}
+
+.list::before {
+  content: "•";
+  padding-right: 5px;
+}
+
+.aligncenter {
+  text-align: center;
+}
+
+.input-white-back-phone {
+  background-color: #fff;
+  border-radius: 8px;
+  height: 60px;
+
+  .MuiInputLabel-formControl {
+    left: 7px;
+  }
+
+  .MuiInput-underline:before {
+    display: none;
+  }
+
+  .MuiInput-underline:after {
+    display: none;
+  }
+
+  .MuiFilledInput-underline:before {
+    display: none;
+  }
+
+  .MuiFilledInput-underline:after {
+    display: none;
+  }
+}
+
+.white-back-input {
+  .MuiFilledInput-root {
+    background-color: #fff;
+    border-radius: 8px;
+
+    .MuiInputBase-input {
+      background-color: #fff;
+      border-radius: 8px;
+    }
+  }
+
+  .MuiFilledInput-underline:before {
+    display: none;
+  }
+
+  .MuiFilledInput-underline:after {
+    display: none;
+  }
 }

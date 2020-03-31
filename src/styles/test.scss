@@ -5,10 +5,18 @@
     justify-content: space-between;
   }
 
+  @media (min-width: $lg) {
+    width: $lg !important;
+    display: flex;
+    justify-content: space-between;
+  }
+
   .test-tabs-wrapper {
     border: 9px solid #fff;
     border-radius: 12px;
     background-color: #fff;
+    box-shadow: 0px 24px 32px rgba(50, 50, 71, 0.08),
+      0px 10px 16px rgba(50, 50, 71, 0.15);
   }
 
   .test-tabs {
@@ -33,6 +41,74 @@
 
     .PrivateTabIndicator-colorSecondary-75 {
       background-color: transparent;
+    }
+  }
+
+  .tab-overview-tests {
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    background-color: #fff;
+    margin-top: -33px;
+
+    .tab-header-overview-tests {
+      background-color: transparent;
+      box-shadow: none;
+      border-bottom: 1px solid #c7c7cc;
+      color: #aeaeb2;
+
+      .MuiTab-textColorInherit {
+        border-bottom: 4px solid #c7c7cc;
+
+        @media (max-width: $sm) {
+          width: 50%;
+        }
+      }
+
+      .MuiTab-textColorInherit.Mui-selected {
+        color: $primary-color;
+      }
+    }
+
+    .MuiTabs-indicator {
+      border-bottom: 4px solid $primary-color;
+    }
+  }
+
+  .list {
+    margin: 0;
+  }
+
+  .test-results {
+    margin-top: -36px;
+
+    .card-test-result {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+      border-radius: 15px;
+      padding: 7px 15px;
+
+      @media (min-width: $sm) {
+        padding: 16px 36px;
+      }
+
+      .MuiCardContent-root {
+        padding: 0;
+      }
+
+      @media (max-width: $sm) {
+        box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+        border-radius: 6px;
+      }
+
+      &:not(:first-child) {
+        margin: 7px 0;
+
+        @media (max-width: $sm) {
+          margin: 11px 0;
+        }
+      }
     }
   }
 }
