@@ -4,6 +4,7 @@
 @import "create-account";
 @import "phone-verify";
 @import "test";
+@import "footer";
 
 * {
   font-family: $font-normal;
@@ -125,6 +126,21 @@ a {
   }
 }
 
+.btn {
+  box-sizing: border-box !important;
+  border-radius: 14px !important;
+  height: 28px;
+  padding: 0 25px !important;
+}
+
+.grey-back {
+  background-color: #e5e5ea !important;
+}
+
+.primary-back {
+  background-color: $primary-color !important;
+}
+
 .btn-full-width {
   width: 182px !important;
 }
@@ -141,7 +157,7 @@ a {
 }
 
 .font-weight-600 {
-  font-weight: 600;
+  font-weight: 600 !important;
 }
 
 .hide-desktop {
@@ -195,4 +211,50 @@ a {
 
 .aligncenter {
   text-align: center;
+}
+
+.input-white-back-phone {
+  background-color: #fff;
+  border-radius: 8px;
+  height: 60px;
+
+  .MuiInputLabel-formControl {
+    left: 7px;
+  }
+
+  .MuiInput-underline:before {
+    display: none;
+  }
+
+  .MuiInput-underline:after {
+    display: none;
+  }
+
+  .MuiFilledInput-underline:before {
+    display: none;
+  }
+
+  .MuiFilledInput-underline:after {
+    display: none;
+  }
+}
+
+.white-back-input {
+  .MuiFilledInput-root {
+    background-color: #fff;
+    border-radius: 8px;
+
+    .MuiInputBase-input {
+      background-color: #fff;
+      border-radius: 8px;
+    }
+  }
+
+  .MuiFilledInput-underline:before {
+    display: none;
+  }
+
+  .MuiFilledInput-underline:after {
+    display: none;
+  }
 }
