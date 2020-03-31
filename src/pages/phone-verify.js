@@ -10,6 +10,7 @@ import Axios from "axios";
 
 import Header from "../components/header-round";
 import ProgressBottom from "../components/progressBottom";
+import PhoneNumber from "../components/phoneNumber";
 
 export default function PhoneVerify({ props }) {
   const [state, setState] = React.useState({
@@ -48,10 +49,10 @@ export default function PhoneVerify({ props }) {
           </h1>
           <p>Enter your phone number to get started.</p>
         </Header>
-        <form noValidate autoComplete="off">
+        <form noValidate autoComplete="off" style={{ textAlign: "center" }}>
           <Grid container justify="center">
             <Grid item xs={12} sm={6}>
-              <TextField
+              {/* <TextField
                 inputRef={textInput}
                 id="standard-basic"
                 label="Phone Number"
@@ -60,11 +61,13 @@ export default function PhoneVerify({ props }) {
                   justifyContent: "center",
                   margin: "80px 0"
                 }}
+                className="hide-desktop"
                 v
-              />
+              /> */}
+              <PhoneNumber className="hide-mobile"></PhoneNumber>
             </Grid>
           </Grid>
-          <p className="turn-white text-grey" style={{ padding: "30px" }}>
+          <p className="turn-white text-grey" style={{ padding: "30px 0" }}>
             Please review and agree to the{" "}
             <span style={{ color: "#002C83" }}>
               <strong>Terms & Conditions</strong>
