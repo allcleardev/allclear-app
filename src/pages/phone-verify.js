@@ -66,9 +66,14 @@ export default function PhoneVerify({ props }) {
           </Grid>
           <p className="turn-white text-grey" style={{ padding: "30px" }}>
             Please review and agree to the{" "}
-            <span style={{ color: "#007AFF" }}>Terms & Conditions</span> and{" "}
-            <span style={{ color: "#007AFF" }}>Privacy Policy</span> before
-            continuing
+            <span style={{ color: "#002C83" }}>
+              <strong>Terms & Conditions</strong>
+            </span>{" "}
+            and{" "}
+            <span style={{ color: "#002C83" }}>
+              <strong>Privacy Policy</strong>
+            </span>{" "}
+            before continuing
           </p>
           <FormControlLabel
             control={
@@ -88,7 +93,7 @@ export default function PhoneVerify({ props }) {
                 variant="contained"
                 color="primary"
                 fullWidth="true"
-                className="button btn-outlined-white hide-mobile btn-full-width"
+                className="button btn-outlined-white hide-mobile btn-full-width font-weight-600"
               >
                 Back
               </Button>
@@ -98,7 +103,7 @@ export default function PhoneVerify({ props }) {
               variant="contained"
               color="primary"
               fullWidth="true"
-              className="button btn-responsive btn-full-width"
+              className="button btn-responsive btn-full-width font-weight-600"
             >
               Verify Phone Number
             </Button>
