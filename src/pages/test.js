@@ -14,6 +14,11 @@ import Fab from "@material-ui/core/Fab";
 import Icon from "@material-ui/core/Icon";
 
 import Header from "../components/homescreen-header";
+import TestResultCard from "../components/cardTestResults";
+import NavBottom from "../components/navBottom";
+import FabBlueBottom from "../components/fabBlueBottom";
+
+import { testResult } from "../constants";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -194,9 +199,6 @@ export default function CompleteProfile() {
             </Button>
           </div>
         </TabPanel>
-        <TabPanel value={value} index={1}>
-          Item Two
-        </TabPanel>
       </Header>
       <TabPanel value={value} index={0}>
         <div className="tab-overview-tests">
@@ -280,7 +282,40 @@ export default function CompleteProfile() {
         </TabPanel>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+        <div className="test-results">
+          {testResult.map((result, index) => (
+            <TestResultCard
+              key={index}
+              title={result.title}
+              date={result.date}
+              result={result.result}
+            ></TestResultCard>
+          ))}
+        </div>
+        <FabBlueBottom
+          style={{
+            position: "fixed",
+            bottom: 70,
+            right: 20
+          }}
+        >
+          <svg
+            width="17"
+            height="17"
+            viewBox="0 0 17 17"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M8.5 1.12891V15.1289M1.5 8.12891H15.5"
+              stroke="white"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </FabBlueBottom>
+        <NavBottom></NavBottom>
       </TabPanel>
     </Box>
   );
