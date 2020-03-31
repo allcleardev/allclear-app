@@ -9,8 +9,16 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import { Grid } from "@material-ui/core";
+import Fab from "@material-ui/core/Fab";
+import Icon from "@material-ui/core/Icon";
 
 import Header from "../components/homescreen-header";
+import TestResultCard from "../components/cardTestResults";
+import NavBottom from "../components/navBottom";
+import FabBlueBottom from "../components/fabBlueBottom";
+
+import { testResult } from "../constants";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -42,6 +50,13 @@ function a11yProps(index) {
   };
 }
 
+function a12yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`
+  };
+}
+
 const useStyles = makeStyles(theme => ({
   button: {
     width: "100%",
@@ -55,15 +70,14 @@ export default function CompleteProfile() {
   const classes = useStyles();
 
   const [value, setValue] = React.useState(0);
+  const [secondValue, setSecondValue] = React.useState(0);
 
-  const [newSubValue, setSubValue] = React.useState(0);
-
-  const handleChange = (event, newSubValue) => {
-    setSubValue(newSubValue);
+  const handleChange = (e, newValue) => {
+    setValue(newValue);
   };
 
-  const handleSubChange = (event, newSubValue) => {
-    setValue(newSubValue);
+  const handleSecondChange = (e, newValue) => {
+    setSecondValue(newValue);
   };
 
   return (
@@ -74,10 +88,18 @@ export default function CompleteProfile() {
             <Tabs
               value={value}
               onChange={handleChange}
-              aria-label="simple tabs example"
+              aria-label="Find Tests and Test Results"
             >
-              <Tab label="Find Tests" {...a11yProps(0)} />
-              <Tab label="Test Results" {...a11yProps(1)} />
+              <Tab
+                label="Find Tests"
+                {...a11yProps(0)}
+                style={{ width: "50%" }}
+              />
+              <Tab
+                label="Test Results"
+                {...a11yProps(1)}
+                style={{ width: "50%" }}
+              />
             </Tabs>
           </AppBar>
         </div>
@@ -89,12 +111,38 @@ export default function CompleteProfile() {
             flexDirection: "column",
             justifyContent: "flex-start",
             color: "#fff",
-            paddingTop: "36px",
+            padding: "36px 0",
             lineHeight: "7px"
           }}
           className="header-tabpanel"
         >
-          <Button startIcon={<ArrowBackIosIcon />} style={{ color: "#fff" }}>
+          <Fab
+            size="small"
+            aria-label="add"
+            className="hide-desktop"
+            style={{ background: "transparent", boxShadow: "none" }}
+          >
+            <svg
+              width="9"
+              height="15"
+              viewBox="0 0 9 15"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M7.59375 13.1428L1.59375 7.14282L7.59375 1.14282"
+                stroke="white"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </Fab>
+          <Button
+            startIcon={<ArrowBackIosIcon />}
+            style={{ color: "#fff" }}
+            className="hide-mobile"
+          >
             Back
           </Button>
           <h2 className="body-title">Williamsburg Drive-Thru Testing</h2>
@@ -113,7 +161,7 @@ export default function CompleteProfile() {
             <p style={{ padding: "0 30px" }}>9am - 5pm</p>
             <p style={{ padding: "0 30px" }}>Walk-Up</p>
           </div>
-          <div>
+          <div style={{ paddingTop: "15px" }}>
             <Button className="btn-gradient white">Website</Button>
             <Button className="btn-gradient white">Directions</Button>
             <Button className="btn-gradient white">
@@ -151,36 +199,123 @@ export default function CompleteProfile() {
             </Button>
           </div>
         </TabPanel>
-        <TabPanel value={value} index={1}>
-          Item Two
-        </TabPanel>
       </Header>
-      <TabPanel value={newSubValue} index={0}>
-        <div className={classes.root}>
-          <AppBar position="static">
+      <TabPanel value={value} index={0}>
+        <div className="tab-overview-tests">
+          <AppBar position="static" className="tab-header-overview-tests">
             <Tabs
-              value={newSubValue}
-              onChange={handleSubChange}
-              aria-label="simple tabs example"
+              value={secondValue}
+              onChange={handleSecondChange}
+              aria-label="Overview and Tests"
             >
-              <Tab label="Item One" {...a11yProps(0)} />
-              <Tab label="Item Two" {...a11yProps(1)} />
-              <Tab label="Item Three" {...a11yProps(2)} />
+              <Tab label="Overview" {...a12yProps(0)} />
+              <Tab label="Tests" {...a12yProps(1)} />
             </Tabs>
           </AppBar>
-          <TabPanel value={newSubValue} index={0}>
-            Item One
+          <TabPanel
+            value={secondValue}
+            index={0}
+            style={{
+              display: "flex",
+              justifyContent: "flex-start",
+              padding: "12px",
+              flexDirection: "column",
+              color: "#5C5C5C"
+            }}
+          >
+            <div></div>
+            <p>
+              <strong>Location Type: </strong> Hospital
+            </p>
+            <p>
+              <strong>Appoinments: </strong> No
+            </p>
+            <p>
+              <strong>Drive-Thru: </strong> Yes
+            </p>
+            <h3 className="body-title black">Screening Requirements</h3>
+            <div>
+              <p className="list">Must be 65+ in age</p>
+              <p className="list">
+                Must have Fever, Cough, and/or <br />
+                Shortness of Breath
+              </p>
+              <p className="list">Must be immunocompromised</p>
+            </div>
+            <p className="grey" style={{ marginBottom: "2px" }}>
+              Description
+            </p>
+            <p style={{ marginTop: "3px" }}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
+              volutpat orci fusce ipsum. Nibh augue amet, rhoncus nulla
+              ultricies vulputate ornare. Amet dolor volutpat rhoncus, quis sit.
+              Aliquet scelerisque vulputate amet natoque. Pretium neque turpis
+              arcu enim. Posuere auctor velit arcu vestibulum. Tincidunt diam
+              nisi convallis id a aliquam. Mattis euismod tellus penatibus
+              pellentesque parturient sodales nec mattis porta. Lacus amet,
+              egestas turpis sit id quisque pharetra, sit. Tristique
+              sollicitudin sed ipsum sollicitudin. Urna ac enim quis bibendum id
+              orci.
+            </p>
           </TabPanel>
-          <TabPanel value={newSubValue} index={1}>
+          <TabPanel value={secondValue} index={1}>
             Item Two
           </TabPanel>
-          <TabPanel value={newSubValue} index={2}>
-            Item Three
-          </TabPanel>
         </div>
+        <TabPanel value={secondValue} index={0}>
+          <Grid container justify="center">
+            <Grid item xs={12} sm={4}>
+              <p
+                style={{
+                  textAlign: "center",
+                  padding: "20px 0",
+                  color: "#7B7B7B"
+                }}
+              >
+                Want to help us improve our data?
+              </p>
+              <Button variant="contained" color="primary" className="button">
+                Leave Feedback
+              </Button>
+            </Grid>
+          </Grid>
+        </TabPanel>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+        <div className="test-results">
+          {testResult.map((result, index) => (
+            <TestResultCard
+              key={index}
+              title={result.title}
+              date={result.date}
+              result={result.result}
+            ></TestResultCard>
+          ))}
+        </div>
+        <FabBlueBottom
+          style={{
+            position: "fixed",
+            bottom: 70,
+            right: 20
+          }}
+        >
+          <svg
+            width="17"
+            height="17"
+            viewBox="0 0 17 17"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M8.5 1.12891V15.1289M1.5 8.12891H15.5"
+              stroke="white"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </FabBlueBottom>
+        <NavBottom></NavBottom>
       </TabPanel>
     </Box>
   );
