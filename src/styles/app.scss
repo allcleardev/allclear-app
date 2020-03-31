@@ -59,6 +59,10 @@
   font-weight: 600;
   font-size: 20px;
   margin: 15px 0;
+
+  @media (max-width: $sm) {
+    font-size: 18px;
+  }
 }
 
 a {
@@ -107,6 +111,10 @@ a {
   &:not(:first-child) {
     margin: 0 7px;
   }
+
+  @media (max-width: $sm) {
+    padding: 0 3px !important;
+  }
 }
 
 .btn-responsive {
@@ -138,7 +146,7 @@ a {
 
 .hide-desktop {
   @media (min-width: 768px) {
-    display: none;
+    display: none !important;
   }
 }
 
@@ -172,6 +180,19 @@ a {
   color: $black-color;
 }
 
+.grey {
+  color: $grey-color;
+}
+
 .white {
   color: $white-color !important;
+}
+
+.list::before {
+  content: "•";
+  padding-right: 5px;
+}
+
+.aligncenter {
+  text-align: center;
 }
