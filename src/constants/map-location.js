@@ -2,9 +2,10 @@
 import locations from '../hooks/airtable'
 console.log(locations.locations[0]);
 
-export const mapLocationData = locations.locations.slice(1,3);
+export const mapLocationData = locations.locations.slice(1,100);
 
 /*
+The data from Airtable is displayed as such
 {
 Name: "Urgent Care for Children - Trussville",
 Address: "117 North Chalkville Road Trussville, AL 35173",
