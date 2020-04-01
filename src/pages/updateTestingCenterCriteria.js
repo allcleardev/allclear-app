@@ -239,10 +239,10 @@ export default function UpdateCriteria() {
               </FormControl>
             </div>
             <div className="sub-card">
-              <h5 className="body-sub-title">Exposure to CORVID-19</h5>
+              <h5 className="body-sub-title">Exposure to COVID-19</h5>
               <p className="body-sub-description">
                 Some test centers require knowledge of your exposure to people
-                who have tested positive for CORVID-19.
+                who have tested positive for COVID-19.
               </p>
               <FormControl variant="outlined" className="form-control">
                 <Select
