@@ -106,7 +106,7 @@ class Condition extends React.Component {
                                     <h5 onClick={() => this.selectAll()}>Select all that Apply</h5>
                                     {this.state.conditions && this.state.conditions.map((res) => {
                                     return (
-                                        <div className={"wrapBtns" + (res.isActive ? 'ŽActive' : '')}  onClick={() => this.handleChange(res)}>{res.name}</div>
+                                        <div className={"wrapBtns" + (res.isActive ? ' Active' : '')}  onClick={() => this.handleChange(res)}>{res.name}</div>
                                     )
 
                                 })}
