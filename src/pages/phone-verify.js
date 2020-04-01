@@ -5,50 +5,39 @@ import Box from "@material-ui/core/Container";
 import { Button, Grid } from "@material-ui/core";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
+import TextField from "@material-ui/core/TextField";
 import Axios from "axios";
 
 import Header from "../components/header-round";
+import ProgressBottom from "../components/progressBottom";
 import PhoneNumber from "../components/phoneNumber";
-import MuiPhoneNumber from "material-ui-phone-number";
-import PropTypes from "prop-types";
 
-const styles = {};
 export default function PhoneVerify({ props }) {
   const [state, setState] = React.useState({
-    checkedB: true,
-    phone: ""
+    checkedB: true
   });
 
   const history = useHistory();
+  let textInput = React.createRef();
 
   const handleChange = event => {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
 
-  const handlePhoneChange = (value) => {
-    if (value) {
-      setState({ phone: value });
-    }
-  };
-
-  // Function to make call backend service to initiate the magic link
   const verifyPhoneNumber = async () => {
-    console.log('state', state);
-    console.log('props', props);
+    // console.log(history);
+    // console.log(textInput.current.value);
 
     const response = await Axios.post(
       "https://api-dev.allclear.app/peoples/start",
       {
-        phone: state.phone,
+        phone: textInput.current.value,
         beenTested: true,
         haveSymptoms: true
       }
-    ).then((response) => {
-      console.log('response', response);
-      history.push("/phone-verify-success");
-    }).catch((error) => {
-      console.log('error', error)
-    });
+    );
+    console.log(response);
+    history.push("/complete-profile");
   };
 
   return (
@@ -63,26 +52,19 @@ export default function PhoneVerify({ props }) {
         <form noValidate autoComplete="off" style={{ textAlign: "center" }}>
           <Grid container justify="center">
             <Grid item xs={12} sm={6}>
-              <MuiPhoneNumber
-                name="phone"
+              {/* <TextField
+                inputRef={textInput}
+                id="standard-basic"
                 label="Phone Number"
-                data-cy="user-phone"
-                defaultCountry={"us"}
-                value={state.phone}
-                onChange={handlePhoneChange}
+                style={{
+                  width: "100%",
+                  justifyContent: "center",
+                  margin: "80px 0"
+                }}
                 className="hide-desktop"
-                style={{ margin: "80px 0" }}
-              />
-              <MuiPhoneNumber
-                name="phone"
-                label="Phone Number"
-                data-cy="user-phone"
-                defaultCountry={"us"}
-                value={state.phone}
-                onChange={handlePhoneChange}
-                className="input-white-back-phone hide-mobile"
-                style={{ margin: "80px 0" }}
-              />
+                v
+              /> */}
+              <PhoneNumber className="hide-mobile"></PhoneNumber>
             </Grid>
           </Grid>
           <p className="turn-white text-grey" style={{ padding: "30px 0" }}>
@@ -130,13 +112,8 @@ export default function PhoneVerify({ props }) {
             </Button>
           </div>
         </form>
+        <ProgressBottom progress="100px"></ProgressBottom>
       </Box>
     </div>
   );
 }
-PhoneNumber.propTypes = {
-  classes: PropTypes.object.isRequired,
-  open: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired
-};

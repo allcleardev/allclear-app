@@ -3,8 +3,14 @@
   flex-direction: column;
   justify-content: center;
 
-  @media (min-width: 768px) {
-    width: 922px !important;
+  @media (min-width: $md) {
+    width: $md !important;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  @media (min-width: $lg) {
+    width: $lg !important;
     display: flex;
     justify-content: space-between;
   }
@@ -13,5 +19,15 @@
     color: #999999;
     display: flex;
     justify-content: center;
+    width: 87%;
+    margin: auto;
+
+    .MuiTypography-body1 {
+      text-align: left;
+
+      @media (max-width: $sm) {
+        font-size: 13px;
+      }
+    }
   }
 }
