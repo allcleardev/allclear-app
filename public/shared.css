@@ -479,7 +479,7 @@ input:checked+.slider:before {
 
 .wrp_btns008 h6{margin-bottom: 30px;}
 
-.btns008Active{background-color: #002C83 !important;border:1px #002C83 solid !important;}
+.btns008Active{background-color: #002C83 !important;border:1px #002C83 solid !important;color: white;}
 
 
 .backBtn{
