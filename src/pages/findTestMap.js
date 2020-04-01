@@ -65,7 +65,7 @@ function CardMapLocation({
         <div className="card-content">
           <h3 className="card-title" style={{ color: "#000" }}>
             <span className="grey" style={{}}>
-              {index}.
+              {index + 1}.
             </span>{" "}
             {title}
           </h3>
@@ -194,6 +194,7 @@ export default function CompleteProfile() {
           <Divider className={classes.divider} orientation="horizontal" />
           {mapLocationData.map((result, index) => (
             <CardMapLocation
+              index={index}
               title={result.title}
               description={result.description}
               status={result.status}
@@ -261,13 +262,7 @@ export default function CompleteProfile() {
           </svg>
         </IconButton>
         <NavBottom></NavBottom>
-        <FabBlueBottom
-          style={{
-            position: "fixed",
-            bottom: 320,
-            right: 20
-          }}
-        >
+        <FabBlueBottom class_name="btn-blue-bottom">
           <svg
             width="24"
             height="21"
