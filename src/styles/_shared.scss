@@ -1,0 +1,27 @@
+$colors: (
+  "primary": $primary-color,
+  "white": $white-color,
+  "black": $black-color,
+  "grey": $grey-color,
+  "grey2": $grey2
+);
+
+@each $name, $color in $colors {
+  .bg-#{$name} {
+    background-color: $color !important;
+  }
+
+  .color-#{$name} {
+    color: $color !important;
+  }
+}
+
+@for $num from 12 to 100 {
+  .fontsize-#{$num} {
+    font-size: $num + px !important;
+  }
+
+  .height-#{$num} {
+    height: $num + px !important;
+  }
+}
