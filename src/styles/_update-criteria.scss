@@ -1,0 +1,13 @@
+.update-criteria {
+  .btn-back-fab {
+    margin-top: -25px;
+    justify-content: flex-start;
+    display: block;
+    background-color: transparent !important;
+    box-shadow: none;
+
+    @media (min-width: $md) {
+      display: none;
+    }
+  }
+}
