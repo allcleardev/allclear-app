@@ -53,10 +53,8 @@ export default function CreateAccount() {
           </p>
         </Header>
 
-
-      <div style={bodyStyle}>
-        <h4>COVID-19 TESTING</h4>
-
+        <div style={bodyStyle}>
+          <h4>COVID-19 TESTING</h4>
 
           <ToggleButtonGroup
             value={valueTesting}
@@ -88,7 +86,7 @@ export default function CreateAccount() {
             </ToggleButton>
           </ToggleButtonGroup>
 
-          <h4>CORVID-19 SYMPTOMS</h4>
+          <h4>COVID-19 SYMPTOMS</h4>
           <ToggleButtonGroup
             value={valueSympotyms}
             exclusive

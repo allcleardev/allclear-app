@@ -29,7 +29,7 @@ export default function PhoneVerify({ props }) {
     // console.log(textInput.current.value);
 
     const response = await Axios.post(
-      "https://allclear-dev.azurewebsites.net/",
+      "https://api-dev.allclear.app/peoples/start",
       {
         phone: textInput.current.value,
         beenTested: true,
