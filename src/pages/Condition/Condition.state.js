@@ -11,10 +11,10 @@ const states = (function states() {
         conditionObj: conditionObjDefault(),
         conditions: [
             { name: 'Weakend Immune System', isActive: false },
-            { name: 'Cordiovascular or Respiratory Disease', isActive: true },
+            { name: 'Cordiovascular or Respiratory Disease', isActive: false },
             { name: 'Kidney Failur or Cirrhosis', isActive: false },
             { name: 'Diabetes', isActive: false },
-            { name: 'Pregnancy', isActive: true },
+            { name: 'Pregnancy', isActive: false },
             { name: 'None', isActive: false }
         ]
     }
