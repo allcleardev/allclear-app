@@ -66,7 +66,7 @@ function CardMapLocation({
         <div className="card-content">
           <h3 className="card-title" style={{ color: "#000" }}>
             <span className="grey" style={{}}>
-              {index}.
+              {index + 1}.
             </span>{" "}
             {title}
           </h3>
@@ -84,7 +84,7 @@ function CardMapLocation({
             {description}
           </p>
           <div className="buttons" style={{ marginTop: "15px" }}>
-            <Link to={'https://www.google.com/maps/dir/?api=1&destination=211+Madison+St+Hoboken+NJ'}><Button className="btn primary-back white">Directions</Button></Link>
+            <a href={'https://www.google.com/maps/dir/?api=1&destination=' + description} target="_blank"><Button className="btn primary-back white">Directions</Button></a>
             <Button
               className="btn primary-color primary-outline"
               style={{ marginLeft: "15px" }}
@@ -195,6 +195,7 @@ export default function CompleteProfile() {
           <Divider className={classes.divider} orientation="horizontal" />
           {mapLocationData.map((result, index) => (
             <CardMapLocation
+              index={index}
               title={result.Name}
               description={result.Address}
               status={result.status}
@@ -262,13 +263,7 @@ export default function CompleteProfile() {
           </svg>
         </IconButton>
         <NavBottom></NavBottom>
-        <FabBlueBottom
-          style={{
-            position: "fixed",
-            bottom: 320,
-            right: 20
-          }}
-        >
+        <FabBlueBottom class_name="btn-blue-bottom">
           <svg
             width="24"
             height="21"
