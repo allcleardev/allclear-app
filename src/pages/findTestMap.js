@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import Box from "@material-ui/core/Container";
@@ -83,7 +84,7 @@ function CardMapLocation({
             {description}
           </p>
           <div className="buttons" style={{ marginTop: "15px" }}>
-            <Button className="btn primary-back white">Directions</Button>
+            <Link to={'https://www.google.com/maps/dir/?api=1&destination=211+Madison+St+Hoboken+NJ'}><Button className="btn primary-back white">Directions</Button></Link>
             <Button
               className="btn primary-color primary-outline"
               style={{ marginLeft: "15px" }}
@@ -194,11 +195,11 @@ export default function CompleteProfile() {
           <Divider className={classes.divider} orientation="horizontal" />
           {mapLocationData.map((result, index) => (
             <CardMapLocation
-              title={result.title}
-              description={result.description}
+              title={result.Name}
+              description={result.Address}
               status={result.status}
-              service_time={result.service_time}
-              commute={result.commute}
+              service_time={result.Hours}
+              commute={result['Drive Through']}
             ></CardMapLocation>
           ))}
         </div>
