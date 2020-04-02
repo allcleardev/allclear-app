@@ -9,14 +9,6 @@ import Header from "../components/header-round";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import {Grid} from "@material-ui/core";
 
-const ContainerStyle = {
-  height: "100vh",
-  background: "linear-gradient(to right, #28baff, #1195ff)",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center"
-};
-
 export default function VerifyMagicLink({ props, location }) {
   const history = useHistory();
 
@@ -36,10 +28,10 @@ export default function VerifyMagicLink({ props, location }) {
       }
     ).then((response) => {
       console.log('response', response);
-      history.push("/create-account");
+      history.push("/background");
     }).catch((error) => {
       console.log('error', error);
-      //history.push("/create-account");
+      history.push("/background");
     });
 
   };

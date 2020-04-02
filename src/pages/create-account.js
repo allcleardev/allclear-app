@@ -32,7 +32,7 @@ export default function CreateAccount() {
 
   const [valueTesting, setValue] = React.useState("tested");
   sessionStorage.setItem('symptoms', "nosymptoms");
-  sessionStorage.setItem('test', "tested");
+  sessionStorage.setItem('testing', "tested");
 
   const handleSymtomsChange = (event, newValue) => {
     if (!newValue) return;
@@ -43,6 +43,7 @@ export default function CreateAccount() {
   const handleChange = (event, newValue) => {
     if (!newValue) return;
     setSymptomsValue(newValue);
+    sessionStorage.setItem('testing', newValue);
   };
 
   return (
@@ -121,7 +122,7 @@ export default function CreateAccount() {
           </ToggleButtonGroup>
           <Grid container justify="center">
             <Grid item xs={12} sm={4}>
-              <Link to="/phone-verify">
+              <Link to="/condition">
                 <Button
                   variant="contained"
                   color="primary"
