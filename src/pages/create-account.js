@@ -31,10 +31,13 @@ export default function CreateAccount() {
   const [valueSympotyms, setSymptomsValue] = React.useState("nosymptoms");
 
   const [valueTesting, setValue] = React.useState("tested");
+  sessionStorage.setItem('symptoms', "nosymptoms");
+  sessionStorage.setItem('test', "tested");
 
   const handleSymtomsChange = (event, newValue) => {
     if (!newValue) return;
     setValue(newValue);
+    sessionStorage.setItem('symptoms', newValue);
   };
 
   const handleChange = (event, newValue) => {
@@ -136,7 +139,7 @@ export default function CreateAccount() {
             </Grid>
           </Grid>
         </div>
-        <ProgressBottom progress="0"></ProgressBottom>
+        <ProgressBottom progress="1"></ProgressBottom>
       </Box>
     </div>
   );
