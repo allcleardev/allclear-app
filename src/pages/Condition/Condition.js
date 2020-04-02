@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-import Header from "../../components/header-round";
 import ProgressBottom from "../../components/progressBottom";
 import states from "./Condition.state";
 import Box from "@material-ui/core/Container";
@@ -193,12 +192,12 @@ export default Condition;
             value={this.state.condition}
             formatting
             onChange={() => this.state.handleSymtomsChange}
-            aria-label="Testing"    
+            aria-label="Testing"
             classNameName="toggleButtonGroup"
         >
             <ToggleButton
                 value="weakend"
-                
+
                 aria-label="wantTest"
                 classNameName="toggleButton"
             >
@@ -208,14 +207,14 @@ export default Condition;
                 value="cardiovascular"
                 aria-label="tested"
                 classNameName="toggleButton"
-                
+
             >
                 Respiratory Diseases
             </ToggleButton>
             <ToggleButton
                 value="kidneyFailure"
                 aria-label="neither"
-                
+
                 classNameName="toggleButton"
             >
                 Kidney Failure or Cirrhosis
@@ -232,7 +231,7 @@ export default Condition;
                 value="diabetes"
                 aria-label="wantTest"
                 classNameName="toggleButton"
-                
+
             >
                 Diabetes
              </ToggleButton>
@@ -240,14 +239,14 @@ export default Condition;
                 value="pregnancy"
                 aria-label="tested"
                 classNameName="toggleButton"
-                
+
             >
                 Pregnancy
             </ToggleButton>
             <ToggleButton
                 value="none"
                 aria-label="neither"
-                
+
                 classNameName="toggleButton"
             >
                 None

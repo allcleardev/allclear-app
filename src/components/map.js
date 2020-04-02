@@ -56,7 +56,7 @@ function MapPoint(props) {
 export default function MapComponent(props) {
     const useStyles = makeStyles(theme => ({
       frame: {
-        marginTop: "2%"
+        marginTop: "20%"
       }
     }));
     

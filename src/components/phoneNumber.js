@@ -23,6 +23,7 @@ class PhoneNumber extends React.Component {
   handlePhoneChange(value) {
     if (value) {
       this.setState({ phone: value });
+      sessionStorage.setItem('phone', value);
     }
   }
   render() {
