@@ -133,14 +133,14 @@
   overflow-x: hidden;
 
   @media (max-width: $sm) {
-    height: 63vh;
+    height: calc(100vh - 300px);
   }
 
-  div {
-    @media (max-width: $sm) {
-      height: 63vh;
-    }
-  }
+  // div {
+  //   @media (max-width: $sm) {
+  //     height: calc(100vh - 300px);
+  //   }
+  // }
 
   img {
     height: 100%;
