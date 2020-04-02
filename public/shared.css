@@ -285,6 +285,14 @@ input:checked+.slider:before {
     width: 354px
 }
 
+.selectBTNM{
+    font-size: 13px;
+    width: 100%;
+    padding: 9px 5px;
+    border-radius: 5px;
+    border: 1px solid #DADADA;
+}
+
 .wrapBtnS button {
 
     background: #007AFF;

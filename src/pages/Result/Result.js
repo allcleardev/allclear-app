@@ -126,7 +126,7 @@ class Result extends React.Component {
                     <div className="mainWrapper">
                         <div className="wrapScreen">
                             <div className="screenHead">
-                                <div style={{ paddingTop: 60 }}></div>
+                                <div style={{ paddingTop: 25 }}></div>
                                 <div className="arrow"><i className="fa fa-angle-left" aria-hidden="true"></i></div>
                                 <div className="headingTxt">Test Results</div>
                                 <div className="subHeading">
@@ -138,14 +138,22 @@ class Result extends React.Component {
                                 <div className="inputFeild">
                                     <p className="inputHeading">Test Type</p>
                                     <p>
-                                        <input className="inpStyle" placeholder="Select Test" />
+                                        <select className="selectBTNM" >
+                                            <option>Select Test</option>
+                                            <option>demo</option>
+                                            <option>demo</option>
+                                        </select>
                                     </p>
                                 </div>
 
                                 <div className="inputFeild">
                                     <p className="inputHeading">Test Location</p>
                                     <p>
-                                        <input className="inpStyle" placeholder="Choose Location" />
+                                        <select className="selectBTNM">
+                                            <option>Select Location</option>
+                                            <option>demo</option>
+                                            <option>demo</option>
+                                        </select>
                                     </p>
                                 </div>
 
@@ -153,7 +161,7 @@ class Result extends React.Component {
                                     <div className="xyz002">Did you test positive?</div>
                                     <div className="xyz003">
                                         <label className="switch">
-                                            <input type="checkbox" checked="" />
+                                            <input type="checkbox"  />
                                             <span className="slider round"></span>
                                         </label>
                                     </div>
