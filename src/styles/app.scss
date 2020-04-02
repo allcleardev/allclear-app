@@ -2,7 +2,6 @@
 @import "shared";
 @import "header";
 @import "complete-profile";
-@import "condition-new";
 @import "create-account";
 @import "phone-verify";
 @import "test";
@@ -14,8 +13,16 @@
   text-transform: none;
 }
 
+body {
+  background: transparent !important;
+}
+
+button {
+  outline: none !important;
+}
+
 .background-responsive {
-  @media (min-width: 768px) {
+  @media (min-width: $md) {
     background: linear-gradient(to right, #36d1bc, #1195ff) !important;
     z-index: -1;
     margin: 0;
@@ -67,7 +74,7 @@
 }
 
 .body-title {
-  font-family: "SF Pro";
+  font-family: SF Pro;
   font-style: normal;
   font-weight: 600;
   font-size: 20px;
@@ -79,7 +86,7 @@
 }
 
 a {
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 .progress-bottom {
@@ -108,7 +115,7 @@ a {
   width: 100%;
   box-shadow: none !important;
 
-  @media (max-width: 768px) {
+  @media (max-width: $md) {
     margin: 30px 0 !important;
   }
 }
@@ -132,7 +139,7 @@ a {
 }
 
 .btn-responsive {
-  @media (min-width: 768px) {
+  @media (min-width: $md) {
     background-color: #fff !important;
     color: $primary-color !important;
     font-size: 17px;
@@ -155,7 +162,7 @@ a {
 }
 
 .btn-full-width {
-  width: 182px !important;
+  width: 200px !important;
 }
 
 .btn-outlined-white {
@@ -181,19 +188,19 @@ a {
 }
 
 .hide-desktop {
-  @media (min-width: 768px) {
+  @media (min-width: $md) {
     display: none !important;
   }
 }
 
 .hide-mobile {
-  @media (max-width: 768px) {
+  @media (max-width: $md) {
     display: none !important;
   }
 }
 
 .turn-white {
-  @media (min-width: 768px) {
+  @media (min-width: $md) {
     color: #fff !important;
   }
 }
@@ -203,13 +210,25 @@ a {
   flex-direction: row;
   justify-content: space-between;
 
-  @media (max-width: 768px) {
+  @media (max-width: $md) {
     justify-content: center;
   }
 }
 
 .wid100 {
-  width: 100%;
+  width: 100% !important;
+}
+
+.wid100-sm {
+  @media (max-width: $sm) {
+    width: 100% !important;
+  }
+}
+
+.height-300-sm {
+  @media (max-width: $sm) {
+    height: 300px !important;
+  }
 }
 
 .black {
@@ -322,11 +341,15 @@ a {
   background: #ffffff;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
   border-radius: 6px;
-  margin-top: -60px;
+  // margin-top: -60px;
   padding: 25px 15px;
 
+  @media (max-width: $sm) {
+    margin-top: -60px;
+  }
+
   .sub-card {
-    padding: 10px 0;
+    padding: 20px 0;
 
     .body-sub-title {
       font-family: "SF Pro Display", sans-serif;
@@ -335,7 +358,7 @@ a {
       font-size: 15px;
       line-height: 18px;
       letter-spacing: 0.374px;
-      margin: 16px 0;
+      margin: 5px 0;
     }
 
     .body-sub-description {
@@ -365,4 +388,11 @@ a {
       }
     }
   }
+}
+
+/* make scrollbar transparent */
+.hide-scrollbar::-webkit-scrollbar {
+  width: 0px !important;
+  background: transparent !important;
+  // The component has this class, should have the style overflow-y: scroll
 }

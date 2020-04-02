@@ -9,14 +9,7 @@ import { Link } from "react-router-dom";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 
-const bodyStyle = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  // height: "100vh",
-  flexDirection: "column",
-  alignContent: "space-between"
-};
+const bodyStyle = {};
 
 const useStyles = makeStyles(theme => ({
   toggleButtonStyle: {},
@@ -53,7 +46,7 @@ export default function CreateAccount() {
           </p>
         </Header>
 
-        <div style={bodyStyle}>
+        <div style={bodyStyle} className="body-account-create">
           <h4>COVID-19 TESTING</h4>
 
           <ToggleButtonGroup

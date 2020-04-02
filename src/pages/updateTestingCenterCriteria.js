@@ -1,11 +1,9 @@
 import React from "react";
 
 import Header from "../components/homescreen-header";
-import UserProfileCard from "../components/cardProfile";
-import AlertToggleCard from "../components/cardAlertToggle";
-import ArrowCard from "../components/cardArrow";
-import FriendCard from "../components/cardFriend";
 import CardBlank from "../components/cardBlank";
+import { Link } from "react-router-dom";
+import SwitchComponent from "../components/switch";
 
 import Box from "@material-ui/core/Container";
 import { Button, Grid } from "@material-ui/core";
@@ -16,10 +14,9 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Select from "@material-ui/core/Select";
 import Checkbox from "@material-ui/core/Checkbox";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Switch from "@material-ui/core/Switch";
 
 import userAvatar from "../assets/images/avatar.svg";
 
@@ -35,59 +32,6 @@ const useStyles = makeStyles(theme => ({
   checked: {},
   track: {}
 }));
-
-const IOSSwitch = withStyles(theme => ({
-  root: {
-    width: 42,
-    height: 26,
-    padding: 0,
-    margin: theme.spacing(1)
-  },
-  switchBase: {
-    padding: 1,
-    "&$checked": {
-      transform: "translateX(16px)",
-      color: theme.palette.common.white,
-      "& + $track": {
-        backgroundColor: "#52d869",
-        opacity: 1,
-        border: "none"
-      }
-    },
-    "&$focusVisible $thumb": {
-      color: "#52d869",
-      border: "6px solid #fff"
-    }
-  },
-  thumb: {
-    width: 24,
-    height: 24
-  },
-  track: {
-    borderRadius: 26 / 2,
-    border: `1px solid ${theme.palette.grey[400]}`,
-    backgroundColor: theme.palette.grey[50],
-    opacity: 1,
-    transition: theme.transitions.create(["background-color", "border"])
-  },
-  checked: {},
-  focusVisible: {}
-}))(({ classes, ...props }) => {
-  return (
-    <Switch
-      focusVisibleClassName={classes.focusVisible}
-      disableRipple
-      classes={{
-        root: classes.root,
-        switchBase: classes.switchBase,
-        thumb: classes.thumb,
-        track: classes.track,
-        checked: classes.checked
-      }}
-      {...props}
-    />
-  );
-});
 
 export default function UpdateCriteria() {
   const classes = useStyles();
@@ -120,18 +64,6 @@ export default function UpdateCriteria() {
 
   const handleCheckboxChange = event => {
     setState({ ...state, [event.target.name]: event.target.checked });
-  };
-
-  const [toggleState, setToggleState] = React.useState({
-    checkedA: true,
-    checkedB: true
-  });
-
-  const handleUseMyLocationChange = event => {
-    setToggleState({
-      ...toggleState,
-      [event.target.name]: event.target.checked
-    });
   };
 
   return (
@@ -171,15 +103,7 @@ export default function UpdateCriteria() {
             >
               <h3 className="body-title">Use My Location</h3>
               <div>
-                <FormControlLabel
-                  control={
-                    <IOSSwitch
-                      checked={toggleState.checkedB}
-                      onChange={handleUseMyLocationChange}
-                      name="checkedB"
-                    />
-                  }
-                />
+                <SwitchComponent></SwitchComponent>
               </div>
             </div>
 
@@ -327,7 +251,9 @@ export default function UpdateCriteria() {
               <Button className="btn-big bg-primary color-white fontsize-16">
                 Update Profile
               </Button>
-              <Button className="btn-big bg-grey2 fontsize-16">Cancel</Button>
+              <Link to="/find-test-map">
+                <Button className="btn-big bg-grey2 fontsize-16">Cancel</Button>
+              </Link>
             </Grid>
           </Grid>
         </Grid>

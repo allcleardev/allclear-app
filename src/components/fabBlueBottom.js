@@ -9,12 +9,23 @@ const useStyles = makeStyles(theme => ({
   content: {}
 }));
 
-export default function fabBlueBottom({ children, style, class_name }) {
+export default function fabBlueBottom({
+  children,
+  style,
+  class_name,
+  handle_name
+}) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const classes = useStyles();
 
   return (
-    <Fab aria-label="add" className={class_name} color="primary" style={style}>
+    <Fab
+      aria-label="add"
+      className={class_name}
+      color="primary"
+      style={style}
+      onClick={handle_name}
+    >
       {children}
     </Fab>
   );

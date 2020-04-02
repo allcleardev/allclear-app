@@ -242,7 +242,10 @@ export default function CompleteProfile() {
               </p>
               <p className="list">Must be immunocompromised</p>
             </div>
-            <p className="grey" style={{ marginBottom: "2px" }}>
+            <p
+              className="grey"
+              style={{ marginBottom: "2px", marginTop: "20px" }}
+            >
               Description
             </p>
             <p style={{ marginTop: "3px" }}>
@@ -268,13 +271,17 @@ export default function CompleteProfile() {
               <p
                 style={{
                   textAlign: "center",
-                  padding: "20px 0",
+                  margin: "50px 0",
                   color: "#7B7B7B"
                 }}
               >
                 Want to help us improve our data?
               </p>
-              <Button variant="contained" color="primary" className="button">
+              <Button
+                variant="contained"
+                color="primary"
+                className="btn-big bg-primary color-white btn-leave-feedback"
+              >
                 Leave Feedback
               </Button>
             </Grid>
