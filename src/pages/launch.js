@@ -30,7 +30,7 @@ const Launch = ({ props }) => {
   useEffect(() => {
     console.log(props);
     setTimeout(() => {
-      history.push("/create-account");
+      history.push("/phone-verify");
     }, 3000);
   });
 

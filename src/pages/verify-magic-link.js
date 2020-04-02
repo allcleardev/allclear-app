@@ -6,6 +6,16 @@ import Box from "@material-ui/core/Container";
 import Axios from "axios";
 
 import Header from "../components/header-round";
+import LinearProgress from "@material-ui/core/LinearProgress";
+import {Grid} from "@material-ui/core";
+
+const ContainerStyle = {
+  height: "100vh",
+  background: "linear-gradient(to right, #28baff, #1195ff)",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center"
+};
 
 export default function VerifyMagicLink({ props, location }) {
   const history = useHistory();
@@ -26,9 +36,10 @@ export default function VerifyMagicLink({ props, location }) {
       }
     ).then((response) => {
       console.log('response', response);
-      history.push("/background");
+      history.push("/create-account");
     }).catch((error) => {
-      console.log('error', error)
+      console.log('error', error);
+      //history.push("/create-account");
     });
 
   };
@@ -42,11 +53,17 @@ export default function VerifyMagicLink({ props, location }) {
       <Box className="phone-verify">
         <Header>
           <h1 style={{ justifyContent: "center", margin: "0" }}>
-            Verifying Account
+            Verifying Phone Number
           </h1>
-          <p>Please check sms text message for your verification link!</p>
+          <p>We are verifying your phone number.</p>
+          <p>After verifying it, you will advance to complete your profile.</p>
         </Header>
 
+        <Grid container justify="center">
+          <Grid item xs={12} sm={6}>
+            <LinearProgress color="primary" value="50" />
+          </Grid>
+        </Grid>
       </Box>
     </div>
   );
