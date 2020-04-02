@@ -20,6 +20,8 @@ class Condition extends React.Component {
         if (!newValue) return;
         // setValue(newValue);
     };
+
+    
    selectAll = () => {
     let { conditions } = this.state;
     conditions.filter((condition) => {
@@ -27,6 +29,8 @@ class Condition extends React.Component {
     });
     this.setState({ conditions });
    }
+
+
     handleChange = (event) => {
         let { conditions } = this.state;
         conditions.filter((condition) => {
