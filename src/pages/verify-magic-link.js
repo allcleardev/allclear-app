@@ -29,7 +29,7 @@ export default function VerifyMagicLink({ props, location }) {
   // Function to make call backend service to confirm the magic link
   const verifyMagicLink = async (searchParams) => {
     await Axios.post(
-      "https://allclear-dev.azurewebsites.net/peoples/confirm",
+      "https://api-dev.allclear.app/peoples/confirm",
       {
         phone: searchParams.phone,
         code: searchParams.code
