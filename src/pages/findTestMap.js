@@ -25,9 +25,7 @@ import FabBlueBottom from "../components/fabBlueBottom";
 import SearchGoogleMapInput from "../components/searchGoogleMapInput";
 
 import MapComponent from "../components/map";
-
-
-import SampleMap from "../assets/images/dallas-map.png";
+import SimpleMap from "../components/googleMap";
 
 import { mapLocationData } from "../constants";
 
@@ -184,7 +182,7 @@ export default function CompleteProfile() {
       </Header>
       <TabPanel value={value} index={0}>
         <div className="map-fullscreen">
-          <MapComponent changeTab={{otherTabIdx: 0, changeTabFn: setTabValue}} />
+          <SimpleMap {...mapLocationData}></SimpleMap>
 
         </div>
         <div className="nav-left-location">
@@ -205,7 +203,7 @@ export default function CompleteProfile() {
             </div>
           </Box>
           <Divider className={classes.divider} orientation="horizontal" />
-          {mapLocationData.map((result, index) => (
+          {mapLocationData.data.map((result, index) => (
             <CardMapLocation
               index={index}
               title={result.Name}
