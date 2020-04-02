@@ -10,7 +10,7 @@
   &.MuiBottomNavigation-root {
     display: none;
 
-    @media (max-width: $md) {
+    @media (max-width: $sm) {
       display: inline-flex;
     }
   }

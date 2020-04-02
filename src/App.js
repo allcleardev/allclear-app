@@ -48,7 +48,6 @@ export default function App() {
       {/* <Route path="/launch" component={Launch} /> */}
       <Route path="/condition" component={Condition} />
       <Route path="/background" component={Background} />
-      <Route path="/create-account" component={CreateAccount} />
       <Route path="/phone-verify-success" component={PhoneVerifySuccess} />
       <Route path="/register" component={VerifyMagicLink} />
       <Route path="/find-test" component={FindTest} />

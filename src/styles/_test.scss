@@ -18,7 +18,7 @@
       }
 
       @media (max-width: $md) {
-        margin-top: 80px;
+        margin-top: 8px;
       }
     }
   }
@@ -89,5 +89,9 @@
         }
       }
     }
+  }
+
+  .btn-leave-feedback {
+    margin-bottom: 40px !important;
   }
 }

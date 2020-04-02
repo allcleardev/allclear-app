@@ -62,7 +62,7 @@ export default function PhoneVerify({ props }) {
           <p>Enter your phone number to get started.</p>
         </Header>
 
-        {state.loading === false ? <form noValidate autoComplete="off" style={{ textAlign: "center" }}>
+        {state.loading === false ? <form noValidate autoComplete="off" className="body-phone-verify" style={{ textAlign: "center" }}>
           <Grid container justify="center">
             <Grid item xs={12} sm={6}>
               <PhoneNumber className="hide-mobile"></PhoneNumber>
