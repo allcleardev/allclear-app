@@ -56,7 +56,7 @@ function MapPoint(props) {
 export default function MapComponent(props) {
     const useStyles = makeStyles(theme => ({
       frame: {
-        marginTop: "2%"
+        marginTop: "20%"
       }
     }));
     
@@ -82,12 +82,11 @@ export default function MapComponent(props) {
 
         {locations.getAll().filter(
           function(f) {
-            //return true;
-            for (var key in locationFilter) {
-              if (f[key] === undefined || f[key] != locationFilter[key])
-                return false;
-            }
-            console.log(f[key])
+            //for (var key in locationFilter) {
+            //  if (f[key] === undefined || f[key] != locationFilter[key])
+            //    return false;
+            //}
+            //console.log(f[key])
 
             return true;
             //return f['Appointment Needed'] == appointmentRequired

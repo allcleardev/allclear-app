@@ -20,5 +20,5 @@ const states = (function states() {
             { name: 'None', isActive: false }
         ]
     }
-})()
+})();
 export default states;

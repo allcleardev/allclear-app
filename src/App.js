@@ -4,12 +4,14 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Launch from "./pages/launch";
 import CreateAccount from "./pages/create-account";
 import PhoneVerify from "./pages/phone-verify";
-import SignIn from "./pages/signup";
+import PhoneVerifySuccess from "./pages/phone-verify-success";
+import VerifyMagicLink from "./pages/verify-magic-link";
 import login from "./pages/login";
 import Location from "./pages/location";
 import Health from "./pages/health";
 import Test from "./pages/test";
-import Home from "./pages/home";
+import UpdateTestingCenterCriteria from "./pages/updateTestingCenterCriteria";
+import FindTestMap from "./pages/findTestMap";
 import ForgotPassword from "./pages/forgot-password";
 import Symptom from "./pages/Symptom/Symptom";
 import Success from "./pages/Success/Success";
@@ -27,21 +29,27 @@ export default function App() {
     <Router>
       <Route exact path="/" component={Launch} />
       {/* <Route exact path="/" component={Home} /> */}
+      {/* David start */}
+      <Route path="/create-account" component={CreateAccount} />
+      <Route path="/phone-verify" component={PhoneVerify} />
+      <Route path="/complete-profile" component={CompleteProfile} />
+      <Route path="/test" component={Test} />
+      <Route path="/find-test-map" component={FindTestMap} />
+      <Route path="/update-criteria" component={UpdateTestingCenterCriteria} />
+      {/* David end */}
       <Route path="/forgot" component={ForgotPassword} />
       <Route path="/health" component={Health} />
-      <Route path="/test" component={Test} />
+
       <Route path="/location" component={Location} />
       <Route path="/login" component={login} />
-      <Route path="/register" component={SignIn} />
       <Route path="/symptom" component={Symptom} />
       <Route path="/result" component={Result} />
       <Route path="/succcess" component={Success} />
       {/* <Route path="/launch" component={Launch} /> */}
       <Route path="/condition" component={Condition} />
       <Route path="/background" component={Background} />
-      <Route path="/create-account" component={CreateAccount} />
-      <Route path="/phone-verify" component={PhoneVerify} />
-      <Route path="/complete-profile" component={CompleteProfile} />
+      <Route path="/phone-verify-success" component={PhoneVerifySuccess} />
+      <Route path="/register" component={VerifyMagicLink} />
       <Route path="/find-test" component={FindTest} />
       <Route path="/result-detail" component={ResultDetail} />
     </Router>

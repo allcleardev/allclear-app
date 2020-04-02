@@ -9,14 +9,7 @@ import { Link } from "react-router-dom";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 
-const bodyStyle = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  // height: "100vh",
-  flexDirection: "column",
-  alignContent: "space-between"
-};
+const bodyStyle = {};
 
 const useStyles = makeStyles(theme => ({
   toggleButtonStyle: {},
@@ -31,15 +24,19 @@ export default function CreateAccount() {
   const [valueSympotyms, setSymptomsValue] = React.useState("nosymptoms");
 
   const [valueTesting, setValue] = React.useState("tested");
+  sessionStorage.setItem('symptoms', "nosymptoms");
+  sessionStorage.setItem('testing', "tested");
 
   const handleSymtomsChange = (event, newValue) => {
     if (!newValue) return;
     setValue(newValue);
+    sessionStorage.setItem('symptoms', newValue);
   };
 
   const handleChange = (event, newValue) => {
     if (!newValue) return;
     setSymptomsValue(newValue);
+    sessionStorage.setItem('testing', newValue);
   };
 
   return (
@@ -53,10 +50,8 @@ export default function CreateAccount() {
           </p>
         </Header>
 
-
-      <div style={bodyStyle}>
-        <h4>COVID-19 TESTING</h4>
-
+        <div style={bodyStyle} className="body-account-create">
+          <h4>COVID-19 TESTING</h4>
 
           <ToggleButtonGroup
             value={valueTesting}
@@ -88,7 +83,7 @@ export default function CreateAccount() {
             </ToggleButton>
           </ToggleButtonGroup>
 
-          <h4>CORVID-19 SYMPTOMS</h4>
+          <h4>COVID-19 SYMPTOMS</h4>
           <ToggleButtonGroup
             value={valueSympotyms}
             exclusive
@@ -120,7 +115,7 @@ export default function CreateAccount() {
           </ToggleButtonGroup>
           <Grid container justify="center">
             <Grid item xs={12} sm={4}>
-              <Link to="/phone-verify">
+              <Link to="/condition">
                 <Button
                   variant="contained"
                   color="primary"
@@ -138,7 +133,7 @@ export default function CreateAccount() {
             </Grid>
           </Grid>
         </div>
-        <ProgressBottom progress="0"></ProgressBottom>
+        <ProgressBottom progress="1"></ProgressBottom>
       </Box>
     </div>
   );

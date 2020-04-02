@@ -1,23 +1,4 @@
-.create-profile {
-  @media (min-width: $md) {
-    width: 922px !important;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .body-account-create {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    // height: "100vh",
-    flex-direction: column;
-    align-content: space-between;
-
-    @media (min-width: $md) {
-      height: 60vh;
-    }
-  }
-
+.background {
   .toggleButtonGroup {
     display: flex;
     justify-content: center;

@@ -1,10 +1,12 @@
 @import "variable";
+@import "shared";
 @import "header";
 @import "complete-profile";
-@import "condition-new";
 @import "create-account";
+@import "background";
 @import "phone-verify";
 @import "test";
+@import "test-map";
 @import "footer";
 
 * {
@@ -12,8 +14,16 @@
   text-transform: none;
 }
 
+body {
+  // background: transparent !important;
+}
+
+button {
+  outline: none !important;
+}
+
 .background-responsive {
-  @media (min-width: 768px) {
+  @media (min-width: $md) {
     background: linear-gradient(to right, #36d1bc, #1195ff) !important;
     z-index: -1;
     margin: 0;
@@ -32,6 +42,14 @@
 
 .MuiLinearProgress-barColorPrimary {
   background-color: #eee !important;
+}
+
+.primary-color {
+  color: $primary-color !important;
+}
+
+.primary-outline {
+  border: 1px solid $primary-color !important;
 }
 
 .MuiLinearProgress-colorPrimary {
@@ -57,6 +75,7 @@
 }
 
 .body-title {
+  font-family: SF Pro;
   font-style: normal;
   font-weight: 600;
   font-size: 20px;
@@ -68,7 +87,7 @@
 }
 
 a {
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 .progress-bottom {
@@ -95,8 +114,9 @@ a {
   background-color: #007aff;
   margin: 80px 0 !important;
   width: 100%;
+  box-shadow: none !important;
 
-  @media (max-width: 768px) {
+  @media (max-width: $md) {
     margin: 30px 0 !important;
   }
 }
@@ -120,7 +140,7 @@ a {
 }
 
 .btn-responsive {
-  @media (min-width: 768px) {
+  @media (min-width: $md) {
     background-color: #fff !important;
     color: $primary-color !important;
     font-size: 17px;
@@ -143,13 +163,20 @@ a {
 }
 
 .btn-full-width {
-  width: 182px !important;
+  width: 200px !important;
 }
 
 .btn-outlined-white {
   background-color: transparent !important;
   color: #fff;
   border: 1px solid #fff !important;
+}
+
+.btn-big {
+  height: 48px;
+  border-radius: 10px !important;
+  width: 100%;
+  margin: 5px 0 !important;
 }
 
 .text-grey {
@@ -162,19 +189,19 @@ a {
 }
 
 .hide-desktop {
-  @media (min-width: 768px) {
+  @media (min-width: $md) {
     display: none !important;
   }
 }
 
 .hide-mobile {
-  @media (max-width: 768px) {
+  @media (max-width: $md) {
     display: none !important;
   }
 }
 
 .turn-white {
-  @media (min-width: 768px) {
+  @media (min-width: $md) {
     color: #fff !important;
   }
 }
@@ -184,13 +211,25 @@ a {
   flex-direction: row;
   justify-content: space-between;
 
-  @media (max-width: 768px) {
+  @media (max-width: $md) {
     justify-content: center;
   }
 }
 
 .wid100 {
-  width: 100%;
+  width: 100% !important;
+}
+
+.wid100-sm {
+  @media (max-width: $sm) {
+    width: 100% !important;
+  }
+}
+
+.height-300-sm {
+  @media (max-width: $sm) {
+    height: 300px !important;
+  }
 }
 
 .black {
@@ -241,9 +280,15 @@ a {
 }
 
 .white-back-input {
+  width: 100%;
+
   .MuiFilledInput-root {
     background-color: #fff;
     border-radius: 8px;
+
+    @media (max-width: $md) {
+      border: 1px solid #dadada;
+    }
 
     .MuiInputBase-input {
       background-color: #fff;
@@ -258,4 +303,97 @@ a {
   .MuiFilledInput-underline:after {
     display: none;
   }
+}
+
+//tab component
+.test-tabs-wrapper {
+  border: 9px solid #fff;
+  border-radius: 12px;
+  background-color: #fff;
+  box-shadow: 0px 24px 32px rgba(50, 50, 71, 0.08),
+    0px 10px 16px rgba(50, 50, 71, 0.15);
+
+  .test-tabs {
+    width: auto;
+    background: #f0f0f0;
+    border-radius: 8px;
+    box-shadow: none;
+
+    .MuiTab-wrapper {
+      color: #000;
+      width: 240px;
+    }
+
+    .MuiTab-textColorInherit.Mui-selected {
+      .MuiTab-wrapper {
+        background-color: $primary-color;
+        border-radius: 8px;
+        color: #fff;
+        height: 38px;
+      }
+    }
+    span[class*="PrivateTabIndicator-colorSecondary-"] {
+      background-color: transparent;
+    }
+  }
+}
+
+.card-blank {
+  background: #ffffff;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  // margin-top: -60px;
+  padding: 25px 15px;
+
+  @media (max-width: $sm) {
+    margin-top: -60px;
+  }
+
+  .sub-card {
+    padding: 20px 0;
+
+    .body-sub-title {
+      font-family: "SF Pro Display", sans-serif;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 15px;
+      line-height: 18px;
+      letter-spacing: 0.374px;
+      margin: 5px 0;
+    }
+
+    .body-sub-description {
+      font-size: 13px;
+      line-height: 16px;
+      letter-spacing: -0.408px;
+      color: #999999;
+      margin: 10px 0;
+    }
+
+    .form-control {
+      width: 100%;
+
+      .white-back-input {
+        border: 1px solid #dadada;
+        box-sizing: border-box;
+        border-radius: 8px;
+        width: 100%;
+      }
+
+      .select-white-back {
+        width: 100%;
+        border: 1px solid #dadada;
+        box-sizing: border-box;
+        border-radius: 8px;
+        height: 60px;
+      }
+    }
+  }
+}
+
+/* make scrollbar transparent */
+.hide-scrollbar::-webkit-scrollbar {
+  width: 0px !important;
+  background: transparent !important;
+  // The component has this class, should have the style overflow-y: scroll
 }
