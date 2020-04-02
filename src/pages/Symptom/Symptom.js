@@ -91,10 +91,8 @@ class Symptom extends React.Component {
                             <div className="screenHead">
                                 <div style={{ paddingTop: 60 }} ></div>
                                 <div className="arrow"><i className="fa fa-angle-left" aria-hidden="true"></i></div>
-                                <div className="headingTxt">Conditions</div>
-                                <div className="subHeading">
-                                    Some test centers are only seeing patients with certain health conditions
-					</div>
+                                <div className="headingTxt">Symptoms</div>
+                                <div className="subHeading" onClick={() => this.selectAll()}>Select all symptoms that you are currently experiencing.</div>
                             </div>
                             <div className="workSpaceArea">
                                 <div className="btnXyx">
