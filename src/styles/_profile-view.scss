@@ -1,0 +1,18 @@
+.profile-view {
+  .avatar {
+    border: 2px solid rgba(228, 228, 228, 0.6);
+    box-sizing: border-box;
+    box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.35);
+    border-radius: 300px;
+  }
+
+  .card-phone {
+    background: #ffffff;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+  }
+}
