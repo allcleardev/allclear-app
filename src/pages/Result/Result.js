@@ -178,7 +178,7 @@ class Result extends React.Component {
 
 
                                 <div className="policyBtn"><a href="#">Privacy Policy</a></div>
-                                <div className="wrapBtn"><button>Submit Symptoms</button></div>
+                                <div className="wrapBtn"><button>Submit Test Result</button></div>
                                 <div className="policyBtn"><a className="skipBtn" href="#">Skip</a></div>
 
 
