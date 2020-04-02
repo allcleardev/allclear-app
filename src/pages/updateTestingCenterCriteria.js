@@ -2,6 +2,7 @@ import React from "react";
 
 import Header from "../components/homescreen-header";
 import CardBlank from "../components/cardBlank";
+import { Link } from "react-router-dom";
 import SwitchComponent from "../components/switch";
 
 import Box from "@material-ui/core/Container";
@@ -250,7 +251,9 @@ export default function UpdateCriteria() {
               <Button className="btn-big bg-primary color-white fontsize-16">
                 Update Profile
               </Button>
-              <Button className="btn-big bg-grey2 fontsize-16">Cancel</Button>
+              <Link to="/find-test-map">
+                <Button className="btn-big bg-grey2 fontsize-16">Cancel</Button>
+              </Link>
             </Grid>
           </Grid>
         </Grid>
