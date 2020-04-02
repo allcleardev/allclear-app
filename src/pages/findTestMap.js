@@ -521,7 +521,7 @@ export default function FindTestMap() {
           })}
         >
           <div className="map-fullscreen">
-            <img src={SampleMap} alt="sample map" style={{ height: "63vh" }} />
+            <img src={SampleMap} alt="sample map" />
           </div>
         </main>
         <NavBottom></NavBottom>
