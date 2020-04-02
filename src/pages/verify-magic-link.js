@@ -6,6 +6,8 @@ import Box from "@material-ui/core/Container";
 import Axios from "axios";
 
 import Header from "../components/header-round";
+import LinearProgress from "@material-ui/core/LinearProgress";
+import {Grid} from "@material-ui/core";
 
 export default function VerifyMagicLink({ props, location }) {
   const history = useHistory();
@@ -19,7 +21,7 @@ export default function VerifyMagicLink({ props, location }) {
   // Function to make call backend service to confirm the magic link
   const verifyMagicLink = async (searchParams) => {
     await Axios.post(
-      "https://allclear-dev.azurewebsites.net/peoples/confirm",
+      "https://api-dev.allclear.app/peoples/confirm",
       {
         phone: searchParams.phone,
         code: searchParams.code
@@ -28,7 +30,8 @@ export default function VerifyMagicLink({ props, location }) {
       console.log('response', response);
       history.push("/background");
     }).catch((error) => {
-      console.log('error', error)
+      console.log('error', error);
+      history.push("/background");
     });
 
   };
@@ -42,11 +45,17 @@ export default function VerifyMagicLink({ props, location }) {
       <Box className="phone-verify">
         <Header>
           <h1 style={{ justifyContent: "center", margin: "0" }}>
-            Verifying Account
+            Verifying Phone Number
           </h1>
-          <p>Please check sms text message for your verification link!</p>
+          <p>We are verifying your phone number.</p>
+          <p>After verifying it, you will advance to complete your profile.</p>
         </Header>
 
+        <Grid container justify="center">
+          <Grid item xs={12} sm={6}>
+            <LinearProgress color="primary" value="50" />
+          </Grid>
+        </Grid>
       </Box>
     </div>
   );

@@ -1,7 +1,7 @@
+import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import clsx from "clsx";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 
 import Box from "@material-ui/core/Container";
 
@@ -24,6 +24,9 @@ import Header from "../components/headerWhite";
 import FabBlueBottom from "../components/fabBlueBottom";
 import NavBottom from "../components/navBottom";
 import SearchGoogleMapInput from "../components/searchGoogleMapInput";
+
+import MapComponent from "../components/map";
+import SimpleMap from "../components/googleMap";
 import UpdateCriteria from "./updateTestingCriteriaModal";
 
 import { mapLocationData } from "../constants";
@@ -106,7 +109,15 @@ function CardMapLocation({
             {description}
           </p>
           <div className="buttons" style={{ marginTop: "15px" }}>
-            <Button className="btn primary-back white">Directions</Button>
+            <a
+              href={
+                "https://www.google.com/maps/dir/?api=1&destination=" +
+                description
+              }
+              target="_blank"
+            >
+              <Button className="btn primary-back white">Directions</Button>
+            </a>
             <Button
               className="btn primary-color primary-outline"
               style={{ marginLeft: "15px" }}
@@ -503,14 +514,14 @@ export default function FindTestMap() {
               </div>
             </Box>
             <Divider className={classes.divider} orientation="horizontal" />
-            {mapLocationData.map((result, index) => (
+            {mapLocationData.data.map((result, index) => (
               <CardMapLocation
                 index={index}
-                title={result.title}
-                description={result.description}
+                title={result.Name}
+                description={result.Address}
                 status={result.status}
-                service_time={result.service_time}
-                commute={result.commute}
+                service_time={result.Hours}
+                commute={result["Drive Through"]}
               ></CardMapLocation>
             ))}
           </div>
@@ -521,7 +532,7 @@ export default function FindTestMap() {
           })}
         >
           <div className="map-fullscreen">
-            <img src={SampleMap} alt="sample map" style={{ height: "63vh" }} />
+            <SimpleMap {...mapLocationData}></SimpleMap>
           </div>
         </main>
         <NavBottom></NavBottom>

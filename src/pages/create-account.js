@@ -24,15 +24,19 @@ export default function CreateAccount() {
   const [valueSympotyms, setSymptomsValue] = React.useState("nosymptoms");
 
   const [valueTesting, setValue] = React.useState("tested");
+  sessionStorage.setItem('symptoms', "nosymptoms");
+  sessionStorage.setItem('testing', "tested");
 
   const handleSymtomsChange = (event, newValue) => {
     if (!newValue) return;
     setValue(newValue);
+    sessionStorage.setItem('symptoms', newValue);
   };
 
   const handleChange = (event, newValue) => {
     if (!newValue) return;
     setSymptomsValue(newValue);
+    sessionStorage.setItem('testing', newValue);
   };
 
   return (
@@ -111,7 +115,7 @@ export default function CreateAccount() {
           </ToggleButtonGroup>
           <Grid container justify="center">
             <Grid item xs={12} sm={4}>
-              <Link to="/phone-verify">
+              <Link to="/condition">
                 <Button
                   variant="contained"
                   color="primary"
@@ -129,7 +133,7 @@ export default function CreateAccount() {
             </Grid>
           </Grid>
         </div>
-        <ProgressBottom progress="0"></ProgressBottom>
+        <ProgressBottom progress="1"></ProgressBottom>
       </Box>
     </div>
   );

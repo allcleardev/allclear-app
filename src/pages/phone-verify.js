@@ -5,39 +5,51 @@ import Box from "@material-ui/core/Container";
 import { Button, Grid } from "@material-ui/core";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import TextField from "@material-ui/core/TextField";
 import Axios from "axios";
 
 import Header from "../components/header-round";
 import ProgressBottom from "../components/progressBottom";
 import PhoneNumber from "../components/phoneNumber";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 export default function PhoneVerify({ props }) {
   const [state, setState] = React.useState({
-    checkedB: true
+    checkedB: true,
+    loading: false
   });
 
   const history = useHistory();
-  let textInput = React.createRef();
 
   const handleChange = event => {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
 
   const verifyPhoneNumber = async () => {
-    // console.log(history);
-    // console.log(textInput.current.value);
+    setState({ loading: true });
+    const phone = sessionStorage.getItem('phone');
 
+    console.log('phone', phone);
+
+    if (!phone) {
+      //show error message
+      setState({ loading: false });
+      return;
+    }
     const response = await Axios.post(
       "https://api-dev.allclear.app/peoples/start",
       {
-        phone: textInput.current.value,
-        beenTested: true,
-        haveSymptoms: true
+        phone: phone,
+        beenTested: false,
+        haveSymptoms: false
       }
-    );
-    console.log(response);
-    history.push("/complete-profile");
+    ).then((response) => {
+      console.log(response);
+      history.push("/phone-verify-success");
+    }).catch((error) => {
+      //show error message
+      setState({ loading: false });
+    });
+
   };
 
   return (
@@ -49,24 +61,14 @@ export default function PhoneVerify({ props }) {
           </h1>
           <p>Enter your phone number to get started.</p>
         </Header>
-        <form noValidate autoComplete="off" className="body-phone-verify">
+
+        {state.loading === false ? <form noValidate autoComplete="off" className="body-phone-verify" style={{ textAlign: "center" }}>
           <Grid container justify="center">
             <Grid item xs={12} sm={6}>
-              {/* <TextField
-                inputRef={textInput}
-                id="standard-basic"
-                label="Phone Number"
-                style={{
-                  width: "100%",
-                  justifyContent: "center",
-                  margin: "80px 0"
-                }}
-                className="hide-desktop"
-                v
-              /> */}
               <PhoneNumber className="hide-mobile"></PhoneNumber>
             </Grid>
           </Grid>
+
           <p className="turn-white text-grey" style={{ padding: "30px 0" }}>
             Please review and agree to the{" "}
             <span style={{ color: "#002C83" }}>
@@ -112,7 +114,17 @@ export default function PhoneVerify({ props }) {
             </Button>
           </div>
         </form>
+        :
+        <Grid container justify="center">
+          <Grid item xs={12} sm={6}>
+            <LinearProgress color="primary" value="50" />
+          </Grid>
+        </Grid>
+        }
+
+        {state.loading === false ?
         <ProgressBottom progress="100px"></ProgressBottom>
+        :null}
       </Box>
     </div>
   );
