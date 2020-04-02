@@ -4,25 +4,27 @@ import { makeStyles } from "@material-ui/core/styles";
 import Fab from "@material-ui/core/Fab";
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    boxShadow: "0px 3px 25px rgba(0, 0, 0, 0.3)",
-    fontSize: "14px",
-    color: "#fff"
-  },
+  root: {},
 
   content: {}
 }));
 
-export default function fabBlueBottom({ children, style }) {
+export default function fabBlueBottom({
+  children,
+  style,
+  class_name,
+  handle_name
+}) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const classes = useStyles();
 
   return (
     <Fab
       aria-label="add"
-      className={classes.root}
+      className={class_name}
       color="primary"
       style={style}
+      onClick={handle_name}
     >
       {children}
     </Fab>

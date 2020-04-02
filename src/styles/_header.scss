@@ -112,7 +112,7 @@
     @media (min-width: $md) {
       display: flex;
       justify-content: space-around;
-      padding-bottom: 35px;
+      padding: 30px 0;
       width: $md;
     }
 
@@ -200,6 +200,7 @@
     .header-title {
       margin-left: auto;
       margin-right: auto;
+      padding-top: 15px;
     }
   }
 }
@@ -209,11 +210,15 @@
   flex-direction: column;
   // justify-content: center;
   align-items: center;
-  background: linear-gradient(180deg, #fff 7.25%, rgba(255, 255, 255, 0) 100%);
-  height: 600px;
+  background: linear-gradient(180deg, #fff 5%, rgba(255, 255, 255, 0) 100%);
+  // height: 600px;
+  position: absolute;
+  z-index: 1;
+  width: 100vw;
 
   @media (max-width: $sm) {
-    height: auto;
+    // height: auto;
+    height: 130px;
   }
 
   .header-logo {

@@ -11,6 +11,18 @@
     justify-content: space-between;
   }
 
+  .header-homescreen {
+    .test-tabs-wrapper {
+      @media (max-width: $sm) {
+        width: 45%;
+      }
+
+      @media (max-width: $md) {
+        margin-top: 8px;
+      }
+    }
+  }
+
   .tab-overview-tests {
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
     border-radius: 15px;
@@ -77,5 +89,9 @@
         }
       }
     }
+  }
+
+  .btn-leave-feedback {
+    margin-bottom: 40px !important;
   }
 }

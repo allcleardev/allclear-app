@@ -49,7 +49,7 @@ export default function PhoneVerify({ props }) {
           </h1>
           <p>Enter your phone number to get started.</p>
         </Header>
-        <form noValidate autoComplete="off" style={{ textAlign: "center" }}>
+        <form noValidate autoComplete="off" className="body-phone-verify">
           <Grid container justify="center">
             <Grid item xs={12} sm={6}>
               {/* <TextField
