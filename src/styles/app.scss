@@ -2,7 +2,6 @@
 @import "shared";
 @import "header";
 @import "complete-profile";
-@import "condition-new";
 @import "create-account";
 @import "phone-verify";
 @import "test";
@@ -12,6 +11,14 @@
 * {
   font-family: $font-normal;
   text-transform: none;
+}
+
+body {
+  background: transparent !important;
+}
+
+button {
+  outline: none !important;
 }
 
 .background-responsive {
@@ -67,7 +74,7 @@
 }
 
 .body-title {
-  font-family: "SF Pro";
+  font-family: SF Pro;
   font-style: normal;
   font-weight: 600;
   font-size: 20px;
@@ -79,7 +86,7 @@
 }
 
 a {
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 .progress-bottom {
@@ -155,7 +162,7 @@ a {
 }
 
 .btn-full-width {
-  width: 182px !important;
+  width: 200px !important;
 }
 
 .btn-outlined-white {
@@ -326,7 +333,7 @@ a {
   padding: 25px 15px;
 
   .sub-card {
-    padding: 10px 0;
+    padding: 20px 0;
 
     .body-sub-title {
       font-family: "SF Pro Display", sans-serif;
@@ -335,7 +342,7 @@ a {
       font-size: 15px;
       line-height: 18px;
       letter-spacing: 0.374px;
-      margin: 16px 0;
+      margin: 5px 0;
     }
 
     .body-sub-description {

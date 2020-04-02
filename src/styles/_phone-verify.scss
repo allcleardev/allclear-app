@@ -15,6 +15,18 @@
     justify-content: space-between;
   }
 
+  .body-phone-verify {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+
+    @media (min-width: $md) {
+      height: 60vh !important;
+    }
+  }
+
   .check-label {
     color: #999999;
     display: flex;
