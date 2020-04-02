@@ -121,7 +121,6 @@ class Result extends React.Component {
                 </div>
 
 
-
                 <div className="conditonRSP">
                     <div className="mainWrapper">
                         <div className="wrapScreen">
