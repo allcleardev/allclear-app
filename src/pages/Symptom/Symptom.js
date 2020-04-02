@@ -1,60 +1,56 @@
-import React, { Fragment } from 'react';
-import states from './Symptom.state';
-import './Symptom.module.css';
+import React, { Fragment } from "react";
+import states from "./Symptom.state";
+import "./Symptom.module.css";
 import { Link } from "react-router-dom";
 
-
 class Symptom extends React.Component {
-    state = states
+  state = states;
 
-    componentDidMount = () => {
+  componentDidMount = () => {};
 
-    }
+  handleInputChange = (event, name) => {};
 
-    handleInputChange = (event, name) => {
+  render() {
+    return (
+      <Fragment>
+        <div className="wrapScreen">
+          <div className="screenHead">
+            <div style={{ paddingTop: 60 }}></div>
+            <div className="arrow">
+              <i class="fa fa-angle-left" aria-hidden="true"></i>
+            </div>
+            <div className="headingTxt">Symptoms</div>
+            <div className="subHeading">
+              Select all symptoms that you are currently experiencing.
+            </div>
+          </div>
+          <div className="workSpaceArea">
+            <div className="wrapBox">
+              <div className="box1 selectBG">Cough</div>
+              <div className="box1">Symptom</div>
+              <div className="box1">Symptom</div>
+            </div>
+            <div className="wrapBox">
+              <div className="box1">Symptom</div>
+              <div className="box1 selectBG">Fever</div>
+              <div className="box1 selectBG">Runny Nose</div>
+            </div>
+            <div className="wrapBox">
+              <div className="box1 selectBG">Sore Throat</div>
+              <div className="box1">Symptom</div>
+              <div className="box1">Symptom</div>
+            </div>
+            <div class="wrapBtn">
+              <Link to="/result">
+                <button>Next</button>
+              </Link>
+            </div>
+          </div>
 
-    }
-
-
-
-
-
-    render() {
-        return (
-            <Fragment>
-                <div className="wrapScreen">
-                    <div className="screenHead">
-                        <div style={{paddingTop:60}}></div>
-                        <div className="arrow"><i class="fa fa-angle-left" aria-hidden="true"></i></div>
-                        <div className="headingTxt">Symptoms</div>
-                        <div className="subHeading">Select all symptoms that you are currently experiencing.</div>
-                    </div>
-                    <div className="workSpaceArea">
-                        <div className="wrapBox">
-                            <div className="box1 selectBG">Cough</div>
-                            <div className="box1">Symptom</div>
-                            <div className="box1">Symptom</div>
-                        </div>
-                        <div className="wrapBox">
-                            <div className="box1">Symptom</div>
-                            <div className="box1 selectBG">Fever</div>
-                            <div className="box1 selectBG">Runny Nose</div>
-                        </div>
-                        <div className="wrapBox">
-                            <div className="box1 selectBG">Sore Throat</div>
-                            <div className="box1">Symptom</div>
-                            <div className="box1">Symptom</div>
-                        </div>
-                        <div class="wrapBtn"><Link to="/result"><button>Next</button></Link></div>
-                    </div>
-
-
-                    <div style={{marginBottom:20,float:'left',width:'100%'}} ></div>
-                </div>
-
-
-            </Fragment>
-        )
-    }
+          <div style={{ marginBottom: 20, float: "left", width: "100%" }}></div>
+        </div>
+      </Fragment>
+    );
+  }
 }
-export default Symptom
+export default Symptom;
