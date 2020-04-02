@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
@@ -22,6 +23,9 @@ import TestResultCard from "../components/cardTestResults";
 import NavBottom from "../components/navBottom";
 import FabBlueBottom from "../components/fabBlueBottom";
 import SearchGoogleMapInput from "../components/searchGoogleMapInput";
+
+import MapComponent from "../components/map";
+
 
 import SampleMap from "../assets/images/dallas-map.png";
 
@@ -133,6 +137,8 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+
+
 export default function CompleteProfile() {
   const classes = useStyles();
 
@@ -146,6 +152,11 @@ export default function CompleteProfile() {
   const handleSecondChange = (e, newValue) => {
     setSecondValue(newValue);
   };
+
+  const [currTab, setTabValue] = useState(1);
+
+
+  
 
   return (
     <div className="test-map-page">
@@ -173,7 +184,8 @@ export default function CompleteProfile() {
       </Header>
       <TabPanel value={value} index={0}>
         <div className="map-fullscreen">
-          <img src={SampleMap} alt="sample map" />
+          <MapComponent changeTab={{otherTabIdx: 0, changeTabFn: setTabValue}} />
+
         </div>
         <div className="nav-left-location">
           <Box>
