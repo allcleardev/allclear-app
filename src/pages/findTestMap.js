@@ -109,7 +109,15 @@ function CardMapLocation({
             {description}
           </p>
           <div className="buttons" style={{ marginTop: "15px" }}>
-            <a href={'https://www.google.com/maps/dir/?api=1&destination=' + description} target="_blank"><Button className="btn primary-back white">Directions</Button></a>
+            <a
+              href={
+                "https://www.google.com/maps/dir/?api=1&destination=" +
+                description
+              }
+              target="_blank"
+            >
+              <Button className="btn primary-back white">Directions</Button>
+            </a>
             <Button
               className="btn primary-color primary-outline"
               style={{ marginLeft: "15px" }}
@@ -225,7 +233,7 @@ export default function FindTestMap() {
   const Component = () => {
     const { height, width } = useWindowDimensions();
 
-    if (width <= 375) {
+    if (width <= 576) {
       setAnchor("bottom");
       setOpen(true);
     } else {
@@ -493,7 +501,7 @@ export default function FindTestMap() {
                 description={result.Address}
                 status={result.status}
                 service_time={result.Hours}
-                commute={result['Drive Through']}
+                commute={result["Drive Through"]}
               ></CardMapLocation>
             ))}
           </div>
@@ -505,7 +513,6 @@ export default function FindTestMap() {
         >
           <div className="map-fullscreen">
             <SimpleMap {...mapLocationData}></SimpleMap>
-
           </div>
         </main>
         <NavBottom></NavBottom>
