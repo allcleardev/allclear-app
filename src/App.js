@@ -21,7 +21,7 @@ import CompleteProfile from "./pages/completeProfile";
 import Background from "./pages/Background/Background";
 import FindTest from "./pages/ResultDetail/FindTest";
 import ResultDetail from "./pages/ResultDetail/ResultDetail";
-
+import AddTest from './pages/Test/Add-test';
 import "./styles/app.scss";
 
 export default function App() {
@@ -39,7 +39,7 @@ export default function App() {
       {/* David end */}
       <Route path="/forgot" component={ForgotPassword} />
       <Route path="/health" component={Health} />
-
+      <Route path="/add-test" component={AddTest} />
       <Route path="/location" component={Location} />
       <Route path="/login" component={login} />
       <Route path="/symptom" component={Symptom} />
