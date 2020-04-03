@@ -233,7 +233,7 @@ export default function FindTestMap() {
   const Component = () => {
     const { height, width } = useWindowDimensions();
 
-    if (width <= 375) {
+    if (width <= 425) {
       setAnchor("bottom");
       setOpen(true);
     } else {
