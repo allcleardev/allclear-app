@@ -7,6 +7,7 @@
 @import "phone-verify";
 @import "test";
 @import "test-map";
+@import "profile-view";
 @import "footer";
 
 * {
@@ -71,7 +72,8 @@ button {
   font-weight: 600;
   font-size: 13px;
   line-height: 16px;
-  margin: 0;
+  margin: 5px 0 !important;
+  color: $grey-color;
 }
 
 .body-title {

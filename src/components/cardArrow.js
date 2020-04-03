@@ -3,18 +3,20 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import { Grid, IconButton } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    boxShadow: "0px 1px 4px rgba(0, 0, 0, 0.2)",
+    borderRadius: "6px"
   },
   content: {}
 }));
 
-export default function ArrowCard({ title, description }) {
+export default function ArrowCard({ title, description, children }) {
   const classes = useStyles();
 
   return (
@@ -26,6 +28,7 @@ export default function ArrowCard({ title, description }) {
         <p className="card-description" style={{ color: "#929292" }}>
           {description}
         </p>
+        {children}
       </CardContent>
       <IconButton>
         <svg
