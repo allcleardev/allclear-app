@@ -1,18 +1,19 @@
 
 export const symptomObjDefault = () => {
-    return {}
-};
+    return
+    {
+    }
+}
 
 const states = (function states() {
     return {
         symptomObj: symptomObjDefault(),
         symptoms: [
             { name: 'Fever', isActive: false },
-            { name: 'Shortness of Breath', isActive: true },
-            { name: 'Dry Cough', isActive: false },
+            { name: 'Shorness of Breath', isActive: false },
+            { name: 'Dry Cough', isActive: true },
             { name: 'Fatigue', isActive: false },
-            { name: 'Runny Nose or Nasal Condition', isActive: true },
-            { name: 'Sore Throat', isActive: true },
+            { name: 'Runny Nose or Nasal Congestion', isActive: false },
             { name: 'Nausea or Vomiting', isActive: false },
             { name: 'Muscle Ache', isActive: false },
             { name: 'Diarrhea', isActive: false },
