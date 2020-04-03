@@ -12,6 +12,7 @@ import Health from "./pages/health";
 import Test from "./pages/test";
 import UpdateTestingCenterCriteria from "./pages/updateTestingCenterCriteria";
 import FindTestMap from "./pages/findTestMap";
+import ProfileView from "./pages/profileView";
 import ForgotPassword from "./pages/forgot-password";
 import Symptom from "./pages/Symptom/Symptom";
 import Success from "./pages/Success/Success";
@@ -36,6 +37,7 @@ export default function App() {
       <Route path="/test" component={Test} />
       <Route path="/find-test-map" component={FindTestMap} />
       <Route path="/update-criteria" component={UpdateTestingCenterCriteria} />
+      <Route path="/profile-view" component={ProfileView} />
       {/* David end */}
       <Route path="/forgot" component={ForgotPassword} />
       <Route path="/health" component={Health} />
