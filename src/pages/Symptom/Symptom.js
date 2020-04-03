@@ -1,8 +1,8 @@
-import React, { Fragment } from "react";
-import states from "./Symptom.state";
-import "./Symptom.module.css";
+import React, { Fragment } from 'react';
+import states from './Symptom.state';
+import './Symptom.module.css';
 import { Link } from "react-router-dom";
-import logo from "../../assets/images/Union.png";
+import logo from '../../assets/images/Union.png';
 
 class Symptom extends React.Component {
   state = states;
@@ -148,5 +148,6 @@ class Symptom extends React.Component {
       </div>
     );
   }
+
 }
-export default Symptom;
+export default Symptom
