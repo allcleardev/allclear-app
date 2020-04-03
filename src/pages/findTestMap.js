@@ -233,7 +233,7 @@ export default function FindTestMap() {
   const Component = () => {
     const { height, width } = useWindowDimensions();
 
-    if (width <= 375) {
+    if (width <= 576) {
       setAnchor("bottom");
       setOpen(true);
     } else {
@@ -333,26 +333,6 @@ export default function FindTestMap() {
     <div className="test-map-page">
       <Component></Component>
       <Header>
-        <div className="test-tabs-wrapper map-tab">
-          <AppBar position="static" className="test-tabs">
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              aria-label="Find Tests and Test Results"
-            >
-              <Tab
-                label="Find Tests"
-                {...a11yProps(0)}
-                style={{ width: "50%" }}
-              />
-              <Tab
-                label="Test Results"
-                {...a11yProps(1)}
-                style={{ width: "50%" }}
-              />
-            </Tabs>
-          </AppBar>
-        </div>
       </Header>
       <TabPanel value={value} index={0}>
         <AppBar

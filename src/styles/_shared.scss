@@ -3,7 +3,8 @@ $colors: (
   "white": $white-color,
   "black": $black-color,
   "grey": $grey-color,
-  "grey2": $grey2
+  "grey2": $grey2,
+  "navy": $navy
 );
 
 @each $name, $color in $colors {
@@ -24,4 +25,40 @@ $colors: (
   .height-#{$num} {
     height: $num + px !important;
   }
+}
+
+.flex-container {
+  display: flex;
+}
+
+.flex-direction-row {
+  flex-direction: row;
+}
+
+.flex-direction-col {
+  flex-direction: column;
+}
+
+.flex-just-center {
+  justify-content: center;
+}
+
+.flex-align-center {
+  align-items: center;
+}
+
+.flex-just-between {
+  justify-content: space-between;
+}
+
+.flex-align-start {
+  align-items: flex-start;
+}
+
+.flex-wrap-on {
+  flex-wrap: wrap;
+}
+
+.flex-wrap-off {
+  flex-wrap: nowrap;
 }
