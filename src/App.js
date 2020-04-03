@@ -43,7 +43,7 @@ export default function App() {
       <Route path="/location" component={Location} />
       <Route path="/login" component={login} />
       <Route path="/symptom" component={Symptom} />
-      <Route path="/result" component={Result} />
+      {/* <Route path="/result" component={Result} /> */}
       <Route path="/succcess" component={Success} />
       {/* <Route path="/launch" component={Launch} /> */}
       <Route path="/condition" component={Condition} />
@@ -51,7 +51,7 @@ export default function App() {
       <Route path="/phone-verify-success" component={PhoneVerifySuccess} />
       <Route path="/register" component={VerifyMagicLink} />
       <Route path="/find-test" component={FindTest} />
-      <Route path="/result-detail" component={ResultDetail} />
+      {/* <Route path="/result-detail" component={ResultDetail} /> */}
     </Router>
   );
 }
