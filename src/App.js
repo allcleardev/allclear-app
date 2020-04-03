@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import Launch from "./pages/launch";
 import CreateAccount from "./pages/create-account";
-import PhoneVerify from "./pages/phone-verify";
-import PhoneVerifyCode from "./pages/phone-verification";
+import PhoneVerify from "./pages/phoneVerify";
+import PhoneVerifyCode from "./pages/phoneVerification";
 import PhoneVerifySuccess from "./pages/phone-verify-success";
 import VerifyMagicLink from "./pages/verify-magic-link";
 import login from "./pages/login";
