@@ -113,7 +113,7 @@ export default function CompleteProfile() {
           </div>
         </Grid>
       </Grid>
-      <NavBottom></NavBottom>
+      <NavBottom active={0}></NavBottom>
     </Box>
   );
 }
