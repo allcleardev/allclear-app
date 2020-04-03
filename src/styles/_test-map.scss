@@ -74,7 +74,7 @@
       padding-top: 15px;
       padding-bottom: 15px;
       display: flex;
-      justify-content: flex-start;
+      justify-content: space-between;
       flex-direction: row;
 
       @media (max-width: $sm) {
