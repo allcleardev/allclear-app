@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Launch from "./pages/launch";
 import CreateAccount from "./pages/create-account";
 import PhoneVerify from "./pages/phoneVerify";
+import PhoneVerifying from "./pages/phoneVerifying";
 import PhoneVerifyCode from "./pages/phoneVerification";
 import PhoneVerifySuccess from "./pages/phone-verify-success";
 import VerifyMagicLink from "./pages/verify-magic-link";
@@ -14,6 +15,7 @@ import Test from "./pages/test";
 import UpdateTestingCenterCriteria from "./pages/updateTestingCenterCriteria";
 import FindTestMap from "./pages/findTestMap";
 import ProfileView from "./pages/profileView";
+import ProfileEdit from "./pages/profileEdit";
 import ForgotPassword from "./pages/forgot-password";
 import Symptom from "./pages/Symptom/Symptom";
 import Success from "./pages/Success/Success";
@@ -39,7 +41,9 @@ export default function App() {
       <Route path="/find-test-map" component={FindTestMap} />
       <Route path="/update-criteria" component={UpdateTestingCenterCriteria} />
       <Route path="/profile-view" component={ProfileView} />
+      <Route path="/profile-edit" component={ProfileEdit} />
       <Route path="/phone-verification" component={PhoneVerifyCode} />
+      <Route path="/phone-verifying" component={PhoneVerifying} />
       {/* David end */}
       <Route path="/forgot" component={ForgotPassword} />
       <Route path="/health" component={Health} />
