@@ -64,7 +64,7 @@ export default function PhoneVerify({ props }) {
             <Form noValidate autoComplete="off" className="onboarding-body">
               <PhoneNumber className="hide-mobile"></PhoneNumber>
 
-              <div class="review-container">
+              <div className="review-container">
                 <p>Please review and agree to the
                   <a href="/terms/"> Terms & Conditions </a> and
                   <a href="/privacy/"> Privacy Policy </a> before continuing.
@@ -90,7 +90,7 @@ export default function PhoneVerify({ props }) {
                     className="back"
                   >
                     Back
-              </Button>
+                  </Button>
                 </Link>
                 <Button
                   onClick={() => verifyPhoneNumber()}
@@ -99,7 +99,7 @@ export default function PhoneVerify({ props }) {
                   className="next"
                 >
                   Send Verification Code
-            </Button>
+                </Button>
               </div>
             </Form>
             :

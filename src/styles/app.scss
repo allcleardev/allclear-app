@@ -41,9 +41,22 @@ button {
 
   .button-container {
     display: flex;
+    flex-direction: column-reverse;
     justify-content: space-between;
     width: 100%;
     margin-bottom: 77px;
+
+    @media(min-width: $md) {
+      flex-direction: row;
+    }
+
+    >button {
+      margin-bottom: 14px;
+
+      @media(min-width: $md) {
+        margin: 0;
+      }
+    }
   }
 }
 
@@ -251,32 +264,6 @@ a {
 
 .aligncenter {
   text-align: center;
-}
-
-.white-back-input {
-  width: 100%;
-
-  .MuiFilledInput-root {
-    background-color: #fff;
-    border-radius: 8px;
-
-    @media (max-width: $md) {
-      border: 1px solid #dadada;
-    }
-
-    .MuiInputBase-input {
-      background-color: #fff;
-      border-radius: 8px;
-    }
-  }
-
-  .MuiFilledInput-underline:before {
-    display: none;
-  }
-
-  .MuiFilledInput-underline:after {
-    display: none;
-  }
 }
 
 //tab component
