@@ -5,9 +5,12 @@ import Launch from "./pages/launch";
 import CreateAccount from "./pages/create-account";
 import PhoneVerify from "./pages/phoneVerify";
 import PhoneVerifyCode from "./pages/phoneVerification";
+import PhoneVerifying from "./pages/phoneVerifying";
 import PhoneVerifySuccess from "./pages/phone-verify-success";
 import VerifyMagicLink from "./pages/verify-magic-link";
 import login from "./pages/login";
+import LoginVerification from "./pages/loginVerification";
+import loginOrg from "./pages/loginOrg";
 import Location from "./pages/location";
 import Health from "./pages/health";
 import Test from "./pages/test";
@@ -24,7 +27,7 @@ import CompleteProfile from "./pages/completeProfile";
 import Background from "./pages/Background/Background";
 import FindTest from "./pages/ResultDetail/FindTest";
 import ResultDetail from "./pages/ResultDetail/ResultDetail";
-import AddTest from './pages/Test/Add-test';
+import AddTest from "./pages/Test/Add-test";
 import "./styles/app.scss";
 
 export default function App() {
@@ -42,14 +45,17 @@ export default function App() {
       <Route path="/profile-view" component={ProfileView} />
       <Route path="/profile-edit" component={ProfileEdit} />
       <Route path="/phone-verification" component={PhoneVerifyCode} />
+      <Route path="/phone-verifying" component={PhoneVerifying} />
+      <Route path="/login" component={login} />
+      <Route path="/login-verification" component={LoginVerification} />
       {/* David end */}
       <Route path="/forgot" component={ForgotPassword} />
       <Route path="/health" component={Health} />
       <Route path="/add-test" component={AddTest} />
       <Route path="/location" component={Location} />
-      <Route path="/login" component={login} />
+      <Route path="/login-org" component={loginOrg} />
       <Route path="/symptom" component={Symptom} />
-       <Route path="/result" component={Result} />
+      <Route path="/result" component={Result} />
       <Route path="/succcess" component={Success} />
       {/* <Route path="/launch" component={Launch} /> */}
       <Route path="/condition" component={Condition} />

@@ -1,4 +1,4 @@
-.phone-verify {
+.login-verification {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -22,9 +22,13 @@
     align-items: center;
     text-align: center;
 
-    // @media (min-width: $md) {
-    //   height: 60vh !important;
-    // }
+    @media (min-height: $sm) {
+      height: calc(100vh - 253px) !important;
+
+      @media (min-width: $md) {
+        height: calc(100vh - 336px) !important;
+      }
+    }
   }
 
   .check-label {
@@ -40,6 +44,28 @@
       @media (max-width: $sm) {
         font-size: 13px;
       }
+    }
+  }
+
+  @media (max-width: $md) {
+    .mobile-grey {
+      background-color: $grey2 !important;
+      color: $black-color;
+    }
+
+    .button {
+      margin: 12px 0 !important;
+      height: 48px !important;
+    }
+  }
+
+  .btn-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    @media (max-width: $sm) {
+      flex-direction: column;
     }
   }
 }

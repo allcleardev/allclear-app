@@ -25,7 +25,7 @@ export default function PhoneVerify({ props }) {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
 
-  const verifyPhoneNumber = async () => {
+  const loginVerification = async () => {
     setState({ loading: true });
     const phone = sessionStorage.getItem("phone");
 
@@ -62,8 +62,8 @@ export default function PhoneVerify({ props }) {
 
   return (
     <div className="background-responsive">
-      <Box className="login">
-        <Header>
+      <Box className="login-verification">
+        <Header navigate="/login">
           <h1 style={{ justifyContent: "center", margin: "0" }}>Sign In</h1>
           <p>Enter your phone number to be sent a verification code.</p>
         </Header>
@@ -75,8 +75,12 @@ export default function PhoneVerify({ props }) {
             className="body-phone-verify"
             style={{ textAlign: "center" }}
           >
-            <div className="wid100" style={{ margin: "70px 0" }}>
-              <Grid container justify="center">
+            <div>
+              <p className="turn-white text-grey" style={{ padding: "30px 0" }}>
+                We texted your phone *** *** ***42. Please enter the code to
+                sign in.
+              </p>
+              <Grid container justify="center" style={{ marginBottom: "42px" }}>
                 <Grid item xs={12} sm={6}>
                   <FormControl
                     className="form-control"
@@ -87,36 +91,35 @@ export default function PhoneVerify({ props }) {
                       defaultValue=""
                       className="white-back-input"
                       variant="outlined"
-                      label={value === "" ? "Phone Number" : ""}
+                      label={value === "" ? "Verification Code" : ""}
                       height="60px"
                       onChange={handleCodeChange}
                       InputLabelProps={{ shrink: false }}
                       value={value}
-                      style={{}}
                     />
                   </FormControl>
                 </Grid>
               </Grid>
             </div>
             <div className="flexrow wid100 btn-group">
-              <Link to="/create-account" className="wid100-sm">
+              <Link to="/login" className="wid100-sm">
                 <Button
                   variant="contained"
                   color="primary"
                   fullWidth="true"
-                  className="button btn-outlined-white btn-full-width font-weight-600 mobile-grey hide-mobile-sm"
+                  className="button btn-outlined-white btn-full-width font-weight-600 mobile-grey"
                 >
-                  Create Account
+                  Restart
                 </Button>
               </Link>
               <Button
-                // onClick={() => sendVerificationCode()}
+                // onClick={() => loginVerification()}
                 variant="contained"
                 color="primary"
                 fullWidth="true"
                 className="button btn-responsive btn-full-width font-weight-600"
               >
-                Send Verification Code
+                Verify
               </Button>
               <p
                 className="color-primary show-mobile-sm"
