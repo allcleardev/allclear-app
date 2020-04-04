@@ -26,16 +26,14 @@ export default function PhoneVerify({ props }) {
 
   const verifyPhoneNumber = async () => {
     setState({ loading: true });
-    const phone = sessionStorage.getItem('phone');
-
-    console.log('phone', phone);
+    let phone = sessionStorage.getItem('phone');
 
     if (!phone) {
       //show error message
       setState({ loading: false });
       return;
     }
-    const response = await Axios.post(
+    await Axios.post(
       "https://api-dev.allclear.app/peoples/start",
       {
         phone: phone,
@@ -44,7 +42,8 @@ export default function PhoneVerify({ props }) {
       }
     ).then((response) => {
       console.log(response);
-      history.push("/phone-verify-success");
+      sessionStorage.setItem('phone', phone);
+      history.push("/phone-verification");
     }).catch((error) => {
       //show error message
       setState({ loading: false });

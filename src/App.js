@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import Launch from "./pages/launch";
 import CreateAccount from "./pages/create-account";
-import PhoneVerify from "./pages/phone-verify";
+import PhoneVerify from "./pages/phoneVerify";
+import PhoneVerifyCode from "./pages/phoneVerification";
 import PhoneVerifySuccess from "./pages/phone-verify-success";
 import VerifyMagicLink from "./pages/verify-magic-link";
 import login from "./pages/login";
@@ -13,6 +14,7 @@ import Test from "./pages/test";
 import UpdateTestingCenterCriteria from "./pages/updateTestingCenterCriteria";
 import FindTestMap from "./pages/findTestMap";
 import ProfileView from "./pages/profileView";
+import ProfileEdit from "./pages/profileEdit";
 import ForgotPassword from "./pages/forgot-password";
 import Symptom from "./pages/Symptom/Symptom";
 import Success from "./pages/Success/Success";
@@ -39,6 +41,8 @@ export default function App() {
       <Route path="/find-test-map" component={FindTestMap} />
       <Route path="/update-criteria" component={UpdateTestingCenterCriteria} />
       <Route path="/profile-view" component={ProfileView} />
+      <Route path="/profile-edit" component={ProfileEdit} />
+      <Route path="/phone-verification" component={PhoneVerifyCode} />
       {/* David end */}
       <Route path="/forgot" component={ForgotPassword} />
       <Route path="/health" component={Health} />
@@ -46,7 +50,7 @@ export default function App() {
       <Route path="/location" component={Location} />
       <Route path="/login" component={login} />
       <Route path="/symptom" component={Symptom} />
-      {/* <Route path="/result" component={Result} /> */}
+       <Route path="/result" component={Result} />
       <Route path="/succcess" component={Success} />
       {/* <Route path="/launch" component={Launch} /> */}
       <Route path="/condition" component={Condition} />

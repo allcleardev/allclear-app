@@ -220,6 +220,7 @@ export default function UpdateCriteria() {
 
           padding: "25px 0"
         }}
+        className="btn-group"
       >
         <Grid item xs={12} sm={5}>
           <Button className="btn-big bg-primary color-white fontsize-16">

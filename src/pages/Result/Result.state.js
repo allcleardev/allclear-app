@@ -1,13 +1,17 @@
 
 export const resultObjDefault = () => {
-    return 
+    return
         {
     }
-}
+};
 
 const states = (function states() {
     return {
         resultObj: resultObjDefault(),
+        loading: false,
+        testTypes: [],
+        testLocations: [],
+
     }
-})()
+})();
 export default states;

@@ -2,7 +2,7 @@ import React from "react";
 
 import Fab from "@material-ui/core/Fab";
 
-import Logo from "../assets/images/logo.svg";
+import Logo from "../assets/images/logo-green-back.svg";
 
 export default function Header(props) {
   return (

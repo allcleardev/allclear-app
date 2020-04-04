@@ -124,7 +124,7 @@ export default function ProfileView() {
                   </div>
                 </div>
               </div>
-              <Link to="update-criteria">
+              <Link to="/profile-edit">
                 <EditIconButton></EditIconButton>
               </Link>
             </div>
