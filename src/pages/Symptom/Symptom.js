@@ -3,17 +3,30 @@ import states from './Symptom.state';
 import './Symptom.module.css';
 import { Link } from "react-router-dom";
 import logo from '../../assets/images/Union.png';
+import Axios from "axios";
 
 class Symptom extends React.Component {
-    state = states
+    state = states;
 
     componentDidMount = () => {
+        this.getSymptoms();
+    };
 
-    }
+    getSymptoms = () => {
+        this.setState({ loading: true });
 
-    handleInputChange = (event, name) => {
+        Axios.get(
+          "https://api-dev.allclear.app/types/symptoms", {}
+        ).then((response) => {
+            console.log(response);
 
-    }
+            this.setState({ symptoms: response.data });
+            this.setState({ loading: false });
+        }).catch((error) => {
+            console.log(error);
+            this.setState({ loading: false });
+        });
+    };
 
     selectAll = () => {
         let { symptoms } = this.state;
@@ -21,7 +34,8 @@ class Symptom extends React.Component {
             symptom.isActive = true;
         });
         this.setState({ symptoms });
-    }
+        sessionStorage.setItem('symptoms', JSON.stringify(symptoms));
+    };
 
     handleChange = (event) => {
         let { symptoms } = this.state;
@@ -31,7 +45,7 @@ class Symptom extends React.Component {
             }
         });
         this.setState({ symptoms });
-        // setSymptomsValue(newValue);
+        sessionStorage.setItem('symptoms', JSON.stringify(symptoms));
     };
 
 
@@ -73,10 +87,14 @@ class Symptom extends React.Component {
                             <div className="footerBtn">
                                 <div className="row dispNone">
                                     <div className="col-lg-6 text-left">
+                                        <Link to="/condition">
                                         <button className="backBtn pure-material-button-contained">Back</button>
+                                        </Link>
                                     </div>
                                     <div className="col-lg-6 text-right">
+                                        <Link to="/result">
                                         <button className="nextBtn pure-material-button-contained">Next</button>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
@@ -149,7 +167,7 @@ class Symptom extends React.Component {
 									<div class="box1 pure-material-button-contained">Diarrhea</div>
 								</div>
 
-                               
+
                                 <div className="wrapBtn"><button className="pure-material-button-contained">Submit Symptoms</button></div>
                             </div>
                             <div  ></div>

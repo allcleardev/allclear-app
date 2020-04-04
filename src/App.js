@@ -51,7 +51,7 @@ export default function App() {
       <Route path="/location" component={Location} />
       <Route path="/login" component={login} />
       <Route path="/symptom" component={Symptom} />
-      {/* <Route path="/result" component={Result} /> */}
+       <Route path="/result" component={Result} />
       <Route path="/succcess" component={Success} />
       {/* <Route path="/launch" component={Launch} /> */}
       <Route path="/condition" component={Condition} />
