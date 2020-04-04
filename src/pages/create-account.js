@@ -41,16 +41,13 @@ export default function CreateAccount() {
 
   return (
     <div className="background-responsive">
-      <Box className="create-profile">
+      <div className="create-profile page">
         <Header>
-          <h1>Create Account</h1>
-          <p>
-            First, tell us a litte about yourself so we know how to help you
-            best.
-          </p>
+          <h1 className="heading">Tell us about yourself</h1>
+          <h2 className="sub-heading">Tell us about a bit about your COVID-19 experience, so we can best help you.</h2>
         </Header>
 
-        <div style={bodyStyle} className="body-account-create">
+        <div style={bodyStyle} className="onboard-body">
           <h4>COVID-19 TESTING</h4>
 
           <ToggleButtonGroup
@@ -134,7 +131,7 @@ export default function CreateAccount() {
           </Grid>
         </div>
         <ProgressBottom progress="1"></ProgressBottom>
-      </Box>
+      </div>
     </div>
   );
 }

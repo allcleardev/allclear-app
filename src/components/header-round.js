@@ -1,13 +1,14 @@
 import React from "react";
 
 import Fab from "@material-ui/core/Fab";
+import Box from "@material-ui/core/Container";
 
 import Logo from "../assets/images/logo-green-back.svg";
 
 export default function Header(props) {
   return (
     <div className="header">
-      <div className="header-mobile">
+      <div className="mobile-content">
         <Fab size="small" aria-label="add" className="btn-back-fab">
           <svg
             width="9"
@@ -25,14 +26,15 @@ export default function Header(props) {
             />
           </svg>
         </Fab>
+        <div class="shape"></div>
       </div>
-      <div className="header-logo">
+      <Box className="desktop-content" maxWidth="xl">
         <img src={Logo} alt="Logo" className="logo" />
-        <div className="header-menu">
-          <p>About Us</p>
-          <p>Help</p>
-        </div>
-      </div>
+        <nav className="menu">
+          <a href="/about/" class="menu__item">About Us</a>
+          <a href="/help/" class="menu__item">Help</a>
+        </nav>
+      </Box>
       {props.children}
     </div>
   );

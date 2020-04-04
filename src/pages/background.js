@@ -58,12 +58,10 @@ export default function CreateAccount() {
 
   return (
     <div className="background-responsive">
-      <Box className="background">
+      <div className="background page">
         <Header>
-          <h1>Background</h1>
-          <p>
-            Provide information to help us recommend the test sites for you.
-          </p>
+          <h1 class="heading">Background</h1>
+          <h2 class="sub-heading">Provide information to help us recommend the test sites for you.</h2>
         </Header>
 
         <div style={bodyStyle}>
@@ -179,7 +177,7 @@ export default function CreateAccount() {
           </Grid>
         </div>
         <ProgressBottom progress="1"></ProgressBottom>
-      </Box>
+      </div>
     </div>
   );
 }

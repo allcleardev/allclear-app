@@ -54,20 +54,14 @@ export default function PhoneVerify({ props }) {
 
   return (
     <div className="background-responsive">
-      <Box className="phone-verify">
+      <div className="phone-verify page">
         <Header>
-          <h1 style={{ justifyContent: "center", margin: "0" }}>
-            Phone Number
-          </h1>
-          <p>Enter your phone number to get started.</p>
+          <h1 className="heading">Phone Number</h1>
+          <h2 className="sub-heading">Enter your phone number to get started.</h2>
         </Header>
 
-        {state.loading === false ? <form noValidate autoComplete="off" className="body-phone-verify" style={{ textAlign: "center" }}>
-          <Grid container justify="center">
-            <Grid item xs={12} sm={6}>
-              <PhoneNumber className="hide-mobile"></PhoneNumber>
-            </Grid>
-          </Grid>
+        {state.loading === false ? <form noValidate autoComplete="off" className="onboard-body">
+          <PhoneNumber className="hide-mobile"></PhoneNumber>
 
           <p className="turn-white text-grey" style={{ padding: "30px 0" }}>
             Please review and agree to the{" "}
@@ -114,18 +108,18 @@ export default function PhoneVerify({ props }) {
             </Button>
           </div>
         </form>
-        :
-        <Grid container justify="center">
-          <Grid item xs={12} sm={6}>
-            <LinearProgress color="primary" value="50" />
+          :
+          <Grid container justify="center">
+            <Grid item xs={12} sm={6}>
+              <LinearProgress color="primary" value="50" />
+            </Grid>
           </Grid>
-        </Grid>
         }
 
         {state.loading === false ?
-        <ProgressBottom progress="100px"></ProgressBottom>
-        :null}
-      </Box>
+          <ProgressBottom progress="100px"></ProgressBottom>
+          : null}
+      </div>
     </div>
   );
 }

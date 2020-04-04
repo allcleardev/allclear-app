@@ -6,7 +6,7 @@
 @import "background";
 @import "phone-verify";
 @import "phone-verification";
-@import "phone-verifying";
+// @import "phone-verifying";
 @import "test";
 @import "test-map";
 @import "profile-view";
@@ -18,29 +18,48 @@
   text-transform: none;
 }
 
-body {
-  // background: transparent !important;
-}
-
 button {
   outline: none !important;
 }
 
 .background-responsive {
   @media (min-width: $md) {
-    background: linear-gradient(to right, #36d1bc, #1195ff) !important;
-    z-index: -1;
-    margin: 0;
-    min-height: 100vh;
-
-    .header {
-      background: transparent !important;
-    }
+    background: linear-gradient(to right, #36d1bc, #1195ff);
+    height: 100vh;
 
     h4 {
       color: #fff;
       font-size: 24px;
     }
+  }
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.onboard-body {
+  border: 1px solid blue;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.progress-bottom {
+  position: absolute;
+  align-self: center;
+  width: 60%;
+  height: 8px;
+  bottom: 45px;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.21);
+
+  .progress-bottom-bar {
+    height: inherit;
+    border-radius: inherit;
   }
 }
 
@@ -93,20 +112,6 @@ button {
 
 a {
   text-decoration: none !important;
-}
-
-.progress-bottom {
-  height: 8px;
-  background-color: rgba(255, 255, 255, 0.21);
-  border-radius: 12px;
-  bottom: 45px !important;
-  margin: 30px 0;
-
-  .progress-bottom-bar {
-    height: 8px;
-    background-color: rgba(255, 255, 255, 0.21);
-    border-radius: 12px;
-  }
 }
 
 .MuiToggleButton-root {
@@ -339,6 +344,7 @@ a {
         height: 38px;
       }
     }
+
     span[class*="PrivateTabIndicator-colorSecondary-"] {
       background-color: transparent;
     }
@@ -417,5 +423,4 @@ a {
   }
 }
 
-@media (min-width: $md) {
-}
+@media (min-width: $md) {}

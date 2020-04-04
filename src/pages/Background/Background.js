@@ -3,12 +3,14 @@ import states from "./Background.state";
 import TextField from "@material-ui/core/TextField";
 import { Link } from "react-router-dom";
 import logo from "../../assets/images/Union.png";
+import Header from "../../components/header-round";
+
 
 class Background extends React.Component {
   state = states;
-  componentDidMount = () => {};
+  componentDidMount = () => { };
 
-  handleInputChange = (event, name) => {};
+  handleInputChange = (event, name) => { };
 
   render() {
     return (
@@ -38,7 +40,6 @@ class Background extends React.Component {
                       for you.
                     </p>
                   </div>
-
                   <div className="fieldArea003">
                     <div className="row">
                       <div className="col-lg-7 text-left">

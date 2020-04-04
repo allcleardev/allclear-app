@@ -1,31 +1,4 @@
 .phone-verify {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  @media (min-width: $md) {
-    width: $md !important;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  @media (min-width: $lg) {
-    width: $lg !important;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .body-phone-verify {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    text-align: center;
-
-    @media (min-width: $md) {
-      height: 60vh !important;
-    }
-  }
 
   .check-label {
     color: #999999;

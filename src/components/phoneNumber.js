@@ -48,7 +48,6 @@ class PhoneNumber extends React.Component {
               value={this.state.phone}
               onChange={this.handlePhoneChange}
               className="hide-desktop"
-              style={{ margin: "80px 0" }}
             />
             <MuiPhoneNumber
               name="phone"
@@ -58,7 +57,6 @@ class PhoneNumber extends React.Component {
               value={this.state.phone}
               onChange={this.handlePhoneChange}
               className="input-white-back-phone hide-mobile"
-              style={{ margin: "80px 0" }}
             />
           </Form>
         )}
