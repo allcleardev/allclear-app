@@ -26,9 +26,7 @@ export default function PhoneVerify({ props }) {
 
   const verifyPhoneNumber = async () => {
     setState({ loading: true });
-    const phone = sessionStorage.getItem('phone');
-
-    console.log('phone', phone);
+    let phone = sessionStorage.getItem('phone');
 
     if (!phone) {
       //show error message
