@@ -1,9 +1,9 @@
 .profile-view {
   display: flex;
   justify-content: center;
+  padding-bottom: 80px;
 
   @media (max-width: $sm) {
-    padding-bottom: 80px;
   }
 
   .header-homescreen {
