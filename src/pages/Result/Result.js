@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import states from './Result.state';
 import upload from '../../assets/images/uploadicon.png';
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import logo from '../../assets/images/Union.png';
 import Axios from "axios";
 import {Grid} from "@material-ui/core";
@@ -11,59 +11,106 @@ class Result extends React.Component {
     state = states;
 
     componentDidMount = () => {
+        this.getTestTypes();
+        this.getTestLocations();
+    };
+
+    getTestTypes = () => {
+        this.setState({ loading: true });
+
+        Axios.get(
+          "https://api-dev.allclear.app/types/testCriteria", {}
+        ).then((response) => {
+            console.log(response);
+
+            this.setState({ testTypes: response.data });
+            this.setState({ loading: false });
+        }).catch((error) => {
+            console.log(error);
+            this.setState({ loading: false });
+        });
+    };
+
+    getTestLocations = () => {
+        this.setState({ loading: true });
+
+        Axios.get(
+          "https://api-dev.allclear.app/types/facilityTypes", {}
+        ).then((response) => {
+            console.log(response);
+
+            this.setState({ testLocations: response.data });
+            this.setState({ loading: false });
+        }).catch((error) => {
+            console.log(error);
+            this.setState({ loading: false });
+        });
     };
 
     handleTestTypeInputChange = (event) => {
-        console.log('event',event.target.value)
-        sessionStorage.setItem('test_type', event.target.value);
+        console.log('event',event.target.value);
+        sessionStorage.setItem('testTypes', JSON.stringify(event.target.value));
     };
 
     handleTestLocationInputChange = (event) => {
-        console.log('event',event.target.value)
-        sessionStorage.setItem('test_location', event.target.value);
+        console.log('event',event.target.value);
+        sessionStorage.setItem('testLocations', JSON.stringify(event.target.value));
     };
 
     buildPayload = () => {
+        const dob = sessionStorage.getItem('dob');
+
+        // Format Conditions
+        let conditions = sessionStorage.getItem('conditions');
+
+        if (typeof conditions === 'string') {
+            conditions = JSON.parse(conditions);
+        }
+
+        let conditionsArray = [];
+
+        conditions.forEach(function(condition) {
+            if (condition.isActive) {
+                conditionsArray.push(condition);
+            }
+        });
+
+        // Format Exposures
+        let exposures = sessionStorage.getItem('exposures');
+
+        if (typeof exposures === 'string') {
+            exposures = JSON.parse(exposures);
+        }
+
+        let exposuresArray = [];
+
+        exposures.forEach(function(exposure) {
+            if (exposure.isActive) {
+                exposuresArray.push(exposure);
+            }
+        });
+
+        // Format Symptoms
+        let symptoms = sessionStorage.getItem('symptoms');
+
+        if (typeof symptoms === 'string') {
+            symptoms = JSON.parse(symptoms);
+        }
+
+        let symptomsArray = [];
+
+        symptoms.forEach(function(symptom) {
+            if (symptom.isActive) {
+                symptomsArray.push(symptom);
+            }
+        });
+
         let payload = {
-            "dob": "2020-04-04T00:40:07.909Z",
-            "statusId": "string",
-            "status": {
-                "id": "string",
-                "name": "string"
-            },
-            "statureId": "string",
-            "stature": {
-                "id": "string",
-                "name": "string"
-            },
-            "sexId": "string",
-            "sex": {
-                "id": "string",
-                "name": "string"
-            },
+            "dob": dob,
             "latitude": 0,
             "longitude": 0,
-            "alertable": true,
-            "active": true,
-            "authAt": "2020-04-04T00:40:07.909Z",
-            "phoneVerifiedAt": "2020-04-04T00:40:07.909Z",
-            "emailVerifiedAt": "2020-04-04T00:40:07.909Z",
-            "createdAt": "2020-04-04T00:40:07.909Z",
-            "updatedAt": "2020-04-04T00:40:07.909Z",
-            "conditions": [
-                {
-                    "id": "string",
-                    "name": "string",
-                    "createdAt": "2020-04-04T00:40:07.909Z"
-                }
-            ],
-            "exposures": [
-                {
-                    "id": "string",
-                    "name": "string",
-                    "createdAt": "2020-04-04T00:40:07.909Z"
-                }
-            ],
+            "conditions": conditionsArray,
+            "exposures": exposuresArray,
             "symptoms": [
                 {
                     "id": "string",
@@ -71,27 +118,32 @@ class Result extends React.Component {
                     "createdAt": "2020-04-04T00:40:07.909Z"
                 }
             ]
-        }
-    }
+        };
+
+        return payload;
+    };
 
 
     submitResults = async () => {
-        this.setState({ loading: true });
-        const phone = sessionStorage.getItem('phone');
+        const sessionId = sessionStorage.getItem('sessid');
 
-        console.log('phone', phone);
+        this.setState({ loading: true });
+
+        const payload = this.buildPayload();
 
         await Axios.post(
           "https://api-dev.allclear.app/peoples/register",
+          payload,
           {
-              phone: phone,
-              beenTested: false,
-              haveSymptoms: false
+              headers: {
+                  'X-AllClear-SessionID': sessionId
+              }
           }
         ).then((response) => {
             console.log(response);
-            sessionStorage.setItem('sessid', response.id);
-            this.history.push("/home");
+            this.setCookie('sessid', response.data.id);
+            sessionStorage.setItem('sessid', response.data.id);
+            //history.push("/home");
         }).catch((error) => {
             this.setState({ loading: false });
         });
@@ -136,9 +188,11 @@ class Result extends React.Component {
 											your location.</div>
                                                     <p>
                                                         <select className="selectBtn" onChange={this.handleTestTypeInputChange}>
-                                                            <option>Test Type</option>
-                                                            <option>demo</option>
-                                                            <option>demo</option>
+                                                            {this.state.testTypes && this.state.testTypes.map((res) => {
+                                                                return (
+                                                                    <option value={res}>{res.name}</option>
+                                                                  )
+                                                            })}
                                                         </select>
                                                     </p>
                                                 </div>
@@ -161,9 +215,11 @@ class Result extends React.Component {
 											your location.</div>
                                                     <p>
                                                         <select className="selectBtn"  onChange={this.handleTestLocationInputChange}>
-                                                            <option>Test Location</option>
-                                                            <option>demo</option>
-                                                            <option>demo</option>
+                                                            {this.state.testLocations && this.state.testLocations.map((res) => {
+                                                                return (
+                                                                  <option value={res}>{res.name}</option>
+                                                                )
+                                                            })}
                                                         </select>
                                                     </p>
                                                 </div>
@@ -193,7 +249,7 @@ class Result extends React.Component {
                                         <a className="skipBtn" href="#">Skip</a>
                                     </div>
                                     <div className="col-lg-6 col-md-6 text-right">
-                                        <button className="nextBtn pure-material-button-contained">Submit Test Results</button>
+                                        <button className="nextBtn pure-material-button-contained" onClick={this.submitResults}>Submit Test Results</button>
                                     </div>
                                 </div>
                             </div>

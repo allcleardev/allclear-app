@@ -4,8 +4,6 @@ import qs from "qs";
 import Box from "@material-ui/core/Container";
 import { Button, Grid } from "@material-ui/core";
 import FormControl from "@material-ui/core/FormControl";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import TextField from "@material-ui/core/TextField";
 import Axios from "axios";
 
@@ -23,10 +21,23 @@ export default function PhoneVerify({ props, location  }) {
 
   const history = useHistory();
 
+  const sanitizePhone = (phone) => {
+    if (phone && typeof phone === 'string') {
+      phone = phone.replace(/ /g, '');
+      phone = phone.replace('(', '');
+      phone = phone.replace(')', '');
+      phone = phone.replace('-', '');
+    }
+
+    return phone;
+  };
+
   // Function to make call backend service to confirm the magic link
   const verifyPhoneNumber = async () => {
-    const phone = sessionStorage.getItem('phone');
+    let phone = sessionStorage.getItem('phone');
     const code = sessionStorage.getItem('code');
+
+    phone = sanitizePhone(phone);
 
     await Axios.post(
       "https://api-dev.allclear.app/peoples/confirm",
