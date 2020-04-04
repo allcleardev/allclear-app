@@ -31,7 +31,7 @@ button {
     background: linear-gradient(to right, #36d1bc, #1195ff) !important;
     z-index: -1;
     margin: 0;
-    min-height: 100vh;
+    // min-height: 100vh;
 
     .header {
       background: transparent !important;
@@ -169,7 +169,7 @@ a {
 
 .btn-full-width {
   @media (min-width: $sm) {
-    width: 200px !important;
+    width: 205px !important;
   }
 }
 
@@ -415,7 +415,11 @@ a {
   .show-mobile-sm {
     display: block !important;
   }
+
+  .hide-mobile-sm {
+    display: none !important;
+  }
 }
 
-@media (min-width: $md) {
+@media (min-width: $sm) {
 }
