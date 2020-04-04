@@ -3,14 +3,62 @@ import states from "./Background.state";
 import TextField from "@material-ui/core/TextField";
 import { Link } from "react-router-dom";
 import logo from "../../assets/images/Union.png";
-import Header from "../../components/header-round";
-
+import Axios from "axios";
 
 class Background extends React.Component {
-  state = states;
-  componentDidMount = () => { };
+  constructor(props) {
+    super(props);
+    this.state = {exposure: 'live_with_someone', dob: ''};
 
-  handleInputChange = (event, name) => { };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleLocationChange = this.handleLocationChange.bind(this);
+    this.handleDoBChange = this.handleDoBChange.bind(this);
+  }
+
+  componentDidMount = () => {
+    this.getExposures();
+  };
+
+  getExposures = () => {
+    this.setState({ loading: true });
+
+    Axios.get(
+      "https://api-dev.allclear.app/types/exposures", {}
+    ).then((response) => {
+      console.log(response);
+
+      this.setState({ exposures: response.data });
+      this.setState({ loading: false });
+    }).catch((error) => {
+      console.log(error);
+      this.setState({ loading: false });
+    });
+  };
+
+  handleLocationChange = (event) => {
+    if (event && event.target && event.target.value) {
+      this.setState({location: event.target.value});
+      sessionStorage.setItem('location', event.target.value);
+    }
+  };
+
+  handleDoBChange = (event) => {
+    if (event && event.target && event.target.value) {
+      this.setState({dob: event.target.value});
+      sessionStorage.setItem('dob', event.target.value);
+    }
+  };
+
+  handleChange = (event) => {
+    let { exposures } = this.state;
+    exposures.filter((exposure) => {
+      if (exposure.name == event.name) {
+        exposure.isActive = !exposure.isActive;
+      }
+    });
+    this.setState({ exposures });
+    sessionStorage.setItem('exposures', JSON.stringify(exposures));
+  };
 
   render() {
     return (
@@ -57,6 +105,7 @@ class Background extends React.Component {
                                 className="inputSet"
                                 type="text"
                                 placeholder="Location"
+                                onChange={this.handleLocationChange}
                               />
                             </p>
                           </div>
@@ -76,6 +125,7 @@ class Background extends React.Component {
                                 className="inputSets"
                                 type="text"
                                 placeholder="MM/DD/YYYY"
+                                onChange={this.handleDoBChange}
                               />
                             </p>
                           </div>
@@ -92,16 +142,13 @@ class Background extends React.Component {
                         people who have tested positive for COVID-19.
                       </div>
                     </div>
-                    <li className="pure-material-button-contained">
-                      Live with someone
-                    </li>
-                    <li className="pure-material-button-contained btns008Active">
-                      Known contact with someone
-                    </li>
-                    <li className="pure-material-button-contained">Not sure</li>
-                    <li className="pure-material-button-contained">
-                      No contact (Selt-Quarentine)
-                    </li>
+
+                    {this.state.exposures && this.state.exposures.map((res) => {
+                      return (
+                        <li onClick={() => this.handleChange(res)} className={"pure-material-button-contained" + (res.isActive ? ' Active' : '')}>{res.name}</li>
+                      )
+
+                    })}
                   </div>
                 </div>
 
@@ -113,9 +160,11 @@ class Background extends React.Component {
                       </button>
                     </div>
                     <div className="col-lg-6 col-md-6 text-right">
+                      <Link to="/condition">
                       <button className="nextBtn pure-material-button-contained">
                         Next
                       </button>
+                      </Link>
                     </div>
                   </div>
                 </div>

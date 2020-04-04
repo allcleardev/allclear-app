@@ -1,6 +1,6 @@
 
 export const resultObjDefault = () => {
-    return 
+    return
         {
     }
 }
@@ -8,6 +8,7 @@ export const resultObjDefault = () => {
 const states = (function states() {
     return {
         resultObj: resultObjDefault(),
+        loading: false
     }
 })()
 export default states;

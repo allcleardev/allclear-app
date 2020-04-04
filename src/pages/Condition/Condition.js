@@ -8,32 +8,49 @@ import { Link } from "react-router-dom";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import logo from "../../assets/images/Union.png";
+import Axios from "axios";
 
 class Condition extends React.Component {
   state = states;
 
-  componentDidMount = () => {};
-
-  handleSymtomsChange = (event, newValue) => {
-    if (!newValue) return;
-    // setValue(newValue);
+  componentDidMount = () => {
+    this.getConditions()
   };
+
+  getConditions = () => {
+    this.setState({ loading: true });
+
+    Axios.get(
+      "https://api-dev.allclear.app/types/conditions", {}
+    ).then((response) => {
+      console.log(response);
+
+      this.setState({ conditions: response.data });
+      this.setState({ loading: false });
+    }).catch((error) => {
+      console.log(error);
+      this.setState({ loading: false });
+    });
+  };
+
   selectAll = () => {
     let { conditions } = this.state;
-    conditions.filter(condition => {
+    conditions.filter((condition) => {
       condition.isActive = true;
     });
     this.setState({ conditions });
+    sessionStorage.setItem('conditions', JSON.stringify(conditions));
   };
-  handleChange = event => {
+
+  handleChange = (event) => {
     let { conditions } = this.state;
-    conditions.filter(condition => {
+    conditions.filter((condition) => {
       if (condition.name == event.name) {
         condition.isActive = !condition.isActive;
       }
     });
     this.setState({ conditions });
-    // setSymptomsValue(newValue);
+    sessionStorage.setItem('conditions', JSON.stringify(conditions));
   };
 
   render() {
@@ -88,14 +105,18 @@ class Condition extends React.Component {
                 <div className="footerBtn">
                   <div className="row dispNone">
                     <div className="col-lg-6 text-left">
+                      <Link to="/background">
                       <button className="backBtn pure-material-button-contained">
                         Back
                       </button>
+                      </Link>
                     </div>
                     <div className="col-lg-6 text-right">
+                      <Link to="/symptom">
                       <button className="nextBtn pure-material-button-contained">
                         Next
                       </button>
+                      </Link>
                     </div>
                   </div>
                 </div>
