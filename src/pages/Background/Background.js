@@ -46,7 +46,8 @@ class Background extends React.Component {
     if (event && event.target && event.target.value) {
       this.setState({dob: event.target.value});
 
-      sessionStorage.setItem('dob', event.target.value);
+      let dob = event.target.value + 'T00:00:00Z';
+      sessionStorage.setItem('dob', dob);
     }
   };
 

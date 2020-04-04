@@ -59,6 +59,7 @@ class Result extends React.Component {
 
     buildPayload = () => {
         const dob = sessionStorage.getItem('dob');
+        const phone = sessionStorage.getItem('phone');
 
         // Format Conditions
         let conditions = sessionStorage.getItem('conditions');
@@ -71,7 +72,10 @@ class Result extends React.Component {
 
         conditions.forEach(function(condition) {
             if (condition.isActive) {
-                conditionsArray.push(condition);
+                conditionsArray.push({
+                    id: condition.id,
+                    name: condition.name
+                });
             }
         });
 
@@ -86,7 +90,10 @@ class Result extends React.Component {
 
         exposures.forEach(function(exposure) {
             if (exposure.isActive) {
-                exposuresArray.push(exposure);
+                exposuresArray.push({
+                    id: exposure.id,
+                    name: exposure.name
+                });
             }
         });
 
@@ -101,23 +108,21 @@ class Result extends React.Component {
 
         symptoms.forEach(function(symptom) {
             if (symptom.isActive) {
-                symptomsArray.push(symptom);
+                symptomsArray.push({
+                    id: symptom.id,
+                    name: symptom.name
+                });
             }
         });
 
         let payload = {
             "dob": dob,
+            "name": phone,
             "latitude": 0,
             "longitude": 0,
             "conditions": conditionsArray,
             "exposures": exposuresArray,
-            "symptoms": [
-                {
-                    "id": "string",
-                    "name": "string",
-                    "createdAt": "2020-04-04T00:40:07.909Z"
-                }
-            ]
+            "symptoms": symptomsArray
         };
 
         return payload;
@@ -143,7 +148,8 @@ class Result extends React.Component {
             console.log(response);
             this.setCookie('sessid', response.data.id);
             sessionStorage.setItem('sessid', response.data.id);
-            //history.push("/home");
+            sessionStorage.setItem('session', response.data);
+            this.history.push("/home");
         }).catch((error) => {
             this.setState({ loading: false });
         });
