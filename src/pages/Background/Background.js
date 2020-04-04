@@ -27,7 +27,7 @@ class Background extends React.Component {
     ).then((response) => {
       console.log(response);
 
-      this.setState({ symptoms: response.data });
+      this.setState({ exposures: response.data });
       this.setState({ loading: false });
     }).catch((error) => {
       console.log(error);
