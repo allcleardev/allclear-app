@@ -45,7 +45,9 @@ class Background extends React.Component {
   handleDoBChange = (event) => {
     if (event && event.target && event.target.value) {
       this.setState({dob: event.target.value});
-      sessionStorage.setItem('dob', event.target.value);
+
+      const dateString = new Date(event.target.value).toISOString();
+      sessionStorage.setItem('dob', dateString);
     }
   };
 
@@ -124,7 +126,7 @@ class Background extends React.Component {
                             <p>
                               <input
                                 className="inputSets"
-                                type="text"
+                                type="date"
                                 placeholder="MM/DD/YYYY"
                                 onChange={this.handleDoBChange}
                               />

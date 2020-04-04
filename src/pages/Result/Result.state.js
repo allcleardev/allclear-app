@@ -3,12 +3,15 @@ export const resultObjDefault = () => {
     return
         {
     }
-}
+};
 
 const states = (function states() {
     return {
         resultObj: resultObjDefault(),
-        loading: false
+        loading: false,
+        testTypes: [],
+        testLocations: [],
+
     }
-})()
+})();
 export default states;
