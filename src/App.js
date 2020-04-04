@@ -4,8 +4,8 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Launch from "./pages/launch";
 import CreateAccount from "./pages/create-account";
 import PhoneVerify from "./pages/phoneVerify";
-import PhoneVerifying from "./pages/phoneVerifying";
 import PhoneVerifyCode from "./pages/phoneVerification";
+import PhoneVerifying from "./pages/phoneVerifying";
 import PhoneVerifySuccess from "./pages/phone-verify-success";
 import VerifyMagicLink from "./pages/verify-magic-link";
 import login from "./pages/login";
@@ -55,7 +55,7 @@ export default function App() {
       <Route path="/location" component={Location} />
       <Route path="/login-org" component={loginOrg} />
       <Route path="/symptom" component={Symptom} />
-      {/* <Route path="/result" component={Result} /> */}
+      <Route path="/result" component={Result} />
       <Route path="/succcess" component={Success} />
       {/* <Route path="/launch" component={Launch} /> */}
       <Route path="/condition" component={Condition} />

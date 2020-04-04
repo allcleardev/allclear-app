@@ -1,63 +1,67 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
-
+import qs from "qs";
 import Box from "@material-ui/core/Container";
 import { Button, Grid } from "@material-ui/core";
 import FormControl from "@material-ui/core/FormControl";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import TextField from "@material-ui/core/TextField";
 import Axios from "axios";
 
 import Header from "../components/header-round";
 import ProgressBottom from "../components/progressBottom";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import {useCookies} from "react-cookie";
 
-export default function PhoneVerify({ props }) {
+export default function PhoneVerify({ props, location  }) {
   const [state, setState] = React.useState({
     checkedB: true,
     loading: false
   });
+  const [cookies, setCookie] = useCookies(['cookie-name']);
 
   const history = useHistory();
 
-  const handleChange = event => {
-    setState({ ...state, [event.target.name]: event.target.checked });
+  const sanitizePhone = (phone) => {
+    if (phone && typeof phone === 'string') {
+      phone = phone.replace(/ /g, '');
+      phone = phone.replace('(', '');
+      phone = phone.replace(')', '');
+      phone = phone.replace('-', '');
+    }
+
+    return phone;
   };
 
+  // Function to make call backend service to confirm the magic link
   const verifyPhoneNumber = async () => {
-    setState({ loading: true });
-    const phone = sessionStorage.getItem("phone");
+    let phone = sessionStorage.getItem('phone');
+    const code = sessionStorage.getItem('code');
 
-    console.log("phone", phone);
+    phone = sanitizePhone(phone);
 
-    if (!phone) {
-      //show error message
-      setState({ loading: false });
-      return;
-    }
-    const response = await Axios.post(
-      "https://api-dev.allclear.app/peoples/start",
+    await Axios.post(
+      "https://api-dev.allclear.app/peoples/confirm",
       {
         phone: phone,
-        beenTested: false,
-        haveSymptoms: false
+        code: code
       }
-    )
-      .then(response => {
-        console.log(response);
-        history.push("/phone-verify-success");
-      })
-      .catch(error => {
-        //show error message
-        setState({ loading: false });
-      });
+    ).then((response) => {
+      console.log('response', response);
+      setCookie('sessid', response.data.id);
+      sessionStorage.setItem('sessid', response.data.id);
+      history.push("/background");
+    }).catch((error) => {
+      console.log('error', error);
+      // TODO Display Error Message
+    });
+
   };
 
   const [value, setValue] = React.useState("");
 
   const handleCodeChange = event => {
-    setValue(event.target.value);
+    setValue({code: event.target.value});
+    sessionStorage.setItem('code', event.target.value);
   };
 
   return (
@@ -97,7 +101,6 @@ export default function PhoneVerify({ props }) {
                       height="60px"
                       onChange={handleCodeChange}
                       InputLabelProps={{ shrink: false }}
-                      value={value}
                       style={{}}
                     />
                   </FormControl>
