@@ -44,7 +44,8 @@ export default function PhoneVerify({ props }) {
       }
     ).then((response) => {
       console.log(response);
-      history.push("/phone-verify-success");
+      sessionStorage.setItem('phone', phone);
+      history.push("/phone-verification");
     }).catch((error) => {
       //show error message
       setState({ loading: false });
