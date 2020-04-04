@@ -11,7 +11,7 @@ const states = (function states() {
         symptoms: [
             { name: 'Fever', isActive: false },
             { name: 'Shorness of Breath', isActive: false },
-            { name: 'Dry Cough', isActive: true },
+            { name: 'Dry Cough', isActive: false },
             { name: 'Fatigue', isActive: false },
             { name: 'Runny Nose or Nasal Congestion', isActive: false },
             { name: 'Nausea or Vomiting', isActive: false },

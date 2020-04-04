@@ -25,7 +25,7 @@ import CompleteProfile from "./pages/completeProfile";
 import Background from "./pages/Background/Background";
 import FindTest from "./pages/ResultDetail/FindTest";
 import ResultDetail from "./pages/ResultDetail/ResultDetail";
-
+import AddTest from './pages/Test/Add-test';
 import "./styles/app.scss";
 
 export default function App() {
@@ -47,11 +47,11 @@ export default function App() {
       {/* David end */}
       <Route path="/forgot" component={ForgotPassword} />
       <Route path="/health" component={Health} />
-
+      <Route path="/add-test" component={AddTest} />
       <Route path="/location" component={Location} />
       <Route path="/login" component={login} />
       <Route path="/symptom" component={Symptom} />
-      <Route path="/result" component={Result} />
+      {/* <Route path="/result" component={Result} /> */}
       <Route path="/succcess" component={Success} />
       {/* <Route path="/launch" component={Launch} /> */}
       <Route path="/condition" component={Condition} />
@@ -59,7 +59,7 @@ export default function App() {
       <Route path="/phone-verify-success" component={PhoneVerifySuccess} />
       <Route path="/register" component={VerifyMagicLink} />
       <Route path="/find-test" component={FindTest} />
-      <Route path="/result-detail" component={ResultDetail} />
+      {/* <Route path="/result-detail" component={ResultDetail} /> */}
     </Router>
   );
 }
