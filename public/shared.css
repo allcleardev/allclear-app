@@ -359,7 +359,7 @@ input:checked+.slider:before {
 	background: #fff;
     padding: 10px 10px;
 	border-radius: 10px;
-	box-shadow: 0px 10px 10px 0px #00000026;
+	box-shadow: 0px 24px 32px rgba(50, 50, 71, 0.08), 0px 10px 16px rgba(50, 50, 71, 0.15);
 }
 .btnActiveft{
 	
@@ -822,20 +822,20 @@ input:checked+.slider:before {
 }
 .plusRight{
 	
-	position: fixed;
+    position: fixed;
     right: 12px;
-    background: #0682f2;
+    background: #007AFF;
     color: #fff;
     border-radius: 100%;
-    width: 50px;
+    width: 56px;
     text-align: center;
-    height: 50px;
+    height: 56px;
     font-size: 23px;
     line-height: 50px;
     cursor: pointer;
-    box-shadow: 0px 0px 9px 0px #2626277a;
+    box-shadow: 0px 3px 25px rgba(0, 0, 0, 0.3);
     bottom: 20px;
-	cursor:pointer;
+    cursor: pointer;
 }
 
 .navArea{
@@ -1073,7 +1073,7 @@ input:checked+.slider:before {
 .diffAreo{margin-bottom:0px;}
 .divBottomArea{margin-top:40px !important;}
 
-.widthCustm{width: 75%;margin: 0px auto;}
+.widthCustm{width: 100%;margin: 0px auto;}
 .testShown{margin-top:30px;}
 
 .testShownList h3{font-size:15px;}

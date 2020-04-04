@@ -23,6 +23,7 @@ import Background from "./pages/Background/Background";
 import FindTest from "./pages/ResultDetail/FindTest";
 import ResultDetail from "./pages/ResultDetail/ResultDetail";
 import AddTest from './pages/Test/Add-test';
+import TestResult from './pages/Test/TestResult';
 import "./styles/app.scss";
 
 export default function App() {
@@ -53,6 +54,7 @@ export default function App() {
       <Route path="/phone-verify-success" component={PhoneVerifySuccess} />
       <Route path="/register" component={VerifyMagicLink} />
       <Route path="/find-test" component={FindTest} />
+      <Route path="/test-result" component={TestResult} />
       {/* <Route path="/result-detail" component={ResultDetail} /> */}
     </Router>
   );
