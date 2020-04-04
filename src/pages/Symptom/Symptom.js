@@ -52,7 +52,7 @@ class Symptom extends React.Component {
     render() {
         return (
             <Fragment>
-                <div className="WrapCondition">
+                <div className="background-responsive WrapCondition">
                     <div className="wrapInnerPart">
                         <div className="container">
                             <div className="row">
