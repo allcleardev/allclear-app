@@ -62,6 +62,40 @@ button {
   }
 }
 
+.phone-input.MuiTextField-root {
+  padding: 0 20px;
+  border-radius: 8px;
+  border: 1px solid #DADADA;
+  background-color: #fff;
+
+  @media(min-width: $md) {
+    border: 0;
+  }
+
+  label {
+    padding: 5px 16px;
+
+    &:not(.Mui-focused) {
+      color: rgba(60, 60, 67, 0.4);
+    }
+  }
+
+  input {
+    font-size: 1.3rem;
+    letter-spacing: 1.3px;
+  }
+
+  .MuiInput-underline:before,
+  .MuiInput-underline:after,
+  .MuiInput-underline:hover:not(.Mui-disabled):before {
+    border: 0;
+  }
+
+  .MuiPhoneNumber-flagButton {
+    display: none;
+  }
+}
+
 .MuiLinearProgress-barColorPrimary {
   background-color: #eee !important;
 }
@@ -264,31 +298,31 @@ a {
   text-align: center;
 }
 
-.input-white-back-phone {
-  background-color: #fff;
-  border-radius: 8px;
-  height: 60px;
+// .input-white-back-phone {
+//   background-color: #fff;
+//   border-radius: 8px;
+//   height: 60px;
 
-  .MuiInputLabel-formControl {
-    left: 7px;
-  }
+//   .MuiInputLabel-formControl {
+//     left: 7px;
+//   }
 
-  .MuiInput-underline:before {
-    display: none;
-  }
+//   .MuiInput-underline:before {
+//     display: none;
+//   }
 
-  .MuiInput-underline:after {
-    display: none;
-  }
+//   .MuiInput-underline:after {
+//     display: none;
+//   }
 
-  .MuiFilledInput-underline:before {
-    display: none;
-  }
+//   .MuiFilledInput-underline:before {
+//     display: none;
+//   }
 
-  .MuiFilledInput-underline:after {
-    display: none;
-  }
-}
+//   .MuiFilledInput-underline:after {
+//     display: none;
+//   }
+// }
 
 .white-back-input {
   width: 100%;

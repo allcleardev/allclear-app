@@ -26,13 +26,13 @@ export default function Header(props) {
             />
           </svg>
         </Fab>
-        <div class="shape"></div>
+        <div className="shape"></div>
       </div>
       <Box className="desktop-content" maxWidth="xl">
         <img src={Logo} alt="Logo" className="logo" />
         <nav className="menu">
-          <a href="/about/" class="menu__item">About Us</a>
-          <a href="/help/" class="menu__item">Help</a>
+          <a href="/about/" className="menu__item">About Us</a>
+          <a href="/help/" className="menu__item">Help</a>
         </nav>
       </Box>
       {props.children}
