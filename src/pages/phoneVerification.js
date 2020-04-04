@@ -82,7 +82,7 @@ export default function PhoneVerify({ props, location  }) {
             style={{ textAlign: "center" }}
           >
             <div>
-              <p className="turn-white text-grey" style={{ padding: "30px 0" }}>
+              <p style={{ padding: "30px 0" }}>
                 We texted a verification code to your phone. Please enter the
                 code to sign in.
               </p>

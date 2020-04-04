@@ -1,7 +1,8 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 
-import Box from "@material-ui/core/Container";
+import Form from "@material-ui/core/Container";
+
 import { Button, Grid } from "@material-ui/core";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -53,71 +54,66 @@ export default function PhoneVerify({ props }) {
 
   return (
     <div className="background-responsive">
-      <div className="phone-verify page">
+      <div className="phone-verify onboarding-page">
         <Header>
           <h1 className="heading">Phone Number</h1>
           <h2 className="sub-heading">Enter your phone number to get started.</h2>
         </Header>
+        {
+          state.loading === false ?
+            <Form noValidate autoComplete="off" className="onboarding-body">
+              <PhoneNumber className="hide-mobile"></PhoneNumber>
 
-        {state.loading === false ? <form noValidate autoComplete="off" className="onboard-body">
-          <PhoneNumber className="hide-mobile"></PhoneNumber>
+              <div class="review-container">
+                <p>Please review and agree to the
+                  <a href="/terms/"> Terms & Conditions </a> and
+                  <a href="/privacy/"> Privacy Policy </a> before continuing.
+                </p>
 
-          <p className="turn-white text-grey" style={{ padding: "30px 0" }}>
-            Please review and agree to the{" "}
-            <span style={{ color: "#002C83" }}>
-              <strong>Terms & Conditions</strong>
-            </span>{" "}
-            and{" "}
-            <span style={{ color: "#002C83" }}>
-              <strong>Privacy Policy</strong>
-            </span>{" "}
-            before continuing
-          </p>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={state.checkedB}
-                onChange={handleChange}
-                name="checkedB"
-                color="third"
-              />
-            }
-            label="I have reviewed and agree to the Terms & Conditions and Privacy Policy"
-            className="check-label turn-white"
-          />
-          <div className="flexrow wid100">
-            <Link to="/create-account">
-              <Button
-                variant="contained"
-                color="primary"
-                fullWidth="true"
-                className="button btn-outlined-white hide-mobile btn-full-width font-weight-600"
-              >
-                Back
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={state.checkedB}
+                      onChange={handleChange}
+                      name="checkedB"
+                      color="third"
+                    />
+                  }
+                  label="I have reviewed and agree to the Terms & Conditions and Privacy Policy"
+                />
+              </div>
+
+              <div className="button-container">
+                <Link to="/create-account" className="hide-mobile">
+                  <Button
+                    variant="contained"
+                    className="back"
+                  >
+                    Back
               </Button>
-            </Link>
-            <Button
-              onClick={() => verifyPhoneNumber()}
-              variant="contained"
-              color="primary"
-              fullWidth="true"
-              className="button btn-responsive btn-full-width font-weight-600"
-            >
-              Verify Phone Number
+                </Link>
+                <Button
+                  onClick={() => verifyPhoneNumber()}
+                  variant="contained"
+                  color="primary"
+                  className="next"
+                >
+                  Send Verification Code
             </Button>
-          </div>
-        </form>
-          :
-          <Grid container justify="center">
-            <Grid item xs={12} sm={6}>
-              <LinearProgress color="primary" value="50" />
+              </div>
+            </Form>
+            :
+            <Grid container justify="center">
+              <Grid item xs={12} sm={6}>
+                <LinearProgress color="primary" value="50" />
+              </Grid>
             </Grid>
-          </Grid>
         }
-
-        {state.loading === false ?
-          <ProgressBottom progress="100px"></ProgressBottom>
-          : null}
+        {
+          state.loading === false ?
+            <ProgressBottom progress="100px"></ProgressBottom>
+            : null
+        }
       </div>
     </div>
   );

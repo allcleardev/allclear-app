@@ -58,7 +58,7 @@ export default function CreateAccount() {
 
   return (
     <div className="background-responsive">
-      <div className="background page">
+      <div className="background onboarding-page">
         <Header>
           <h1 class="heading">Background</h1>
           <h2 class="sub-heading">Provide information to help us recommend the test sites for you.</h2>
