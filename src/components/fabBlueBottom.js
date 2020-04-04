@@ -3,7 +3,8 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Fab from "@material-ui/core/Fab";
 
-const useStyles = makeStyles(theme => ({
+
+const useStyles = makeStyles(() => ({
   root: {},
 
   content: {}
@@ -16,7 +17,7 @@ export default function fabBlueBottom({
   handle_name
 }) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const classes = useStyles();
+  useStyles();
 
   return (
     <Fab
