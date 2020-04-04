@@ -16,7 +16,7 @@ class Background extends React.Component {
   }
 
   componentDidMount = () => {
-
+    this.getExposures();
   };
 
   getExposures = () => {
@@ -49,13 +49,15 @@ class Background extends React.Component {
     }
   };
 
-  handleChange = (event, newValue) => {
-    if (!newValue) {
-      return;
-    }
-
-    this.setState({exposure: newValue});
-    sessionStorage.setItem('exposure', newValue);
+  handleChange = (event) => {
+    let { exposures } = this.state;
+    exposures.filter((exposure) => {
+      if (exposure.name == event.name) {
+        exposure.isActive = !exposure.isActive;
+      }
+    });
+    this.setState({ exposures });
+    sessionStorage.setItem('exposures', JSON.stringify(exposures));
   };
 
   render() {
@@ -142,7 +144,7 @@ class Background extends React.Component {
                       </div>
                     </div>
 
-                    {this.state.symptoms && this.state.symptoms.map((res) => {
+                    {this.state.exposures && this.state.exposures.map((res) => {
                       return (
                         <li onClick={() => this.handleChange(res)} className={"pure-material-button-contained" + (res.isActive ? ' Active' : '')}>{res.name}</li>
                       )
