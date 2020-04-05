@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import Launch from "./pages/launch";
 import CreateAccount from "./pages/create-account";
+import AuthVerifyCode from "./pages/authVerification";
 import PhoneVerify from "./pages/phoneVerify";
 import PhoneVerifyCode from "./pages/phoneVerification";
 import PhoneVerifying from "./pages/phoneVerifying";
@@ -47,6 +48,7 @@ export default function App() {
       <Route path="/phone-verification" component={PhoneVerifyCode} />
       <Route path="/phone-verifying" component={PhoneVerifying} />
       <Route path="/login" component={login} />
+      <Route path="/auth-verification" component={AuthVerifyCode} />
       <Route path="/login-verification" component={LoginVerification} />
       {/* David end */}
       <Route path="/forgot" component={ForgotPassword} />
