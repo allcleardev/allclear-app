@@ -13,5 +13,5 @@
 // })()
 export default {
   conditionObj: {},
-  conditions: []
+  conditions: [],
 };

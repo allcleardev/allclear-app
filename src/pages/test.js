@@ -1,26 +1,26 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import Box from "@material-ui/core/Container";
-import {makeStyles} from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import {Grid} from "@material-ui/core";
-import Fab from "@material-ui/core/Fab";
+import Box from '@material-ui/core/Container';
+import { makeStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import { Grid } from '@material-ui/core';
+import Fab from '@material-ui/core/Fab';
 
-import Header from "../components/homescreen-header";
-import TestResultCard from "../components/cardTestResults";
-import NavBottom from "../components/navBottom";
-import FabBlueBottom from "../components/fabBlueBottom";
+import Header from '../components/homescreen-header';
+import TestResultCard from '../components/cardTestResults';
+import NavBottom from '../components/navBottom';
+import FabBlueBottom from '../components/fabBlueBottom';
 
-import {testResult} from "../constants";
+import { testResult } from '../constants';
 
 function TabPanel(props) {
-  const {children, value, index, ...other} = props;
+  const { children, value, index, ...other } = props;
 
   return (
     <Typography
@@ -39,30 +39,30 @@ function TabPanel(props) {
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired
+  value: PropTypes.any.isRequired,
 };
 
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`
+    'aria-controls': `simple-tabpanel-${index}`,
   };
 }
 
 function a12yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`
+    'aria-controls': `simple-tabpanel-${index}`,
   };
 }
 
 const useStyles = makeStyles((theme) => ({
   button: {
-    width: "100%",
-    margin: "15px 0",
-    borderRadius: "10px",
-    height: 48
-  }
+    width: '100%',
+    margin: '15px 0',
+    borderRadius: '10px',
+    height: 48,
+  },
 }));
 
 export default function CompleteProfile() {
@@ -84,21 +84,9 @@ export default function CompleteProfile() {
       <Header>
         <div className="test-tabs-wrapper">
           <AppBar position="static" className="test-tabs">
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              aria-label="Find Tests and Test Results"
-            >
-              <Tab
-                label="Find Tests"
-                {...a11yProps(0)}
-                style={{width: "50%"}}
-              />
-              <Tab
-                label="Test Results"
-                {...a11yProps(1)}
-                style={{width: "50%"}}
-              />
+            <Tabs value={value} onChange={handleChange} aria-label="Find Tests and Test Results">
+              <Tab label="Find Tests" {...a11yProps(0)} style={{ width: '50%' }} />
+              <Tab label="Test Results" {...a11yProps(1)} style={{ width: '50%' }} />
             </Tabs>
           </AppBar>
         </div>
@@ -106,12 +94,12 @@ export default function CompleteProfile() {
           value={value}
           index={0}
           style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "flex-start",
-            color: "#fff",
-            padding: "36px 0",
-            lineHeight: "7px"
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-start',
+            color: '#fff',
+            padding: '36px 0',
+            lineHeight: '7px',
           }}
           className="header-tabpanel"
         >
@@ -119,15 +107,9 @@ export default function CompleteProfile() {
             size="small"
             aria-label="add"
             className="hide-desktop"
-            style={{background: "transparent", boxShadow: "none"}}
+            style={{ background: 'transparent', boxShadow: 'none' }}
           >
-            <svg
-              width="9"
-              height="15"
-              viewBox="0 0 9 15"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+            <svg width="9" height="15" viewBox="0 0 9 15" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M7.59375 13.1428L1.59375 7.14282L7.59375 1.14282"
                 stroke="white"
@@ -137,40 +119,30 @@ export default function CompleteProfile() {
               />
             </svg>
           </Fab>
-          <Button
-            startIcon={<ArrowBackIosIcon/>}
-            style={{color: "#fff"}}
-            className="hide-mobile"
-          >
+          <Button startIcon={<ArrowBackIosIcon />} style={{ color: '#fff' }} className="hide-mobile">
             Back
           </Button>
           <h2 className="body-title">Williamsburg Drive-Thru Testing</h2>
-          <div style={{lineHeight: "12px", textAlign: "left"}}>
-            <p className="white" style={{fontSize: "16px"}}>
+          <div style={{ lineHeight: '12px', textAlign: 'left' }}>
+            <p className="white" style={{ fontSize: '16px' }}>
               8383 Marcy Ave, Brooklyn, NY 11211
             </p>
-            <p className="white" style={{fontSize: "16px"}}>
+            <p className="white" style={{ fontSize: '16px' }}>
               (737) 002-0379
             </p>
           </div>
-          <div style={{display: "flex", flexDirection: "row"}}>
+          <div style={{ display: 'flex', flexDirection: 'row' }}>
             <p>
               <strong>Open</strong>
             </p>
-            <p style={{padding: "0 30px"}}>9am - 5pm</p>
-            <p style={{padding: "0 30px"}}>Walk-Up</p>
+            <p style={{ padding: '0 30px' }}>9am - 5pm</p>
+            <p style={{ padding: '0 30px' }}>Walk-Up</p>
           </div>
-          <div style={{paddingTop: "15px"}}>
+          <div style={{ paddingTop: '15px' }}>
             <Button className="btn-gradient white">Website</Button>
             <Button className="btn-gradient white">Directions</Button>
             <Button className="btn-gradient white">
-              <svg
-                width="15"
-                height="15"
-                viewBox="0 0 15 15"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
+              <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   fill-rule="evenodd"
                   clip-rule="evenodd"
@@ -180,13 +152,7 @@ export default function CompleteProfile() {
               </svg>
             </Button>
             <Button className="btn-gradient white">
-              <svg
-                width="12"
-                height="16"
-                viewBox="0 0 12 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
+              <svg width="12" height="16" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M0.859863 8.15513V13.298C0.859863 13.639 0.995322 13.966 1.23644 14.2071C1.47756 14.4482 1.80458 14.5837 2.14558 14.5837H9.85986C10.2009 14.5837 10.5279 14.4482 10.769 14.2071C11.0101 13.966 11.1456 13.639 11.1456 13.298V8.15513M8.57415 4.29799L6.00272 1.72656M6.00272 1.72656L3.43129 4.29799M6.00272 1.72656V10.0837"
                   stroke="white"
@@ -202,11 +168,7 @@ export default function CompleteProfile() {
       <TabPanel value={value} index={0}>
         <div className="tab-overview-tests">
           <AppBar position="static" className="tab-header-overview-tests">
-            <Tabs
-              value={secondValue}
-              onChange={handleSecondChange}
-              aria-label="Overview and Tests"
-            >
+            <Tabs value={secondValue} onChange={handleSecondChange} aria-label="Overview and Tests">
               <Tab label="Overview" {...a12yProps(0)} />
               <Tab label="Tests" {...a12yProps(1)} />
             </Tabs>
@@ -215,11 +177,11 @@ export default function CompleteProfile() {
             value={secondValue}
             index={0}
             style={{
-              display: "flex",
-              justifyContent: "flex-start",
-              padding: "12px",
-              flexDirection: "column",
-              color: "#5C5C5C"
+              display: 'flex',
+              justifyContent: 'flex-start',
+              padding: '12px',
+              flexDirection: 'column',
+              color: '#5C5C5C',
             }}
           >
             <div></div>
@@ -236,28 +198,21 @@ export default function CompleteProfile() {
             <div>
               <p className="list">Must be 65+ in age</p>
               <p className="list">
-                Must have Fever, Cough, and/or <br/>
+                Must have Fever, Cough, and/or <br />
                 Shortness of Breath
               </p>
               <p className="list">Must be immunocompromised</p>
             </div>
-            <p
-              className="grey"
-              style={{marginBottom: "2px", marginTop: "20px"}}
-            >
+            <p className="grey" style={{ marginBottom: '2px', marginTop: '20px' }}>
               Description
             </p>
-            <p style={{marginTop: "3px"}}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
-              volutpat orci fusce ipsum. Nibh augue amet, rhoncus nulla
-              ultricies vulputate ornare. Amet dolor volutpat rhoncus, quis sit.
-              Aliquet scelerisque vulputate amet natoque. Pretium neque turpis
-              arcu enim. Posuere auctor velit arcu vestibulum. Tincidunt diam
-              nisi convallis id a aliquam. Mattis euismod tellus penatibus
-              pellentesque parturient sodales nec mattis porta. Lacus amet,
-              egestas turpis sit id quisque pharetra, sit. Tristique
-              sollicitudin sed ipsum sollicitudin. Urna ac enim quis bibendum id
-              orci.
+            <p style={{ marginTop: '3px' }}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur volutpat orci fusce ipsum. Nibh augue
+              amet, rhoncus nulla ultricies vulputate ornare. Amet dolor volutpat rhoncus, quis sit. Aliquet scelerisque
+              vulputate amet natoque. Pretium neque turpis arcu enim. Posuere auctor velit arcu vestibulum. Tincidunt
+              diam nisi convallis id a aliquam. Mattis euismod tellus penatibus pellentesque parturient sodales nec
+              mattis porta. Lacus amet, egestas turpis sit id quisque pharetra, sit. Tristique sollicitudin sed ipsum
+              sollicitudin. Urna ac enim quis bibendum id orci.
             </p>
           </TabPanel>
           <TabPanel value={secondValue} index={1}>
@@ -269,18 +224,14 @@ export default function CompleteProfile() {
             <Grid item xs={12} sm={4}>
               <p
                 style={{
-                  textAlign: "center",
-                  margin: "50px 0",
-                  color: "#7B7B7B"
+                  textAlign: 'center',
+                  margin: '50px 0',
+                  color: '#7B7B7B',
                 }}
               >
                 Want to help us improve our data?
               </p>
-              <Button
-                variant="contained"
-                color="primary"
-                className="btn-big bg-primary color-white btn-leave-feedback"
-              >
+              <Button variant="contained" color="primary" className="btn-big bg-primary color-white btn-leave-feedback">
                 Leave Feedback
               </Button>
             </Grid>
@@ -290,28 +241,17 @@ export default function CompleteProfile() {
       <TabPanel value={value} index={1}>
         <div className="test-results">
           {testResult.map((result, index) => (
-            <TestResultCard
-              key={index}
-              title={result.title}
-              date={result.date}
-              result={result.result}
-            ></TestResultCard>
+            <TestResultCard key={index} title={result.title} date={result.date} result={result.result}></TestResultCard>
           ))}
         </div>
         <FabBlueBottom
           style={{
-            position: "fixed",
+            position: 'fixed',
             bottom: 70,
-            right: 20
+            right: 20,
           }}
         >
-          <svg
-            width="17"
-            height="17"
-            viewBox="0 0 17 17"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+          <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M8.5 1.12891V15.1289M1.5 8.12891H15.5"
               stroke="white"

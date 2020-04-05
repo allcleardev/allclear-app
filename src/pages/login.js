@@ -1,17 +1,17 @@
-import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import React from 'react';
+import { Link, useHistory } from 'react-router-dom';
 
-import Box from "@material-ui/core/Container";
-import { Button, Grid } from "@material-ui/core";
-import FormControl from "@material-ui/core/FormControl";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import TextField from "@material-ui/core/TextField";
-import Axios from "axios";
+import Box from '@material-ui/core/Container';
+import { Button, Grid } from '@material-ui/core';
+import FormControl from '@material-ui/core/FormControl';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import TextField from '@material-ui/core/TextField';
+import Axios from 'axios';
 
-import Header from "../components/header-round";
-import ProgressBottom from "../components/progressBottom";
-import LinearProgress from "@material-ui/core/LinearProgress";
+import Header from '../components/header-round';
+import ProgressBottom from '../components/progressBottom';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 export default function PhoneVerify({ props }) {
   const [state, setState] = React.useState({
@@ -27,26 +27,23 @@ export default function PhoneVerify({ props }) {
 
   const verifyPhoneNumber = async () => {
     setState({ loading: true });
-    const phone = sessionStorage.getItem("phone");
+    const phone = sessionStorage.getItem('phone');
 
-    console.log("phone", phone);
+    console.log('phone', phone);
 
     if (!phone) {
       //show error message
       setState({ loading: false });
       return;
     }
-    const response = await Axios.post(
-      "https://api-dev.allclear.app/peoples/start",
-      {
-        phone: phone,
-        beenTested: false,
-        haveSymptoms: false,
-      }
-    )
+    const response = await Axios.post('https://api-dev.allclear.app/peoples/start', {
+      phone: phone,
+      beenTested: false,
+      haveSymptoms: false,
+    })
       .then((response) => {
         console.log(response);
-        history.push("/phone-verify-success");
+        history.push('/phone-verify-success');
       })
       .catch((error) => {
         //show error message
@@ -54,7 +51,7 @@ export default function PhoneVerify({ props }) {
       });
   };
 
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = React.useState('');
 
   const handleCodeChange = (event) => {
     setValue(event.target.value);
@@ -64,30 +61,22 @@ export default function PhoneVerify({ props }) {
     <div className="background-responsive">
       <Box className="login">
         <Header>
-          <h1 style={{ justifyContent: "center", margin: "0" }}>Sign In</h1>
+          <h1 style={{ justifyContent: 'center', margin: '0' }}>Sign In</h1>
           <p>Enter your phone number to be sent a verification code.</p>
         </Header>
 
         {state.loading === false ? (
-          <form
-            noValidate
-            autoComplete="off"
-            className="body-phone-verify"
-            style={{ textAlign: "center" }}
-          >
-            <div className="wid100" style={{ margin: "70px 0" }}>
+          <form noValidate autoComplete="off" className="body-phone-verify" style={{ textAlign: 'center' }}>
+            <div className="wid100" style={{ margin: '70px 0' }}>
               <Grid container justify="center">
                 <Grid item xs={12} sm={6}>
-                  <FormControl
-                    className="form-control"
-                    style={{ height: "100%" }}
-                  >
+                  <FormControl className="form-control" style={{ height: '100%' }}>
                     <TextField
                       id="outlined-margin-none"
                       defaultValue=""
                       className="white-back-input"
                       variant="outlined"
-                      label={value === "" ? "Phone Number" : ""}
+                      label={value === '' ? 'Phone Number' : ''}
                       height="60px"
                       onChange={handleCodeChange}
                       InputLabelProps={{ shrink: false }}
@@ -118,10 +107,7 @@ export default function PhoneVerify({ props }) {
               >
                 Send Verification Code
               </Button>
-              <p
-                className="color-primary show-mobile-sm"
-                style={{ padding: "15px 0", display: "none" }}
-              >
+              <p className="color-primary show-mobile-sm" style={{ padding: '15px 0', display: 'none' }}>
                 <strong>Create Account</strong>
               </p>
             </div>
@@ -135,7 +121,7 @@ export default function PhoneVerify({ props }) {
         )}
 
         {state.loading === false ? (
-          <div style={{ padding: "3px 0" }} className="hide-mobile">
+          <div style={{ padding: '3px 0' }} className="hide-mobile">
             <ProgressBottom progress="100px"></ProgressBottom>
           </div>
         ) : null}

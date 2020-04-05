@@ -1,39 +1,39 @@
-import React from "react";
-import Header from "../components/header-round";
-import ProgressBottom from "../components/progressBottom";
+import React from 'react';
+import Header from '../components/header-round';
+import ProgressBottom from '../components/progressBottom';
 
-import Box from "@material-ui/core/Container";
-import { Button, Grid } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import { Link } from "react-router-dom";
-import ToggleButton from "@material-ui/lab/ToggleButton";
-import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
-import TextField from "@material-ui/core/TextField";
+import Box from '@material-ui/core/Container';
+import { Button, Grid } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
+import ToggleButton from '@material-ui/lab/ToggleButton';
+import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
+import TextField from '@material-ui/core/TextField';
 
 const bodyStyle = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
   // height: "100vh",
-  flexDirection: "column",
-  alignContent: "space-between"
+  flexDirection: 'column',
+  alignContent: 'space-between',
 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   toggleButtonStyle: {},
   MuiToggleButton: {
-    color: "red"
-  }
+    color: 'red',
+  },
 }));
 
 export default function CreateAccount() {
   const classes = useStyles();
 
-  const [valueExposure, setExposureValue] = React.useState("live_with_someone");
-  const [dobExposure, setDobValue] = React.useState("");
+  const [valueExposure, setExposureValue] = React.useState('live_with_someone');
+  const [dobExposure, setDobValue] = React.useState('');
 
-  sessionStorage.setItem('exposure', "live_with_someone");
-  sessionStorage.setItem('testing', "tested");
+  sessionStorage.setItem('exposure', 'live_with_someone');
+  sessionStorage.setItem('testing', 'tested');
 
   const handleExposureChange = (event, newValue) => {
     if (!newValue) return;
@@ -61,25 +61,23 @@ export default function CreateAccount() {
       <Box className="background">
         <Header>
           <h1>Background</h1>
-          <p>
-            Provide information to help us recommend the test sites for you.
-          </p>
+          <p>Provide information to help us recommend the test sites for you.</p>
         </Header>
 
         <div style={bodyStyle}>
           <div className="">
-
             <div className="row wid100">
               <div className="col-lg-7 text-left">
                 <div className="BGleft">
                   <div className="BGheadings">
-                    <div className="bg1 bgsyle1"><strong>Location</strong> (Required)</div>
-                    <div className="bg2 bgsyle2">We can give localized test center recommendations with
-                      your location.
+                    <div className="bg1 bgsyle1">
+                      <strong>Location</strong> (Required)
+                    </div>
+                    <div className="bg2 bgsyle2">
+                      We can give localized test center recommendations with your location.
                     </div>
                     <p>
-                      <input className="inputSet" type="text" placeholder="Location"
-                              onchange={handleLocationChange}/>
+                      <input className="inputSet" type="text" placeholder="Location" onchange={handleLocationChange} />
                     </p>
                   </div>
                 </div>
@@ -87,11 +85,18 @@ export default function CreateAccount() {
               <div className="col-lg-5 text-left">
                 <div className="BGright">
                   <div className="BGheadings">
-                    <div className="bg1 bgsyle1"><strong>Date of Birth</strong> (Required)</div>
+                    <div className="bg1 bgsyle1">
+                      <strong>Date of Birth</strong> (Required)
+                    </div>
                     <div className="bg2 bgsyle2">Some test centers have minimum age requirements.</div>
                     <p>
-                      <input className="inputSets" type="text" placeholder="MM/DD/YYYY"
-                              onchange={handleDoBChange} value={dobExposure}/>
+                      <input
+                        className="inputSets"
+                        type="text"
+                        placeholder="MM/DD/YYYY"
+                        onchange={handleDoBChange}
+                        value={dobExposure}
+                      />
                       <TextField
                         className="inputSets"
                         variant="outlined"
@@ -112,8 +117,9 @@ export default function CreateAccount() {
 
             <div className="BGheadings">
               <div className="bg1">Exposure to COVID-19</div>
-              <div className="bg2">Some test centers require knowledge of your exposure to people who have
-                tested positive for COVID-19.</div>
+              <div className="bg2">
+                Some test centers require knowledge of your exposure to people who have tested positive for COVID-19.
+              </div>
             </div>
 
             <ToggleButtonGroup
@@ -123,11 +129,7 @@ export default function CreateAccount() {
               aria-label="Testing"
               className="toggleButtonGroup"
             >
-              <ToggleButton
-                value="live_with_someone"
-                aria-label="live_with_someone"
-                className="toggleButton"
-              >
+              <ToggleButton value="live_with_someone" aria-label="live_with_someone" className="toggleButton">
                 Live with someone
               </ToggleButton>
               <ToggleButton
@@ -137,26 +139,14 @@ export default function CreateAccount() {
               >
                 Known contact with someone
               </ToggleButton>
-              <ToggleButton
-                value="not_sure"
-                aria-label="not_sure"
-                className="toggleButton"
-              >
+              <ToggleButton value="not_sure" aria-label="not_sure" className="toggleButton">
                 Not sure
               </ToggleButton>
-              <ToggleButton
-                value="no_contact"
-                aria-label="no_contact"
-                className="toggleButton"
-              >
+              <ToggleButton value="no_contact" aria-label="no_contact" className="toggleButton">
                 No Contact (Self-Quarantine)
               </ToggleButton>
             </ToggleButtonGroup>
           </div>
-
-
-
-
 
           <Grid container justify="center">
             <Grid item xs={12} sm={4}>
@@ -172,8 +162,7 @@ export default function CreateAccount() {
               </Link>
 
               <p className="text-grey hide-desktop">
-                Already have an account?{" "}
-                <span style={{ color: "#007AFF" }}>Sign In</span>
+                Already have an account? <span style={{ color: '#007AFF' }}>Sign In</span>
               </p>
             </Grid>
           </Grid>
