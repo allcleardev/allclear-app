@@ -1,40 +1,62 @@
 .background {
-  .toggleButtonGroup {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
 
-    @media (min-width: 768px) {
-      flex-direction: row !important;
-      justify-content: space-between;
-      width: 100%;
-      background-color: transparent;
+  .section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-self: normal;
+    margin-bottom: 40px;
+
+    @media(min-width: $md) {
+      flex-direction: row;
+    }
+  }
+
+  .article {
+    flex: 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    &:not(:last-child) {
+      margin: 0 0 20px 0;
     }
 
-    .toggleButton {
-      margin: 8px 0;
-      border-radius: 14px !important;
-      border: 1px solid #dadada !important;
-      height: 28px;
-      color: #999999;
-      width: 228px;
-
-      @media (min-width: 768px) {
-        width: 30% !important;
-        height: 48px;
-        color: #fff;
-        border-radius: 25px !important;
-        border: none;
+    @media(min-width: $md) {
+      &:not(:last-child) {
+        margin: 0 67px 0 0;
       }
     }
   }
 
-  .MuiToggleButton-root.Mui-selected {
-    background-color: rgb(0, 50, 151) !important;
-    border: 0 !important;
+  .label {
+    display: block;
+    font-size: 16px;
+    line-height: 1;
+  }
 
-    .MuiToggleButton-label {
-      color: #fff;
+  .description {
+    font-weight: normal;
+    font-size: 13px;
+  }
+
+  .chips-group {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+
+    @media(min-width: $md) {
+      flex-wrap: nowrap;
+    }
+  }
+
+  .chip {
+    flex: 1 auto;
+  }
+
+  .input#birthdate {
+    @media(min-width: $md) {
+      width: 55%;
     }
   }
 }

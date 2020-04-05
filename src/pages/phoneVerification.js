@@ -83,10 +83,12 @@ export default function PhoneVerify({ props, location }) {
 
                 <FormControl className="control">
                   <TextField
+                    className="input"
                     defaultValue=""
                     InputLabelProps={{ shrink: false }}
                     onChange={handleCodeChange}
-                    label={value === "" ? "Verification Code" : ""}
+                    // label={value === "" ? "Verification Code" : ""} // commenting out for now
+                    placeholder="Verification Code"
                     variant="outlined"
                     style={{}}
                   />

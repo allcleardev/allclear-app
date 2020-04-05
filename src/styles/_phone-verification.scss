@@ -9,21 +9,7 @@
     }
   }
 
-  // TODO: Move to global file so other inputs can share
   .control {
     width: 100%;
-    background: #FFF;
-    border-radius: 8px;
-
-    /* Mui Overrides */
-    .MuiOutlinedInput-root {
-      border-radius: 8px;
-    }
-
-    .MuiOutlinedInput-notchedOutline {
-      @media(min-width: $md) {
-        border: 0;
-      }
-    }
   }
 }
