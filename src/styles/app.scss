@@ -10,6 +10,8 @@
 @import "test-map";
 @import "profile-view";
 @import "profile-edit";
+@import "login-verification";
+@import "login";
 @import "footer";
 
 * {
@@ -382,6 +384,10 @@ a {
 
   .show-mobile-sm {
     display: block !important;
+  }
+
+  .hide-mobile-sm {
+    display: none !important;
   }
 }
 

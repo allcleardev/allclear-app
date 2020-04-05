@@ -1,27 +1,16 @@
 import React from "react";
-
-import Header from "../components/homescreen-header";
 import CardBlank from "../components/cardBlank";
 import SwitchComponent from "../components/switch";
-
-import Box from "@material-ui/core/Container";
 import { Button, Grid } from "@material-ui/core";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
-import Fab from "@material-ui/core/Fab";
+import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Select from "@material-ui/core/Select";
 import Checkbox from "@material-ui/core/Checkbox";
 
-import userAvatar from "../assets/images/avatar.svg";
-
-import { friendData } from "../constants";
-
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   button: {
     width: "100%",
     margin: "15px 0",
@@ -33,13 +22,13 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function UpdateCriteria() {
-  const classes = useStyles();
+  useStyles();
 
   const [drive_through, setDriveThrough] = React.useState("");
   const [appoinment_only, setAppoinmentOnly] = React.useState("");
   const [exposure, setExposure] = React.useState("");
-  const [conditions, setConditions] = React.useState("");
-  const [symptoms, setSymptoms] = React.useState("");
+  const [conditions, setConditions] = React.useState([]);
+  const [symptoms, setSymptoms] = React.useState([]);
   // Event Handlers for Select components
   const handleDriveThroughChange = event => {
     setDriveThrough(event.target.value);
@@ -76,27 +65,11 @@ export default function UpdateCriteria() {
             alignItems: "center"
           }}
         >
-          <h3 className="body-title">Use My Location</h3>
-          <div>
-            <SwitchComponent></SwitchComponent>
-          </div>
+          <h3 className="body-title">Update Search Criteria</h3>
+
         </div>
 
-        <div className="sub-card">
-          <p className="body-sub-title">Location</p>
-          <FormControl className="form-control">
-            <TextField
-              id="outlined-margin-none"
-              defaultValue=""
-              className="white-back-input"
-              variant="outlined"
-              label=""
-              height="60px"
-              InputLabelProps={{ shrink: false }}
-              style={{}}
-            />
-          </FormControl>
-        </div>
+
         <div className="sub-card">
           <h5 className="body-sub-title">Drive-Through Test Centers</h5>
           <FormControl variant="outlined" className="form-control">
@@ -131,6 +104,26 @@ export default function UpdateCriteria() {
               className="select-white-back"
             >
               <MenuItem value="">Any</MenuItem>
+              <MenuItem value={10}>Ten</MenuItem>
+              <MenuItem value={20}>Twenty</MenuItem>
+              <MenuItem value={30}>Thirty</MenuItem>
+            </Select>
+          </FormControl>
+        </div>
+        <div className="sub-card">
+          <h5 className="body-sub-title">Symptoms</h5>
+          <p className="body-sub-description">Select all that apply.</p>
+          <FormControl variant="outlined" className="form-control">
+            <Select
+              labelId="demo-simple-select-outlined-label"
+              id="demo-simple-select-outlined"
+              value={symptoms}
+              displayEmpty
+              multiple
+              onChange={event => handleSymptomsChange(event, "symptoms")}
+              className="select-white-back"
+            >
+              <MenuItem value="">Fever, Shortness of Breath</MenuItem>
               <MenuItem value={10}>Ten</MenuItem>
               <MenuItem value={20}>Twenty</MenuItem>
               <MenuItem value={30}>Thirty</MenuItem>
@@ -181,6 +174,7 @@ export default function UpdateCriteria() {
               id="demo-simple-select-outlined"
               value={conditions}
               displayEmpty
+              multiple
               onChange={event => handleConditionsChange(event, "conditions")}
               className="select-white-back"
             >
@@ -192,25 +186,54 @@ export default function UpdateCriteria() {
           </FormControl>
         </div>
         <div className="sub-card">
-          <h5 className="body-sub-title">Symptoms</h5>
-          <p className="body-sub-description">Select all that apply.</p>
+          <h5 className="body-sub-title">Health Worker Status</h5>
+          <p className="body-sub-description">
+            Some test centers require knowledge of if you or someone you live with is a health workers or first responder.
+          </p>
           <FormControl variant="outlined" className="form-control">
             <Select
               labelId="demo-simple-select-outlined-label"
               id="demo-simple-select-outlined"
-              value={symptoms}
+              value={exposure}
               displayEmpty
-              onChange={event => handleSymptomsChange(event, "symptoms")}
+              onChange={event => handleExposureChange(event, "exposure")}
               className="select-white-back"
             >
-              <MenuItem value="">Fever, Shortness of Breath</MenuItem>
-              <MenuItem value={10}>Ten</MenuItem>
+              <MenuItem value="">I live with a health care worker or first responder</MenuItem>
               <MenuItem value={20}>Twenty</MenuItem>
               <MenuItem value={30}>Thirty</MenuItem>
             </Select>
           </FormControl>
         </div>
+      
       </CardBlank>
+      <Grid
+        container
+        style={{
+          display: "flex",
+          justifyContent: "space-around",
+
+          padding: "20px 0px 0px 24px"
+        }}
+        className="btn-group"
+      >
+        <Grid item xs={12} sm={12}>
+        <FormControlLabel
+            control={
+              <Checkbox
+                // checked={state.checkedB}
+                // onChange={handleChange}
+                name="checkedB"
+                color="black"
+              />
+            }
+            style={{fontSize:12,color:'black'}}
+            label="Update Profile Upon Search"
+            className="check-label"
+          />
+        </Grid>
+      </Grid>
+   
 
       <Grid
         container
@@ -218,13 +241,13 @@ export default function UpdateCriteria() {
           display: "flex",
           justifyContent: "space-around",
 
-          padding: "25px 0"
+          padding: "5px 0"
         }}
         className="btn-group"
       >
         <Grid item xs={12} sm={5}>
           <Button className="btn-big bg-primary color-white fontsize-16">
-            Update Profile
+            Search
           </Button>
         </Grid>
         <Grid item xs={12} sm={5}>

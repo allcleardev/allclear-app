@@ -1,0 +1,14 @@
+{
+  "html": {
+    "indent_size": 2,
+    "wrap_line_length": 120,
+    "wrap-attributes": "force-expand-multiline",
+    "preserve_newlines": true // Whether existing line breaks before elements should be preserved (only works before elements, not inside tags or for text)
+  },
+  "css": {
+    "indent_size": 2
+  },
+  "js": {
+    "indent_size": 2
+  }
+}

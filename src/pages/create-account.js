@@ -18,8 +18,9 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+
 export default function CreateAccount() {
-  const classes = useStyles();
+  useStyles();
 
   const [valueSympotyms, setSymptomsValue] = React.useState("nosymptoms");
 

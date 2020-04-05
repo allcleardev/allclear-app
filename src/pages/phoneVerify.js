@@ -16,40 +16,38 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 export default function PhoneVerify({ props }) {
   const [state, setState] = React.useState({
     checkedB: true,
-    loading: false
+    loading: false,
   });
 
   const history = useHistory();
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
 
   const verifyPhoneNumber = async () => {
     setState({ loading: true });
-    let phone = sessionStorage.getItem('phone');
+    let phone = sessionStorage.getItem("phone");
 
     if (!phone) {
       //show error message
       setState({ loading: false });
       return;
     }
-    await Axios.post(
-      "https://api-dev.allclear.app/peoples/start",
-      {
-        phone: phone,
-        beenTested: false,
-        haveSymptoms: false
-      }
-    ).then((response) => {
-      console.log(response);
-      sessionStorage.setItem('phone', phone);
-      history.push("/phone-verification");
-    }).catch((error) => {
-      //show error message
-      setState({ loading: false });
-    });
-
+    await Axios.post("https://api-dev.allclear.app/peoples/start", {
+      phone: phone,
+      beenTested: false,
+      haveSymptoms: false,
+    })
+      .then((response) => {
+        console.log(response);
+        sessionStorage.setItem("phone", phone);
+        history.push("/phone-verification");
+      })
+      .catch((error) => {
+        //show error message
+        setState({ loading: false });
+      });
   };
 
   return (

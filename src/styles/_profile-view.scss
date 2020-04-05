@@ -1,9 +1,9 @@
 .profile-view {
   display: flex;
   justify-content: center;
+  padding-bottom: 80px;
 
   @media (max-width: $sm) {
-    padding-bottom: 80px;
   }
 
   .header-homescreen {
@@ -39,6 +39,7 @@
     background: #ffffff;
     box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
     border-radius: 6px;
+    margin-top: -25px;
 
     @media (max-width: $sm) {
       margin-top: -182px;
@@ -61,6 +62,8 @@
   }
 
   .card-blank {
+    margin-top: 12px;
+
     @media (max-width: 576px) {
       margin-top: -90px;
     }
