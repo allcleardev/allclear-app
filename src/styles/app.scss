@@ -5,6 +5,7 @@
 @import "create-account";
 @import "background";
 @import "phone-verify";
+@import "phone-verifying";
 @import "phone-verification";
 @import "test";
 @import "test-map";
@@ -42,6 +43,10 @@ button {
       color: #fff;
       font-size: 24px;
     }
+  }
+
+  @media (max-height: 100vh) {
+    height: 100vh;
   }
 }
 
