@@ -1,14 +1,13 @@
 import React, { Fragment } from 'react';
-import states from './Result.state';
+// import states from './Result.state';
 import upload from '../../assets/images/uploadicon.png';
-import {Link, useHistory} from "react-router-dom";
 import logo from '../../assets/images/Union.png';
 import Axios from "axios";
 import {Grid} from "@material-ui/core";
 import LinearProgress from "@material-ui/core/LinearProgress";
 
 class Result extends React.Component {
-    state = states;
+    // state = states;
 
     componentDidMount = () => {
         this.getTestTypes();
@@ -159,7 +158,9 @@ class Result extends React.Component {
                             <div className="row">
                                 <div className="col-lg-6 text-left">
                                     <div className="conditionLeft">
-                                        <img src={logo} />
+                                        <img
+                                          alt='logo'
+                                          src={logo} />
                                     </div>
                                 </div>
                                 <div className="col-lg-6 text-right">
@@ -174,7 +175,7 @@ class Result extends React.Component {
                                     <h2>Test Results</h2>
                                     <p>
                                         if you've taken a COVID-19 test already, please submit test details and results. Refer to
-							our <a className="policyClr" href="#">Privacy Policy</a> for more details.</p>
+							our <a className="policyClr" href="/">Privacy Policy</a> for more details.</p>
                                 </div>
 
                                 <div className="fieldArea003">
@@ -231,7 +232,7 @@ class Result extends React.Component {
                                                 </div>
                                                 <div className="xyz003">
                                                     <div className="vrChoseBtn">
-                                                        <a href="#">Choose File</a>
+                                                        <a href="/">Choose File</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -246,7 +247,7 @@ class Result extends React.Component {
                                 <div className="row">
                                     <div className="col-lg-6 col-md-6 text-left">
                                         <button className="backBtn pure-material-button-contained">Back</button>
-                                        <a className="skipBtn" href="#">Skip</a>
+                                        <a className="skipBtn" href="/">Skip</a>
                                     </div>
                                     <div className="col-lg-6 col-md-6 text-right">
                                         <button className="nextBtn pure-material-button-contained" onClick={this.submitResults}>Submit Test Results</button>
@@ -317,14 +318,16 @@ class Result extends React.Component {
                                         <div className="txt-1">Verify your results by uploading an image</div>
                                     </div>
                                     <div className="xyz003">
-                                        <img src={upload} />
+                                        <img
+                                          alt={'upload'}
+                                          src={upload} />
                                     </div>
                                 </div>
 
 
-                                <div className="policyBtn"><a href="#">Privacy Policy</a></div>
+                                <div className="policyBtn"><a href="/">Privacy Policy</a></div>
                                 <div className="wrapBtn"><button>Submit Test Result</button></div>
-                                <div className="policyBtn"><a className="skipBtn" href="#">Skip</a></div>
+                                <div className="policyBtn"><a className="skipBtn" href="/">Skip</a></div>
 
 
                             </div>

@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import states from './ResultDetail.state';
+// import states from './ResultDetail.state';
 import logo from '../../assets/images/Union.png';
 import setting from '../../assets/images/settingIcon.png';
 import sikIcon from '../../assets/images/sikIcon.png';
@@ -8,7 +8,7 @@ import shearIcon from '../../assets/images/shearIcon.png';
 
 
 class ResultDetail extends React.Component {
-  state = states
+  // state = states;
   componentDidMount = () => {
 
   };
@@ -29,7 +29,9 @@ class ResultDetail extends React.Component {
                   <div className="row">
                     <div className="col-lg-6 text-left">
                       <div className="conditionLeft">
-                        <img src={logo}/>
+                        <img
+                          alt='logo'
+                          src={logo}/>
                       </div>
                     </div>
                     <div className="col-lg-6 text-right">
@@ -48,9 +50,13 @@ class ResultDetail extends React.Component {
                   </div>
                   <div className="boxWrap23">
                     <div className="work1">
-                      <img src={setting} className="absoluteVN"/>
+                      <img
+                        alt='setting'
+                        src={setting} className="absoluteVN"/>
                       <li>
-                        <img className="imgRound03"
+                        <img
+                          alt='test'
+                          className="imgRound03"
                              src="https://images.pexels.com/photos/1586663/pexels-photo-1586663.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"/>
                       </li>
                       <li>
@@ -60,16 +66,22 @@ class ResultDetail extends React.Component {
                       </li>
                       <li>
                         <div className="subHeads003">Health</div>
-                        <div className="subHeads9832"><img className="miniIon" src={sikIcon}/>Symptomatic</div>
+                        <div className="subHeads9832"><img
+                          alt='minion'
+                          className="miniIon" src={sikIcon}/>Symptomatic</div>
                       </li>
                       <li>
                         <div className="subHeads003">Test Status</div>
-                        <div className="subHeads9832"><img className="miniIon" src={cercleIon}/>Untested</div>
+                        <div className="subHeads9832"><img
+                          alt='test'
+                          className="miniIon" src={cercleIon}/>Untested</div>
                       </li>
                     </div>
                   </div>
                   <div className="headingCenter">
-                    <h4>Test Details</h4><img className="miniIon" src={shearIcon}/>
+                    <h4>Test Details</h4><img
+                    alt='test details'
+                    className="miniIon" src={shearIcon}/>
                   </div>
                   <div className="boxWrap23">
                     <div className="row">
@@ -107,7 +119,7 @@ class ResultDetail extends React.Component {
                     </div>
                   </div>
                   <div className="priPolicy">
-                    <a href="#">Privacy Policy</a>
+                    <a href="/">Privacy Policy</a>
                   </div>
                 </div>
               </div>
@@ -162,15 +174,14 @@ class ResultDetail extends React.Component {
                     </div>
                   </div>
 
-
                 </div>
                 <div className="workSpaceArea difWorkSpaceArea divBottomArea">
                   <div className="btnXyx">
                     <div className="xrzt-bar xrzt-black">
                       <div className="rusltxyx">
-                        <a className="xrzt-bar-item xrzt-button rtvActive"
-                           onclick="openCity('Overviews')">Overviews</a>
-                        <a className="xrzt-bar-item xrzt-button " onclick="openCity('Tests')">Tests</a>
+                        <button className="xrzt-bar-item xrzt-button rtvActive"
+                           onclick="openCity('Overviews')">Overviews</button>
+                        <button className="xrzt-bar-item xrzt-button " onclick="openCity('Tests')">Tests</button>
                       </div>
 
                       <div style={{marginTop: 20 + 'px'}} id="Overviews" className="xrzt-container city">

@@ -20,7 +20,9 @@ class Success extends React.Component {
                         <div className="screenHeadS">
                             <div style={{ paddingTop: 60 }}></div>
                             <div claclassNamess="arrowS"><i className="fa fa-angle-left" aria-hidden="true"></i></div>
-                            <div className="sucessImg001"><img src={success} /></div>
+                            <div className="sucessImg001"><img
+                              alt='success'
+                              src={success} /></div>
                         </div>
                         <div class="workSpaceAreaS">
 

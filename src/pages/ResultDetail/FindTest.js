@@ -1,8 +1,8 @@
 import React, {Fragment} from 'react';
-import states from './ResultDetail.state';
+// import states from './ResultDetail.state';
 
 class FindTest extends React.Component {
-  state = states;
+  // state = states;
   componentDidMount = () => {
 
   };
@@ -62,13 +62,11 @@ class FindTest extends React.Component {
               <div class="btnXyx">
                 <div class="xrzt-bar xrzt-black">
                   <div class="rusltxyxft">
-                    <a
-                      href="javascript:void(0);"
+                    <button
                       class="xrzt-bar-item xrzt-button rtvActiveft"
-                      onclick="openCity('Overviews')">Symptoms</a>
-                    <a
-                      href="javascript:void(0);"
-                      class="xrzt-bar-item xrzt-button " onclick="openCity('Tests')">Attachments</a>
+                      onclick="openCity('Overviews')">Symptoms</button>
+                    <button
+                      class="xrzt-bar-item xrzt-button " onclick="openCity('Tests')">Attachments</button>
                   </div>
 
                   <div style={{marginTop: 20}} id="Overviews" class="xrzt-container city">

@@ -1,27 +1,16 @@
 import React from "react";
-
-import Header from "../components/homescreen-header";
 import CardBlank from "../components/cardBlank";
 import SwitchComponent from "../components/switch";
-
-import Box from "@material-ui/core/Container";
 import { Button, Grid } from "@material-ui/core";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
-import Fab from "@material-ui/core/Fab";
+import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Select from "@material-ui/core/Select";
 import Checkbox from "@material-ui/core/Checkbox";
 
-import userAvatar from "../assets/images/avatar.svg";
-
-import { friendData } from "../constants";
-
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   button: {
     width: "100%",
     margin: "15px 0",
@@ -33,7 +22,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function UpdateCriteria() {
-  const classes = useStyles();
+  useStyles();
 
   const [drive_through, setDriveThrough] = React.useState("");
   const [appoinment_only, setAppoinmentOnly] = React.useState("");

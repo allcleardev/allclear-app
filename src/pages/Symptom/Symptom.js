@@ -40,7 +40,7 @@ class Symptom extends React.Component {
     handleChange = (event) => {
         let { symptoms } = this.state;
         symptoms.filter((symptom) => {
-            if (symptom.name == event.name) {
+            if (symptom.name === event.name) {
                 symptom.isActive = !symptom.isActive;
             }
         });
@@ -58,7 +58,9 @@ class Symptom extends React.Component {
                             <div className="row">
                                 <div className="col-lg-6 text-left">
                                     <div className="conditionLeft">
-                                        <img src={logo} />
+                                        <img
+                                          alt='logo'
+                                          src={logo} />
                                     </div>
                                 </div>
                                 <div className="col-lg-6 text-right">

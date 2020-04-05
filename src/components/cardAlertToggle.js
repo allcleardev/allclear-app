@@ -24,6 +24,7 @@ export default function AlertToggleCard({ title, description }) {
     checkedB: true
   });
 
+  //eslint-disable-next-line
   const handleChange = event => {
     setState({ ...state, [event.target.name]: event.target.checked });
   };

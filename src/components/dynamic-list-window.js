@@ -7,7 +7,7 @@ let location = location_data;
 function getRowHeight(index) {
   // TODO: comment or explain this
 
-  // eslint-disable-no-mixed-operators
+  //eslint-disable-next-line
     return (location[index].Address && location[index].Address.length * 1.2 || 0) + (location[index].Name && location[index].Name.length * 1.2 || 0)
 }
 

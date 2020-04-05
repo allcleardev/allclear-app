@@ -2,26 +2,25 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import Box from "@material-ui/core/Container";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import {makeStyles} from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import { Grid } from "@material-ui/core";
+import {Grid} from "@material-ui/core";
 import Fab from "@material-ui/core/Fab";
-import Icon from "@material-ui/core/Icon";
 
 import Header from "../components/homescreen-header";
 import TestResultCard from "../components/cardTestResults";
 import NavBottom from "../components/navBottom";
 import FabBlueBottom from "../components/fabBlueBottom";
 
-import { testResult } from "../constants";
+import {testResult} from "../constants";
 
 function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+  const {children, value, index, ...other} = props;
 
   return (
     <Typography
@@ -57,7 +56,7 @@ function a12yProps(index) {
   };
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   button: {
     width: "100%",
     margin: "15px 0",
@@ -67,7 +66,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function CompleteProfile() {
-  const classes = useStyles();
+  useStyles();
 
   const [value, setValue] = React.useState(0);
   const [secondValue, setSecondValue] = React.useState(0);
@@ -93,12 +92,12 @@ export default function CompleteProfile() {
               <Tab
                 label="Find Tests"
                 {...a11yProps(0)}
-                style={{ width: "50%" }}
+                style={{width: "50%"}}
               />
               <Tab
                 label="Test Results"
                 {...a11yProps(1)}
-                style={{ width: "50%" }}
+                style={{width: "50%"}}
               />
             </Tabs>
           </AppBar>
@@ -120,7 +119,7 @@ export default function CompleteProfile() {
             size="small"
             aria-label="add"
             className="hide-desktop"
-            style={{ background: "transparent", boxShadow: "none" }}
+            style={{background: "transparent", boxShadow: "none"}}
           >
             <svg
               width="9"
@@ -139,29 +138,29 @@ export default function CompleteProfile() {
             </svg>
           </Fab>
           <Button
-            startIcon={<ArrowBackIosIcon />}
-            style={{ color: "#fff" }}
+            startIcon={<ArrowBackIosIcon/>}
+            style={{color: "#fff"}}
             className="hide-mobile"
           >
             Back
           </Button>
           <h2 className="body-title">Williamsburg Drive-Thru Testing</h2>
-          <div style={{ lineHeight: "12px", textAlign: "left" }}>
-            <p className="white" style={{ fontSize: "16px" }}>
+          <div style={{lineHeight: "12px", textAlign: "left"}}>
+            <p className="white" style={{fontSize: "16px"}}>
               8383 Marcy Ave, Brooklyn, NY 11211
             </p>
-            <p className="white" style={{ fontSize: "16px" }}>
+            <p className="white" style={{fontSize: "16px"}}>
               (737) 002-0379
             </p>
           </div>
-          <div style={{ display: "flex", flexDirection: "row" }}>
+          <div style={{display: "flex", flexDirection: "row"}}>
             <p>
               <strong>Open</strong>
             </p>
-            <p style={{ padding: "0 30px" }}>9am - 5pm</p>
-            <p style={{ padding: "0 30px" }}>Walk-Up</p>
+            <p style={{padding: "0 30px"}}>9am - 5pm</p>
+            <p style={{padding: "0 30px"}}>Walk-Up</p>
           </div>
-          <div style={{ paddingTop: "15px" }}>
+          <div style={{paddingTop: "15px"}}>
             <Button className="btn-gradient white">Website</Button>
             <Button className="btn-gradient white">Directions</Button>
             <Button className="btn-gradient white">
@@ -237,18 +236,18 @@ export default function CompleteProfile() {
             <div>
               <p className="list">Must be 65+ in age</p>
               <p className="list">
-                Must have Fever, Cough, and/or <br />
+                Must have Fever, Cough, and/or <br/>
                 Shortness of Breath
               </p>
               <p className="list">Must be immunocompromised</p>
             </div>
             <p
               className="grey"
-              style={{ marginBottom: "2px", marginTop: "20px" }}
+              style={{marginBottom: "2px", marginTop: "20px"}}
             >
               Description
             </p>
-            <p style={{ marginTop: "3px" }}>
+            <p style={{marginTop: "3px"}}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
               volutpat orci fusce ipsum. Nibh augue amet, rhoncus nulla
               ultricies vulputate ornare. Amet dolor volutpat rhoncus, quis sit.

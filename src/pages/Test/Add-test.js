@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 // import states from './Symptom.state';
 // import './Symptom.module.css';
-import { Link } from "react-router-dom";
 import logo from '../../assets/images/Union.png';
 
 class AddTest extends React.Component {
@@ -26,7 +25,9 @@ class AddTest extends React.Component {
 						<div class="row">
 							<div class="col-lg-6 text-left">
 								<div class="conditionLeft">
-									<img src={logo} />
+									<img
+                    alt='logo'
+                    src={logo} />
 								</div>
 							</div>
 							<div class="col-lg-6 text-right">
@@ -88,7 +89,7 @@ class AddTest extends React.Component {
 						</div>
 
 						<div class="priPolicy">
-							<a href="#">Privacy Policy</a>
+							<a href="/">Privacy Policy</a>
 						</div>
 						<div class="wrapBtn"><button>Edit Test Result</button></div>
 					</div>
@@ -186,7 +187,7 @@ class AddTest extends React.Component {
 							</div>
 						</div>
 						<div class="priPolicy">
-							<a href="#">Privacy Policy</a>
+							<a href="/">Privacy Policy</a>
 						</div>
 						<div class="wrapBtn"><button>Edit Test Result</button></div>
 					</div>

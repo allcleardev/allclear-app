@@ -1,8 +1,5 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-
-// import Container from '@material-ui/core/Container';
-import { withStyles } from "@material-ui/core/styles";
 import LinearProgress from "@material-ui/core/LinearProgress";
 
 import Logo from "../assets/images/logo.svg";

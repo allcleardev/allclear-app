@@ -2,6 +2,13 @@
   "name": "allclear-pwa-2",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "deploy": "yarn build && surge build --domain allclear.surge.sh",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
     "@material-ui/core": "latest",
     "@material-ui/icons": "latest",
@@ -37,15 +44,14 @@
     "react-window": "^1.8.5",
     "typescript": "^3.8.3"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "deploy": "yarn build && surge build --domain allclear.surge.sh",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+  "devDependencies": {
+    "@types/leaflet.locatecontrol": "^0.60.7"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "rules": {
+      "array-callback-return": "off"
+    }
   },
   "browserslist": {
     "production": [
@@ -58,8 +64,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@types/leaflet.locatecontrol": "^0.60.7"
   }
 }
