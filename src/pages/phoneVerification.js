@@ -1,21 +1,21 @@
-import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import React from 'react';
+import { Link, useHistory } from 'react-router-dom';
 // import qs from "qs";
-import Box from "@material-ui/core/Container";
-import { Button, Grid } from "@material-ui/core";
-import FormControl from "@material-ui/core/FormControl";
-import TextField from "@material-ui/core/TextField";
-import Axios from "axios";
+import Box from '@material-ui/core/Container';
+import { Button, Grid } from '@material-ui/core';
+import FormControl from '@material-ui/core/FormControl';
+import TextField from '@material-ui/core/TextField';
+import Axios from 'axios';
 
-import Header from "../components/header-round";
-import ProgressBottom from "../components/progressBottom";
-import LinearProgress from "@material-ui/core/LinearProgress";
-import {useCookies} from "react-cookie";
+import Header from '../components/header-round';
+import ProgressBottom from '../components/progressBottom';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import { useCookies } from 'react-cookie';
 
-export default function PhoneVerify({ props, location  }) {
+export default function PhoneVerify({ props, location }) {
   const [state] = React.useState({
     checkedB: true,
-    loading: false
+    loading: false,
   });
 
   //eslint-disable-next-line
@@ -41,28 +41,26 @@ export default function PhoneVerify({ props, location  }) {
 
     phone = sanitizePhone(phone);
 
-    await Axios.post(
-      "https://api-dev.allclear.app/peoples/confirm",
-      {
-        phone: phone,
-        code: code
-      }
-    ).then((response) => {
-      console.log('response', response);
-      setCookie('sessid', response.data.id);
-      sessionStorage.setItem('sessid', response.data.id);
-      history.push("/background");
-    }).catch((error) => {
-      console.log('error', error);
-      // TODO Display Error Message
-    });
-
+    await Axios.post('https://api-dev.allclear.app/peoples/confirm', {
+      phone: phone,
+      code: code,
+    })
+      .then((response) => {
+        console.log('response', response);
+        setCookie('sessid', response.data.id);
+        sessionStorage.setItem('sessid', response.data.id);
+        history.push('/background');
+      })
+      .catch((error) => {
+        console.log('error', error);
+        // TODO Display Error Message
+      });
   };
 
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = React.useState('');
 
-  const handleCodeChange = event => {
-    setValue({code: event.target.value});
+  const handleCodeChange = (event) => {
+    setValue({ code: event.target.value });
     sessionStorage.setItem('code', event.target.value);
   };
 
@@ -70,36 +68,25 @@ export default function PhoneVerify({ props, location  }) {
     <div className="background-responsive">
       <Box className="phone-verification">
         <Header>
-          <h1 style={{ justifyContent: "center", margin: "0" }}>
-            Phone Number
-          </h1>
+          <h1 style={{ justifyContent: 'center', margin: '0' }}>Phone Number</h1>
           <p>Enter your phone number to get started.</p>
         </Header>
 
         {state.loading === false ? (
-          <form
-            noValidate
-            autoComplete="off"
-            className="body-phone-verify"
-            style={{ textAlign: "center" }}
-          >
+          <form noValidate autoComplete="off" className="body-phone-verify" style={{ textAlign: 'center' }}>
             <div>
-              <p className="turn-white text-grey" style={{ padding: "30px 0" }}>
-                We texted a verification code to your phone. Please enter the
-                code to sign in.
+              <p className="turn-white text-grey" style={{ padding: '30px 0' }}>
+                We texted a verification code to your phone. Please enter the code to sign in.
               </p>
               <Grid container justify="center">
                 <Grid item xs={12} sm={6}>
-                  <FormControl
-                    className="form-control"
-                    style={{ height: "100%" }}
-                  >
+                  <FormControl className="form-control" style={{ height: '100%' }}>
                     <TextField
                       id="outlined-margin-none"
                       defaultValue=""
                       className="white-back-input"
                       variant="outlined"
-                      label={value === "" ? "Verification Code" : ""}
+                      label={value === '' ? 'Verification Code' : ''}
                       height="60px"
                       onChange={handleCodeChange}
                       InputLabelProps={{ shrink: false }}
@@ -129,10 +116,7 @@ export default function PhoneVerify({ props, location  }) {
               >
                 Verify
               </Button>
-              <p
-                className="color-primary show-mobile-sm"
-                style={{ padding: "15px 0", display: "none" }}
-              >
+              <p className="color-primary show-mobile-sm" style={{ padding: '15px 0', display: 'none' }}>
                 <strong>Sign into Existing Account</strong>
               </p>
             </div>
@@ -146,7 +130,7 @@ export default function PhoneVerify({ props, location  }) {
         )}
 
         {state.loading === false ? (
-          <div style={{ padding: "3px 0" }} className="hide-mobile">
+          <div style={{ padding: '3px 0' }} className="hide-mobile">
             <ProgressBottom progress="100px"></ProgressBottom>
           </div>
         ) : null}

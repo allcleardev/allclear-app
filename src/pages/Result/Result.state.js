@@ -14,12 +14,9 @@
 //   }
 // })();
 
-
 export default {
   resultObj: {},
   loading: false,
   testTypes: [],
   testLocations: [],
-}
-;
-
+};

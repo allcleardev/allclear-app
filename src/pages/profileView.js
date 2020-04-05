@@ -1,15 +1,15 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-import Header from "../components/homescreen-header";
-import NavBottom from "../components/navBottom";
-import CardArrow from "../components/cardArrow";
+import Header from '../components/homescreen-header';
+import NavBottom from '../components/navBottom';
+import CardArrow from '../components/cardArrow';
 
-import Box from "@material-ui/core/Container";
-import { Button, Grid, IconButton } from "@material-ui/core";
+import Box from '@material-ui/core/Container';
+import { Button, Grid, IconButton } from '@material-ui/core';
 // import { makeStyles } from "@material-ui/core/styles";
 
-import userAvatar from "../assets/images/avatar.svg";
+import userAvatar from '../assets/images/avatar.svg';
 
 // const useStyles = makeStyles(theme => ({
 //   button: {
@@ -23,13 +23,7 @@ import userAvatar from "../assets/images/avatar.svg";
 const EditIconButton = () => {
   return (
     <IconButton>
-      <svg
-        width="20"
-        height="20"
-        viewBox="0 0 20 20"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M13.7437 0.712402L18.7437 5.7124L5.74365 18.7124H0.743652V13.7124L13.7437 0.712402Z"
           stroke="#242424"
@@ -60,13 +54,7 @@ export default function ProfileView() {
               <p className="fontsize-15">(408) 555 - 5555</p>
             </div>
             <IconButton>
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M13.7437 0.712402L18.7437 5.7124L5.74365 18.7124H0.743652V13.7124L13.7437 0.712402Z"
                   stroke="#242424"
@@ -100,26 +88,16 @@ export default function ProfileView() {
                 <div className="card-detail">
                   <p className="title">Conditions</p>
                   <div className="flex-containter flex-wrap-on">
-                    <Button className="btn-description color-white bg-navy">
-                      Weekend Immune System
-                    </Button>
-                    <Button className="btn-description color-white bg-navy">
-                      Kidney Failure or Cirrhosis
-                    </Button>
+                    <Button className="btn-description color-white bg-navy">Weekend Immune System</Button>
+                    <Button className="btn-description color-white bg-navy">Kidney Failure or Cirrhosis</Button>
                   </div>
                 </div>
                 <div className="card-detail">
                   <p className="title">Symptoms</p>
                   <div className="flex-containter flex-wrap-on">
-                    <Button className="btn-description color-white bg-navy">
-                      Fever
-                    </Button>
-                    <Button className="btn-description color-white bg-navy">
-                      Dry Cough
-                    </Button>
-                    <Button className="btn-description color-white bg-navy">
-                      Runny Nose or Nasal Congestion
-                    </Button>
+                    <Button className="btn-description color-white bg-navy">Fever</Button>
+                    <Button className="btn-description color-white bg-navy">Dry Cough</Button>
+                    <Button className="btn-description color-white bg-navy">Runny Nose or Nasal Congestion</Button>
                   </div>
                 </div>
               </div>
@@ -128,27 +106,15 @@ export default function ProfileView() {
               </Link>
             </div>
           </div>
-          <h3
-            className="fontsize-17"
-            style={{ padding: "30px 0", marginBottom: "-10px" }}
-          >
+          <h3 className="fontsize-17" style={{ padding: '30px 0', marginBottom: '-10px' }}>
             Test Results
           </h3>
-          <CardArrow
-            title="Test Type: Alpha Test"
-            description="Williamsburg Drive-Thru Testing"
-          >
+          <CardArrow title="Test Type: Alpha Test" description="Williamsburg Drive-Thru Testing">
             <p className="card-description">
-              Results:{" "}
-              <svg
-                width="11"
-                height="11"
-                viewBox="0 0 11 11"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
+              Results:{' '}
+              <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="5.59961" cy="5.05566" r="5" fill="#FF0000" />
-              </svg>{" "}
+              </svg>{' '}
               Positive
             </p>
             <p className="card-description">3/26/2020</p>

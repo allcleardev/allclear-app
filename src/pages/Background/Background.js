@@ -1,12 +1,12 @@
-import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
-import logo from "../../assets/images/Union.png";
-import Axios from "axios";
+import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
+import logo from '../../assets/images/Union.png';
+import Axios from 'axios';
 
 class Background extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {exposure: 'live_with_someone', dob: ''};
+    this.state = { exposure: 'live_with_someone', dob: '' };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleLocationChange = this.handleLocationChange.bind(this);
@@ -20,29 +20,29 @@ class Background extends React.Component {
   getExposures = () => {
     this.setState({ loading: true });
 
-    Axios.get(
-      "https://api-dev.allclear.app/types/exposures", {}
-    ).then((response) => {
-      console.log(response);
+    Axios.get('https://api-dev.allclear.app/types/exposures', {})
+      .then((response) => {
+        console.log(response);
 
-      this.setState({ exposures: response.data });
-      this.setState({ loading: false });
-    }).catch((error) => {
-      console.log(error);
-      this.setState({ loading: false });
-    });
+        this.setState({ exposures: response.data });
+        this.setState({ loading: false });
+      })
+      .catch((error) => {
+        console.log(error);
+        this.setState({ loading: false });
+      });
   };
 
   handleLocationChange = (event) => {
     if (event && event.target && event.target.value) {
-      this.setState({location: event.target.value});
+      this.setState({ location: event.target.value });
       sessionStorage.setItem('location', event.target.value);
     }
   };
 
   handleDoBChange = (event) => {
     if (event && event.target && event.target.value) {
-      this.setState({dob: event.target.value});
+      this.setState({ dob: event.target.value });
 
       sessionStorage.setItem('dob', event.target.value);
     }
@@ -69,9 +69,7 @@ class Background extends React.Component {
                 <div className="row">
                   <div className="col-lg-6 text-left">
                     <div className="conditionLeft">
-                      <img
-                        alt='logo'
-                        src={logo} />
+                      <img alt="logo" src={logo} />
                     </div>
                   </div>
                   <div className="col-lg-6 text-right">
@@ -84,10 +82,7 @@ class Background extends React.Component {
                 <div className="bodyWdth">
                   <div className="conditionHeading text-center">
                     <h2>Background</h2>
-                    <p>
-                      Provide information to help us recommend the test sites
-                      for you.
-                    </p>
+                    <p>Provide information to help us recommend the test sites for you.</p>
                   </div>
 
                   <div className="fieldArea003">
@@ -99,8 +94,7 @@ class Background extends React.Component {
                               <strong>Location</strong> (Required)
                             </div>
                             <div className="bg2 bgsyle2">
-                              We can give localized test center recommendations
-                              with your location.
+                              We can give localized test center recommendations with your location.
                             </div>
                             <p>
                               <input
@@ -119,9 +113,7 @@ class Background extends React.Component {
                             <div className="bg1 bgsyle1">
                               <strong>Date of Birth</strong> (Required)
                             </div>
-                            <div className="bg2 bgsyle2">
-                              Some test centers have minimum age requirements.
-                            </div>
+                            <div className="bg2 bgsyle2">Some test centers have minimum age requirements.</div>
                             <p>
                               <input
                                 className="inputSets"
@@ -140,32 +132,33 @@ class Background extends React.Component {
                     <div className="BGheadings">
                       <div className="bg1">Exposure to COVID-19</div>
                       <div className="bg2">
-                        Some test centers require knowledge of your exposure to
-                        people who have tested positive for COVID-19.
+                        Some test centers require knowledge of your exposure to people who have tested positive for
+                        COVID-19.
                       </div>
                     </div>
 
-                    {this.state.exposures && this.state.exposures.map((res) => {
-                      return (
-                        <li onClick={() => this.handleChange(res)} className={"pure-material-button-contained" + (res.isActive ? ' Active' : '')}>{res.name}</li>
-                      )
-
-                    })}
+                    {this.state.exposures &&
+                      this.state.exposures.map((res) => {
+                        return (
+                          <li
+                            onClick={() => this.handleChange(res)}
+                            className={'pure-material-button-contained' + (res.isActive ? ' Active' : '')}
+                          >
+                            {res.name}
+                          </li>
+                        );
+                      })}
                   </div>
                 </div>
 
                 <div className="footerBtn mtAnable">
                   <div className="row">
                     <div className="col-lg-6 col-md-6 text-left">
-                      <button className="backBtn pure-material-button-contained">
-                        Back
-                      </button>
+                      <button className="backBtn pure-material-button-contained">Back</button>
                     </div>
                     <div className="col-lg-6 col-md-6 text-right">
                       <Link to="/condition">
-                      <button className="nextBtn pure-material-button-contained">
-                        Next
-                      </button>
+                        <button className="nextBtn pure-material-button-contained">Next</button>
                       </Link>
                     </div>
                   </div>
@@ -183,10 +176,7 @@ class Background extends React.Component {
                     <i className="fa fa-angle-left" aria-hidden="true"></i>
                   </div>
                   <div className="headingTxt">Background</div>
-                  <div className="subHeading">
-                    Provide information to help us recommend the best test
-                    sites.
-                  </div>
+                  <div className="subHeading">Provide information to help us recommend the best test sites.</div>
                 </div>
                 <div className="workSpaceArea">
                   <div className="responsiveWorkSpace">
@@ -197,15 +187,10 @@ class Background extends React.Component {
                             <h5>Location</h5>
                           </div>
                           <div className="bg2 bgsyle2">
-                            We can give localized test center recommendations
-                            with your location.
+                            We can give localized test center recommendations with your location.
                           </div>
                           <p>
-                            <input
-                              className="inputSet"
-                              type="text"
-                              placeholder="Location"
-                            />
+                            <input className="inputSet" type="text" placeholder="Location" />
                           </p>
                         </div>
                       </div>
@@ -216,15 +201,9 @@ class Background extends React.Component {
                           <div className="bg1 bgsyle1">
                             <h5>Date of Birth</h5>
                           </div>
-                          <div className="bg2 bgsyle2">
-                            Some test centers have minimum age requirements.
-                          </div>
+                          <div className="bg2 bgsyle2">Some test centers have minimum age requirements.</div>
                           <p>
-                            <input
-                              className="inputSets"
-                              type="text"
-                              placeholder="MM/DD/YYYY"
-                            />
+                            <input className="inputSets" type="text" placeholder="MM/DD/YYYY" />
                           </p>
                         </div>
                       </div>
@@ -232,15 +211,11 @@ class Background extends React.Component {
                   </div>
 
                   <div className="wrapBtn">
-                    <button className="pure-material-button-contained">
-                      Send
-                    </button>
+                    <button className="pure-material-button-contained">Send</button>
                   </div>
                 </div>
 
-                <div
-                  style={{ marginBottom: 20, float: "right", width: "100%" }}
-                ></div>
+                <div style={{ marginBottom: 20, float: 'right', width: '100%' }}></div>
               </div>
             </div>
           </div>

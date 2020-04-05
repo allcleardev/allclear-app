@@ -1,9 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import { withStyles } from "@material-ui/core/styles";
-import { Formik, Form } from "formik";
-import MuiPhoneNumber from "material-ui-phone-number";
+import { withStyles } from '@material-ui/core/styles';
+import { Formik, Form } from 'formik';
+import MuiPhoneNumber from 'material-ui-phone-number';
 
 const styles = {};
 class PhoneNumber extends React.Component {
@@ -11,8 +11,8 @@ class PhoneNumber extends React.Component {
     super(props);
     this.state = {
       defaultValues: {
-        phone: ""
-      }
+        phone: '',
+      },
     };
 
     this.handlePhoneChange = this.handlePhoneChange.bind(this);
@@ -27,11 +27,11 @@ class PhoneNumber extends React.Component {
     return (
       <Formik
         initialValues={this.state.defaultValues}
-        onSubmit={values => {
+        onSubmit={(values) => {
           this.props.onSubmit(values);
         }}
         validateOnBlur
-        validate={values => {
+        validate={(values) => {
           const errors = {};
           return errors;
         }}
@@ -41,21 +41,21 @@ class PhoneNumber extends React.Component {
               name="phone"
               label="Phone Number"
               data-cy="user-phone"
-              defaultCountry={"us"}
+              defaultCountry={'us'}
               value={this.state.phone}
               onChange={this.handlePhoneChange}
               className="hide-desktop"
-              style={{ margin: "80px 0" }}
+              style={{ margin: '80px 0' }}
             />
             <MuiPhoneNumber
               name="phone"
               label="Phone Number"
               data-cy="user-phone"
-              defaultCountry={"us"}
+              defaultCountry={'us'}
               value={this.state.phone}
               onChange={this.handlePhoneChange}
               className="input-white-back-phone hide-mobile"
-              style={{ margin: "80px 0" }}
+              style={{ margin: '80px 0' }}
             />
           </Form>
         )}
@@ -67,6 +67,6 @@ PhoneNumber.propTypes = {
   classes: PropTypes.object.isRequired,
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired,
 };
 export default withStyles(styles)(PhoneNumber);

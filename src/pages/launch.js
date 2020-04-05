@@ -1,24 +1,24 @@
-import React, { useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import LinearProgress from "@material-ui/core/LinearProgress";
+import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
-import Logo from "../assets/images/logo.svg";
+import Logo from '../assets/images/logo.svg';
 
 const LogoStyle = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
   fontFamily: "'Source Sans Pro', sans-serif",
-  fontStyle: "normal",
-  marginTop: "-20px"
+  fontStyle: 'normal',
+  marginTop: '-20px',
 };
 
 const ContainerStyle = {
-  height: "100vh",
-  background: "linear-gradient(to right, #28baff, #1195ff)",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center"
+  height: '100vh',
+  background: 'linear-gradient(to right, #28baff, #1195ff)',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
 };
 
 const Launch = ({ props }) => {
@@ -27,7 +27,7 @@ const Launch = ({ props }) => {
   useEffect(() => {
     console.log(props);
     setTimeout(() => {
-      history.push("/phone-verify");
+      history.push('/phone-verify');
     }, 3000);
   });
 
