@@ -10,7 +10,7 @@ export default function Header(props) {
   return (
     <div className="header">
       <div className="mobile-content">
-        <Link to={props.navigate}>
+        {/* <Link to={props.navigate}> */}
           <Fab size="small" aria-label="add" className="btn-back-fab">
             <svg
               width="9"
@@ -28,7 +28,7 @@ export default function Header(props) {
               />
             </svg>
           </Fab>
-        </Link>
+        {/* </Link> */}
         <div className="shape"></div>
       </div>
       <Box className="desktop-content" maxWidth="xl">
