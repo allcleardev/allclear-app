@@ -1,6 +1,5 @@
-import React, { Component } from "react";
 import { withLeaflet, MapControl } from "react-leaflet";
-import {Icon, L} from "leaflet";
+import {Icon} from "leaflet";
 import { OpenStreetMapProvider,GeoSearchControl } from "leaflet-geosearch";
 
 class GeoSearch extends MapControl {
@@ -27,7 +26,6 @@ class GeoSearch extends MapControl {
         draggable: true,
       },
       showPopup: true,
-      autoClose: true,
       retainZoomLevel: false,
       animateZoom: true,
       autoClose: true,

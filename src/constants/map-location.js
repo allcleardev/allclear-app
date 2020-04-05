@@ -2,10 +2,10 @@
 import locations from '../hooks/airtable'
 
 //export const mapLocationData = {"data" : locations.locations.slice(500,550)};
-export const mapLocationData = {"data" : 
+export const mapLocationData = {"data" :
 
 locations.locations.filter(function(f) {
-  return f.State == "New York" || f.state == "New Jersey"
+  return f.State === "New York" || f.state === "New Jersey"
 })
 
 }

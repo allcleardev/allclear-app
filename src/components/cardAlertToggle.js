@@ -3,10 +3,9 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-// import Switch from "@material-ui/core/Switch";
 import AlertSwitch from "../components/switch";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     background: "linear-gradient(to right, #28baff, #1195ff)",
     display: "flex",
@@ -25,6 +24,7 @@ export default function AlertToggleCard({ title, description }) {
     checkedB: true
   });
 
+  //eslint-disable-next-line
   const handleChange = event => {
     setState({ ...state, [event.target.name]: event.target.checked });
   };

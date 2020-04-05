@@ -1,9 +1,9 @@
 import React from "react";
 
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import { Grid, Avatar, IconButton } from "@material-ui/core";
+import {makeStyles} from "@material-ui/core/styles";
+// import Card from "@material-ui/core/Card";
+// import CardContent from "@material-ui/core/CardContent";
+import {Grid} from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -47,12 +47,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function UserProfileCard({ children }) {
-  const classes = useStyles();
+export default function UserProfileCard({children}) {
+  useStyles();
 
   return (
     <div className="card-blank">
-      <Grid container style={{ justifyContent: "center" }}>
+      <Grid container style={{justifyContent: "center"}}>
         <Grid item xs={12} sm={11}>
           {children}
         </Grid>

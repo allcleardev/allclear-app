@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import Launch from "./pages/launch";
 import CreateAccount from "./pages/create-account";
@@ -63,7 +63,7 @@ export default function App() {
       <Route path="/phone-verify-success" component={PhoneVerifySuccess} />
       <Route path="/register" component={VerifyMagicLink} />
       <Route path="/find-test" component={FindTest} />
-      {/* <Route path="/result-detail" component={ResultDetail} /> */}
+       <Route path="/result-detail" component={ResultDetail} />
     </Router>
   );
 }

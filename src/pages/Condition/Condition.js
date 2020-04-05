@@ -1,12 +1,7 @@
 import React, { Fragment } from "react";
 import ProgressBottom from "../../components/progressBottom";
 import states from "./Condition.state";
-import Box from "@material-ui/core/Container";
-import { Button, Grid } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
-import ToggleButton from "@material-ui/lab/ToggleButton";
-import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import logo from "../../assets/images/Union.png";
 import Axios from "axios";
 
@@ -45,7 +40,7 @@ class Condition extends React.Component {
   handleChange = (event) => {
     let { conditions } = this.state;
     conditions.filter((condition) => {
-      if (condition.name == event.name) {
+      if (condition.name === event.name) {
         condition.isActive = !condition.isActive;
       }
     });
@@ -63,7 +58,9 @@ class Condition extends React.Component {
                 <div className="row">
                   <div className="col-lg-6 text-left">
                     <div className="conditionLeft">
-                      <img src={logo} />
+                      <img
+                        alt='logo'
+                        src={logo} />
                     </div>
                   </div>
                   <div className="col-lg-6 text-right">

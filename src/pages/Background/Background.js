@@ -1,6 +1,4 @@
 import React, { Fragment } from "react";
-import states from "./Background.state";
-import TextField from "@material-ui/core/TextField";
 import { Link } from "react-router-dom";
 import logo from "../../assets/images/Union.png";
 import Axios from "axios";
@@ -54,7 +52,7 @@ class Background extends React.Component {
   handleChange = (event) => {
     let { exposures } = this.state;
     exposures.filter((exposure) => {
-      if (exposure.name == event.name) {
+      if (exposure.name === event.name) {
         exposure.isActive = !exposure.isActive;
       }
     });
@@ -72,7 +70,9 @@ class Background extends React.Component {
                 <div className="row">
                   <div className="col-lg-6 text-left">
                     <div className="conditionLeft">
-                      <img src={logo} />
+                      <img
+                        alt='logo'
+                        src={logo} />
                     </div>
                   </div>
                   <div className="col-lg-6 text-right">

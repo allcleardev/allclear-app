@@ -1,4 +1,4 @@
-import React, { PropTypes } from "react";
+import React  from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import LinearProgress from "@material-ui/core/LinearProgress";
 
@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function ProgressBottom({ progress }) {
-  const classes = useStyles();
+  useStyles();
 
   return (
     <div className="progress-bottom">

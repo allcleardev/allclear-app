@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
-import qs from "qs";
+// import qs from "qs";
 import Box from "@material-ui/core/Container";
 import { Button, Grid } from "@material-ui/core";
 import FormControl from "@material-ui/core/FormControl";
@@ -13,10 +13,12 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import {useCookies} from "react-cookie";
 
 export default function PhoneVerify({ props, location  }) {
-  const [state, setState] = React.useState({
+  const [state] = React.useState({
     checkedB: true,
     loading: false
   });
+
+  //eslint-disable-next-line
   const [cookies, setCookie] = useCookies(['cookie-name']);
 
   const history = useHistory();
