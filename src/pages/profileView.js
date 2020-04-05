@@ -1,25 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 import Header from "../components/homescreen-header";
 import NavBottom from "../components/navBottom";
-import FabBlueBottom from "../components/fabBlueBottom";
 import CardArrow from "../components/cardArrow";
 
 import Box from "@material-ui/core/Container";
 import { Button, Grid, IconButton } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+// import { makeStyles } from "@material-ui/core/styles";
 
 import userAvatar from "../assets/images/avatar.svg";
 
-const useStyles = makeStyles(theme => ({
-  button: {
-    width: "100%",
-    margin: "15px 0",
-    borderRadius: "10px",
-    height: 48
-  }
-}));
+// const useStyles = makeStyles(theme => ({
+//   button: {
+//     width: "100%",
+//     margin: "15px 0",
+//     borderRadius: "10px",
+//     height: 48
+//   }
+// }));
 
 const EditIconButton = () => {
   return (
