@@ -41,11 +41,25 @@ button {
   flex-direction: column;
   height: 100%;
 
+  /* .onboarding-page button-container*/
   .button-container {
     display: flex;
+    flex-direction: column-reverse;
     justify-content: space-between;
     width: 100%;
     margin-bottom: 77px;
+
+    @media(min-width: $md) {
+      flex-direction: row;
+    }
+
+    >button {
+      margin-bottom: 14px;
+
+      @media(min-width: $md) {
+        margin: 0;
+      }
+    }
   }
 }
 
@@ -57,6 +71,8 @@ button {
   align-items: center;
   color: $grey-text;
 
+
+  /* .onboarding-body anchor*/
   a {
     color: $primary-color;
   }
@@ -69,6 +85,7 @@ button {
     }
   }
 
+  /* .onboarding-body button*/
   button {
     padding: 12px 16px;
     line-height: 22px;
@@ -95,7 +112,45 @@ button {
         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
       }
     }
+  }
 
+  /* .onboarding-body chip*/
+  .chip {
+    width: 100%;
+    height: auto;
+    margin: 12px 0 12px;
+    padding: 13px;
+    font-weight: 500;
+    font-size: 14px;
+    color: #999;
+    border-radius: 25px;
+    border-color: #DADADA;
+
+    @media(min-width: $md) {
+      width: auto;
+      color: #FFF;
+      border-color: #FFF;
+
+      &:not(:last-child) {
+        margin-right: 24px;
+      }
+    }
+  }
+
+  /* .onboarding-body input*/
+  .input {
+    border-radius: 8px;
+    background: #FFF;
+
+    .MuiOutlinedInput-root {
+      border-radius: inherit;
+    }
+
+    .MuiOutlinedInput-notchedOutline {
+      @media(min-width: $md) {
+        border: 0;
+      }
+    }
   }
 }
 
@@ -253,32 +308,6 @@ a {
 
 .aligncenter {
   text-align: center;
-}
-
-.white-back-input {
-  width: 100%;
-
-  .MuiFilledInput-root {
-    background-color: #fff;
-    border-radius: 8px;
-
-    @media (max-width: $md) {
-      border: 1px solid #dadada;
-    }
-
-    .MuiInputBase-input {
-      background-color: #fff;
-      border-radius: 8px;
-    }
-  }
-
-  .MuiFilledInput-underline:before {
-    display: none;
-  }
-
-  .MuiFilledInput-underline:after {
-    display: none;
-  }
 }
 
 //tab component

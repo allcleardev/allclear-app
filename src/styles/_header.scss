@@ -3,31 +3,33 @@
   display: flex;
   flex-direction: column;
   min-height: 206px;
-  margin-bottom: 24px;
+  margin-bottom: 34px;
   padding: 18px 0 50px;
   text-align: center;
   font-family: $font-normal;
   color: #fff;
 
+  @media (min-width: $md) {
+    margin-bottom: 0;
+  }
+
   .heading {
     letter-spacing: 0.374px;
     font-weight: bold;
     font-size: 34px;
+
+    @media (min-width: $md) {
+      margin-bottom: 16px;
+      font-size: 56px;
+    }
   }
 
   .sub-heading {
     letter-spacing: -0.408px;
     font-weight: 500;
     font-size: 17px;
-  }
 
-  @media (min-width: $md) {
-    .heading {
-      margin-bottom: 16px;
-      font-size: 56px;
-    }
-
-    .sub-heading {
+    @media (min-width: $md) {
       font-size: 21px;
     }
   }
