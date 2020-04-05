@@ -1,9 +1,7 @@
 import React from 'react';
 import CardBlank from '../components/cardBlank';
-import SwitchComponent from '../components/switch';
 import { Button, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';

@@ -4,8 +4,6 @@ import { Link, useHistory } from 'react-router-dom';
 import Box from '@material-ui/core/Container';
 import { Button, Grid } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
 import Axios from 'axios';
 
@@ -21,11 +19,13 @@ export default function PhoneVerify({ props }) {
 
   const history = useHistory();
 
+  //eslint-disable-next-line
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
 
-  const verifyPhoneNumber = async () => {
+  //eslint-disable-next-line
+  async function verifyPhoneNumber()  {
     setState({ loading: true });
     const phone = sessionStorage.getItem('phone');
 
@@ -36,8 +36,8 @@ export default function PhoneVerify({ props }) {
       setState({ loading: false });
       return;
     }
-    const response = await Axios.post('https://api-dev.allclear.app/peoples/start', {
-      phone: phone,
+    await Axios.post('https://api-dev.allclear.app/peoples/start', {
+      phone,
       beenTested: false,
       haveSymptoms: false,
     })

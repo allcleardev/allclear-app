@@ -1,13 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 
 // import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
-import LinearProgress from '@material-ui/core/LinearProgress';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Fab from '@material-ui/core/Fab';
 
-const ContainerStyle = {};
 
 const useStyles = makeStyles((theme) => ({
   frontProgress: {
@@ -20,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Launch = ({ props }) => {
-  const history = useHistory();
+  useHistory();
 
   // useEffect(() => {
   //   console.log(props);

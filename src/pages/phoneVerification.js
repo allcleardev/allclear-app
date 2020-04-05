@@ -42,8 +42,8 @@ export default function PhoneVerify({ props, location }) {
     phone = sanitizePhone(phone);
 
     await Axios.post('https://api-dev.allclear.app/peoples/confirm', {
-      phone: phone,
-      code: code,
+      phone,
+      code,
     })
       .then((response) => {
         console.log('response', response);

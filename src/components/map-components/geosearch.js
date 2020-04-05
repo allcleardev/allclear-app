@@ -10,7 +10,7 @@ class GeoSearch extends MapControl {
   createLeafletElement(opts) {
     const provider = new OpenStreetMapProvider();
     const searchControl = new GeoSearchControl({
-      provider: provider,
+      provider,
       position: 'topleft',
       style: 'button',
       showMarker: true,

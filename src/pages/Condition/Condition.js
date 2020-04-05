@@ -8,11 +8,18 @@ import Axios from 'axios';
 class Condition extends React.Component {
   state = states;
 
-  componentDidMount = () => {
+  constructor() {
+    super();
+    this.getConditions = this.getConditions.bind(this);
+    this.selectAll = this.selectAll.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentDidMount() {
     this.getConditions();
   };
 
-  getConditions = () => {
+  getConditions() {
     this.setState({ loading: true });
 
     Axios.get('https://api-dev.allclear.app/types/conditions', {})
@@ -28,7 +35,7 @@ class Condition extends React.Component {
       });
   };
 
-  selectAll = () => {
+  selectAll() {
     let { conditions } = this.state;
     conditions.filter((condition) => {
       condition.isActive = true;
@@ -37,7 +44,7 @@ class Condition extends React.Component {
     sessionStorage.setItem('conditions', JSON.stringify(conditions));
   };
 
-  handleChange = (event) => {
+  handleChange(event){
     let { conditions } = this.state;
     conditions.filter((condition) => {
       if (condition.name === event.name) {

@@ -1,62 +1,71 @@
-import React, { Fragment } from 'react';
+import React, {Fragment} from 'react';
 // import states from './Result.state';
 import upload from '../../assets/images/uploadicon.png';
 import logo from '../../assets/images/Union.png';
 import Axios from 'axios';
-import { Grid } from '@material-ui/core';
+import {Grid} from '@material-ui/core';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 class Result extends React.Component {
-  // state = states;
 
-  componentDidMount = () => {
+  constructor() {
+    super();
+    this.getTestTypes = this.getTestTypes.bind(this);
+    this.getTestLocations = this.getTestLocations.bind(this);
+    this.handleTestTypeInputChange = this.handleTestTypeInputChange.bind(this);
+    this.handleTestLocationInputChange = this.handleTestLocationInputChange.bind(this);
+    this.buildPayload = this.buildPayload.bind(this);
+    this.submitResults = this.submitResults.bind(this);
+  }
+
+  componentDidMount() {
     this.getTestTypes();
     this.getTestLocations();
   };
 
-  getTestTypes = () => {
-    this.setState({ loading: true });
+  getTestTypes() {
+    this.setState({loading: true});
 
     Axios.get('https://api-dev.allclear.app/types/testCriteria', {})
       .then((response) => {
         console.log(response);
 
-        this.setState({ testTypes: response.data });
-        this.setState({ loading: false });
+        this.setState({testTypes: response.data});
+        this.setState({loading: false});
       })
       .catch((error) => {
         console.log(error);
-        this.setState({ loading: false });
+        this.setState({loading: false});
       });
   };
 
-  getTestLocations = () => {
-    this.setState({ loading: true });
+  getTestLocations() {
+    this.setState({loading: true});
 
     Axios.get('https://api-dev.allclear.app/types/facilityTypes', {})
       .then((response) => {
         console.log(response);
 
-        this.setState({ testLocations: response.data });
-        this.setState({ loading: false });
+        this.setState({testLocations: response.data});
+        this.setState({loading: false});
       })
       .catch((error) => {
         console.log(error);
-        this.setState({ loading: false });
+        this.setState({loading: false});
       });
   };
 
-  handleTestTypeInputChange = (event) => {
+  handleTestTypeInputChange(event) {
     console.log('event', event.target.value);
     sessionStorage.setItem('testTypes', JSON.stringify(event.target.value));
   };
 
-  handleTestLocationInputChange = (event) => {
+  handleTestLocationInputChange(event) {
     console.log('event', event.target.value);
     sessionStorage.setItem('testLocations', JSON.stringify(event.target.value));
   };
 
-  buildPayload = () => {
+  buildPayload() {
     const dob = sessionStorage.getItem('dob');
     const phone = sessionStorage.getItem('phone');
 
@@ -69,7 +78,7 @@ class Result extends React.Component {
 
     let conditionsArray = [];
 
-    conditions.forEach(function (condition) {
+    conditions.forEach((condition) => {
       if (condition.isActive) {
         conditionsArray.push({
           id: condition.id,
@@ -87,7 +96,7 @@ class Result extends React.Component {
 
     let exposuresArray = [];
 
-    exposures.forEach(function (exposure) {
+    exposures.forEach((exposure) => {
       if (exposure.isActive) {
         exposuresArray.push({
           id: exposure.id,
@@ -105,7 +114,7 @@ class Result extends React.Component {
 
     let symptomsArray = [];
 
-    symptoms.forEach(function (symptom) {
+    symptoms.forEach((symptom) => {
       if (symptom.isActive) {
         symptomsArray.push({
           id: symptom.id,
@@ -115,7 +124,7 @@ class Result extends React.Component {
     });
 
     let payload = {
-      dob: dob,
+      dob,
       name: phone,
       latitude: 0,
       longitude: 0,
@@ -127,10 +136,10 @@ class Result extends React.Component {
     return payload;
   };
 
-  submitResults = async () => {
+  async submitResults() {
     const sessionId = sessionStorage.getItem('sessid');
 
-    this.setState({ loading: true });
+    this.setState({loading: true});
 
     const payload = this.buildPayload();
 
@@ -147,11 +156,19 @@ class Result extends React.Component {
         this.history.push('/home');
       })
       .catch((error) => {
-        this.setState({ loading: false });
+        this.setState({loading: false});
       });
   };
 
   render() {
+    const grid = (<Grid
+      container
+      justify="center">
+      <Grid item xs={12} sm={6}>
+        <LinearProgress color="primary" value="50"/>
+      </Grid>
+    </Grid>);
+
     return (
       <Fragment>
         {this.state.loading === false ? (
@@ -161,7 +178,7 @@ class Result extends React.Component {
                 <div className="row">
                   <div className="col-lg-6 text-left">
                     <div className="conditionLeft">
-                      <img alt="logo" src={logo} />
+                      <img alt="logo" src={logo}/>
                     </div>
                   </div>
                   <div className="col-lg-6 text-right">
@@ -197,9 +214,9 @@ class Result extends React.Component {
                             <p>
                               <select className="selectBtn" onChange={this.handleTestTypeInputChange}>
                                 {this.state.testTypes &&
-                                  this.state.testTypes.map((res) => {
-                                    return <option value={res}>{res.name}</option>;
-                                  })}
+                                this.state.testTypes.map((res) => {
+                                  return <option value={res}>{res.name}</option>;
+                                })}
                               </select>
                             </p>
                           </div>
@@ -208,7 +225,7 @@ class Result extends React.Component {
                           <div className="xyz002 clrWhite">Did you test positive?</div>
                           <div className="xyz003">
                             <label className="switch">
-                              <input type="checkbox" checked />
+                              <input type="checkbox" checked/>
                               <span className="slider round"></span>
                             </label>
                           </div>
@@ -226,9 +243,9 @@ class Result extends React.Component {
                             <p>
                               <select className="selectBtn" onChange={this.handleTestLocationInputChange}>
                                 {this.state.testLocations &&
-                                  this.state.testLocations.map((res) => {
-                                    return <option value={res}>{res.name}</option>;
-                                  })}
+                                this.state.testLocations.map((res) => {
+                                  return <option value={res}>{res.name}</option>;
+                                })}
                               </select>
                             </p>
                           </div>
@@ -267,19 +284,14 @@ class Result extends React.Component {
               </div>
             </div>
           </div>
-        ) : (
-          <Grid container justify="center">
-            <Grid item xs={12} sm={6}>
-              <LinearProgress color="primary" value="50" />
-            </Grid>
-          </Grid>
-        )}
+        ) : (grid)
+        }
 
         <div className="conditonRSP">
           <div className="mainWrapper">
             <div className="wrapScreen">
               <div className="screenHead">
-                <div style={{ paddingTop: 25 }}></div>
+                <div style={{paddingTop: 25}}></div>
                 <div className="arrow">
                   <i className="fa fa-angle-left" aria-hidden="true"></i>
                 </div>
@@ -316,7 +328,7 @@ class Result extends React.Component {
                   <div className="xyz002">Did you test positive?</div>
                   <div className="xyz003">
                     <label className="switch">
-                      <input type="checkbox" />
+                      <input type="checkbox"/>
                       <span className="slider round"></span>
                     </label>
                   </div>
@@ -328,7 +340,7 @@ class Result extends React.Component {
                     <div className="txt-1">Verify your results by uploading an image</div>
                   </div>
                   <div className="xyz003">
-                    <img alt={'upload'} src={upload} />
+                    <img alt={'upload'} src={upload}/>
                   </div>
                 </div>
 
@@ -345,7 +357,7 @@ class Result extends React.Component {
                 </div>
               </div>
 
-              <div style={{ marginBottom: 20 + 'px', float: 'left', width: 100 + '%' }}></div>
+              <div style={{marginBottom: 20 + 'px', float: 'left', width: 100 + '%'}}></div>
             </div>
           </div>
         </div>
@@ -353,4 +365,5 @@ class Result extends React.Component {
     );
   }
 }
+
 export default Result;
