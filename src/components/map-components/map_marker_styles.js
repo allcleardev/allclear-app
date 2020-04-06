@@ -15,7 +15,7 @@ const mapMarkerStyle = {
   color: 'white',
   fontSize: 14,
   fontWeight: 'bold',
-  padding: 4
+  padding: 4,
 };
 
-export {mapMarkerStyle};
+export { mapMarkerStyle };

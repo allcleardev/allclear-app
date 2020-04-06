@@ -8,8 +8,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { Link } from "react-router-dom";
-
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -56,13 +55,7 @@ export default function ForgotPassword() {
             autoComplete="email"
             autoFocus
           />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
+          <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
             Find my account?
           </Button>
           <Grid container>
@@ -72,9 +65,7 @@ export default function ForgotPassword() {
               </Link>
             </Grid>
             <Grid item>
-              <Link to="/register">
-                Don't have an account?
-              </Link>
+              <Link to="/register">Don't have an account?</Link>
             </Grid>
           </Grid>
         </form>

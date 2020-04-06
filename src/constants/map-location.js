@@ -1,14 +1,11 @@
-
-import locations from '../hooks/airtable'
+import locations from '../hooks/airtable';
 
 //export const mapLocationData = {"data" : locations.locations.slice(500,550)};
-export const mapLocationData = {"data" :
-
-locations.locations.filter(function(f) {
-  return f.State === "New York" || f.state === "New Jersey"
-})
-
-}
+export const mapLocationData = {
+  data: locations.locations.filter((f) => {
+    return f.State === 'New York' || f.state === 'New Jersey';
+  }),
+};
 
 /*
 The data from Airtable is displayed as such
