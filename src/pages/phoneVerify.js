@@ -109,7 +109,7 @@ export default function PhoneVerify({ props }) {
         }
         {
           state.loading === false ?
-            <ProgressBottom progress="100px"></ProgressBottom>
+            <ProgressBottom progress="0"></ProgressBottom>
             : null
         }
       </div>
