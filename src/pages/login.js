@@ -17,6 +17,7 @@ export default function PhoneVerify({ props }) {
     loading: false,
   });
 
+
   const history = useHistory();
 
   //eslint-disable-next-line
@@ -60,7 +61,7 @@ export default function PhoneVerify({ props }) {
             <PhoneNumber className="hide-mobile"></PhoneNumber>
 
             <div className="button-container">
-              <Link to="/create-account" className="hide-mobile">
+              <Link to="/phone-verify" className="hide-mobile">
                 <Button variant="contained" className="back">
                   Back
                 </Button>
