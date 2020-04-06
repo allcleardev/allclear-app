@@ -33,7 +33,7 @@ export default function PhoneVerify({ props }) {
       setState({ loading: false });
       return;
     }
-    await Axios.post("https://api-dev.allclear.app/peoples/start", {
+    Axios.post("https://api-dev.allclear.app/peoples/start", {
       phone: phone,
       beenTested: false,
       haveSymptoms: false,
