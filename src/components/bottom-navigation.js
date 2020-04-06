@@ -1,15 +1,11 @@
 import React from 'react';
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
   Link
 } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import MapIcon from '@material-ui/icons/Map';
 

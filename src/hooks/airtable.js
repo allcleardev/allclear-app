@@ -5,7 +5,8 @@
 // function getData() {
 //   return airbase('Table 1').select({
 //     view: 'Grid view',
-//     fields: ['Name', 'Address', 'Latitude', 'Longitude', 'State', 'Phone', 'Phone Extension', 'Main Website', 'Hours', 'Drive Through', 'Appointment Needed']
+//     fields: ['Name', 'Address', 'Latitude', 'Longitude', 'State', 'Phone', 'Phone Extension',
+//     'Main Website', 'Hours', 'Drive Through', 'Appointment Needed']
 //   }).eachPage(function page(records, fetchNextPage) {
 //     // This function (`page`) will get called for each page of records.
 

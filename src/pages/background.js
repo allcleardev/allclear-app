@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function CreateAccount() {
-  const classes = useStyles();
+  useStyles();
 
   const [valueExposure, setExposureValue] = React.useState('live_with_someone');
   const [dobExposure, setDobValue] = React.useState('');

@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
-import Container from '@material-ui/core/Container';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import StepContent from '@material-ui/core/StepContent';
@@ -29,19 +28,19 @@ export default function VerticalLinearStepper({getSteps, getStepContent }) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
-  
+
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
-  
+
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
-  
+
   const handleReset = () => {
     setActiveStep(0);
   };
-  
+
   return (
     <div className={classes.root}>
       <Stepper activeStep={activeStep} orientation="vertical">

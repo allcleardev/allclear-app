@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import { IconButton } from '@material-ui/core';
@@ -17,11 +16,8 @@ export default function CardMapLocation({
   index,
   title,
   description,
-  status,
-  serviceTime,
-  commuteWay
 }) {
-  const classes = useStyles();
+  useStyles();
 
   return (
     <Card className="card-map-location">
