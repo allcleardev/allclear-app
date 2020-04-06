@@ -1381,4 +1381,19 @@ input:checked + .slider:before {
     height: 48px;
     margin: 15px 0;
     border-radius: 10px;
+    background-color: #007AFF !important;
+    color: white !important;
+    border-radius: 10px !important;
+}
+
+.shareCardContent{
+    border-radius: 15px !important;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2) !important;
+    margin-bottom: 15px;
+}
+
+.shareFrndImg{
+    width: 60px;
+    margin: 10px 0px 10px 10px;
+    height: 60px;
 }

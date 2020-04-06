@@ -1,78 +1,78 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Container';
-import { Grid, Avatar, IconButton ,Button} from '@material-ui/core';
+import { Grid, Avatar, IconButton, Button } from '@material-ui/core';
 import Header from '../../components/homescreen-header';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import avatar from '../../assets/images/avatar.svg'
 import NavBottom from '../../components/navBottom';
-import FriendCard from '../../components/cardFriend';
+import UserAvatar from '@material-ui/core/CardMedia';
 
 class ShareApp extends React.Component {
 
-    componentDidMount = () => {
-    };
+  componentDidMount = () => {
+  };
 
-    render() {
-        return (
-            <Box className="complete-profile">
-                <Header>
-                    <p>Allclear</p>
-                </Header>
-                <Grid container spacing={3} style={{ justifyContent: 'center' }}>
-                     <Grid item xs={12} sm={11}>
-                         <Card className="shareProfile"
-                              style={{ display: 'flex', justifyContent: 'space-between' }}
-                          >
-                     <Avatar className="shareImg">
-                        <img src={avatar} ></img>
-                     </Avatar>
-                     <div
-                       style={{
-                                 display: 'flex',
-                                 justifyContent: 'space-between',
-                                 width: '100%'
-                              }}
-                        >
-            <CardContent >
-              <p className="shareProfileName">{'ravi'}</p>
-              <Grid container spacing={0}>
-                <Grid item xs={12} sm={4}>
-                  <p className="profile-card-content">
-                    <strong>Location: </strong> {'location'}
-                  </p>
-                </Grid>
-                <Grid item xs={12} sm={4}>
-                  <p className="profile-card-content">
-                    <strong>Health: </strong> {'health'}
-                  </p>
-                </Grid>
-                <Grid item xs={12} sm={4}>
-                  <p className="profile-card-content">
-                    <strong>Test Status: </strong> {'status'}
-                  </p>
-                </Grid>
-              </Grid>
-            </CardContent>
-            <div>
-              <IconButton>
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M12 15.2178C13.6569 15.2178 15 13.8746 15 12.2178C15 10.5609 13.6569 9.21777 12
+  render() {
+    return (
+      <Box className="complete-profile">
+        <Header>
+          <p>Allclear</p>
+        </Header>
+        <Grid container spacing={3} style={{ justifyContent: 'center' }}>
+          <Grid item xs={12} sm={11}>
+            <Card className="shareProfile"
+              style={{ display: 'flex', justifyContent: 'space-between' }}
+            >
+              <Avatar className="shareImg">
+                <img src={avatar} ></img>
+              </Avatar>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  width: '100%'
+                }}
+              >
+                <CardContent >
+                  <p className="shareProfileName">{'ravi'}</p>
+                  <Grid container spacing={0}>
+                    <Grid item xs={12} sm={4}>
+                      <p className="profile-card-content">
+                        <strong>Location: </strong> {'location'}
+                      </p>
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                      <p className="profile-card-content">
+                        <strong>Health: </strong> {'health'}
+                      </p>
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                      <p className="profile-card-content">
+                        <strong>Test Status: </strong> {'status'}
+                      </p>
+                    </Grid>
+                  </Grid>
+                </CardContent>
+                <div>
+                  <IconButton>
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M12 15.2178C13.6569 15.2178 15 13.8746 15 12.2178C15 10.5609 13.6569 9.21777 12
                     9.21777C10.3431 9.21777 9 10.5609 9 12.2178C9 13.8746 10.3431 15.2178 12 15.2178Z"
-                    stroke="#929292"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M19.4 15.2178C19.2669 15.5194 19.2272 15.854 19.286 16.1784C19.3448 16.5028 19.4995 16.8021
+                        stroke="#929292"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M19.4 15.2178C19.2669 15.5194 19.2272 15.854 19.286 16.1784C19.3448 16.5028 19.4995 16.8021
                      19.73 17.0378L19.79 17.0978C19.976 17.2835 20.1235 17.5041 20.2241 17.7469C20.3248 17.9897
                       20.3766 18.2499 20.3766 18.5128C20.3766 18.7756 20.3248 19.0359 20.2241 19.2787C20.1235 19.5215
                       19.976 19.742 19.79 19.9278C19.6043 20.1137 19.3837 20.2612 19.1409 20.3619C18.8981 20.4625
@@ -115,77 +115,144 @@ class ShareApp extends React.Component {
                             11.1786 23 11.6873 23 12.2178C23 12.7482 22.7893 13.2569 22.4142 13.632C22.0391 14.0071
                             21.5304 14.2178 21 14.2178H20.91C20.5882 14.2191 20.2738 14.3144 20.0055 14.4921C19.7372
                             14.6698 19.5268 14.922 19.4 15.2178Z"
-                    stroke="#929292"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </IconButton>
-            </div>
-          </div>
-        </Card>
-      </Grid>
-    </Grid>
-    <Grid container spacing={3} style={{ justifyContent: 'center', marginBottom: '56px' }}>
-        <Grid item xs={12} sm={11}>
-          <div className="profile-body" style={{ display: 'flex', justifyContent: 'center' }}>
-            <h2 className="body-title">Your Contacts</h2>
-            <Card >
-                    <CardContent >
-                            <p className="sharecard-description" >
-                            {'Help your friends find tests and share results'}
-                            </p>
-                            <Grid container justify="center">
-                            <Grid container justify="center">
-              <Grid item xs={12} sm={6}>
-                <Button className="shareButton" variant="outlined"
-                   startIcon={
-                    <svg width="25" height="21" viewBox="0 0 25 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M16.1206 19.7041V17.7041C16.1206 16.6432 15.6992 15.6258 14.949 14.8757C14.1989 14.1255
+                        stroke="#929292"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </IconButton>
+                </div>
+              </div>
+            </Card>
+          </Grid>
+        </Grid>
+        <Grid container spacing={3} style={{ justifyContent: 'center', marginBottom: '56px' }}>
+          <Grid item xs={12} sm={11}>
+            <div className="profile-body" style={{ display: 'flex', justifyContent: 'center' }}>
+              <h2 className="body-title">Your Contacts</h2>
+              <Card className="shareCardContent">
+                <CardContent >
+                  <p className="sharecard-description" >
+                    {'Help your friends find tests and share results'}
+                  </p>
+                  <Grid container justify="center">
+                    <Grid container justify="center">
+                      <Grid item xs={12} sm={6}>
+                        <Button className="shareButton" variant="outlined"
+                          startIcon={
+                            <svg width="25" height="21" viewBox="0 0 25 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M16.1206 19.7041V17.7041C16.1206 16.6432 15.6992 15.6258 14.949 14.8757C14.1989 14.1255
                         13.1815 13.7041 12.1206 13.7041H5.12061C4.05974 13.7041 3.04232 14.1255 2.29218 14.8757C1.54203
                         15.6258 1.12061 16.6432 1.12061 17.7041V19.7041M20.1206 6.7041V12.7041M23.1206
                         9.7041H17.1206M12.6206 5.7041C12.6206 7.91324 10.8297 9.7041 8.62061 9.7041C6.41147
                         9.7041 4.62061 7.91324 4.62061 5.7041C4.62061 3.49496 6.41147 1.7041 8.62061 1.7041C10.8297
                         1.7041 12.6206 3.49496 12.6206 5.7041Z"
-                        stroke="white"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  }
-                color="primary" >
-                  Invite Friends
+                                stroke="white"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          }
+                          color="primary" >
+                          Invite Friends
                 </Button>
-              </Grid>
-            </Grid>
-            </Grid>
-                    </CardContent>
-             </Card>
-          
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </CardContent>
+              </Card>
 
-            <h2 className="body-title">Public</h2>
-            <FriendCard
-                // key={index}
-                // user_avatar={userAvatar}
-                username="Ravi"
-                tested_on="12/12/12"
-              ></FriendCard>
-            {/* {friendData.map((friend, index) => (
-              <FriendCard
-                key={index}
-                user_avatar={userAvatar}
-                username={friend.username}
-                tested_on={friend.testedDate}
-              ></FriendCard>
-            ))} */}
-          </div>
+
+              <h2 className="body-title">Public</h2>
+              <Card className="shareCardContent">
+                <Grid container justify="space-between">
+                  <Grid item xs={2}>
+                    <UserAvatar>
+                      <img
+                        className="shareFrndImg"
+                        src={avatar}
+                        alt={'username'}
+                      ></img>
+                    </UserAvatar>
+                  </Grid>
+                  <Grid item xs={8}>
+                    <CardContent>
+                      <h3 className="card-title" style={{ color: '#000' }}>
+                        {'Ravi Chauhan'}
+                      </h3>
+                      <p className="card-description" style={{ color: '#929292' }}>
+                        <strong>Test Results: </strong>
+                        {'12/12/12'}
+                      </p>
+                    </CardContent>
+                  </Grid>
+                  <Grid item xs={2} style={{margin:'auto',textAlign:'center'}}>
+                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                  </Grid>
+                </Grid>
+              </Card>
+              <Card className="shareCardContent">
+                <Grid container justify="space-between">
+                  <Grid item xs={2}>
+                    <UserAvatar>
+                      <img
+                        className="shareFrndImg"
+                        src={avatar}
+                        alt={'username'}
+                      ></img>
+                    </UserAvatar>
+                  </Grid>
+                  <Grid item xs={8}>
+                    <CardContent>
+                      <h3 className="card-title" style={{ color: '#000' }}>
+                        {'Ravi Chauhan'}
+                      </h3>
+                      <p className="card-description" style={{ color: '#929292' }}>
+                        <strong>Test Results: </strong>
+                        {'12/12/12'}
+                      </p>
+                    </CardContent>
+                  </Grid>
+                  <Grid item xs={2} style={{margin:'auto',textAlign:'center'}}>
+                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                  </Grid>
+                </Grid>
+              </Card>
+              <Card className="shareCardContent">
+                <Grid container justify="space-between">
+                  <Grid item xs={2}>
+                    <UserAvatar>
+                      <img
+                        className="shareFrndImg"
+                        src={avatar}
+                        alt={'username'}
+                      ></img>
+                    </UserAvatar>
+                  </Grid>
+                  <Grid item xs={8}>
+                    <CardContent>
+                      <h3 className="card-title" style={{ color: '#000' }}>
+                        {'Ravi Chauhan'}
+                      </h3>
+                      <p className="card-description" style={{ color: '#929292' }}>
+                        <strong>Test Results: </strong>
+                        {'12/12/12'}
+                      </p>
+                    </CardContent>
+                  </Grid>
+                  <Grid item xs={2} style={{margin:'auto',textAlign:'center'}}>
+                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                  </Grid>
+                </Grid>
+              </Card>
+            </div>
+          </Grid>
         </Grid>
-      </Grid>
-      <NavBottom active={0}></NavBottom>
-            </Box>
-        );
-    }
+        <NavBottom active={0}></NavBottom>
+      </Box>
+    );
+  }
 }
 export default ShareApp;
