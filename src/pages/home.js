@@ -14,12 +14,11 @@ function getStepContent(step) {
     case 1:
       return 'Select all symptoms that you are currently experiencing';
     case 2:
-      return 'Let\'s determine any potential threat vectors you may have been exposed to over the past week';
+      return "Let's determine any potential threat vectors you may have been exposed to over the past week";
     default:
       return 'Unknown step';
   }
 }
-
 
 export default function Home() {
   return (

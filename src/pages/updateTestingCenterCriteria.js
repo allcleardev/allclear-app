@@ -231,7 +231,7 @@ export default function UpdateCriteria() {
           >
             <Grid item xs={12} sm={5}>
               <Button className="btn-big bg-primary color-white fontsize-16">Update Profile</Button>
-              <Link to="/find-test-map">
+              <Link to="/map">
                 <Button className="btn-big bg-grey2 fontsize-16">Cancel</Button>
               </Link>
             </Grid>

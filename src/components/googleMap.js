@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import GoogleMapReact from 'google-map-react';
 import MapMarker from './map-components/mapMarker.jsx';
 
@@ -22,7 +22,9 @@ class SimpleMap extends Component {
           defaultZoom={this.props.zoom}
         >
           {this.props.data.map((result, index) => (
-            <MapMarker lat={result.Latitude} lng={result.Longitude} text={index + 1} />
+            <Fragment key={index}>
+              <MapMarker lat={result.Latitude} lng={result.Longitude} text={index + 1} />
+            </Fragment>
           ))}
         </GoogleMapReact>
       </div>

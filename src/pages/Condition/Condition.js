@@ -17,7 +17,7 @@ class Condition extends React.Component {
 
   componentDidMount() {
     this.getConditions();
-  };
+  }
 
   getConditions() {
     this.setState({ loading: true });
@@ -33,7 +33,7 @@ class Condition extends React.Component {
         console.log(error);
         this.setState({ loading: false });
       });
-  };
+  }
 
   selectAll() {
     let { conditions } = this.state;
@@ -42,9 +42,9 @@ class Condition extends React.Component {
     });
     this.setState({ conditions });
     sessionStorage.setItem('conditions', JSON.stringify(conditions));
-  };
+  }
 
-  handleChange(event){
+  handleChange(event) {
     let { conditions } = this.state;
     conditions.filter((condition) => {
       if (condition.name === event.name) {
@@ -53,7 +53,7 @@ class Condition extends React.Component {
     });
     this.setState({ conditions });
     sessionStorage.setItem('conditions', JSON.stringify(conditions));
-  };
+  }
 
   render() {
     return (

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState, Fragment } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 
@@ -152,11 +152,11 @@ TabPanel.propTypes = {
 
 // end get windows width
 
-export default function FindTestMap() {
+export default function MapPage() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(true);
 
-  const [anchor, setAnchor] = React.useState('left');
+  const [anchor, setAnchor] = useState('left');
 
   const handleDrawerOpen = () => {
     console.log(open);
@@ -168,7 +168,7 @@ export default function FindTestMap() {
     setOpen(false);
   };
 
-  const [value] = React.useState(0);
+  const [value] = useState(0);
 
   // const handleChange = (e, newValue) => {
   //   setValue(newValue);
@@ -203,17 +203,17 @@ export default function FindTestMap() {
 
     if (width <= 576) {
       setAnchor('bottom');
-      setOpen(true);
+      setOpen(false);
     } else {
       setAnchor('left');
     }
 
-    return <div></div>;
+    return <></>;
   };
 
   function UpdateCriteriaModal() {
-    const [open, setOpen] = React.useState(false);
-    const [scroll, setScroll] = React.useState('paper');
+    const [open, setOpen] = useState(false);
+    const [scroll, setScroll] = useState('paper');
 
     const handleClickOpen = (scrollType) => () => {
       setOpen(true);
@@ -224,8 +224,8 @@ export default function FindTestMap() {
       setOpen(false);
     };
 
-    const descriptionElementRef = React.useRef(null);
-    React.useEffect(() => {
+    const descriptionElementRef = useRef(null);
+    useEffect(() => {
       if (open) {
         const { current: descriptionElement } = descriptionElementRef;
         if (descriptionElement !== null) {
@@ -244,9 +244,9 @@ export default function FindTestMap() {
                 6.68164V1.68164M19.9984 19.6816V14.6816M19.9984 10.6816V1.68164M0.998413 12.6816H6.99841M8.99841
                 6.68164H14.9984M16.9984 14.6816H22.9984"
                 stroke="white"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               ></path>
             </svg>
           </FabBlueBottom>
@@ -258,9 +258,9 @@ export default function FindTestMap() {
               19.6816V10.6816M11.9984 6.68164V1.68164M19.9984 19.6816V14.6816M19.9984
               10.6816V1.68164M0.998413 12.6816H6.99841M8.99841 6.68164H14.9984M16.9984 14.6816H22.9984"
               stroke="white"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             ></path>
           </svg>
         </FabBlueBottom>
@@ -312,9 +312,9 @@ export default function FindTestMap() {
                 <path
                   d="M48.8204 40.7188H34.8204M34.8204 40.7188L41.8204 47.7188M34.8204 40.7188L41.8204 33.7188"
                   stroke="#333333"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
 
                 <defs>
@@ -325,9 +325,9 @@ export default function FindTestMap() {
                     width="88.3275"
                     height="86"
                     filterUnits="userSpaceOnUse"
-                    color-interpolation-filters="sRGB"
+                    colorInterpolationFilters="sRGB"
                   >
-                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                    <feFlood floodOpacity="0" result="BackgroundImageFix" />
                     <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
                     <feOffset dx="3" dy="3" />
                     <feGaussianBlur stdDeviation="7.5" />
@@ -341,16 +341,17 @@ export default function FindTestMap() {
               <svg width="89" height="86" viewBox="0 0 89 86" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g filter="url(#filter0_d)">
                   <path
-                    d="M12.0138 12H42.3413C57.8053 12 70.3413 24.536 70.3413 40V40C70.3413 55.464 57.8053 68 42.3413 68H12.0138V12Z"
+                    d="M12.0138 12H42.3413C57.8053 12 70.3413 24.536 70.3413 40V40C70.3413 55.464 57.8053
+                     68 42.3413 68H12.0138V12Z"
                     fill="#F1F1F2"
                   />
                 </g>
                 <path
                   d="M34 40H48M48 40L41 33M48 40L41 47"
                   stroke="#333333"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
                 <defs>
                   <filter
@@ -360,7 +361,7 @@ export default function FindTestMap() {
                     width="88.3275"
                     height="86"
                     filterUnits="userSpaceOnUse"
-                    color-interpolation-filters="sRGB"
+                    colorInterpolationFilters="sRGB"
                   >
                     <feFlood flood-opacity="0" result="BackgroundImageFix" />
                     <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
@@ -393,14 +394,15 @@ export default function FindTestMap() {
             </Box>
             <Divider className={classes.divider} orientation="horizontal" />
             {mapLocationData.data.map((result, index) => (
-              <CardMapLocation
-                index={index}
-                title={result.Name}
-                description={result.Address}
-                status={result.status}
-                service_time={result.Hours}
-                commute={result['Drive Through']}
-              ></CardMapLocation>
+              <Fragment key={index}>
+                <CardMapLocation
+                  title={result.Name}
+                  description={result.Address}
+                  status={result.status}
+                  service_time={result.Hours}
+                  commute={result['Drive Through']}
+                ></CardMapLocation>
+              </Fragment>
             ))}
           </div>
         </Drawer>
@@ -430,9 +432,9 @@ export default function FindTestMap() {
               6.68164V1.68164M19.9984 19.6816V14.6816M19.9984 10.6816V1.68164M0.998413 12.6816H6.99841M8.99841
               6.68164H14.9984M16.9984 14.6816H22.9984"
               stroke="white"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             ></path>
           </svg>
         </FabBlueBottom>

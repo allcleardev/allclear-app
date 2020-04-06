@@ -7,7 +7,6 @@ import Tab from '@material-ui/core/Tab';
 import NavBottom from '../components/navBottom';
 import Header from '../components/homescreen-header';
 
-
 import React, { useState } from 'react';
 import MapComponent from '../components/map';
 import VirtualizedList from '../components/dynamic-list-window';
@@ -56,15 +55,14 @@ export default function Location() {
       </Paper>
 
       <TabPanel value={currTab} index={0}>
-        <VirtualizedList changeTab={{otherTabIdx: 1, changeTabFn: setTabValue}}/>
+        <VirtualizedList changeTab={{ otherTabIdx: 1, changeTabFn: setTabValue }} />
       </TabPanel>
       <TabPanel value={currTab} index={1}>
-        <Container >
-          <MapComponent changeTab={{otherTabIdx: 0, changeTabFn: setTabValue}} />
+        <Container>
+          <MapComponent changeTab={{ otherTabIdx: 0, changeTabFn: setTabValue }} />
         </Container>
       </TabPanel>
       <NavBottom></NavBottom>
     </Container>
-
   );
 }

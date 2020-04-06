@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  Link
-} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
@@ -14,7 +12,7 @@ const useStyles = makeStyles({
     width: '100%',
     position: 'fixed',
     bottom: 0,
-    zIndex: 100
+    zIndex: 100,
   },
 });
 
@@ -31,13 +29,9 @@ export default function SimpleBottomNavigation() {
       showLabels
       className={classes.root}
     >
-      <BottomNavigationAction
-        label="Am I sick?" icon={<AssignmentTurnedInIcon />}
-        component={Link}
-        to="/"
-      />
+      <BottomNavigationAction label="Am I sick?" icon={<AssignmentTurnedInIcon />} component={Link} to="/" />
       {/* <BottomNavigationAction label="Health Status" icon={<AssignmentIndIcon />} component={Link} to="/health"/> */}
-      <BottomNavigationAction label="Nearby Testing" icon={<MapIcon />} component={Link} to="/location"/>
+      <BottomNavigationAction label="Nearby Testing" icon={<MapIcon />} component={Link} to="/location" />
     </BottomNavigation>
   );
 }

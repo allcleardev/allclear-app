@@ -1,12 +1,12 @@
-import React, {Fragment} from 'react';
-import {Link} from 'react-router-dom';
+import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import logo from '../../assets/images/Union.png';
 import Axios from 'axios';
 
 class Background extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {exposure: 'live_with_someone', dob: ''};
+    this.state = { exposure: 'live_with_someone', dob: '' };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleLocationChange = this.handleLocationChange.bind(this);
@@ -16,50 +16,50 @@ class Background extends React.Component {
 
   componentDidMount() {
     this.getExposures();
-  };
+  }
 
   getExposures() {
-    this.setState({loading: true});
+    this.setState({ loading: true });
 
     Axios.get('https://api-dev.allclear.app/types/exposures', {})
       .then((response) => {
         console.log(response);
 
-        this.setState({exposures: response.data});
-        this.setState({loading: false});
+        this.setState({ exposures: response.data });
+        this.setState({ loading: false });
       })
       .catch((error) => {
         console.log(error);
-        this.setState({loading: false});
+        this.setState({ loading: false });
       });
-  };
+  }
 
-  handleLocationChange(event)  {
+  handleLocationChange(event) {
     if (event && event.target && event.target.value) {
-      this.setState({location: event.target.value});
+      this.setState({ location: event.target.value });
       sessionStorage.setItem('location', event.target.value);
     }
-  };
+  }
 
   handleDoBChange(event) {
     if (event && event.target && event.target.value) {
-      this.setState({dob: event.target.value});
+      this.setState({ dob: event.target.value });
 
       let dob = event.target.value + 'T00:00:00Z';
       sessionStorage.setItem('dob', dob);
     }
-  };
+  }
 
-  handleChange (event) {
-    let {exposures} = this.state;
+  handleChange(event) {
+    let { exposures } = this.state;
     exposures.filter((exposure) => {
       if (exposure.name === event.name) {
         exposure.isActive = !exposure.isActive;
       }
     });
-    this.setState({exposures});
+    this.setState({ exposures });
     sessionStorage.setItem('exposures', JSON.stringify(exposures));
-  };
+  }
 
   render() {
     return (
@@ -71,7 +71,7 @@ class Background extends React.Component {
                 <div className="row">
                   <div className="col-lg-6 text-left">
                     <div className="conditionLeft">
-                      <img alt="logo" src={logo}/>
+                      <img alt="logo" src={logo} />
                     </div>
                   </div>
                   <div className="col-lg-6 text-right">
@@ -140,16 +140,16 @@ class Background extends React.Component {
                     </div>
 
                     {this.state.exposures &&
-                    this.state.exposures.map((res) => {
-                      return (
-                        <li
-                          onClick={() => this.handleChange(res)}
-                          className={'pure-material-button-contained' + (res.isActive ? ' Active' : '')}
-                        >
-                          {res.name}
-                        </li>
-                      );
-                    })}
+                      this.state.exposures.map((res) => {
+                        return (
+                          <li
+                            onClick={() => this.handleChange(res)}
+                            className={'pure-material-button-contained' + (res.isActive ? ' Active' : '')}
+                          >
+                            {res.name}
+                          </li>
+                        );
+                      })}
                   </div>
                 </div>
 
@@ -173,7 +173,7 @@ class Background extends React.Component {
             <div className="mainWrapper">
               <div className="wrapScreen">
                 <div className="screenHead">
-                  <div style={{paddingTop: 60}}></div>
+                  <div style={{ paddingTop: 60 }}></div>
                   <div className="arrow">
                     <i className="fa fa-angle-left" aria-hidden="true"></i>
                   </div>
@@ -192,7 +192,7 @@ class Background extends React.Component {
                             We can give localized test center recommendations with your location.
                           </div>
                           <p>
-                            <input className="inputSet" type="text" placeholder="Location"/>
+                            <input className="inputSet" type="text" placeholder="Location" />
                           </p>
                         </div>
                       </div>
@@ -205,7 +205,7 @@ class Background extends React.Component {
                           </div>
                           <div className="bg2 bgsyle2">Some test centers have minimum age requirements.</div>
                           <p>
-                            <input className="inputSets" type="text" placeholder="MM/DD/YYYY"/>
+                            <input className="inputSets" type="text" placeholder="MM/DD/YYYY" />
                           </p>
                         </div>
                       </div>
@@ -217,7 +217,7 @@ class Background extends React.Component {
                   </div>
                 </div>
 
-                <div style={{marginBottom: 20, float: 'right', width: '100%'}}></div>
+                <div style={{ marginBottom: 20, float: 'right', width: '100%' }}></div>
               </div>
             </div>
           </div>

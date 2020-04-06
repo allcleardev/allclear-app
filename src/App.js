@@ -11,11 +11,11 @@ import VerifyMagicLink from './pages/verify-magic-link';
 import login from './pages/login';
 import LoginVerification from './pages/loginVerification';
 import loginOrg from './pages/loginOrg';
-import Location from './pages/location';
+// import Location from './pages/location';
 import Health from './pages/health';
 import Test from './pages/test';
 import UpdateTestingCenterCriteria from './pages/updateTestingCenterCriteria';
-import FindTestMap from './pages/findTestMap';
+import MapPage from './pages/map.page';
 import ProfileView from './pages/profileView';
 import ProfileEdit from './pages/profileEdit';
 import ForgotPassword from './pages/forgot-password';
@@ -40,7 +40,7 @@ export default function App() {
       <Route path="/phone-verify" component={PhoneVerify} />
       <Route path="/complete-profile" component={CompleteProfile} />
       <Route path="/test" component={Test} />
-      <Route path="/find-test-map" component={FindTestMap} />
+      <Route path="/map" component={MapPage} />
       <Route path="/update-criteria" component={UpdateTestingCenterCriteria} />
       <Route path="/profile-view" component={ProfileView} />
       <Route path="/profile-edit" component={ProfileEdit} />
@@ -52,7 +52,7 @@ export default function App() {
       <Route path="/forgot" component={ForgotPassword} />
       <Route path="/health" component={Health} />
       <Route path="/add-test" component={AddTest} />
-      <Route path="/location" component={Location} />
+      {/*<Route path="/location" component={Location} />*/}
       <Route path="/login-org" component={loginOrg} />
       <Route path="/symptom" component={Symptom} />
       <Route path="/result" component={Result} />

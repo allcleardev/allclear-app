@@ -25,7 +25,7 @@ export default function PhoneVerify({ props }) {
   };
 
   //eslint-disable-next-line
-  async function verifyPhoneNumber()  {
+  async function verifyPhoneNumber() {
     setState({ loading: true });
     const phone = sessionStorage.getItem('phone');
 
@@ -49,7 +49,7 @@ export default function PhoneVerify({ props }) {
         //show error message
         setState({ loading: false });
       });
-  };
+  }
 
   const [value, setValue] = React.useState('');
 

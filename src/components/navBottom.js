@@ -1,8 +1,8 @@
 import React from 'react';
 
-import {BottomNavigation, BottomNavigationAction, SvgIcon} from '@material-ui/core';
-import {makeStyles} from '@material-ui/styles';
-import {Link} from 'react-router-dom';
+import { BottomNavigation, BottomNavigationAction, SvgIcon } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
   root: {},
@@ -12,7 +12,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function NavBottom({active}) {
+export default function NavBottom({ active }) {
   const classes = useStyles();
 
   return (
@@ -101,7 +101,6 @@ export default function NavBottom({active}) {
             </svg>
           </SvgIcon>
         }
-
       />
       <BottomNavigationAction
         label="Profile"
