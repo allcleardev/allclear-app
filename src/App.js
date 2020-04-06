@@ -20,10 +20,10 @@ import FindTestMap from "./pages/findTestMap";
 import ProfileView from "./pages/profileView";
 import ProfileEdit from "./pages/profileEdit";
 import ForgotPassword from "./pages/forgot-password";
-import Symptom from "./pages/Symptom/Symptom";
 import Success from "./pages/Success/Success";
 import Result from "./pages/Result/Result";
-import Condition from "./pages/Condition/Condition";
+import Conditions from "./pages/Conditions/Conditions";
+import Symptoms from "./pages/Symptoms/Symptoms";
 import CompleteProfile from "./pages/completeProfile";
 import Background from "./pages/Background/Background";
 import FindTest from "./pages/ResultDetail/FindTest";
@@ -56,11 +56,11 @@ export default function App() {
       <Route path="/add-test" component={AddTest} />
       <Route path="/location" component={Location} />
       <Route path="/login-org" component={loginOrg} />
-      <Route path="/symptoms" component={Symptom} />
+      <Route path="/symptoms" component={Symptoms} />
       <Route path="/result" component={Result} />
       <Route path="/succcess" component={Success} />
       {/* <Route path="/launch" component={Launch} /> */}
-      <Route path="/conditions" component={Condition} />
+      <Route path="/conditions" component={Conditions} />
       <Route path="/background" component={Background} />
       <Route path="/phone-verify-success" component={PhoneVerifySuccess} />
       <Route path="/register" component={VerifyMagicLink} />

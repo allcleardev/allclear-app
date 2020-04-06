@@ -113,7 +113,7 @@ export default function CreateAccount() {
           </ToggleButtonGroup>
           <Grid container justify="center">
             <Grid item xs={12} sm={4}>
-              <Link to="/condition">
+              <Link to="/conditions">
                 <Button
                   variant="contained"
                   color="primary"

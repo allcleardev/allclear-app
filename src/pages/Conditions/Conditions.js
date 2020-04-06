@@ -4,7 +4,7 @@ import Axios from "axios";
 
 import Header from "../../components/header-round";
 import ProgressBottom from "../../components/progressBottom";
-import states from "./Condition.state";
+import states from "./Conditions.state";
 
 import Form from "@material-ui/core/Container";
 import Box from "@material-ui/core/Container";
@@ -87,7 +87,7 @@ class Condition extends React.Component {
                 >Back
                 </Button>
               </Link>
-              <Link to="/symptom">
+              <Link to="/symptoms">
                 <Button
                   variant="contained"
                   color="primary"
@@ -97,7 +97,7 @@ class Condition extends React.Component {
               </Link>
             </div>
           </Form>
-          <ProgressBottom progress="400px"></ProgressBottom>
+          <ProgressBottom progress="28%"></ProgressBottom>
         </div>
       </div>
     );
