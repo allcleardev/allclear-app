@@ -61,7 +61,7 @@ export default function Location() {
       <TabPanel value={currTab} index={1}>
         <Container >
           <MapComponent changeTab={{otherTabIdx: 0, changeTabFn: setTabValue}} />
-        </Container>  
+        </Container>
       </TabPanel>
       <NavBottom></NavBottom>
     </Container>
