@@ -1,15 +1,15 @@
-import Axios from "axios";
+import Axios from 'axios';
 
 export const GetNewPosition = (lat, lng, miles) => {
   return Axios.post(
-    "https://api-dev.allclear.app/facilities/search ",
+    'https://api-dev.allclear.app/facilities/search',
     {
-      lat: lat,
-      lng: lng,
-      miles: miles,
+      lat,
+      lng,
+      miles,
     },
     {
-      headers: { "X-AllClear-SessionID": sessionStorage.getItem("sessid") },
-    }
+      headers: { 'X-AllClear-SessionID': sessionStorage.getItem('sessid') },
+    },
   );
 };

@@ -89,12 +89,7 @@ export default function CreateAccount() {
           <Grid container justify="center">
             <Grid item xs={12} sm={4}>
               <Link to="/condition">
-                <Button
-                  variant="contained"
-                  color="primary"
-                  fullWidth="true"
-                  className="button btn-responsive font-weight-600"
-                >
+                <Button variant="contained" color="primary" fullWidth className="button btn-responsive font-weight-600">
                   Create Account
                 </Button>
               </Link>

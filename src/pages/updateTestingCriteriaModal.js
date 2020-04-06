@@ -139,9 +139,7 @@ export default function UpdateCriteria() {
               <MenuItem value="">Not Sure</MenuItem>
               <MenuItem value={10}>
                 <FormControlLabel
-                  control={
-                    <Checkbox checked={state.checkedB} onChange={handleCheckboxChange} name="checkedB" color="third" />
-                  }
+                  control={<Checkbox checked={state.checkedB} onChange={handleCheckboxChange} name="checkedB" />}
                   label="I have reviewed and agree to the Terms & Conditions and Privacy Policy"
                   className="check-label turn-white"
                 />
@@ -210,7 +208,6 @@ export default function UpdateCriteria() {
                 // checked={state.checkedB}
                 // onChange={handleChange}
                 name="checkedB"
-                color="black"
               />
             }
             style={{ fontSize: 12, color: 'black' }}

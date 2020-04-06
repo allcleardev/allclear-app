@@ -25,7 +25,7 @@ export default function PhoneVerify({ props }) {
   };
 
   //eslint-disable-next-line
-  async function verifyPhoneNumber()  {
+  async function verifyPhoneNumber() {
     setState({ loading: true });
     const phone = sessionStorage.getItem('phone');
 
@@ -49,7 +49,7 @@ export default function PhoneVerify({ props }) {
         //show error message
         setState({ loading: false });
       });
-  };
+  }
 
   const [value, setValue] = React.useState('');
 
@@ -73,7 +73,6 @@ export default function PhoneVerify({ props }) {
                   <FormControl className="form-control" style={{ height: '100%' }}>
                     <TextField
                       id="outlined-margin-none"
-                      defaultValue=""
                       className="white-back-input"
                       variant="outlined"
                       label={value === '' ? 'Phone Number' : ''}
@@ -92,7 +91,7 @@ export default function PhoneVerify({ props }) {
                 <Button
                   variant="contained"
                   color="primary"
-                  fullWidth="true"
+                  fullWidth
                   className="button btn-outlined-white btn-full-width font-weight-600 mobile-grey hide-mobile-sm"
                 >
                   Create Account
@@ -102,7 +101,7 @@ export default function PhoneVerify({ props }) {
                 // onClick={() => sendVerificationCode()}
                 variant="contained"
                 color="primary"
-                fullWidth="true"
+                fullWidth
                 className="button btn-responsive btn-full-width font-weight-600"
               >
                 Send Verification Code
@@ -115,7 +114,7 @@ export default function PhoneVerify({ props }) {
         ) : (
           <Grid container justify="center">
             <Grid item xs={12} sm={6}>
-              <LinearProgress color="primary" value="50" />
+              <LinearProgress color="primary" value="50" variant="indeterminate" />
             </Grid>
           </Grid>
         )}

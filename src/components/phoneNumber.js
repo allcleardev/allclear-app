@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import { withStyles } from '@material-ui/core/styles';
 import { Formik, Form } from 'formik';
@@ -63,10 +62,4 @@ class PhoneNumber extends React.Component {
     );
   }
 }
-PhoneNumber.propTypes = {
-  classes: PropTypes.object.isRequired,
-  open: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-};
 export default withStyles(styles)(PhoneNumber);

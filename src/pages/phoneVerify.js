@@ -34,7 +34,7 @@ export default function PhoneVerify({ props }) {
       return;
     }
     Axios.post('https://api-dev.allclear.app/peoples/start', {
-      phone: phone,
+      phone,
       beenTested: false,
       haveSymptoms: false,
     })
@@ -58,7 +58,7 @@ export default function PhoneVerify({ props }) {
         </Header>
 
         {state.loading === false ? (
-          <form noValidate autoComplete="off" className="body-phone-verify" style={{ textAlign: 'center' }}>
+          <div className="body-phone-verify" style={{ textAlign: 'center' }}>
             <Grid container justify="center">
               <Grid item xs={12} sm={6}>
                 <PhoneNumber className="hide-mobile"></PhoneNumber>
@@ -77,7 +77,7 @@ export default function PhoneVerify({ props }) {
               before continuing
             </p>
             <FormControlLabel
-              control={<Checkbox checked={state.checkedB} onChange={handleChange} name="checkedB" color="third" />}
+              control={<Checkbox checked={state.checkedB} onChange={handleChange} name="checkedB" />}
               label="I have reviewed and agree to the Terms & Conditions and Privacy Policy"
               className="check-label turn-white"
             />
@@ -86,7 +86,7 @@ export default function PhoneVerify({ props }) {
                 <Button
                   variant="contained"
                   color="primary"
-                  fullWidth="true"
+                  fullWidth
                   className="button btn-outlined-white hide-mobile btn-full-width font-weight-600"
                 >
                   Back
@@ -96,17 +96,17 @@ export default function PhoneVerify({ props }) {
                 onClick={() => verifyPhoneNumber()}
                 variant="contained"
                 color="primary"
-                fullWidth="true"
+                fullWidth
                 className="button btn-responsive btn-full-width font-weight-600"
               >
                 Verify Phone Number
               </Button>
             </div>
-          </form>
+          </div>
         ) : (
           <Grid container justify="center">
             <Grid item xs={12} sm={6}>
-              <LinearProgress color="primary" value="50" />
+              <LinearProgress color="primary" value="50" variant="indeterminate" />
             </Grid>
           </Grid>
         )}

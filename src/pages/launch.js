@@ -25,20 +25,19 @@ const Launch = ({ props }) => {
   const history = useHistory();
 
   useEffect(() => {
-    console.log(props);
     setTimeout(() => {
       history.push('/phone-verify');
     }, 3000);
   });
 
   return (
-    <div maxWidth="xs" style={ContainerStyle}>
+    <div style={ContainerStyle}>
       <div>
         <div style={LogoStyle}>
           <img src={Logo} alt="Logo" />
         </div>
 
-        <LinearProgress color="primary" value="50" />
+        <LinearProgress color="primary" value={50} variant="indeterminate" />
       </div>
     </div>
   );
