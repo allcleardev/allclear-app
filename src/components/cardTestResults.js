@@ -47,9 +47,9 @@ export default function cardTestResult({ title, date, result }) {
               14.4368 12.2143 14.0734 12.2143 13.6945V7.98026M9.35719 3.69455L6.50005 0.837402M6.50005 0.837402L3.64291
               3.69455M6.50005 0.837402V10.1231"
               stroke="#333333"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </svg>
         </Fab>

@@ -101,7 +101,7 @@ export default function PhoneVerify({ props, location }) {
                 <Button
                   variant="contained"
                   color="primary"
-                  fullWidth="true"
+                  fullWidth
                   className="button btn-outlined-white btn-full-width font-weight-600 mobile-grey"
                 >
                   Restart
@@ -111,7 +111,7 @@ export default function PhoneVerify({ props, location }) {
                 onClick={() => verifyPhoneNumber()}
                 variant="contained"
                 color="primary"
-                fullWidth="true"
+                fullWidth
                 className="button btn-responsive btn-full-width font-weight-600"
               >
                 Verify
@@ -124,7 +124,7 @@ export default function PhoneVerify({ props, location }) {
         ) : (
           <Grid container justify="center">
             <Grid item xs={12} sm={6}>
-              <LinearProgress color="primary" value="50" />
+              <LinearProgress color="primary" value="50" variant="indeterminate" />
             </Grid>
           </Grid>
         )}

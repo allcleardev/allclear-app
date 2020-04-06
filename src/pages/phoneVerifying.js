@@ -6,7 +6,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Fab from '@material-ui/core/Fab';
 
-
 const useStyles = makeStyles((theme) => ({
   frontProgress: {
     color: '#fff',
@@ -30,7 +29,7 @@ const Launch = ({ props }) => {
   const classes = useStyles();
 
   return (
-    <div maxWidth="xs" className="phone-verifying">
+    <div className="phone-verifying">
       <div style={{ position: 'absolute' }}>
         {/*maxWidth="xs"*/}
         <Fab
@@ -63,13 +62,13 @@ const Launch = ({ props }) => {
         </p>
         <div className="flex-container flex-just-center" style={{ paddingTop: '67px' }}>
           <CircularProgress
-            value="25"
-            thickness="2"
+            value={25}
+            thickness={2}
             size={100}
             className={classes.frontProgress}
             // disableShrink
           />
-          <CircularProgress value="100" size={100} className={classes.backProgress} variant="static" thickness="2" />
+          <CircularProgress value={100} size={100} className={classes.backProgress} variant="static" thickness={2} />
         </div>
       </div>
     </div>

@@ -26,6 +26,7 @@ export default function ProgressBottom({ progress }) {
       <BorderLinearProgress
         className="progress-bottom-bar"
         variant="determinate"
+        value={100}
         color="secondary"
         style={{
           width: '200px',
