@@ -5,6 +5,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "lint": "eslint src",
     "deploy": "yarn build && surge build --domain allclear.surge.sh",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -46,6 +47,7 @@
   },
   "devDependencies": {
     "@types/leaflet.locatecontrol": "^0.60.7",
+    "eslint": "^6.8.0",
     "prettier": "^2.0.2",
     "pretty-quick": "^2.0.1"
   },
@@ -53,7 +55,13 @@
     "extends": "react-app",
     "rules": {
       "array-callback-return": "off",
-      "brace-style": [2, "1tbs", { "allowSingleLine": false }],
+      "brace-style": [
+        2,
+        "1tbs",
+        {
+          "allowSingleLine": false
+        }
+      ],
       "arrow-spacing": 2,
       "no-class-assign": 2,
       "no-const-assign": 2,
@@ -65,29 +73,71 @@
       "no-bitwise": "error",
       "no-caller": "error",
       "no-cond-assign": "error",
-      "yoda": [1, "never"],
-      "arrow-parens": ["error", "always"],
+      "yoda": [
+        1,
+        "never"
+      ],
+      "arrow-parens": [
+        "error",
+        "always"
+      ],
       "max-len": [
         "error",
         {
           "code": 140
         }
       ],
-      "indent": [1, 2, { "SwitchCase": 1 }],
-      "lines-around-comment": [2, { "allowBlockStart": true, "beforeBlockComment": true }],
-      "one-var": [1, "never"],
-      "quotes": ["error", "single"],
-      "quote-props": [1, "as-needed"],
-      "semi": [1, "always"],
+      "indent": [
+        1,
+        2,
+        {
+          "SwitchCase": 1
+        }
+      ],
+      "lines-around-comment": [
+        2,
+        {
+          "allowBlockStart": true,
+          "beforeBlockComment": true
+        }
+      ],
+      "one-var": [
+        1,
+        "never"
+      ],
+      "quotes": [
+        "error",
+        "single"
+      ],
+      "quote-props": [
+        1,
+        "as-needed"
+      ],
+      "semi": [
+        1,
+        "always"
+      ],
       "keyword-spacing": 0,
-      "space-unary-ops": [1, { "words": true, "nonwords": false }],
+      "space-unary-ops": [
+        1,
+        {
+          "words": true,
+          "nonwords": false
+        }
+      ],
       "vars-on-top": 1,
-      "wrap-iife": [1, "outside"],
+      "wrap-iife": [
+        1,
+        "outside"
+      ],
       "no-dupe-args": 1,
       "no-dupe-keys": 1,
       "no-invalid-regexp": 1,
       "no-invalid-this": 1,
-      "no-mixed-spaces-and-tabs": [1, "smart-tabs"],
+      "no-mixed-spaces-and-tabs": [
+        1,
+        "smart-tabs"
+      ],
       "no-undef": 1,
       "no-unreachable": 1,
       "no-unused-vars": 1

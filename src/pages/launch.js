@@ -8,7 +8,7 @@ const LogoStyle = {
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  fontFamily: "'Source Sans Pro', sans-serif",
+  fontFamily: '"Source Sans Pro", sans-serif"',
   fontStyle: 'normal',
   marginTop: '-20px',
 };
