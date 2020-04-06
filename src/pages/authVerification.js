@@ -15,7 +15,7 @@ import { useCookies } from 'react-cookie';
 export default function PhoneVerify({ props, location }) {
   const [state, setState] = React.useState({
     checkedB: true,
-    loading: false,
+    loading: false
   });
 
   //eslint-disable-next-line
@@ -41,23 +41,25 @@ export default function PhoneVerify({ props, location }) {
 
     phone = sanitizePhone(phone);
 
-    await Axios.post('https://api-dev.allclear.app/peoples/confirm', {
-      phone,
-      code,
-    })
-      .then((response) => {
-        console.log('response', response);
-        setCookie('sessid', response.data.id);
-        sessionStorage.setItem('sessid', response.data.id);
-        history.push('/background');
-      })
-      .catch((error) => {
-        console.log('error', error);
-        // TODO Display Error Message
-      });
+    await Axios.put(
+      'https://api-dev.allclear.app/peoples/auth',
+      {
+        phone: phone,
+        token: code
+      }
+    ).then((response) => {
+      console.log('response', response);
+      setCookie('sessid', response.data.id);
+      sessionStorage.setItem('sessid', response.data.id);
+      history.push("/profile-view");
+    }).catch((error) => {
+      console.log('error', error);
+      // TODO Display Error Message
+    });
+
   };
 
-  const [value, setValue] = React.useState('');
+  const [value, setValue] = React.useState("");
 
   const handleCodeChange = event => {
     setValue({ code: event.target.value });

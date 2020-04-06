@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Launch from './pages/launch';
 import CreateAccount from './pages/create-account';
+import AuthVerifyCode from './pages/authVerification';
 import PhoneVerify from './pages/phoneVerify';
 import PhoneVerifyCode from './pages/phoneVerification';
 import PhoneVerifying from './pages/phoneVerifying';
@@ -19,10 +20,10 @@ import FindTestMap from './pages/findTestMap';
 import ProfileView from './pages/profileView';
 import ProfileEdit from './pages/profileEdit';
 import ForgotPassword from './pages/forgot-password';
-import Symptom from './pages/Symptom/Symptom';
 import Success from './pages/Success/Success';
 import Result from './pages/Result/Result';
-import Condition from './pages/Condition/Condition';
+import Conditions from './pages/Conditions/Conditions';
+import Symptoms from './pages/Symptoms/Symptoms';
 import CompleteProfile from './pages/completeProfile';
 import Background from './pages/Background/Background';
 import FindTest from './pages/ResultDetail/FindTest';
@@ -47,6 +48,7 @@ export default function App() {
       <Route path="/phone-verification" component={PhoneVerifyCode} />
       <Route path="/phone-verifying" component={PhoneVerifying} />
       <Route path="/login" component={login} />
+      <Route path="/auth-verification" component={AuthVerifyCode} />
       <Route path="/login-verification" component={LoginVerification} />
       {/* David end */}
       <Route path="/forgot" component={ForgotPassword} />
@@ -54,11 +56,11 @@ export default function App() {
       <Route path="/add-test" component={AddTest} />
       <Route path="/location" component={Location} />
       <Route path="/login-org" component={loginOrg} />
-      <Route path="/symptom" component={Symptom} />
+      <Route path="/symptoms" component={Symptoms} />
       <Route path="/result" component={Result} />
       <Route path="/succcess" component={Success} />
       {/* <Route path="/launch" component={Launch} /> */}
-      <Route path="/condition" component={Condition} />
+      <Route path="/conditions" component={Conditions} />
       <Route path="/background" component={Background} />
       <Route path="/phone-verify-success" component={PhoneVerifySuccess} />
       <Route path="/register" component={VerifyMagicLink} />
