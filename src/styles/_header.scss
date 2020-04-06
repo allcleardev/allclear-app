@@ -218,7 +218,8 @@
 
   @media (max-width: $sm) {
     // height: auto;
-    height: 130px;
+    // height: 130px;
+    display: none;
   }
 
   .header-logo {
