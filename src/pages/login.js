@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
-import Box from '@material-ui/core/Container';
+import Form from '@material-ui/core/Container';
+
 import { Button, Grid } from '@material-ui/core';
-import FormControl from '@material-ui/core/FormControl';
-import TextField from '@material-ui/core/TextField';
 import Axios from 'axios';
 
 import Header from '../components/header-round';
 import ProgressBottom from '../components/progressBottom';
+import PhoneNumber from '../components/phoneNumber';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 export default function PhoneVerify({ props }) {
@@ -16,6 +16,7 @@ export default function PhoneVerify({ props }) {
     checkedB: true,
     loading: false,
   });
+
 
   const history = useHistory();
 
@@ -29,21 +30,18 @@ export default function PhoneVerify({ props }) {
     setState({ loading: true });
     const phone = sessionStorage.getItem('phone');
 
-    console.log('phone', phone);
-
     if (!phone) {
       //show error message
       setState({ loading: false });
       return;
     }
-    await Axios.post('https://api-dev.allclear.app/peoples/start', {
+    await Axios.post('https://api-dev.allclear.app/peoples/auth', {
       phone,
-      beenTested: false,
-      haveSymptoms: false,
     })
       .then((response) => {
         console.log(response);
-        history.push('/phone-verify-success');
+        sessionStorage.setItem('phone', phone);
+        history.push('/auth-verification');
       })
       .catch((error) => {
         //show error message
@@ -51,66 +49,28 @@ export default function PhoneVerify({ props }) {
       });
   }
 
-  const [value, setValue] = React.useState('');
-
-  const handleCodeChange = (event) => {
-    setValue(event.target.value);
-  };
-
   return (
     <div className="background-responsive">
-      <Box className="login">
+      <div className="phone-verify onboarding-page">
         <Header>
-          <h1 style={{ justifyContent: 'center', margin: '0' }}>Sign In</h1>
-          <p>Enter your phone number to be sent a verification code.</p>
+          <h1 className="heading">Sign In</h1>
+          <h2 className="sub-heading">Enter your phone number to be sent a verification code.</h2>
         </Header>
-
         {state.loading === false ? (
-          <form noValidate autoComplete="off" className="body-phone-verify" style={{ textAlign: 'center' }}>
-            <div className="wid100" style={{ margin: '70px 0' }}>
-              <Grid container justify="center">
-                <Grid item xs={12} sm={6}>
-                  <FormControl className="form-control" style={{ height: '100%' }}>
-                    <TextField
-                      id="outlined-margin-none"
-                      className="white-back-input"
-                      variant="outlined"
-                      label={value === '' ? 'Phone Number' : ''}
-                      height="60px"
-                      onChange={handleCodeChange}
-                      InputLabelProps={{ shrink: false }}
-                      value={value}
-                      style={{}}
-                    />
-                  </FormControl>
-                </Grid>
-              </Grid>
-            </div>
-            <div className="flexrow wid100 btn-group">
-              <Link to="/create-account" className="wid100-sm">
-                <Button
-                  variant="contained"
-                  color="primary"
-                  fullWidth
-                  className="button btn-outlined-white btn-full-width font-weight-600 mobile-grey hide-mobile-sm"
-                >
-                  Create Account
+          <Form noValidate autoComplete="off" className="onboarding-body">
+            <PhoneNumber className="hide-mobile"></PhoneNumber>
+
+            <div className="button-container">
+              <Link to="/phone-verify" className="hide-mobile">
+                <Button variant="contained" className="back">
+                  Back
                 </Button>
               </Link>
-              <Button
-                // onClick={() => sendVerificationCode()}
-                variant="contained"
-                color="primary"
-                fullWidth
-                className="button btn-responsive btn-full-width font-weight-600"
-              >
+              <Button onClick={() => verifyPhoneNumber()} variant="contained" color="primary" className="next">
                 Send Verification Code
               </Button>
-              <p className="color-primary show-mobile-sm" style={{ padding: '15px 0', display: 'none' }}>
-                <strong>Create Account</strong>
-              </p>
             </div>
-          </form>
+          </Form>
         ) : (
           <Grid container justify="center">
             <Grid item xs={12} sm={6}>
@@ -118,13 +78,8 @@ export default function PhoneVerify({ props }) {
             </Grid>
           </Grid>
         )}
-
-        {state.loading === false ? (
-          <div style={{ padding: '3px 0' }} className="hide-mobile">
-            <ProgressBottom progress="100px"></ProgressBottom>
-          </div>
-        ) : null}
-      </Box>
+        {state.loading === false ? <ProgressBottom progress="100px"></ProgressBottom> : null}
+      </div>
     </div>
   );
 }

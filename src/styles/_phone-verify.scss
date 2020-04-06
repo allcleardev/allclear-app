@@ -1,45 +1,80 @@
 .phone-verify {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  @media (min-width: $md) {
-    width: $md !important;
+  form {
+    flex: 1;
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    
+    @media(min-width: $md) {
+      align-items: flex-start;
+    }
   }
 
-  @media (min-width: $lg) {
-    width: $lg !important;
-    display: flex;
-    justify-content: space-between;
+  label.MuiFormControlLabel-root {
+    align-self: center;
+    justify-content: center;
+    width: 90%;
+    margin: 0;
+
+    span {
+      &.MuiFormControlLabel-label {
+        font-size: 13px;
+        color: rgba(60, 60, 67, 0.4);
+
+        @media(min-width: $md) {
+          color: #FFF;
+        }
+      }
+
+      &.MuiCheckbox-root {
+        color: $navy;
+      }
+    }
   }
 
-  .body-phone-verify {
+  .review-container {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    text-align: center;
+    margin: 20px 0;
 
-    // @media (min-width: $md) {
-    //   height: 60vh !important;
-    // }
+    p {
+      margin-bottom: 28px;
+      text-align: center;
+      font-size: 15px;
+    }
   }
 
-  .check-label {
-    color: #999999;
-    display: flex;
-    justify-content: center;
-    width: 87%;
-    margin: auto;
+  .phone-input.MuiTextField-root {
+    padding: 0 20px;
+    border-radius: 8px;
+    border: 1px solid #DADADA;
+    background-color: #FFF;
 
-    .MuiTypography-body1 {
-      text-align: left;
+    @media(min-width: $md) {
+      border: 0;
+    }
 
-      @media (max-width: $sm) {
-        font-size: 13px;
+    label {
+      padding: 5px 16px;
+
+      &:not(.Mui-focused) {
+        color: rgba(60, 60, 67, 0.4);
       }
+    }
+
+    input {
+      font-size: 1.3rem;
+      letter-spacing: 1.3px;
+    }
+
+    .MuiInput-underline:before,
+    .MuiInput-underline:after,
+    .MuiInput-underline:hover:not(.Mui-disabled):before {
+      border: 0;
+    }
+
+    .MuiPhoneNumber-flagButton {
+      display: none;
     }
   }
 }

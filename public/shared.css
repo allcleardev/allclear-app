@@ -482,7 +482,7 @@ input:checked + .slider:before {
 .Active {
   background-color: #002c83 !important;
   border: 1px #002c83 solid !important;
-  color: white;
+  color: white !important;
 }
 
 .backBtn {
@@ -546,6 +546,7 @@ input:checked + .slider:before {
 .bgsyle1 strong {
   color: #fff;
 }
+
 .inputSet {
   width: 100%;
   padding: 12px 10px;
@@ -683,10 +684,6 @@ input:checked + .slider:before {
 
 .symptomsWrap li {
   width: 345px;
-}
-.policyClr {
-  color: #0342bd;
-  font-weight: bold;
 }
 
 .selectBtn {
@@ -898,6 +895,7 @@ input:checked + .slider:before {
 .diffBGwrapper {
   background: #fff;
   height: 100vh;
+  width: 100%;
 }
 
 .divClassBG {
