@@ -895,6 +895,7 @@ input:checked + .slider:before {
 .diffBGwrapper {
   background: #fff;
   height: 100vh;
+  width: 100%;
 }
 
 .divClassBG {
