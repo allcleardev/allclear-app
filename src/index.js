@@ -29,7 +29,7 @@ serviceWorker.unregister();
 if (module.hot) {
   module.hot.accept('./App', () => {
     const NextApp = require('./App').default;
-    console.log('---Hot reload---');
+    console.log('%c ===== Hot Reload ===== ', 'background: #222; color: #bada55');
     render(NextApp);
   });
 }

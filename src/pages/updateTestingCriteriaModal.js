@@ -53,7 +53,7 @@ export default function UpdateCriteria() {
   };
 
   return (
-    <div>
+    <>
       <CardBlank>
         <div
           style={{
@@ -237,6 +237,6 @@ export default function UpdateCriteria() {
           <Button className="btn-big bg-grey2 fontsize-16">Cancel</Button>
         </Grid>
       </Grid>
-    </div>
+    </>
   );
 }
