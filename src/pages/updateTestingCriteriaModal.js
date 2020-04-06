@@ -1,67 +1,54 @@
-import React from "react";
+import React from 'react';
+import CardBlank from '../components/cardBlank';
+import { Button, Grid } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Select from '@material-ui/core/Select';
+import Checkbox from '@material-ui/core/Checkbox';
 
-import Header from "../components/homescreen-header";
-import CardBlank from "../components/cardBlank";
-import SwitchComponent from "../components/switch";
-
-import Box from "@material-ui/core/Container";
-import { Button, Grid } from "@material-ui/core";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
-import Fab from "@material-ui/core/Fab";
-import TextField from "@material-ui/core/TextField";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import FormControl from "@material-ui/core/FormControl";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Select from "@material-ui/core/Select";
-import Checkbox from "@material-ui/core/Checkbox";
-
-import userAvatar from "../assets/images/avatar.svg";
-
-import { friendData } from "../constants";
-
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   button: {
-    width: "100%",
-    margin: "15px 0",
-    borderRadius: "10px",
-    height: 48
+    width: '100%',
+    margin: '15px 0',
+    borderRadius: '10px',
+    height: 48,
   },
   checked: {},
-  track: {}
+  track: {},
 }));
 
 export default function UpdateCriteria() {
-  const classes = useStyles();
+  useStyles();
 
-  const [drive_through, setDriveThrough] = React.useState("");
-  const [appoinment_only, setAppoinmentOnly] = React.useState("");
-  const [exposure, setExposure] = React.useState("");
+  const [drive_through, setDriveThrough] = React.useState('');
+  const [appoinment_only, setAppoinmentOnly] = React.useState('');
+  const [exposure, setExposure] = React.useState('');
   const [conditions, setConditions] = React.useState([]);
   const [symptoms, setSymptoms] = React.useState([]);
   // Event Handlers for Select components
-  const handleDriveThroughChange = event => {
+  const handleDriveThroughChange = (event) => {
     setDriveThrough(event.target.value);
   };
-  const handleAppointmentOnlyChange = event => {
+  const handleAppointmentOnlyChange = (event) => {
     setAppoinmentOnly(event.target.value);
   };
-  const handleExposureChange = event => {
+  const handleExposureChange = (event) => {
     setExposure(event.target.value);
   };
-  const handleConditionsChange = event => {
+  const handleConditionsChange = (event) => {
     setConditions(event.target.value);
   };
-  const handleSymptomsChange = event => {
+  const handleSymptomsChange = (event) => {
     setSymptoms(event.target.value);
   };
   // Event Handler for Checkbox
   const [state, setState] = React.useState({
-    checkedB: true
+    checkedB: true,
   });
 
-  const handleCheckboxChange = event => {
+  const handleCheckboxChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
 
@@ -70,16 +57,14 @@ export default function UpdateCriteria() {
       <CardBlank>
         <div
           style={{
-            display: "flex",
-            justifyContent: "space-between",
-            flexDirection: "row",
-            alignItems: "center"
+            display: 'flex',
+            justifyContent: 'space-between',
+            flexDirection: 'row',
+            alignItems: 'center',
           }}
         >
           <h3 className="body-title">Update Search Criteria</h3>
-
         </div>
-
 
         <div className="sub-card">
           <h5 className="body-sub-title">Drive-Through Test Centers</h5>
@@ -89,9 +74,7 @@ export default function UpdateCriteria() {
               id="demo-simple-select-outlined"
               value={drive_through}
               displayEmpty
-              onChange={event =>
-                handleDriveThroughChange(event, "drive_through")
-              }
+              onChange={(event) => handleDriveThroughChange(event, 'drive_through')}
               className="select-white-back"
             >
               <MenuItem value="">Any</MenuItem>
@@ -109,9 +92,7 @@ export default function UpdateCriteria() {
               id="demo-simple-select-outlined"
               value={appoinment_only}
               displayEmpty
-              onChange={event =>
-                handleAppointmentOnlyChange(event, "appoinment_only")
-              }
+              onChange={(event) => handleAppointmentOnlyChange(event, 'appoinment_only')}
               className="select-white-back"
             >
               <MenuItem value="">Any</MenuItem>
@@ -131,7 +112,7 @@ export default function UpdateCriteria() {
               value={symptoms}
               displayEmpty
               multiple
-              onChange={event => handleSymptomsChange(event, "symptoms")}
+              onChange={(event) => handleSymptomsChange(event, 'symptoms')}
               className="select-white-back"
             >
               <MenuItem value="">Fever, Shortness of Breath</MenuItem>
@@ -144,8 +125,7 @@ export default function UpdateCriteria() {
         <div className="sub-card">
           <h5 className="body-sub-title">Exposure to COVID-19</h5>
           <p className="body-sub-description">
-            Some test centers require knowledge of your exposure to people who
-            have tested positive for COVID-19.
+            Some test centers require knowledge of your exposure to people who have tested positive for COVID-19.
           </p>
           <FormControl variant="outlined" className="form-control">
             <Select
@@ -153,19 +133,14 @@ export default function UpdateCriteria() {
               id="demo-simple-select-outlined"
               value={exposure}
               displayEmpty
-              onChange={event => handleExposureChange(event, "exposure")}
+              onChange={(event) => handleExposureChange(event, 'exposure')}
               className="select-white-back"
             >
               <MenuItem value="">Not Sure</MenuItem>
               <MenuItem value={10}>
                 <FormControlLabel
                   control={
-                    <Checkbox
-                      checked={state.checkedB}
-                      onChange={handleCheckboxChange}
-                      name="checkedB"
-                      color="third"
-                    />
+                    <Checkbox checked={state.checkedB} onChange={handleCheckboxChange} name="checkedB" color="third" />
                   }
                   label="I have reviewed and agree to the Terms & Conditions and Privacy Policy"
                   className="check-label turn-white"
@@ -186,7 +161,7 @@ export default function UpdateCriteria() {
               value={conditions}
               displayEmpty
               multiple
-              onChange={event => handleConditionsChange(event, "conditions")}
+              onChange={(event) => handleConditionsChange(event, 'conditions')}
               className="select-white-back"
             >
               <MenuItem value="">Weekend Immune System</MenuItem>
@@ -199,7 +174,8 @@ export default function UpdateCriteria() {
         <div className="sub-card">
           <h5 className="body-sub-title">Health Worker Status</h5>
           <p className="body-sub-description">
-            Some test centers require knowledge of if you or someone you live with is a health workers or first responder.
+            Some test centers require knowledge of if you or someone you live with is a health workers or first
+            responder.
           </p>
           <FormControl variant="outlined" className="form-control">
             <Select
@@ -207,7 +183,7 @@ export default function UpdateCriteria() {
               id="demo-simple-select-outlined"
               value={exposure}
               displayEmpty
-              onChange={event => handleExposureChange(event, "exposure")}
+              onChange={(event) => handleExposureChange(event, 'exposure')}
               className="select-white-back"
             >
               <MenuItem value="">I live with a health care worker or first responder</MenuItem>
@@ -216,20 +192,19 @@ export default function UpdateCriteria() {
             </Select>
           </FormControl>
         </div>
-      
       </CardBlank>
       <Grid
         container
         style={{
-          display: "flex",
-          justifyContent: "space-around",
+          display: 'flex',
+          justifyContent: 'space-around',
 
-          padding: "20px 0px 0px 24px"
+          padding: '20px 0px 0px 24px',
         }}
         className="btn-group"
       >
         <Grid item xs={12} sm={12}>
-        <FormControlLabel
+          <FormControlLabel
             control={
               <Checkbox
                 // checked={state.checkedB}
@@ -238,28 +213,25 @@ export default function UpdateCriteria() {
                 color="black"
               />
             }
-            style={{fontSize:12,color:'black'}}
+            style={{ fontSize: 12, color: 'black' }}
             label="Update Profile Upon Search"
             className="check-label"
           />
         </Grid>
       </Grid>
-   
 
       <Grid
         container
         style={{
-          display: "flex",
-          justifyContent: "space-around",
+          display: 'flex',
+          justifyContent: 'space-around',
 
-          padding: "5px 0"
+          padding: '5px 0',
         }}
         className="btn-group"
       >
         <Grid item xs={12} sm={5}>
-          <Button className="btn-big bg-primary color-white fontsize-16">
-            Search
-          </Button>
+          <Button className="btn-big bg-primary color-white fontsize-16">Search</Button>
         </Grid>
         <Grid item xs={12} sm={5}>
           <Button className="btn-big bg-grey2 fontsize-16">Cancel</Button>
