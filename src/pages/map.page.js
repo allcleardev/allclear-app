@@ -283,7 +283,9 @@ export default function MapPage() {
   return (
     <div className="test-map-page">
       <Component></Component>
-      <ClearHeader></ClearHeader>
+      <ClearHeader
+        isOpen={open}
+      ></ClearHeader>
       <TabPanel value={value} index={0}>
         <AppBar
           className={

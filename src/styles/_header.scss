@@ -66,6 +66,7 @@
         border-bottom: 2px solid #fff;
       }
     }
+
   }
 
   @media (min-width: 768px) {
@@ -234,6 +235,14 @@
 
     .logo {
       width: 80px;
+
+
+      &--open{
+        transition: margin 0.15s linear;
+        margin-left: 410px;
+        //border: 5px solid red;
+      }
+
     }
 
     .header-menu {
@@ -263,5 +272,8 @@
         }
       }
     }
+
   }
+
+
 }
