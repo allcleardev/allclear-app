@@ -56,11 +56,11 @@ export default function App() {
       <Route path="/add-test" component={AddTest} />
       <Route path="/location" component={Location} />
       <Route path="/login-org" component={loginOrg} />
-      <Route path="/symptom" component={Symptom} />
+      <Route path="/symptoms" component={Symptom} />
       <Route path="/result" component={Result} />
       <Route path="/succcess" component={Success} />
       {/* <Route path="/launch" component={Launch} /> */}
-      <Route path="/condition" component={Condition} />
+      <Route path="/conditions" component={Condition} />
       <Route path="/background" component={Background} />
       <Route path="/phone-verify-success" component={PhoneVerifySuccess} />
       <Route path="/register" component={VerifyMagicLink} />

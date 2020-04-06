@@ -29,8 +29,6 @@ class Background extends React.Component {
     Axios.get(
       "https://api-dev.allclear.app/types/exposures", {}
     ).then((response) => {
-      console.log(response);
-
       this.setState({ exposures: response.data });
       this.setState({ loading: false });
     }).catch((error) => {

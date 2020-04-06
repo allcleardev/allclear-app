@@ -1,0 +1,23 @@
+.conditions {
+  .chips-group {
+    display: flex;
+    flex-wrap: wrap;
+
+    @media(min-width: $md) {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(297px, max-content));
+      grid-column-gap: 10px;
+      grid-row-gap: 20px;
+
+      .chip {
+        margin: 0;
+      }
+    }
+  }
+
+  .label {
+    @media(min-width: $md) {
+      margin-bottom: 20px;
+    }
+  }
+}

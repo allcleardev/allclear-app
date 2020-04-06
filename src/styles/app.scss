@@ -4,6 +4,7 @@
 @import "complete-profile";
 @import "create-account";
 @import "background";
+@import "condition";
 @import "phone-verify";
 @import "phone-verification";
 @import "test";
@@ -114,6 +115,11 @@ button {
     }
   }
 
+  /* .onboarding-body label*/
+  .label {
+    font-size: 16px;
+  }
+
   /* .onboarding-body chip*/
   .chip {
     width: 100%;
@@ -128,12 +134,9 @@ button {
 
     @media(min-width: $md) {
       width: auto;
+      margin: 12px;
       color: #FFF;
       border-color: #FFF;
-
-      &:not(:last-child) {
-        margin-right: 24px;
-      }
     }
   }
 
