@@ -135,7 +135,7 @@ class Background extends React.Component {
                 >Back
                 </Button>
               </Link>
-              <Link to="/condition">
+              <Link to="/conditions">
                 <Button
                   variant="contained"
                   color="primary"
@@ -145,7 +145,7 @@ class Background extends React.Component {
               </Link>
             </div>
           </Form>
-          <ProgressBottom progress="200px"></ProgressBottom>
+          <ProgressBottom progress="14%"></ProgressBottom>
         </div>
       </div>
     );
