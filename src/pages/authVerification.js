@@ -13,7 +13,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { useCookies } from 'react-cookie';
 
 export default function PhoneVerify({ props, location }) {
-  const [state] = React.useState({
+  const [state, setState] = React.useState({
     checkedB: true,
     loading: false,
   });
@@ -57,7 +57,7 @@ export default function PhoneVerify({ props, location }) {
       });
   };
 
-  const [setValue] = React.useState('');
+  const [value, setValue] = React.useState('');
 
   const handleCodeChange = (event) => {
     setValue({ code: event.target.value });
@@ -68,14 +68,15 @@ export default function PhoneVerify({ props, location }) {
     <div className="background-responsive">
       <div className="phone-verification onboarding-page">
         <Header>
-          <h1 className="heading">Phone Number</h1>
-          <h2 className="sub-heading">Enter your phone number to get started.</h2>
+          <h1 className="heading">Sign In</h1>
+          <h2 className="sub-heading">Enter your phone number to be sent a verification code.</h2>
         </Header>
 
         {state.loading === false ? (
           <Form noValidate autoComplete="off" className="onboarding-body">
             <div className="content-container">
               <p>We texted a verification code to your phone. Please enter the code to sign in.</p>
+              {/* <p>We texted your phone XXX XXX XX42. Please enter the code to sign in.</p> TODO: Speicify Phone Number */}
 
               <FormControl className="control">
                 <TextField
@@ -92,7 +93,7 @@ export default function PhoneVerify({ props, location }) {
             </div>
 
             <div className="button-container">
-              <Link to="/create-account">
+              <Link to="/login">
                 <Button variant="contained" className="back">
                   Restart
                 </Button>
