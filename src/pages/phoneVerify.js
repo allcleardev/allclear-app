@@ -34,7 +34,7 @@ export default function PhoneVerify({ props }) {
       setState({ loading: false });
       return;
     }
-    await Axios.post('https://api-dev.allclear.app/peoples/start', {
+    Axios.post('https://api-dev.allclear.app/peoples/start', {
       phone,
       beenTested: false,
       haveSymptoms: false,
@@ -103,7 +103,7 @@ export default function PhoneVerify({ props }) {
             :
             <Grid container justify="center">
               <Grid item xs={12} sm={6}>
-                <LinearProgress color="primary" value="50" />
+                <LinearProgress color="primary" value="50" variant="indeterminate"/>
               </Grid>
             </Grid>
         }

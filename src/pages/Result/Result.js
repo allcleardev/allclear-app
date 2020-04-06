@@ -4,14 +4,13 @@ import { Link } from 'react-router-dom';
 
 import Header from '../../components/header-round';
 import ProgressBottom from '../../components/progressBottom';
-import states from './Result.state';
+// import states from './Result.state';
 
 import Form from '@material-ui/core/Container';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Box from '@material-ui/core/Container';
 import { withStyles } from '@material-ui/core/styles';
 import { Button, Grid, Switch, Select, MenuItem, FormControl, FormControlLabel } from '@material-ui/core';
-
 
 class Result extends React.Component {
   constructor() {
@@ -27,15 +26,13 @@ class Result extends React.Component {
   componentDidMount() {
     this.getTestTypes();
     this.getTestLocations();
-  };
+  }
 
   getTestTypes() {
     this.setState({ loading: true });
 
     Axios.get('https://api-dev.allclear.app/types/testCriteria', {})
       .then((response) => {
-        console.log(response);
-
         this.setState({ testTypes: response.data });
         this.setState({ loading: false });
       })
@@ -43,15 +40,13 @@ class Result extends React.Component {
         console.log(error);
         this.setState({ loading: false });
       });
-  };
+  }
 
   getTestLocations() {
     this.setState({ loading: true });
 
     Axios.get('https://api-dev.allclear.app/types/facilityTypes', {})
       .then((response) => {
-        console.log(response);
-
         this.setState({ testLocations: response.data });
         this.setState({ loading: false });
       })
@@ -59,23 +54,21 @@ class Result extends React.Component {
         console.log(error);
         this.setState({ loading: false });
       });
-  };
+  }
 
   handleTestTypeInputChange(event) {
-    console.log('event', event.target.value);
     this.setState({
-      selectedTestType: event.target.value
+      selectedTestType: event.target.value,
     });
     sessionStorage.setItem('testTypes', JSON.stringify(event.target.value));
-  };
+  }
 
   handleTestLocationInputChange(event) {
-    console.log('event', event.target.value);
     this.setState({
-      selectedTestLocation: event.target.value
+      selectedTestLocation: event.target.value,
     });
     sessionStorage.setItem('testLocations', JSON.stringify(event.target.value));
-  };
+  }
 
   buildPayload() {
     const dob = sessionStorage.getItem('dob');
@@ -146,7 +139,7 @@ class Result extends React.Component {
     };
 
     return payload;
-  };
+  }
 
   async submitResults() {
     const sessionId = sessionStorage.getItem('sessid');
@@ -161,7 +154,6 @@ class Result extends React.Component {
       },
     })
       .then((response) => {
-        console.log(response);
         this.setCookie('sessid', response.data.id);
         sessionStorage.setItem('sessid', response.data.id);
         sessionStorage.setItem('session', response.data);
@@ -170,13 +162,13 @@ class Result extends React.Component {
       .catch((error) => {
         this.setState({ loading: false });
       });
-  };
+  }
 
   render() {
     const grid = (
       <Grid container justify="center">
         <Grid item xs={12} sm={6}>
-          <LinearProgress color="primary" value="50" />
+          <LinearProgress color="primary" value="50" variant="indeterminate" />
         </Grid>
       </Grid>
     );
@@ -241,55 +233,61 @@ class Result extends React.Component {
             <h1 className="heading">Test Results</h1>
             <h2 className="sub-heading">
               If you've taken a COVID-19 test already, please submit test details and results. Refer to our
-                <a href="/"> Privacy Policy </a>for more details.
-              </h2>
+              <a href="/"> Privacy Policy </a>for more details.
+            </h2>
           </Header>
-          {this.state && this.state.loading === false ?
+          {this.state && this.state.loading === false ? (
             <Form noValidate autoComplete="off" className="onboarding-body">
               <Box maxWidth="md">
                 <section className="section">
-
                   <FormControl variant="outlined">
-                    <label className="label" htmlFor="testTypes" >
+                    <label className="label" htmlFor="testTypes">
                       <strong>Test Type</strong> (Required) <br />
-                      <span className="description"> We can give localized test center recommendations with your location.</span>
+                      <span className="description">
+                        {' '}
+                        We can give localized test center recommendations with your location.
+                      </span>
                     </label>
                     <Select
                       id="testTypes"
                       className="input"
                       displayEmpty
                       inputProps={{ 'aria-label': 'Without label' }}
-                      value={this.state.selectedTestType ? this.state.selectedTestType : ""}
+                      value={this.state.selectedTestType ? this.state.selectedTestType : ''}
                       onChange={this.handleTestTypeInputChange}
                     >
                       <MenuItem disabled value="">
                         Select Test
                       </MenuItem>
-                      {this.state.testTypes && this.state.testTypes.map((res) => {
-                        return <MenuItem value={res}>{res.name}</MenuItem>;
-                      })}
+                      {this.state.testTypes &&
+                        this.state.testTypes.map((res) => {
+                          return <MenuItem value={res}>{res.name}</MenuItem>;
+                        })}
                     </Select>
                   </FormControl>
 
                   <FormControl variant="outlined">
-                    <label className="label" htmlFor="testTypes" >
+                    <label className="label" htmlFor="testTypes">
                       <strong>Test Location</strong> (Required) <br />
-                      <span className="description"> We can give localized test center recommendations with your location.</span>
+                      <span className="description">
+                        We can give localized test center recommendations with your location.
+                      </span>
                     </label>
                     <Select
                       id="testLocation"
                       className="input"
                       displayEmpty
                       inputProps={{ 'aria-label': 'Without label' }}
-                      value={this.state.selectedTestLocation ? this.state.selectedTestLocation : ""}
+                      value={this.state.selectedTestLocation ? this.state.selectedTestLocation : ''}
                       onChange={this.handleTestLocationInputChange}
                     >
                       <MenuItem disabled value="">
                         Choose Location
                       </MenuItem>
-                      {this.state.testLocations && this.state.testLocations.map((res) => {
-                        return <MenuItem value={res}>{res.name}</MenuItem>;
-                      })}
+                      {this.state.testLocations &&
+                        this.state.testLocations.map((res) => {
+                          return <MenuItem value={res}>{res.name}</MenuItem>;
+                        })}
                     </Select>
                   </FormControl>
 
@@ -308,35 +306,26 @@ class Result extends React.Component {
                       <strong>Upload Image</strong> <br />
                       <span className="description">Verify your results by uploading an image</span>
                     </label>
-                      ((Choose File))
-                    </article>
-
+                    ((Choose File))
+                  </article>
                 </section>
               </Box>
               <div className="button-container">
                 <Link to="/symptoms" className="hide-mobile">
-                  <Button
-                    variant="contained"
-                    className="back"
-                  >Back
-                    </Button>
+                  <Button variant="contained" className="back">
+                    Back
+                  </Button>
                 </Link>
                 <Link to="/">Skip</Link> {/* click to submit? */}
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className="next"
-                  onClick={this.submitResults}
-                >Next
-                  </Button>
+                <Button variant="contained" color="primary" className="next" onClick={this.submitResults}>
+                  Next
+                </Button>
               </div>
             </Form>
-            : (grid)}
-          {
-            this.state && this.state.loading === false ?
-              <ProgressBottom progress="56%"></ProgressBottom>
-              : null
-          }
+          ) : (
+            grid
+          )}
+          {this.state && this.state.loading === false ? <ProgressBottom progress="56%"></ProgressBottom> : null}
         </div>
       </div>
     );

@@ -10,7 +10,6 @@ import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
 import { Button, Chip } from '@material-ui/core';
 
-
 class Symptom extends React.Component {
   state = states;
 
@@ -21,15 +20,15 @@ class Symptom extends React.Component {
   getSymptoms = () => {
     this.setState({ loading: true });
 
-    Axios.get(
-      "https://api-dev.allclear.app/types/symptoms", {}
-    ).then((response) => {
-      this.setState({ symptoms: response.data });
-      this.setState({ loading: false });
-    }).catch((error) => {
-      console.log(error);
-      this.setState({ loading: false });
-    });
+    Axios.get('https://api-dev.allclear.app/types/symptoms', {})
+      .then((response) => {
+        this.setState({ symptoms: response.data });
+        this.setState({ loading: false });
+      })
+      .catch((error) => {
+        console.log(error);
+        this.setState({ loading: false });
+      });
   };
 
   selectAll = () => {
@@ -52,7 +51,6 @@ class Symptom extends React.Component {
     sessionStorage.setItem('symptoms', JSON.stringify(symptoms));
   };
 
-
   render() {
     return (
       <div className="background-responsive">
@@ -67,34 +65,29 @@ class Symptom extends React.Component {
                 <strong onClick={() => this.selectAll()}>Select all that apply.</strong>
               </label>
               <div className="chips-group">
-                {this.state.symptoms && this.state.symptoms.map((res) => {
-                  return (
-                    <Chip
-                      key={res.id}
-                      className={"chip" + (res.isActive ? ' Active' : '')}
-                      label={res.name}
-                      variant="outlined"
-                      onClick={() => this.handleChange(res)}
-                    >
-                    </Chip>
-                  )
-                })}
+                {this.state.symptoms &&
+                  this.state.symptoms.map((res) => {
+                    return (
+                      <Chip
+                        key={res.id}
+                        className={'chip' + (res.isActive ? ' Active' : '')}
+                        label={res.name}
+                        variant="outlined"
+                        onClick={() => this.handleChange(res)}
+                      ></Chip>
+                    );
+                  })}
               </div>
             </Box>
             <div className="button-container">
               <Link to="/conditions" className="hide-mobile">
-                <Button
-                  variant="contained"
-                  className="back"
-                >Back
+                <Button variant="contained" className="back">
+                  Back
                 </Button>
               </Link>
               <Link to="/results">
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className="next"
-                >Next
+                <Button variant="contained" color="primary" className="next">
+                  Next
                 </Button>
               </Link>
             </div>
@@ -102,7 +95,7 @@ class Symptom extends React.Component {
           <ProgressBottom progress="42%"></ProgressBottom>
         </div>
       </div>
-    )
+    );
   }
 }
-export default Symptom
+export default Symptom;

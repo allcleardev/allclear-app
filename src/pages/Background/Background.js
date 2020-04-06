@@ -25,7 +25,7 @@ class Background extends React.Component {
   };
 
   getExposures() {
-    this.setState({loading: true});
+    this.setState({ loading: true });
 
     Axios.get(
       'https://api-dev.allclear.app/types/exposures', {}
@@ -38,7 +38,7 @@ class Background extends React.Component {
     });
   };
 
-  handleLocationChange(event)  {
+  handleLocationChange(event) {
     if (event && event.target && event.target.value) {
       this.setState({ location: event.target.value });
       sessionStorage.setItem('location', event.target.value);
@@ -54,14 +54,14 @@ class Background extends React.Component {
     }
   };
 
-  handleChange (event) {
-    let {exposures} = this.state;
+  handleChange(event) {
+    let { exposures } = this.state;
     exposures.filter((exposure) => {
       if (exposure.name === event.name) {
         exposure.isActive = !exposure.isActive;
       }
     });
-    this.setState({exposures});
+    this.setState({ exposures });
     sessionStorage.setItem('exposures', JSON.stringify(exposures));
   };
 
@@ -109,7 +109,9 @@ class Background extends React.Component {
               <section>
                 <label className="label">
                   <strong>Exposure to COVID-19</strong> <br />
-                  <span className="description">Some test centers require knowledge of your exposure to people who have tested positive for COVID-19.</span>
+                  <span className="description">
+                    Some test centers require knowledge of your exposure to people who have tested positive for COVID-19.
+                  </span>
                 </label>
                 <div className="chips-group">
                   {/* TODO: Convert group to "Chip array" https://material-ui.com/components/chips/#chip-array */}
@@ -117,13 +119,13 @@ class Background extends React.Component {
                     return (
                       <Chip
                         key={res.id}
-                        className={"chip" + (res.isActive ? ' Active' : '')}
+                        className={'chip' + (res.isActive ? ' Active' : '')}
                         label={res.name}
                         variant="outlined"
                         onClick={() => this.handleChange(res)}
                       >
                       </Chip>
-                    )
+                    );
                   })}
                 </div>
               </section>

@@ -69,8 +69,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function CardMapLocation({ index, title, description, status, service_time, commute }) {
-  // const classes = useStyles();
-
   return (
     <div className="card-map-location">
       <Box className="container-location">
@@ -244,9 +242,9 @@ export default function FindTestMap() {
                 6.68164V1.68164M19.9984 19.6816V14.6816M19.9984 10.6816V1.68164M0.998413 12.6816H6.99841M8.99841
                 6.68164H14.9984M16.9984 14.6816H22.9984"
                 stroke="white"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               ></path>
             </svg>
           </FabBlueBottom>
@@ -258,9 +256,9 @@ export default function FindTestMap() {
               19.6816V10.6816M11.9984 6.68164V1.68164M19.9984 19.6816V14.6816M19.9984
               10.6816V1.68164M0.998413 12.6816H6.99841M8.99841 6.68164H14.9984M16.9984 14.6816H22.9984"
               stroke="white"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             ></path>
           </svg>
         </FabBlueBottom>
@@ -312,9 +310,9 @@ export default function FindTestMap() {
                 <path
                   d="M48.8204 40.7188H34.8204M34.8204 40.7188L41.8204 47.7188M34.8204 40.7188L41.8204 33.7188"
                   stroke="#333333"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
 
                 <defs>
@@ -325,9 +323,9 @@ export default function FindTestMap() {
                     width="88.3275"
                     height="86"
                     filterUnits="userSpaceOnUse"
-                    color-interpolation-filters="sRGB"
+                    colorInterpolationFilters="sRGB"
                   >
-                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                    <feFlood floodOpacity="0" result="BackgroundImageFix" />
                     <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
                     <feOffset dx="3" dy="3" />
                     <feGaussianBlur stdDeviation="7.5" />
@@ -348,9 +346,9 @@ export default function FindTestMap() {
                 <path
                   d="M34 40H48M48 40L41 33M48 40L41 47"
                   stroke="#333333"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
                 <defs>
                   <filter
@@ -360,9 +358,9 @@ export default function FindTestMap() {
                     width="88.3275"
                     height="86"
                     filterUnits="userSpaceOnUse"
-                    color-interpolation-filters="sRGB"
+                    colorInterpolationFilters="sRGB"
                   >
-                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                    <feFlood floodOpacity="0" result="BackgroundImageFix" />
                     <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
                     <feOffset dx="3" dy="3" />
                     <feGaussianBlur stdDeviation="7.5" />
@@ -394,6 +392,7 @@ export default function FindTestMap() {
             <Divider className={classes.divider} orientation="horizontal" />
             {mapLocationData.data.map((result, index) => (
               <CardMapLocation
+                key={index}
                 index={index}
                 title={result.Name}
                 description={result.Address}
@@ -430,9 +429,9 @@ export default function FindTestMap() {
               6.68164V1.68164M19.9984 19.6816V14.6816M19.9984 10.6816V1.68164M0.998413 12.6816H6.99841M8.99841
               6.68164H14.9984M16.9984 14.6816H22.9984"
               stroke="white"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             ></path>
           </svg>
         </FabBlueBottom>

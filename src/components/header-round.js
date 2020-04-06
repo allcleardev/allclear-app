@@ -4,8 +4,7 @@ import Logo from '../assets/images/logo-green-back.svg';
 import Fab from '@material-ui/core/Fab';
 import Box from '@material-ui/core/Container';
 
-
-export default function Header(props) {
+export default function Header({ navigate = '/', children }) {
   return (
     <div className="header">
       <div className="mobile-content">
@@ -27,11 +26,11 @@ export default function Header(props) {
       <Box className="desktop-content" maxWidth="xl">
         <img src={Logo} alt="Logo" className="logo" />
         <nav className="menu">
-          <a href="/about/" className="menu__item">About Us</a>
-          <a href="/help/" className="menu__item">Help</a>
+          <a href="/" className="menu__item">About Us</a>
+          <a href="/" className="menu__item">Help</a>
         </nav>
       </Box>
-      {props.children}
+      {children}
     </div>
   );
 }

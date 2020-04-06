@@ -38,7 +38,7 @@ const Launch = ({ props }) => {
           <img src={Logo} alt="Logo" />
         </div>
 
-        <LinearProgress color="primary" value="50" />
+        <LinearProgress color="primary" value={50} variant="indeterminate" />
       </div>
     </div>
   );

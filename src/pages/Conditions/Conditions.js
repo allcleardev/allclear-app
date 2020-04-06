@@ -14,14 +14,14 @@ class Condition extends React.Component {
   state = states;
 
   componentDidMount = () => {
-    this.getConditions()
+    this.getConditions();
   };
 
   getConditions = () => {
     this.setState({ loading: true });
 
     Axios.get(
-      "https://api-dev.allclear.app/types/conditions", {}
+      'https://api-dev.allclear.app/types/conditions', {}
     ).then((response) => {
       this.setState({ conditions: response.data });
       this.setState({ loading: false });
@@ -69,13 +69,13 @@ class Condition extends React.Component {
                   return (
                     <Chip
                       key={res.id}
-                      className={"chip" + (res.isActive ? ' Active' : '')}
+                      className={'chip' + (res.isActive ? ' Active' : '')}
                       label={res.name}
                       variant="outlined"
                       onClick={() => this.handleChange(res)}
                     >
                     </Chip>
-                  )
+                  );
                 })}
               </div>
             </Box>

@@ -4,8 +4,6 @@ import { Link, useHistory } from 'react-router-dom';
 import Form from '@material-ui/core/Container';
 
 import { Button, Grid } from '@material-ui/core';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Axios from 'axios';
 
 import Header from '../components/header-round';
@@ -27,7 +25,7 @@ export default function PhoneVerify({ props }) {
   };
 
   //eslint-disable-next-line
-  async function verifyPhoneNumber()  {
+  async function verifyPhoneNumber() {
     setState({ loading: true });
     const phone = sessionStorage.getItem('phone');
 
@@ -37,7 +35,7 @@ export default function PhoneVerify({ props }) {
       return;
     }
     await Axios.post('https://api-dev.allclear.app/peoples/auth', {
-      phone: phone,
+      phone,
     })
       .then((response) => {
         console.log(response);
@@ -48,7 +46,7 @@ export default function PhoneVerify({ props }) {
         //show error message
         setState({ loading: false });
       });
-  };
+  }
 
   return (
     <div className="background-responsive">
@@ -57,42 +55,29 @@ export default function PhoneVerify({ props }) {
           <h1 className="heading">Sign In</h1>
           <h2 className="sub-heading">Enter your phone number to be sent a verification code.</h2>
         </Header>
-        {
-          state.loading === false ?
-            <Form noValidate autoComplete="off" className="onboarding-body">
-              <PhoneNumber className="hide-mobile"></PhoneNumber>
+        {state.loading === false ? (
+          <Form noValidate autoComplete="off" className="onboarding-body">
+            <PhoneNumber className="hide-mobile"></PhoneNumber>
 
-              <div className="button-container">
-                <Link to="/create-account" className="hide-mobile">
-                  <Button
-                    variant="contained"
-                    className="back"
-                  >
-                    Back
-                  </Button>
-                </Link>
-                <Button
-                  onClick={() => verifyPhoneNumber()}
-                  variant="contained"
-                  color="primary"
-                  className="next"
-                >
-                  Send Verification Code
+            <div className="button-container">
+              <Link to="/create-account" className="hide-mobile">
+                <Button variant="contained" className="back">
+                  Back
                 </Button>
-              </div>
-            </Form>
-            :
-            <Grid container justify="center">
-              <Grid item xs={12} sm={6}>
-                <LinearProgress color="primary" value="50" />
-              </Grid>
+              </Link>
+              <Button onClick={() => verifyPhoneNumber()} variant="contained" color="primary" className="next">
+                Send Verification Code
+              </Button>
+            </div>
+          </Form>
+        ) : (
+          <Grid container justify="center">
+            <Grid item xs={12} sm={6}>
+              <LinearProgress color="primary" value="50" variant="indeterminate" />
             </Grid>
-        }
-        {
-          state.loading === false ?
-            <ProgressBottom progress="100px"></ProgressBottom>
-            : null
-        }
+          </Grid>
+        )}
+        {state.loading === false ? <ProgressBottom progress="100px"></ProgressBottom> : null}
       </div>
     </div>
   );

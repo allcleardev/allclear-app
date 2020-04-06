@@ -2,7 +2,6 @@ import React from 'react';
 import Header from '../components/header-round';
 import ProgressBottom from '../components/progressBottom';
 
-import Box from '@material-ui/core/Container';
 import { Button, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
@@ -89,12 +88,7 @@ export default function CreateAccount() {
           <Grid container justify="center">
             <Grid item xs={12} sm={4}>
               <Link to="/conditions">
-                <Button
-                  variant="contained"
-                  color="primary"
-                  fullWidth="true"
-                  className="button btn-responsive font-weight-600"
-                >
+                <Button variant="contained" color="primary" fullWidth className="button btn-responsive font-weight-600">
                   Create Account
                 </Button>
               </Link>
