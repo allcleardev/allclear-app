@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Header from '../components/homescreen-header';
+import HomescreenHeader from '../components/headers/header-homescreen';
 import NavBottom from '../components/navBottom';
 import CardArrow from '../components/cardArrow';
 
@@ -38,14 +38,14 @@ const EditIconButton = () => {
 export default function ProfileView() {
   return (
     <Box className="profile-view">
-      <Header>
+      <HomescreenHeader>
         <div className="avatar-edit">
           <div className="avatar">
             <img src={userAvatar} alt="avatar" />
           </div>
           {/* <EditIconButton></EditIconButton> */}
         </div>
-      </Header>
+      </HomescreenHeader>
       <Grid container className="flex-container flex-just-center">
         <Grid item xs={12} sm={6}>
           <div className="card-phone">

@@ -12,7 +12,7 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { Grid } from '@material-ui/core';
 import Fab from '@material-ui/core/Fab';
 
-import Header from '../components/homescreen-header';
+import HomescreenHeader from '../components/headers/header-homescreen';
 import TestResultCard from '../components/cardTestResults';
 import NavBottom from '../components/navBottom';
 import FabBlueBottom from '../components/fabBlueBottom';
@@ -81,7 +81,7 @@ export default function CompleteProfile() {
 
   return (
     <Box className="test">
-      <Header>
+      <HomescreenHeader>
         <div className="test-tabs-wrapper">
           <AppBar position="static" className="test-tabs">
             <Tabs value={value} onChange={handleChange} aria-label="Find Tests and Test Results">
@@ -178,7 +178,7 @@ export default function CompleteProfile() {
             </Button>
           </div>
         </TabPanel>
-      </Header>
+      </HomescreenHeader>
       <TabPanel value={value} index={0}>
         <div className="tab-overview-tests">
           <AppBar position="static" className="tab-header-overview-tests">

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Header from '../components/homescreen-header';
+import HomescreenHeader from '../components/headers/header-homescreen';
 import UserProfileCard from '../components/cardProfile';
 import AlertToggleCard from '../components/cardAlertToggle';
 import ArrowCard from '../components/cardArrow';
@@ -29,9 +29,9 @@ export default function CompleteProfile() {
 
   return (
     <Box className="complete-profile">
-      <Header>
+      <HomescreenHeader>
         <p>Allclear</p>
-      </Header>
+      </HomescreenHeader>
 
       <UserProfileCard
         avatar={userAvatar}

@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 
 import Fab from '@material-ui/core/Fab';
 
-import Logo from '../assets/images/logo-green-back.svg';
+import Logo from '../../assets/images/logo-green-back.svg';
 
-export default function Header(props) {
+export default function RoundHeader(props) {
   return (
     <div className="header">
       <div className="header-mobile">

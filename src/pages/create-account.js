@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../components/header-round';
+import RoundHeader from '../components/headers/header-round';
 import ProgressBottom from '../components/progressBottom';
 
 import Box from '@material-ui/core/Container';
@@ -42,10 +42,10 @@ export default function CreateAccount() {
   return (
     <div className="background-responsive">
       <Box className="create-profile">
-        <Header>
+        <RoundHeader>
           <h1>Create Account</h1>
           <p>First, tell us a litte about yourself so we know how to help you best.</p>
-        </Header>
+        </RoundHeader>
 
         <div style={bodyStyle} className="body-account-create">
           <h4>COVID-19 TESTING</h4>

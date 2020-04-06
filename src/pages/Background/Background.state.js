@@ -1,11 +1,4 @@
-export const exposureObjDefault = () => {
-  return {};
+export default {
+  exposureObj: {},
+  exposures: [],
 };
-
-const states = (function states() {
-  return {
-    exposureObj: exposureObjDefault(),
-    exposures: [],
-  };
-})();
-export default states;

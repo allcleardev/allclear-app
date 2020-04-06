@@ -7,7 +7,7 @@ import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import Axios from 'axios';
 
-import Header from '../components/header-round';
+import RoundHeader from '../components/headers/header-round';
 import ProgressBottom from '../components/progressBottom';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
@@ -60,10 +60,10 @@ export default function PhoneVerify({ props }) {
   return (
     <div className="background-responsive">
       <Box className="login">
-        <Header>
+        <RoundHeader>
           <h1 style={{ justifyContent: 'center', margin: '0' }}>Sign In</h1>
           <p>Enter your phone number to be sent a verification code.</p>
-        </Header>
+        </RoundHeader>
 
         {state.loading === false ? (
           <form noValidate autoComplete="off" className="body-phone-verify" style={{ textAlign: 'center' }}>

@@ -210,10 +210,10 @@ export default function UpdateCriteria() {
                 // checked={state.checkedB}
                 // onChange={handleChange}
                 name="checkedB"
-                color="black"
+                color="primary"
               />
             }
-            style={{ fontSize: 12, color: 'black' }}
+            style={{ fontSize: 12, color: 'primary' }}
             label="Update Profile Upon Search"
             className="check-label"
           />

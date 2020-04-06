@@ -53,10 +53,7 @@
       1,
       "never"
     ],
-    "quotes": [
-      "error",
-      "single"
-    ],
+    "quotes": ["error", "single", { "allowTemplateLiterals": true }],
     "quote-props": [
       1,
       "as-needed"

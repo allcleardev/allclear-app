@@ -1,8 +1,7 @@
 import React from 'react';
+import Logo from '../../assets/images/logo-white-back.svg';
 
-import Logo from '../assets/images/logo-white-back.svg';
-
-export default function Header(props) {
+export default function ClearHeader(props) {
   return (
     <div className="header-white-fullscreen">
       <div className="header-logo">

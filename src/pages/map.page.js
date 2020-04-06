@@ -16,7 +16,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import Header from '../components/headerWhite';
+import ClearHeader from '../components/headers/header-clear';
 import FabBlueBottom from '../components/fabBlueBottom';
 import NavBottom from '../components/navBottom';
 import SearchGoogleMapInput from '../components/searchGoogleMapInput';
@@ -156,15 +156,14 @@ export default function MapPage() {
   const classes = useStyles();
   const [open, setOpen] = useState(true);
 
-  const [anchor, setAnchor] = useState('left');
+  // const [anchor, setAnchor] = useState('left');
+  const [anchor] = useState('left');
 
   const handleDrawerOpen = () => {
-    console.log(open);
     setOpen(true);
   };
 
   const handleDrawerClose = () => {
-    console.log(open);
     setOpen(false);
   };
 
@@ -202,10 +201,10 @@ export default function MapPage() {
     const { width } = useWindowDimensions();
 
     if (width <= 576) {
-      setAnchor('bottom');
+      // setAnchor('bottom');
       setOpen(false);
     } else {
-      setAnchor('left');
+      // setAnchor('left');
     }
 
     return <></>;
@@ -284,7 +283,7 @@ export default function MapPage() {
   return (
     <div className="test-map-page">
       <Component></Component>
-      <Header></Header>
+      <ClearHeader></ClearHeader>
       <TabPanel value={value} index={0}>
         <AppBar
           className={
@@ -363,7 +362,7 @@ export default function MapPage() {
                     filterUnits="userSpaceOnUse"
                     colorInterpolationFilters="sRGB"
                   >
-                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                    <feFlood floodOpacity="0" result="BackgroundImageFix" />
                     <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
                     <feOffset dx="3" dy="3" />
                     <feGaussianBlur stdDeviation="7.5" />

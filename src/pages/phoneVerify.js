@@ -7,7 +7,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Axios from 'axios';
 
-import Header from '../components/header-round';
+import RoundHeader from '../components/headers/header-round';
 import ProgressBottom from '../components/progressBottom';
 import PhoneNumber from '../components/phoneNumber';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -52,10 +52,10 @@ export default function PhoneVerify({ props }) {
   return (
     <div className="background-responsive">
       <Box className="phone-verify">
-        <Header>
+        <RoundHeader>
           <h1 style={{ justifyContent: 'center', margin: '0' }}>Phone Number</h1>
           <p>Enter your phone number to get started.</p>
-        </Header>
+        </RoundHeader>
 
         {state.loading === false ? (
           <form noValidate autoComplete="off" className="body-phone-verify" style={{ textAlign: 'center' }}>
