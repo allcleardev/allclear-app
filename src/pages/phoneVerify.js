@@ -82,12 +82,12 @@ export default function PhoneVerify({ props }) {
               </div>
 
               <div className="button-container">
-                <Link to="/create-account" className="hide-mobile">
+                <Link to="/login">
                   <Button
                     variant="contained"
                     className="back"
                   >
-                    Back
+                    Sign into Existing Account
                   </Button>
                 </Link>
                 <Button
@@ -98,6 +98,7 @@ export default function PhoneVerify({ props }) {
                 >
                   Send Verification Code
                 </Button>
+
               </div>
             </Form>
             :
