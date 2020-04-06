@@ -1,11 +1,10 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Container';
 import { Grid, Avatar, IconButton, Button } from '@material-ui/core';
 import Header from '../../components/homescreen-header';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import avatar from '../../assets/images/avatar.svg'
+import avatar from '../../assets/images/avatar.svg';
 import NavBottom from '../../components/navBottom';
 import UserAvatar from '@material-ui/core/CardMedia';
 
@@ -26,7 +25,7 @@ class ShareApp extends React.Component {
               style={{ display: 'flex', justifyContent: 'space-between' }}
             >
               <Avatar className="shareImg">
-                <img src={avatar} ></img>
+                <img src={avatar} alt="shareImg" ></img>
               </Avatar>
               <div
                 style={{
@@ -157,14 +156,12 @@ class ShareApp extends React.Component {
                           }
                           color="primary" >
                           Invite Friends
-                </Button>
+                        </Button>
                       </Grid>
                     </Grid>
                   </Grid>
                 </CardContent>
               </Card>
-
-
               <h2 className="body-title">Public</h2>
               <Card className="shareCardContent">
                 <Grid container justify="space-between">
@@ -188,8 +185,8 @@ class ShareApp extends React.Component {
                       </p>
                     </CardContent>
                   </Grid>
-                  <Grid item xs={2} style={{margin:'auto',textAlign:'center'}}>
-                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                  <Grid item xs={2} style={{ margin: 'auto', textAlign: 'center' }}>
+                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                   </Grid>
                 </Grid>
               </Card>
@@ -215,8 +212,8 @@ class ShareApp extends React.Component {
                       </p>
                     </CardContent>
                   </Grid>
-                  <Grid item xs={2} style={{margin:'auto',textAlign:'center'}}>
-                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                  <Grid item xs={2} style={{ margin: 'auto', textAlign: 'center' }}>
+                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                   </Grid>
                 </Grid>
               </Card>
@@ -242,8 +239,8 @@ class ShareApp extends React.Component {
                       </p>
                     </CardContent>
                   </Grid>
-                  <Grid item xs={2} style={{margin:'auto',textAlign:'center'}}>
-                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                  <Grid item xs={2} style={{ margin: 'auto', textAlign: 'center' }}>
+                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                   </Grid>
                 </Grid>
               </Card>
