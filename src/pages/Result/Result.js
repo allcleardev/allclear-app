@@ -1,13 +1,19 @@
-import React, {Fragment} from 'react';
-// import states from './Result.state';
-import upload from '../../assets/images/uploadicon.png';
-import logo from '../../assets/images/Union.png';
+import React from 'react';
 import Axios from 'axios';
-import {Grid} from '@material-ui/core';
+import { Link } from 'react-router-dom';
+
+import Header from '../../components/header-round';
+import ProgressBottom from '../../components/progressBottom';
+import states from './Result.state';
+
+import Form from '@material-ui/core/Container';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import Box from '@material-ui/core/Container';
+import { withStyles } from '@material-ui/core/styles';
+import { Button, Grid, Switch, Select, MenuItem, FormControl, FormControlLabel } from '@material-ui/core';
+
 
 class Result extends React.Component {
-
   constructor() {
     super();
     this.getTestTypes = this.getTestTypes.bind(this);
@@ -24,44 +30,50 @@ class Result extends React.Component {
   };
 
   getTestTypes() {
-    this.setState({loading: true});
+    this.setState({ loading: true });
 
     Axios.get('https://api-dev.allclear.app/types/testCriteria', {})
       .then((response) => {
         console.log(response);
 
-        this.setState({testTypes: response.data});
-        this.setState({loading: false});
+        this.setState({ testTypes: response.data });
+        this.setState({ loading: false });
       })
       .catch((error) => {
         console.log(error);
-        this.setState({loading: false});
+        this.setState({ loading: false });
       });
   };
 
   getTestLocations() {
-    this.setState({loading: true});
+    this.setState({ loading: true });
 
     Axios.get('https://api-dev.allclear.app/types/facilityTypes', {})
       .then((response) => {
         console.log(response);
 
-        this.setState({testLocations: response.data});
-        this.setState({loading: false});
+        this.setState({ testLocations: response.data });
+        this.setState({ loading: false });
       })
       .catch((error) => {
         console.log(error);
-        this.setState({loading: false});
+        this.setState({ loading: false });
       });
   };
 
   handleTestTypeInputChange(event) {
     console.log('event', event.target.value);
+    this.setState({
+      selectedTestType: event.target.value
+    });
     sessionStorage.setItem('testTypes', JSON.stringify(event.target.value));
   };
 
   handleTestLocationInputChange(event) {
     console.log('event', event.target.value);
+    this.setState({
+      selectedTestLocation: event.target.value
+    });
     sessionStorage.setItem('testLocations', JSON.stringify(event.target.value));
   };
 
@@ -139,7 +151,7 @@ class Result extends React.Component {
   async submitResults() {
     const sessionId = sessionStorage.getItem('sessid');
 
-    this.setState({loading: true});
+    this.setState({ loading: true });
 
     const payload = this.buildPayload();
 
@@ -156,212 +168,177 @@ class Result extends React.Component {
         this.history.push('/home');
       })
       .catch((error) => {
-        this.setState({loading: false});
+        this.setState({ loading: false });
       });
   };
 
   render() {
-    const grid = (<Grid
-      container
-      justify="center">
-      <Grid item xs={12} sm={6}>
-        <LinearProgress color="primary" value="50"/>
+    const grid = (
+      <Grid container justify="center">
+        <Grid item xs={12} sm={6}>
+          <LinearProgress color="primary" value="50" />
+        </Grid>
       </Grid>
-    </Grid>);
+    );
+
+    const IOSSwitch = withStyles((theme) => ({
+      root: {
+        width: 42,
+        height: 26,
+        padding: 0,
+        margin: theme.spacing(1),
+      },
+      switchBase: {
+        padding: 1,
+        '&$checked': {
+          transform: 'translateX(16px)',
+          color: theme.palette.common.white,
+          '& + $track': {
+            backgroundColor: '#52d869',
+            opacity: 1,
+            border: 'none',
+          },
+        },
+        '&$focusVisible $thumb': {
+          color: '#52d869',
+          border: '6px solid #fff',
+        },
+      },
+      thumb: {
+        width: 24,
+        height: 24,
+      },
+      track: {
+        borderRadius: 26 / 2,
+        border: `1px solid ${theme.palette.grey[400]}`,
+        backgroundColor: theme.palette.grey[50],
+        opacity: 1,
+        transition: theme.transitions.create(['background-color', 'border']),
+      },
+      checked: {},
+      focusVisible: {},
+    }))(({ classes, ...props }) => {
+      return (
+        <Switch
+          focusVisibleClassName={classes.focusVisible}
+          disableRipple
+          classes={{
+            root: classes.root,
+            switchBase: classes.switchBase,
+            thumb: classes.thumb,
+            track: classes.track,
+            checked: classes.checked,
+          }}
+          {...props}
+        />
+      );
+    });
 
     return (
-      <Fragment>
-        {this.state.loading === false ? (
-          <div className="WrapCondition">
-            <div className="wrapInnerPart">
-              <div className="container">
-                <div className="row">
-                  <div className="col-lg-6 text-left">
-                    <div className="conditionLeft">
-                      <img alt="logo" src={logo}/>
-                    </div>
-                  </div>
-                  <div className="col-lg-6 text-right">
-                    <div className="conditionRight">
-                      <li>About Us</li>
-                      <li>Help</li>
-                    </div>
-                  </div>
-                </div>
-                <div className="bodyWdth">
-                  <div className="conditionHeading text-center">
-                    <h2>Test Results</h2>
-                    <p>
-                      if you've taken a COVID-19 test already, please submit test details and results. Refer to our{' '}
-                      <a className="policyClr" href="/">
-                        Privacy Policy
-                      </a>{' '}
-                      for more details.
-                    </p>
-                  </div>
+      <div className="background-responsive">
+        <div className="results onboarding-page">
+          <Header>
+            <h1 className="heading">Test Results</h1>
+            <h2 className="sub-heading">
+              If you've taken a COVID-19 test already, please submit test details and results. Refer to our
+                <a href="/"> Privacy Policy </a>for more details.
+              </h2>
+          </Header>
+          {this.state && this.state.loading === false ?
+            <Form noValidate autoComplete="off" className="onboarding-body">
+              <Box maxWidth="md">
+                <section className="section">
 
-                  <div className="fieldArea003">
-                    <div className="row">
-                      <div className="col-lg-6 text-left">
-                        <div className="BGleft">
-                          <div className="BGheadings">
-                            <div className="bg1 bgsyle1">
-                              <strong>Test Type</strong> (Required)
-                            </div>
-                            <div className="bg2 bgsyle2">
-                              We can give localized test center recommendations with your location.
-                            </div>
-                            <p>
-                              <select className="selectBtn" onChange={this.handleTestTypeInputChange}>
-                                {this.state.testTypes &&
-                                this.state.testTypes.map((res) => {
-                                  return <option value={res}>{res.name}</option>;
-                                })}
-                              </select>
-                            </p>
-                          </div>
-                        </div>
-                        <div className="xyz001">
-                          <div className="xyz002 clrWhite">Did you test positive?</div>
-                          <div className="xyz003">
-                            <label className="switch">
-                              <input type="checkbox" checked/>
-                              <span className="slider round"></span>
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-lg-6 text-left">
-                        <div className="BGright">
-                          <div className="BGheadings">
-                            <div className="bg1 bgsyle1">
-                              <strong>Test Location</strong> (Required)
-                            </div>
-                            <div className="bg2 bgsyle2">
-                              We can give localized test center recommendations with your location.
-                            </div>
-                            <p>
-                              <select className="selectBtn" onChange={this.handleTestLocationInputChange}>
-                                {this.state.testLocations &&
-                                this.state.testLocations.map((res) => {
-                                  return <option value={res}>{res.name}</option>;
-                                })}
-                              </select>
-                            </p>
-                          </div>
-                        </div>
-                        <div className="xyz001">
-                          <div className="xyz002 clrWhite">
-                            Upload Image
-                            <div className="vrfy">Verify your results by uploading an image</div>
-                          </div>
-                          <div className="xyz003">
-                            <div className="vrChoseBtn">
-                              <a href="/">Choose File</a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="footerBtn mtAnable">
-                  <div className="row">
-                    <div className="col-lg-6 col-md-6 text-left">
-                      <button className="backBtn pure-material-button-contained">Back</button>
-                      <a className="skipBtn" href="/">
-                        Skip
-                      </a>
-                    </div>
-                    <div className="col-lg-6 col-md-6 text-right">
-                      <button className="nextBtn pure-material-button-contained" onClick={this.submitResults}>
-                        Submit Test Results
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        ) : (grid)
-        }
-
-        <div className="conditonRSP">
-          <div className="mainWrapper">
-            <div className="wrapScreen">
-              <div className="screenHead">
-                <div style={{paddingTop: 25}}></div>
-                <div className="arrow">
-                  <i className="fa fa-angle-left" aria-hidden="true"></i>
-                </div>
-                <div className="headingTxt">Test Results</div>
-                <div className="subHeading">
-                  If you've taken a COVID-19 test, please submit your results here. These results are private unless you
-                  Choose to share.
-                </div>
-              </div>
-              <div className="workSpaceArea">
-                <div className="inputFeild">
-                  <p className="inputHeading">Test Type</p>
-                  <p>
-                    <select className="selectBTNM">
-                      <option>Select Test</option>
-                      <option>demo</option>
-                      <option>demo</option>
-                    </select>
-                  </p>
-                </div>
-
-                <div className="inputFeild">
-                  <p className="inputHeading">Test Location</p>
-                  <p>
-                    <select className="selectBTNM">
-                      <option>Select Location</option>
-                      <option>demo</option>
-                      <option>demo</option>
-                    </select>
-                  </p>
-                </div>
-
-                <div className="xyz001">
-                  <div className="xyz002">Did you test positive?</div>
-                  <div className="xyz003">
-                    <label className="switch">
-                      <input type="checkbox"/>
-                      <span className="slider round"></span>
+                  <FormControl variant="outlined">
+                    <label className="label" htmlFor="testTypes" >
+                      <strong>Test Type</strong> (Required) <br />
+                      <span className="description"> We can give localized test center recommendations with your location.</span>
                     </label>
-                  </div>
-                </div>
+                    <Select
+                      id="testTypes"
+                      className="input"
+                      displayEmpty
+                      inputProps={{ 'aria-label': 'Without label' }}
+                      value={this.state.selectedTestType ? this.state.selectedTestType : ""}
+                      onChange={this.handleTestTypeInputChange}
+                    >
+                      <MenuItem disabled value="">
+                        Select Test
+                      </MenuItem>
+                      {this.state.testTypes && this.state.testTypes.map((res) => {
+                        return <MenuItem value={res}>{res.name}</MenuItem>;
+                      })}
+                    </Select>
+                  </FormControl>
 
-                <div className="xyz001">
-                  <div className="xyz002">
-                    <div>Upload Image</div>
-                    <div className="txt-1">Verify your results by uploading an image</div>
-                  </div>
-                  <div className="xyz003">
-                    <img alt={'upload'} src={upload}/>
-                  </div>
-                </div>
+                  <FormControl variant="outlined">
+                    <label className="label" htmlFor="testTypes" >
+                      <strong>Test Location</strong> (Required) <br />
+                      <span className="description"> We can give localized test center recommendations with your location.</span>
+                    </label>
+                    <Select
+                      id="testLocation"
+                      className="input"
+                      displayEmpty
+                      inputProps={{ 'aria-label': 'Without label' }}
+                      value={this.state.selectedTestLocation ? this.state.selectedTestLocation : ""}
+                      onChange={this.handleTestLocationInputChange}
+                    >
+                      <MenuItem disabled value="">
+                        Choose Location
+                      </MenuItem>
+                      {this.state.testLocations && this.state.testLocations.map((res) => {
+                        return <MenuItem value={res}>{res.name}</MenuItem>;
+                      })}
+                    </Select>
+                  </FormControl>
 
-                <div className="policyBtn">
-                  <a href="/">Privacy Policy</a>
-                </div>
-                <div className="wrapBtn">
-                  <button>Submit Test Result</button>
-                </div>
-                <div className="policyBtn">
-                  <a className="skipBtn" href="/">
-                    Skip
-                  </a>
-                </div>
+                  <article className="article">
+                    <label className="label">
+                      <strong>Did you test positive?</strong>
+                    </label>
+                    <FormControlLabel
+                      className="toggle"
+                      control={<IOSSwitch name="checkedB" />} // TODO: https://material-ui.com/components/switches/#customized-switches
+                    />
+                  </article>
+
+                  <article className="article">
+                    <label className="label">
+                      <strong>Upload Image</strong> <br />
+                      <span className="description">Verify your results by uploading an image</span>
+                    </label>
+                      ((Choose File))
+                    </article>
+
+                </section>
+              </Box>
+              <div className="button-container">
+                <Link to="/symptoms" className="hide-mobile">
+                  <Button
+                    variant="contained"
+                    className="back"
+                  >Back
+                    </Button>
+                </Link>
+                <Link to="/">Skip</Link> {/* click to submit? */}
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className="next"
+                  onClick={this.submitResults}
+                >Next
+                  </Button>
               </div>
-
-              <div style={{marginBottom: 20 + 'px', float: 'left', width: 100 + '%'}}></div>
-            </div>
-          </div>
+            </Form>
+            : (grid)}
+          {
+            this.state && this.state.loading === false ?
+              <ProgressBottom progress="56%"></ProgressBottom>
+              : null
+          }
         </div>
-      </Fragment>
+      </div>
     );
   }
 }

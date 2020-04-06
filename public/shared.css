@@ -685,10 +685,6 @@ input:checked + .slider:before {
 .symptomsWrap li {
   width: 345px;
 }
-.policyClr {
-  color: #0342bd;
-  font-weight: bold;
-}
 
 .selectBtn {
   border: 0px;

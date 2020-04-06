@@ -6,6 +6,7 @@
 @import "background";
 @import "conditions";
 @import "symptoms";
+@import "result";
 @import "phone-verify";
 @import "phone-verification";
 @import "test";
@@ -43,6 +44,11 @@ button {
   flex-direction: column;
   height: 100%;
 
+  /* .onboarding-page anchor*/
+  a {
+    color: $navy;
+  }
+
   /* .onboarding-page button-container*/
   .button-container {
     display: flex;
@@ -73,16 +79,15 @@ button {
   align-items: center;
   color: $grey-text;
 
+  @media(min-width: $md) {
+    color: #FFF;
+  }
 
   /* .onboarding-body anchor*/
   a {
     color: $primary-color;
-  }
 
-  @media(min-width: $md) {
-    color: #FFF;
-
-    a {
+    @media(min-width: $md) {
       color: $navy;
     }
   }

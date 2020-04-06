@@ -89,7 +89,7 @@ class Symptom extends React.Component {
                 >Back
                 </Button>
               </Link>
-              <Link to="/result">
+              <Link to="/results">
                 <Button
                   variant="contained"
                   color="primary"

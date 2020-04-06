@@ -2,6 +2,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  align-items: center;
   min-height: 206px;
   margin-bottom: 34px;
   padding: 18px 0 50px;
@@ -25,6 +26,8 @@
   }
 
   .sub-heading {
+    max-width: 950px;
+    margin: 0 15px;
     letter-spacing: -0.408px;
     font-weight: 500;
     font-size: 17px;
@@ -37,6 +40,7 @@
   .mobile-content {
     display: flex;
     flex-direction: column;
+    align-self: flex-start;
 
     @media (min-width: $md) {
       display: none;
