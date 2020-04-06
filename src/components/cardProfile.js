@@ -1,19 +1,19 @@
-import React from "react";
+import React from 'react';
 
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import { Grid, Avatar, IconButton } from "@material-ui/core";
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import { Grid, Avatar, IconButton } from '@material-ui/core';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
-    alignItems: "flex-start",
-    justifyContent: "flex-start",
-    marginTop: "-60px",
+    display: 'flex',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    marginTop: '-60px',
     borderRadius: 15,
     boxShadow:
-      "0px 24px 32px rgba(50, 50, 71, 0.08), 0px 16px 16px rgba(50, 50, 71, 0.08)"
+      '0px 24px 32px rgba(50, 50, 71, 0.08), 0px 16px 16px rgba(50, 50, 71, 0.08)'
   },
   profileName: {
     fontSize: 15,
@@ -22,8 +22,8 @@ const useStyles = makeStyles(theme => ({
     margin: 0
   },
   details: {
-    display: "flex",
-    flexDirection: "column"
+    display: 'flex',
+    flexDirection: 'column'
   },
   small: {
     width: 75,
@@ -31,17 +31,17 @@ const useStyles = makeStyles(theme => ({
     margin: 16
   },
   content: {
-    width: "auto"
+    width: 'auto'
   },
   cover: {
     width: 75,
     height: 75,
-    borderRadius: "50%",
-    backgroundColor: "red"
+    borderRadius: '50%',
+    backgroundColor: 'red'
   },
   controls: {
-    display: "flex",
-    alignItems: "center",
+    display: 'flex',
+    alignItems: 'center',
     paddingLeft: theme.spacing(1),
     paddingBottom: theme.spacing(1)
   }
@@ -57,20 +57,20 @@ export default function UserProfileCard({
   const classes = useStyles();
 
   return (
-    <Grid container spacing={3} style={{ justifyContent: "center" }}>
+    <Grid container spacing={3} style={{ justifyContent: 'center' }}>
       <Grid item xs={12} sm={11}>
         <Card
           className={classes.root}
-          style={{ display: "flex", justifyContent: "space-between" }}
+          style={{ display: 'flex', justifyContent: 'space-between' }}
         >
           <Avatar className={classes.small}>
             <img src={avatar} alt={userName}></img>
           </Avatar>
           <div
             style={{
-              display: "flex",
-              justifyContent: "space-between",
-              width: "100%"
+              display: 'flex',
+              justifyContent: 'space-between',
+              width: '100%'
             }}
           >
             <CardContent className={classes.content}>

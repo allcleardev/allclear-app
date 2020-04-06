@@ -1,10 +1,10 @@
 import React from 'react';
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-  } from "react-router-dom";
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
@@ -27,21 +27,21 @@ export default function SimpleBottomNavigation() {
   const [value, setValue] = React.useState(0);
 
   return (
-        <BottomNavigation
-        value={value}
-        onChange={(event, newValue) => {
-            setValue(newValue);
-        }}
-        showLabels
-        className={classes.root}
-        >
-            <BottomNavigationAction
-                label="Am I sick?" icon={<AssignmentTurnedInIcon />}
-                component={Link}
-                to="/"
-            />
-            {/* <BottomNavigationAction label="Health Status" icon={<AssignmentIndIcon />} component={Link} to="/health"/> */}
-            <BottomNavigationAction label="Nearby Testing" icon={<MapIcon />} component={Link} to="/location"/>
-        </BottomNavigation>
+    <BottomNavigation
+      value={value}
+      onChange={(event, newValue) => {
+        setValue(newValue);
+      }}
+      showLabels
+      className={classes.root}
+    >
+      <BottomNavigationAction
+        label="Am I sick?" icon={<AssignmentTurnedInIcon />}
+        component={Link}
+        to="/"
+      />
+      {/* <BottomNavigationAction label="Health Status" icon={<AssignmentIndIcon />} component={Link} to="/health"/> */}
+      <BottomNavigationAction label="Nearby Testing" icon={<MapIcon />} component={Link} to="/location"/>
+    </BottomNavigation>
   );
 }

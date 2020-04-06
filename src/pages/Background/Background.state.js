@@ -7,5 +7,5 @@ const states = (function states() {
     exposureObj: exposureObjDefault(),
     exposures: [],
   };
-})();
+}());
 export default states;

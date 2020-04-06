@@ -1,28 +1,28 @@
-import React from "react";
-import { makeStyles } from "@material-ui/styles";
-import Box from "@material-ui/core/Box";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Avatar from "@material-ui/core/Avatar";
-import Divider from "@material-ui/core/Divider";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
+import React from 'react';
+import { makeStyles } from '@material-ui/styles';
+import Box from '@material-ui/core/Box';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Avatar from '@material-ui/core/Avatar';
+import Divider from '@material-ui/core/Divider';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   card: {
     borderRadius: 12,
     minWidth: 256,
-    textAlign: "center"
+    textAlign: 'center'
   },
   large: {
     width: theme.spacing(12),
     height: theme.spacing(12),
-    margin: "auto"
+    margin: 'auto'
   },
   heading: {
     fontSize: 18,
-    fontWeight: "bold",
-    letterSpacing: "0.5px",
+    fontWeight: 'bold',
+    letterSpacing: '0.5px',
     marginTop: theme.spacing(4),
     marginBottom: 0
   },

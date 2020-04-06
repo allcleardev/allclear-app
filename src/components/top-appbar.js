@@ -4,10 +4,10 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import LinkIcon from '@material-ui/icons/Link';
 
-import login from '../pages/login'
+import login from '../pages/login';
 
 
 const ShareButton = styled(Button)({
@@ -20,7 +20,7 @@ const ShareButton = styled(Button)({
   padding: '0 30px',
 });
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
@@ -45,15 +45,15 @@ export default function ButtonAppBar() {
 
   return (
     <div className={classes.root}>
-        <AppBar position="static" className={classes.appbar}>
-            <Toolbar>
-            <Typography variant="h6" className={classes.title}>
+      <AppBar position="static" className={classes.appbar}>
+        <Toolbar>
+          <Typography variant="h6" className={classes.title}>
                 All-Clear
-            </Typography>
-            {/* <Button className={classes.menuButton} color="inherit" component={Link} to="/login">Login / Signup</Button> */}
-            <Button className={classes.menuButton} variant="contained" color="primary" endIcon={<LinkIcon />}>Share</Button>
-            </Toolbar>
-        </AppBar>
+          </Typography>
+          {/* <Button className={classes.menuButton} color="inherit" component={Link} to="/login">Login / Signup</Button> */}
+          <Button className={classes.menuButton} variant="contained" color="primary" endIcon={<LinkIcon />}>Share</Button>
+        </Toolbar>
+      </AppBar>
     </div>
   );
 }

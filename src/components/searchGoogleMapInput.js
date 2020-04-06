@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 
-import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import InputBase from "@material-ui/core/InputBase";
-import IconButton from "@material-ui/core/IconButton";
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import InputBase from '@material-ui/core/InputBase';
+import IconButton from '@material-ui/core/IconButton';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {},
   input: {
     marginLeft: theme.spacing(1),
@@ -28,7 +28,7 @@ export default function SearchGoogleMapInput({ style }) {
       <InputBase
         className={classes.input}
         placeholder="Search by Location"
-        inputProps={{ "aria-label": "Search by Location" }}
+        inputProps={{ 'aria-label': 'Search by Location' }}
       />
       <IconButton
         type="submit"
