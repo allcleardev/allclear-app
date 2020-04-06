@@ -17,7 +17,7 @@ steps:
   displayName: 'Installing node modules'
 
 - script: |
-    npm run build
+    npm run lint && npm run build
   displayName: 'Running build'
 
 # Save artifacts to refer them in release builds
