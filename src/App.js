@@ -28,6 +28,7 @@ import Background from './pages/Background/Background';
 import FindTest from './pages/ResultDetail/FindTest';
 import ResultDetail from './pages/ResultDetail/ResultDetail';
 import AddTest from './pages/Test/Add-test';
+import ShareApp from './pages/Share/Share';
 import './styles/app.scss';
 
 export default function App() {
@@ -65,6 +66,7 @@ export default function App() {
       <Route path="/location" component={Location} />
       <Route path="/test" component={Test} />
       <Route path="/find-test" component={FindTest} />
+      <Route path="/share" component={ShareApp} />
     </Router>
   );
 }
