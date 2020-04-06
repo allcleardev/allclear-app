@@ -38,6 +38,7 @@ export default function App() {
       <Route path="/phone-verify" component={PhoneVerify} />
       <Route path="/phone-verification" component={PhoneVerifyCode} />
       <Route path="/phone-verifying" component={PhoneVerifying} /> {/* Note: This is a loading screen */}
+      <Route path="/auth-verification" component={AuthVerifyCode} /> {/* Note: This is a loading screen */}
       <Route path="/background" component={Background} />
       <Route path="/conditions" component={Conditions} />
       <Route path="/symptoms" component={Symptoms} />

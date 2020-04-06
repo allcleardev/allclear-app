@@ -8,6 +8,10 @@ import ProgressBottom from '../../components/progressBottom';
 import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
 import { Button, Chip, TextField } from '@material-ui/core';
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng,
+} from 'react-places-autocomplete';
 
 class Background extends React.Component {
   constructor(props) {
