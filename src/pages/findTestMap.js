@@ -35,44 +35,44 @@ import SampleMap from "../assets/images/dallas-map.png";
 
 const drawerWidth = 400;
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex"
+    display: "flex",
   },
   appBar: {
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    })
+      duration: theme.transitions.duration.leavingScreen,
+    }),
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: drawerWidth,
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen
-    })
+      duration: theme.transitions.duration.enteringScreen,
+    }),
   },
   menuButton: {
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(2),
   },
   hide: {
-    display: "none"
+    display: "none",
   },
   drawer: {
     // width: drawerWidth,
-    flexShrink: 0
+    flexShrink: 0,
   },
   content: {
-    marginLeft: -drawerWidth
+    marginLeft: -drawerWidth,
   },
   contentShift: {
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen
+      duration: theme.transitions.duration.enteringScreen,
     }),
-    marginLeft: 0
-  }
+    marginLeft: 0,
+  },
 }));
 
 function CardMapLocation({
@@ -81,7 +81,7 @@ function CardMapLocation({
   description,
   status,
   service_time,
-  commute
+  commute,
 }) {
   const classes = useStyles();
 
@@ -170,13 +170,13 @@ function TabPanel(props) {
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired
+  value: PropTypes.any.isRequired,
 };
 
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
@@ -209,7 +209,7 @@ export default function FindTestMap() {
     const { innerWidth: width, innerHeight: height } = window;
     return {
       width,
-      height
+      height,
     };
   }
 
@@ -247,7 +247,7 @@ export default function FindTestMap() {
     const [open, setOpen] = React.useState(false);
     const [scroll, setScroll] = React.useState("paper");
 
-    const handleClickOpen = scrollType => () => {
+    const handleClickOpen = (scrollType) => () => {
       setOpen(true);
       setScroll(scrollType);
     };
@@ -332,14 +332,13 @@ export default function FindTestMap() {
   return (
     <div className="test-map-page">
       <Component></Component>
-      <Header>
-      </Header>
+      <Header></Header>
       <TabPanel value={value} index={0}>
         <AppBar
           className={
             "btn-hide-nav " +
             clsx(classes.appBar, {
-              [classes.appBarShift]: open
+              [classes.appBarShift]: open,
             })
           }
           style={{ zIndex: "2" }}
@@ -508,7 +507,7 @@ export default function FindTestMap() {
         </Drawer>
         <main
           className={clsx(classes.content, {
-            [classes.contentShift]: open
+            [classes.contentShift]: open,
           })}
         >
           <div className="map-fullscreen">
@@ -523,7 +522,7 @@ export default function FindTestMap() {
           style={{
             position: "fixed",
             bottom: 70,
-            right: 20
+            right: 20,
           }}
         >
           <svg
