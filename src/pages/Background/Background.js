@@ -19,6 +19,8 @@ class Background extends React.Component {
     this.handleLocationChange = this.handleLocationChange.bind(this);
     this.handleDoBChange = this.handleDoBChange.bind(this);
     this.getExposures = this.getExposures.bind(this);
+    this.handleTextChange = this.handleTextChange.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
   }
 
   componentDidMount() {
@@ -66,11 +68,11 @@ class Background extends React.Component {
     sessionStorage.setItem('exposures', JSON.stringify(exposures));
   }
 
-  handleTextChange = (address) => {
+  handleTextChange(address) {
     this.setState({ address });
   };
 
-  handleSelect = (address) => {
+  handleSelect(address) {
     this.setState({ address });
 
     geocodeByAddress(address)

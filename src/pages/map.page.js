@@ -321,7 +321,7 @@ export default function MapPage() {
                       className={classes.button}
                       startIcon={SettingsSVG()}
                       onClick={() => {
-                        alert('clicked search filters')
+                        alert('clicked search filters');
                       }}
                     >
                       Edit Search Filters
