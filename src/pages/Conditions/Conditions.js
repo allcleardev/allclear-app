@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
+import {bindAll} from 'lodash';
 
-import Header from '../../components/header-round';
+import RoundHeader from '../../components/headers/header-round';
 import ProgressBottom from '../../components/progressBottom';
 import states from './Conditions.state';
 
@@ -10,28 +11,38 @@ import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
 import { Button, Chip } from '@material-ui/core';
 
-class Condition extends React.Component {
+class Condition extends Component {
   state = states;
 
-  componentDidMount = () => {
+  constructor() {
+    super();
+    bindAll(this, [
+      'componentDidMount',
+      'getConditions',
+      'selectAll',
+      'handleChange',
+    ]);
+  }
+
+  componentDidMount() {
     this.getConditions();
   };
 
-  getConditions = () => {
+  getConditions(){
     this.setState({ loading: true });
 
-    Axios.get(
-      'https://api-dev.allclear.app/types/conditions', {}
-    ).then((response) => {
-      this.setState({ conditions: response.data });
-      this.setState({ loading: false });
-    }).catch((error) => {
-      console.log(error);
-      this.setState({ loading: false });
-    });
+    Axios.get('https://api-dev.allclear.app/types/conditions', {})
+      .then((response) => {
+        this.setState({ conditions: response.data });
+        this.setState({ loading: false });
+      })
+      .catch((error) => {
+        console.log(error);
+        this.setState({ loading: false });
+      });
   };
 
-  selectAll = () => {
+  selectAll () {
     let { conditions } = this.state;
     conditions.filter((condition) => {
       condition.isActive = true;
@@ -40,7 +51,7 @@ class Condition extends React.Component {
     sessionStorage.setItem('conditions', JSON.stringify(conditions));
   };
 
-  handleChange = (event) => {
+  handleChange(event) {
     let { conditions } = this.state;
     conditions.filter((condition) => {
       if (condition.name === event.name) {
@@ -55,17 +66,18 @@ class Condition extends React.Component {
     return (
       <div className="background-responsive">
         <div className="conditions onboarding-page">
-          <Header>
+          <RoundHeader>
             <h1 className="heading">Conditions</h1>
             <h2 className="sub-heading">Some test centers are only seeing patients with certain health conditions.</h2>
-          </Header>
+          </RoundHeader>
           <Form noValidate autoComplete="off" className="onboarding-body">
             <Box maxWidth="md">
               <label className="label">
-                <strong onClick={() => this.selectAll()}>Select all that apply.</strong>
+                <strong>Select all that apply.</strong>
               </label>
               <div className="chips-group">
-                {this.state.conditions && this.state.conditions.map((res) => {
+                {this.state.conditions &&
+                this.state.conditions.map((res) => {
                   return (
                     <Chip
                       key={res.id}
@@ -73,26 +85,20 @@ class Condition extends React.Component {
                       label={res.name}
                       variant="outlined"
                       onClick={() => this.handleChange(res)}
-                    >
-                    </Chip>
+                    ></Chip>
                   );
                 })}
               </div>
             </Box>
             <div className="button-container">
               <Link to="/background" className="hide-mobile">
-                <Button
-                  variant="contained"
-                  className="back"
-                >Back
+                <Button variant="contained" className="back">
+                  Back
                 </Button>
               </Link>
               <Link to="/symptoms">
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className="next"
-                >Next
+                <Button variant="contained" color="primary" className="next">
+                  Next
                 </Button>
               </Link>
             </div>

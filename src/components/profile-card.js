@@ -12,25 +12,25 @@ const useStyles = makeStyles((theme) => ({
   card: {
     borderRadius: 12,
     minWidth: 256,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   large: {
     width: theme.spacing(12),
     height: theme.spacing(12),
-    margin: 'auto'
+    margin: 'auto',
   },
   heading: {
     fontSize: 18,
     fontWeight: 'bold',
     letterSpacing: '0.5px',
     marginTop: theme.spacing(4),
-    marginBottom: 0
+    marginBottom: 0,
   },
   subheader: {
     fontSize: 14,
     color: theme.palette.grey[500],
-    marginBottom: theme.spacing(2)
-  }
+    marginBottom: theme.spacing(2),
+  },
 }));
 
 export default function ProfileCard() {

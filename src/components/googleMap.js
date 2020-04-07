@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import GoogleMapReact, { Marker } from 'google-map-react';
+import GoogleMapReact from 'google-map-react';
 import MapMarker from './map-components/mapMarker.jsx';
 import { GetNewPosition } from '../services/google-location-svc.js';
 
@@ -31,11 +31,11 @@ class SimpleMap extends Component {
   async onMarkerDragEnd(evt) {
     const result = await GetNewPosition(evt.center.lat(), evt.center.lng(), 100);
     this.setState({ result: result.data.records });
-    this.props.addLocation(result.data.records);
   }
   async onMarkerZoomChanged(evt) {
     const result = await GetNewPosition(evt.center.lat(), evt.center.lng(), 400);
     this.setState({ result: result.data.records });
+    this.props.addLocation(result.data.records);
   }
 
   render() {
@@ -50,7 +50,9 @@ class SimpleMap extends Component {
           onZoomChanged={(evt) => this.onMarkerDragEnd(evt)}
         >
           {result.map((data, index) => (
-            <MapMarker lat={data.latitude} lng={data.longitude} text={index + 1} key={index} />
+            <MapMarker
+              key={index}
+              lat={data.latitude} lng={data.longitude} text={index + 1} />
           ))}
         </GoogleMapReact>
       </div>

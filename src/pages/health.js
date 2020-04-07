@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
@@ -7,8 +6,8 @@ import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles((theme) => ({
   profile: {
-    marginTop: theme.spacing(2)
-  }
+    marginTop: theme.spacing(2),
+  },
 }));
 
 export default function Health() {

@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
-import {makeStyles} from '@material-ui/styles';
-import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
+import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/styles';
+import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
 import './map.css';
 import locations from '../hooks/airtable';
 import GeoSearch from './map-components/geosearch';
@@ -31,15 +31,15 @@ function MapPoint(props) {
   return (
     <Marker position={[props.Latitude, props.Longitude]} key={props.idx}>
       <Popup>
-        Name: {props.Name} <br/>
-        Address: {props.Address} <br/>
-        Hours: {props['Hours']} <br/>
-        Appointment Needed: {props['Appointment Needed']} <br/>
-        Drive Through: {props['Drive Through'].toString()} <br/>
+        Name: {props.Name} <br />
+        Address: {props.Address} <br />
+        Hours: {props['Hours']} <br />
+        Appointment Needed: {props['Appointment Needed']} <br />
+        Drive Through: {props['Drive Through'].toString()} <br />
         <a href={props['Main Website']} rel="noopener noreferrer" target="_blank">
           Website
         </a>{' '}
-        <br/>
+        <br />
       </Popup>
     </Marker>
   );
@@ -52,7 +52,7 @@ export default function MapComponent(props) {
     },
   }));
 
-  const {index} = props;
+  const { index } = props;
   useStyles();
   const [viewport] = useState({
     latitude: 40.71427,
@@ -68,8 +68,8 @@ export default function MapComponent(props) {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       />
-      <GeoSearch/>
-      <LocateControl/>
+      <GeoSearch />
+      <LocateControl />
 
       {locations
         .getAll()
@@ -83,7 +83,7 @@ export default function MapComponent(props) {
           return true;
           //return f['Appointment Needed'] == appointmentRequired
         })
-        .map((x, idx) => MapPoint({...x, idx}))}
+        .map((x, idx) => MapPoint({ ...x, idx }))}
     </Map>
   );
 }

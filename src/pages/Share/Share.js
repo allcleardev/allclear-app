@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from '@material-ui/core/Container';
 import { Grid, Avatar, IconButton, Button } from '@material-ui/core';
-import Header from '../../components/homescreen-header';
+import Header from '../../components/headers/header-homescreen';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import avatar from '../../assets/images/avatar.svg';
