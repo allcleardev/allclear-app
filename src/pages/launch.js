@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import LinearProgress from '@material-ui/core/LinearProgress';
-
 import Logo from '../assets/images/logo-green-back.svg';
 
 const LogoStyle = {
@@ -38,6 +37,7 @@ const Launch = ({ props }) => {
         </div>
 
         <LinearProgress color="primary" value={50} variant="indeterminate" />
+        {process.env.REACT_APP_VERSION}
       </div>
     </div>
   );
