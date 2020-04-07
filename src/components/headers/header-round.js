@@ -1,10 +1,9 @@
 import React from 'react';
-// import { Link } from "react-router-dom";
-import Logo from '../assets/images/logo-green-back.svg';
 import Fab from '@material-ui/core/Fab';
-import Box from '@material-ui/core/Container';
+import Box from '@material-ui/core/Box';
+import Logo from '../../assets/images/logo-green-back.svg';
 
-export default function Header({ navigate = '/', children }) {
+export default function RoundHeader({ navigate = '/', children }) {
   return (
     <div className="header">
       <div className="mobile-content">
@@ -34,6 +33,7 @@ export default function Header({ navigate = '/', children }) {
           </a>
         </nav>
       </Box>
+
       {children}
     </div>
   );

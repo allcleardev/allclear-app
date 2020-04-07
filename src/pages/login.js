@@ -6,7 +6,7 @@ import Form from '@material-ui/core/Container';
 import { Button, Grid } from '@material-ui/core';
 import Axios from 'axios';
 
-import Header from '../components/header-round';
+import RoundHeader from '../components/headers/header-round';
 import ProgressBottom from '../components/progressBottom';
 import PhoneNumber from '../components/phoneNumber';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -70,10 +70,10 @@ export default function PhoneVerify({ props }) {
   return (
     <div className="background-responsive">
       <div className="login onboarding-page">
-        <Header>
+        <RoundHeader>
           <h1 className="heading">Sign In</h1>
           <h2 className="sub-heading">Enter your phone number to be sent a verification code.</h2>
-        </Header>
+        </RoundHeader>
         {state.loading === false ? (
           <Form noValidate autoComplete="off" className="onboarding-body">
             <div class="content-container">
@@ -94,12 +94,12 @@ export default function PhoneVerify({ props }) {
             </div>
           </Form>
         ) : (
-          <Grid container justify="center">
-            <Grid item xs={12} sm={6}>
-              <LinearProgress color="primary" value="50" variant="indeterminate" />
-            </Grid>
-          </Grid>
-        )}
+           <Grid container justify="center">
+             <Grid item xs={12} sm={6}>
+               <LinearProgress color="primary" value="50" variant="indeterminate" />
+             </Grid>
+           </Grid>
+         )}
         {state.loading === false ? <ProgressBottom progress="100px"></ProgressBottom> : null}
       </div>
     </div>

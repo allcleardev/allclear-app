@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../components/header-round';
+import RoundHeader from '../components/headers/header-round';
 import ProgressBottom from '../components/progressBottom';
 
 import { Button, Grid } from '@material-ui/core';
@@ -41,10 +41,10 @@ export default function CreateAccount() {
   return (
     <div className="background-responsive">
       <div className="create-profile onboarding-page">
-        <Header>
+        <RoundHeader>
           <h1 className="heading">Tell us about yourself</h1>
           <h2 className="sub-heading">Tell us about a bit about your COVID-19 experience, so we can best help you.</h2>
-        </Header>
+        </RoundHeader>
 
         <div style={bodyStyle} className="onboarding-body">
           <h4>COVID-19 TESTING</h4>

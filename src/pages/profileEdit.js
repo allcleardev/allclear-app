@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Header from '../components/homescreen-header';
+import HomescreenHeader from '../components/headers/header-homescreen';
 import UserProfileCard from '../components/cardProfile';
 import NavBottom from '../components/navBottom';
 import UpdateCriteriaModal from './updateTestingCriteriaModal';
@@ -25,9 +25,9 @@ export default function ProfileEdit() {
 
   return (
     <Box className="profile-edit">
-      <Header>
+      <HomescreenHeader>
         <p>Allclear</p>
-      </Header>
+      </HomescreenHeader>
 
       <UserProfileCard
         avatar={userAvatar}

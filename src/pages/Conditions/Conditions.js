@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
+import {bindAll} from 'lodash';
 
-import Header from '../../components/header-round';
+import RoundHeader from '../../components/headers/header-round';
 import ProgressBottom from '../../components/progressBottom';
 import states from './Conditions.state';
 
@@ -10,14 +11,24 @@ import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
 import { Button, Chip } from '@material-ui/core';
 
-class Condition extends React.Component {
+class Condition extends Component {
   state = states;
 
-  componentDidMount = () => {
+  constructor() {
+    super();
+    bindAll(this, [
+      'componentDidMount',
+      'getConditions',
+      'selectAll',
+      'handleChange',
+    ]);
+  }
+
+  componentDidMount() {
     this.getConditions();
   };
 
-  getConditions = () => {
+  getConditions(){
     this.setState({ loading: true });
 
     Axios.get('https://api-dev.allclear.app/types/conditions', {})
@@ -31,7 +42,16 @@ class Condition extends React.Component {
       });
   };
 
-  handleChange = (event) => {
+  selectAll () {
+    let { conditions } = this.state;
+    conditions.filter((condition) => {
+      condition.isActive = true;
+    });
+    this.setState({ conditions });
+    sessionStorage.setItem('conditions', JSON.stringify(conditions));
+  };
+
+  handleChange(event) {
     let { conditions } = this.state;
     conditions.filter((condition) => {
       if (condition.name === event.name) {
@@ -46,10 +66,10 @@ class Condition extends React.Component {
     return (
       <div className="background-responsive">
         <div className="conditions onboarding-page">
-          <Header>
+          <RoundHeader>
             <h1 className="heading">Conditions</h1>
             <h2 className="sub-heading">Some test centers are only seeing patients with certain health conditions.</h2>
-          </Header>
+          </RoundHeader>
           <Form noValidate autoComplete="off" className="onboarding-body">
             <Box maxWidth="md">
               <label className="label">
@@ -57,17 +77,17 @@ class Condition extends React.Component {
               </label>
               <div className="chips-group">
                 {this.state.conditions &&
-                  this.state.conditions.map((res) => {
-                    return (
-                      <Chip
-                        key={res.id}
-                        className={'chip' + (res.isActive ? ' Active' : '')}
-                        label={res.name}
-                        variant="outlined"
-                        onClick={() => this.handleChange(res)}
-                      ></Chip>
-                    );
-                  })}
+                this.state.conditions.map((res) => {
+                  return (
+                    <Chip
+                      key={res.id}
+                      className={'chip' + (res.isActive ? ' Active' : '')}
+                      label={res.name}
+                      variant="outlined"
+                      onClick={() => this.handleChange(res)}
+                    ></Chip>
+                  );
+                })}
               </div>
             </Box>
             <div className="button-container">
