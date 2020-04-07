@@ -45,12 +45,12 @@ button {
     flex-direction: column-reverse;
     justify-content: space-between;
     width: 100%;
-    margin-bottom: 40px;
+    margin: 40px 0 40px;
     text-align: center;
 
     @media (min-width: $md) {
       flex-direction: row;
-      margin-bottom: 70px;
+      margin: 40px 0 70px;
     }
 
     > button {
