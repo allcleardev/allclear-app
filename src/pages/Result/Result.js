@@ -156,10 +156,10 @@ class Result extends React.Component {
       },
     })
       .then((response) => {
-        this.setCookie('sessid', response.data.id);
+        // this.setCookie('sessid', response.data.id); // blocks progress. check fn
         sessionStorage.setItem('sessid', response.data.id);
         sessionStorage.setItem('session', response.data);
-        this.history.push('/home');
+        this.history.push('/profile-view');
       })
       .catch((error) => {
         this.setState({ loading: false });
@@ -262,9 +262,9 @@ class Result extends React.Component {
                         Select Test
                       </MenuItem>
                       {this.state.testTypes &&
-                      this.state.testTypes.map((res) => {
-                        return <MenuItem value={res}>{res.name}</MenuItem>;
-                      })}
+                        this.state.testTypes.map((res) => {
+                          return <MenuItem value={res}>{res.name}</MenuItem>;
+                        })}
                     </Select>
                   </FormControl>
 
@@ -287,9 +287,9 @@ class Result extends React.Component {
                         Choose Location
                       </MenuItem>
                       {this.state.testLocations &&
-                      this.state.testLocations.map((res) => {
-                        return <MenuItem value={res}>{res.name}</MenuItem>;
-                      })}
+                        this.state.testLocations.map((res) => {
+                          return <MenuItem value={res}>{res.name}</MenuItem>;
+                        })}
                     </Select>
                   </FormControl>
 
@@ -327,8 +327,8 @@ class Result extends React.Component {
               </div>
             </Form>
           ) : (
-             grid
-           )}
+            grid
+          )}
           {this.state && this.state.loading === false ? <ProgressBottom progress="56%"></ProgressBottom> : null}
         </div>
       </div>

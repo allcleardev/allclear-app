@@ -45,7 +45,6 @@ export default function PhoneVerify({ props, location }) {
       token: code,
     })
       .then((response) => {
-        console.log('response', response);
         setCookie('sessid', response.data.id);
         sessionStorage.setItem('sessid', response.data.id);
         history.push('/profile-view');
@@ -100,12 +99,12 @@ export default function PhoneVerify({ props, location }) {
             </div>
           </Form>
         ) : (
-           <Grid container justify="center">
-             <Grid item xs={12} sm={6}>
-               <LinearProgress color="primary" value="50" variant="indeterminate" />
-             </Grid>
-           </Grid>
-         )}
+          <Grid container justify="center">
+            <Grid item xs={12} sm={6}>
+              <LinearProgress color="primary" value="50" variant="indeterminate" />
+            </Grid>
+          </Grid>
+        )}
         {state.loading === false ? <ProgressBottom progress="100px"></ProgressBottom> : null}
       </div>
     </div>
