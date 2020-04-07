@@ -23,20 +23,20 @@
     "no-this-before-super": 2,
     "object-shorthand": 2,
     "prefer-arrow-callback": 2,
-    "new-parens": "error",
-    "no-bitwise": "error",
-    "no-caller": "error",
-    "no-cond-assign": "error",
+    "new-parens": "warn",
+    "no-bitwise": "warn",
+    "no-caller": "warn",
+    "no-cond-assign": "warn",
     "yoda": [
       1,
       "never"
     ],
     "arrow-parens": [
-      "error",
+      "warn",
       "always"
     ],
     "max-len": [
-      "error",
+      "warn",
       {
         "code": 140
       }
@@ -53,7 +53,7 @@
       1,
       "never"
     ],
-    "quotes": ["error", "single", { "allowTemplateLiterals": true }],
+    "quotes": ["warn", "single", { "allowTemplateLiterals": true }],
     "quote-props": [
       1,
       "as-needed"
