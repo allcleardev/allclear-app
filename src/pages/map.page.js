@@ -91,7 +91,7 @@ function CardMapLocation({index, title, description, status, service_time, commu
               rel="noopener noreferrer"
               target="_blank"
             >
-              <Button className="btn primary-back white">Directions</Button>
+              <Button className="btn primary-color primary-outline">Directions</Button>
             </a>
             <Button className="btn primary-color primary-outline" style={{marginLeft: '15px'}}>
               Call
