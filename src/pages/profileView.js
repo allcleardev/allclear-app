@@ -121,6 +121,20 @@ export default function ProfileView() {
           </CardArrow>
         </Grid>
       </Grid>
+      <Grid
+        container
+        style={{
+          display: 'flex',
+          justifyContent: 'space-around',
+
+          padding: '15px 0px 0px 5px',
+        }}
+        className="btn-group"
+      >
+        <Grid item xs={12} sm={6}>
+          <Button style={{color:'#2A7DF4',border:'1px solid #2A7DF4'}} className="btn-big  fontsize-16">Logout</Button>
+        </Grid>
+      </Grid>
       <NavBottom active={4}></NavBottom>
     </Box>
   );
