@@ -105,8 +105,8 @@ export default function PhoneVerify({ props }) {
             <div className="review-container">
               <p>
                 Please review and agree to the
-                <a href="/terms/"> Terms & Conditions </a> and
-                <a href="/privacy/"> Privacy Policy </a> before continuing.
+                <a href="https://staging.about.allclear.app/"> Terms & Conditions </a> and
+                <a href="https://staging.about.allclear.app/"> Privacy Policy </a> before continuing.
               </p>
 
               <FormControlLabel
