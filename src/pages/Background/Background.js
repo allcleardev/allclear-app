@@ -108,12 +108,14 @@ class Background extends React.Component {
                     >
                       {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                         <div>
+                          {/* TODO: Do not allow submit w/o required field filled out */}
                           <TextField
-                            type="search"
+                            required
                             variant="outlined"
                             {...getInputProps({
                               placeholder: 'New York, NY or 11211',
                               className: 'input',
+                              type: 'search',
                             })}
                           />
                           <div className="autocomplete-dropdown-container">
@@ -140,7 +142,7 @@ class Background extends React.Component {
                 </article>
                 <article className="article">
                   <label htmlFor="birthdate" className="label">
-                    <strong>Date of Birth</strong> (Required) <br />
+                    <strong>Date of Birth</strong> <br />
                     <span className="description">Some test centers have minimum age requirements.</span>
                   </label>
                   {/* TODO: swap w/ Material UI Date Picker https://material-ui.com/components/pickers/ */}
