@@ -186,7 +186,7 @@ class ShareApp extends React.Component {
                     </CardContent>
                   </Grid>
                   <Grid item xs={2} style={{ margin: 'auto', textAlign: 'center' }}>
-                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                    <i className="fa fa-ellipsis-v" aria-hidden="true"></i>
                   </Grid>
                 </Grid>
               </Card>
@@ -213,7 +213,7 @@ class ShareApp extends React.Component {
                     </CardContent>
                   </Grid>
                   <Grid item xs={2} style={{ margin: 'auto', textAlign: 'center' }}>
-                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                    <i className="fa fa-ellipsis-v" aria-hidden="true"></i>
                   </Grid>
                 </Grid>
               </Card>
@@ -240,7 +240,7 @@ class ShareApp extends React.Component {
                     </CardContent>
                   </Grid>
                   <Grid item xs={2} style={{ margin: 'auto', textAlign: 'center' }}>
-                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                    <i className="fa fa-ellipsis-v" aria-hidden="true"></i>
                   </Grid>
                 </Grid>
               </Card>

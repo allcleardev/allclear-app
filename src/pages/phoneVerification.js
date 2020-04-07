@@ -13,7 +13,9 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { useCookies } from 'react-cookie';
 
 export default function PhoneVerify({ props, location }) {
-  const [state] = React.useState({
+
+  //eslint-disable-next-line
+  const [state, setState] = React.useState({
     checkedB: true,
     loading: false,
   });
@@ -57,7 +59,8 @@ export default function PhoneVerify({ props, location }) {
       });
   };
 
-  const [setValue] = React.useState('');
+  //eslint-disable-next-line
+  const [value, setValue] = React.useState('');
 
   const handleCodeChange = (event) => {
     setValue({ code: event.target.value });
