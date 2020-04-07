@@ -146,7 +146,7 @@ TabPanel.propTypes = {
 
 // end get windows width
 
-function MapPage() {
+function MapPage({ locations }) {
   const classes = useStyles();
   const [open, setOpen] = useState(true);
   const {setDrawerOpen} = useContext(MapPageContext);
@@ -193,6 +193,23 @@ function MapPage() {
 
     return windowDimensions;
   }
+
+  const handleSwipe = (evt) => {
+    // if (evt.type === 'swipeup') {
+    console.log(evt);
+    // }
+  };
+
+  const options = {
+    touchAction: 'compute',
+    recognizers: {
+      swipe: {
+        time: 600,
+        threshold: 100,
+      },
+    },
+  };
+
 
   const Component = () => {
     const {width} = useWindowDimensions();
