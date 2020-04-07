@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {createContext} from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import './styles/app.scss';
@@ -32,6 +32,7 @@ import Symptoms from './pages/Symptoms/Symptoms';
 import Test from './pages/test';
 import UpdateTestingCenterCriteria from './pages/updateTestingCenterCriteria';
 import VerifyMagicLink from './pages/verify-magic-link';
+import MapPageProvider from './contexts/MapPage.context';
 
 export const AppContext = createContext({});
 

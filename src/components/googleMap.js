@@ -26,8 +26,7 @@ class SimpleMap extends Component {
 
   async onMarkerDragEnd(evt) {
     const result = await GetNewPosition(evt.center.lat(), evt.center.lng(), 100);
-    this.
-    setState({ result: result.data.records });
+    this.setState({ result: result.data.records });
   }
   async onMarkerZoomChanged(evt) {
     const result = await GetNewPosition(evt.center.lat(), evt.center.lng(), 400);

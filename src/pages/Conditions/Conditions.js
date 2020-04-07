@@ -66,10 +66,10 @@ class Condition extends Component {
     return (
       <div className="background-responsive">
         <div className="conditions onboarding-page">
-          <Header>
+          <RoundHeader>
             <h1 className="heading">Conditions</h1>
             <h2 className="sub-heading">Some test centers are only seeing patients with certain health conditions.</h2>
-          </Header>
+          </RoundHeader>
           <Form noValidate autoComplete="off" className="onboarding-body">
             <Box maxWidth="md">
               <label className="label">
