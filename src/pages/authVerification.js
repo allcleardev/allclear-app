@@ -7,13 +7,13 @@ import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import Axios from 'axios';
 
-import RoundHeader from '../components/headers/header-round';
+import Header from '../components/header-round';
 import ProgressBottom from '../components/progressBottom';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { useCookies } from 'react-cookie';
 
 export default function PhoneVerify({ props, location }) {
-  const [state, setState] = React.useState({
+  const [state] = React.useState({
     checkedB: true,
     loading: false,
   });
@@ -41,15 +41,15 @@ export default function PhoneVerify({ props, location }) {
 
     phone = sanitizePhone(phone);
 
-    await Axios.post('https://api-dev.allclear.app/peoples/confirm', {
+    await Axios.put('https://api-dev.allclear.app/peoples/auth', {
       phone,
-      code,
+      token: code,
     })
       .then((response) => {
         console.log('response', response);
         setCookie('sessid', response.data.id);
         sessionStorage.setItem('sessid', response.data.id);
-        history.push('/background');
+        history.push('/profile-view');
       })
       .catch((error) => {
         console.log('error', error);
@@ -68,14 +68,15 @@ export default function PhoneVerify({ props, location }) {
     <div className="background-responsive">
       <div className="phone-verification onboarding-page">
         <Header>
-          <h1 className="heading">Phone Number</h1>
-          <h2 className="sub-heading">Enter your phone number to get started.</h2>
+          <h1 className="heading">Sign In</h1>
+          <h2 className="sub-heading">Enter your phone number to be sent a verification code.</h2>
         </Header>
 
         {state.loading === false ? (
           <Form noValidate autoComplete="off" className="onboarding-body">
             <div className="content-container">
               <p>We texted a verification code to your phone. Please enter the code to sign in.</p>
+              {/* <p>We texted your phone XXX XXX XX42. Please enter the code to sign in.</p> TODO: Speicify Phone Number */}
 
               <FormControl className="control">
                 <TextField
@@ -92,7 +93,7 @@ export default function PhoneVerify({ props, location }) {
             </div>
 
             <div className="button-container">
-              <Link to="/create-account">
+              <Link to="/login">
                 <Button variant="contained" className="back">
                   Restart
                 </Button>
@@ -103,15 +104,14 @@ export default function PhoneVerify({ props, location }) {
             </div>
           </Form>
         ) : (
-           <Grid container justify="center">
-             <Grid item xs={12} sm={6}>
-               <LinearProgress color="primary" value="50" variant="indeterminate" />
-             </Grid>
-           </Grid>
-         )}
+          <Grid container justify="center">
+            <Grid item xs={12} sm={6}>
+              <LinearProgress color="primary" value="50" variant="indeterminate" />
+            </Grid>
+          </Grid>
+        )}
         {state.loading === false ? <ProgressBottom progress="100px"></ProgressBottom> : null}
       </div>
-import RoundHeader from '../components/headers/header-round';
     </div>
   );
 }

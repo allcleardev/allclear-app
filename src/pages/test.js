@@ -144,8 +144,8 @@ export default function CompleteProfile() {
             <Button className="btn-gradient white">
               <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
+                  fillRule="evenodd"
+                  clipRule="evenodd"
                   d={`M1.18695 5.80956C0.351636 4.3358 0.0332031 3.1477 0.0332031 2.34522C0.0332031 1.54273 0.235805
                   1.31257 0.44139 1.12663C0.646976 0.940693 1.57402 0.384483 1.73198 0.280752C1.88993 0.177021 2.49279
                   -0.0245694 2.87085 0.504677C3.24891 1.03392 3.96084 2.09654 4.45168 2.80245C5.22189 3.80232 4.60828
@@ -170,9 +170,9 @@ export default function CompleteProfile() {
                    13.966 11.1456 13.639 11.1456 13.298V8.15513M8.57415 4.29799L6.00272 1.72656M6.00272 1.72656L3.43129
                     4.29799M6.00272 1.72656V10.0837`}
                   stroke="white"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
               </svg>
             </Button>
@@ -269,9 +269,9 @@ export default function CompleteProfile() {
             <path
               d="M8.5 1.12891V15.1289M1.5 8.12891H15.5"
               stroke="white"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </svg>
         </FabBlueBottom>

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import { withStyles } from '@material-ui/core/styles';
 import { Formik, Form } from 'formik';
@@ -38,24 +37,13 @@ class PhoneNumber extends React.Component {
         render={() => (
           <Form>
             <MuiPhoneNumber
+              className="phone-input"
               name="phone"
               label="Phone Number"
               data-cy="user-phone"
               defaultCountry={'us'}
               value={this.state.phone}
               onChange={this.handlePhoneChange}
-              className="hide-desktop"
-              style={{ margin: '80px 0' }}
-            />
-            <MuiPhoneNumber
-              name="phone"
-              label="Phone Number"
-              data-cy="user-phone"
-              defaultCountry={'us'}
-              value={this.state.phone}
-              onChange={this.handlePhoneChange}
-              className="input-white-back-phone hide-mobile"
-              style={{ margin: '80px 0' }}
             />
           </Form>
         )}
@@ -63,10 +51,4 @@ class PhoneNumber extends React.Component {
     );
   }
 }
-PhoneNumber.propTypes = {
-  classes: PropTypes.object.isRequired,
-  open: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-};
 export default withStyles(styles)(PhoneNumber);

@@ -1,71 +1,15 @@
 .phone-verification {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 
-  @media (min-width: $md) {
-    width: $md !important;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  @media (min-width: $lg) {
-    width: $lg !important;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .body-phone-verify {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+  .content-container {
     text-align: center;
 
-    @media (min-height: $sm) {
-      height: calc(100vh - 280px) !important;
-
-      @media (min-width: $md) {
-        height: calc(100vh - 336px) !important;
-      }
+    p {
+      margin-bottom: 34px;
+      font-size: 16px;
     }
   }
 
-  .check-label {
-    color: #999999;
-    display: flex;
-    justify-content: center;
-    width: 87%;
-    margin: auto;
-
-    .MuiTypography-body1 {
-      text-align: left;
-
-      @media (max-width: $sm) {
-        font-size: 13px;
-      }
-    }
-  }
-
-  @media (max-width: $md) {
-    .mobile-grey {
-      background-color: $grey2 !important;
-      color: $black-color;
-    }
-
-    .button {
-      margin: 12px 0 !important;
-      height: 48px !important;
-    }
-  }
-
-  .btn-group {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-
-    @media (max-width: $sm) {
-      flex-direction: column;
-    }
+  .control {
+    width: 100%;
   }
 }
