@@ -39,7 +39,7 @@ export default function PhoneVerify({ props }) {
     })
       .then((response) => {
         sessionStorage.setItem('phone', phone);
-        history.push('/phone-verification');
+        history.push('/sign-up-verification');
       })
       .catch((error) => {
         if (error && error.response) {
@@ -82,7 +82,7 @@ export default function PhoneVerify({ props }) {
     })
       .then((response) => {
         sessionStorage.setItem('phone', phone);
-        history.push('/auth-verification');
+        history.push('/login-verification');
       })
       .catch((error) => {
         //show error message

@@ -181,12 +181,12 @@ class Background extends React.Component {
               </section>
             </Box>
             <div className="button-container">
-              <Link to="/phone-verify" className="hide-mobile">
+              <Link to="/sign-up" className="hide-mobile">
                 <Button variant="contained" className="back">
                   Back
                 </Button>
               </Link>
-              <Link to="/conditions">
+              <Link to="/health-worker">
                 <Button variant="contained" color="primary" className="next">
                   Next
                 </Button>

@@ -31,15 +31,6 @@ class Symptom extends React.Component {
       });
   };
 
-  selectAll = () => {
-    let { symptoms } = this.state;
-    symptoms.filter((symptom) => {
-      symptom.isActive = true;
-    });
-    this.setState({ symptoms });
-    sessionStorage.setItem('symptoms', JSON.stringify(symptoms));
-  };
-
   handleChange = (event) => {
     let { symptoms } = this.state;
     symptoms.filter((symptom) => {
@@ -62,7 +53,7 @@ class Symptom extends React.Component {
           <Form noValidate autoComplete="off" className="onboarding-body">
             <Box maxWidth="md">
               <label className="label">
-                <strong onClick={() => this.selectAll()}>Select all that apply.</strong>
+                <strong>Select all that apply.</strong>
               </label>
               <div className="chips-group">
                 {this.state.symptoms &&
@@ -80,14 +71,16 @@ class Symptom extends React.Component {
               </div>
             </Box>
             <div className="button-container">
-              <Link to="/conditions" className="hide-mobile">
+              <Link to="/health-worker" className="hide-mobile">
                 <Button variant="contained" className="back">
                   Back
                 </Button>
               </Link>
-              <Link to="/results">
+
+              {/* Todo: Make `profile-view` access conditional on successful profile creation */}
+              <Link to="/profile-view">
                 <Button variant="contained" color="primary" className="next">
-                  Next
+                  Continue to Home page
                 </Button>
               </Link>
             </div>
