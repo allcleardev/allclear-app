@@ -155,30 +155,6 @@ class Background extends React.Component {
                   />
                 </article>
               </section>
-              <section>
-                <label className="label">
-                  <strong>Exposure to COVID-19</strong> <br />
-                  <span className="description">
-                    Some test centers require knowledge of your exposure to people who have tested positive for
-                    COVID-19.
-                  </span>
-                </label>
-                <div className="chips-group">
-                  {/* TODO: Convert group to "Chip array" https://material-ui.com/components/chips/#chip-array */}
-                  {this.state.exposures &&
-                    this.state.exposures.map((res) => {
-                      return (
-                        <Chip
-                          key={res.id}
-                          className={'chip' + (res.isActive ? ' Active' : '')}
-                          label={res.name}
-                          variant="outlined"
-                          onClick={() => this.handleChange(res)}
-                        ></Chip>
-                      );
-                    })}
-                </div>
-              </section>
             </Box>
             <div className="button-container">
               <Link to="/sign-up" className="hide-mobile">

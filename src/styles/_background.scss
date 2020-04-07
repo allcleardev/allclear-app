@@ -38,20 +38,6 @@
     font-size: 13px;
   }
 
-  .chips-group {
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 12px;
-
-    @media (min-width: $md) {
-      flex-wrap: nowrap;
-    }
-  }
-
-  .chip {
-    flex: 1 auto;
-  }
-
   .autocomplete-dropdown-container {
     position: absolute;
     color: #000;
