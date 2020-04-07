@@ -2,19 +2,20 @@ import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-import Logo from '../assets/images/logo.svg';
+import Logo from '../assets/images/logo-green-back.svg';
+
 
 const LogoStyle = {
-  display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   fontFamily: '"Source Sans Pro", sans-serif"',
   fontStyle: 'normal',
-  marginTop: '-20px',
+  marginTop: '-30%',
 };
 
 const ContainerStyle = {
   height: '100vh',
+  width: '100%',
   background: 'linear-gradient(to right, #28baff, #1195ff)',
   display: 'flex',
   justifyContent: 'center',
