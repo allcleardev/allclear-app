@@ -5,7 +5,7 @@ import Launch from './pages/launch';
 import CreateAccount from './pages/create-account';
 import AuthVerifyCode from './pages/authVerification';
 import PhoneVerify from './pages/phoneVerify';
-import PhoneVerifyCode from './pages/phoneVerification';
+import SignUpVerification from './pages/signUpVerification';
 import PhoneVerifying from './pages/phoneVerifying';
 import PhoneVerifySuccess from './pages/phone-verify-success';
 import VerifyMagicLink from './pages/verify-magic-link';
@@ -36,7 +36,7 @@ export default function App() {
       <Route exact path="/" component={Launch} />
       {/* Onboarding Pages */}
       <Route path="/phone-verify" component={PhoneVerify} />
-      <Route path="/phone-verification" component={PhoneVerifyCode} />
+      <Route path="/sign-up-verification" component={SignUpVerification} />
       <Route path="/phone-verifying" component={PhoneVerifying} /> {/* Note: This is a loading screen */}
       <Route path="/auth-verification" component={AuthVerifyCode} /> {/* Note: This is a loading screen */}
       <Route path="/background" component={Background} />
