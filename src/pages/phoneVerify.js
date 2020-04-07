@@ -101,7 +101,7 @@ export default function PhoneVerify({ props }) {
         </RoundHeader>
         {state.loading === false ? (
           <Form noValidate autoComplete="off" className="onboarding-body">
-            <div class="content-container">
+            <div className="content-container">
               <PhoneNumber className="hide-mobile"></PhoneNumber>
               <Link to="/login" className="hide-mobile sign-in">
                 Sign into Existing Account

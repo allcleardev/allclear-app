@@ -37,15 +37,22 @@
   @media (max-width: $sm) {
     // width: 100%;
     background-color: #fff;
-    // position: fixed;
+    position: fixed;
     box-shadow: 0px -5px 20px rgba(50, 50, 71, 0.2);
     border-radius: 13px 13px 0px 0px;
     // height: 300px;
     width: 100% !important;
     bottom: 0;
-    top: unset;
+    top: 0;
     padding: 0 10px;
+
+    .height-300-sm {
+      height: 300px;
+      padding: 0 10px 50px 10px;
+    }
   }
+
+  
 
   &::-webkit-scrollbar {
     width: 0 !important;

@@ -19,7 +19,6 @@ import Location from './pages/location';
 import login from './pages/login';
 import loginOrg from './pages/loginOrg';
 import PhoneVerify from './pages/phoneVerify';
-import PhoneVerifyCode from './pages/phoneVerification';
 import PhoneVerifying from './pages/phoneVerifying';
 import PhoneVerifySuccess from './pages/phone-verify-success';
 import ProfileEdit from './pages/profileEdit';
@@ -27,6 +26,7 @@ import ProfileView from './pages/profileView';
 import Result from './pages/Result/Result';
 import ResultDetail from './pages/ResultDetail/ResultDetail';
 import ShareApp from './pages/Share/Share';
+import SignUpVerification from './pages/signUpVerification';
 import Success from './pages/Success/Success';
 import Symptoms from './pages/Symptoms/Symptoms';
 import Test from './pages/test';
@@ -43,7 +43,7 @@ export default function App() {
       <Route exact path="/" component={Launch} />
       {/* Onboarding Pages */}
       <Route path="/sign-up" component={PhoneVerify} />
-      <Route path="/sign-up-verification" component={PhoneVerifyCode} />
+      <Route path="/sign-up-verification" component={SignUpVerification} />
       <Route path="/verifying" component={PhoneVerifying} /> {/* Note: This is a loading screen */}
       <Route path="/background" component={Background} />
       <Route path="/health-worker" component={HealthWorkerStatus} />
