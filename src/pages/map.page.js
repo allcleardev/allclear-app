@@ -65,8 +65,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function CardMapLocation({index, title, description, status, service_time, commute}) {
-  // const classes = useStyles();
-
   return (
     <div className="card-map-location">
       <Box className="container-location">
@@ -322,6 +320,9 @@ export default function MapPage() {
                       color="primary"
                       className={classes.button}
                       startIcon={SettingsSVG()}
+                      onClick={() => {
+                        alert('clicked search filters')
+                      }}
                     >
                       Edit Search Filters
                     </Button>
@@ -333,6 +334,7 @@ export default function MapPage() {
             {mapLocationData.data.map((result, index) => (
               <Fragment key={index}>
                 <CardMapLocation
+                  index={index}
                   title={result.Name}
                   description={result.Address}
                   status={result.status}
