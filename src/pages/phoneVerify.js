@@ -49,6 +49,7 @@ export default function PhoneVerify({ props }) {
             error.response.data.message &&
             error.response.data.message.includes('already exists')
           ) {
+            console.log('account already exists bk');
             return verifyLogin();
           } else if (error.response.data && error.response.data.message) {
             setState({

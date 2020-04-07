@@ -26,6 +26,7 @@ import ProfileEdit from './pages/profileEdit';
 import ProfileView from './pages/profileView';
 import Result from './pages/Result/Result';
 import ResultDetail from './pages/ResultDetail/ResultDetail';
+import ShareApp from './pages/Share/Share';
 import Success from './pages/Success/Success';
 import Symptoms from './pages/Symptoms/Symptoms';
 import Test from './pages/test';
@@ -53,6 +54,7 @@ export default function App() {
       <Route path="/add-test" component={AddTest} />
       <Route path="/health" component={Health} />
       <Route path="/update-criteria" component={UpdateTestingCenterCriteria} />
+      <Route path="/share" component={ShareApp} />
       {/* Map */}
       <Route path="/find-test-map" component={FindTestMap} />
       {/* Abandoned??? */}
