@@ -1,6 +1,6 @@
 import React from 'react';
 import Fab from '@material-ui/core/Fab';
-
+import Box from '@material-ui/core/Box';
 import Logo from '../../assets/images/logo-green-back.svg';
 
 export default function RoundHeader({ navigate = '/', children }) {
@@ -29,6 +29,7 @@ export default function RoundHeader({ navigate = '/', children }) {
           <a href="/" className="menu__item">Help</a>
         </nav>
       </Box>
+
       {children}
     </div>
   );

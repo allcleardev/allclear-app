@@ -13,6 +13,8 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { useCookies } from 'react-cookie';
 
 export default function PhoneVerify({ props, location }) {
+
+  //eslint-disable-next-line
   const [state, setState] = React.useState({
     checkedB: true,
     loading: false,
@@ -57,6 +59,7 @@ export default function PhoneVerify({ props, location }) {
       });
   };
 
+  //eslint-disable-next-line
   const [value, setValue] = React.useState('');
 
   const handleCodeChange = (event) => {
@@ -67,10 +70,10 @@ export default function PhoneVerify({ props, location }) {
   return (
     <div className="background-responsive">
       <div className="phone-verification onboarding-page">
-        <Header>
+        <RoundHeader>
           <h1 className="heading">Phone Number</h1>
           <h2 className="sub-heading">Enter your phone number to get started.</h2>
-        </Header>
+        </RoundHeader>
 
         {state.loading === false ? (
           <Form noValidate autoComplete="off" className="onboarding-body">

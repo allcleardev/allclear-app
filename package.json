@@ -26,6 +26,7 @@
     "leaflet": "^1.6.0",
     "leaflet-geosearch": "^2.7.0",
     "leaflet.locatecontrol": "^0.71.1",
+    "lodash": "^4.17.15",
     "material-ui-phone-number": "^2.2.6",
     "node-sass": "^4.13.1",
     "nodent-runtime": "^3.2.1",

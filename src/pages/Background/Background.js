@@ -2,16 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
 
-import Header from '../../components/header-round';
+import RoundHeader from '../../components/headers/header-round';
 import ProgressBottom from '../../components/progressBottom';
 
 import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
 import { Button, Chip, TextField } from '@material-ui/core';
-import PlacesAutocomplete, {
-  geocodeByAddress,
-  getLatLng,
-} from 'react-places-autocomplete';
 
 class Background extends React.Component {
   constructor(props) {
@@ -73,10 +69,10 @@ class Background extends React.Component {
     return (
       <div className="background-responsive">
         <div className="background onboarding-page">
-          <Header>
+          <RoundHeader>
             <h1 className="heading">Background</h1>
             <h2 className="sub-heading">Provide information to help us recommend the test sites for you.</h2>
-          </Header>
+          </RoundHeader>
           <Form noValidate autoComplete="off" className="onboarding-body">
             <Box maxWidth="md">
               <section className="section">

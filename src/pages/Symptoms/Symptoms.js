@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
-
-import Header from '../../components/header-round';
+import {bindAll} from 'lodash';
+import RoundHeader from '../../components/headers/header-round';
 import ProgressBottom from '../../components/progressBottom';
 import states from './Symptoms.state';
 
@@ -10,14 +10,24 @@ import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
 import { Button, Chip } from '@material-ui/core';
 
-class Symptom extends React.Component {
+class Symptom extends Component {
   state = states;
 
-  componentDidMount = () => {
+  constructor() {
+    super();
+    bindAll(this, [
+      'componentDidMount',
+      'getSymptoms',
+      'selectAll',
+      'handleChange',
+    ]);
+  }
+
+  componentDidMount(){
     this.getSymptoms();
   };
 
-  getSymptoms = () => {
+  getSymptoms() {
     this.setState({ loading: true });
 
     Axios.get('https://api-dev.allclear.app/types/symptoms', {})
@@ -31,7 +41,7 @@ class Symptom extends React.Component {
       });
   };
 
-  selectAll = () => {
+  selectAll (){
     let { symptoms } = this.state;
     symptoms.filter((symptom) => {
       symptom.isActive = true;
@@ -40,7 +50,7 @@ class Symptom extends React.Component {
     sessionStorage.setItem('symptoms', JSON.stringify(symptoms));
   };
 
-  handleChange = (event) => {
+  handleChange(event) {
     let { symptoms } = this.state;
     symptoms.filter((symptom) => {
       if (symptom.name === event.name) {
@@ -55,10 +65,10 @@ class Symptom extends React.Component {
     return (
       <div className="background-responsive">
         <div className="symptoms onboarding-page">
-          <Header>
+          <RoundHeader>
             <h1 className="heading">Symptoms</h1>
             <h2 className="sub-heading">Most test centers are only seeing patients with certain symptoms.</h2>
-          </Header>
+          </RoundHeader>
           <Form noValidate autoComplete="off" className="onboarding-body">
             <Box maxWidth="md">
               <label className="label">
