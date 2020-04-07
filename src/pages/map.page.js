@@ -1,4 +1,4 @@
-import React, {useEffect, useState, Fragment, useContext} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Container';
@@ -14,12 +14,13 @@ import FabBlueBottom from '../components/fabBlueBottom';
 import NavBottom from '../components/navBottom';
 import SearchGoogleMapInput from '../components/searchGoogleMapInput';
 import UpdateCriteriaModal from '../components/modals/modal-update-criteria';
-
+import { connect } from 'react-redux';
+import Hammer from 'react-hammerjs';
 import SimpleMap from '../components/googleMap';
-
 import {mapLocationData} from '../constants';
-import SettingsSVG from '../components/svgs/svg-settings';
 import { MapPageContext} from '../contexts/MapPage.context';
+// import { getLocations } from '../redux/selectors';
+// import UpdateCriteria from './updateTestingCriteriaModal';
 
 const drawerWidth = 400;
 
@@ -145,7 +146,7 @@ TabPanel.propTypes = {
 
 // end get windows width
 
-export default function MapPage() {
+function MapPage({ locations }) {
   const classes = useStyles();
   const [open, setOpen] = useState(true);
   const {setDrawerOpen} = useContext(MapPageContext);
@@ -192,6 +193,23 @@ export default function MapPage() {
 
     return windowDimensions;
   }
+
+  const handleSwipe = (evt) => {
+    // if (evt.type === 'swipeup') {
+    console.log(evt);
+    // }
+  };
+
+  const options = {
+    touchAction: 'compute',
+    recognizers: {
+      swipe: {
+        time: 600,
+        threshold: 100,
+      },
+    },
+  };
+
 
   const Component = () => {
     const {width} = useWindowDimensions();
@@ -302,48 +320,39 @@ export default function MapPage() {
              )}
           </IconButton>
         </AppBar>
-        <Drawer className={classes.drawer + ' nav-left-location'} variant="persistent" anchor={anchor} open={open}>
-          <div
-            style={{width: `${drawerWidth}px`, overflowY: 'scroll'}}
-            className="hide-scrollbar wid100-sm height-300-sm"
-          >
-            <Box>
-              <SearchGoogleMapInput style={{marginTop: '50px'}}></SearchGoogleMapInput>
-              <div style={{margin: '40px 0'}} className="search-map-filter">
-                <h3 className="body-title" style={{margin: '5px 0', fontSize: '16px'}}>
-                  Filters
-                </h3>
-                <p className="grey" style={{fontSize: '16px'}}>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      className={classes.button}
-                      startIcon={SettingsSVG()}
-                      onClick={() => {
-                        alert('clicked search filters');
-                      }}
-                    >
-                      Edit Search Filters
-                    </Button>
-                </p>
-              </div>
-
-            </Box>
-            <Divider className={classes.divider} orientation="horizontal"/>
-            {mapLocationData.data.map((result, index) => (
-              <Fragment key={index}>
+        <Hammer onSwipe={handleSwipe} option={options} direction="DIRECTION_UP">
+          <Drawer className={classes.drawer + ' nav-left-location'} variant="persistent" anchor={anchor} open={open}>
+            <div
+              style={{ width: `${drawerWidth}px`, overflowY: 'scroll' }}
+              className="hide-scrollbar wid100-sm height-300-sm"
+            >
+              <Box>
+                <SearchGoogleMapInput style={{ marginTop: '50px' }}></SearchGoogleMapInput>
+                <div style={{ margin: '40px 0' }} className="search-map-filter">
+                  <h3 className="body-title" style={{ margin: '5px 0', fontSize: '16px' }}>
+                    Filters
+                  </h3>
+                  <p className="grey" style={{ fontSize: '16px' }}>
+                    Filters would go there.
+                  </p>
+                </div>
+              </Box>
+              <Divider className={'hide-mobile-sm ' + classes.divider} orientation="horizontal" />
+              {console.log(locations)}
+              {locations.map((result, index) => (
                 <CardMapLocation
+                  key={index}
                   index={index}
-                  title={result.Name}
-                  description={result.Address}
-                  status={result.status}
+                  title={result.name}
+                  description={result.address}
+                  status={result.state}
                   service_time={result.Hours}
                   commute={result['Drive Through']}
                 ></CardMapLocation>
-              </Fragment>
-            ))}
-          </div>
-        </Drawer>
+              ))}
+            </div>
+          </Drawer>
+        </Hammer>
         <main
           className={clsx(classes.content, {
             [classes.contentShift]: open,
@@ -381,3 +390,7 @@ export default function MapPage() {
     </div>
   );
 }
+
+export default connect((state) => {
+  return { locations: state.locations };
+})(MapPage);
