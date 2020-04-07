@@ -21,7 +21,6 @@ import {mapLocationData} from '../constants';
 import SettingsSVG from '../components/svgs/svg-settings';
 import { MapPageContext} from '../contexts/MapPage.context';
 
-
 const drawerWidth = 400;
 
 const useStyles = makeStyles((theme) => ({

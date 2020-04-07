@@ -37,7 +37,7 @@ const Launch = ({ props }) => {
         </div>
 
         <LinearProgress color="primary" value={50} variant="indeterminate" />
-        {process.env.REACT_APP_VERSION}
+        {process.env.REACT_APP_VERSION} - Built at: {process.env.REACT_APP_BUILT_AT}
       </div>
     </div>
   );
