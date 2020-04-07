@@ -13,7 +13,6 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 
 export default function PhoneVerify({ props }) {
   const [state, setState] = React.useState({
-    checkedB: true,
     loading: false,
   });
 
@@ -30,7 +29,6 @@ export default function PhoneVerify({ props }) {
     const phone = sessionStorage.getItem('phone');
 
     if (!phone) {
-      //show error message
       setState({ loading: false });
       return;
     }
@@ -40,30 +38,55 @@ export default function PhoneVerify({ props }) {
       .then((response) => {
         console.log(response);
         sessionStorage.setItem('phone', phone);
-        history.push('/auth-verification');
+        history.push('/login-verification');
       })
       .catch((error) => {
-        //show error message
-        setState({ loading: false });
+        if (error && error.response) {
+          if (
+            error.response.data &&
+            error.response.data.message &&
+            error.response.data.message.includes('already exists')
+          ) {
+            return verifyLogin();
+          } else if (error.response.data && error.response.data.message) {
+            setState({
+              error: true,
+              message: error.response.data.message,
+              loading: false,
+            });
+          } else {
+            setState({
+              error: true,
+              message: 'An error occurred. Please try again later.',
+              loading: false,
+            });
+          }
+        } else {
+          setState({ loading: false });
+        }
       });
   }
 
   return (
     <div className="background-responsive">
-      <div className="phone-verify onboarding-page">
+      <div className="login onboarding-page">
         <RoundHeader>
           <h1 className="heading">Sign In</h1>
           <h2 className="sub-heading">Enter your phone number to be sent a verification code.</h2>
         </RoundHeader>
         {state.loading === false ? (
           <Form noValidate autoComplete="off" className="onboarding-body">
-            <PhoneNumber className="hide-mobile"></PhoneNumber>
+            <div class="content-container">
+              <PhoneNumber className="hide-mobile"></PhoneNumber>
+              <Link to="/sign-up" className="hide-mobile login">
+                Create Account
+              </Link>
+              {state.error === true ? <p className="error">{state.message}</p> : ''}
+            </div>
 
             <div className="button-container">
-              <Link to="/phone-verify" className="hide-mobile">
-                <Button variant="contained" className="back">
-                  Back
-                </Button>
+              <Link to="/sign-up" className="hide-desktop login">
+                Create Account
               </Link>
               <Button onClick={() => verifyLogin()} variant="contained" color="primary" className="next">
                 Send Verification Code

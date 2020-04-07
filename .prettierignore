@@ -2,5 +2,5 @@
 *.json
 *.html
 # todo: fix scss pretty linting
-*.scss
+# *.scss
 *.html

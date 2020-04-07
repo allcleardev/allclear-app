@@ -72,32 +72,34 @@ class Symptom extends Component {
           <Form noValidate autoComplete="off" className="onboarding-body">
             <Box maxWidth="md">
               <label className="label">
-                <strong onClick={() => this.selectAll()}>Select all that apply.</strong>
+                <strong>Select all that apply.</strong>
               </label>
               <div className="chips-group">
                 {this.state.symptoms &&
-                  this.state.symptoms.map((res) => {
-                    return (
-                      <Chip
-                        key={res.id}
-                        className={'chip' + (res.isActive ? ' Active' : '')}
-                        label={res.name}
-                        variant="outlined"
-                        onClick={() => this.handleChange(res)}
-                      ></Chip>
-                    );
-                  })}
+                this.state.symptoms.map((res) => {
+                  return (
+                    <Chip
+                      key={res.id}
+                      className={'chip' + (res.isActive ? ' Active' : '')}
+                      label={res.name}
+                      variant="outlined"
+                      onClick={() => this.handleChange(res)}
+                    ></Chip>
+                  );
+                })}
               </div>
             </Box>
             <div className="button-container">
-              <Link to="/conditions" className="hide-mobile">
+              <Link to="/health-worker" className="hide-mobile">
                 <Button variant="contained" className="back">
                   Back
                 </Button>
               </Link>
-              <Link to="/results">
+
+              {/* Todo: Make `profile-view` access conditional on successful profile creation */}
+              <Link to="/profile-view">
                 <Button variant="contained" color="primary" className="next">
-                  Next
+                  Continue to Home page
                 </Button>
               </Link>
             </div>

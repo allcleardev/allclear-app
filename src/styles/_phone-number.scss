@@ -1,0 +1,33 @@
+  .phone-input.MuiTextField-root {
+    padding: 0 20px;
+    border-radius: 8px;
+    border: 1px solid #dadada;
+    background-color: #fff;
+
+    @media (min-width: $md) {
+      border: 0;
+    }
+
+    label {
+      padding: 5px 16px;
+
+      &:not(.Mui-focused) {
+        color: rgba(60, 60, 67, 0.4);
+      }
+    }
+
+    input {
+      font-size: 1.3rem;
+      letter-spacing: 1.3px;
+    }
+
+    .MuiInput-underline:before,
+    .MuiInput-underline:after,
+    .MuiInput-underline:hover:not(.Mui-disabled):before {
+      border: 0;
+    }
+
+    .MuiPhoneNumber-flagButton {
+      display: none;
+    }
+  }

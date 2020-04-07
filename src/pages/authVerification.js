@@ -56,10 +56,7 @@ export default function PhoneVerify({ props, location }) {
       });
   };
 
-  const [ setValue] = React.useState('');
-
   const handleCodeChange = (event) => {
-    setValue({ code: event.target.value });
     sessionStorage.setItem('code', event.target.value);
   };
 

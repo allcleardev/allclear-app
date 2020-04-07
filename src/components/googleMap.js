@@ -13,8 +13,8 @@ class SimpleMap extends Component {
 
   static defaultProps = {
     center: {
-      lat: 47.81579,
-      lng: -122.307017,
+      lat: 40.743992,
+      lng: -74.032364,
     },
     zoom: 12,
   };
@@ -26,6 +26,11 @@ class SimpleMap extends Component {
 
   async onMarkerDragEnd(evt) {
     const result = await GetNewPosition(evt.center.lat(), evt.center.lng(), 100);
+    this.
+    setState({ result: result.data.records });
+  }
+  async onMarkerZoomChanged(evt) {
+    const result = await GetNewPosition(evt.center.lat(), evt.center.lng(), 400);
     this.setState({ result: result.data.records });
   }
 
@@ -38,6 +43,7 @@ class SimpleMap extends Component {
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
           onDragEnd={(evt) => this.onMarkerDragEnd(evt)}
+          onZoomChanged={(evt) => this.onMarkerDragEnd(evt)}
         >
           {result.map((data, index) => (
             <MapMarker
