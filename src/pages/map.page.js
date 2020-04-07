@@ -1,4 +1,4 @@
-import React, {useEffect, useState, Fragment, useContext} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Container';
@@ -15,15 +15,12 @@ import NavBottom from '../components/navBottom';
 import SearchGoogleMapInput from '../components/searchGoogleMapInput';
 import UpdateCriteriaModal from '../components/modals/modal-update-criteria';
 import { connect } from 'react-redux';
-import { getLocations } from '../redux/selectors';
-import UpdateCriteria from './updateTestingCriteriaModal';
 import Hammer from 'react-hammerjs';
-
 import SimpleMap from '../components/googleMap';
-
 import {mapLocationData} from '../constants';
-import SettingsSVG from '../components/svgs/svg-settings';
 import { MapPageContext} from '../contexts/MapPage.context';
+// import { getLocations } from '../redux/selectors';
+// import UpdateCriteria from './updateTestingCriteriaModal';
 
 const drawerWidth = 400;
 
@@ -149,7 +146,7 @@ TabPanel.propTypes = {
 
 // end get windows width
 
-export default function MapPage() {
+function MapPage() {
   const classes = useStyles();
   const [open, setOpen] = useState(true);
   const {setDrawerOpen} = useContext(MapPageContext);
@@ -379,4 +376,4 @@ export default function MapPage() {
 
 export default connect((state) => {
   return { locations: state.locations };
-})(FindTestMap);
+})(MapPage);

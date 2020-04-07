@@ -36,6 +36,6 @@ if (module.hot) {
   module.hot.accept('./App', () => {
     const NextApp = require('./App').default;
     console.log('%c ===== Hot Reload ===== ', 'background: #222; color: #bada55');
-    render(NextApp);
+    ReactDOM.render(NextApp);
   });
 }
