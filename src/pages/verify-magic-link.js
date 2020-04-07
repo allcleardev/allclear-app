@@ -44,7 +44,7 @@ export default function VerifyMagicLink({ props, location }) {
 
   return (
     <div className="background-responsive">
-      <Box className="phone-verify">
+      <Box className="sign-up">
         <Header>
           <h1 style={{ justifyContent: 'center', margin: '0' }}>Verifying Phone Number</h1>
           <p>We are verifying your phone number.</p>

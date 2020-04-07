@@ -15,7 +15,8 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 
 export default function PhoneVerify({ props }) {
   const [state, setState] = React.useState({
-    checkedB: true,
+    termsAndConditions: false,
+    alerts: false,
     loading: false,
   });
 
@@ -39,7 +40,7 @@ export default function PhoneVerify({ props }) {
     })
       .then((response) => {
         sessionStorage.setItem('phone', phone);
-        history.push('/phone-verification');
+        history.push('/sign-up-verification');
       })
       .catch((error) => {
         if (error && error.response) {
@@ -83,7 +84,7 @@ export default function PhoneVerify({ props }) {
     })
       .then((response) => {
         sessionStorage.setItem('phone', phone);
-        history.push('/auth-verification');
+        history.push('/login-verification');
       })
       .catch((error) => {
         //show error message
@@ -93,34 +94,48 @@ export default function PhoneVerify({ props }) {
 
   return (
     <div className="background-responsive">
-      <div className="phone-verify onboarding-page">
+      <div className="sign-up onboarding-page">
         <Header>
           <h1 className="heading">Phone Number</h1>
           <h2 className="sub-heading">Enter your phone number to get started.</h2>
         </Header>
         {state.loading === false ? (
           <Form noValidate autoComplete="off" className="onboarding-body">
-            <PhoneNumber className="hide-mobile"></PhoneNumber>
-            {state.error === true ? <p style={{ color: 'red' }}>{state.message}</p> : ''}
+            <div className="content-container">
+              <PhoneNumber className="hide-mobile"></PhoneNumber>
+              <Link to="/login" className="hide-mobile sign-in">
+                Sign into Existing Account
+              </Link>
+              {state.error === true ? <p className="error">{state.message}</p> : ''}
+            </div>
 
             <div className="review-container">
               <p>
-                Please review and agree to the
                 <a href="https://staging.about.allclear.app/"> Terms & Conditions </a> and
-                <a href="https://staging.about.allclear.app/"> Privacy Policy </a> before continuing.
+                <a href="https://staging.about.allclear.app/"> Privacy Policy </a>
               </p>
 
               <FormControlLabel
-                control={<Checkbox checked={state.checkedB} onChange={handleChange} name="checkedB" color="third" />}
-                label="I have reviewed and agree to the Terms & Conditions and Privacy Policy"
+                control={
+                  <Checkbox
+                    checked={state.termsAndConditions}
+                    onChange={handleChange}
+                    name="termsAndConditions"
+                    color="third"
+                  />
+                }
+                label="I have reviewed and agree to the Terms & Conditions and Privacy Policy."
+              />
+
+              <FormControlLabel
+                control={<Checkbox checked={state.alerts} onChange={handleChange} name="alerts" color="third" />}
+                label="Receive text alerts when eligible test locations become available."
               />
             </div>
 
             <div className="button-container">
-              <Link to="/login">
-                <Button variant="contained" className="back">
-                  Sign into Existing Account
-                </Button>
+              <Link to="/login" className="hide-desktop sign-in">
+                Sign into Existing Account
               </Link>
               <Button onClick={() => verifyPhoneNumber()} variant="contained" color="primary" className="next">
                 Send Verification Code
