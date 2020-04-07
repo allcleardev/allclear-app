@@ -36,19 +36,59 @@ export default function PhoneVerify({ props }) {
     }
     Axios.post('https://api-dev.allclear.app/peoples/start', {
       phone,
-      beenTested: false,
-      haveSymptoms: false,
     })
       .then((response) => {
-        console.log(response);
         sessionStorage.setItem('phone', phone);
         history.push('/phone-verification');
+      })
+      .catch((error) => {
+        if (error && error.response) {
+          if (
+            error.response.data &&
+            error.response.data.message &&
+            error.response.data.message.includes('already exists')
+          ) {
+            return verifyLogin();
+          } else if (error.response.data && error.response.data.message) {
+            setState({
+              error: true,
+              message: error.response.data.message,
+              loading: false,
+            });
+          } else {
+            setState({
+              error: true,
+              message: 'An error occurred. Please try again later.',
+              loading: false,
+            });
+          }
+        } else {
+          setState({ loading: false });
+        }
+      });
+  };
+
+  async function verifyLogin() {
+    setState({ loading: true });
+    const phone = sessionStorage.getItem('phone');
+
+    if (!phone) {
+      //show error message
+      setState({ loading: false });
+      return;
+    }
+    await Axios.post('https://api-dev.allclear.app/peoples/auth', {
+      phone,
+    })
+      .then((response) => {
+        sessionStorage.setItem('phone', phone);
+        history.push('/auth-verification');
       })
       .catch((error) => {
         //show error message
         setState({ loading: false });
       });
-  };
+  }
 
   return (
     <div className="background-responsive">
@@ -57,62 +97,43 @@ export default function PhoneVerify({ props }) {
           <h1 className="heading">Phone Number</h1>
           <h2 className="sub-heading">Enter your phone number to get started.</h2>
         </Header>
-        {
-          state.loading === false ?
-            <Form noValidate autoComplete="off" className="onboarding-body">
-              <PhoneNumber className="hide-mobile"></PhoneNumber>
+        {state.loading === false ? (
+          <Form noValidate autoComplete="off" className="onboarding-body">
+            <PhoneNumber className="hide-mobile"></PhoneNumber>
+            {state.error === true ? <p style={{ color: 'red' }}>{state.message}</p> : ''}
 
-              <div className="review-container">
-                <p>Please review and agree to the
-                  <a href="/terms/"> Terms & Conditions </a> and
-                  <a href="/privacy/"> Privacy Policy </a> before continuing.
-                </p>
+            <div className="review-container">
+              <p>
+                Please review and agree to the
+                <a href="https://staging.about.allclear.app/"> Terms & Conditions </a> and
+                <a href="https://staging.about.allclear.app/"> Privacy Policy </a> before continuing.
+              </p>
 
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={state.checkedB}
-                      onChange={handleChange}
-                      name="checkedB"
-                      color="third"
-                    />
-                  }
-                  label="I have reviewed and agree to the Terms & Conditions and Privacy Policy"
-                />
-              </div>
+              <FormControlLabel
+                control={<Checkbox checked={state.checkedB} onChange={handleChange} name="checkedB" color="third" />}
+                label="I have reviewed and agree to the Terms & Conditions and Privacy Policy"
+              />
+            </div>
 
-              <div className="button-container">
-                <Link to="/login">
-                  <Button
-                    variant="contained"
-                    className="back"
-                  >
-                    Sign into Existing Account
-                  </Button>
-                </Link>
-                <Button
-                  onClick={() => verifyPhoneNumber()}
-                  variant="contained"
-                  color="primary"
-                  className="next"
-                >
-                  Send Verification Code
+            <div className="button-container">
+              <Link to="/login">
+                <Button variant="contained" className="back">
+                  Sign into Existing Account
                 </Button>
-
-              </div>
-            </Form>
-            :
-            <Grid container justify="center">
-              <Grid item xs={12} sm={6}>
-                <LinearProgress color="primary" value="50" variant="indeterminate"/>
-              </Grid>
+              </Link>
+              <Button onClick={() => verifyPhoneNumber()} variant="contained" color="primary" className="next">
+                Send Verification Code
+              </Button>
+            </div>
+          </Form>
+        ) : (
+          <Grid container justify="center">
+            <Grid item xs={12} sm={6}>
+              <LinearProgress color="primary" value="50" variant="indeterminate" />
             </Grid>
-        }
-        {
-          state.loading === false ?
-            <ProgressBottom progress="0"></ProgressBottom>
-            : null
-        }
+          </Grid>
+        )}
+        {state.loading === false ? <ProgressBottom progress="0"></ProgressBottom> : null}
       </div>
     </div>
   );

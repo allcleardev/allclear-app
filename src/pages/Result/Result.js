@@ -73,6 +73,8 @@ class Result extends React.Component {
   buildPayload() {
     const dob = sessionStorage.getItem('dob');
     const phone = sessionStorage.getItem('phone');
+    const lat = sessionStorage.getItem('lat');
+    const lng = sessionStorage.getItem('lng');
 
     // Format Conditions
     let conditions = sessionStorage.getItem('conditions');
@@ -131,8 +133,8 @@ class Result extends React.Component {
     let payload = {
       dob,
       name: phone,
-      latitude: 0,
-      longitude: 0,
+      latitude: lat,
+      longitude: lng,
       conditions: conditionsArray,
       exposures: exposuresArray,
       symptoms: symptomsArray,
@@ -316,7 +318,9 @@ class Result extends React.Component {
                     Back
                   </Button>
                 </Link>
-                <Link to="/">Skip</Link> {/* click to submit? */}
+                <Button onClick={this.submitResults} style={{ color: '#FFF' }}>
+                  Skip
+                </Button>{' '}
                 <Button variant="contained" color="primary" className="next" onClick={this.submitResults}>
                   Next
                 </Button>
