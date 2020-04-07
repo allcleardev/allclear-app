@@ -8,9 +8,9 @@ export default class MapMarker extends Component {
   //    text: PropTypes.string
   //  };
 
-  static defaultProps = {};
+  // static defaultProps = {};
 
-  shouldComponentUpdate = shouldPureComponentUpdate;
+  // shouldComponentUpdate = shouldPureComponentUpdate;
 
   render() {
     return <div style={mapMarkerStyle}>{this.props.text}</div>;

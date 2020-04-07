@@ -4,8 +4,8 @@ export const GetNewPosition = (lat, lng, miles) => {
   return Axios.post(
     'https://api-dev.allclear.app/facilities/search',
     {
-      lat,
-      lng,
+      latitude: lat,
+      longitude: lng,
       miles,
     },
     {
