@@ -7,7 +7,7 @@ import ProgressBottom from '../../components/progressBottom';
 
 import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
-import { Button, Chip, TextField } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 class Background extends React.Component {
@@ -100,44 +100,43 @@ class Background extends React.Component {
                       We can give localized test center recommendations with your location.
                     </span>
                   </label>
-                  <PlacesAutocomplete
-                    value={this.state.address}
-                    onChange={this.handleTextChange}
-                    onSelect={this.handleSelect}
-                  >
-                    {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                      <div>
-                        <TextField
-                          type="text"
-                          variant="outlined"
-                          {...getInputProps({
-                            placeholder: 'Search Places ...',
-                            className: 'input location-search-input',
-                          })}
-                        />
-                        <div className="autocomplete-dropdown-container">
-                          {loading && <div>Loading...</div>}
-                          {suggestions.map((suggestion) => {
-                            const className = suggestion.active ? 'suggestion-item--active' : 'suggestion-item';
-                            // inline style for demonstration purpose
-                            const style = suggestion.active
-                              ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                              : { backgroundColor: '#ffffff', cursor: 'pointer' };
-                            return (
-                              <div
-                                {...getSuggestionItemProps(suggestion, {
-                                  className,
-                                  style,
-                                })}
-                              >
-                                <span>{suggestion.description}</span>
-                              </div>
-                            );
-                          })}
+                  <div className="autocomplete">
+                    <PlacesAutocomplete
+                      value={this.state.address}
+                      onChange={this.handleTextChange}
+                      onSelect={this.handleSelect}
+                    >
+                      {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                        <div>
+                          <TextField
+                            type="search"
+                            variant="outlined"
+                            {...getInputProps({
+                              placeholder: 'New York, NY or 11211',
+                              className: 'input',
+                            })}
+                          />
+                          <div className="autocomplete-dropdown-container">
+                            {loading && <div className="suggestion-item">Loading...</div>}
+                            {suggestions.map((suggestion) => {
+                              const className = suggestion.active
+                                ? 'suggestion-item suggestion-item--active'
+                                : 'suggestion-item';
+                              return (
+                                <div
+                                  {...getSuggestionItemProps(suggestion, {
+                                    className,
+                                  })}
+                                >
+                                  <span>{suggestion.description}</span>
+                                </div>
+                              );
+                            })}
+                          </div>
                         </div>
-                      </div>
-                    )}
-                  </PlacesAutocomplete>
+                      )}
+                    </PlacesAutocomplete>
+                  </div>
                 </article>
                 <article className="article">
                   <label htmlFor="birthdate" className="label">
