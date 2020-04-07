@@ -29,6 +29,7 @@ import FindTest from './pages/ResultDetail/FindTest';
 import ResultDetail from './pages/ResultDetail/ResultDetail';
 import MapPageProvider from './contexts/MapPage.context';
 import AddTest from './pages/Test/Add-test';
+import ShareApp from './pages/Share/Share';
 import './styles/app.scss';
 
 export const AppContext = createContext({});
@@ -73,6 +74,7 @@ export default function App() {
         <Route path="/location" component={Location}/>
         <Route path="/test" component={Test}/>
         <Route path="/find-test" component={FindTest}/>
+        <Route path="/share" component={ShareApp} />
       </AppContext.Provider>
     </Router>
   );

@@ -17,7 +17,6 @@ export default function PhoneVerify({ props }) {
     loading: false,
   });
 
-
   const history = useHistory();
 
   //eslint-disable-next-line
@@ -26,7 +25,7 @@ export default function PhoneVerify({ props }) {
   };
 
   //eslint-disable-next-line
-  async function verifyPhoneNumber() {
+  async function verifyLogin() {
     setState({ loading: true });
     const phone = sessionStorage.getItem('phone');
 
@@ -66,7 +65,7 @@ export default function PhoneVerify({ props }) {
                   Back
                 </Button>
               </Link>
-              <Button onClick={() => verifyPhoneNumber()} variant="contained" color="primary" className="next">
+              <Button onClick={() => verifyLogin()} variant="contained" color="primary" className="next">
                 Send Verification Code
               </Button>
             </div>

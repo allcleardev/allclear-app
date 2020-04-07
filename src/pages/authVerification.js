@@ -7,10 +7,11 @@ import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import Axios from 'axios';
 
-import RoundHeader from '../components/headers/header-round';
+import Header from '../components/header-round';
 import ProgressBottom from '../components/progressBottom';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { useCookies } from 'react-cookie';
+import RoundHeader from '../components/headers/header-round';
 
 export default function PhoneVerify({ props, location }) {
   const [state] = React.useState({
@@ -57,8 +58,7 @@ export default function PhoneVerify({ props, location }) {
       });
   };
 
-  //eslint-disable-next-line
-  const [value, setValue] = React.useState('');
+  const [ setValue] = React.useState('');
 
   const handleCodeChange = (event) => {
     setValue({ code: event.target.value });
@@ -105,12 +105,12 @@ export default function PhoneVerify({ props, location }) {
             </div>
           </Form>
         ) : (
-          <Grid container justify="center">
-            <Grid item xs={12} sm={6}>
-              <LinearProgress color="primary" value="50" variant="indeterminate" />
-            </Grid>
-          </Grid>
-        )}
+           <Grid container justify="center">
+             <Grid item xs={12} sm={6}>
+               <LinearProgress color="primary" value="50" variant="indeterminate" />
+             </Grid>
+           </Grid>
+         )}
         {state.loading === false ? <ProgressBottom progress="100px"></ProgressBottom> : null}
       </div>
     </div>

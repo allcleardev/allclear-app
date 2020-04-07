@@ -25,8 +25,12 @@ export default function RoundHeader({ navigate = '/', children }) {
       <Box className="desktop-content" maxWidth="xl">
         <img src={Logo} alt="Logo" className="logo" />
         <nav className="menu">
-          <a href="/" className="menu__item">About Us</a>
-          <a href="/" className="menu__item">Help</a>
+          <a href="https://staging.about.allclear.app/" className="menu__item">
+            About Us
+          </a>
+          <a href="https://staging.about.allclear.app/" className="menu__item">
+            Help
+          </a>
         </nav>
       </Box>
 

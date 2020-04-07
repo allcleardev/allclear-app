@@ -1,5 +1,4 @@
 .background {
-
   .section {
     display: flex;
     flex-direction: column;
@@ -7,7 +6,7 @@
     align-self: normal;
     margin-bottom: 40px;
 
-    @media(min-width: $md) {
+    @media (min-width: $md) {
       flex-direction: row;
     }
   }
@@ -22,7 +21,7 @@
       margin: 0 0 20px 0;
     }
 
-    @media(min-width: $md) {
+    @media (min-width: $md) {
       &:not(:last-child) {
         margin: 0 67px 0 0;
       }
@@ -44,7 +43,7 @@
     flex-wrap: wrap;
     margin-bottom: 12px;
 
-    @media(min-width: $md) {
+    @media (min-width: $md) {
       flex-wrap: nowrap;
     }
   }
@@ -53,8 +52,21 @@
     flex: 1 auto;
   }
 
+  .autocomplete-dropdown-container {
+    position: absolute;
+    color: #000;
+  }
+
+  .input {
+    input {
+      border: 0;
+      width: 100%;
+      background: transparent;
+    }
+  }
+
   .input#birthdate {
-    @media(min-width: $md) {
+    @media (min-width: $md) {
       width: 55%;
     }
   }
