@@ -55,6 +55,7 @@
   }
 
   .autocomplete {
+    // Note: Temporary style solution until Material UI component is used
     position: relative;
     .autocomplete-dropdown-container {
       position: absolute;

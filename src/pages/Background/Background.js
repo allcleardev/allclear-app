@@ -84,6 +84,7 @@ class Background extends React.Component {
 
   render() {
     return (
+      // TODO: Update input fields to use Material UI dropdown and date-picker
       <div className="background-responsive">
         <div className="background onboarding-page">
           <Header>
