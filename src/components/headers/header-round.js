@@ -1,6 +1,6 @@
 import React from 'react';
 import Fab from '@material-ui/core/Fab';
-import Box from '@material-ui/core/Box';
+import Container from '@material-ui/core/Container';
 import Logo from '../../assets/images/logo-green-back.svg';
 
 export default function RoundHeader({ navigate = '/', children }) {
@@ -22,7 +22,7 @@ export default function RoundHeader({ navigate = '/', children }) {
         {/* </Link> */}
         <div className="shape"></div>
       </div>
-      <Box className="desktop-content" maxWidth="xl">
+      <Container className="desktop-content" maxWidth="xl">
         <img src={Logo} alt="Logo" className="logo" />
         <nav className="menu">
           <a href="https://staging.about.allclear.app/" className="menu__item">
@@ -32,7 +32,7 @@ export default function RoundHeader({ navigate = '/', children }) {
             Help
           </a>
         </nav>
-      </Box>
+      </Container>
 
       {children}
     </div>
