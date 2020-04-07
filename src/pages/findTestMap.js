@@ -20,9 +20,12 @@ import Header from '../components/headerWhite';
 import FabBlueBottom from '../components/fabBlueBottom';
 import NavBottom from '../components/navBottom';
 import SearchGoogleMapInput from '../components/searchGoogleMapInput';
+import { connect } from 'react-redux';
+import { getLocations } from '../redux/selectors';
 
 import SimpleMap from '../components/googleMap';
 import UpdateCriteria from './updateTestingCriteriaModal';
+import Hammer from 'react-hammerjs';
 
 import { mapLocationData } from '../constants';
 
@@ -150,7 +153,7 @@ TabPanel.propTypes = {
 
 // end get windows width
 
-export default function FindTestMap() {
+function FindTestMap({ locations }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -279,6 +282,22 @@ export default function FindTestMap() {
     );
   }
 
+  const handleSwipe = (evt) => {
+    // if (evt.type === 'swipeup') {
+    console.log(evt);
+    // }
+  };
+
+  const options = {
+    touchAction: 'compute',
+    recognizers: {
+      swipe: {
+        time: 600,
+        threshold: 100,
+      },
+    },
+  };
+
   return (
     <div className="test-map-page">
       <Component></Component>
@@ -373,36 +392,39 @@ export default function FindTestMap() {
             )}
           </IconButton>
         </AppBar>
-        <Drawer className={classes.drawer + ' nav-left-location'} variant="persistent" anchor={anchor} open={open}>
-          <div
-            style={{ width: `${drawerWidth}px`, overflowY: 'scroll' }}
-            className="hide-scrollbar wid100-sm height-300-sm"
-          >
-            <Box>
-              <SearchGoogleMapInput style={{ marginTop: '50px' }}></SearchGoogleMapInput>
-              <div style={{ margin: '40px 0' }} className="search-map-filter">
-                <h3 className="body-title" style={{ margin: '5px 0', fontSize: '16px' }}>
-                  Filters
-                </h3>
-                <p className="grey" style={{ fontSize: '16px' }}>
-                  Filters would go there.
-                </p>
-              </div>
-            </Box>
-            <Divider className={classes.divider} orientation="horizontal" />
-            {mapLocationData.data.map((result, index) => (
-              <CardMapLocation
-                key={index}
-                index={index}
-                title={result.Name}
-                description={result.Address}
-                status={result.status}
-                service_time={result.Hours}
-                commute={result['Drive Through']}
-              ></CardMapLocation>
-            ))}
-          </div>
-        </Drawer>
+        <Hammer onSwipe={handleSwipe} option={options} direction="DIRECTION_UP">
+          <Drawer className={classes.drawer + ' nav-left-location'} variant="persistent" anchor={anchor} open={open}>
+            <div
+              style={{ width: `${drawerWidth}px`, overflowY: 'scroll' }}
+              className="hide-scrollbar wid100-sm height-300-sm"
+            >
+              <Box>
+                <SearchGoogleMapInput style={{ marginTop: '50px' }}></SearchGoogleMapInput>
+                <div style={{ margin: '40px 0' }} className="search-map-filter">
+                  <h3 className="body-title" style={{ margin: '5px 0', fontSize: '16px' }}>
+                    Filters
+                  </h3>
+                  <p className="grey" style={{ fontSize: '16px' }}>
+                    Filters would go there.
+                  </p>
+                </div>
+              </Box>
+              <Divider className={'hide-mobile-sm ' + classes.divider} orientation="horizontal" />
+              {console.log(locations)}
+              {locations.map((result, index) => (
+                <CardMapLocation
+                  key={index}
+                  index={index}
+                  title={result.name}
+                  description={result.address}
+                  status={result.state}
+                  service_time={result.Hours}
+                  commute={result['Drive Through']}
+                ></CardMapLocation>
+              ))}
+            </div>
+          </Drawer>
+        </Hammer>
         <main
           className={clsx(classes.content, {
             [classes.contentShift]: open,
@@ -440,3 +462,7 @@ export default function FindTestMap() {
     </div>
   );
 }
+
+export default connect((state) => {
+  return { locations: state.locations };
+})(FindTestMap);

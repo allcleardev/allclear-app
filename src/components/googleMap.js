@@ -3,6 +3,9 @@ import GoogleMapReact, { Marker } from 'google-map-react';
 import MapMarker from './map-components/mapMarker.jsx';
 import { GetNewPosition } from '../services/google-location-svc.js';
 
+import { addLocation } from '../redux/actions';
+import { connect } from 'react-redux';
+
 class SimpleMap extends Component {
   constructor(props) {
     super(props);
@@ -22,12 +25,13 @@ class SimpleMap extends Component {
   async componentDidMount() {
     const result = await GetNewPosition(this.props.center.lat, this.props.center.lng, 100);
     this.setState({ result: result.data.records });
+    this.props.addLocation(result.data.records);
   }
 
   async onMarkerDragEnd(evt) {
     const result = await GetNewPosition(evt.center.lat(), evt.center.lng(), 100);
-    this.
-    setState({ result: result.data.records });
+    this.setState({ result: result.data.records });
+    this.props.addLocation(result.data.records);
   }
   async onMarkerZoomChanged(evt) {
     const result = await GetNewPosition(evt.center.lat(), evt.center.lng(), 400);
@@ -54,4 +58,4 @@ class SimpleMap extends Component {
   }
 }
 
-export default SimpleMap;
+export default connect(null, { addLocation })(SimpleMap);
