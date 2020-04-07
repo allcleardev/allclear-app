@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
-import {bindAll} from 'lodash';
+import { bindAll } from 'lodash';
 import RoundHeader from '../../components/headers/header-round';
 import ProgressBottom from '../../components/progressBottom';
 import states from './HealthWorkerStatus.state';
@@ -15,19 +15,14 @@ class HealthWorkerStatus extends React.Component {
 
   constructor() {
     super();
-    bindAll(this, [
-      'componentDidMount',
-      'getHealthWorkerStatuses',
-      'handleChange',
-      'render',
-    ]);
+    bindAll(this, ['componentDidMount', 'getHealthWorkerStatuses', 'handleChange', 'render']);
   }
 
   componentDidMount() {
     this.getHealthWorkerStatuses();
-  };
+  }
 
-  getHealthWorkerStatuses(){
+  getHealthWorkerStatuses() {
     this.setState({ loading: true });
 
     Axios.get('https://api-dev.allclear.app/types/healthWorkerStatuses', {})
@@ -39,18 +34,23 @@ class HealthWorkerStatus extends React.Component {
         console.log(error);
         this.setState({ loading: false });
       });
-  };
+  }
 
-  handleChange (event){
-    let { healthWorkerStatus } = this.state;
-    healthWorkerStatus.filter((status) => {
+  handleChange(event) {
+    const { healthWorkerStatus } = this.state;
+    const selectedStatus = event;
+
+    healthWorkerStatus.map((status) => {
       if (status.name === event.name) {
         status.isActive = !status.isActive;
+      } else {
+        // forces one selection
+        status.isActive = false;
       }
     });
     this.setState({ healthWorkerStatus });
-    sessionStorage.setItem('healthWorkerStatus', JSON.stringify(healthWorkerStatus));
-  };
+    sessionStorage.setItem('healthWorkerStatus', JSON.stringify(selectedStatus));
+  }
 
   render() {
     return (
@@ -65,9 +65,6 @@ class HealthWorkerStatus extends React.Component {
           </RoundHeader>
           <Form noValidate autoComplete="off" className="onboarding-body">
             <Box maxWidth="md">
-              <label className="label">
-                <strong>Select all that apply.</strong>
-              </label>
               <div className="chips-group">
                 {this.state.healthWorkerStatus &&
                   this.state.healthWorkerStatus.map((res) => {

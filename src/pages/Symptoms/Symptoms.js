@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
-import {bindAll} from 'lodash';
+import { bindAll } from 'lodash';
 import RoundHeader from '../../components/headers/header-round';
 import ProgressBottom from '../../components/progressBottom';
 import states from './Symptoms.state';
@@ -15,17 +15,12 @@ class Symptom extends Component {
 
   constructor() {
     super();
-    bindAll(this, [
-      'componentDidMount',
-      'getSymptoms',
-      'selectAll',
-      'handleChange',
-    ]);
+    bindAll(this, ['componentDidMount', 'getSymptoms', 'handleChange', 'buildPayload', 'submitResults']);
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.getSymptoms();
-  };
+  }
 
   getSymptoms() {
     this.setState({ loading: true });
@@ -39,16 +34,7 @@ class Symptom extends Component {
         console.log(error);
         this.setState({ loading: false });
       });
-  };
-
-  selectAll (){
-    let { symptoms } = this.state;
-    symptoms.filter((symptom) => {
-      symptom.isActive = true;
-    });
-    this.setState({ symptoms });
-    sessionStorage.setItem('symptoms', JSON.stringify(symptoms));
-  };
+  }
 
   handleChange(event) {
     let { symptoms } = this.state;
@@ -59,7 +45,101 @@ class Symptom extends Component {
     });
     this.setState({ symptoms });
     sessionStorage.setItem('symptoms', JSON.stringify(symptoms));
-  };
+  }
+
+  buildPayload() {
+    const dob = sessionStorage.getItem('dob');
+    const phone = sessionStorage.getItem('phone');
+    const lat = sessionStorage.getItem('lat');
+    const lng = sessionStorage.getItem('lng');
+    const healthWorkerStatus = sessionStorage.getItem('healthWorkerStatus');
+
+    // Format Conditions
+    let conditions = sessionStorage.getItem('conditions');
+    const conditionsArray = [];
+    if (conditions) {
+      if (typeof conditions === 'string') {
+        conditions = JSON.parse(conditions);
+      }
+      conditions.forEach((condition) => {
+        if (condition.isActive) {
+          conditionsArray.push({
+            id: condition.id,
+            name: condition.name,
+          });
+        }
+      });
+    }
+
+    // Format Exposures
+    let exposures = sessionStorage.getItem('exposures');
+    const exposuresArray = [];
+    if (exposures) {
+      if (typeof exposures === 'string') {
+        exposures = JSON.parse(exposures);
+      }
+      exposures.forEach((exposure) => {
+        if (exposure.isActive) {
+          exposuresArray.push({
+            id: exposure.id,
+            name: exposure.name,
+          });
+        }
+      });
+    }
+
+    // Format Symptoms
+    let symptoms = sessionStorage.getItem('symptoms');
+    const symptomsArray = [];
+    if (symptoms) {
+      if (typeof symptoms === 'string') {
+        symptoms = JSON.parse(symptoms);
+      }
+      symptoms.forEach((symptom) => {
+        if (symptom.isActive) {
+          symptomsArray.push({
+            id: symptom.id,
+            name: symptom.name,
+          });
+        }
+      });
+    }
+
+    const payload = {
+      dob,
+      name: phone,
+      latitude: lat,
+      longitude: lng,
+      conditions: conditionsArray,
+      exposures: exposuresArray,
+      symptoms: symptomsArray,
+      healthWorkerStatus: JSON.parse(healthWorkerStatus),
+    };
+    return payload;
+  }
+
+  async submitResults() {
+    const sessionId = sessionStorage.getItem('sessid');
+
+    this.setState({ loading: true });
+
+    const payload = this.buildPayload();
+
+    await Axios.post('https://api-dev.allclear.app/peoples/register', payload, {
+      headers: {
+        'X-AllClear-SessionID': sessionId,
+      },
+    })
+      .then((response) => {
+        // this.setCookie('sessid', response.data.id); // TODO: blocks progress. check fn
+        sessionStorage.setItem('sessid', response.data.id);
+        sessionStorage.setItem('session', response.data);
+        this.props.history.push('/profile-view');
+      })
+      .catch((error) => {
+        this.setState({ loading: false });
+      });
+  }
 
   render() {
     return (
@@ -76,17 +156,17 @@ class Symptom extends Component {
               </label>
               <div className="chips-group">
                 {this.state.symptoms &&
-                this.state.symptoms.map((res) => {
-                  return (
-                    <Chip
-                      key={res.id}
-                      className={'chip' + (res.isActive ? ' Active' : '')}
-                      label={res.name}
-                      variant="outlined"
-                      onClick={() => this.handleChange(res)}
-                    ></Chip>
-                  );
-                })}
+                  this.state.symptoms.map((res) => {
+                    return (
+                      <Chip
+                        key={res.id}
+                        className={'chip' + (res.isActive ? ' Active' : '')}
+                        label={res.name}
+                        variant="outlined"
+                        onClick={() => this.handleChange(res)}
+                      ></Chip>
+                    );
+                  })}
               </div>
             </Box>
             <div className="button-container">
@@ -97,11 +177,9 @@ class Symptom extends Component {
               </Link>
 
               {/* Todo: Make `profile-view` access conditional on successful profile creation */}
-              <Link to="/profile-view">
-                <Button variant="contained" color="primary" className="next">
-                  Continue to Home page
-                </Button>
-              </Link>
+              <Button variant="contained" color="primary" className="next" onClick={this.submitResults}>
+                Continue to Home page
+              </Button>
             </div>
           </Form>
           <ProgressBottom progress="42%"></ProgressBottom>
