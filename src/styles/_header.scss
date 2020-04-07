@@ -265,6 +265,12 @@
 
     .logo {
       width: 80px;
+
+      &--open{
+        transition: margin 0.15s linear;
+        margin-left: 410px;
+      }
+
     }
 
     .header-menu {
@@ -290,7 +296,7 @@
         }
 
         &.selected {
-          border-bottom: 2px solid #fff;
+          border-bottom: 2px solid #999999;
         }
       }
     }

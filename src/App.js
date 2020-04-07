@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {createContext} from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import './styles/app.scss';
@@ -10,7 +10,7 @@ import CompleteProfile from './pages/completeProfile';
 import Conditions from './pages/Conditions/Conditions';
 import CreateAccount from './pages/create-account';
 import FindTest from './pages/ResultDetail/FindTest';
-import FindTestMap from './pages/findTestMap';
+import MapPage from './pages/map.page';
 import ForgotPassword from './pages/forgot-password';
 import Health from './pages/health';
 import HealthWorkerStatus from './pages/HealthWorkerStatus/HealthWorkerStatus';
@@ -32,10 +32,14 @@ import Symptoms from './pages/Symptoms/Symptoms';
 import Test from './pages/test';
 import UpdateTestingCenterCriteria from './pages/updateTestingCenterCriteria';
 import VerifyMagicLink from './pages/verify-magic-link';
+import MapPageProvider from './contexts/MapPage.context';
+
+export const AppContext = createContext({});
 
 export default function App() {
   return (
     <Router>
+      <AppContext.Provider value={{test: 'cool test'}}>
       <Route exact path="/" component={Launch} />
       {/* Onboarding Pages */}
       <Route path="/sign-up" component={PhoneVerify} />
@@ -56,7 +60,9 @@ export default function App() {
       <Route path="/update-criteria" component={UpdateTestingCenterCriteria} />
       <Route path="/share" component={ShareApp} />
       {/* Map */}
-      <Route path="/find-test-map" component={FindTestMap} />
+        <MapPageProvider>
+          <Route path="/map" component={MapPage}/>
+        </MapPageProvider>
       {/* Abandoned??? */}
       <Route path="/create-account" component={CreateAccount} />
       <Route path="/phone-verify-success" component={PhoneVerifySuccess} />
@@ -71,6 +77,7 @@ export default function App() {
       {/* Definitely Abandoned (for now) */}
       <Route path="/conditions" component={Conditions} />
       <Route path="/results" component={Result} />
+      </AppContext.Provider>
     </Router>
   );
 }

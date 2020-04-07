@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
 
-import Header from '../../components/header-round';
+import RoundHeader from '../../components/headers/header-round';
 import ProgressBottom from '../../components/progressBottom';
 
 import Form from '@material-ui/core/Container';
@@ -19,6 +19,8 @@ class Background extends React.Component {
     this.handleLocationChange = this.handleLocationChange.bind(this);
     this.handleDoBChange = this.handleDoBChange.bind(this);
     this.getExposures = this.getExposures.bind(this);
+    this.handleTextChange = this.handleTextChange.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
   }
 
   componentDidMount() {
@@ -66,11 +68,11 @@ class Background extends React.Component {
     sessionStorage.setItem('exposures', JSON.stringify(exposures));
   }
 
-  handleTextChange = (address) => {
+  handleTextChange(address){
     this.setState({ address });
   };
 
-  handleSelect = (address) => {
+  handleSelect(address){
     this.setState({ address });
 
     geocodeByAddress(address)
@@ -87,10 +89,10 @@ class Background extends React.Component {
       // TODO: Update input fields to use Material UI dropdown and date-picker
       <div className="background-responsive">
         <div className="background onboarding-page">
-          <Header>
+          <RoundHeader>
             <h1 className="heading">Background</h1>
             <h2 className="sub-heading">Provide information to help us recommend the test sites for you.</h2>
-          </Header>
+          </RoundHeader>
           <Form noValidate autoComplete="off" className="onboarding-body">
             <Box maxWidth="md">
               <section className="section">
@@ -123,8 +125,8 @@ class Background extends React.Component {
                             {loading && <div className="suggestion-item">Loading...</div>}
                             {suggestions.map((suggestion) => {
                               const className = suggestion.active
-                                ? 'suggestion-item suggestion-item--active'
-                                : 'suggestion-item';
+                                                ? 'suggestion-item suggestion-item--active'
+                                                : 'suggestion-item';
                               return (
                                 <div
                                   {...getSuggestionItemProps(suggestion, {

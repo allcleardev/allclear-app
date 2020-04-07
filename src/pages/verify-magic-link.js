@@ -6,7 +6,7 @@ import { useCookies } from 'react-cookie';
 import Box from '@material-ui/core/Container';
 import Axios from 'axios';
 
-import Header from '../components/header-round';
+import RoundHeader from '../components/headers/header-round';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { Grid } from '@material-ui/core';
 
@@ -45,11 +45,11 @@ export default function VerifyMagicLink({ props, location }) {
   return (
     <div className="background-responsive">
       <Box className="sign-up">
-        <Header>
+        <RoundHeader>
           <h1 style={{ justifyContent: 'center', margin: '0' }}>Verifying Phone Number</h1>
           <p>We are verifying your phone number.</p>
           <p>After verifying it, you will advance to complete your profile.</p>
-        </Header>
+        </RoundHeader>
 
         <Grid container justify="center">
           <Grid item xs={12} sm={6}>

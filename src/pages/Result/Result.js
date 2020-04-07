@@ -2,7 +2,7 @@ import React from 'react';
 import Axios from 'axios';
 import { Link } from 'react-router-dom';
 
-import Header from '../../components/header-round';
+import RoundHeader from '../../components/headers/header-round';
 import ProgressBottom from '../../components/progressBottom';
 // import states from './Result.state';
 
@@ -231,13 +231,13 @@ class Result extends React.Component {
     return (
       <div className="background-responsive">
         <div className="results onboarding-page">
-          <Header>
+          <RoundHeader>
             <h1 className="heading">Test Results</h1>
             <h2 className="sub-heading">
               If you've taken a COVID-19 test already, please submit test details and results. Refer to our
               <a href="/"> Privacy Policy </a>for more details.
             </h2>
-          </Header>
+          </RoundHeader>
           {this.state && this.state.loading === false ? (
             <Form noValidate autoComplete="off" className="onboarding-body">
               <Box maxWidth="md">
@@ -262,9 +262,9 @@ class Result extends React.Component {
                         Select Test
                       </MenuItem>
                       {this.state.testTypes &&
-                        this.state.testTypes.map((res) => {
-                          return <MenuItem value={res}>{res.name}</MenuItem>;
-                        })}
+                      this.state.testTypes.map((res) => {
+                        return <MenuItem value={res}>{res.name}</MenuItem>;
+                      })}
                     </Select>
                   </FormControl>
 
@@ -287,9 +287,9 @@ class Result extends React.Component {
                         Choose Location
                       </MenuItem>
                       {this.state.testLocations &&
-                        this.state.testLocations.map((res) => {
-                          return <MenuItem value={res}>{res.name}</MenuItem>;
-                        })}
+                      this.state.testLocations.map((res) => {
+                        return <MenuItem value={res}>{res.name}</MenuItem>;
+                      })}
                     </Select>
                   </FormControl>
 
@@ -327,8 +327,8 @@ class Result extends React.Component {
               </div>
             </Form>
           ) : (
-            grid
-          )}
+             grid
+           )}
           {this.state && this.state.loading === false ? <ProgressBottom progress="56%"></ProgressBottom> : null}
         </div>
       </div>

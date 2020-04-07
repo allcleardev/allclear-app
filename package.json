@@ -3,21 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "lint": "eslint src",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "lint": "eslint src --max-warnings=0",
     "deploy": "yarn build && surge build --domain allclear.surge.sh",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "react-app-rewired test",
+    "eject": "react-app-rewired eject"
   },
   "dependencies": {
     "@material-ui/core": "latest",
     "@material-ui/icons": "latest",
-    "@material-ui/lab": "^4.0.0-alpha.47",
-    "@mui-treasury/components": "^1.0.0",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
+    "@material-ui/lab": "^4.0.0-alpha.48",
+    "@mui-treasury/components": "^1.0.1",
+    "@testing-library/jest-dom": "^5.3.0",
+    "@testing-library/react": "^10.0.2",
+    "@testing-library/user-event": "^10.0.1",
     "airtable": "^0.8.1",
     "axios": "^0.19.2",
     "clsx": "latest",
@@ -25,7 +25,8 @@
     "google-map-react": "^1.1.7",
     "leaflet": "^1.6.0",
     "leaflet-geosearch": "^2.7.0",
-    "leaflet.locatecontrol": "^0.71.0",
+    "leaflet.locatecontrol": "^0.71.1",
+    "lodash": "^4.17.15",
     "material-ui-phone-number": "^2.2.6",
     "node-sass": "^4.13.1",
     "nodent-runtime": "^3.2.1",
@@ -48,101 +49,11 @@
   },
   "devDependencies": {
     "@types/leaflet.locatecontrol": "^0.60.7",
+    "customize-cra": "^0.9.1",
     "eslint": "^6.8.0",
-    "prettier": "^2.0.2",
-    "pretty-quick": "^2.0.1"
-  },
-  "eslintConfig": {
-    "extends": "react-app",
-    "rules": {
-      "array-callback-return": "off",
-      "brace-style": [
-        2,
-        "1tbs",
-        {
-          "allowSingleLine": false
-        }
-      ],
-      "arrow-spacing": 2,
-      "no-class-assign": 2,
-      "no-const-assign": 2,
-      "no-dupe-class-members": 2,
-      "no-this-before-super": 2,
-      "object-shorthand": 2,
-      "prefer-arrow-callback": 2,
-      "new-parens": "error",
-      "no-bitwise": "error",
-      "no-caller": "error",
-      "no-cond-assign": "error",
-      "yoda": [
-        1,
-        "never"
-      ],
-      "arrow-parens": [
-        "error",
-        "always"
-      ],
-      "max-len": [
-        "error",
-        {
-          "code": 140
-        }
-      ],
-      "indent": [
-        1,
-        2,
-        {
-          "SwitchCase": 1
-        }
-      ],
-      "lines-around-comment": [
-        2,
-        {
-          "allowBlockStart": true,
-          "beforeBlockComment": true
-        }
-      ],
-      "one-var": [
-        1,
-        "never"
-      ],
-      "quotes": [
-        "error",
-        "single"
-      ],
-      "quote-props": [
-        1,
-        "as-needed"
-      ],
-      "semi": [
-        1,
-        "always"
-      ],
-      "keyword-spacing": 0,
-      "space-unary-ops": [
-        1,
-        {
-          "words": true,
-          "nonwords": false
-        }
-      ],
-      "vars-on-top": 1,
-      "wrap-iife": [
-        1,
-        "outside"
-      ],
-      "no-dupe-args": 1,
-      "no-dupe-keys": 1,
-      "no-invalid-regexp": 1,
-      "no-invalid-this": 1,
-      "no-mixed-spaces-and-tabs": [
-        1,
-        "smart-tabs"
-      ],
-      "no-undef": 1,
-      "no-unreachable": 1,
-      "no-unused-vars": 1
-    }
+    "prettier": "^2.0.3",
+    "pretty-quick": "^2.0.1",
+    "react-app-rewired": "^2.1.5"
   },
   "browserslist": {
     "production": [

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
-
-import Header from '../../components/header-round';
+import {bindAll} from 'lodash';
+import RoundHeader from '../../components/headers/header-round';
 import ProgressBottom from '../../components/progressBottom';
 import states from './HealthWorkerStatus.state';
 
@@ -13,11 +13,21 @@ import { Button, Chip } from '@material-ui/core';
 class HealthWorkerStatus extends React.Component {
   state = states;
 
-  componentDidMount = () => {
+  constructor() {
+    super();
+    bindAll(this, [
+      'componentDidMount',
+      'getHealthWorkerStatuses',
+      'handleChange',
+      'render',
+    ]);
+  }
+
+  componentDidMount() {
     this.getHealthWorkerStatuses();
   };
 
-  getHealthWorkerStatuses = () => {
+  getHealthWorkerStatuses(){
     this.setState({ loading: true });
 
     Axios.get('https://api-dev.allclear.app/types/healthWorkerStatuses', {})
@@ -31,7 +41,7 @@ class HealthWorkerStatus extends React.Component {
       });
   };
 
-  handleChange = (event) => {
+  handleChange (event){
     let { healthWorkerStatus } = this.state;
     healthWorkerStatus.filter((status) => {
       if (status.name === event.name) {
@@ -46,13 +56,13 @@ class HealthWorkerStatus extends React.Component {
     return (
       <div className="background-responsive">
         <div className="health-worker onboarding-page">
-          <Header>
+          <RoundHeader>
             <h1 className="heading">Health Worker Status</h1>
             <h2 className="sub-heading">
               Some test centers will test you if you’re a medical professional or first responder, even if you have no
               symptoms.
             </h2>
-          </Header>
+          </RoundHeader>
           <Form noValidate autoComplete="off" className="onboarding-body">
             <Box maxWidth="md">
               <label className="label">

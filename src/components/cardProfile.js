@@ -12,57 +12,47 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'flex-start',
     marginTop: '-60px',
     borderRadius: 15,
-    boxShadow:
-      '0px 24px 32px rgba(50, 50, 71, 0.08), 0px 16px 16px rgba(50, 50, 71, 0.08)'
+    boxShadow: '0px 24px 32px rgba(50, 50, 71, 0.08), 0px 16px 16px rgba(50, 50, 71, 0.08)',
   },
   profileName: {
     fontSize: 15,
     fontWeight: 600,
     padding: 0,
-    margin: 0
+    margin: 0,
   },
   details: {
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   small: {
     width: 75,
     height: 75,
-    margin: 16
+    margin: 16,
   },
   content: {
-    width: 'auto'
+    width: 'auto',
   },
   cover: {
     width: 75,
     height: 75,
     borderRadius: '50%',
-    backgroundColor: 'red'
+    backgroundColor: 'red',
   },
   controls: {
     display: 'flex',
     alignItems: 'center',
     paddingLeft: theme.spacing(1),
-    paddingBottom: theme.spacing(1)
-  }
+    paddingBottom: theme.spacing(1),
+  },
 }));
 
-export default function UserProfileCard({
-  avatar,
-  userName,
-  location,
-  health,
-  status
-}) {
+export default function UserProfileCard({ avatar, userName, location, health, status }) {
   const classes = useStyles();
 
   return (
     <Grid container spacing={3} style={{ justifyContent: 'center' }}>
       <Grid item xs={12} sm={11}>
-        <Card
-          className={classes.root}
-          style={{ display: 'flex', justifyContent: 'space-between' }}
-        >
+        <Card className={classes.root} style={{ display: 'flex', justifyContent: 'space-between' }}>
           <Avatar className={classes.small}>
             <img src={avatar} alt={userName}></img>
           </Avatar>
@@ -70,7 +60,7 @@ export default function UserProfileCard({
             style={{
               display: 'flex',
               justifyContent: 'space-between',
-              width: '100%'
+              width: '100%',
             }}
           >
             <CardContent className={classes.content}>
@@ -95,13 +85,7 @@ export default function UserProfileCard({
             </CardContent>
             <div>
               <IconButton>
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M12 15.2178C13.6569 15.2178 15 13.8746 15 12.2178C15 10.5609 13.6569 9.21777 12
                     9.21777C10.3431 9.21777 9 10.5609 9 12.2178C9 13.8746 10.3431 15.2178 12 15.2178Z"

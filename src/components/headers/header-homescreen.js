@@ -1,10 +1,10 @@
 import React from 'react';
 
-import Logo from '../assets/images/logo-white-back.svg';
+import Logo from '../../assets/images/logo-green-back.svg';
 
-export default function Header(props) {
+export default function HomescreenHeader(props) {
   return (
-    <div className="header-white-fullscreen">
+    <div className="header-homescreen">
       <div className="header-logo">
         <img src={Logo} alt="Logo" className="logo" />
         <div className="header-menu">
