@@ -4,25 +4,25 @@ import Axios from 'axios';
 
 import Header from '../../components/header-round';
 import ProgressBottom from '../../components/progressBottom';
-import states from './Symptoms.state';
+import states from './HealthWorkerStatus.state';
 
 import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
 import { Button, Chip } from '@material-ui/core';
 
-class Symptom extends React.Component {
+class HealthWorkerStatus extends React.Component {
   state = states;
 
   componentDidMount = () => {
-    this.getSymptoms();
+    this.getHealthWorkerStatuses();
   };
 
-  getSymptoms = () => {
+  getHealthWorkerStatuses = () => {
     this.setState({ loading: true });
 
-    Axios.get('https://api-dev.allclear.app/types/symptoms', {})
+    Axios.get('https://api-dev.allclear.app/types/healthWorkerStatuses', {})
       .then((response) => {
-        this.setState({ symptoms: response.data });
+        this.setState({ healthWorkerStatus: response.data });
         this.setState({ loading: false });
       })
       .catch((error) => {
@@ -32,23 +32,26 @@ class Symptom extends React.Component {
   };
 
   handleChange = (event) => {
-    let { symptoms } = this.state;
-    symptoms.filter((symptom) => {
-      if (symptom.name === event.name) {
-        symptom.isActive = !symptom.isActive;
+    let { healthWorkerStatus } = this.state;
+    healthWorkerStatus.filter((status) => {
+      if (status.name === event.name) {
+        status.isActive = !status.isActive;
       }
     });
-    this.setState({ symptoms });
-    sessionStorage.setItem('symptoms', JSON.stringify(symptoms));
+    this.setState({ healthWorkerStatus });
+    sessionStorage.setItem('healthWorkerStatus', JSON.stringify(healthWorkerStatus));
   };
 
   render() {
     return (
       <div className="background-responsive">
-        <div className="symptoms onboarding-page">
+        <div className="health-worker onboarding-page">
           <Header>
-            <h1 className="heading">Symptoms</h1>
-            <h2 className="sub-heading">Most test centers are only seeing patients with certain symptoms.</h2>
+            <h1 className="heading">Health Worker Status</h1>
+            <h2 className="sub-heading">
+              Some test centers will test you if you’re a medical professional or first responder, even if you have no
+              symptoms.
+            </h2>
           </Header>
           <Form noValidate autoComplete="off" className="onboarding-body">
             <Box maxWidth="md">
@@ -56,8 +59,8 @@ class Symptom extends React.Component {
                 <strong>Select all that apply.</strong>
               </label>
               <div className="chips-group">
-                {this.state.symptoms &&
-                  this.state.symptoms.map((res) => {
+                {this.state.healthWorkerStatus &&
+                  this.state.healthWorkerStatus.map((res) => {
                     return (
                       <Chip
                         key={res.id}
@@ -71,24 +74,22 @@ class Symptom extends React.Component {
               </div>
             </Box>
             <div className="button-container">
-              <Link to="/health-worker" className="hide-mobile">
+              <Link to="/background" className="hide-mobile">
                 <Button variant="contained" className="back">
                   Back
                 </Button>
               </Link>
-
-              {/* Todo: Make `profile-view` access conditional on successful profile creation */}
-              <Link to="/profile-view">
+              <Link to="/symptoms">
                 <Button variant="contained" color="primary" className="next">
-                  Continue to Home page
+                  Next
                 </Button>
               </Link>
             </div>
           </Form>
-          <ProgressBottom progress="42%"></ProgressBottom>
+          <ProgressBottom progress="28%"></ProgressBottom>
         </div>
       </div>
     );
   }
 }
-export default Symptom;
+export default HealthWorkerStatus;

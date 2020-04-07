@@ -86,7 +86,6 @@ export default function PhoneVerify({ props, location }) {
                   defaultValue=""
                   InputLabelProps={{ shrink: false }}
                   onChange={handleCodeChange}
-                  // label={value === "" ? "Verification Code" : ""} // commenting out for now
                   placeholder="Verification Code"
                   variant="outlined"
                   style={{}}
@@ -95,7 +94,7 @@ export default function PhoneVerify({ props, location }) {
             </div>
 
             <div className="button-container">
-              <Link to="/create-account">
+              <Link to="/sign-up">
                 <Button variant="contained" className="back">
                   Restart
                 </Button>

@@ -4,7 +4,6 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 
 import Logo from '../assets/images/logo-green-back.svg';
 
-
 const LogoStyle = {
   justifyContent: 'center',
   alignItems: 'center',
@@ -27,7 +26,7 @@ const Launch = ({ props }) => {
 
   useEffect(() => {
     setTimeout(() => {
-      history.push('/phone-verify');
+      history.push('/sign-up');
     }, 3000);
   });
 
