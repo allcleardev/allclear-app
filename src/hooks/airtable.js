@@ -5,7 +5,8 @@
 // function getData() {
 //   return airbase('Table 1').select({
 //     view: 'Grid view',
-//     fields: ['Name', 'Address', 'Latitude', 'Longitude', 'State', 'Phone', 'Phone Extension', 'Main Website', 'Hours', 'Drive Through', 'Appointment Needed']
+//     fields: ['Name', 'Address', 'Latitude', 'Longitude', 'State', 'Phone', 'Phone Extension',
+//     'Main Website', 'Hours', 'Drive Through', 'Appointment Needed']
 //   }).eachPage(function page(records, fetchNextPage) {
 //     // This function (`page`) will get called for each page of records.
 
@@ -25,32 +26,32 @@
 // });
 // }
 
-import loc_data from "../data/locations.json";
+import loc_data from '../data/locations.json';
 
 class Locations {
   constructor() {
     this.fields = [
-      "Name",
-      "Address",
-      "Latitude",
-      "Longitude",
-      "State",
-      "Phone",
-      "Phone Extension",
-      "Main Website",
-      "Hours",
-      "Drive Through",
-      "Appointment Needed"
+      'Name',
+      'Address',
+      'Latitude',
+      'Longitude',
+      'State',
+      'Phone',
+      'Phone Extension',
+      'Main Website',
+      'Hours',
+      'Drive Through',
+      'Appointment Needed'
     ];
     this.locations = this.normalize_fields(loc_data);
-    this.length = this.locations.length
+    this.length = this.locations.length;
   }
 
   normalize_fields(data) {
     for(let row of data) {
       for(let key of this.fields) {
         if (!(key in row)) {
-          row[key] = "";
+          row[key] = '';
         }
       }
     }
@@ -64,7 +65,7 @@ class Locations {
   }
 
   getAll() {
-    return this.locations
+    return this.locations;
   }
 }
 

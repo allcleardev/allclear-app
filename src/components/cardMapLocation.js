@@ -1,14 +1,13 @@
-import React from "react";
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import { IconButton } from '@material-ui/core';
 
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import { IconButton } from "@material-ui/core";
-
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between"
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between'
   },
   content: {}
 }));
@@ -17,21 +16,18 @@ export default function CardMapLocation({
   index,
   title,
   description,
-  status,
-  serviceTime,
-  commuteWay
 }) {
-  const classes = useStyles();
+  useStyles();
 
   return (
     <Card className="card-map-location">
-      <h3 className="card-title" style={{ color: "#000" }}>
+      <h3 className="card-title" style={{ color: '#000' }}>
         <span className="grey" style={{}}>
           {index}.
-        </span>{" "}
+        </span>{' '}
         {title}
       </h3>
-      <p className="card-description" style={{ color: "#929292" }}>
+      <p className="card-description" style={{ color: '#929292' }}>
         {description}
       </p>
 

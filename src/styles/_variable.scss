@@ -3,7 +3,12 @@ $primary-color: #007aff;
 $white-color: #fff;
 $black-color: #000;
 $grey-color: #aaadb3;
+$grey-text: #929292;
 $grey2: #e5e5ea;
+$navy: #002c83;
+
+$main-background: linear-gradient(135deg, #36d1bc, #36d1bc 20%, $primary-color);
+//linear-gradient(to right, #36d1bc, #1195ff);
 
 // screen breakpoints
 $xl: 1200px;

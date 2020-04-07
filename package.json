@@ -2,6 +2,14 @@
   "name": "allclear-pwa-2",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "lint": "eslint src",
+    "deploy": "yarn build && surge build --domain allclear.surge.sh",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
     "@material-ui/core": "latest",
     "@material-ui/icons": "latest",
@@ -14,6 +22,7 @@
     "axios": "^0.19.2",
     "clsx": "latest",
     "formik": "^2.1.4",
+    "google-map-react": "^1.1.7",
     "leaflet": "^1.6.0",
     "leaflet-geosearch": "^2.7.0",
     "leaflet.locatecontrol": "^0.71.0",
@@ -22,11 +31,14 @@
     "nodent-runtime": "^3.2.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
+    "react-cookie": "^4.0.3",
     "react-dom": "^16.13.1",
     "react-leaflet": "^2.6.3",
     "react-leaflet-locate-control": "^0.1.6",
     "react-map-gl": "^5.2.3",
     "react-number-format": "^4.4.1",
+    "react-places-autocomplete": "^7.2.1",
+    "react-pure-render": "^1.0.2",
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
@@ -34,15 +46,103 @@
     "react-window": "^1.8.5",
     "typescript": "^3.8.3"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "deploy": "yarn build && surge build --domain allclear.surge.sh",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+  "devDependencies": {
+    "@types/leaflet.locatecontrol": "^0.60.7",
+    "eslint": "^6.8.0",
+    "prettier": "^2.0.2",
+    "pretty-quick": "^2.0.1"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "rules": {
+      "array-callback-return": "off",
+      "brace-style": [
+        2,
+        "1tbs",
+        {
+          "allowSingleLine": false
+        }
+      ],
+      "arrow-spacing": 2,
+      "no-class-assign": 2,
+      "no-const-assign": 2,
+      "no-dupe-class-members": 2,
+      "no-this-before-super": 2,
+      "object-shorthand": 2,
+      "prefer-arrow-callback": 2,
+      "new-parens": "error",
+      "no-bitwise": "error",
+      "no-caller": "error",
+      "no-cond-assign": "error",
+      "yoda": [
+        1,
+        "never"
+      ],
+      "arrow-parens": [
+        "error",
+        "always"
+      ],
+      "max-len": [
+        "error",
+        {
+          "code": 140
+        }
+      ],
+      "indent": [
+        1,
+        2,
+        {
+          "SwitchCase": 1
+        }
+      ],
+      "lines-around-comment": [
+        2,
+        {
+          "allowBlockStart": true,
+          "beforeBlockComment": true
+        }
+      ],
+      "one-var": [
+        1,
+        "never"
+      ],
+      "quotes": [
+        "error",
+        "single"
+      ],
+      "quote-props": [
+        1,
+        "as-needed"
+      ],
+      "semi": [
+        1,
+        "always"
+      ],
+      "keyword-spacing": 0,
+      "space-unary-ops": [
+        1,
+        {
+          "words": true,
+          "nonwords": false
+        }
+      ],
+      "vars-on-top": 1,
+      "wrap-iife": [
+        1,
+        "outside"
+      ],
+      "no-dupe-args": 1,
+      "no-dupe-keys": 1,
+      "no-invalid-regexp": 1,
+      "no-invalid-this": 1,
+      "no-mixed-spaces-and-tabs": [
+        1,
+        "smart-tabs"
+      ],
+      "no-undef": 1,
+      "no-unreachable": 1,
+      "no-unused-vars": 1
+    }
   },
   "browserslist": {
     "production": [
@@ -55,8 +155,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@types/leaflet.locatecontrol": "^0.60.7"
   }
 }

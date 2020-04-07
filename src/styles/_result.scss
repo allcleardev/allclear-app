@@ -1,0 +1,35 @@
+.results {
+
+  .section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 85px;
+    row-gap: 42px;
+  }
+
+  .article {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .label {
+    line-height: 1;
+  }
+
+  .description {
+    font-weight: normal;
+    font-size: 13px;
+  }
+
+  .toggle {
+    margin: 0;
+
+    .MuiSwitch-root {
+      margin: 0;
+    }
+
+    .MuiSwitch-track.Component-track-328 {
+      border: 0;
+    }
+  }
+}

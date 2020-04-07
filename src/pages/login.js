@@ -1,102 +1,84 @@
 import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import { Link } from "react-router-dom";
+import { Link, useHistory } from 'react-router-dom';
 
+import Form from '@material-ui/core/Container';
 
+import { Button, Grid } from '@material-ui/core';
+import Axios from 'axios';
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
+import Header from '../components/header-round';
+import ProgressBottom from '../components/progressBottom';
+import PhoneNumber from '../components/phoneNumber';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
-export default function SignIn() {
-  const classes = useStyles();
+export default function PhoneVerify({ props }) {
+  const [state, setState] = React.useState({
+    checkedB: true,
+    loading: false,
+  });
+
+  const history = useHistory();
+
+  //eslint-disable-next-line
+  const handleChange = (event) => {
+    setState({ ...state, [event.target.name]: event.target.checked });
+  };
+
+  //eslint-disable-next-line
+  async function verifyLogin() {
+    setState({ loading: true });
+    const phone = sessionStorage.getItem('phone');
+
+    if (!phone) {
+      //show error message
+      setState({ loading: false });
+      return;
+    }
+    await Axios.post('https://api-dev.allclear.app/peoples/auth', {
+      phone,
+    })
+      .then((response) => {
+        console.log(response);
+        sessionStorage.setItem('phone', phone);
+        history.push('/auth-verification');
+      })
+      .catch((error) => {
+        //show error message
+        setState({ loading: false });
+      });
+  }
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Sign In
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link to="/forgot" variant="body2">
-                Forgot password?
+    <div className="background-responsive">
+      <div className="phone-verify onboarding-page">
+        <Header>
+          <h1 className="heading">Sign In</h1>
+          <h2 className="sub-heading">Enter your phone number to be sent a verification code.</h2>
+        </Header>
+        {state.loading === false ? (
+          <Form noValidate autoComplete="off" className="onboarding-body">
+            <PhoneNumber className="hide-mobile"></PhoneNumber>
+
+            <div className="button-container">
+              <Link to="/phone-verify" className="hide-mobile">
+                <Button variant="contained" className="back">
+                  Back
+                </Button>
               </Link>
-            </Grid>
-            <Grid item>
-              <Link to="/register">
-                Don't have an account? Sign Up
-              </Link>
+              <Button onClick={() => verifyLogin()} variant="contained" color="primary" className="next">
+                Send Verification Code
+              </Button>
+            </div>
+          </Form>
+        ) : (
+          <Grid container justify="center">
+            <Grid item xs={12} sm={6}>
+              <LinearProgress color="primary" value="50" variant="indeterminate" />
             </Grid>
           </Grid>
-        </form>
+        )}
+        {state.loading === false ? <ProgressBottom progress="100px"></ProgressBottom> : null}
       </div>
-    </Container>
+    </div>
   );
 }

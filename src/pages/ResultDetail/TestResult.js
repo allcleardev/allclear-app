@@ -1,24 +1,15 @@
 import React, { Fragment } from 'react';
-import states from './ResultDetail.state';
+// import states from './ResultDetail.state';
 
-  
 class TestResult extends React.Component {
-    state = states
-    componentDidMount = () => {
+  // state = states;
+  componentDidMount = () => {};
 
-    }
+  handleInputChange = (event, name) => {};
 
-    handleInputChange = (event, name) => {
-
-    }
-
-
-    render() {
-        return (
-            <Fragment>
-
-            </Fragment>
-        )
-    }
+  render() {
+    return <Fragment></Fragment>;
+  }
 }
-export default TestResult
+
+export default TestResult;

@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import Logo from "../assets/images/logo-green-back.svg";
+import Logo from '../assets/images/logo-green-back.svg';
 
 export default function Header(props) {
   return (

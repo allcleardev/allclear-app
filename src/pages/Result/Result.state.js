@@ -1,13 +1,22 @@
+// export const resultObjDefault = () => {
+//   return
+//   {
+//   }
+// };
+//
+// const states = (function states() {
+//   return {
+//     resultObj: resultObjDefault(),
+//     loading: false,
+//     testTypes: [],
+//     testLocations: [],
+//
+//   }
+// })();
 
-export const resultObjDefault = () => {
-    return 
-        {
-    }
-}
-
-const states = (function states() {
-    return {
-        resultObj: resultObjDefault(),
-    }
-})()
-export default states;
+export default {
+  resultObj: {},
+  loading: false,
+  testTypes: [],
+  testLocations: [],
+};
