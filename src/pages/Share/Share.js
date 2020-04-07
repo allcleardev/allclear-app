@@ -33,7 +33,7 @@ class ShareApp extends React.Component {
                   justifyContent: 'space-between',
                   width: '100%'
                 }}
-              >
+            >
                 <CardContent >
                   <p className="shareProfileName">{'ravi'}</p>
                   <Grid container spacing={0}>
