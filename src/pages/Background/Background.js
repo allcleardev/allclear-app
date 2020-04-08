@@ -89,7 +89,7 @@ class Background extends React.Component {
       // TODO: Update input fields to use Material UI dropdown and date-picker
       <div className="background-responsive">
         <div className="background onboarding-page">
-          <RoundHeader>
+          <RoundHeader navigate={'/sign-up'}>
             <h1 className="heading">Background</h1>
             <h2 className="sub-heading">Provide information to help us recommend the test sites for you.</h2>
           </RoundHeader>

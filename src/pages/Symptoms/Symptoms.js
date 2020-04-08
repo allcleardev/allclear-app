@@ -145,7 +145,7 @@ class Symptom extends Component {
     return (
       <div className="background-responsive">
         <div className="symptoms onboarding-page">
-          <RoundHeader>
+          <RoundHeader navigate={'/health-worker'}>
             <h1 className="heading">Symptoms</h1>
             <h2 className="sub-heading">Most test centers are only seeing patients with certain symptoms.</h2>
           </RoundHeader>

@@ -12,8 +12,8 @@ import theme from './theme';
 
 import * as serviceWorker from './serviceWorker';
 
-const render = (App) => {
-  return ReactDOM.render(
+
+ReactDOM.render(
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
@@ -23,9 +23,6 @@ const render = (App) => {
     </Provider>,
     document.getElementById('root'),
   );
-};
-
-render(App);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
@@ -36,10 +33,7 @@ colorLog('blue', `Allclear App v${process.env.REACT_APP_VERSION}`);
 colorLog('red', `Built at: ${process.env.REACT_APP_BUILT_AT}`);
 
 // for HMR
-if (module.hot) {
-  module.hot.accept('./App', () => {
-    const NextApp = require('./App').default;
-    console.log('%c ===== Hot Reload ===== ', 'background: #222; color: #bada55');
-    ReactDOM.render(NextApp);
-  });
+if (module.hot && process.env.NODE_ENV !== 'production') {
+  console.log('%c ===== Hot Reload ===== ', 'background: #222; color: #bada55');
+  module.hot.accept();
 }
