@@ -3,11 +3,12 @@
     display: flex;
     flex-wrap: wrap;
 
-    @media(min-width: $md) {
+    @media (min-width: $md) {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(297px, max-content));
+      grid-template-columns: 1fr 1fr;
       grid-column-gap: 10px;
       grid-row-gap: 20px;
+      margin: 22px 0 0;
 
       .chip {
         margin: 0;
@@ -16,7 +17,7 @@
   }
 
   .label {
-    @media(min-width: $md) {
+    @media (min-width: $md) {
       margin-bottom: 20px;
     }
   }

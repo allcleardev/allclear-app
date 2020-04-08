@@ -50,6 +50,14 @@
   .btn-back-fab {
     background-color: transparent; // overriding default fab btn styles
     box-shadow: none; // overriding default fab btn styles
+
+    &:hover {
+      background-color: inherit;
+    }
+
+    &--hidden {
+      visibility: hidden; // hidden to preserve layout (instead of display: none)
+    }
   }
 
   .shape {
