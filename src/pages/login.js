@@ -94,13 +94,12 @@ export default function PhoneVerify({ props }) {
             </div>
           </Form>
         ) : (
-           <Grid container justify="center">
-             <Grid item xs={12} sm={6}>
-               <LinearProgress color="primary" value="50" variant="indeterminate" />
-             </Grid>
-           </Grid>
-         )}
-        {state.loading === false ? <ProgressBottom progress="100px"></ProgressBottom> : null}
+          <Grid container justify="center">
+            <Grid item xs={12} sm={6}>
+              <LinearProgress color="primary" value="50" variant="indeterminate" />
+            </Grid>
+          </Grid>
+        )}
       </div>
     </div>
   );

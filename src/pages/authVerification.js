@@ -105,7 +105,6 @@ export default function PhoneVerify({ props, location }) {
             </Grid>
           </Grid>
         )}
-        {state.loading === false ? <ProgressBottom progress="100px"></ProgressBottom> : null}
       </div>
     </div>
   );
