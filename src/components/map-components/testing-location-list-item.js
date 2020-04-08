@@ -18,7 +18,7 @@ export default function TestingLocationListItem({ index, title, description, cit
           <div style={{ display: 'flex', flexDirection: 'row', fontSize: '13px' }} className="grey">
             <p style={{ color: '#151522'  }}>{city_state}</p>
             <p style={{ padding: '0 30px' }}>{service_time}</p>
-            <p style={{ padding: '0 30px' }}>{ driveThru.toString() == "true" ? 'Drive Through' : '' }</p>
+            <p style={{ padding: '0 30px' }}>{ driveThru.toString() === 'true' ? 'Drive Through' : '' }</p>
           </div>
           <p className="card-description" style={{ color: '#151522' }}>
             {description}

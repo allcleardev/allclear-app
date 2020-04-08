@@ -143,7 +143,7 @@ function MapPage({locations}) {
                     index={index}
                     title={result.name}
                     description={result.address}
-                    city_state={result.city + ", " + result.state}
+                    city_state={result.city + ', ' + result.state}
                     service_time={result.hours}
                     driveThru={result.driveThru}
                     phone={result.phone}
