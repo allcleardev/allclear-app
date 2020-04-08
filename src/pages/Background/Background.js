@@ -59,10 +59,11 @@ class Background extends React.Component {
 
   handleChange(event) {
     let { exposures } = this.state;
-    exposures.filter((exposure) => {
+    exposures.map((exposure) => {
       if (exposure.name === event.name) {
         exposure.isActive = !exposure.isActive;
       }
+      return true;
     });
     this.setState({ exposures });
     sessionStorage.setItem('exposures', JSON.stringify(exposures));

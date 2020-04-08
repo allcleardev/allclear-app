@@ -1397,3 +1397,16 @@ input:checked + .slider:before {
     margin: 10px 0px 10px 10px;
     height: 60px;
 }
+
+.isRelaxedBackground{
+  background-color: #F1F8FF !important;
+}
+
+
+.root{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2) !important;
+  border-radius: 6px !important;
+}

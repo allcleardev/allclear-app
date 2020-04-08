@@ -37,11 +37,16 @@ class PhoneNumber extends React.Component {
         render={() => (
           <Form>
             <MuiPhoneNumber
-              className="phone-input"
+              className="input phone-input"
               name="phone"
-              label="Phone Number"
+              placeholder="(555) 123-4567"
+              type="tel"
+              variant="outlined"
+              autoComplete="phone"
               data-cy="user-phone"
               defaultCountry={'us'}
+              onlyCountries={['us']}
+              disableCountryCode={true}
               value={this.state.phone}
               onChange={this.handlePhoneChange}
             />

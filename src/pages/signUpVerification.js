@@ -1,16 +1,16 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-// import qs from 'qs';
+import { useCookies } from 'react-cookie';
+
+import Axios from 'axios';
 import Form from '@material-ui/core/Container';
-import { Button, Grid } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
-import Axios from 'axios';
+import { Button, Grid } from '@material-ui/core';
 
 import RoundHeader from '../components/headers/header-round';
 import ProgressBottom from '../components/progressBottom';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import { useCookies } from 'react-cookie';
 
 export default function PhoneVerify({ props, location }) {
   //eslint-disable-next-line
@@ -47,7 +47,6 @@ export default function PhoneVerify({ props, location }) {
       code,
     })
       .then((response) => {
-        console.log('response', response);
         setCookie('sessid', response.data.id);
         sessionStorage.setItem('sessid', response.data.id);
         history.push('/background');
@@ -68,7 +67,7 @@ export default function PhoneVerify({ props, location }) {
 
   return (
     <div className="background-responsive">
-      <div className="phone-verification onboarding-page">
+      <div className="verification onboarding-page">
         <RoundHeader navigate={'/sign-up'}>
           <h1 className="heading">Phone Number</h1>
           <h2 className="sub-heading">Enter your phone number to get started.</h2>
@@ -77,18 +76,23 @@ export default function PhoneVerify({ props, location }) {
         {state.loading === false ? (
           <Form noValidate autoComplete="off" className="onboarding-body">
             <div className="content-container">
-              <p>We texted a verification code to your phone. Please enter the code to sign in.</p>
+              <p>We texted a verification code to your phone. Please enter the code to continue.</p>
 
               <FormControl className="control">
                 <TextField
-                  className="input"
+                  id="token"
+                  name="token"
+                  className="input code-input"
+                  placeholder="Enter Code"
+                  variant="outlined"
                   defaultValue=""
+                  autocomplete="off"
+                  autocorrect="off"
+                  autocapitalize="off"
+                  spellcheck="false"
+                  inputProps={{ maxLength: 6, autoComplete: 'one-time-code' }}
                   InputLabelProps={{ shrink: false }}
                   onChange={handleCodeChange}
-                  placeholder="Verification Code"
-                  name="token"
-                  id="token"
-                  variant="outlined"
                   style={{}}
                 />
               </FormControl>
