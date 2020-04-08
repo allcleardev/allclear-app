@@ -1,20 +1,20 @@
 import React from 'react';
 
 import { BottomNavigation, BottomNavigationAction, SvgIcon } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
+// import { makeStyles } from '@material-ui/styles';
 import { Link } from 'react-router-dom';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 
-const useStyles = makeStyles({
-  root: {},
+// const useStyles = makeStyles({
+//   root: {},
 
-  bottomNavAction: {
-    fontSize: '11px !important',
-  },
-});
+//   bottomNavAction: {
+//     fontSize: '11px !important',
+//   },
+// });
 
 export default function NavBottom({ active }) {
-  const classes = useStyles();
+  // const classes = useStyles();
 
   return (
     <BottomNavigation value={active} showLabels className="nav-bottom">
