@@ -28,8 +28,6 @@ import {useWindowResize} from '../util/helpers';
 function MapPage({locations}) {
   const classes = useStyles();
 
-  // const { setDrawerOpen } = useContext(MapPageContext);
-
   function onWindowResize({width, height}) {
     if (width <= 576) {
       setMapState({
