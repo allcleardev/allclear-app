@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import React, { useEffect, useState, Fragment, useContext } from 'react';
-=======
-import React, {useEffect, useState, useContext} from 'react';
->>>>>>> dfdf54faa7b1ac83183783f32f706ec4856bd2e1
+import React, { useEffect, useState, useContext } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Container';
@@ -21,25 +17,14 @@ import ClearHeader from '../components/headers/header-clear';
 import FabBlueBottom from '../components/fabBlueBottom';
 import NavBottom from '../components/navBottom';
 import SearchGoogleMapInput from '../components/searchGoogleMapInput';
-<<<<<<< HEAD
-=======
 import UpdateCriteriaModal from '../components/modals/modal-update-criteria';
->>>>>>> dfdf54faa7b1ac83183783f32f706ec4856bd2e1
 import { connect } from 'react-redux';
 import Hammer from 'react-hammerjs';
-<<<<<<< HEAD
-import UpdateCriteriaModal from '../components/modals/modal-update-criteria';
-
-import { mapLocationData } from '../constants';
-import SettingsSVG from '../components/svgs/svg-settings';
-import { MapPageContext } from '../contexts/MapPage.context';
-=======
 import SimpleMap from '../components/googleMap';
-import {mapLocationData} from '../constants';
-import { MapPageContext} from '../contexts/MapPage.context';
+import { mapLocationData } from '../constants';
+import { MapPageContext } from '../contexts/MapPage.context';
 // import { getLocations } from '../redux/selectors';
 // import UpdateCriteria from './updateTestingCriteriaModal';
->>>>>>> dfdf54faa7b1ac83183783f32f706ec4856bd2e1
 
 const drawerWidth = 400;
 
@@ -165,11 +150,7 @@ TabPanel.propTypes = {
 
 // end get windows width
 
-<<<<<<< HEAD
-function FindTestMap({ locations }) {
-=======
 function MapPage({ locations }) {
->>>>>>> dfdf54faa7b1ac83183783f32f706ec4856bd2e1
   const classes = useStyles();
   const [open, setOpen] = useState(true);
   const { setDrawerOpen } = useContext(MapPageContext);
@@ -217,92 +198,6 @@ function MapPage({ locations }) {
     return windowDimensions;
   }
 
-<<<<<<< HEAD
-  const Component = () => {
-    const { width } = useWindowDimensions();
-
-    if (width <= 576) {
-      setAnchor('bottom');
-      setOpen(false);
-    } else {
-      setAnchor('left');
-    }
-
-    return <div></div>;
-  };
-
-  function UpdateCriteriaModal() {
-    const [open, setOpen] = React.useState(false);
-    const [scroll, setScroll] = React.useState('paper');
-
-    const handleClickOpen = (scrollType) => () => {
-      setOpen(true);
-      setScroll(scrollType);
-    };
-
-    const handleClose = () => {
-      setOpen(false);
-    };
-
-    const descriptionElementRef = React.useRef(null);
-    React.useEffect(() => {
-      if (open) {
-        const { current: descriptionElement } = descriptionElementRef;
-        if (descriptionElement !== null) {
-          descriptionElement.focus();
-        }
-      }
-    }, [open]);
-
-    return (
-      <div>
-        <Link to="/update-criteria" className="hide-desktop">
-          <FabBlueBottom handle_name={handleClickOpen('body')} class_name="btn-blue-bottom">
-            <svg width="24" height="21" viewBox="0 0 24 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M3.99841 19.6816V12.6816M3.99841 8.68164V1.68164M11.9984 19.6816V10.6816M11.9984
-                6.68164V1.68164M19.9984 19.6816V14.6816M19.9984 10.6816V1.68164M0.998413 12.6816H6.99841M8.99841
-                6.68164H14.9984M16.9984 14.6816H22.9984"
-                stroke="white"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              ></path>
-            </svg>
-          </FabBlueBottom>
-        </Link>
-        <FabBlueBottom handle_name={handleClickOpen('body')} class_name="btn-blue-bottom hide-mobile">
-          <svg width="24" height="21" viewBox="0 0 24 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M3.99841 19.6816V12.6816M3.99841 8.68164V1.68164M11.9984
-              19.6816V10.6816M11.9984 6.68164V1.68164M19.9984 19.6816V14.6816M19.9984
-              10.6816V1.68164M0.998413 12.6816H6.99841M8.99841 6.68164H14.9984M16.9984 14.6816H22.9984"
-              stroke="white"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            ></path>
-          </svg>
-        </FabBlueBottom>
-        <Dialog
-          open={open}
-          onClose={handleClose}
-          scroll={scroll}
-          aria-labelledby="scroll-dialog-title"
-          aria-describedby="scroll-dialog-description"
-          style={{ zIndex: '5' }}
-        >
-          <DialogTitle id="scroll-dialog-title">Update Testing Center Criteria</DialogTitle>
-          <DialogContent dividers={scroll === 'paper'}>
-            <UpdateCriteria></UpdateCriteria>
-          </DialogContent>
-        </Dialog>
-      </div>
-    );
-  }
-
-=======
->>>>>>> dfdf54faa7b1ac83183783f32f706ec4856bd2e1
   const handleSwipe = (evt) => {
     // if (evt.type === 'swipeup') {
     console.log(evt);
@@ -319,22 +214,18 @@ function MapPage({ locations }) {
     },
   };
 
-<<<<<<< HEAD
-=======
-
   const Component = () => {
-    const {width} = useWindowDimensions();
+    const { width } = useWindowDimensions();
 
     if (width <= 576) {
       setAnchor('bottom');
-      setOpen(false);
+      setOpen(true);
     } else {
       setAnchor('left');
     }
 
     return <div></div>;
   };
->>>>>>> dfdf54faa7b1ac83183783f32f706ec4856bd2e1
   return (
     <div className="test-map-page">
       <Component></Component>
