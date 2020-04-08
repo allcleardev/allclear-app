@@ -31,11 +31,15 @@ class SimpleMap extends Component {
   async onMarkerDragEnd(evt) {
     const result = await GetNewPosition(evt.center.lat(), evt.center.lng(), 100);
     this.setState({ result: result.data.records });
+<<<<<<< HEAD
     this.props.addLocation(result.data.records);
+=======
+>>>>>>> dfdf54faa7b1ac83183783f32f706ec4856bd2e1
   }
   async onMarkerZoomChanged(evt) {
     const result = await GetNewPosition(evt.center.lat(), evt.center.lng(), 400);
     this.setState({ result: result.data.records });
+    this.props.addLocation(result.data.records);
   }
 
   render() {

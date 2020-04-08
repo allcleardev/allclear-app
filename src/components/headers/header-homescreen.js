@@ -11,7 +11,7 @@ export default function HomescreenHeader(props) {
           <p className="selected">Home</p>
           <p>Test</p>
           <p>Tracing</p>
-          <p>Friends</p>
+          {/* <p>Friends</p> */}
           <p>Profile</p>
         </div>
       </div>

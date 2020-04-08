@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, { useEffect, useState, Fragment, useContext } from 'react';
+=======
+import React, {useEffect, useState, useContext} from 'react';
+>>>>>>> dfdf54faa7b1ac83183783f32f706ec4856bd2e1
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Container';
@@ -17,17 +21,25 @@ import ClearHeader from '../components/headers/header-clear';
 import FabBlueBottom from '../components/fabBlueBottom';
 import NavBottom from '../components/navBottom';
 import SearchGoogleMapInput from '../components/searchGoogleMapInput';
+<<<<<<< HEAD
+=======
+import UpdateCriteriaModal from '../components/modals/modal-update-criteria';
+>>>>>>> dfdf54faa7b1ac83183783f32f706ec4856bd2e1
 import { connect } from 'react-redux';
-import { getLocations } from '../redux/selectors';
-
-import SimpleMap from '../components/googleMap';
-import UpdateCriteria from './updateTestingCriteriaModal';
 import Hammer from 'react-hammerjs';
+<<<<<<< HEAD
 import UpdateCriteriaModal from '../components/modals/modal-update-criteria';
 
 import { mapLocationData } from '../constants';
 import SettingsSVG from '../components/svgs/svg-settings';
 import { MapPageContext } from '../contexts/MapPage.context';
+=======
+import SimpleMap from '../components/googleMap';
+import {mapLocationData} from '../constants';
+import { MapPageContext} from '../contexts/MapPage.context';
+// import { getLocations } from '../redux/selectors';
+// import UpdateCriteria from './updateTestingCriteriaModal';
+>>>>>>> dfdf54faa7b1ac83183783f32f706ec4856bd2e1
 
 const drawerWidth = 400;
 
@@ -153,7 +165,11 @@ TabPanel.propTypes = {
 
 // end get windows width
 
+<<<<<<< HEAD
 function FindTestMap({ locations }) {
+=======
+function MapPage({ locations }) {
+>>>>>>> dfdf54faa7b1ac83183783f32f706ec4856bd2e1
   const classes = useStyles();
   const [open, setOpen] = useState(true);
   const { setDrawerOpen } = useContext(MapPageContext);
@@ -201,6 +217,7 @@ function FindTestMap({ locations }) {
     return windowDimensions;
   }
 
+<<<<<<< HEAD
   const Component = () => {
     const { width } = useWindowDimensions();
 
@@ -284,6 +301,8 @@ function FindTestMap({ locations }) {
     );
   }
 
+=======
+>>>>>>> dfdf54faa7b1ac83183783f32f706ec4856bd2e1
   const handleSwipe = (evt) => {
     // if (evt.type === 'swipeup') {
     console.log(evt);
@@ -300,6 +319,22 @@ function FindTestMap({ locations }) {
     },
   };
 
+<<<<<<< HEAD
+=======
+
+  const Component = () => {
+    const {width} = useWindowDimensions();
+
+    if (width <= 576) {
+      setAnchor('bottom');
+      setOpen(false);
+    } else {
+      setAnchor('left');
+    }
+
+    return <div></div>;
+  };
+>>>>>>> dfdf54faa7b1ac83183783f32f706ec4856bd2e1
   return (
     <div className="test-map-page">
       <Component></Component>
@@ -468,4 +503,4 @@ function FindTestMap({ locations }) {
 
 export default connect((state) => {
   return { locations: state.locations };
-})(FindTestMap);
+})(MapPage);

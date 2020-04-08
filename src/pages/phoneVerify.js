@@ -121,14 +121,14 @@ export default function PhoneVerify({ props }) {
                     checked={state.termsAndConditions}
                     onChange={handleChange}
                     name="termsAndConditions"
-                    color="third"
+                    color="secondary"
                   />
                 }
                 label="I have reviewed and agree to the Terms & Conditions and Privacy Policy."
               />
 
               <FormControlLabel
-                control={<Checkbox checked={state.alerts} onChange={handleChange} name="alerts" color="third" />}
+                control={<Checkbox checked={state.alerts} onChange={handleChange} name="alerts" color="secondary" />}
                 label="Receive text alerts when eligible test locations become available."
               />
             </div>
