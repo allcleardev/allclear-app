@@ -1,6 +1,6 @@
-import React, {Component, useEffect, useState, useContext} from 'react';
+import React, {useState} from 'react';
 import clsx from 'clsx';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Container';
 import {makeStyles} from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -11,66 +11,52 @@ import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import ClearHeader from '../components/headers/header-clear';
 import NavBottom from '../components/navBottom';
-import SearchGoogleMapInput from '../components/searchGoogleMapInput';
+// import SearchGoogleMapInput from '../components/searchGoogleMapInput';
 import UpdateCriteriaModal from '../components/modals/modal-update-criteria';
 import {connect} from 'react-redux';
 import Hammer from 'react-hammerjs';
 import GoogleMap from '../components/map-components/google-map';
 import TestingLocationListItem from '../components/map-components/testing-location-list-item';
 import {mapLocationData} from '../constants';
-import {MapPageContext} from '../contexts/MapPage.context';
+// import {MapPageContext} from '../contexts/MapPage.context';
 import ArrowLeft from '../components/svgs/arrow-left';
 import ArrowRight from '../components/svgs/arrow-right';
 import SettingsSVG from '../components/svgs/svg-settings';
+import {useWindowResize} from '../util/helpers';
 
 
 function MapPage({locations}) {
   const classes = useStyles();
-  const [open, setOpen] = useState(true);
+
   // const { setDrawerOpen } = useContext(MapPageContext);
 
-  const [anchor, setAnchor] = useState('left');
-  // const [anchor] = useState('left');
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
-  // Get Windows width and set the drawer default in responsive mode(width: 375px)
-  function getWindowDimensions() {
-    const {innerWidth: width, innerHeight: height} = window;
-    return {
-      width,
-      height,
-    };
+  function onWindowResize({width, height}) {
+    // console.log('resize', width);
+    if (width <= 576) {
+      setMapState({
+        ...mapState,
+        anchor: 'bottom',
+        isOpen: true
+      });
+    } else {
+      setMapState({
+        ...mapState,
+        anchor: 'left',
+      });
+    }
   }
 
-  function useWindowDimensions() {
-    const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
-
-    useEffect(() => {
-      function handleResize() {
-        setWindowDimensions(getWindowDimensions());
-      }
-
-      window.addEventListener('resize', handleResize);
-      return () => window.removeEventListener('resize', handleResize);
-    }, []);
-
-    return windowDimensions;
-  }
-
-  const handleSwipe = (evt) => {
-    // if (evt.type === 'swipeup') {
-    console.log(evt);
-    // }
+  const [width, height] = useWindowResize(onWindowResize);
+  const initialState = {
+    isOpen: true,
+    anchor: 'left',
+    windowWidth: width,
+    windowHeight: height,
   };
+  const [mapState, setMapState] = useState(initialState);
 
-  const options = {
+
+  const touchOptions = {
     touchAction: 'compute',
     recognizers: {
       swipe: {
@@ -80,23 +66,18 @@ function MapPage({locations}) {
     },
   };
 
-  const ResizeSpy = () => {
-    const {width} = useWindowDimensions();
+  function toggleDrawer(isOpen) {
+    setMapState({
+      ...mapState,
+      isOpen
+    });
+  }
 
-    if (width <= 576) {
-      setAnchor('bottom');
-      setOpen(true);
-    } else {
-      setAnchor('left');
-    }
-
-    return <></>;
-  };
+  const {isOpen, anchor} = mapState;
 
   return (
     <div className="map-page">
-      <ResizeSpy></ResizeSpy>
-      <ClearHeader isOpen={open}></ClearHeader>
+      <ClearHeader isOpen={isOpen}></ClearHeader>
       <Typography
         component="div"
         role="tabpanel"
@@ -107,25 +88,31 @@ function MapPage({locations}) {
             className={
               'btn-hide-nav ' +
               clsx(classes.appBar, {
-                [classes.appBarShift]: open,
+                [classes.appBarShift]: isOpen,
               })
             }
             style={{zIndex: '2'}}
           >
             <IconButton
               aria-label="open drawer"
-              onClick={open === false ? handleDrawerOpen : handleDrawerClose}
-              className={clsx(classes.menuButton, open)}
+              onClick={isOpen === false ?
+                       () => toggleDrawer(true) :
+                       () => toggleDrawer(false)
+              }
+              className={clsx(classes.menuButton, isOpen)}
             >
-              {open === true ? (
+              {isOpen === true ? (
                 <ArrowLeft/>
               ) : (
                  <ArrowRight/>
                )}
             </IconButton>
           </AppBar>
-          <Hammer onSwipe={handleSwipe} option={options} direction="DIRECTION_UP">
-            <Drawer className={classes.drawer + ' nav-left-location'} variant="persistent" anchor={anchor} open={open}>
+          <Hammer onSwipe={() => {}} option={touchOptions} direction="DIRECTION_UP">
+            <Drawer className={classes.drawer + ' nav-left-location'}
+                    variant="persistent"
+                    anchor={anchor}
+                    open={isOpen}>
               <div
                 style={{width: `${drawerWidth}px`, overflowY: 'scroll'}}
                 className="hide-scrollbar wid100-sm height-300-sm"
@@ -166,7 +153,7 @@ function MapPage({locations}) {
           </Hammer>
           <main
             className={clsx(classes.content, {
-              [classes.contentShift]: open,
+              [classes.contentShift]: isOpen,
             })}
           >
             <div className="map-fullscreen">
@@ -225,7 +212,6 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 0,
   },
 }));
-
 
 
 // todo: might still be useful at some point just not now
