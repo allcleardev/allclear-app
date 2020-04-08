@@ -1,8 +1,8 @@
-import React, {useEffect, useState, useContext} from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Container';
-import {makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
@@ -17,8 +17,8 @@ import UpdateCriteriaModal from '../components/modals/modal-update-criteria';
 import { connect } from 'react-redux';
 import Hammer from 'react-hammerjs';
 import SimpleMap from '../components/googleMap';
-import {mapLocationData} from '../constants';
-import { MapPageContext} from '../contexts/MapPage.context';
+import { mapLocationData } from '../constants';
+import { MapPageContext } from '../contexts/MapPage.context';
 // import { getLocations } from '../redux/selectors';
 // import UpdateCriteria from './updateTestingCriteriaModal';
 
@@ -64,26 +64,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function CardMapLocation({index, title, description, status, service_time, commute}) {
+function CardMapLocation({ index, title, description, status, service_time, commute }) {
   return (
     <div className="card-map-location">
       <Box className="container-location">
         <div className="card-content">
-          <h3 className="card-title" style={{color: '#000'}}>
+          <h3 className="card-title" style={{ color: '#000' }}>
             <span className="grey" style={{}}>
               {index + 1}.
             </span>{' '}
             {title}
           </h3>
-          <div style={{display: 'flex', flexDirection: 'row', fontSize: '13px'}} className="grey">
-            <p style={{color: status === 'Open' ? '#22AF3A' : 'red'}}>{status}</p>
-            <p style={{padding: '0 30px'}}>{service_time}</p>
-            <p style={{padding: '0 30px'}}>{commute}</p>
+          <div style={{ display: 'flex', flexDirection: 'row', fontSize: '13px' }} className="grey">
+            <p style={{ color: status === 'Open' ? '#22AF3A' : 'red' }}>{status}</p>
+            <p style={{ padding: '0 30px' }}>{service_time}</p>
+            <p style={{ padding: '0 30px' }}>{commute}</p>
           </div>
-          <p className="card-description" style={{color: '#151522'}}>
+          <p className="card-description" style={{ color: '#151522' }}>
             {description}
           </p>
-          <div className="buttons" style={{marginTop: '15px'}}>
+          <div className="buttons" style={{ marginTop: '15px' }}>
             <a
               href={'https://www.google.com/maps/dir/?api=1&destination=' + description}
               rel="noopener noreferrer"
@@ -91,7 +91,7 @@ function CardMapLocation({index, title, description, status, service_time, commu
             >
               <Button className="btn primary-color primary-outline">Directions</Button>
             </a>
-            <Button className="btn primary-color primary-outline" style={{marginLeft: '15px'}}>
+            <Button className="btn primary-color primary-outline" style={{ marginLeft: '15px' }}>
               Call
             </Button>
           </div>
@@ -115,7 +115,7 @@ function CardMapLocation({index, title, description, status, service_time, commu
 }
 
 function TabPanel(props) {
-  const {children, value, index, ...other} = props;
+  const { children, value, index, ...other } = props;
 
   return (
     <Typography
@@ -149,7 +149,7 @@ TabPanel.propTypes = {
 function MapPage({ locations }) {
   const classes = useStyles();
   const [open, setOpen] = useState(true);
-  const {setDrawerOpen} = useContext(MapPageContext);
+  const { setDrawerOpen } = useContext(MapPageContext);
 
   const [anchor, setAnchor] = useState('left');
   // const [anchor] = useState('left');
@@ -172,7 +172,7 @@ function MapPage({ locations }) {
 
   // Get Windows width and set the drawer default in responsive mode(width: 375px)
   function getWindowDimensions() {
-    const {innerWidth: width, innerHeight: height} = window;
+    const { innerWidth: width, innerHeight: height } = window;
     return {
       width,
       height,
@@ -210,13 +210,12 @@ function MapPage({ locations }) {
     },
   };
 
-
   const Component = () => {
-    const {width} = useWindowDimensions();
+    const { width } = useWindowDimensions();
 
     if (width <= 576) {
       setAnchor('bottom');
-      setOpen(false);
+      setOpen(true);
     } else {
       setAnchor('left');
     }
@@ -226,9 +225,7 @@ function MapPage({ locations }) {
   return (
     <div className="test-map-page">
       <Component></Component>
-      <ClearHeader
-        isOpen={open}
-      ></ClearHeader>
+      <ClearHeader isOpen={open}></ClearHeader>
       <TabPanel value={value} index={0}>
         <AppBar
           className={
@@ -237,7 +234,7 @@ function MapPage({ locations }) {
               [classes.appBarShift]: open,
             })
           }
-          style={{zIndex: '2'}}
+          style={{ zIndex: '2' }}
         >
           <IconButton
             aria-label="open drawer"
@@ -271,53 +268,53 @@ function MapPage({ locations }) {
                     filterUnits="userSpaceOnUse"
                     colorInterpolationFilters="sRGB"
                   >
-                    <feFlood floodOpacity="0" result="BackgroundImageFix"/>
-                    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
-                    <feOffset dx="3" dy="3"/>
-                    <feGaussianBlur stdDeviation="7.5"/>
-                    <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0"/>
-                    <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
-                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+                    <feFlood floodOpacity="0" result="BackgroundImageFix" />
+                    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
+                    <feOffset dx="3" dy="3" />
+                    <feGaussianBlur stdDeviation="7.5" />
+                    <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0" />
+                    <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow" />
+                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape" />
                   </filter>
                 </defs>
               </svg>
             ) : (
-               <svg width="89" height="86" viewBox="0 0 89 86" fill="none" xmlns="http://www.w3.org/2000/svg">
-                 <g filter="url(#filter0_d)">
-                   <path
-                     d="M12.0138 12H42.3413C57.8053 12 70.3413 24.536 70.3413 40V40C70.3413 55.464 57.8053
+              <svg width="89" height="86" viewBox="0 0 89 86" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g filter="url(#filter0_d)">
+                  <path
+                    d="M12.0138 12H42.3413C57.8053 12 70.3413 24.536 70.3413 40V40C70.3413 55.464 57.8053
                      68 42.3413 68H12.0138V12Z"
-                     fill="#F1F1F2"
-                   />
-                 </g>
-                 <path
-                   d="M34 40H48M48 40L41 33M48 40L41 47"
-                   stroke="#333333"
-                   strokeWidth="1.5"
-                   strokeLinecap="round"
-                   strokeLinejoin="round"
-                 />
-                 <defs>
-                   <filter
-                     id="filter0_d"
-                     x="0.0137939"
-                     y="0"
-                     width="88.3275"
-                     height="86"
-                     filterUnits="userSpaceOnUse"
-                     colorInterpolationFilters="sRGB"
-                   >
-                     <feFlood floodOpacity="0" result="BackgroundImageFix"/>
-                     <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
-                     <feOffset dx="3" dy="3"/>
-                     <feGaussianBlur stdDeviation="7.5"/>
-                     <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0"/>
-                     <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
-                     <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
-                   </filter>
-                 </defs>
-               </svg>
-             )}
+                    fill="#F1F1F2"
+                  />
+                </g>
+                <path
+                  d="M34 40H48M48 40L41 33M48 40L41 47"
+                  stroke="#333333"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <defs>
+                  <filter
+                    id="filter0_d"
+                    x="0.0137939"
+                    y="0"
+                    width="88.3275"
+                    height="86"
+                    filterUnits="userSpaceOnUse"
+                    colorInterpolationFilters="sRGB"
+                  >
+                    <feFlood floodOpacity="0" result="BackgroundImageFix" />
+                    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
+                    <feOffset dx="3" dy="3" />
+                    <feGaussianBlur stdDeviation="7.5" />
+                    <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0" />
+                    <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow" />
+                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape" />
+                  </filter>
+                </defs>
+              </svg>
+            )}
           </IconButton>
         </AppBar>
         <Hammer onSwipe={handleSwipe} option={options} direction="DIRECTION_UP">

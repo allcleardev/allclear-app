@@ -51,9 +51,7 @@ class SimpleMap extends Component {
           onZoomChanged={(evt) => this.onMarkerDragEnd(evt)}
         >
           {result.map((data, index) => (
-            <MapMarker
-              key={index}
-              lat={data.latitude} lng={data.longitude} text={index + 1} />
+            <MapMarker key={index} lat={data.latitude} lng={data.longitude} text={index + 1} />
           ))}
         </GoogleMapReact>
       </div>
