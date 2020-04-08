@@ -6,7 +6,6 @@ import { Button, Grid } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import Axios from 'axios';
-import ProgressBottom from '../components/progressBottom';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { useCookies } from 'react-cookie';
 import RoundHeader from '../components/headers/header-round';
