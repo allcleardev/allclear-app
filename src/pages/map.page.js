@@ -15,13 +15,15 @@ import SearchGoogleMapInput from '../components/searchGoogleMapInput';
 import UpdateCriteriaModal from '../components/modals/modal-update-criteria';
 import { connect } from 'react-redux';
 import Hammer from 'react-hammerjs';
-import SimpleMap from '../components/googleMap';
+import GoogleMap from '../components/googleMap';
 import { mapLocationData } from '../constants';
 import { MapPageContext } from '../contexts/MapPage.context';
 import ArrowLeft from '../components/svgs/arrow-left';
 import ArrowRight from '../components/svgs/arrow-right';
+import SettingsSVG from '../components/svgs/svg-settings';
 
-function CardMapLocation({ index, title, description, status, service_time, commute }) {
+function TestingLocationListItem({ index, title, description, status, service_time, commute }) {
+
   return (
     <div className="card-map-location">
       <Box className="container-location">
@@ -41,6 +43,7 @@ function CardMapLocation({ index, title, description, status, service_time, comm
             {description}
           </p>
           <div className="buttons" style={{ marginTop: '15px' }}>
+
             <a
               href={'https://www.google.com/maps/dir/?api=1&destination=' + description}
               rel="noopener noreferrer"
@@ -48,23 +51,18 @@ function CardMapLocation({ index, title, description, status, service_time, comm
             >
               <Button className="btn primary-color primary-outline">Directions</Button>
             </a>
-            <Button className="btn primary-color primary-outline" style={{ marginLeft: '15px' }}>
-              Call
-            </Button>
+
+            <a
+              href={'tel:INSERT_PHONE_HERE' }
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <Button
+                className="btn primary-color primary-outline" style={{ marginLeft: '15px' }}>
+                Call
+              </Button>
+            </a>
           </div>
-        </div>
-        <div className="btn-arrow">
-          <IconButton>
-            <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M1 8.59961H15M15 8.59961L8 1.59961M15 8.59961L8 15.5996"
-                stroke="#007AFF"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </IconButton>
         </div>
       </Box>
     </div>
@@ -206,19 +204,26 @@ function MapPage({ locations }) {
             >
               <Box>
                 <SearchGoogleMapInput style={{ marginTop: '50px' }}></SearchGoogleMapInput>
-                <div style={{ margin: '40px 0' }} className="search-map-filter">
-                  <h3 className="body-title" style={{ margin: '5px 0', fontSize: '16px' }}>
+                <div style={{margin: '40px 0'}} className="search-map-filter">
+                  <h3 className="body-title" style={{margin: '5px 0', fontSize: '16px'}}>
                     Filters
                   </h3>
-                  <p className="grey" style={{ fontSize: '16px' }}>
-                    Filters would go there.
+                  <p className="grey" style={{fontSize: '16px'}}>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      className={classes.button}
+                      startIcon={SettingsSVG()}
+                    >
+                      Edit Search Filters
+                    </Button>
                   </p>
                 </div>
+
               </Box>
               <Divider className={'hide-mobile-sm ' + classes.divider} orientation="horizontal" />
-              {console.log(locations)}
               {locations.map((result, index) => (
-                <CardMapLocation
+                <TestingLocationListItem
                   key={index}
                   index={index}
                   title={result.name}
@@ -226,7 +231,7 @@ function MapPage({ locations }) {
                   status={result.state}
                   service_time={result.Hours}
                   commute={result['Drive Through']}
-                ></CardMapLocation>
+                ></TestingLocationListItem>
               ))}
             </div>
           </Drawer>
@@ -237,34 +242,12 @@ function MapPage({ locations }) {
           })}
         >
           <div className="map-fullscreen">
-            <SimpleMap {...mapLocationData}></SimpleMap>
+            <GoogleMap {...mapLocationData}></GoogleMap>
           </div>
         </main>
         <NavBottom></NavBottom>
         <UpdateCriteriaModal></UpdateCriteriaModal>
       </TabPanel>
-      {/*<TabPanel value={value} index={1}>*/}
-      {/*  <FabBlueBottom*/}
-      {/*    style={{*/}
-      {/*      position: 'fixed',*/}
-      {/*      bottom: 70,*/}
-      {/*      right: 20,*/}
-      {/*    }}*/}
-      {/*  >*/}
-      {/*    <svg width="24" height="21" viewBox="0 0 24 21" fill="none" xmlns="http://www.w3.org/2000/svg">*/}
-      {/*      <path*/}
-      {/*        d="M3.99841 19.6816V12.6816M3.99841 8.68164V1.68164M11.9984 19.6816V10.6816M11.9984*/}
-      {/*        6.68164V1.68164M19.9984 19.6816V14.6816M19.9984 10.6816V1.68164M0.998413 12.6816H6.99841M8.99841*/}
-      {/*        6.68164H14.9984M16.9984 14.6816H22.9984"*/}
-      {/*        stroke="white"*/}
-      {/*        strokeWidth="1.5"*/}
-      {/*        strokeLinecap="round"*/}
-      {/*        strokeLinejoin="round"*/}
-      {/*      ></path>*/}
-      {/*    </svg>*/}
-      {/*  </FabBlueBottom>*/}
-      {/*  <NavBottom></NavBottom>*/}
-      {/*</TabPanel>*/}
     </div>
   );
 }
