@@ -32,7 +32,7 @@ export default function LoginMagicLink({ props, location }) {
         console.log('response', response);
         setCookie('sessid', response.data.id);
         sessionStorage.setItem('sessid', response.data.id);
-        history.push('/profile-view');
+        history.push('/map');
       })
       .catch((error) => {
         console.log('error', error);
