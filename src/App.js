@@ -1,4 +1,4 @@
-import React, {createContext} from 'react';
+import React, { createContext } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import './styles/app.scss';
@@ -40,45 +40,45 @@ export const AppContext = createContext({});
 export default function App() {
   return (
     <Router>
-      <AppContext.Provider value={{test: 'cool test'}}>
-      <Route exact path="/" component={Launch} />
-      {/* Onboarding Pages */}
-      <Route path="/sign-up" component={PhoneVerify} />
-      <Route path="/sign-up-verification" component={SignUpVerification} />
-      <Route path="/verifying" component={PhoneVerifying} /> {/* Note: This is a loading screen */}
-      <Route path="/background" component={Background} />
-      <Route path="/health-worker" component={HealthWorkerStatus} />
-      <Route path="/symptoms" component={Symptoms} />
-      {/* Login Pages */}
-      <Route path="/login" component={login} />
-      <Route path="/login-verification" component={AuthVerifyCode} />
-      {/* Profile Pages / Settings */}
-      <Route path="/profile-view" component={ProfileView} />
-      <Route path="/profile-edit" component={ProfileEdit} />
-      <Route path="/result-detail" component={ResultDetail} />
-      <Route path="/add-test" component={AddTest} />
-      <Route path="/health" component={Health} />
-      <Route path="/update-criteria" component={UpdateTestingCenterCriteria} />
-      <Route path="/share" component={ShareApp} />
-      {/* Map */}
+      <AppContext.Provider value={{ test: 'cool test' }}>
+        <Route exact path="/" component={Launch} />
+        {/* Onboarding Pages */}
+        <Route path="/sign-up" component={PhoneVerify} />
+        <Route path="/sign-up-verification" component={SignUpVerification} />
+        <Route path="/verifying" component={PhoneVerifying} /> {/* Note: This is a loading screen */}
+        <Route path="/background" component={Background} />
+        <Route path="/health-worker" component={HealthWorkerStatus} />
+        <Route path="/symptoms" component={Symptoms} />
+        {/* Login Pages */}
+        <Route path="/login" component={login} />
+        <Route path="/login-verification" component={AuthVerifyCode} />
+        {/* Profile Pages / Settings */}
+        <Route path="/profile-view" component={ProfileView} />
+        <Route path="/profile-edit" component={ProfileEdit} />
+        <Route path="/result-detail" component={ResultDetail} />
+        <Route path="/add-test" component={AddTest} />
+        <Route path="/health" component={Health} />
+        <Route path="/update-criteria" component={UpdateTestingCenterCriteria} />
+        <Route path="/share" component={ShareApp} />
+        {/* Map */}
         <MapPageProvider>
-          <Route path="/map" component={MapPage}/>
+          <Route path="/map" component={MapPage} />
         </MapPageProvider>
-      {/* Abandoned??? */}
-      <Route path="/create-account" component={CreateAccount} />
-      <Route path="/phone-verify-success" component={PhoneVerifySuccess} />
-      <Route path="/complete-profile" component={CompleteProfile} />
-      <Route path="/succcess" component={Success} />
-      <Route path="/register" component={VerifyMagicLink} />
-      <Route path="/auth" component={LoginMagicLink} />
-      <Route path="/forgot" component={ForgotPassword} />
-      <Route path="/login-org" component={loginOrg} />
-      <Route path="/location" component={Location} />
-      <Route path="/test" component={Test} />
-      <Route path="/find-test" component={FindTest} />
-      {/* Definitely Abandoned (for now) */}
-      <Route path="/conditions" component={Conditions} />
-      <Route path="/results" component={Result} />
+        {/* Abandoned??? */}
+        <Route path="/create-account" component={CreateAccount} />
+        <Route path="/phone-verify-success" component={PhoneVerifySuccess} />
+        <Route path="/complete-profile" component={CompleteProfile} />
+        <Route path="/succcess" component={Success} />
+        <Route path="/register" component={VerifyMagicLink} />
+        <Route path="/auth" component={LoginMagicLink} />
+        <Route path="/forgot" component={ForgotPassword} />
+        <Route path="/login-org" component={loginOrg} />
+        <Route path="/location" component={Location} />
+        <Route path="/test" component={Test} />
+        <Route path="/find-test" component={FindTest} />
+        {/* Definitely Abandoned (for now) */}
+        <Route path="/conditions" component={Conditions} />
+        <Route path="/results" component={Result} />
       </AppContext.Provider>
     </Router>
   );
