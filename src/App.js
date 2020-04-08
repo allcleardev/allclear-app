@@ -32,6 +32,7 @@ import Symptoms from './pages/Symptoms/Symptoms';
 import Test from './pages/test';
 import UpdateTestingCenterCriteria from './pages/updateTestingCenterCriteria';
 import VerifyMagicLink from './pages/verify-magic-link';
+import LoginMagicLink from './pages/login-magic-link';
 import MapPageProvider from './contexts/MapPage.context';
 
 export const AppContext = createContext({});
@@ -69,6 +70,7 @@ export default function App() {
       <Route path="/complete-profile" component={CompleteProfile} />
       <Route path="/succcess" component={Success} />
       <Route path="/register" component={VerifyMagicLink} />
+      <Route path="/auth" component={LoginMagicLink} />
       <Route path="/forgot" component={ForgotPassword} />
       <Route path="/login-org" component={loginOrg} />
       <Route path="/location" component={Location} />

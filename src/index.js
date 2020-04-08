@@ -1,7 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { colorLog } from './util/helpers';
+import { Provider } from 'react-redux';
+import store from './redux/store';
+
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
+
 import App from './App';
 import theme from './theme';
 
@@ -9,11 +14,13 @@ import * as serviceWorker from './serviceWorker';
 
 const render = (App) => {
   return ReactDOM.render(
-    <ThemeProvider theme={theme}>
-      {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-      <CssBaseline />
-      <App />
-    </ThemeProvider>,
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+        <CssBaseline />
+        <App />
+      </ThemeProvider>
+    </Provider>,
     document.getElementById('root'),
   );
 };
@@ -25,11 +32,14 @@ render(App);
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
 
+colorLog('blue', `Allclear App v${process.env.REACT_APP_VERSION}`);
+colorLog('red', `Built at: ${process.env.REACT_APP_BUILT_AT}`);
+
 // for HMR
 if (module.hot) {
   module.hot.accept('./App', () => {
     const NextApp = require('./App').default;
     console.log('%c ===== Hot Reload ===== ', 'background: #222; color: #bada55');
-    render(NextApp);
+    ReactDOM.render(NextApp);
   });
 }
