@@ -14,6 +14,8 @@ export default function LoginMagicLink({ props, location }) {
   const history = useHistory();
   const [cookies, setCookie] = useCookies(['cookie-name']);
 
+  console.debug('Total Cookies', cookies);
+
   const santizeSearchParams = (searchParams) => {
     searchParams = searchParams.replace('?', '');
     searchParams = qs.parse(searchParams, []);
