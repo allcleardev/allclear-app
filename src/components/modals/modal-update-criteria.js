@@ -29,19 +29,21 @@ export default function UpdateCriteriaModal() {
     setOpen(false);
   };
 
-  const descriptionElementRef = useRef(null);
-  useEffect(() => {
-    if (open) {
-      const {current: descriptionElement} = descriptionElementRef;
-      if (descriptionElement !== null) {
-        descriptionElement.focus();
-      }
-    }
-  }, [open]);
+  // const descriptionElementRef = useRef(null);
+  // useEffect(() => {
+  //   if (open) {
+  //     const {current: descriptionElement} = descriptionElementRef;
+  //     if (descriptionElement !== null) {
+  //       descriptionElement.focus();
+  //     }
+  //   }
+  // }, [open]);
 
   return (
     <>
-      <FabBlueBottom handle_name={handleClickOpen('body')} class_name="btn-blue-bottom hide-mobile">
+      <FabBlueBottom
+        handle_name={handleClickOpen('body')}
+        class_name="btn-blue-bottom hide-mobile">
         {SettingsSVG()}
       </FabBlueBottom>
       <Dialog
@@ -54,7 +56,10 @@ export default function UpdateCriteriaModal() {
       >
         <DialogTitle id="scroll-dialog-title">Update Search Criteria</DialogTitle>
         <DialogContent dividers={scroll === 'paper'}>
-          <UpdateCriteria></UpdateCriteria>
+          <UpdateCriteria
+            onClose={handleClose}
+            onSubmit={handleClose}
+          ></UpdateCriteria>
         </DialogContent>
       </Dialog>
     </>
@@ -73,9 +78,28 @@ const useStyles = makeStyles((theme) => ({
   track: {},
 }));
 
-function UpdateCriteria() {
+function UpdateCriteria({onClose, onSubmit}) {
   useStyles();
-  const { appState, setAppState } = useContext(AppContext);
+  const {appState, setAppState} = useContext(AppContext);
+  let pendingStateUpdates = {};
+
+  function commitPendingModalState() {
+
+    // compose the updated state before committing it to the app
+    let finalUpdateObj = {
+      ...appState,
+      searchCriteria: {
+        ...appState.searchCriteria,
+        ...pendingStateUpdates
+      }
+    };
+
+    // update the context
+    setAppState(finalUpdateObj);
+
+    // close the modal
+    onSubmit();
+  }
 
 
   function _generateFormItems() {
@@ -92,24 +116,22 @@ function UpdateCriteria() {
               labelId="demo-simple-select-outlined-label"
               displayEmpty
               className="select-white-back"
+              value={pendingStateUpdates[key]}
               onChange={(evt) => {
-                const z = appState;
-                const y = setAppState;
-                const currName = evt.currentTarget.dataset.name;
+                // const z = appState;
+                // const y = setAppState;
+                // const currName = evt.currentTarget.dataset.name;
                 const currKey = evt.currentTarget.dataset.key;
                 const currValue = evt.target.value;
-                setAppState({
-                  ...appState,
-                  searchCriteria: {
-                    ...appState.searchCriteria,
-                    [currKey]: currValue
-                  }
-                });
+
+                // update the value at that key
+                pendingStateUpdates[currKey] = currValue;
               }}
             >
 
               {options.map((optionItem, i2) => {
                 const {value, text} = optionItem;
+
                 return (<MenuItem
                   key={i2}
                   value={value}
@@ -128,7 +150,6 @@ function UpdateCriteria() {
     });
 
   }
-
 
   return (
     <>
@@ -180,16 +201,22 @@ function UpdateCriteria() {
         style={{
           display: 'flex',
           justifyContent: 'space-around',
-
           padding: '5px 0',
         }}
         className="btn-group"
       >
         <Grid item xs={12} sm={5}>
-          <Button className="btn-big bg-primary color-white fontsize-16">Search</Button>
+          <Button
+            onClick={() => {
+              commitPendingModalState();
+              onSubmit();
+            }}
+            className="btn-big bg-primary color-white fontsize-16">Search</Button>
         </Grid>
         <Grid item xs={12} sm={5}>
-          <Button className="btn-big bg-grey2 fontsize-16">Cancel</Button>
+          <Button
+            onClick={onClose}
+            className="btn-big bg-grey2 fontsize-16">Cancel</Button>
         </Grid>
       </Grid>
     </>
