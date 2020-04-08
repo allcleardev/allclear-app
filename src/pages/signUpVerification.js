@@ -87,6 +87,8 @@ export default function PhoneVerify({ props, location }) {
                   InputLabelProps={{ shrink: false }}
                   onChange={handleCodeChange}
                   placeholder="Verification Code"
+                  name="token"
+                  id="token"
                   variant="outlined"
                   style={{}}
                 />

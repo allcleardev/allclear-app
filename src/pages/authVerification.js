@@ -81,6 +81,8 @@ export default function PhoneVerify({ props, location }) {
                   onChange={handleCodeChange}
                   // label={value === "" ? "Verification Code" : ""} // commenting out for now
                   placeholder="Verification Code"
+                  name="token"
+                  id="token"
                   variant="outlined"
                   style={{}}
                 />
