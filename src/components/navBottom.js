@@ -79,7 +79,7 @@ export default function NavBottom({ active }) {
           </SvgIcon>
         }
       />
-      <BottomNavigationAction
+      {/* <BottomNavigationAction
         label="Friends"
         icon={
           <SvgIcon>
@@ -101,7 +101,7 @@ export default function NavBottom({ active }) {
             </svg>
           </SvgIcon>
         }
-      />
+      /> */}
       <BottomNavigationAction
         label="Profile"
         icon={
