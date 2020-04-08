@@ -12,7 +12,7 @@ import { Grid } from '@material-ui/core';
 
 export default function VerifyMagicLink({ props, location }) {
   const history = useHistory();
-  const [setCookie] = useCookies(['cookie-name']);
+  const [cookies, setCookie] = useCookies(['cookie-name']);
 
   const santizeSearchParams = (searchParams) => {
     searchParams = searchParams.replace('?', '');
