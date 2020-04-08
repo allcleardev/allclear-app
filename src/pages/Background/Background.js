@@ -2,12 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
 
-import Header from '../../components/header-round';
+import RoundHeader from '../../components/headers/header-round';
 import ProgressBottom from '../../components/progressBottom';
 
 import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
-import { Button, Chip, TextField } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 class Background extends React.Component {
@@ -19,6 +19,8 @@ class Background extends React.Component {
     this.handleLocationChange = this.handleLocationChange.bind(this);
     this.handleDoBChange = this.handleDoBChange.bind(this);
     this.getExposures = this.getExposures.bind(this);
+    this.handleTextChange = this.handleTextChange.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
   }
 
   componentDidMount() {
@@ -66,11 +68,11 @@ class Background extends React.Component {
     sessionStorage.setItem('exposures', JSON.stringify(exposures));
   }
 
-  handleTextChange = (address) => {
+  handleTextChange(address){
     this.setState({ address });
   };
 
-  handleSelect = (address) => {
+  handleSelect(address){
     this.setState({ address });
 
     geocodeByAddress(address)
@@ -84,12 +86,13 @@ class Background extends React.Component {
 
   render() {
     return (
+      // TODO: Update input fields to use Material UI dropdown and date-picker
       <div className="background-responsive">
         <div className="background onboarding-page">
-          <Header>
+          <RoundHeader>
             <h1 className="heading">Background</h1>
             <h2 className="sub-heading">Provide information to help us recommend the test sites for you.</h2>
-          </Header>
+          </RoundHeader>
           <Form noValidate autoComplete="off" className="onboarding-body">
             <Box maxWidth="md">
               <section className="section">
@@ -100,48 +103,49 @@ class Background extends React.Component {
                       We can give localized test center recommendations with your location.
                     </span>
                   </label>
-                  <PlacesAutocomplete
-                    value={this.state.address}
-                    onChange={this.handleTextChange}
-                    onSelect={this.handleSelect}
-                  >
-                    {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                      <div>
-                        <TextField
-                          type="text"
-                          variant="outlined"
-                          {...getInputProps({
-                            placeholder: 'Search Places ...',
-                            className: 'input location-search-input',
-                          })}
-                        />
-                        <div className="autocomplete-dropdown-container">
-                          {loading && <div>Loading...</div>}
-                          {suggestions.map((suggestion) => {
-                            const className = suggestion.active ? 'suggestion-item--active' : 'suggestion-item';
-                            // inline style for demonstration purpose
-                            const style = suggestion.active
-                              ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                              : { backgroundColor: '#ffffff', cursor: 'pointer' };
-                            return (
-                              <div
-                                {...getSuggestionItemProps(suggestion, {
-                                  className,
-                                  style,
-                                })}
-                              >
-                                <span>{suggestion.description}</span>
-                              </div>
-                            );
-                          })}
+                  <div className="autocomplete">
+                    <PlacesAutocomplete
+                      value={this.state.address}
+                      onChange={this.handleTextChange}
+                      onSelect={this.handleSelect}
+                    >
+                      {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                        <div>
+                          {/* TODO: Do not allow submit w/o required field filled out */}
+                          <TextField
+                            required
+                            variant="outlined"
+                            {...getInputProps({
+                              placeholder: 'New York, NY or 11211',
+                              className: 'input',
+                              type: 'search',
+                            })}
+                          />
+                          <div className="autocomplete-dropdown-container">
+                            {loading && <div className="suggestion-item">Loading...</div>}
+                            {suggestions.map((suggestion) => {
+                              const className = suggestion.active
+                                                ? 'suggestion-item suggestion-item--active'
+                                                : 'suggestion-item';
+                              return (
+                                <div
+                                  {...getSuggestionItemProps(suggestion, {
+                                    className,
+                                  })}
+                                >
+                                  <span>{suggestion.description}</span>
+                                </div>
+                              );
+                            })}
+                          </div>
                         </div>
-                      </div>
-                    )}
-                  </PlacesAutocomplete>
+                      )}
+                    </PlacesAutocomplete>
+                  </div>
                 </article>
                 <article className="article">
                   <label htmlFor="birthdate" className="label">
-                    <strong>Date of Birth</strong> (Required) <br />
+                    <strong>Date of Birth</strong> <br />
                     <span className="description">Some test centers have minimum age requirements.</span>
                   </label>
                   {/* TODO: swap w/ Material UI Date Picker https://material-ui.com/components/pickers/ */}
@@ -155,38 +159,14 @@ class Background extends React.Component {
                   />
                 </article>
               </section>
-              <section>
-                <label className="label">
-                  <strong>Exposure to COVID-19</strong> <br />
-                  <span className="description">
-                    Some test centers require knowledge of your exposure to people who have tested positive for
-                    COVID-19.
-                  </span>
-                </label>
-                <div className="chips-group">
-                  {/* TODO: Convert group to "Chip array" https://material-ui.com/components/chips/#chip-array */}
-                  {this.state.exposures &&
-                    this.state.exposures.map((res) => {
-                      return (
-                        <Chip
-                          key={res.id}
-                          className={'chip' + (res.isActive ? ' Active' : '')}
-                          label={res.name}
-                          variant="outlined"
-                          onClick={() => this.handleChange(res)}
-                        ></Chip>
-                      );
-                    })}
-                </div>
-              </section>
             </Box>
             <div className="button-container">
-              <Link to="/phone-verify" className="hide-mobile">
+              <Link to="/sign-up" className="hide-mobile">
                 <Button variant="contained" className="back">
                   Back
                 </Button>
               </Link>
-              <Link to="/conditions">
+              <Link to="/health-worker">
                 <Button variant="contained" color="primary" className="next">
                   Next
                 </Button>

@@ -6,14 +6,13 @@ import Form from '@material-ui/core/Container';
 import { Button, Grid } from '@material-ui/core';
 import Axios from 'axios';
 
-import Header from '../components/header-round';
+import RoundHeader from '../components/headers/header-round';
 import ProgressBottom from '../components/progressBottom';
 import PhoneNumber from '../components/phoneNumber';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 export default function PhoneVerify({ props }) {
   const [state, setState] = React.useState({
-    checkedB: true,
     loading: false,
   });
 
@@ -30,7 +29,6 @@ export default function PhoneVerify({ props }) {
     const phone = sessionStorage.getItem('phone');
 
     if (!phone) {
-      //show error message
       setState({ loading: false });
       return;
     }
@@ -40,30 +38,55 @@ export default function PhoneVerify({ props }) {
       .then((response) => {
         console.log(response);
         sessionStorage.setItem('phone', phone);
-        history.push('/auth-verification');
+        history.push('/login-verification');
       })
       .catch((error) => {
-        //show error message
-        setState({ loading: false });
+        if (error && error.response) {
+          if (
+            error.response.data &&
+            error.response.data.message &&
+            error.response.data.message.includes('already exists')
+          ) {
+            return verifyLogin();
+          } else if (error.response.data && error.response.data.message) {
+            setState({
+              error: true,
+              message: error.response.data.message,
+              loading: false,
+            });
+          } else {
+            setState({
+              error: true,
+              message: 'An error occurred. Please try again later.',
+              loading: false,
+            });
+          }
+        } else {
+          setState({ loading: false });
+        }
       });
   }
 
   return (
     <div className="background-responsive">
-      <div className="phone-verify onboarding-page">
-        <Header>
+      <div className="login onboarding-page">
+        <RoundHeader>
           <h1 className="heading">Sign In</h1>
           <h2 className="sub-heading">Enter your phone number to be sent a verification code.</h2>
-        </Header>
+        </RoundHeader>
         {state.loading === false ? (
           <Form noValidate autoComplete="off" className="onboarding-body">
-            <PhoneNumber className="hide-mobile"></PhoneNumber>
+            <div class="content-container">
+              <PhoneNumber className="hide-mobile"></PhoneNumber>
+              <Link to="/sign-up" className="hide-mobile login">
+                Create Account
+              </Link>
+              {state.error === true ? <p className="error">{state.message}</p> : ''}
+            </div>
 
             <div className="button-container">
-              <Link to="/phone-verify" className="hide-mobile">
-                <Button variant="contained" className="back">
-                  Back
-                </Button>
+              <Link to="/sign-up" className="hide-desktop login">
+                Create Account
               </Link>
               <Button onClick={() => verifyLogin()} variant="contained" color="primary" className="next">
                 Send Verification Code
@@ -71,12 +94,12 @@ export default function PhoneVerify({ props }) {
             </div>
           </Form>
         ) : (
-          <Grid container justify="center">
-            <Grid item xs={12} sm={6}>
-              <LinearProgress color="primary" value="50" variant="indeterminate" />
-            </Grid>
-          </Grid>
-        )}
+           <Grid container justify="center">
+             <Grid item xs={12} sm={6}>
+               <LinearProgress color="primary" value="50" variant="indeterminate" />
+             </Grid>
+           </Grid>
+         )}
         {state.loading === false ? <ProgressBottom progress="100px"></ProgressBottom> : null}
       </div>
     </div>

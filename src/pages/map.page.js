@@ -1,22 +1,19 @@
-import { Link } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment, useContext } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-
 import Box from '@material-ui/core/Container';
-
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
 import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
-import Header from '../components/headerWhite';
+import DialogContent from '@material-ui/core/DialogContent';
+import Button from '@material-ui/core/Button';
+import ClearHeader from '../components/headers/header-clear';
 import FabBlueBottom from '../components/fabBlueBottom';
 import NavBottom from '../components/navBottom';
 import SearchGoogleMapInput from '../components/searchGoogleMapInput';
@@ -26,8 +23,11 @@ import { getLocations } from '../redux/selectors';
 import SimpleMap from '../components/googleMap';
 import UpdateCriteria from './updateTestingCriteriaModal';
 import Hammer from 'react-hammerjs';
+import UpdateCriteriaModal from '../components/modals/modal-update-criteria';
 
 import { mapLocationData } from '../constants';
+import SettingsSVG from '../components/svgs/svg-settings';
+import { MapPageContext } from '../contexts/MapPage.context';
 
 const drawerWidth = 400;
 
@@ -96,7 +96,7 @@ function CardMapLocation({ index, title, description, status, service_time, comm
               rel="noopener noreferrer"
               target="_blank"
             >
-              <Button className="btn primary-back white">Directions</Button>
+              <Button className="btn primary-color primary-outline">Directions</Button>
             </a>
             <Button className="btn primary-color primary-outline" style={{ marginLeft: '15px' }}>
               Call
@@ -155,21 +155,23 @@ TabPanel.propTypes = {
 
 function FindTestMap({ locations }) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(true);
+  const { setDrawerOpen } = useContext(MapPageContext);
 
-  const [anchor, setAnchor] = React.useState('left');
+  const [anchor, setAnchor] = useState('left');
+  // const [anchor] = useState('left');
 
   const handleDrawerOpen = () => {
-    console.log(open);
     setOpen(true);
+    setDrawerOpen(true);
   };
 
   const handleDrawerClose = () => {
-    console.log(open);
     setOpen(false);
+    setDrawerOpen(false);
   };
 
-  const [value] = React.useState(0);
+  const [value] = useState(0);
 
   // const handleChange = (e, newValue) => {
   //   setValue(newValue);
@@ -204,7 +206,7 @@ function FindTestMap({ locations }) {
 
     if (width <= 576) {
       setAnchor('bottom');
-      setOpen(true);
+      setOpen(false);
     } else {
       setAnchor('left');
     }
@@ -301,7 +303,7 @@ function FindTestMap({ locations }) {
   return (
     <div className="test-map-page">
       <Component></Component>
-      <Header></Header>
+      <ClearHeader isOpen={open}></ClearHeader>
       <TabPanel value={value} index={0}>
         <AppBar
           className={
@@ -358,7 +360,8 @@ function FindTestMap({ locations }) {
               <svg width="89" height="86" viewBox="0 0 89 86" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g filter="url(#filter0_d)">
                   <path
-                    d="M12.0138 12H42.3413C57.8053 12 70.3413 24.536 70.3413 40V40C70.3413 55.464 57.8053 68 42.3413 68H12.0138V12Z"
+                    d="M12.0138 12H42.3413C57.8053 12 70.3413 24.536 70.3413 40V40C70.3413 55.464 57.8053
+                     68 42.3413 68H12.0138V12Z"
                     fill="#F1F1F2"
                   />
                 </g>

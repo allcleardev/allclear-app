@@ -6,11 +6,10 @@ import { Button, Grid } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import Axios from 'axios';
-
-import Header from '../components/header-round';
 import ProgressBottom from '../components/progressBottom';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { useCookies } from 'react-cookie';
+import RoundHeader from '../components/headers/header-round';
 
 export default function PhoneVerify({ props, location }) {
   const [state] = React.useState({
@@ -46,7 +45,6 @@ export default function PhoneVerify({ props, location }) {
       token: code,
     })
       .then((response) => {
-        console.log('response', response);
         setCookie('sessid', response.data.id);
         sessionStorage.setItem('sessid', response.data.id);
         history.push('/profile-view');
@@ -64,10 +62,10 @@ export default function PhoneVerify({ props, location }) {
   return (
     <div className="background-responsive">
       <div className="phone-verification onboarding-page">
-        <Header>
+        <RoundHeader>
           <h1 className="heading">Sign In</h1>
           <h2 className="sub-heading">Enter your phone number to be sent a verification code.</h2>
-        </Header>
+        </RoundHeader>
 
         {state.loading === false ? (
           <Form noValidate autoComplete="off" className="onboarding-body">

@@ -1,10 +1,9 @@
 import React from 'react';
-// import { Link } from "react-router-dom";
-import Logo from '../assets/images/logo-green-back.svg';
 import Fab from '@material-ui/core/Fab';
-import Box from '@material-ui/core/Container';
+import Container from '@material-ui/core/Container';
+import Logo from '../../assets/images/logo-green-back.svg';
 
-export default function Header({ navigate = '/', children }) {
+export default function RoundHeader({ navigate = '/', children }) {
   return (
     <div className="header">
       <div className="mobile-content">
@@ -23,7 +22,7 @@ export default function Header({ navigate = '/', children }) {
         {/* </Link> */}
         <div className="shape"></div>
       </div>
-      <Box className="desktop-content" maxWidth="xl">
+      <Container className="desktop-content" maxWidth="xl">
         <img src={Logo} alt="Logo" className="logo" />
         <nav className="menu">
           <a href="https://staging.about.allclear.app/" className="menu__item">
@@ -33,7 +32,8 @@ export default function Header({ navigate = '/', children }) {
             Help
           </a>
         </nav>
-      </Box>
+      </Container>
+
       {children}
     </div>
   );

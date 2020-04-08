@@ -7,7 +7,7 @@ import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import Axios from 'axios';
 
-import Header from '../components/header-round';
+import RoundHeader from '../components/headers/header-round';
 import ProgressBottom from '../components/progressBottom';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { useCookies } from 'react-cookie';
@@ -70,10 +70,10 @@ export default function PhoneVerify({ props, location }) {
   return (
     <div className="background-responsive">
       <div className="phone-verification onboarding-page">
-        <Header>
+        <RoundHeader>
           <h1 className="heading">Phone Number</h1>
           <h2 className="sub-heading">Enter your phone number to get started.</h2>
-        </Header>
+        </RoundHeader>
 
         {state.loading === false ? (
           <Form noValidate autoComplete="off" className="onboarding-body">
@@ -86,7 +86,6 @@ export default function PhoneVerify({ props, location }) {
                   defaultValue=""
                   InputLabelProps={{ shrink: false }}
                   onChange={handleCodeChange}
-                  // label={value === "" ? "Verification Code" : ""} // commenting out for now
                   placeholder="Verification Code"
                   variant="outlined"
                   style={{}}
@@ -95,7 +94,7 @@ export default function PhoneVerify({ props, location }) {
             </div>
 
             <div className="button-container">
-              <Link to="/create-account">
+              <Link to="/sign-up">
                 <Button variant="contained" className="back">
                   Restart
                 </Button>
@@ -106,14 +105,15 @@ export default function PhoneVerify({ props, location }) {
             </div>
           </Form>
         ) : (
-          <Grid container justify="center">
-            <Grid item xs={12} sm={6}>
-              <LinearProgress color="primary" value="50" variant="indeterminate" />
-            </Grid>
-          </Grid>
-        )}
+           <Grid container justify="center">
+             <Grid item xs={12} sm={6}>
+               <LinearProgress color="primary" value="50" variant="indeterminate" />
+             </Grid>
+           </Grid>
+         )}
         {state.loading === false ? <ProgressBottom progress="100px"></ProgressBottom> : null}
       </div>
+import RoundHeader from '../components/headers/header-round';
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import GoogleMapReact, { Marker } from 'google-map-react';
+import GoogleMapReact from 'google-map-react';
 import MapMarker from './map-components/mapMarker.jsx';
 import { GetNewPosition } from '../services/google-location-svc.js';
 
@@ -50,7 +50,7 @@ class SimpleMap extends Component {
           onZoomChanged={(evt) => this.onMarkerDragEnd(evt)}
         >
           {result.map((data, index) => (
-            <MapMarker lat={data.latitude} lng={data.longitude} text={index + 1} key={index} />
+            <MapMarker key={index} lat={data.latitude} lng={data.longitude} text={index + 1} />
           ))}
         </GoogleMapReact>
       </div>

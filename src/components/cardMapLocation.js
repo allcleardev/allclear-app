@@ -7,16 +7,12 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
-  content: {}
+  content: {},
 }));
 
-export default function CardMapLocation({
-  index,
-  title,
-  description,
-}) {
+export default function CardMapLocation({ index, title, description }) {
   useStyles();
 
   return (
@@ -32,13 +28,7 @@ export default function CardMapLocation({
       </p>
 
       <IconButton>
-        <svg
-          width="16"
-          height="17"
-          viewBox="0 0 16 17"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M1 8.59961H15M15 8.59961L8 1.59961M15 8.59961L8 15.5996"
             stroke="#007AFF"
