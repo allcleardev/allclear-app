@@ -93,7 +93,7 @@ class HealthWorkerStatus extends React.Component {
               </Link>
             </div>
           </Form>
-          <ProgressBottom progress="28%"></ProgressBottom>
+          <ProgressBottom progress="50%"></ProgressBottom>
         </div>
       </div>
     );

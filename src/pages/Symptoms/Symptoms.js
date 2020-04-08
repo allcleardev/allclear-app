@@ -182,7 +182,7 @@ class Symptom extends Component {
               </Button>
             </div>
           </Form>
-          <ProgressBottom progress="42%"></ProgressBottom>
+          <ProgressBottom progress="75%"></ProgressBottom>
         </div>
       </div>
     );
