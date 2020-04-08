@@ -13,7 +13,6 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { useCookies } from 'react-cookie';
 
 export default function PhoneVerify({ props, location }) {
-
   //eslint-disable-next-line
   const [state, setState] = React.useState({
     checkedB: true,
@@ -87,6 +86,8 @@ export default function PhoneVerify({ props, location }) {
                   InputLabelProps={{ shrink: false }}
                   onChange={handleCodeChange}
                   placeholder="Verification Code"
+                  name="token"
+                  id="token"
                   variant="outlined"
                   style={{}}
                 />
@@ -96,7 +97,7 @@ export default function PhoneVerify({ props, location }) {
             <div className="button-container">
               <Link to="/sign-up">
                 <Button variant="contained" className="back">
-                  Restart
+                  Back
                 </Button>
               </Link>
               <Button onClick={() => verifyPhoneNumber()} variant="contained" color="primary" className="next">
@@ -105,15 +106,14 @@ export default function PhoneVerify({ props, location }) {
             </div>
           </Form>
         ) : (
-           <Grid container justify="center">
-             <Grid item xs={12} sm={6}>
-               <LinearProgress color="primary" value="50" variant="indeterminate" />
-             </Grid>
-           </Grid>
-         )}
-        {state.loading === false ? <ProgressBottom progress="100px"></ProgressBottom> : null}
+          <Grid container justify="center">
+            <Grid item xs={12} sm={6}>
+              <LinearProgress color="primary" value="50" variant="indeterminate" />
+            </Grid>
+          </Grid>
+        )}
+        {state.loading === false ? <ProgressBottom progress="15%"></ProgressBottom> : null}
       </div>
-import RoundHeader from '../components/headers/header-round';
     </div>
   );
 }

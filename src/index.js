@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {colorLog} from './util/helpers';
+import { colorLog } from './util/helpers';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 
@@ -12,16 +12,20 @@ import theme from './theme';
 
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(
-  <Provider store={store}>
-    <ThemeProvider theme={theme}>
-      {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-      <CssBaseline />
-      <App />
-    </ThemeProvider>
-  </Provider>,
-  document.getElementById('root'),
-);
+const render = (App) => {
+  return ReactDOM.render(
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+        <CssBaseline />
+        <App />
+      </ThemeProvider>
+    </Provider>,
+    document.getElementById('root'),
+  );
+};
+
+render(App);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

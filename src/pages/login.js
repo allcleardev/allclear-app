@@ -7,7 +7,6 @@ import { Button, Grid } from '@material-ui/core';
 import Axios from 'axios';
 
 import RoundHeader from '../components/headers/header-round';
-import ProgressBottom from '../components/progressBottom';
 import PhoneNumber from '../components/phoneNumber';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
@@ -94,13 +93,12 @@ export default function PhoneVerify({ props }) {
             </div>
           </Form>
         ) : (
-           <Grid container justify="center">
-             <Grid item xs={12} sm={6}>
-               <LinearProgress color="primary" value="50" variant="indeterminate" />
-             </Grid>
-           </Grid>
-         )}
-        {state.loading === false ? <ProgressBottom progress="100px"></ProgressBottom> : null}
+          <Grid container justify="center">
+            <Grid item xs={12} sm={6}>
+              <LinearProgress color="primary" value="50" variant="indeterminate" />
+            </Grid>
+          </Grid>
+        )}
       </div>
     </div>
   );

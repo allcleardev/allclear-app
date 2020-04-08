@@ -6,7 +6,6 @@ import { Button, Grid } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import Axios from 'axios';
-import ProgressBottom from '../components/progressBottom';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { useCookies } from 'react-cookie';
 import RoundHeader from '../components/headers/header-round';
@@ -81,6 +80,8 @@ export default function PhoneVerify({ props, location }) {
                   onChange={handleCodeChange}
                   // label={value === "" ? "Verification Code" : ""} // commenting out for now
                   placeholder="Verification Code"
+                  name="token"
+                  id="token"
                   variant="outlined"
                   style={{}}
                 />
@@ -105,7 +106,6 @@ export default function PhoneVerify({ props, location }) {
             </Grid>
           </Grid>
         )}
-        {state.loading === false ? <ProgressBottom progress="100px"></ProgressBottom> : null}
       </div>
     </div>
   );
