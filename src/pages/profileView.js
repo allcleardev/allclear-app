@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import HomescreenHeader from '../components/headers/header-homescreen';
 import NavBottom from '../components/navBottom';
-import CardArrow from '../components/cardArrow';
+// import CardArrow from '../components/cardArrow';
 
 import Box from '@material-ui/core/Container';
 import { Button, Grid, IconButton } from '@material-ui/core';
@@ -40,8 +40,8 @@ export default function ProfileView() {
     <Box className="profile-view">
       <HomescreenHeader>
         <div className="avatar-edit">
-          <div className="avatar">
-            <img src={userAvatar} alt="avatar" />
+          <div className="avatar" style={{ backgroundImage: `url(${userAvatar})` }}>
+            {/* <img src={userAvatar} alt="avatar" /> */}
           </div>
           {/* <EditIconButton></EditIconButton> */}
         </div>
@@ -106,7 +106,7 @@ export default function ProfileView() {
               </Link>
             </div>
           </div>
-          <h3 className="fontsize-17" style={{ padding: '30px 0', marginBottom: '-10px' }}>
+          {/* <h3 className="fontsize-17" style={{ padding: '30px 0', marginBottom: '-10px' }}>
             Test Results
           </h3>
           <CardArrow title="Test Type: Alpha Test" description="Williamsburg Drive-Thru Testing">
@@ -118,7 +118,7 @@ export default function ProfileView() {
               Positive
             </p>
             <p className="card-description">3/26/2020</p>
-          </CardArrow>
+          </CardArrow> */}
         </Grid>
       </Grid>
       <Grid
@@ -132,7 +132,9 @@ export default function ProfileView() {
         className="btn-group"
       >
         <Grid item xs={12} sm={6}>
-          <Button style={{color:'#2A7DF4',border:'1px solid #2A7DF4'}} className="btn-big  fontsize-16">Logout</Button>
+          <Button style={{ color: '#2A7DF4', border: '1px solid #2A7DF4' }} className="btn-big  fontsize-16">
+            Logout
+          </Button>
         </Grid>
       </Grid>
       <NavBottom active={4}></NavBottom>
