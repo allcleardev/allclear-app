@@ -3,7 +3,7 @@ import Box from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import React from 'react';
 
-export default function TestingLocationListItem({ index, title, description, status, service_time, commute }) {
+export default function TestingLocationListItem({ index, title, description, city_state, service_time, driveThru, phone }) {
 
   return (
     <div className="card-map-location">
@@ -16,9 +16,9 @@ export default function TestingLocationListItem({ index, title, description, sta
             {title}
           </h3>
           <div style={{ display: 'flex', flexDirection: 'row', fontSize: '13px' }} className="grey">
-            <p style={{ color: status === 'Open' ? '#22AF3A' : 'red' }}>{status}</p>
+            <p style={{ color: '#151522'  }}>{city_state}</p>
             <p style={{ padding: '0 30px' }}>{service_time}</p>
-            <p style={{ padding: '0 30px' }}>{commute}</p>
+            <p style={{ padding: '0 30px' }}>{ driveThru.toString() === 'true' ? 'Drive Through' : '' }</p>
           </div>
           <p className="card-description" style={{ color: '#151522' }}>
             {description}
@@ -34,7 +34,7 @@ export default function TestingLocationListItem({ index, title, description, sta
             </a>
 
             <a
-              href={'tel:INSERT_PHONE_HERE' }
+              href={'tel:' + phone }
               rel="noopener noreferrer"
               target="_blank"
             >

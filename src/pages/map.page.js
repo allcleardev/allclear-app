@@ -143,9 +143,10 @@ function MapPage({locations}) {
                     index={index}
                     title={result.name}
                     description={result.address}
-                    status={result.state}
-                    service_time={result.Hours}
-                    commute={result['Drive Through']}
+                    city_state={result.city + ', ' + result.state}
+                    service_time={result.hours}
+                    driveThru={result.driveThru}
+                    phone={result.phone}
                   ></TestingLocationListItem>
                 ))}
               </div>
