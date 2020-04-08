@@ -10,7 +10,7 @@ import RoundHeader from '../components/headers/header-round';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { Grid } from '@material-ui/core';
 
-export default function VerifyMagicLink({ props, location }) {
+export default function LoginMagicLink({ props, location }) {
   const history = useHistory();
   const [cookies, setCookie] = useCookies(['cookie-name']);
 
@@ -24,16 +24,15 @@ export default function VerifyMagicLink({ props, location }) {
 
   // Function to make call backend service to confirm the magic link
   const verifyMagicLink = async (searchParams) => {
-    await Axios.post('https://api-dev.allclear.app/peoples/confirm', {
+    await Axios.put('https://api-dev.allclear.app/peoples/auth', {
       phone: searchParams.phone,
-      code: searchParams.code,
+      token: searchParams.token,
     })
       .then((response) => {
         console.log('response', response);
         setCookie('sessid', response.data.id);
         sessionStorage.setItem('sessid', response.data.id);
-        sessionStorage.setItem('phone', searchParams.phone);
-        history.push('/background');
+        history.push('/map');
       })
       .catch((error) => {
         console.log('error', error);

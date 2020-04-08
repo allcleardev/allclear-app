@@ -6,7 +6,6 @@ import { Button, Grid } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import Axios from 'axios';
-import ProgressBottom from '../components/progressBottom';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { useCookies } from 'react-cookie';
 import RoundHeader from '../components/headers/header-round';
@@ -47,7 +46,7 @@ export default function PhoneVerify({ props, location }) {
       .then((response) => {
         setCookie('sessid', response.data.id);
         sessionStorage.setItem('sessid', response.data.id);
-        history.push('/profile-view');
+        history.push('/map');
       })
       .catch((error) => {
         console.log('error', error);
@@ -62,7 +61,7 @@ export default function PhoneVerify({ props, location }) {
   return (
     <div className="background-responsive">
       <div className="phone-verification onboarding-page">
-        <RoundHeader>
+        <RoundHeader navigate={'/login'}>
           <h1 className="heading">Sign In</h1>
           <h2 className="sub-heading">Enter your phone number to be sent a verification code.</h2>
         </RoundHeader>
@@ -79,8 +78,9 @@ export default function PhoneVerify({ props, location }) {
                   defaultValue=""
                   InputLabelProps={{ shrink: false }}
                   onChange={handleCodeChange}
-                  // label={value === "" ? "Verification Code" : ""} // commenting out for now
                   placeholder="Verification Code"
+                  name="token"
+                  id="token"
                   variant="outlined"
                   style={{}}
                 />
@@ -88,7 +88,7 @@ export default function PhoneVerify({ props, location }) {
             </div>
 
             <div className="button-container">
-              <Link to="/login">
+              <Link to="/sign-up">
                 <Button variant="contained" className="back">
                   Restart
                 </Button>
@@ -105,7 +105,6 @@ export default function PhoneVerify({ props, location }) {
             </Grid>
           </Grid>
         )}
-        {state.loading === false ? <ProgressBottom progress="100px"></ProgressBottom> : null}
       </div>
     </div>
   );

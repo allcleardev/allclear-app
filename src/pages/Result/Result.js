@@ -159,7 +159,7 @@ class Result extends React.Component {
         // this.setCookie('sessid', response.data.id); // blocks progress. check fn
         sessionStorage.setItem('sessid', response.data.id);
         sessionStorage.setItem('session', response.data);
-        this.history.push('/profile-view');
+        this.history.push('/map');
       })
       .catch((error) => {
         this.setState({ loading: false });

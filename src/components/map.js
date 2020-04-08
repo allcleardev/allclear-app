@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
-import './map.css';
 import locations from '../hooks/airtable';
 import GeoSearch from './map-components/geosearch';
 import LocateControl from './map-components/userlocation';

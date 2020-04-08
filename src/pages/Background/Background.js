@@ -68,11 +68,11 @@ class Background extends React.Component {
     sessionStorage.setItem('exposures', JSON.stringify(exposures));
   }
 
-  handleTextChange(address){
+  handleTextChange(address) {
     this.setState({ address });
-  };
+  }
 
-  handleSelect(address){
+  handleSelect(address) {
     this.setState({ address });
 
     geocodeByAddress(address)
@@ -82,14 +82,14 @@ class Background extends React.Component {
         sessionStorage.setItem('lng', latLng.lng);
       })
       .catch((error) => console.error('Error', error));
-  };
+  }
 
   render() {
     return (
       // TODO: Update input fields to use Material UI dropdown and date-picker
       <div className="background-responsive">
         <div className="background onboarding-page">
-          <RoundHeader>
+          <RoundHeader navigate={'/sign-up'}>
             <h1 className="heading">Background</h1>
             <h2 className="sub-heading">Provide information to help us recommend the test sites for you.</h2>
           </RoundHeader>
@@ -125,8 +125,8 @@ class Background extends React.Component {
                             {loading && <div className="suggestion-item">Loading...</div>}
                             {suggestions.map((suggestion) => {
                               const className = suggestion.active
-                                                ? 'suggestion-item suggestion-item--active'
-                                                : 'suggestion-item';
+                                ? 'suggestion-item suggestion-item--active'
+                                : 'suggestion-item';
                               return (
                                 <div
                                   {...getSuggestionItemProps(suggestion, {
@@ -163,7 +163,7 @@ class Background extends React.Component {
             <div className="button-container">
               <Link to="/sign-up" className="hide-mobile">
                 <Button variant="contained" className="back">
-                  Back
+                  Restart
                 </Button>
               </Link>
               <Link to="/health-worker">
@@ -173,7 +173,7 @@ class Background extends React.Component {
               </Link>
             </div>
           </Form>
-          <ProgressBottom progress="14%"></ProgressBottom>
+          <ProgressBottom progress="25%"></ProgressBottom>
         </div>
       </div>
     );

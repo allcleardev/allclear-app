@@ -13,35 +13,28 @@ class MapPageProvider extends Component {
 
 
   // Method to update state
-  setUser = (user) => {
-    //eslint-disable-next-line
-    this.setState((prevState) => {
-      return user;
-    });
-  };
-
-  setDrawerOpen = (drawerOpen) => {
-    //eslint-disable-next-line
-    this.setState((prevState) => {
-      console.log('drawer', drawerOpen);
-      return drawerOpen;
-    });
-  };
+  // setUser = (user) => {
+  //   //eslint-disable-next-line
+  //   this.setState((prevState) => {
+  //     return user;
+  //   });
+  // };
+  //
+  // setDrawerOpen = (drawerOpen) => {
+  //   //eslint-disable-next-line
+  //   this.setState((prevState) => {
+  //     console.log('drawer', drawerOpen);
+  //     return drawerOpen;
+  //   });
+  // };
 
   render() {
-    const {user, drawerOpen} = this.state;
-    const {setUser, setDrawerOpen} = this;
-
     return (
       // value prop is where we define what values
       // that are accessible to consumer components
       <MapPageContext.Provider
-        value={{
-        user,
-        setUser,
-        drawerOpen,
-        setDrawerOpen,
-      }}>
+        value={this.state}
+      >
         {this.props.children}
       </MapPageContext.Provider>
     );

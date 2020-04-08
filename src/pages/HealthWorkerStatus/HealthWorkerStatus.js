@@ -56,7 +56,7 @@ class HealthWorkerStatus extends React.Component {
     return (
       <div className="background-responsive">
         <div className="health-worker onboarding-page">
-          <RoundHeader>
+          <RoundHeader navigate={'/background'}>
             <h1 className="heading">Health Worker Status</h1>
             <h2 className="sub-heading">
               Some test centers will test you if you’re a medical professional or first responder, even if you have no
@@ -93,7 +93,7 @@ class HealthWorkerStatus extends React.Component {
               </Link>
             </div>
           </Form>
-          <ProgressBottom progress="28%"></ProgressBottom>
+          <ProgressBottom progress="50%"></ProgressBottom>
         </div>
       </div>
     );

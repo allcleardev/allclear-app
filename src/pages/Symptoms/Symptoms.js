@@ -134,7 +134,7 @@ class Symptom extends Component {
         // this.setCookie('sessid', response.data.id); // TODO: blocks progress. check fn
         sessionStorage.setItem('sessid', response.data.id);
         sessionStorage.setItem('session', response.data);
-        this.props.history.push('/profile-view');
+        this.props.history.push('/map');
       })
       .catch((error) => {
         this.setState({ loading: false });
@@ -145,7 +145,7 @@ class Symptom extends Component {
     return (
       <div className="background-responsive">
         <div className="symptoms onboarding-page">
-          <RoundHeader>
+          <RoundHeader navigate={'/health-worker'}>
             <h1 className="heading">Symptoms</h1>
             <h2 className="sub-heading">Most test centers are only seeing patients with certain symptoms.</h2>
           </RoundHeader>
@@ -182,7 +182,7 @@ class Symptom extends Component {
               </Button>
             </div>
           </Form>
-          <ProgressBottom progress="42%"></ProgressBottom>
+          <ProgressBottom progress="75%"></ProgressBottom>
         </div>
       </div>
     );
