@@ -23,7 +23,7 @@ export default function App() {
       <Route path="/forgot" component={ForgotPassword} />
       <Route path="/health" component={Health} />
       <Route path="/location" component={Location} />
-      <Route path="/login" component={login} />
+      <Route path="/sign-in" component={login} />
       <Route path="/register" component={SignIn} />
     </Router>
   );

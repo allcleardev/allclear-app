@@ -84,7 +84,7 @@ export default function PhoneVerify({ props }) {
     })
       .then((response) => {
         sessionStorage.setItem('phone', phone);
-        history.push('/login-verification');
+        history.push('/sign-in-verification');
       })
       .catch((error) => {
         //show error message
@@ -103,7 +103,7 @@ export default function PhoneVerify({ props }) {
           <Form noValidate autoComplete="off" className="onboarding-body">
             <div className="content-container">
               <PhoneNumber className="hide-mobile"></PhoneNumber>
-              <Link to="/login" className="hide-mobile sign-in">
+              <Link to="/sign-in" className="hide-mobile sign-in">
                 Sign into Existing Account
               </Link>
               {state.error === true ? <p className="error">{state.message}</p> : ''}
@@ -134,7 +134,7 @@ export default function PhoneVerify({ props }) {
             </div>
 
             <div className="button-container">
-              <Link to="/login" className="hide-desktop sign-in">
+              <Link to="/sign-in" className="hide-desktop sign-in">
                 Sign into Existing Account
               </Link>
               <Button onClick={() => verifyPhoneNumber()} variant="contained" color="primary" className="next">
@@ -143,12 +143,12 @@ export default function PhoneVerify({ props }) {
             </div>
           </Form>
         ) : (
-           <Grid container justify="center">
-             <Grid item xs={12} sm={6}>
-               <LinearProgress color="primary" value="50" variant="indeterminate" />
-             </Grid>
-           </Grid>
-         )}
+          <Grid container justify="center">
+            <Grid item xs={12} sm={6}>
+              <LinearProgress color="primary" value="50" variant="indeterminate" />
+            </Grid>
+          </Grid>
+        )}
         {state.loading === false ? <ProgressBottom progress="0"></ProgressBottom> : null}
       </div>
     </div>

@@ -35,9 +35,8 @@ export default function PhoneVerify({ props }) {
       phone,
     })
       .then((response) => {
-        console.log(response);
         sessionStorage.setItem('phone', phone);
-        history.push('/login-verification');
+        history.push('/sign-in-verification');
       })
       .catch((error) => {
         if (error && error.response) {

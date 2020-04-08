@@ -61,7 +61,7 @@ export default function PhoneVerify({ props, location }) {
   return (
     <div className="background-responsive">
       <div className="phone-verification onboarding-page">
-        <RoundHeader navigate={'/login'}>
+        <RoundHeader navigate={'/sign-in'}>
           <h1 className="heading">Sign In</h1>
           <h2 className="sub-heading">Enter your phone number to be sent a verification code.</h2>
         </RoundHeader>
