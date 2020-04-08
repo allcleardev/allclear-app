@@ -100,7 +100,7 @@ function MapPage({locations}) {
       <Typography
         component="div"
         role="tabpanel"
-        aria-labelledby={`simple-tab`}
+        aria-labelledby={'simple-tab'}
       >
         <Box p={3}>
           <AppBar
