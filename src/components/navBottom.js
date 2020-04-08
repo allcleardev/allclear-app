@@ -1,23 +1,24 @@
 import React from 'react';
 
 import { BottomNavigation, BottomNavigationAction, SvgIcon } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
+// import { makeStyles } from '@material-ui/styles';
 import { Link } from 'react-router-dom';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
 
-const useStyles = makeStyles({
-  root: {},
+// const useStyles = makeStyles({
+//   root: {},
 
-  bottomNavAction: {
-    fontSize: '11px !important',
-  },
-});
+//   bottomNavAction: {
+//     fontSize: '11px !important',
+//   },
+// });
 
 export default function NavBottom({ active }) {
-  const classes = useStyles();
+  // const classes = useStyles();
 
   return (
     <BottomNavigation value={active} showLabels className="nav-bottom">
-      <BottomNavigationAction
+      {/* <BottomNavigationAction
         className={classes.bottomNavAction}
         label="Home"
         icon={
@@ -37,27 +38,13 @@ export default function NavBottom({ active }) {
             </SvgIcon>
           </Link>
         }
-      />
+      /> */}
 
       <BottomNavigationAction
-        label="Tests"
+        label="Find Tests"
         icon={
           <Link to="/location">
-            <SvgIcon>
-              <svg width="18" height="22" viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M10.7334 0.593384H2.7334C2.20297 0.593384 1.69426 0.804097 1.31918
-                  1.17917C0.944112 1.55424 0.733398 2.06295 0.733398 2.59338V18.5934C0.733398 19.1238 0.944112
-                  19.6325 1.31918 20.0076C1.69426 20.3827 2.20297 20.5934 2.7334 20.5934H14.7334C15.2638 20.5934
-                  15.7725 20.3827 16.1476 20.0076C16.5227 19.6325 16.7334 19.1238 16.7334 18.5934V6.59338M10.7334
-                  0.593384L16.7334 6.59338M10.7334 0.593384V6.59338H16.7334M12.7334 11.5934H4.7334M12.7334
-                  15.5934H4.7334M6.7334 7.59338H4.7334"
-                  stroke={active === 1 ? '#007AFF' : '#929292'}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </SvgIcon>
+          <LocationOnIcon />
           </Link>
         }
       />

@@ -12,7 +12,9 @@ import { Grid } from '@material-ui/core';
 
 export default function VerifyMagicLink({ props, location }) {
   const history = useHistory();
-  const [setCookie] = useCookies(['cookie-name']);
+  const [cookies, setCookie] = useCookies(['cookie-name']);
+
+  console.debug('Total Cookies', cookies);
 
   const santizeSearchParams = (searchParams) => {
     searchParams = searchParams.replace('?', '');
@@ -30,6 +32,7 @@ export default function VerifyMagicLink({ props, location }) {
         console.log('response', response);
         setCookie('sessid', response.data.id);
         sessionStorage.setItem('sessid', response.data.id);
+        sessionStorage.setItem('phone', searchParams.phone);
         history.push('/background');
       })
       .catch((error) => {

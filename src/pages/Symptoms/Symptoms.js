@@ -135,7 +135,7 @@ class Symptom extends Component {
         // this.setCookie('sessid', response.data.id); // TODO: blocks progress. check fn
         sessionStorage.setItem('sessid', response.data.id);
         sessionStorage.setItem('session', response.data);
-        this.props.history.push('/profile-view');
+        this.props.history.push('/map');
       })
       .catch((error) => {
         this.setState({ loading: false });

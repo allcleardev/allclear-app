@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
-import MapMarker from './map-components/mapMarker.jsx';
-import { GetNewPosition } from '../services/google-location-svc.js';
+import MapMarker from './../map-components/mapMarker.jsx';
+import { GetNewPosition } from '../../services/google-location-svc.js';
 
-import { addLocation } from '../redux/actions';
+import { addLocation } from '../../redux/actions';
 import { connect } from 'react-redux';
 
-class SimpleMap extends Component {
+class GoogleMap extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,8 +16,8 @@ class SimpleMap extends Component {
 
   static defaultProps = {
     center: {
-      lat: 40.743992,
-      lng: -74.032364,
+      lat: Number(sessionStorage.getItem('lat')) || 40.743992,
+      lng: Number(sessionStorage.getItem('lng')) || -74.032364,
     },
     zoom: 12,
   };
@@ -59,4 +59,4 @@ class SimpleMap extends Component {
   }
 }
 
-export default connect(null, { addLocation })(SimpleMap);
+export default connect(null, { addLocation })(GoogleMap);

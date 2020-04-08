@@ -12,7 +12,9 @@ import { Grid } from '@material-ui/core';
 
 export default function LoginMagicLink({ props, location }) {
   const history = useHistory();
-  const [setCookie] = useCookies(['cookie-name']);
+  const [cookies, setCookie] = useCookies(['cookie-name']);
+
+  console.debug('Total Cookies', cookies);
 
   const santizeSearchParams = (searchParams) => {
     searchParams = searchParams.replace('?', '');
@@ -24,13 +26,13 @@ export default function LoginMagicLink({ props, location }) {
   const verifyMagicLink = async (searchParams) => {
     await Axios.put('https://api-dev.allclear.app/peoples/auth', {
       phone: searchParams.phone,
-      token: searchParams.code,
+      token: searchParams.token,
     })
       .then((response) => {
         console.log('response', response);
         setCookie('sessid', response.data.id);
         sessionStorage.setItem('sessid', response.data.id);
-        history.push('/background');
+        history.push('/map');
       })
       .catch((error) => {
         console.log('error', error);
