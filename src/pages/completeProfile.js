@@ -2,27 +2,27 @@ import React from 'react';
 
 import HomescreenHeader from '../components/headers/header-homescreen';
 import UserProfileCard from '../components/cardProfile';
-import AlertToggleCard from '../components/cardAlertToggle';
+// import AlertToggleCard from '../components/cardAlertToggle';
 import ArrowCard from '../components/cardArrow';
 import FriendCard from '../components/cardFriend';
 import NavBottom from '../components/navBottom';
 
 import Box from '@material-ui/core/Container';
 import { Button, Grid } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 
 import userAvatar from '../assets/images/avatar.svg';
 
 import { friendData } from '../constants';
 
-const useStyles = makeStyles((theme) => ({
-  button: {
-    width: '100%',
-    margin: '15px 0',
-    borderRadius: '10px',
-    height: 48,
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   button: {
+//     width: '100%',
+//     margin: '15px 0',
+//     borderRadius: '10px',
+//     height: 48,
+//   },
+// }));
 
 export default class CompleteProfile extends React.Component  {
   // const classes = useStyles();
