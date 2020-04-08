@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
-import {bindAll} from 'lodash';
+import { bindAll } from 'lodash';
 
 import RoundHeader from '../../components/headers/header-round';
 import ProgressBottom from '../../components/progressBottom';
@@ -16,19 +16,14 @@ class Condition extends Component {
 
   constructor() {
     super();
-    bindAll(this, [
-      'componentDidMount',
-      'getConditions',
-      'selectAll',
-      'handleChange',
-    ]);
+    bindAll(this, ['componentDidMount', 'getConditions', 'selectAll', 'handleChange']);
   }
 
   componentDidMount() {
     this.getConditions();
-  };
+  }
 
-  getConditions(){
+  getConditions() {
     this.setState({ loading: true });
 
     Axios.get('https://api-dev.allclear.app/types/conditions', {})
@@ -40,27 +35,29 @@ class Condition extends Component {
         console.log(error);
         this.setState({ loading: false });
       });
-  };
+  }
 
-  selectAll () {
+  selectAll() {
     let { conditions } = this.state;
-    conditions.filter((condition) => {
+    conditions.map((condition) => {
       condition.isActive = true;
+      return true;
     });
     this.setState({ conditions });
     sessionStorage.setItem('conditions', JSON.stringify(conditions));
-  };
+  }
 
   handleChange(event) {
     let { conditions } = this.state;
-    conditions.filter((condition) => {
+    conditions.map((condition) => {
       if (condition.name === event.name) {
         condition.isActive = !condition.isActive;
       }
+      return true;
     });
     this.setState({ conditions });
     sessionStorage.setItem('conditions', JSON.stringify(conditions));
-  };
+  }
 
   render() {
     return (
@@ -77,17 +74,17 @@ class Condition extends Component {
               </label>
               <div className="chips-group">
                 {this.state.conditions &&
-                this.state.conditions.map((res) => {
-                  return (
-                    <Chip
-                      key={res.id}
-                      className={'chip' + (res.isActive ? ' Active' : '')}
-                      label={res.name}
-                      variant="outlined"
-                      onClick={() => this.handleChange(res)}
-                    ></Chip>
-                  );
-                })}
+                  this.state.conditions.map((res) => {
+                    return (
+                      <Chip
+                        key={res.id}
+                        className={'chip' + (res.isActive ? ' Active' : '')}
+                        label={res.name}
+                        variant="outlined"
+                        onClick={() => this.handleChange(res)}
+                      ></Chip>
+                    );
+                  })}
               </div>
             </Box>
             <div className="button-container">

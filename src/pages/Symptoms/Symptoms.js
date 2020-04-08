@@ -38,10 +38,11 @@ class Symptom extends Component {
 
   handleChange(event) {
     let { symptoms } = this.state;
-    symptoms.filter((symptom) => {
+    symptoms.map((symptom) => {
       if (symptom.name === event.name) {
         symptom.isActive = !symptom.isActive;
       }
+      return true;
     });
     this.setState({ symptoms });
     sessionStorage.setItem('symptoms', JSON.stringify(symptoms));
@@ -53,6 +54,7 @@ class Symptom extends Component {
     const lat = sessionStorage.getItem('lat');
     const lng = sessionStorage.getItem('lng');
     const healthWorkerStatus = sessionStorage.getItem('healthWorkerStatus');
+    const alertable = sessionStorage.getItem('alertable');
 
     // Format Conditions
     let conditions = sessionStorage.getItem('conditions');
@@ -107,6 +109,7 @@ class Symptom extends Component {
 
     const payload = {
       dob,
+      alertable,
       name: phone,
       latitude: lat,
       longitude: lng,

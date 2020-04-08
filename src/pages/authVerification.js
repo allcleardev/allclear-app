@@ -60,8 +60,8 @@ export default function PhoneVerify({ props, location }) {
 
   return (
     <div className="background-responsive">
-      <div className="phone-verification onboarding-page">
-        <RoundHeader navigate={'/login'}>
+      <div className="verification onboarding-page">
+        <RoundHeader navigate={'/sign-in'}>
           <h1 className="heading">Sign In</h1>
           <h2 className="sub-heading">Enter your phone number to be sent a verification code.</h2>
         </RoundHeader>
@@ -70,18 +70,22 @@ export default function PhoneVerify({ props, location }) {
           <Form noValidate autoComplete="off" className="onboarding-body">
             <div className="content-container">
               <p>We texted a verification code to your phone. Please enter the code to sign in.</p>
-              {/* <p>We texted your phone XXX XXX XX42. Please enter the code to sign in.</p> TODO: Speicify Phone Number */}
 
               <FormControl className="control">
                 <TextField
-                  className="input"
+                  id="token"
+                  name="token"
+                  className="input code-input"
+                  placeholder="Enter Code"
+                  variant="outlined"
                   defaultValue=""
+                  autocomplete="off"
+                  autocorrect="off"
+                  autocapitalize="off"
+                  spellcheck="false"
+                  inputProps={{ maxLength: 6, autoComplete: 'one-time-code' }}
                   InputLabelProps={{ shrink: false }}
                   onChange={handleCodeChange}
-                  placeholder="Verification Code"
-                  name="token"
-                  id="token"
-                  variant="outlined"
                   style={{}}
                 />
               </FormControl>

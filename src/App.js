@@ -50,8 +50,8 @@ export default function App() {
         <Route path="/health-worker" component={HealthWorkerStatus} />
         <Route path="/symptoms" component={Symptoms} />
         {/* Login Pages */}
-        <Route path="/login" component={login} />
-        <Route path="/login-verification" component={AuthVerifyCode} />
+        <Route path="/sign-in" component={login} />
+        <Route path="/sign-in-verification" component={AuthVerifyCode} />
         {/* Profile Pages / Settings */}
         <Route path="/profile-view" component={ProfileView} />
         <Route path="/profile-edit" component={ProfileEdit} />

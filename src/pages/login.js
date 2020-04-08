@@ -35,9 +35,8 @@ export default function PhoneVerify({ props }) {
       phone,
     })
       .then((response) => {
-        console.log(response);
         sessionStorage.setItem('phone', phone);
-        history.push('/login-verification');
+        history.push('/sign-in-verification');
       })
       .catch((error) => {
         if (error && error.response) {
@@ -75,7 +74,7 @@ export default function PhoneVerify({ props }) {
         </RoundHeader>
         {state.loading === false ? (
           <Form noValidate autoComplete="off" className="onboarding-body">
-            <div class="content-container">
+            <div className="content-container">
               <PhoneNumber className="hide-mobile"></PhoneNumber>
               <Link to="/sign-up" className="hide-mobile login">
                 Create Account
