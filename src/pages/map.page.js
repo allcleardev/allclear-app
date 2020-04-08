@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { Component, useEffect, useState, useContext } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Container';
@@ -10,7 +10,6 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import ClearHeader from '../components/headers/header-clear';
-import FabBlueBottom from '../components/fabBlueBottom';
 import NavBottom from '../components/navBottom';
 import SearchGoogleMapInput from '../components/searchGoogleMapInput';
 import UpdateCriteriaModal from '../components/modals/modal-update-criteria';
@@ -19,50 +18,8 @@ import Hammer from 'react-hammerjs';
 import SimpleMap from '../components/googleMap';
 import { mapLocationData } from '../constants';
 import { MapPageContext } from '../contexts/MapPage.context';
-// import { getLocations } from '../redux/selectors';
-// import UpdateCriteria from './updateTestingCriteriaModal';
-
-const drawerWidth = 400;
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-  },
-  appBar: {
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  hide: {
-    display: 'none',
-  },
-  drawer: {
-    // width: drawerWidth,
-    flexShrink: 0,
-  },
-  content: {
-    marginLeft: -drawerWidth,
-  },
-  contentShift: {
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginLeft: 0,
-  },
-}));
+import ArrowLeft from '../components/svgs/arrow-left';
+import ArrowRight from '../components/svgs/arrow-right';
 
 function CardMapLocation({ index, title, description, status, service_time, commute }) {
   return (
@@ -137,31 +94,20 @@ TabPanel.propTypes = {
   value: PropTypes.any.isRequired,
 };
 
-// function a11yProps(index) {
-//   return {
-//     id: `simple-tab-${index}`,
-//     "aria-controls": `simple-tabpanel-${index}`
-//   };
-// }
-
-// end get windows width
-
 function MapPage({ locations }) {
   const classes = useStyles();
   const [open, setOpen] = useState(true);
-  const { setDrawerOpen } = useContext(MapPageContext);
+  // const { setDrawerOpen } = useContext(MapPageContext);
 
   const [anchor, setAnchor] = useState('left');
   // const [anchor] = useState('left');
 
   const handleDrawerOpen = () => {
     setOpen(true);
-    setDrawerOpen(true);
   };
 
   const handleDrawerClose = () => {
     setOpen(false);
-    setDrawerOpen(false);
   };
 
   const [value] = useState(0);
@@ -210,7 +156,7 @@ function MapPage({ locations }) {
     },
   };
 
-  const Component = () => {
+  const ResizeSpy = () => {
     const { width } = useWindowDimensions();
 
     if (width <= 576) {
@@ -220,11 +166,13 @@ function MapPage({ locations }) {
       setAnchor('left');
     }
 
-    return <div></div>;
+    return <></>;
   };
+
+
   return (
-    <div className="test-map-page">
-      <Component></Component>
+    <div className="map-page">
+      <ResizeSpy></ResizeSpy>
       <ClearHeader isOpen={open}></ClearHeader>
       <TabPanel value={value} index={0}>
         <AppBar
@@ -242,80 +190,13 @@ function MapPage({ locations }) {
             className={clsx(classes.menuButton, open)}
           >
             {open === true ? (
-              <svg width="89" height="87" viewBox="0 0 89 87" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g filter="url(#filter0_d)">
-                  <path
-                    d="M12.6566 12.7188H42.9841C58.4481 12.7188 70.9841 25.2548 70.9841 40.7188C70.9841 56.1827
-                    58.4481 68.7188 42.9841 68.7188H12.6566V12.7188Z"
-                    fill="#F1F1F2"
-                  />
-                </g>
-                <path
-                  d="M48.8204 40.7188H34.8204M34.8204 40.7188L41.8204 47.7188M34.8204 40.7188L41.8204 33.7188"
-                  stroke="#333333"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-
-                <defs>
-                  <filter
-                    id="filter0_d"
-                    x="0.656616"
-                    y="0.71875"
-                    width="88.3275"
-                    height="86"
-                    filterUnits="userSpaceOnUse"
-                    colorInterpolationFilters="sRGB"
-                  >
-                    <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
-                    <feOffset dx="3" dy="3" />
-                    <feGaussianBlur stdDeviation="7.5" />
-                    <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0" />
-                    <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow" />
-                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape" />
-                  </filter>
-                </defs>
-              </svg>
+              <ArrowLeft/>
             ) : (
-              <svg width="89" height="86" viewBox="0 0 89 86" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g filter="url(#filter0_d)">
-                  <path
-                    d="M12.0138 12H42.3413C57.8053 12 70.3413 24.536 70.3413 40V40C70.3413 55.464 57.8053
-                     68 42.3413 68H12.0138V12Z"
-                    fill="#F1F1F2"
-                  />
-                </g>
-                <path
-                  d="M34 40H48M48 40L41 33M48 40L41 47"
-                  stroke="#333333"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <defs>
-                  <filter
-                    id="filter0_d"
-                    x="0.0137939"
-                    y="0"
-                    width="88.3275"
-                    height="86"
-                    filterUnits="userSpaceOnUse"
-                    colorInterpolationFilters="sRGB"
-                  >
-                    <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
-                    <feOffset dx="3" dy="3" />
-                    <feGaussianBlur stdDeviation="7.5" />
-                    <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0" />
-                    <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow" />
-                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape" />
-                  </filter>
-                </defs>
-              </svg>
+              <ArrowRight/>
             )}
           </IconButton>
+
+
         </AppBar>
         <Hammer onSwipe={handleSwipe} option={options} direction="DIRECTION_UP">
           <Drawer className={classes.drawer + ' nav-left-location'} variant="persistent" anchor={anchor} open={open}>
@@ -362,28 +243,28 @@ function MapPage({ locations }) {
         <NavBottom></NavBottom>
         <UpdateCriteriaModal></UpdateCriteriaModal>
       </TabPanel>
-      <TabPanel value={value} index={1}>
-        <FabBlueBottom
-          style={{
-            position: 'fixed',
-            bottom: 70,
-            right: 20,
-          }}
-        >
-          <svg width="24" height="21" viewBox="0 0 24 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M3.99841 19.6816V12.6816M3.99841 8.68164V1.68164M11.9984 19.6816V10.6816M11.9984
-              6.68164V1.68164M19.9984 19.6816V14.6816M19.9984 10.6816V1.68164M0.998413 12.6816H6.99841M8.99841
-              6.68164H14.9984M16.9984 14.6816H22.9984"
-              stroke="white"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            ></path>
-          </svg>
-        </FabBlueBottom>
-        <NavBottom></NavBottom>
-      </TabPanel>
+      {/*<TabPanel value={value} index={1}>*/}
+      {/*  <FabBlueBottom*/}
+      {/*    style={{*/}
+      {/*      position: 'fixed',*/}
+      {/*      bottom: 70,*/}
+      {/*      right: 20,*/}
+      {/*    }}*/}
+      {/*  >*/}
+      {/*    <svg width="24" height="21" viewBox="0 0 24 21" fill="none" xmlns="http://www.w3.org/2000/svg">*/}
+      {/*      <path*/}
+      {/*        d="M3.99841 19.6816V12.6816M3.99841 8.68164V1.68164M11.9984 19.6816V10.6816M11.9984*/}
+      {/*        6.68164V1.68164M19.9984 19.6816V14.6816M19.9984 10.6816V1.68164M0.998413 12.6816H6.99841M8.99841*/}
+      {/*        6.68164H14.9984M16.9984 14.6816H22.9984"*/}
+      {/*        stroke="white"*/}
+      {/*        strokeWidth="1.5"*/}
+      {/*        strokeLinecap="round"*/}
+      {/*        strokeLinejoin="round"*/}
+      {/*      ></path>*/}
+      {/*    </svg>*/}
+      {/*  </FabBlueBottom>*/}
+      {/*  <NavBottom></NavBottom>*/}
+      {/*</TabPanel>*/}
     </div>
   );
 }
@@ -391,3 +272,44 @@ function MapPage({ locations }) {
 export default connect((state) => {
   return { locations: state.locations };
 })(MapPage);
+
+const drawerWidth = 400;
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+  },
+  appBar: {
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+  appBarShift: {
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: drawerWidth,
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  hide: {
+    display: 'none',
+  },
+  drawer: {
+    // width: drawerWidth,
+    flexShrink: 0,
+  },
+  content: {
+    marginLeft: -drawerWidth,
+  },
+  contentShift: {
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginLeft: 0,
+  },
+}));
