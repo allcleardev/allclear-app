@@ -16,14 +16,22 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 export default function PhoneVerify({ props }) {
   const [state, setState] = React.useState({
     termsAndConditions: false,
-    alerts: false,
+    alertable: false,
     loading: false,
   });
 
   const history = useHistory();
 
   const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
+    setState({
+      ...state,
+      [event.target.name]: event.target.checked,
+    });
+
+    // Capture alerts opt-in
+    if (event.target.name === 'alertable') {
+      sessionStorage.setItem('alertable', event.target.checked);
+    }
   };
 
   const LightTooltip = withStyles((theme) => ({
@@ -138,7 +146,9 @@ export default function PhoneVerify({ props }) {
               />
 
               <FormControlLabel
-                control={<Checkbox checked={state.alerts} onChange={handleChange} name="alerts" color="secondary" />}
+                control={
+                  <Checkbox checked={state.alertable} onChange={handleChange} name="alertable" color="secondary" />
+                }
                 label="Receive text alerts when eligible test locations become available."
               />
             </div>
