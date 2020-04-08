@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 
 import Form from '@material-ui/core/Container';
 
-import { Button, Grid } from '@material-ui/core';
+import { Button, Grid, Tooltip, withStyles } from '@material-ui/core';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Axios from 'axios';
@@ -26,7 +26,18 @@ export default function PhoneVerify({ props }) {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
 
-  const verifyPhoneNumber = async () => {
+  const LightTooltip = withStyles((theme) => ({
+    tooltip: {
+      backgroundColor: '#fff',
+      color: '#999',
+      boxShadow: theme.shadows[4],
+      fontSize: 13,
+      padding: 20,
+      borderRadius: 8,
+    },
+  }))(Tooltip);
+
+  const onSendVerificationClicked = async () => {
     setState({ loading: true });
     let phone = sessionStorage.getItem('phone');
 
@@ -49,7 +60,6 @@ export default function PhoneVerify({ props }) {
             error.response.data.message &&
             error.response.data.message.includes('already exists')
           ) {
-            console.log('account already exists bk');
             return verifyLogin();
           } else if (error.response.data && error.response.data.message) {
             setState({
@@ -133,13 +143,30 @@ export default function PhoneVerify({ props }) {
               />
             </div>
 
+            {/* TODO: Move Onboarding button-container into its own component */}
             <div className="button-container">
               <Link to="/sign-in" className="hide-desktop sign-in">
                 Sign into Existing Account
               </Link>
-              <Button onClick={() => verifyPhoneNumber()} variant="contained" color="primary" className="next">
-                Send Verification Code
-              </Button>
+              <LightTooltip
+                title={
+                  !state.termsAndConditions
+                    ? 'Please review and agree to the Terms & Conditions and Privacy Policy'
+                    : ''
+                }
+              >
+                <span className="tooltip-button">
+                  <Button
+                    className="next"
+                    color="primary"
+                    variant="contained"
+                    onClick={() => onSendVerificationClicked()}
+                    disabled={!state.termsAndConditions}
+                  >
+                    Send Verification Code
+                  </Button>
+                </span>
+              </LightTooltip>
             </div>
           </Form>
         ) : (

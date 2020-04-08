@@ -1,16 +1,16 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-// import qs from 'qs';
+import { useCookies } from 'react-cookie';
+
+import Axios from 'axios';
 import Form from '@material-ui/core/Container';
-import { Button, Grid } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
-import Axios from 'axios';
+import { Button, Grid } from '@material-ui/core';
 
 import RoundHeader from '../components/headers/header-round';
 import ProgressBottom from '../components/progressBottom';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import { useCookies } from 'react-cookie';
 
 export default function PhoneVerify({ props, location }) {
   //eslint-disable-next-line
