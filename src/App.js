@@ -35,7 +35,16 @@ import VerifyMagicLink from './pages/verify-magic-link';
 import LoginMagicLink from './pages/login-magic-link';
 import MapPageProvider from './contexts/MapPage.context';
 
-export const AppContext = createContext({});
+export const AppContext = createContext({
+  searchCriteria: {
+    driveThru: 'any',
+    appointmentRequired: 'any',
+    // symptoms: ['none'],
+    exposure: 'Select Exposure',
+    // conditions: ['none'],
+    // healthWorkerStatus: ['none'],
+  }
+});
 
 export default function App() {
   return (

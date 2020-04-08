@@ -31,7 +31,6 @@ function MapPage({locations}) {
   // const { setDrawerOpen } = useContext(MapPageContext);
 
   function onWindowResize({width, height}) {
-    // console.log('resize', width);
     if (width <= 576) {
       setMapState({
         ...mapState,
