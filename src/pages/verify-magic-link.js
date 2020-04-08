@@ -32,6 +32,7 @@ export default function VerifyMagicLink({ props, location }) {
         console.log('response', response);
         setCookie('sessid', response.data.id);
         sessionStorage.setItem('sessid', response.data.id);
+        sessionStorage.setItem('phone', searchParams.phone);
         history.push('/background');
       })
       .catch((error) => {
