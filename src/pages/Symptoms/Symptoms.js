@@ -38,10 +38,11 @@ class Symptom extends Component {
 
   handleChange(event) {
     let { symptoms } = this.state;
-    symptoms.filter((symptom) => {
+    symptoms.map((symptom) => {
       if (symptom.name === event.name) {
         symptom.isActive = !symptom.isActive;
       }
+      return true;
     });
     this.setState({ symptoms });
     sessionStorage.setItem('symptoms', JSON.stringify(symptoms));
