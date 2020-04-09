@@ -1,37 +1,25 @@
-import React from 'react';
-import Axios from 'axios';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react';
+import { bindAll } from 'lodash';
 
 import RoundHeader from '../../components/headers/header-round';
 import ProgressBottom from '../../components/progressBottom';
 import GoogleMapsAutocomplete from '../../components/inputs/google-maps-autocomplete'; // TODO: v2
+import OnboardingNavigation from '../../components/onboarding-navigation';
 
 import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
 import { Button, TextField } from '@material-ui/core';
 
-class Background extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { exposure: 'live_with_someone', dob: '' };
+class Background extends Component {
+  constructor() {
+    super();
+    this.state = { dob: '', location: false };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleDoBChange = this.handleDoBChange.bind(this);
-    this.handleTextChange = this.handleTextChange.bind(this);
+    bindAll(this, ['routeChange', 'handleDoBChange', 'handleLocationChange']);
   }
 
-  getExposures() {
-    this.setState({ loading: true });
-
-    Axios.get('https://api-dev.allclear.app/types/exposures', {})
-      .then((response) => {
-        this.setState({ exposures: response.data });
-        this.setState({ loading: false });
-      })
-      .catch((error) => {
-        console.log(error);
-        this.setState({ loading: false });
-      });
+  routeChange(route) {
+    this.props.history.push(route);
   }
 
   handleDoBChange(event) {
@@ -43,25 +31,12 @@ class Background extends React.Component {
     }
   }
 
-  handleChange(event) {
-    let { exposures } = this.state;
-    exposures.map((exposure) => {
-      if (exposure.name === event.name) {
-        exposure.isActive = !exposure.isActive;
-      }
-      return true;
-    });
-    this.setState({ exposures });
-    sessionStorage.setItem('exposures', JSON.stringify(exposures));
-  }
-
-  handleTextChange(address) {
-    this.setState({ address });
+  async handleLocationChange(value) {
+    this.setState({ location: value });
   }
 
   render() {
     return (
-      // TODO: Update input fields to use Material UI dropdown and date-picker
       <div className="background-responsive">
         <div className="background onboarding-page">
           <RoundHeader navigate={'/sign-up'}>
@@ -78,7 +53,7 @@ class Background extends React.Component {
                       We can give localized test center recommendations with your location.
                     </span>
                   </label>
-                  <GoogleMapsAutocomplete></GoogleMapsAutocomplete>
+                  <GoogleMapsAutocomplete locationSelected={this.handleLocationChange}></GoogleMapsAutocomplete>
                 </article>
                 <article className="article">
                   <label htmlFor="birthdate" className="label">
@@ -97,18 +72,26 @@ class Background extends React.Component {
                 </article>
               </section>
             </Box>
-            <div className="button-container">
-              <Link to="/sign-up" className="hide-mobile">
-                <Button variant="contained" className="back">
+            <OnboardingNavigation
+              back={
+                <Button variant="contained" className="back hide-mobile" onClick={() => this.routeChange('/sign-up')}>
                   Restart
                 </Button>
-              </Link>
-              <Link to="/health-worker">
-                <Button variant="contained" color="primary" className="next">
+              }
+              forward={
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className="next"
+                  onClick={() => this.routeChange('/health-worker')}
+                  disabled={!this.state.location}
+                >
                   Next
                 </Button>
-              </Link>
-            </div>
+              }
+              tooltipMessage={'Please provide your location'}
+              triggerTooltip={!this.state.location}
+            ></OnboardingNavigation>
           </Form>
           <ProgressBottom progress="25%"></ProgressBottom>
         </div>

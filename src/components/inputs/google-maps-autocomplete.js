@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function GoogleMapsAutocomplete() {
+export default function GoogleMapsAutocomplete(props) {
   const classes = useStyles();
   const [inputValue, setInputValue] = React.useState('');
   const [options, setOptions] = React.useState([]);
@@ -36,6 +36,10 @@ export default function GoogleMapsAutocomplete() {
           sessionStorage.setItem('lng', latLng.lng);
         })
         .catch((error) => console.error('Error', error));
+
+      props.locationSelected(true);
+    } else {
+      props.locationSelected(false);
     }
   };
 
