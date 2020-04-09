@@ -6,6 +6,7 @@ import {GetNewPosition} from '../../services/google-location-svc.js';
 import {addLocation} from '../../redux/actions';
 import {connect} from 'react-redux';
 
+
 class GoogleMap extends Component {
   constructor(props) {
     super(props);
@@ -15,12 +16,15 @@ class GoogleMap extends Component {
     };
   }
 
+  
+
   static defaultProps = {
     center: {
       lat: Number(sessionStorage.getItem('lat')) || 40.743992,
       lng: Number(sessionStorage.getItem('lng')) || -74.032364,
     },
     zoom: 12,
+    
   };
 
   async componentDidMount() {
@@ -41,6 +45,8 @@ class GoogleMap extends Component {
     this.props.addLocation(result.data.records);
   }
 
+  
+
   // onMarkerClicked(index) {
   //   debugger;
   // }
@@ -51,6 +57,80 @@ class GoogleMap extends Component {
 
         <div style={{height: '100%', width: '100%'}}>
           <GoogleMapReact
+            options={{styles: 
+              [
+                {
+                  featureType: 'administrative',
+                  elementType: 'geometry',
+                  stylers: [
+                    {
+                      visibility: 'off'
+                    }
+                  ]
+                },
+                {
+                  featureType: 'administrative.land_parcel',
+                  elementType: 'labels',
+                  stylers: [
+                    {
+                      visibility: 'off'
+                    }
+                  ]
+                },
+                {
+                  featureType: 'administrative.neighborhood',
+                  elementType: 'labels.text',
+                  stylers: [
+                    {
+                      visibility: 'off'
+                    }
+                  ]
+                },
+                {
+                  featureType: 'poi',
+                  stylers: [
+                    {
+                      visibility: 'off'
+                    }
+                  ]
+                },
+                {
+                  featureType: 'poi',
+                  elementType: 'labels.text',
+                  stylers: [
+                    {
+                      visibility: 'off'
+                    }
+                  ]
+                },
+                {
+                  featureType: 'road',
+                  elementType: 'labels.icon',
+                  stylers: [
+                    {
+                      visibility: 'off'
+                    }
+                  ]
+                },
+                {
+                  featureType: 'road.local',
+                  elementType: 'labels',
+                  stylers: [
+                    {
+                      visibility: 'off'
+                    }
+                  ]
+                },
+                {
+                  featureType: 'transit',
+                  stylers: [
+                    {
+                      visibility: 'off'
+                    }
+                  ]
+                }
+              ]
+            }}
             bootstrapURLKeys={{key: 'AIzaSyAPB7ER1lGxDSZICjq9lmqgxvnlSJCIuYw'}}
             defaultCenter={this.props.center}
             defaultZoom={this.props.zoom}
