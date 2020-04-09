@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Axios from 'axios';
 import { bindAll } from 'lodash';
+import Axios from 'axios';
+
+import states from './Symptoms.state';
 import RoundHeader from '../../components/headers/header-round';
 import ProgressBottom from '../../components/progressBottom';
-import states from './Symptoms.state';
+import OnboardingNavigation from '../../components/onboarding-navigation';
 
 import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
@@ -15,7 +17,15 @@ class Symptom extends Component {
 
   constructor() {
     super();
-    bindAll(this, ['componentDidMount', 'getSymptoms', 'deselectAll', 'handleChange', 'buildPayload', 'submitResults']);
+    bindAll(this, [
+      'componentDidMount',
+      'getSymptoms',
+      'handleChange',
+      'deselectAll',
+      'checkForSelection',
+      'buildPayload',
+      'submitResults',
+    ]);
   }
 
   componentDidMount() {
@@ -34,20 +44,6 @@ class Symptom extends Component {
         console.log(error);
         this.setState({ loading: false });
       });
-  }
-
-  deselectAll() {
-    let { symptoms } = this.state;
-    symptoms.map((symptom) => {
-      if (symptom.id !== 'no') {
-        symptom.isActive = false;
-      } else {
-        symptom.isActive = true;
-      }
-      return true;
-    });
-    this.setState({ symptoms });
-    sessionStorage.setItem('stymptoms', JSON.stringify(symptoms));
   }
 
   handleChange(event) {
@@ -70,7 +66,33 @@ class Symptom extends Component {
     }
 
     this.setState({ symptoms });
+    this.checkForSelection();
     sessionStorage.setItem('symptoms', JSON.stringify(symptoms));
+  }
+
+  deselectAll() {
+    let { symptoms } = this.state;
+    symptoms.map((symptom) => {
+      if (symptom.id !== 'no') {
+        symptom.isActive = false;
+      } else {
+        symptom.isActive = true;
+      }
+      return true;
+    });
+    this.setState({ symptoms });
+    sessionStorage.setItem('stymptoms', JSON.stringify(symptoms));
+  }
+
+  checkForSelection() {
+    let isSelected = false;
+    this.state.symptoms.map((symptom) => {
+      if (symptom.isActive) {
+        isSelected = true;
+      }
+      return true;
+    });
+    this.setState({ isSelected });
   }
 
   buildPayload() {
@@ -180,7 +202,7 @@ class Symptom extends Component {
           <Form noValidate autoComplete="off" className="onboarding-body">
             <Box maxWidth="md">
               <label className="label">
-                <strong>Select all that apply.</strong>
+                <strong>Select all that apply.</strong> (Required)
               </label>
               <div className="chips-group">
                 {this.state.symptoms &&
@@ -197,18 +219,28 @@ class Symptom extends Component {
                   })}
               </div>
             </Box>
-            <div className="button-container">
-              <Link to="/health-worker" className="hide-mobile">
-                <Button variant="contained" className="back">
-                  Back
+            <OnboardingNavigation
+              back={
+                <Link to="/health-worker" className="hide-mobile">
+                  <Button variant="contained" className="back">
+                    Back
+                  </Button>
+                </Link>
+              }
+              forward={
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className="next"
+                  onClick={this.submitResults}
+                  disabled={!this.state.isSelected}
+                >
+                  Continue to Home page
                 </Button>
-              </Link>
-
-              {/* Todo: Make `profile-view` access conditional on successful profile creation */}
-              <Button variant="contained" color="primary" className="next" onClick={this.submitResults}>
-                Continue to Home page
-              </Button>
-            </div>
+              }
+              tooltipMessage={'Please make a selection'}
+              tooltipTrigger={!this.state.isSelected}
+            ></OnboardingNavigation>
           </Form>
           <ProgressBottom progress="75%"></ProgressBottom>
         </div>
