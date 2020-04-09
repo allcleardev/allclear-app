@@ -160,7 +160,7 @@ export default function PhoneVerify({ props }) {
                 </Button>
               }
               tooltipMessage={'Please review and agree to the Terms & Conditions and Privacy Policy'}
-              tooltipTrigger={!state.termsAndConditions}
+              disableForward={!state.termsAndConditions}
             ></OnboardingNavigation>
           </Form>
         ) : (

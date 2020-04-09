@@ -15,7 +15,7 @@ export default function OnboardingNavigation(props) {
   return (
     <div className="button-container">
       {props.back}
-      <LightTooltip title={props.tooltipTrigger ? props.tooltipMessage : ''}>
+      <LightTooltip title={props.disableForward ? props.tooltipMessage : ''}>
         <span className="tooltip-button">{props.forward}</span>
       </LightTooltip>
     </div>
