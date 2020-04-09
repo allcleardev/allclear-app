@@ -15,8 +15,13 @@ const fs = require('fs');
 const date = new Date();
 const fullDate = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
 const time = date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+const baseURL = (process.env.GIT_BRANCH === 'master') ? 'https://api.allclear.app' : 'https://api-dev.allclear.app';
 
+// read env file
 const envfile = require('envfile');
 let envFileParsed = envfile.parseFileSync('.env');
+
+// write new variables to env file for FE consumption
 envFileParsed.REACT_APP_BUILT_AT = `${fullDate} - ${time}`;
+envFileParsed.REACT_APP_BASE_URL = baseURL;
 fs.writeFileSync('./.env', envfile.stringifySync(envFileParsed));

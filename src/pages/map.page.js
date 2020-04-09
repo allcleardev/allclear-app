@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import React, { useState, useContext } from 'react';
 import clsx from 'clsx';
 // import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Container';
-import {makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
@@ -11,32 +11,35 @@ import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import ClearHeader from '../components/headers/header-clear';
 import NavBottom from '../components/navBottom';
-// import SearchGoogleMapInput from '../components/searchGoogleMapInput';
+
 import UpdateCriteriaModal from '../components/modals/modal-update-criteria';
-import {connect} from 'react-redux';
+
 import Hammer from 'react-hammerjs';
 import GoogleMap from '../components/map-components/google-map';
 import TestingLocationListItem from '../components/map-components/testing-location-list-item';
-import {mapLocationData} from '../constants';
-// import {MapPageContext} from '../contexts/MapPage.context';
+import { mapLocationData } from '../constants';
+
 import ArrowLeft from '../components/svgs/arrow-left';
 import ArrowRight from '../components/svgs/arrow-right';
 import SettingsSVG from '../components/svgs/svg-settings';
-import {useWindowResize} from '../util/helpers';
+import { useWindowResize } from '../util/helpers';
+import ModalService from '../services/modal.service';
 
+import MapPageContext from '../contexts/MapPage.context';
 
-function MapPage({locations}) {
+export default function MapPage() {
   const classes = useStyles();
 
-  // const { setDrawerOpen } = useContext(MapPageContext);
+  const contextData = useContext(MapPageContext);
 
-  function onWindowResize({width, height}) {
-    // console.log('resize', width);
+  const locations = contextData.locations;
+
+  function onWindowResize({ width, height }) {
     if (width <= 576) {
       setMapState({
         ...mapState,
         anchor: 'bottom',
-        isOpen: true
+        isOpen: true,
       });
     } else {
       setMapState({
@@ -54,7 +57,7 @@ function MapPage({locations}) {
     windowHeight: height,
   };
   const [mapState, setMapState] = useState(initialState);
-
+  // const {mapPageState, setMapPageState} = useContext(MapPageContext);
 
   const touchOptions = {
     touchAction: 'compute',
@@ -69,20 +72,19 @@ function MapPage({locations}) {
   function toggleDrawer(isOpen) {
     setMapState({
       ...mapState,
-      isOpen
+      isOpen,
     });
   }
 
-  const {isOpen, anchor} = mapState;
+  const { isOpen, anchor } = mapState;
+
+  // get modal service so we can toggle it open
+  let modalService = ModalService.getInstance();
 
   return (
     <div className="map-page">
       <ClearHeader isOpen={isOpen}></ClearHeader>
-      <Typography
-        component="div"
-        role="tabpanel"
-        aria-labelledby={'simple-tab'}
-      >
+      <Typography component="div" role="tabpanel" aria-labelledby={'simple-tab'}>
         <Box p={3}>
           <AppBar
             className={
@@ -91,52 +93,50 @@ function MapPage({locations}) {
                 [classes.appBarShift]: isOpen,
               })
             }
-            style={{zIndex: '2'}}
+            style={{ zIndex: '2' }}
           >
             <IconButton
               aria-label="open drawer"
-              onClick={isOpen === false ?
-                       () => toggleDrawer(true) :
-                       () => toggleDrawer(false)
-              }
+              onClick={isOpen === false ? () => toggleDrawer(true) : () => toggleDrawer(false)}
               className={clsx(classes.menuButton, isOpen)}
             >
-              {isOpen === true ? (
-                <ArrowLeft/>
-              ) : (
-                 <ArrowRight/>
-               )}
+              {isOpen === true ? <ArrowLeft /> : <ArrowRight />}
             </IconButton>
           </AppBar>
           <Hammer onSwipe={() => {}} option={touchOptions} direction="DIRECTION_UP">
-            <Drawer className={classes.drawer + ' nav-left-location'}
-                    variant="persistent"
-                    anchor={anchor}
-                    open={isOpen}>
+            <Drawer
+              className={classes.drawer + ' nav-left-location'}
+              variant="persistent"
+              anchor={anchor}
+              open={isOpen}
+            >
               <div
-                style={{width: `${drawerWidth}px`, overflowY: 'scroll'}}
+                id="side-drawer"
+                style={{ width: `${drawerWidth}px`, overflowY: 'scroll' }}
                 className="hide-scrollbar wid100-sm height-300-sm"
               >
                 <Box>
                   {/*<SearchGoogleMapInput style={{ marginTop: '50px' }}></SearchGoogleMapInput>*/}
-                  <div style={{margin: '40px 0'}} className="search-map-filter">
-                    <h3 className="body-title" style={{margin: '5px 0', fontSize: '16px'}}>
+                  <div style={{ margin: '40px 0' }} className="search-map-filter">
+                    <h3 className="body-title" style={{ margin: '5px 0', fontSize: '16px' }}>
                       Filters
                     </h3>
-                    <p className="grey" style={{fontSize: '16px'}}>
+                    <p className="grey" style={{ fontSize: '16px' }}>
                       <Button
                         variant="contained"
                         color="primary"
                         className={classes.button}
                         startIcon={SettingsSVG()}
+                        onClick={() => {
+                          modalService.toggleModal('criteria', true);
+                        }}
                       >
                         Edit Search Filters
                       </Button>
                     </p>
                   </div>
-
                 </Box>
-                <Divider className={'hide-mobile-sm ' + classes.divider} orientation="horizontal"/>
+                <Divider className={'hide-mobile-sm ' + classes.divider} orientation="horizontal" />
                 {locations.map((result, index) => (
                   <TestingLocationListItem
                     key={index}
@@ -147,6 +147,7 @@ function MapPage({locations}) {
                     service_time={result.hours}
                     driveThru={result.driveThru}
                     phone={result.phone}
+                    {...result}
                   ></TestingLocationListItem>
                 ))}
               </div>
@@ -169,9 +170,9 @@ function MapPage({locations}) {
   );
 }
 
-export default connect((state) => {
-  return {locations: state.locations};
-})(MapPage);
+// export default connect((state) => {
+//   return { locations: state.locations };
+// })(MapPage);
 
 const drawerWidth = 400;
 const useStyles = makeStyles((theme) => ({
@@ -213,7 +214,6 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 0,
   },
 }));
-
 
 // todo: might still be useful at some point just not now
 // function TabPanel(props) {

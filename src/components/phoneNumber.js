@@ -15,6 +15,7 @@ class PhoneNumber extends Component {
 
     this.handlePhoneChange = this.handlePhoneChange.bind(this);
     this.handleValidation = this.handleValidation.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
   }
 
   async handlePhoneChange(value) {
@@ -42,11 +43,19 @@ class PhoneNumber extends Component {
     this.props.phoneValidation(this.state.isPhoneValid);
   }
 
+  onKeyDown(evt) {
+    // todo: for enter key
+    // if(evt.key === 'Enter'){
+    //   debugger;
+    //   this.props.onSubmit(this.state.phone);
+    // }
+  }
   render() {
     return (
       <Formik
         initialValues={this.state.phone}
         onSubmit={(values) => {
+          debugger;
           this.props.onSubmit(values);
         }}
         validateOnBlur
@@ -70,6 +79,7 @@ class PhoneNumber extends Component {
               disableCountryCode={true}
               value={this.state.phone}
               onChange={this.handlePhoneChange}
+              onKeyDown={this.onKeyDown}
             />
           </Form>
         )}

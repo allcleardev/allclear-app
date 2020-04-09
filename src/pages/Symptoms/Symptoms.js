@@ -167,8 +167,7 @@ class Symptom extends Component {
       conditions: conditionsArray,
       exposures: exposuresArray,
       symptoms: symptomsArray,
-      healthWorkerStatus: JSON.parse(healthWorkerStatus),
-    };
+      healthWorkerStatusId: JSON.parse(healthWorkerStatus).id    };
     return payload;
   }
 

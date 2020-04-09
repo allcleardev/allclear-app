@@ -1,4 +1,4 @@
-import React, { createContext } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import './styles/app.scss';
@@ -33,14 +33,14 @@ import Test from './pages/test';
 import UpdateTestingCenterCriteria from './pages/updateTestingCenterCriteria';
 import VerifyMagicLink from './pages/verify-magic-link';
 import LoginMagicLink from './pages/login-magic-link';
-import MapPageProvider from './contexts/MapPage.context';
-
-export const AppContext = createContext({});
+import { MapPageProvider } from './contexts/MapPage.context';
+import AppProvider from './contexts/App.context';
+import Settings from './pages/Settings/Settings';
 
 export default function App() {
   return (
     <Router>
-      <AppContext.Provider value={{ test: 'cool test' }}>
+      <AppProvider>
         <Route exact path="/" component={Launch} />
         {/* Onboarding Pages */}
         <Route path="/sign-up" component={PhoneVerify} />
@@ -60,8 +60,9 @@ export default function App() {
         <Route path="/health" component={Health} />
         <Route path="/update-criteria" component={UpdateTestingCenterCriteria} />
         <Route path="/share" component={ShareApp} />
+        <Route path="/settings" component={Settings} />
         {/* Map */}
-        <MapPageProvider>
+        <MapPageProvider value={{ locations: [] }}>
           <Route path="/map" component={MapPage} />
         </MapPageProvider>
         {/* Abandoned??? */}
@@ -79,7 +80,7 @@ export default function App() {
         {/* Definitely Abandoned (for now) */}
         <Route path="/conditions" component={Conditions} />
         <Route path="/results" component={Result} />
-      </AppContext.Provider>
+      </AppProvider>
     </Router>
   );
 }

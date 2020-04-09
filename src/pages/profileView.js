@@ -9,7 +9,8 @@ import Box from '@material-ui/core/Container';
 import { Button, Grid, IconButton } from '@material-ui/core';
 // import { makeStyles } from "@material-ui/core/styles";
 
-import userAvatar from '../assets/images/avatar.svg';
+import userAvatar from '../assets/images/defaultProfile.svg';
+import editSvg from '../assets/images/edit.svg';
 
 // const useStyles = makeStyles(theme => ({
 //   button: {
@@ -40,8 +41,13 @@ export default function ProfileView() {
     <Box className="profile-view">
       <HomescreenHeader>
         <div className="avatar-edit">
-          <div className="avatar" style={{ backgroundImage: `url(${userAvatar})` }}>
-            {/* <img src={userAvatar} alt="avatar" /> */}
+          <div className="avatar" >
+            <div className="settingLogoEdit">
+              <img src={editSvg} alt="edit" />
+
+            </div>
+            <img src={userAvatar} alt="avatar" style={{ borderRadius: '50%', backgroundColor: 'white',border: '1px solid white' }} />
+
           </div>
           {/* <EditIconButton></EditIconButton> */}
         </div>
@@ -88,7 +94,7 @@ export default function ProfileView() {
                 <div className="card-detail">
                   <p className="title">Conditions</p>
                   <div className="flex-containter flex-wrap-on">
-                    <Button className="btn-description color-white bg-navy">Weekend Immune System</Button>
+                    <Button className="btn-description color-white bg-navy">Weakened Immune System</Button>
                     <Button className="btn-description color-white bg-navy">Kidney Failure or Cirrhosis</Button>
                   </div>
                 </div>
