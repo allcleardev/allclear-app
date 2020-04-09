@@ -15,7 +15,7 @@ class Symptom extends Component {
 
   constructor() {
     super();
-    bindAll(this, ['componentDidMount', 'getSymptoms', 'handleChange', 'buildPayload', 'submitResults']);
+    bindAll(this, ['componentDidMount', 'getSymptoms', 'deselectAll', 'handleChange', 'buildPayload', 'submitResults']);
   }
 
   componentDidMount() {
@@ -36,14 +36,36 @@ class Symptom extends Component {
       });
   }
 
-  handleChange(event) {
+  deselectAll() {
     let { symptoms } = this.state;
     symptoms.map((symptom) => {
-      if (symptom.name === event.name) {
-        symptom.isActive = !symptom.isActive;
+      if (symptom.id !== 'no') {
+        symptom.isActive = false;
+      } else {
+        symptom.isActive = true;
       }
       return true;
     });
+    this.setState({ symptoms });
+    sessionStorage.setItem('conditions', JSON.stringify(symptoms));
+  }
+
+  handleChange(event) {
+    console.log('EVENT::', event);
+
+    let { symptoms } = this.state;
+
+    if (event.id === 'no') {
+      this.deselectAll();
+    } else {
+      symptoms.map((symptom) => {
+        if (symptom.name === event.name) {
+          symptom.isActive = !symptom.isActive;
+        }
+        return true;
+      });
+    }
+
     this.setState({ symptoms });
     sessionStorage.setItem('symptoms', JSON.stringify(symptoms));
   }
