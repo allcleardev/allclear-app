@@ -1,11 +1,10 @@
 import React from 'react';
 import Axios from 'axios';
-import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import { Link } from 'react-router-dom';
 
 import RoundHeader from '../../components/headers/header-round';
 import ProgressBottom from '../../components/progressBottom';
-// import GoogleMapsAutocomplete from '../../components/inputs/google-maps-autocomplete'; // TODO: v2
+import GoogleMapsAutocomplete from '../../components/inputs/google-maps-autocomplete'; // TODO: v2
 
 import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
@@ -17,15 +16,8 @@ class Background extends React.Component {
     this.state = { exposure: 'live_with_someone', dob: '' };
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleLocationChange = this.handleLocationChange.bind(this);
     this.handleDoBChange = this.handleDoBChange.bind(this);
-    this.getExposures = this.getExposures.bind(this);
     this.handleTextChange = this.handleTextChange.bind(this);
-    this.handleSelect = this.handleSelect.bind(this);
-  }
-
-  componentDidMount() {
-    this.getExposures();
   }
 
   getExposures() {
@@ -40,13 +32,6 @@ class Background extends React.Component {
         console.log(error);
         this.setState({ loading: false });
       });
-  }
-
-  handleLocationChange(event) {
-    if (event && event.target && event.target.value) {
-      this.setState({ location: event.target.value });
-      sessionStorage.setItem('location', event.target.value);
-    }
   }
 
   handleDoBChange(event) {
@@ -74,18 +59,6 @@ class Background extends React.Component {
     this.setState({ address });
   }
 
-  handleSelect(address) {
-    this.setState({ address });
-
-    geocodeByAddress(address)
-      .then((results) => getLatLng(results[0]))
-      .then((latLng) => {
-        sessionStorage.setItem('lat', latLng.lat);
-        sessionStorage.setItem('lng', latLng.lng);
-      })
-      .catch((error) => console.error('Error', error));
-  }
-
   render() {
     return (
       // TODO: Update input fields to use Material UI dropdown and date-picker
@@ -105,47 +78,7 @@ class Background extends React.Component {
                       We can give localized test center recommendations with your location.
                     </span>
                   </label>
-                  <div className="autocomplete">
-                    {/* TODO: Swap with Google Maps Autocomplete once API key is settled */}
-                    {/* <GoogleMapsAutocomplete></GoogleMapsAutocomplete> */}
-                    <PlacesAutocomplete
-                      value={this.state.address ? this.state.address : ''}
-                      onChange={this.handleTextChange}
-                      onSelect={this.handleSelect}
-                    >
-                      {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                        <div>
-                          {/* TODO: Do not allow submit w/o required field filled out. Swapping to GoogleMaps Autocomplete will fix this */}
-                          <TextField
-                            required
-                            variant="outlined"
-                            {...getInputProps({
-                              placeholder: 'New York, NY or 11211',
-                              className: 'input',
-                              type: 'search',
-                            })}
-                          />
-                          <div className="autocomplete-dropdown-container">
-                            {loading && <div className="suggestion-item">Loading...</div>}
-                            {suggestions.map((suggestion) => {
-                              const className = suggestion.active
-                                ? 'suggestion-item suggestion-item--active'
-                                : 'suggestion-item';
-                              return (
-                                <div
-                                  {...getSuggestionItemProps(suggestion, {
-                                    className,
-                                  })}
-                                >
-                                  <span>{suggestion.description}</span>
-                                </div>
-                              );
-                            })}
-                          </div>
-                        </div>
-                      )}
-                    </PlacesAutocomplete>
-                  </div>
+                  <GoogleMapsAutocomplete></GoogleMapsAutocomplete>
                 </article>
                 <article className="article">
                   <label htmlFor="birthdate" className="label">
