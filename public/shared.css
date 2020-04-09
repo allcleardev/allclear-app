@@ -1398,6 +1398,20 @@ input:checked + .slider:before {
     height: 60px;
 }
 
+.settingBtn{
+  position: absolute;
+  bottom: 10%;
+  width: 100%;
+
+}
+
+.settingDelBtn {
+  color: #fff !important;
+  widows: 100%;
+  border: 1px solid #E83731;
+  background-color: #E83731 !important;
+}
+
 .isRelaxedBackground{
   background-color: #F1F8FF !important;
 }
@@ -1412,6 +1426,14 @@ input:checked + .slider:before {
     position: fixed;
     margin-left: 78px;
     margin-top: 70px;
+}
+.settingModalTxt{
+  
+    font-size: 15px;
+    color: black;
+    text-align: center;
+    letter-spacing: -0.41px;
+    line-height: 20px;
 }
 
 
