@@ -1,17 +1,17 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-
-import Form from '@material-ui/core/Container';
-
-import { Button, Grid, Tooltip, withStyles } from '@material-ui/core';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Axios from 'axios';
 
 import RoundHeader from '../components/headers/header-round';
 import ProgressBottom from '../components/progressBottom';
 import PhoneNumber from '../components/phoneNumber';
+import OnboardingNavigation from '../components/onboarding-navigation';
+
+import Form from '@material-ui/core/Container';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import { Button, Grid } from '@material-ui/core';
 
 export default function PhoneVerify({ props }) {
   const [state, setState] = React.useState({
@@ -33,17 +33,6 @@ export default function PhoneVerify({ props }) {
       sessionStorage.setItem('alertable', event.target.checked);
     }
   };
-
-  const LightTooltip = withStyles((theme) => ({
-    tooltip: {
-      backgroundColor: '#fff',
-      color: '#999',
-      boxShadow: theme.shadows[4],
-      fontSize: 13,
-      padding: 20,
-      borderRadius: 8,
-    },
-  }))(Tooltip);
 
   const onSendVerificationClicked = async () => {
     setState({ loading: true });
@@ -153,31 +142,26 @@ export default function PhoneVerify({ props }) {
               />
             </div>
 
-            {/* TODO: Move Onboarding button-container into its own component */}
-            <div className="button-container">
-              <Link to="/sign-in" className="hide-desktop sign-in">
-                Sign into Existing Account
-              </Link>
-              <LightTooltip
-                title={
-                  !state.termsAndConditions
-                    ? 'Please review and agree to the Terms & Conditions and Privacy Policy'
-                    : ''
-                }
-              >
-                <span className="tooltip-button">
-                  <Button
-                    className="next"
-                    color="primary"
-                    variant="contained"
-                    onClick={() => onSendVerificationClicked()}
-                    disabled={!state.termsAndConditions}
-                  >
-                    Send Verification Code
-                  </Button>
-                </span>
-              </LightTooltip>
-            </div>
+            <OnboardingNavigation
+              back={
+                <Link to="/sign-in" className="hide-desktop sign-in">
+                  Sign into Existing Account
+                </Link>
+              }
+              forward={
+                <Button
+                  className="next"
+                  color="primary"
+                  variant="contained"
+                  onClick={() => onSendVerificationClicked()}
+                  disabled={!state.termsAndConditions}
+                >
+                  Send Verification Code
+                </Button>
+              }
+              tooltipMessage={'Please review and agree to the Terms & Conditions and Privacy Policy'}
+              tooltipTrigger={!state.termsAndConditions}
+            ></OnboardingNavigation>
           </Form>
         ) : (
           <Grid container justify="center">
