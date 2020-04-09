@@ -235,7 +235,7 @@ class Symptom extends Component {
                   onClick={this.submitResults}
                   disabled={!this.state.isSelected}
                 >
-                  Continue to Home page
+                  Finish
                 </Button>
               }
               tooltipMessage={'Please make a selection'}
