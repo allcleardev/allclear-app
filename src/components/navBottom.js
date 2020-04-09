@@ -43,7 +43,7 @@ export default function NavBottom({ active }) {
       <BottomNavigationAction
         label="Find Tests"
         icon={
-          <Link to="/location">
+          <Link to="/map">
           <LocationOnIcon />
           </Link>
         }
