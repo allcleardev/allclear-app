@@ -24,7 +24,7 @@ class GoogleMap extends Component {
       lng: Number(sessionStorage.getItem('lng')) || -74.032364,
     },
     zoom: 12,
-    
+
   };
 
   async componentDidMount() {
@@ -136,7 +136,6 @@ class GoogleMap extends Component {
             defaultZoom={this.props.zoom}
             onDragEnd={(evt) => this.onMarkerDragEnd(evt)}
             onZoomChanged={(evt) => this.onMarkerDragEnd(evt)}
-            defaultOptions={{ styles: this.props.styles }}
           >
             {result.map((data, index) => (
 
