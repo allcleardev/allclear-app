@@ -79,10 +79,10 @@ export default function PhoneVerify({ props, location }) {
                   placeholder="Enter Code"
                   variant="outlined"
                   defaultValue=""
-                  autocomplete="off"
-                  autocorrect="off"
-                  autocapitalize="off"
-                  spellcheck="false"
+                  autoComplete="off"
+                  autoCorrect="off"
+                  autoCapitalize="off"
+                  spellCheck="false"
                   inputProps={{ maxLength: 6, autoComplete: 'one-time-code' }}
                   InputLabelProps={{ shrink: false }}
                   onChange={handleCodeChange}
@@ -105,7 +105,7 @@ export default function PhoneVerify({ props, location }) {
         ) : (
           <Grid container justify="center">
             <Grid item xs={12} sm={6}>
-              <LinearProgress color="primary" value="50" variant="indeterminate" />
+              <LinearProgress color="primary" value={50} variant="indeterminate" />
             </Grid>
           </Grid>
         )}

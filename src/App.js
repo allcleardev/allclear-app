@@ -1,4 +1,4 @@
-import React, { createContext } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import './styles/app.scss';
@@ -34,13 +34,12 @@ import UpdateTestingCenterCriteria from './pages/updateTestingCenterCriteria';
 import VerifyMagicLink from './pages/verify-magic-link';
 import LoginMagicLink from './pages/login-magic-link';
 import MapPageProvider from './contexts/MapPage.context';
-
-export const AppContext = createContext({});
+import AppProvider from './contexts/App.context';
 
 export default function App() {
   return (
     <Router>
-      <AppContext.Provider value={{ test: 'cool test' }}>
+      <AppProvider>
         <Route exact path="/" component={Launch} />
         {/* Onboarding Pages */}
         <Route path="/sign-up" component={PhoneVerify} />
@@ -79,7 +78,7 @@ export default function App() {
         {/* Definitely Abandoned (for now) */}
         <Route path="/conditions" component={Conditions} />
         <Route path="/results" component={Result} />
-      </AppContext.Provider>
+      </AppProvider>
     </Router>
   );
 }
