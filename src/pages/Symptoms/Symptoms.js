@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { bindAll } from 'lodash';
 import Axios from 'axios';
 
@@ -19,6 +18,7 @@ class Symptom extends Component {
     super();
     bindAll(this, [
       'componentDidMount',
+      'routeChange',
       'getSymptoms',
       'handleChange',
       'deselectAll',
@@ -30,6 +30,10 @@ class Symptom extends Component {
 
   componentDidMount() {
     this.getSymptoms();
+  }
+
+  routeChange(route) {
+    this.props.history.push(route);
   }
 
   getSymptoms() {
@@ -221,11 +225,13 @@ class Symptom extends Component {
             </Box>
             <OnboardingNavigation
               back={
-                <Link to="/health-worker" className="hide-mobile">
-                  <Button variant="contained" className="back">
-                    Back
-                  </Button>
-                </Link>
+                <Button
+                  variant="contained"
+                  className="back hide-mobile"
+                  onClick={() => this.routeChange('/health-worker')}
+                >
+                  Back
+                </Button>
               }
               forward={
                 <Button
