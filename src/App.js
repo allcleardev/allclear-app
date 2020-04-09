@@ -35,6 +35,7 @@ import VerifyMagicLink from './pages/verify-magic-link';
 import LoginMagicLink from './pages/login-magic-link';
 import { MapPageProvider } from './contexts/MapPage.context';
 import AppProvider from './contexts/App.context';
+import Settings from './pages/Settings/Settings';
 
 export default function App() {
   return (
@@ -59,6 +60,7 @@ export default function App() {
         <Route path="/health" component={Health} />
         <Route path="/update-criteria" component={UpdateTestingCenterCriteria} />
         <Route path="/share" component={ShareApp} />
+        <Route path="/settings" component={Settings} />
         {/* Map */}
         <MapPageProvider value={{ locations: [] }}>
           <Route path="/map" component={MapPage} />

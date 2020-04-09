@@ -52,6 +52,80 @@ export default class GoogleMap extends Component {
     return (
       <div style={{ height: '100%', width: '100%' }}>
         <GoogleMapReact
+          options={{
+            styles: [
+              {
+                featureType: 'administrative',
+                elementType: 'geometry',
+                stylers: [
+                  {
+                    visibility: 'off',
+                  },
+                ],
+              },
+              {
+                featureType: 'administrative.land_parcel',
+                elementType: 'labels',
+                stylers: [
+                  {
+                    visibility: 'off',
+                  },
+                ],
+              },
+              {
+                featureType: 'administrative.neighborhood',
+                elementType: 'labels.text',
+                stylers: [
+                  {
+                    visibility: 'off',
+                  },
+                ],
+              },
+              {
+                featureType: 'poi',
+                stylers: [
+                  {
+                    visibility: 'off',
+                  },
+                ],
+              },
+              {
+                featureType: 'poi',
+                elementType: 'labels.text',
+                stylers: [
+                  {
+                    visibility: 'off',
+                  },
+                ],
+              },
+              {
+                featureType: 'road',
+                elementType: 'labels.icon',
+                stylers: [
+                  {
+                    visibility: 'off',
+                  },
+                ],
+              },
+              {
+                featureType: 'road.local',
+                elementType: 'labels',
+                stylers: [
+                  {
+                    visibility: 'off',
+                  },
+                ],
+              },
+              {
+                featureType: 'transit',
+                stylers: [
+                  {
+                    visibility: 'off',
+                  },
+                ],
+              },
+            ],
+          }}
           bootstrapURLKeys={{ key: 'AIzaSyAPB7ER1lGxDSZICjq9lmqgxvnlSJCIuYw' }}
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
