@@ -245,7 +245,7 @@ class Symptom extends Component {
                 </Button>
               }
               tooltipMessage={'Please make a selection'}
-              disableForward={!this.state.isSelected}
+              triggerTooltip={!this.state.isSelected}
             ></OnboardingNavigation>
           </Form>
           <ProgressBottom progress="75%"></ProgressBottom>
