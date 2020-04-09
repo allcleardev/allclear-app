@@ -73,16 +73,40 @@ class Background extends React.Component {
     this.setState({ address });
   }
 
-  handleSelect(address) {
+  async handleSelect(address) {
     this.setState({ address });
+    try {
+      const results = await geocodeByAddress(address);
+      const latLng = await getLatLng(results[0]);
+      const sessionId = sessionStorage.getItem('sessid');
+      sessionStorage.setItem('lat', latLng.lat);
+      sessionStorage.setItem('lng', latLng.lng);
+      const response = await Axios.put(
+        'https://api-dev.allclear.app/peoples',
+        {
+          latitude: latLng.lat,
+          longitude: latLng.lng,
+        },
+        {
+          headers: {
+            'X-AllClear-SessionID': sessionId,
+          },
+        },
+      );
+      console.log(response);
 
-    geocodeByAddress(address)
-      .then((results) => getLatLng(results[0]))
-      .then((latLng) => {
-        sessionStorage.setItem('lat', latLng.lat);
-        sessionStorage.setItem('lng', latLng.lng);
-      })
-      .catch((error) => console.error('Error', error));
+      // .then((response) => {
+      //   setCookie('sessid', response.data.id);
+      //   sessionStorage.setItem('sessid', response.data.id);
+      //   history.push('/map');
+      // })
+      // .catch((error) => {
+      //   console.log('error', error);
+      //   // TODO Display Error Message
+      // });
+    } catch (err) {
+      console.error('Error', err);
+    }
   }
 
   render() {
