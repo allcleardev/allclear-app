@@ -1416,6 +1416,17 @@ input:checked + .slider:before {
   background-color: #F1F8FF !important;
 }
 
+.settingLogoEdit{
+  width: 25px;
+    height: 25px;
+    background-color: white;
+    border-radius: 50%;
+    float: right;
+    /* top: 50%; */
+    position: fixed;
+    margin-left: 78px;
+    margin-top: 70px;
+}
 .settingModalTxt{
   
     font-size: 15px;
