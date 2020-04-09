@@ -19,6 +19,8 @@ steps:
 - script: |
     npm run lint && npm run build
   displayName: 'Running build'
+  env:
+    GIT_BRANCH: $(Build.SourceBranchName)
 
 # Save artifacts to refer them in release builds
 - task: PublishPipelineArtifact@1
