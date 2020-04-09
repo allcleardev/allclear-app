@@ -24,7 +24,7 @@ class GoogleMap extends Component {
       lng: Number(sessionStorage.getItem('lng')) || -74.032364,
     },
     zoom: 12,
-
+    
   };
 
   async componentDidMount() {
@@ -60,72 +60,72 @@ class GoogleMap extends Component {
             options={{styles: 
               [
                 {
-                  "featureType": "administrative",
-                  "elementType": "geometry",
-                  "stylers": [
+                  featureType: 'administrative',
+                  elementType: 'geometry',
+                  stylers: [
                     {
-                      "visibility": "off"
+                      visibility: 'off'
                     }
                   ]
                 },
                 {
-                  "featureType": "administrative.land_parcel",
-                  "elementType": "labels",
-                  "stylers": [
+                  featureType: 'administrative.land_parcel',
+                  elementType: 'labels',
+                  stylers: [
                     {
-                      "visibility": "off"
+                      visibility: 'off'
                     }
                   ]
                 },
                 {
-                  "featureType": "administrative.neighborhood",
-                  "elementType": "labels.text",
-                  "stylers": [
+                  featureType: 'administrative.neighborhood',
+                  elementType: 'labels.text',
+                  stylers: [
                     {
-                      "visibility": "off"
+                      visibility: 'off'
                     }
                   ]
                 },
                 {
-                  "featureType": "poi",
-                  "stylers": [
+                  featureType: 'poi',
+                  stylers: [
                     {
-                      "visibility": "off"
+                      visibility: 'off'
                     }
                   ]
                 },
                 {
-                  "featureType": "poi",
-                  "elementType": "labels.text",
-                  "stylers": [
+                  featureType: 'poi',
+                  elementType: 'labels.text',
+                  stylers: [
                     {
-                      "visibility": "off"
+                      visibility: 'off'
                     }
                   ]
                 },
                 {
-                  "featureType": "road",
-                  "elementType": "labels.icon",
-                  "stylers": [
+                  featureType: 'road',
+                  elementType: 'labels.icon',
+                  stylers: [
                     {
-                      "visibility": "off"
+                      visibility: 'off'
                     }
                   ]
                 },
                 {
-                  "featureType": "road.local",
-                  "elementType": "labels",
-                  "stylers": [
+                  featureType: 'road.local',
+                  elementType: 'labels',
+                  stylers: [
                     {
-                      "visibility": "off"
+                      visibility: 'off'
                     }
                   ]
                 },
                 {
-                  "featureType": "transit",
-                  "stylers": [
+                  featureType: 'transit',
+                  stylers: [
                     {
-                      "visibility": "off"
+                      visibility: 'off'
                     }
                   ]
                 }
