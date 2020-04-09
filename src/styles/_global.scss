@@ -3,6 +3,10 @@
   text-transform: none;
 }
 
+button {
+  outline: none !important;
+}
+
 .error {
   margin: 5px 0;
   opacity: 0.8;
@@ -81,7 +85,7 @@
   }
 
   /* .onboarding-body button*/
-  button {
+  .button-container button {
     padding: 12px 16px;
     line-height: 22px;
     letter-spacing: -0.41px;
