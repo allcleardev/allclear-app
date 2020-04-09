@@ -47,6 +47,7 @@ class HealthWorkerStatus extends React.Component {
         // forces one selection
         status.isActive = false;
       }
+      return true;
     });
     this.setState({ healthWorkerStatus });
     sessionStorage.setItem('healthWorkerStatus', JSON.stringify(selectedStatus));

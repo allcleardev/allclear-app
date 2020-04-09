@@ -3,7 +3,7 @@ import React from 'react';
 import HomescreenHeader from '../components/headers/header-homescreen';
 import UserProfileCard from '../components/cardProfile';
 import NavBottom from '../components/navBottom';
-import UpdateCriteriaModal from './updateTestingCriteriaModal';
+// import UpdateCriteriaModal from './updateTestingCriteriaModal';
 
 import Box from '@material-ui/core/Container';
 import { Grid } from '@material-ui/core';
@@ -40,7 +40,7 @@ export default function ProfileEdit() {
         <Grid item xs={12} sm={11}>
           <div className="profile-body flex-direction-col">
             <h2 className="body-title">Test Location Preferences</h2>
-            <UpdateCriteriaModal></UpdateCriteriaModal>
+            {/*<UpdateCriteriaModal></UpdateCriteriaModal>*/}
           </div>
         </Grid>
       </Grid>

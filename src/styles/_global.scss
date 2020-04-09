@@ -3,10 +3,6 @@
   text-transform: none;
 }
 
-button {
-  outline: none !important;
-}
-
 .error {
   margin: 5px 0;
   opacity: 0.8;
@@ -109,6 +105,12 @@ button {
         color: $primary-color;
         background-color: #fff;
         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+      }
+
+      &.Mui-disabled {
+        color: rgba(0, 0, 0, 0.26);
+        box-shadow: none;
+        background-color: rgba(0, 0, 0, 0.12);
       }
     }
   }

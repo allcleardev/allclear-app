@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 
 import Form from '@material-ui/core/Container';
 
-import { Button, Grid } from '@material-ui/core';
+import { Button, Grid, Tooltip, withStyles } from '@material-ui/core';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Axios from 'axios';
@@ -16,17 +16,36 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 export default function PhoneVerify({ props }) {
   const [state, setState] = React.useState({
     termsAndConditions: false,
-    alerts: false,
+    alertable: false,
     loading: false,
   });
 
   const history = useHistory();
 
   const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
+    setState({
+      ...state,
+      [event.target.name]: event.target.checked,
+    });
+
+    // Capture alerts opt-in
+    if (event.target.name === 'alertable') {
+      sessionStorage.setItem('alertable', event.target.checked);
+    }
   };
 
-  const verifyPhoneNumber = async () => {
+  const LightTooltip = withStyles((theme) => ({
+    tooltip: {
+      backgroundColor: '#fff',
+      color: '#999',
+      boxShadow: theme.shadows[4],
+      fontSize: 13,
+      padding: 20,
+      borderRadius: 8,
+    },
+  }))(Tooltip);
+
+  const onSendVerificationClicked = async () => {
     setState({ loading: true });
     let phone = sessionStorage.getItem('phone');
 
@@ -49,7 +68,6 @@ export default function PhoneVerify({ props }) {
             error.response.data.message &&
             error.response.data.message.includes('already exists')
           ) {
-            console.log('account already exists bk');
             return verifyLogin();
           } else if (error.response.data && error.response.data.message) {
             setState({
@@ -84,7 +102,7 @@ export default function PhoneVerify({ props }) {
     })
       .then((response) => {
         sessionStorage.setItem('phone', phone);
-        history.push('/login-verification');
+        history.push('/sign-in-verification');
       })
       .catch((error) => {
         //show error message
@@ -103,7 +121,7 @@ export default function PhoneVerify({ props }) {
           <Form noValidate autoComplete="off" className="onboarding-body">
             <div className="content-container">
               <PhoneNumber className="hide-mobile"></PhoneNumber>
-              <Link to="/login" className="hide-mobile sign-in">
+              <Link to="/sign-in" className="hide-mobile sign-in">
                 Sign into Existing Account
               </Link>
               {state.error === true ? <p className="error">{state.message}</p> : ''}
@@ -128,27 +146,46 @@ export default function PhoneVerify({ props }) {
               />
 
               <FormControlLabel
-                control={<Checkbox checked={state.alerts} onChange={handleChange} name="alerts" color="secondary" />}
+                control={
+                  <Checkbox checked={state.alertable} onChange={handleChange} name="alertable" color="secondary" />
+                }
                 label="Receive text alerts when eligible test locations become available."
               />
             </div>
 
+            {/* TODO: Move Onboarding button-container into its own component */}
             <div className="button-container">
-              <Link to="/login" className="hide-desktop sign-in">
+              <Link to="/sign-in" className="hide-desktop sign-in">
                 Sign into Existing Account
               </Link>
-              <Button onClick={() => verifyPhoneNumber()} variant="contained" color="primary" className="next">
-                Send Verification Code
-              </Button>
+              <LightTooltip
+                title={
+                  !state.termsAndConditions
+                    ? 'Please review and agree to the Terms & Conditions and Privacy Policy'
+                    : ''
+                }
+              >
+                <span className="tooltip-button">
+                  <Button
+                    className="next"
+                    color="primary"
+                    variant="contained"
+                    onClick={() => onSendVerificationClicked()}
+                    disabled={!state.termsAndConditions}
+                  >
+                    Send Verification Code
+                  </Button>
+                </span>
+              </LightTooltip>
             </div>
           </Form>
         ) : (
-           <Grid container justify="center">
-             <Grid item xs={12} sm={6}>
-               <LinearProgress color="primary" value="50" variant="indeterminate" />
-             </Grid>
-           </Grid>
-         )}
+          <Grid container justify="center">
+            <Grid item xs={12} sm={6}>
+              <LinearProgress color="primary" value={50} variant="indeterminate" />
+            </Grid>
+          </Grid>
+        )}
         {state.loading === false ? <ProgressBottom progress="0"></ProgressBottom> : null}
       </div>
     </div>

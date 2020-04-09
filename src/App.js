@@ -1,4 +1,4 @@
-import React, { createContext } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import './styles/app.scss';
@@ -34,14 +34,13 @@ import UpdateTestingCenterCriteria from './pages/updateTestingCenterCriteria';
 import VerifyMagicLink from './pages/verify-magic-link';
 import LoginMagicLink from './pages/login-magic-link';
 import MapPageProvider from './contexts/MapPage.context';
+import AppProvider from './contexts/App.context';
 import Settings from './pages/Settings/Settings';
-
-export const AppContext = createContext({});
 
 export default function App() {
   return (
     <Router>
-      <AppContext.Provider value={{ test: 'cool test' }}>
+      <AppProvider>
         <Route exact path="/" component={Launch} />
         {/* Onboarding Pages */}
         <Route path="/sign-up" component={PhoneVerify} />
@@ -51,8 +50,8 @@ export default function App() {
         <Route path="/health-worker" component={HealthWorkerStatus} />
         <Route path="/symptoms" component={Symptoms} />
         {/* Login Pages */}
-        <Route path="/login" component={login} />
-        <Route path="/login-verification" component={AuthVerifyCode} />
+        <Route path="/sign-in" component={login} />
+        <Route path="/sign-in-verification" component={AuthVerifyCode} />
         {/* Profile Pages / Settings */}
         <Route path="/profile-view" component={ProfileView} />
         <Route path="/profile-edit" component={ProfileEdit} />
@@ -81,7 +80,7 @@ export default function App() {
         {/* Definitely Abandoned (for now) */}
         <Route path="/conditions" component={Conditions} />
         <Route path="/results" component={Result} />
-      </AppContext.Provider>
+      </AppProvider>
     </Router>
   );
 }
