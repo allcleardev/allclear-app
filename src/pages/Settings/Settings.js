@@ -80,11 +80,11 @@ class Settings extends React.Component {
                     onClose={() => this.handleClose()}
                     aria-labelledby="scroll-dialog-title"
                     aria-describedby="scroll-dialog-description"
-                    style={{ zIndex: '5', borderRadius: 20 }}
+                    style={{ zIndex: '5', borderRadius: '14px' }}
                 >
                     <DialogTitle id="scroll-dialog-title" style={{ textAlign: 'center' }}>Delete Account</DialogTitle>
                     <DialogContent >
-                        <h5 style={{ padding: '0px 20px 16px 20px' }}>
+                        <h5 className="settingModalTxt">
                             Are you sure you want to permanently delete your Account? This is irreversible.
                         </h5>
                         <Grid

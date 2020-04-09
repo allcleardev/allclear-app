@@ -1416,6 +1416,15 @@ input:checked + .slider:before {
   background-color: #F1F8FF !important;
 }
 
+.settingModalTxt{
+  width: 275px;
+    font-size: 15px;
+    color: black;
+    text-align: center;
+    letter-spacing: -0.41px;
+    line-height: 20px;
+}
+
 
 .root{
   display: flex;
