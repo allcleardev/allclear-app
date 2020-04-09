@@ -70,8 +70,10 @@
   }
 
   .card-map-location {
+    cursor: pointer;
     box-shadow: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding: 0;
+    //border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 
     @media (max-width: $sm) {
       border-bottom: none;
@@ -113,6 +115,12 @@
         border-radius: 14px;
       }
     }
+
+    &__summary{
+      border: 1px solid #000;
+      padding: 2px;
+    }
+
   }
 }
 .btn-hide-nav {

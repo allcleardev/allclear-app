@@ -26,7 +26,8 @@ import {useWindowResize} from '../util/helpers';
 import ModalService from '../services/modal.service';
 
 
-function MapPage({locations}) {
+function MapPage(props) {
+  const {locations} = props;
   const classes = useStyles();
 
   function onWindowResize({width, height}) {
@@ -52,6 +53,7 @@ function MapPage({locations}) {
     windowHeight: height,
   };
   const [mapState, setMapState] = useState(initialState);
+  // const {mapPageState, setMapPageState} = useContext(MapPageContext);
 
   const touchOptions = {
     touchAction: 'compute',
@@ -110,11 +112,13 @@ function MapPage({locations}) {
             </IconButton>
           </AppBar>
           <Hammer onSwipe={() => {}} option={touchOptions} direction="DIRECTION_UP">
-            <Drawer className={classes.drawer + ' nav-left-location'}
+            <Drawer
+              className={classes.drawer + ' nav-left-location'}
                     variant="persistent"
                     anchor={anchor}
                     open={isOpen}>
               <div
+                id='side-drawer'
                 style={{width: `${drawerWidth}px`, overflowY: 'scroll'}}
                 className="hide-scrollbar wid100-sm height-300-sm"
               >
@@ -151,6 +155,7 @@ function MapPage({locations}) {
                     service_time={result.hours}
                     driveThru={result.driveThru}
                     phone={result.phone}
+                    {...result}
                   ></TestingLocationListItem>
                 ))}
               </div>
@@ -162,7 +167,8 @@ function MapPage({locations}) {
             })}
           >
             <div className="map-fullscreen">
-              <GoogleMap {...mapLocationData}></GoogleMap>
+              <GoogleMap
+                {...mapLocationData}></GoogleMap>
             </div>
           </main>
           <NavBottom></NavBottom>

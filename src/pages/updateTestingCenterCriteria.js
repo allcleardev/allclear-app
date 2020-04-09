@@ -192,7 +192,7 @@ export default function UpdateCriteria() {
                   onChange={(event) => handleConditionsChange(event, 'conditions')}
                   className="select-white-back"
                 >
-                  <MenuItem value="">Weekend Immune System</MenuItem>
+                  <MenuItem value="">Weakened Immune System</MenuItem>
                   <MenuItem value={10}>Ten</MenuItem>
                   <MenuItem value={20}>Twenty</MenuItem>
                   <MenuItem value={30}>Thirty</MenuItem>

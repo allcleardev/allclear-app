@@ -2,7 +2,7 @@ import Axios from 'axios';
 /*eslint-disable */
 export const GetNewPosition = (lat, lng, miles) => {
   return Axios.post(
-    'https://api-dev.allclear.app/facilities/search',
+    'facilities/search',
     {
         from:
         {
@@ -10,9 +10,6 @@ export const GetNewPosition = (lat, lng, miles) => {
             longitude: lng,
             miles: miles,
         }
-    },
-    {
-      headers: { 'X-AllClear-SessionID': sessionStorage.getItem('sessid') },
     },
   );
 };
