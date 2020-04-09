@@ -1,12 +1,12 @@
 import React from 'react';
-import TextField from '@material-ui/core/TextField';
+
+import throttle from 'lodash/throttle';
+import parse from 'autosuggest-highlight/parse';
+import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import parse from 'autosuggest-highlight/parse';
-import throttle from 'lodash/throttle';
+import { TextField, Grid, Typography, makeStyles } from '@material-ui/core';
 
 const autocompleteService = { current: null };
 
@@ -22,8 +22,21 @@ export default function GoogleMapsAutocomplete() {
   const [inputValue, setInputValue] = React.useState('');
   const [options, setOptions] = React.useState([]);
 
-  const handleChange = (event) => {
+  const handleTextChange = (event) => {
     setInputValue(event.target.value);
+  };
+
+  const handleSelectionChange = (e, value) => {
+    if (value) {
+      const address = value.description;
+      geocodeByAddress(address)
+        .then((results) => getLatLng(results[0]))
+        .then((latLng) => {
+          sessionStorage.setItem('lat', latLng.lat);
+          sessionStorage.setItem('lng', latLng.lng);
+        })
+        .catch((error) => console.error('Error', error));
+    }
   };
 
   const fetch = React.useMemo(
@@ -62,14 +75,21 @@ export default function GoogleMapsAutocomplete() {
 
   return (
     <Autocomplete
-      id="google-map-demo"
+      id="google-maps-autocomplete"
       getOptionLabel={(option) => (typeof option === 'string' ? option : option.description)}
       filterOptions={(x) => x}
       options={options}
       autoComplete
       includeInputInList
+      onChange={handleSelectionChange}
       renderInput={(params) => (
-        <TextField {...params} label="Add a location" variant="outlined" className="input" onChange={handleChange} />
+        <TextField
+          {...params}
+          placeholder="New York, NY or 11211"
+          variant="outlined"
+          className="input"
+          onChange={handleTextChange}
+        />
       )}
       renderOption={(option) => {
         const matches = option.structured_formatting.main_text_matched_substrings;
