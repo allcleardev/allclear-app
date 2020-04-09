@@ -1,14 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Axios from 'axios';
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+import { Link } from 'react-router-dom';
 
 import RoundHeader from '../../components/headers/header-round';
 import ProgressBottom from '../../components/progressBottom';
+// import GoogleMapsAutocomplete from '../../components/inputs/google-maps-autocomplete'; // TODO: v2
 
 import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
 import { Button, TextField } from '@material-ui/core';
-import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 class Background extends React.Component {
   constructor(props) {
@@ -105,14 +106,16 @@ class Background extends React.Component {
                     </span>
                   </label>
                   <div className="autocomplete">
+                    {/* TODO: Swap with Google Maps Autocomplete once API key is settled */}
+                    {/* <GoogleMapsAutocomplete></GoogleMapsAutocomplete> */}
                     <PlacesAutocomplete
-                      value={this.state.address}
+                      value={this.state.address ? this.state.address : ''}
                       onChange={this.handleTextChange}
                       onSelect={this.handleSelect}
                     >
                       {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                         <div>
-                          {/* TODO: Do not allow submit w/o required field filled out */}
+                          {/* TODO: Do not allow submit w/o required field filled out. Swapping to GoogleMaps Autocomplete will fix this */}
                           <TextField
                             required
                             variant="outlined"
