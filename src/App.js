@@ -60,7 +60,7 @@ export default function App() {
         <Route path="/health" component={Health} />
         <Route path="/update-criteria" component={UpdateTestingCenterCriteria} />
         <Route path="/share" component={ShareApp} />
-        <Route path="/setting" component={Settings} />
+        <Route path="/settings" component={Settings} />
         {/* Map */}
         <MapPageProvider>
           <Route path="/map" component={MapPage} />
