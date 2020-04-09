@@ -119,8 +119,8 @@ export default class PhoneVerify extends Component {
       <div className="background-responsive">
         <div className="sign-up onboarding-page">
           <RoundHeader>
-            <h1 className="heading">Phone Number</h1>
-            <h2 className="sub-heading">Enter your phone number to get started.</h2>
+            <h1 className="heading">COVID-19 Test Alerts</h1>
+            <h2 className="sub-heading">Enter your phone number to receive SMS alerts on tests for you.</h2>
           </RoundHeader>
           {this.state.loading === false ? (
             <Container className="onboarding-body">
