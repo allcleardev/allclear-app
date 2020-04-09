@@ -1,17 +1,18 @@
-import React, { Component } from 'react';
+import React, {Component, useContext} from 'react';
 
-import { mapMarkerStyle } from './map_marker_styles.js';
+import {mapMarkerStyle} from './map_marker_styles.js';
+import {MapPageContext} from '../../contexts/MapPage.context';
 
-export default class MapMarker extends Component {
-  //  static propTypes = {
-  //    text: PropTypes.string
-  //  };
+export default function MapMarker(props) {
+  const {index} = props;
+  const {setMapPageState} = useContext(MapPageContext);
+    return (
+      <div
+        onClick={(e, i) => {
+          setMapPageState({selectedPin:index})
+        }}
+        style={mapMarkerStyle}>
+        {props.text}
+      </div>);
 
-  // static defaultProps = {};
-
-  // shouldComponentUpdate = shouldPureComponentUpdate;
-
-  render() {
-    return <div style={mapMarkerStyle}>{this.props.text}</div>;
-  }
 }

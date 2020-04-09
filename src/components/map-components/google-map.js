@@ -1,14 +1,15 @@
-import React, { Component } from 'react';
+import React, {Component, useContext} from 'react';
 import GoogleMapReact from 'google-map-react';
 import MapMarker from './../map-components/mapMarker.jsx';
-import { GetNewPosition } from '../../services/google-location-svc.js';
+import {GetNewPosition} from '../../services/google-location-svc.js';
 
-import { addLocation } from '../../redux/actions';
-import { connect } from 'react-redux';
+import {addLocation} from '../../redux/actions';
+import {connect} from 'react-redux';
 
 class GoogleMap extends Component {
   constructor(props) {
     super(props);
+    // const {mapPageState, setMapPageState} = useContext(MapPageContext);
     this.state = {
       result: [],
     };
@@ -24,39 +25,58 @@ class GoogleMap extends Component {
 
   async componentDidMount() {
     const result = await GetNewPosition(this.props.center.lat, this.props.center.lng, 100);
-    this.setState({ result: result.data.records });
+    this.setState({result: result.data.records});
     this.props.addLocation(result.data.records);
   }
 
   async onMarkerDragEnd(evt) {
     const result = await GetNewPosition(evt.center.lat(), evt.center.lng(), 100);
-    this.setState({ result: result.data.records });
-    this.props.addLocation(result.data.records);
-  }
-  async onMarkerZoomChanged(evt) {
-    const result = await GetNewPosition(evt.center.lat(), evt.center.lng(), 400);
-    this.setState({ result: result.data.records });
+    this.setState({result: result.data.records});
     this.props.addLocation(result.data.records);
   }
 
+  async onMarkerZoomChanged(evt) {
+    const result = await GetNewPosition(evt.center.lat(), evt.center.lng(), 400);
+    this.setState({result: result.data.records});
+    this.props.addLocation(result.data.records);
+  }
+
+  // onMarkerClicked(index) {
+  //   debugger;
+  // }
+
   render() {
-    const { result } = this.state;
+    const {result} = this.state;
     return (
-      <div style={{ height: '100%', width: '100%' }}>
-        <GoogleMapReact
-          bootstrapURLKeys={{ key: 'AIzaSyAPB7ER1lGxDSZICjq9lmqgxvnlSJCIuYw' }}
-          defaultCenter={this.props.center}
-          defaultZoom={this.props.zoom}
-          onDragEnd={(evt) => this.onMarkerDragEnd(evt)}
-          onZoomChanged={(evt) => this.onMarkerDragEnd(evt)}
-        >
-          {result.map((data, index) => (
-            <MapMarker key={index} lat={data.latitude} lng={data.longitude} text={index + 1} />
-          ))}
-        </GoogleMapReact>
-      </div>
+
+        <div style={{height: '100%', width: '100%'}}>
+          <GoogleMapReact
+            bootstrapURLKeys={{key: 'AIzaSyAPB7ER1lGxDSZICjq9lmqgxvnlSJCIuYw'}}
+            defaultCenter={this.props.center}
+            defaultZoom={this.props.zoom}
+            onDragEnd={(evt) => this.onMarkerDragEnd(evt)}
+            onZoomChanged={(evt) => this.onMarkerDragEnd(evt)}
+          >
+            {result.map((data, index) => (
+
+              <MapMarker
+                key={index}
+                index={index}
+                lat={data.latitude}
+                lng={data.longitude}
+                text={index + 1}
+
+              />
+            ))}
+          </GoogleMapReact>
+        </div>
+
     );
   }
 }
 
-export default connect(null, { addLocation })(GoogleMap);
+// onClick={(evt) => {
+//   this.onMarkerClicked(index);
+// }}
+
+export default connect(null, {addLocation})(GoogleMap);

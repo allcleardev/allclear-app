@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import clsx from 'clsx';
 // import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Container';
@@ -24,9 +24,11 @@ import ArrowRight from '../components/svgs/arrow-right';
 import SettingsSVG from '../components/svgs/svg-settings';
 import {useWindowResize} from '../util/helpers';
 import ModalService from '../services/modal.service';
+import {MapPageContext} from '../contexts/MapPage.context';
 
 
-function MapPage({locations}) {
+function MapPage(props) {
+  const {locations} = props;
   const classes = useStyles();
 
   function onWindowResize({width, height}) {
@@ -52,6 +54,7 @@ function MapPage({locations}) {
     windowHeight: height,
   };
   const [mapState, setMapState] = useState(initialState);
+  const {mapPageState, setMapPageState} = useContext(MapPageContext);
 
   const touchOptions = {
     touchAction: 'compute',
@@ -151,6 +154,7 @@ function MapPage({locations}) {
                     service_time={result.hours}
                     driveThru={result.driveThru}
                     phone={result.phone}
+                    {...result}
                   ></TestingLocationListItem>
                 ))}
               </div>
@@ -162,7 +166,8 @@ function MapPage({locations}) {
             })}
           >
             <div className="map-fullscreen">
-              <GoogleMap {...mapLocationData}></GoogleMap>
+              <GoogleMap
+                {...mapLocationData}></GoogleMap>
             </div>
           </main>
           <NavBottom></NavBottom>
