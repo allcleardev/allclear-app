@@ -1397,3 +1397,21 @@ input:checked + .slider:before {
     margin: 10px 0px 10px 10px;
     height: 60px;
 }
+
+.settingBtn{
+  position: absolute;
+  bottom: 10%;
+  width: 100%;
+
+}
+
+.settingDelBtn {
+  color: #fff !important;
+  widows: 100%;
+  border: 1px solid #E83731;
+  background-color: #E83731 !important;
+}
+.settingH5{
+  
+}
+
