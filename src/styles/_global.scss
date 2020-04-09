@@ -3,6 +3,10 @@
   text-transform: none;
 }
 
+button {
+  outline: none !important;
+}
+
 .error {
   margin: 5px 0;
   opacity: 0.8;
