@@ -4,7 +4,6 @@ export const AppContext = React.createContext();
 // Create an exportable consumer that can be injected into components
 export const AppConsumer = AppContext.Consumer;
 
-
 // Context state
 const initialAppState = {
   searchCriteria: {
@@ -20,7 +19,7 @@ const initialAppState = {
 export function AppProvider(props) {
 
   const [appState, setAppState] = useState(initialAppState);
-  debugger;
+
   return (
     // value prop is where we define what values
     // that are accessible to consumer components

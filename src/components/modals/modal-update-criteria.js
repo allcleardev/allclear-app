@@ -27,6 +27,7 @@ export default function UpdateCriteriaModal() {
     }
   }
 
+  // todo: this will probably have to move into app.js because it will be needed by all different parts of the app
   let modalService = ModalService.getInstance();
   modalService.registerModal('criteria', toggleModal);
 

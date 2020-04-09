@@ -182,7 +182,7 @@ export default function PhoneVerify({ props }) {
         ) : (
           <Grid container justify="center">
             <Grid item xs={12} sm={6}>
-              <LinearProgress color="primary" value="50" variant="indeterminate" />
+              <LinearProgress color="primary" value={50} variant="indeterminate" />
             </Grid>
           </Grid>
         )}
