@@ -36,6 +36,7 @@ import LoginMagicLink from './pages/login-magic-link';
 import MapPageProvider from './contexts/MapPage.context';
 import AppProvider from './contexts/App.context';
 import Settings from './pages/Settings/Settings';
+import Trace from './pages/Trace/Trace';
 
 export default function App() {
   return (
@@ -61,6 +62,7 @@ export default function App() {
         <Route path="/update-criteria" component={UpdateTestingCenterCriteria} />
         <Route path="/share" component={ShareApp} />
         <Route path="/settings" component={Settings} />
+        <Route path="/trace" component={Trace} />
         {/* Map */}
         <MapPageProvider>
           <Route path="/map" component={MapPage} />
