@@ -72,6 +72,9 @@ class HealthWorkerStatus extends Component {
           </RoundHeader>
           <Form noValidate autoComplete="off" className="onboarding-body">
             <Box maxWidth="md">
+              <label className="label">
+                <strong>Select one.</strong> (Required)
+              </label>
               <div className="chips-group">
                 {this.state.healthWorkerStatus &&
                   this.state.healthWorkerStatus.map((res) => {
@@ -109,7 +112,7 @@ class HealthWorkerStatus extends Component {
                 </Button>
               }
               tooltipMessage={'Please make a selection'}
-              disableForward={!this.state.isSelected}
+              triggerTooltip={!this.state.isSelected}
             ></OnboardingNavigation>
           </Form>
           <ProgressBottom progress="50%"></ProgressBottom>
