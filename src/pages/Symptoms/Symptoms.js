@@ -47,20 +47,23 @@ class Symptom extends Component {
       return true;
     });
     this.setState({ symptoms });
-    sessionStorage.setItem('conditions', JSON.stringify(symptoms));
+    sessionStorage.setItem('stymptoms', JSON.stringify(symptoms));
   }
 
   handleChange(event) {
-    console.log('EVENT::', event);
-
     let { symptoms } = this.state;
-
+    // If "none" is selected, deselect the other chips
     if (event.id === 'no') {
       this.deselectAll();
     } else {
       symptoms.map((symptom) => {
-        if (symptom.name === event.name) {
-          symptom.isActive = !symptom.isActive;
+        // Making sure "none" is deselected if any other chips are
+        if (symptom.id === 'no') {
+          symptom.isActive = false;
+        } else {
+          if (symptom.name === event.name) {
+            symptom.isActive = !symptom.isActive;
+          }
         }
         return true;
       });
