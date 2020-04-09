@@ -113,11 +113,13 @@ function MapPage(props) {
             </IconButton>
           </AppBar>
           <Hammer onSwipe={() => {}} option={touchOptions} direction="DIRECTION_UP">
-            <Drawer className={classes.drawer + ' nav-left-location'}
+            <Drawer
+              className={classes.drawer + ' nav-left-location'}
                     variant="persistent"
                     anchor={anchor}
                     open={isOpen}>
               <div
+                id='side-drawer'
                 style={{width: `${drawerWidth}px`, overflowY: 'scroll'}}
                 className="hide-scrollbar wid100-sm height-300-sm"
               >

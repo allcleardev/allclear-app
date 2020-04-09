@@ -7,6 +7,7 @@ export const MapPageConsumer = MapPageContext.Consumer;
 // Context state
 const initialMapPageState = {
   selectedPin: ''
+  // todo: store the refs here, useEffect to scrollto. potentially can close the other expanders as well.
 };
 
 export function MapPageProvider(props) {

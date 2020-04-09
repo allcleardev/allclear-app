@@ -9,6 +9,12 @@ export default function MapMarker(props) {
     return (
       <div
         onClick={(e, i) => {
+          // todo: dont touch dom lol, do this with refs (much harder)
+          const elemToOpen = document.querySelectorAll('.MuiExpansionPanel-root')[index];
+          elemToOpen.scrollIntoView({
+            behavior: 'smooth'
+          });
+          elemToOpen.children[0].click();
           setMapPageState({selectedPin:index})
         }}
         style={mapMarkerStyle}>

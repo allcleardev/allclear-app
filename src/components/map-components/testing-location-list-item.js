@@ -70,10 +70,12 @@ export default function TestingLocationListItem(props) {
       >
         <h4>Summary</h4>
         {<div>title: {props.title}</div>}
+
         {!isNullOrUndefined(props.hours) && <div>Hours: {props.hours}</div>}
         {!isNullOrUndefined(props.type) && <div>Location Type: {props.type.name}</div>}
         {!isNullOrUndefined(props.appointmentRequired) && <div>Appointment Required: {boolToEng(props.appointmentRequired)}</div>}
         {!isNullOrUndefined(props.driveThru) && <div>Drive-Through: {boolToEng(props.driveThru)}</div>}
+
 
         {!isNullOrUndefined(props.telescreeningAvailable) && <div>Telescreening Available: {boolToEng(props.telescreeningAvailable)}</div>}
         {!isNullOrUndefined(props.acceptsThirdParty) && <div>Accepts Third Party Orders: {boolToEng(props.acceptsThirdParty)}</div>}
@@ -83,8 +85,6 @@ export default function TestingLocationListItem(props) {
 
         {!isNullOrUndefined(props.acceptsInsurance) && <div>Accepts Insurance: {boolToEng(props.acceptsInsurance)}</div>}
         {!isNullOrUndefined(props.freeOrLowCost) && <div>Free or Very Low Cost: {boolToEng(props.freeOrLowCost)}</div>}
-
-
 
       </section>
     </ExpansionPanelDetails>
