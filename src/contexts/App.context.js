@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, {useState} from 'react';
 // Set Up The Initial Context
 export const AppContext = React.createContext();
 // Create an exportable consumer that can be injected into components
@@ -19,9 +19,8 @@ const initialAppState = {
 
 export function AppProvider(props) {
 
-
   const [appState, setAppState] = useState(initialAppState);
-
+  debugger;
   return (
     // value prop is where we define what values
     // that are accessible to consumer components

@@ -1,11 +1,3 @@
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import CardBlank from '../cardBlank';
-import React from 'react';
-
 export const CRITERIA_FORM_DATA = [
   {
     title: 'Show Drive-Through Test Centers',

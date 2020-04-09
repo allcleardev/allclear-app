@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useRef, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import FabBlueBottom from '../fabBlueBottom';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -117,9 +117,6 @@ function UpdateCriteria({onClose, onSubmit}) {
               className="select-white-back"
               value={pendingStateUpdates[key]}
               onChange={(evt) => {
-                // const z = appState;
-                // const y = setAppState;
-                // const currName = evt.currentTarget.dataset.name;
                 const currKey = evt.currentTarget.dataset.key;
                 const currValue = evt.target.value;
 
@@ -221,8 +218,6 @@ function UpdateCriteria({onClose, onSubmit}) {
     </>
   );
 }
-
-
 
 
 

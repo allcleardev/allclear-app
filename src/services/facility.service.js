@@ -1,9 +1,7 @@
-// "Dependency Injection" but make it bootleg
+
 export default class ModalService {
 
   static serviceInstance = null;
-
-  modalRefs = {};
 
   // constructor() {}
 
