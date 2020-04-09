@@ -14,41 +14,36 @@ import Checkbox from '@material-ui/core/Checkbox';
 import SettingsSVG from '../svgs/svg-settings';
 import {CRITERIA_FORM_DATA} from './modal-update-criteria.constants';
 import {AppContext} from '../../contexts/App.context';
-
+import ModalService from '../../services/modal.service';
 
 export default function UpdateCriteriaModal() {
   const [open, setOpen] = useState(false);
   const [scroll, setScroll] = useState('paper');
 
-  const handleClickOpen = (scrollType) => () => {
-    setOpen(true);
-    setScroll(scrollType);
-  };
+  function toggleModal(isOpen, scrollType) {
+    setOpen(isOpen);
+    if (isOpen === true) {
+      setScroll(scrollType);
+    }
+  }
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  // const descriptionElementRef = useRef(null);
-  // useEffect(() => {
-  //   if (open) {
-  //     const {current: descriptionElement} = descriptionElementRef;
-  //     if (descriptionElement !== null) {
-  //       descriptionElement.focus();
-  //     }
-  //   }
-  // }, [open]);
+  let modalService = ModalService.getInstance();
+  modalService.registerModal('criteria', toggleModal);
 
   return (
     <>
       <FabBlueBottom
-        handle_name={handleClickOpen('body')}
+        handle_name={() => {
+          toggleModal(true, 'body');
+        }}
         class_name="btn-blue-bottom hide-mobile">
         {SettingsSVG()}
       </FabBlueBottom>
       <Dialog
         open={open}
-        onClose={handleClose}
+        onClose={() => {
+          toggleModal(false);
+        }}
         scroll={scroll}
         aria-labelledby="scroll-dialog-title"
         aria-describedby="scroll-dialog-description"
@@ -57,8 +52,12 @@ export default function UpdateCriteriaModal() {
         <DialogTitle id="scroll-dialog-title">Update Search Criteria</DialogTitle>
         <DialogContent dividers={scroll === 'paper'}>
           <UpdateCriteria
-            onClose={handleClose}
-            onSubmit={handleClose}
+            onClose={() => {
+              toggleModal(false);
+            }}
+            onSubmit={() => {
+              toggleModal(false);
+            }}
           ></UpdateCriteria>
         </DialogContent>
       </Dialog>
@@ -223,4 +222,17 @@ function UpdateCriteria({onClose, onSubmit}) {
   );
 }
 
+
+
+
+
+// const descriptionElementRef = useRef(null);
+// useEffect(() => {
+//   if (open) {
+//     const {current: descriptionElement} = descriptionElementRef;
+//     if (descriptionElement !== null) {
+//       descriptionElement.focus();
+//     }
+//   }
+// }, [open]);
 

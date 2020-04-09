@@ -23,6 +23,7 @@ import ArrowLeft from '../components/svgs/arrow-left';
 import ArrowRight from '../components/svgs/arrow-right';
 import SettingsSVG from '../components/svgs/svg-settings';
 import {useWindowResize} from '../util/helpers';
+import ModalService from '../services/modal.service';
 
 
 function MapPage({locations}) {
@@ -52,7 +53,6 @@ function MapPage({locations}) {
   };
   const [mapState, setMapState] = useState(initialState);
 
-
   const touchOptions = {
     touchAction: 'compute',
     recognizers: {
@@ -71,6 +71,10 @@ function MapPage({locations}) {
   }
 
   const {isOpen, anchor} = mapState;
+
+  // get modal service so we can toggle it open
+  let modalService = ModalService.getInstance();
+
 
   return (
     <div className="map-page">
@@ -126,6 +130,9 @@ function MapPage({locations}) {
                         color="primary"
                         className={classes.button}
                         startIcon={SettingsSVG()}
+                        onClick={() => {
+                          modalService.toggleModal('criteria', true);
+                        }}
                       >
                         Edit Search Filters
                       </Button>

@@ -21,7 +21,6 @@ export function AppProvider(props) {
 
 
   const [appState, setAppState] = useState(initialAppState);
-  debugger;
 
   return (
     // value prop is where we define what values
