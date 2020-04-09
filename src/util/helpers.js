@@ -1,5 +1,5 @@
 import {useLayoutEffect, useState} from 'react';
-import {debounce} from 'lodash';
+import {debounce, isUndefined, isNull} from 'lodash';
 
 export function colorLog(color, input) {
   console.log(`%c${input}`, `color:${color};`);
@@ -27,4 +27,12 @@ export function useForceUpdate() {
   // eslint-disable-next-line
   const [value, setValue] = useState(0); // integer state
   return () => setValue((value) => ++value); // update the state to force render
+}
+
+export function boolToEng(boolVal) {
+  return (boolVal) ? 'Yes' : 'No';
+}
+
+export function isNullOrUndefined(value) {
+  return isUndefined(value) || isNull(value);
 }
