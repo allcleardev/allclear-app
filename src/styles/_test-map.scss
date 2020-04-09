@@ -47,7 +47,7 @@
     padding: 0 10px;
 
     .height-300-sm {
-      height: 300px;
+      height: 500px;
       padding: 0 10px 50px 10px;
     }
   }
@@ -140,7 +140,7 @@
   overflow-x: hidden;
 
   @media (max-width: $sm) {
-    height: calc(100vh - 300px);
+    height: calc(100vh - 500px);
   }
 
   // div {
