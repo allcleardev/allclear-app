@@ -30,7 +30,7 @@ export function useForceUpdate() {
 }
 
 export function boolToEng(boolVal) {
-  return (boolVal) ? 'Yes' : 'No'
+  return (boolVal) ? 'Yes' : 'No';
 }
 
 export function isNullOrUndefined(value) {

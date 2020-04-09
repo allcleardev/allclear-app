@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 import clsx from 'clsx';
 // import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Container';
@@ -24,7 +24,6 @@ import ArrowRight from '../components/svgs/arrow-right';
 import SettingsSVG from '../components/svgs/svg-settings';
 import {useWindowResize} from '../util/helpers';
 import ModalService from '../services/modal.service';
-import {MapPageContext} from '../contexts/MapPage.context';
 
 
 function MapPage(props) {
@@ -54,7 +53,7 @@ function MapPage(props) {
     windowHeight: height,
   };
   const [mapState, setMapState] = useState(initialState);
-  const {mapPageState, setMapPageState} = useContext(MapPageContext);
+  // const {mapPageState, setMapPageState} = useContext(MapPageContext);
 
   const touchOptions = {
     touchAction: 'compute',

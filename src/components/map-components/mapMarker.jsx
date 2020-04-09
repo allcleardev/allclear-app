@@ -1,4 +1,4 @@
-import React, {Component, useContext} from 'react';
+import React, { useContext} from 'react';
 
 import {mapMarkerStyle} from './map_marker_styles.js';
 import {MapPageContext} from '../../contexts/MapPage.context';
@@ -15,7 +15,7 @@ export default function MapMarker(props) {
             behavior: 'smooth'
           });
           elemToOpen.children[0].click();
-          setMapPageState({selectedPin:index})
+          setMapPageState({selectedPin: index});
         }}
         style={mapMarkerStyle}>
         {props.text}
