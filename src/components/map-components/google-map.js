@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import MapMarker from './../map-components/mapMarker.jsx';
 import { GetNewPosition } from '../../services/google-location-svc.js';
+import MapPageContext from '../../contexts/MapPage.context';
 
-import { addLocation } from '../../redux/actions';
-import { connect } from 'react-redux';
-
-class GoogleMap extends Component {
+export default class GoogleMap extends Component {
+  static contextType = MapPageContext;
   constructor(props) {
     super(props);
     this.state = {
@@ -24,19 +23,23 @@ class GoogleMap extends Component {
 
   async componentDidMount() {
     const result = await GetNewPosition(this.props.center.lat, this.props.center.lng, 100);
+    const { setLocations } = this.context;
+    setLocations(result.data.records);
     this.setState({ result: result.data.records });
-    this.props.addLocation(result.data.records);
   }
 
   async onMarkerDragEnd(evt) {
     const result = await GetNewPosition(evt.center.lat(), evt.center.lng(), 100);
+    const { setLocations } = this.context;
+    setLocations(result.data.records);
     this.setState({ result: result.data.records });
-    this.props.addLocation(result.data.records);
   }
+
   async onMarkerZoomChanged(evt) {
     const result = await GetNewPosition(evt.center.lat(), evt.center.lng(), 400);
+    const { setLocations } = this.context;
+    setLocations(result.data.records);
     this.setState({ result: result.data.records });
-    this.props.addLocation(result.data.records);
   }
 
   render() {
@@ -59,4 +62,4 @@ class GoogleMap extends Component {
   }
 }
 
-export default connect(null, { addLocation })(GoogleMap);
+// export default connect(null, { addLocation })(GoogleMap);

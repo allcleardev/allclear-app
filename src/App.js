@@ -33,7 +33,7 @@ import Test from './pages/test';
 import UpdateTestingCenterCriteria from './pages/updateTestingCenterCriteria';
 import VerifyMagicLink from './pages/verify-magic-link';
 import LoginMagicLink from './pages/login-magic-link';
-import MapPageProvider from './contexts/MapPage.context';
+import { MapPageProvider } from './contexts/MapPage.context';
 import AppProvider from './contexts/App.context';
 
 export default function App() {
@@ -60,7 +60,7 @@ export default function App() {
         <Route path="/update-criteria" component={UpdateTestingCenterCriteria} />
         <Route path="/share" component={ShareApp} />
         {/* Map */}
-        <MapPageProvider>
+        <MapPageProvider value={{ locations: [] }}>
           <Route path="/map" component={MapPage} />
         </MapPageProvider>
         {/* Abandoned??? */}
