@@ -8,6 +8,7 @@ export default class GoogleMap extends Component {
   static contextType = MapPageContext;
   constructor(props) {
     super(props);
+    // const {mapPageState, setMapPageState} = useContext(MapPageContext);
     this.state = {
       result: [],
     };
@@ -42,6 +43,10 @@ export default class GoogleMap extends Component {
     this.setState({ result: result.data.records });
   }
 
+  // onMarkerClicked(index) {
+  //   debugger;
+  // }
+
   render() {
     const { result } = this.state;
     return (
@@ -54,7 +59,7 @@ export default class GoogleMap extends Component {
           onZoomChanged={(evt) => this.onMarkerDragEnd(evt)}
         >
           {result.map((data, index) => (
-            <MapMarker key={index} lat={data.latitude} lng={data.longitude} text={index + 1} />
+            <MapMarker key={index} index={index} lat={data.latitude} lng={data.longitude} text={index + 1} />
           ))}
         </GoogleMapReact>
       </div>

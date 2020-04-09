@@ -57,6 +57,7 @@ export default function MapPage() {
     windowHeight: height,
   };
   const [mapState, setMapState] = useState(initialState);
+  // const {mapPageState, setMapPageState} = useContext(MapPageContext);
 
   const touchOptions = {
     touchAction: 'compute',
@@ -110,6 +111,7 @@ export default function MapPage() {
               open={isOpen}
             >
               <div
+                id="side-drawer"
                 style={{ width: `${drawerWidth}px`, overflowY: 'scroll' }}
                 className="hide-scrollbar wid100-sm height-300-sm"
               >
@@ -145,6 +147,7 @@ export default function MapPage() {
                     service_time={result.hours}
                     driveThru={result.driveThru}
                     phone={result.phone}
+                    {...result}
                   ></TestingLocationListItem>
                 ))}
               </div>

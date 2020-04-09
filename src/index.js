@@ -13,6 +13,7 @@ import theme from './theme';
 import * as serviceWorker from './serviceWorker';
 import * as axios from 'axios';
 
+bootstrapAxios();
 
 ReactDOM.render(
   <Provider store={store}>
@@ -32,6 +33,7 @@ serviceWorker.unregister();
 
 colorLog('blue', `Allclear App v${process.env.REACT_APP_VERSION}`);
 colorLog('red', `Built at: ${process.env.REACT_APP_BUILT_AT}`);
+colorLog('green', `Current ENV: ${process.env.REACT_APP_BASE_URL}`);
 
 // for HMR
 if (module.hot && process.env.NODE_ENV !== 'production') {
@@ -39,15 +41,28 @@ if (module.hot && process.env.NODE_ENV !== 'production') {
   module.hot.accept();
 }
 
-bootstrapAxios();
-
 function bootstrapAxios() {
+
+  // set baseURL from env file
+  axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
 
   // REQUEST interceptor
   axios.interceptors.request.use(
     (config) => {
-      // Do something before request is sent
-      return config;
+
+      // const {'X-AllClear-SessionID': sessionStorage.getItem('sessid')}
+      const sessionID = sessionStorage.getItem('sessid');
+      const authHeader = (sessionID) ? {
+        'X-AllClear-SessionID': sessionID
+      } : {};
+
+      return {
+        ...config,
+        headers: {
+          ...config.headers,
+          ...authHeader
+        }
+      };
     }, (error) => {
       // Do something with request error
       console.warn('request error:', error);
@@ -60,6 +75,8 @@ function bootstrapAxios() {
       // Do something with response data
       return response;
     }, (error) => {
+      // todo: add snackbar with button that links to /login (session timed out most likely)
+
       console.warn('response error:', error);
       return Promise.reject(error);
     });

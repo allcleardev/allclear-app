@@ -75,7 +75,10 @@ export default function PhoneVerify({ props }) {
         {state.loading === false ? (
           <Form noValidate autoComplete="off" className="onboarding-body">
             <div className="content-container">
-              <PhoneNumber className="hide-mobile"></PhoneNumber>
+              <PhoneNumber
+                onSubmit={() => verifyLogin()}
+                className="hide-mobile"
+              ></PhoneNumber>
               <Link to="/sign-up" className="hide-mobile login">
                 Create Account
               </Link>

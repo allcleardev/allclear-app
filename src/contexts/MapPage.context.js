@@ -42,6 +42,29 @@ class MapPageProvider extends Component {
       </MapPageContext.Provider>
     );
   }
+
+  // Context state
+  // const initialMapPageState = {
+  //   selectedPin: ''
+  //   // todo: store the refs here, useEffect to scrollto. potentially can close the other expanders as well.
+  // };
+
+  // export function MapPageProvider(props) {
+
+  //   const [mapPageState, setMapPageState] = useState(initialMapPageState);
+
+  //   return (
+  //     // value prop is where we define what values
+  //     // that are accessible to consumer components
+  //     <MapPageContext.Provider
+  //       value={{
+  //         mapPageState,
+  //         setMapPageState
+  //       }}
+  //     >
+  //       {props.children}
+  //     </MapPageContext.Provider>
+  //   );
 }
 export default MapPageContext;
 export { MapPageProvider };

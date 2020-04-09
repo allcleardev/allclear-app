@@ -88,7 +88,7 @@ export default function ProfileView() {
                 <div className="card-detail">
                   <p className="title">Conditions</p>
                   <div className="flex-containter flex-wrap-on">
-                    <Button className="btn-description color-white bg-navy">Weekend Immune System</Button>
+                    <Button className="btn-description color-white bg-navy">Weakened Immune System</Button>
                     <Button className="btn-description color-white bg-navy">Kidney Failure or Cirrhosis</Button>
                   </div>
                 </div>

@@ -1,23 +1,20 @@
 
-export default class ModalService {
+export default class FacilityService {
 
   static serviceInstance = null;
 
   // constructor() {}
 
   static getInstance() {
-    if (ModalService.serviceInstance == null) {
-      ModalService.serviceInstance = new ModalService();
+    if (FacilityService.serviceInstance == null) {
+      FacilityService.serviceInstance = new FacilityService();
     }
 
     return this.serviceInstance;
   }
 
-  registerModal(modalName, toggleFunc){
-    this.modalRefs[modalName] = toggleFunc;
+  search(filter){
+
   }
 
-  toggleModal(modalName, isOpen){
-    this.modalRefs[modalName](isOpen);
-  }
 }
