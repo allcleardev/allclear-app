@@ -85,11 +85,8 @@ export default function PhoneVerify({ props, location }) {
                   placeholder="Enter Code"
                   variant="outlined"
                   defaultValue=""
-                  autoComplete="off"
-                  autoCorrect="off"
-                  autoCapitalize="off"
-                  spellCheck="false"
-                  inputProps={{ maxLength: 6, autoComplete: 'one-time-code' }}
+                  autoComplete="one-time-code"
+                  inputProps={{ maxLength: 6, autoComplete: 'one-time-code', inputmode: 'numeric', pattern: '[0-9]*' }}
                   InputLabelProps={{ shrink: false }}
                   onChange={handleCodeChange}
                   style={{}}
