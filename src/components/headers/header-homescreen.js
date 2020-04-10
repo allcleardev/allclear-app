@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 import Logo from '../../assets/images/logo-green-back.svg';
 
 export default function HomescreenHeader(props) {
@@ -8,11 +8,11 @@ export default function HomescreenHeader(props) {
       <div className="header-logo">
         <img src={Logo} alt="Logo" className="logo" />
         <div className="header-menu">
-          <p className="selected">Home</p>
-          <p>Test</p>
-          <p>Tracing</p>
+          {/* <p className="selected">Home</p> */}
+          <Link to="/map" style={{color:'white'}}> <p className="selected">Find Tests</p></Link>
+          <Link to="/" style={{color:'white'}}> <p>Tracing</p></Link>
           {/* <p>Friends</p> */}
-          <p>Profile</p>
+          <Link to="/profile-view" style={{color:'white'}}> <p>Profile</p></Link>
         </div>
       </div>
       {props.children}
