@@ -4,20 +4,23 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './styles/app.scss';
 
 import AddTest from './pages/Test/Add-test';
+import AppProvider from './contexts/App.context';
 import AuthVerifyCode from './pages/authVerification';
 import Background from './pages/Background/Background';
 import CompleteProfile from './pages/completeProfile';
 import Conditions from './pages/Conditions/Conditions';
 import CreateAccount from './pages/create-account';
 import FindTest from './pages/ResultDetail/FindTest';
-import MapPage from './pages/map.page';
 import ForgotPassword from './pages/forgot-password';
 import Health from './pages/health';
 import HealthWorkerStatus from './pages/HealthWorkerStatus/HealthWorkerStatus';
 import Launch from './pages/launch';
 import Location from './pages/location';
-import login from './pages/login';
-import loginOrg from './pages/loginOrg';
+import Login from './pages/login';
+import LoginMagicLink from './pages/login-magic-link';
+import LoginOrg from './pages/loginOrg';
+import MapPage from './pages/map.page';
+import { MapPageProvider } from './contexts/MapPage.context';
 import PhoneVerify from './pages/phoneVerify';
 import PhoneVerifying from './pages/phoneVerifying';
 import PhoneVerifySuccess from './pages/phone-verify-success';
@@ -25,18 +28,15 @@ import ProfileEdit from './pages/profileEdit';
 import ProfileView from './pages/profileView';
 import Result from './pages/Result/Result';
 import ResultDetail from './pages/ResultDetail/ResultDetail';
+import Settings from './pages/Settings/Settings';
 import ShareApp from './pages/Share/Share';
 import SignUpVerification from './pages/signUpVerification';
 import Success from './pages/Success/Success';
 import Symptoms from './pages/Symptoms/Symptoms';
 import Test from './pages/test';
+import Trace from './pages/Trace/Trace';
 import UpdateTestingCenterCriteria from './pages/updateTestingCenterCriteria';
 import VerifyMagicLink from './pages/verify-magic-link';
-import LoginMagicLink from './pages/login-magic-link';
-import { MapPageProvider } from './contexts/MapPage.context';
-import AppProvider from './contexts/App.context';
-import Settings from './pages/Settings/Settings';
-import Trace from './pages/Trace/Trace';
 
 export default function App() {
   return (
@@ -51,7 +51,7 @@ export default function App() {
         <Route path="/health-worker" component={HealthWorkerStatus} />
         <Route path="/symptoms" component={Symptoms} />
         {/* Login Pages */}
-        <Route path="/sign-in" component={login} />
+        <Route path="/sign-in" component={Login} />
         <Route path="/sign-in-verification" component={AuthVerifyCode} />
         {/* Profile Pages / Settings */}
         <Route path="/profile-view" component={ProfileView} />
@@ -75,7 +75,7 @@ export default function App() {
         <Route path="/register" component={VerifyMagicLink} />
         <Route path="/auth" component={LoginMagicLink} />
         <Route path="/forgot" component={ForgotPassword} />
-        <Route path="/login-org" component={loginOrg} />
+        <Route path="/login-org" component={LoginOrg} />
         <Route path="/location" component={Location} />
         <Route path="/test" component={Test} />
         <Route path="/find-test" component={FindTest} />
