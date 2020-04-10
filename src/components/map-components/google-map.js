@@ -3,13 +3,9 @@ import GoogleMapReact from 'google-map-react';
 import MapMarker from './../map-components/mapMarker.jsx';
 import { GetNewPosition } from '../../services/google-location-svc.js';
 import MapPageContext from '../../contexts/MapPage.context';
-import {connect} from 'react-redux';
-import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
+
 export default class GoogleMap extends Component {
   static contextType = MapPageContext;
-
-
-
 
   constructor(props) {
     super(props);
@@ -28,14 +24,10 @@ export default class GoogleMap extends Component {
   };
 
   async componentDidMount() {
-    console.log('mounting')
-
     const result = await GetNewPosition(this.props.center.lat, this.props.center.lng, 100);
     const { setLocations } = this.context;
     setLocations(result.data.records);
     this.setState({ result: result.data.records });
-
-    //this.props.addLocation(result.data.records);
   }
 
   async onMarkerDragEnd(evt) {
@@ -52,27 +44,24 @@ export default class GoogleMap extends Component {
     this.setState({ result: result.data.records });
   }
 
-  // onMarkerClicked(index) {
-  //   debugger;
-  // }
-
   render() {
-    const {result} = this.state;
-    if (navigator && navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((pos) => {
-            const coords = pos.coords;
-            this.setState({
-                currentLocation: {
-                    lat: coords.latitude,
-                    lng: coords.longitude
-                }
-            });
+    const { result } = this.state;
 
-        })
+    if (navigator && navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((pos) => {
+        const coords = pos.coords;
+        this.setState({
+          currentLocation: {
+            lat: coords.latitude,
+            lng: coords.longitude
+          }
+        });
+
+      })
     };
     const apiIsLoaded = (map, maps, latlng) => {
       if (map) {
-        console.log('panning')
+        console.log('panning');
         map.panTo(latlng);
 
 
@@ -80,108 +69,107 @@ export default class GoogleMap extends Component {
       }
     };
 
+
+
+
+
     return (
-
-        <div style={{height: '100%', width: '100%'}}>
-          <GoogleMapReact
-            options={{styles: 
-              [
-                {
-                  featureType: 'administrative',
-                  elementType: 'geometry',
-                  stylers: [
-                    {
-                      visibility: 'off'
-                    }
-                  ]
-                },
-                {
-                  featureType: 'administrative.land_parcel',
-                  elementType: 'labels',
-                  stylers: [
-                    {
-                      visibility: 'off'
-                    }
-                  ]
-                },
-                {
-                  featureType: 'administrative.neighborhood',
-                  elementType: 'labels.text',
-                  stylers: [
-                    {
-                      visibility: 'off'
-                    }
-                  ]
-                },
-                {
-                  featureType: 'poi',
-                  stylers: [
-                    {
-                      visibility: 'off'
-                    }
-                  ]
-                },
-                {
-                  featureType: 'poi',
-                  elementType: 'labels.text',
-                  stylers: [
-                    {
-                      visibility: 'off'
-                    }
-                  ]
-                },
-                {
-                  featureType: 'road',
-                  elementType: 'labels.icon',
-                  stylers: [
-                    {
-                      visibility: 'off'
-                    }
-                  ]
-                },
-                {
-                  featureType: 'road.local',
-                  elementType: 'labels',
-                  stylers: [
-                    {
-                      visibility: 'off'
-                    }
-                  ]
-                },
-                {
-                  featureType: 'transit',
-                  stylers: [
-                    {
-                      visibility: 'off'
-                    }
-                  ]
-                }
-              ]
-            }}
-            bootstrapURLKeys={{key: 'AIzaSyAPB7ER1lGxDSZICjq9lmqgxvnlSJCIuYw'}}
-            defaultCenter={this.props.center}
-            defaultZoom={this.props.zoom}
-            onDragEnd={(evt) => this.onMarkerDragEnd(evt)}
-            onZoomChanged={(evt) => this.onMarkerDragEnd(evt)}
-            onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps,this.state.currentLocation)}
-
-          >
-            {result.map((data, index) => (
-
-              <MapMarker
-                key={index}
-                index={index}
-                lat={data.latitude}
-                lng={data.longitude}
-                text={index + 1}
-
-              />
-            ))}
-          </GoogleMapReact>
-        </div>
-
+      <div style={{ height: '100%', width: '100%' }}>
+        <GoogleMapReact
+          options={G_MAP_OPTIONS}
+          bootstrapURLKeys={{ key: 'AIzaSyAPB7ER1lGxDSZICjq9lmqgxvnlSJCIuYw' }}
+          defaultCenter={this.props.center}
+          defaultZoom={this.props.zoom}
+          onDragEnd={(evt) => this.onMarkerDragEnd(evt)}
+          onZoomChanged={(evt) => this.onMarkerDragEnd(evt)}
+          onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps,this.state.currentLocation)}
+        >
+          {result.map((data, index) => (
+            <MapMarker
+              key={index}
+              index={index}
+              lat={data.latitude}
+              lng={data.longitude}
+              text={index + 1}
+            />
+          ))}
+        </GoogleMapReact>
+      </div>
     );
   }
 }
 
-// export default connect(null, { addLocation })(GoogleMap);
+const G_MAP_OPTIONS = {
+  styles: [
+    {
+      featureType: 'administrative',
+      elementType: 'geometry',
+      stylers: [
+        {
+          visibility: 'off',
+        },
+      ],
+    },
+    {
+      featureType: 'administrative.land_parcel',
+      elementType: 'labels',
+      stylers: [
+        {
+          visibility: 'off',
+        },
+      ],
+    },
+    {
+      featureType: 'administrative.neighborhood',
+      elementType: 'labels.text',
+      stylers: [
+        {
+          visibility: 'off',
+        },
+      ],
+    },
+    {
+      featureType: 'poi',
+      stylers: [
+        {
+          visibility: 'off',
+        },
+      ],
+    },
+    {
+      featureType: 'poi',
+      elementType: 'labels.text',
+      stylers: [
+        {
+          visibility: 'off',
+        },
+      ],
+    },
+    {
+      featureType: 'road',
+      elementType: 'labels.icon',
+      stylers: [
+        {
+          visibility: 'off',
+        },
+      ],
+    },
+    {
+      featureType: 'road.local',
+      elementType: 'labels',
+      stylers: [
+        {
+          visibility: 'off',
+        },
+      ],
+    },
+    {
+      featureType: 'transit',
+      stylers: [
+        {
+          visibility: 'off',
+        },
+      ],
+    },
+  ],
+};
