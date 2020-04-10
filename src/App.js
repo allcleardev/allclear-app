@@ -72,8 +72,8 @@ export default function App() {
         <ProtectedRoute path="/settings" component={Settings} />
         <ProtectedRoute path="/trace" component={Trace} />
         {/* Map */}
-        <MapPageProvider value={{ locations: [] }}>
-          <ProtectedRoute exact path="/map" component={MapPage} />
+        <MapPageProvider>
+          <Route path="/map" component={MapPage} />
         </MapPageProvider>
         {/* Abandoned??? */}
         {/*<Route path="/create-account" component={CreateAccount} />*/}

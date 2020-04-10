@@ -40,7 +40,7 @@ class PhoneNumber extends Component {
     } else {
       sessionStorage.setItem('phone', '');
     }
-    this.props.phoneValidation(this.state.isPhoneValid);
+    this.props.phoneValidation && this.props.phoneValidation(this.state.isPhoneValid);
   }
 
   onKeyDown(evt) {
@@ -72,7 +72,7 @@ class PhoneNumber extends Component {
               placeholder="(555) 123-4567"
               type="tel"
               variant="outlined"
-              autoComplete="phone"
+              autoComplete="tel"
               data-cy="user-phone"
               defaultCountry={'us'}
               onlyCountries={['us']}

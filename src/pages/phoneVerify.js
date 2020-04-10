@@ -125,7 +125,10 @@ export default class PhoneVerify extends Component {
           {this.state.loading === false ? (
             <Container className="onboarding-body">
               <div className="content-container">
-                <PhoneNumber className="hide-mobile" phoneValidation={this.checkPhoneValidation}></PhoneNumber>
+                <PhoneNumber
+                  className="hide-mobile"
+                  phoneValidation={this.checkPhoneValidation}
+                ></PhoneNumber>
                 <Link to="/sign-in" className="hide-mobile sign-in">
                   Sign into Existing Account
                 </Link>
