@@ -1,7 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
-import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { BottomNavigation, BottomNavigationAction, SvgIcon } from '@material-ui/core';
 
 export default function NavBottom({ active }) {
@@ -13,7 +11,18 @@ export default function NavBottom({ active }) {
           label="Find Tests"
           icon={
             <Link to="/map">
-              <LocationOnIcon />
+               <SvgIcon>
+              <svg width="24" height="22" viewBox="0 0 24 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 
+                  9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 
+                  1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                  stroke={active === 1 ? '#007AFF' : '#929292'}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </SvgIcon>
             </Link>
           }
         />
@@ -21,6 +30,7 @@ export default function NavBottom({ active }) {
         <BottomNavigationAction
           label="Tracing"
           icon={
+            <Link to="/trace">
             <SvgIcon>
               <svg width="24" height="22" viewBox="0 0 24 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -33,6 +43,7 @@ export default function NavBottom({ active }) {
                 />
               </svg>
             </SvgIcon>
+            </Link>
           }
         />
 
@@ -48,7 +59,7 @@ export default function NavBottom({ active }) {
                   15.0223 0.76709 16.0397 0.76709 17.1006V19.1006M12.7671 5.10059C12.7671 7.30972 10.9762 9.10059
                   8.76709 9.10059C6.55795 9.10059 4.76709 7.30972 4.76709 5.10059C4.76709 2.89145 6.55795 1.10059
                   8.76709 1.10059C10.9762 1.10059 12.7671 2.89145 12.7671 5.10059Z"
-                    stroke={active === 4 ? '#007AFF' : '#929292'}
+                    stroke={active === 3 ? '#007AFF' : '#929292'}
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   />

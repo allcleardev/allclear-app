@@ -142,7 +142,7 @@ export default function ProfileView() {
           </Button>
         </Grid>
       </Grid>
-      <NavBottom active={4}></NavBottom>
+      <NavBottom active={3}></NavBottom>
     </Box>
   );
 }
