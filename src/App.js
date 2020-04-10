@@ -4,6 +4,7 @@ import { Route, BrowserRouter, Switch } from 'react-router-dom';
 import './styles/app.scss';
 
 // Abandoned Routes
+// import AppProvider from './contexts/App.context';
 // import Test from './pages/test';
 // import Success from './pages/Success/Success';
 // import PhoneVerifySuccess from './pages/phone-verify-success';
@@ -18,29 +19,28 @@ import AddTest from './pages/Test/Add-test';
 import AuthVerifyCode from './pages/authVerification';
 import Background from './pages/Background/Background';
 import Conditions from './pages/Conditions/Conditions';
-import MapPage from './pages/map.page';
+import ConfirmedRoute from './routes/confirm-routes';
 import Health from './pages/health';
 import HealthWorkerStatus from './pages/HealthWorkerStatus/HealthWorkerStatus';
 import Launch from './pages/launch';
-import login from './pages/login';
-
+import Login from './pages/login';
+import LoginMagicLink from './pages/login-magic-link';
+import MapPage from './pages/map.page';
+import { MapPageProvider } from './contexts/MapPage.context';
 import PhoneVerify from './pages/phoneVerify';
 import PhoneVerifying from './pages/phoneVerifying';
 import ProfileEdit from './pages/profileEdit';
 import ProfileView from './pages/profileView';
+import ProtectedRoute from './routes/private-routes';
 import Result from './pages/Result/Result';
 import ResultDetail from './pages/ResultDetail/ResultDetail';
+import Settings from './pages/Settings/Settings';
 import ShareApp from './pages/Share/Share';
 import SignUpVerification from './pages/signUpVerification';
 import Symptoms from './pages/Symptoms/Symptoms';
+import Trace from './pages/Trace/Trace';
 import UpdateTestingCenterCriteria from './pages/updateTestingCenterCriteria';
 import VerifyMagicLink from './pages/verify-magic-link';
-import LoginMagicLink from './pages/login-magic-link';
-import { MapPageProvider } from './contexts/MapPage.context';
-import Settings from './pages/Settings/Settings';
-import Trace from './pages/Trace/Trace';
-import ProtectedRoute from './routes/private-routes';
-import ConfirmedRoute from './routes/confirm-routes';
 
 export default function App() {
   return (
@@ -59,7 +59,7 @@ export default function App() {
         <ConfirmedRoute path="/conditions" component={Conditions} />
         <ConfirmedRoute path="/results" component={Result} />
         {/* Login Pages */}
-        <Route path="/sign-in" component={login} />
+        <Route path="/sign-in" component={Login} />
         <Route path="/sign-in-verification" component={AuthVerifyCode} />
         {/* Profile Pages / Settings */}
         <ProtectedRoute path="/profile-view" component={ProfileView} />
@@ -75,7 +75,8 @@ export default function App() {
         <MapPageProvider>
           <Route path="/map" component={MapPage} />
         </MapPageProvider>
-        {/* Abandoned??? */}
+
+        {/* Abandoned */}
         {/*<Route path="/create-account" component={CreateAccount} />*/}
         {/*<Route path="/phone-verify-success" component={PhoneVerifySuccess} />*/}
         {/*<Route path="/complete-profile" component={CompleteProfile} />*/}
@@ -85,7 +86,7 @@ export default function App() {
         {/*<Route path="/location" component={Location} />*/}
         {/*<Route path="/test" component={Test} />*/}
         {/*<Route path="/find-test" component={FindTest} />*/}
-        {/* Definitely Abandoned (for now) */}
+        {/* End of Abandoned Routes */}
       </Switch>
     </BrowserRouter>
   );

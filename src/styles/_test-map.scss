@@ -1,58 +1,24 @@
 .map-page {
   width: 100%;
-
-  .header-white-fullscreen {
-    .map-tab {
-      @media (max-width: $sm) {
-        margin: 60px 0;
-        width: 90%;
-      }
-
-      header {
-        .MuiTabs-root {
-          .MuiTabs-fixed {
-            .MuiTabs-indicator {
-              background-color: transparent !important;
-            }
-          }
-        }
-      }
-    }
-  }
 }
+
 .nav-left-location {
-  background-color: #fff;
-  // position: fixed;
-  // left: 0;
-  // height: 100%;
-  // top: 0;
-  // z-index: 3 !important;
-  box-shadow: 5px 0px 20px rgba(0, 0, 0, 0.1);
-  overflow-y: scroll;
+  .MuiDrawer-paperAnchorDockedLeft {
+    border: 0;
+    box-shadow: 5px 0px 20px rgba(0, 0, 0, 0.1);
+  }
 
   .MuiDrawer-paper {
     z-index: 3 !important;
   }
 
   @media (max-width: $sm) {
-    // width: 100%;
-    background-color: #fff;
     position: fixed;
-    box-shadow: 0px -5px 20px rgba(50, 50, 71, 0.2);
-    border-radius: 13px 13px 0px 0px;
-    // height: 300px;
-    width: 100% !important;
-    bottom: 0;
-    top: 0;
-    padding: 0 10px;
 
     .height-300-sm {
       height: 350px;
-      padding: 0 10px 50px 10px;
     }
   }
-
-
 
   &::-webkit-scrollbar {
     width: 0 !important;
@@ -68,64 +34,11 @@
     border-radius: 23px;
     box-shadow: none;
   }
-
-  .card-map-location {
-    cursor: pointer;
-    box-shadow: none;
-    padding: 0;
-    //border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-
-    @media (max-width: $sm) {
-      border-bottom: none;
-    }
-
-    .container-location {
-      padding-top: 15px;
-      padding-bottom: 15px;
-      display: flex;
-      justify-content: space-between;
-      flex-direction: row;
-
-      @media (max-width: $sm) {
-        border: 1px solid #dadada;
-        box-sizing: border-box;
-        border-radius: 6px;
-        margin-bottom: 5px;
-      }
-
-      .card-content {
-        display: flex;
-        flex-direction: column;
-      }
-
-      .btn-arrow {
-        display: none;
-
-        @media (max-width: $sm) {
-          display: block;
-        }
-      }
-    }
-
-    .buttons {
-      .btn {
-        width: 115px;
-        height: 28px;
-        box-sizing: border-box;
-        border-radius: 14px;
-      }
-    }
-
-    &__summary{
-      border: 1px solid #000;
-      padding: 2px;
-    }
-
-  }
 }
+
 .btn-hide-nav {
   position: fixed !important;
-  left: -24px !important;
+  left: -25px !important;
   top: 30px !important;
   right: auto !important;
   background-color: transparent !important;
@@ -150,12 +63,6 @@
   @media (max-width: $sm) {
     height: calc(100vh - 350px);
   }
-
-  // div {
-  //   @media (max-width: $sm) {
-  //     height: calc(100vh - 300px);
-  //   }
-  // }
 
   img {
     height: 100%;
