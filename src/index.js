@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { colorLog } from './util/helpers';
 
@@ -39,7 +39,7 @@ if (module.hot && process.env.NODE_ENV !== 'production') {
 
 function bootstrapAxios() {
   // set baseURL from env file
-  axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
+  axios.defaults.baseURL = 'https://api-dev.allclear.app';
 
   // REQUEST interceptor
   axios.interceptors.request.use(
@@ -54,7 +54,7 @@ function bootstrapAxios() {
       return {
         ...config,
         headers: {
-          ...config.headers
+          ...config.headers,
         },
       };
     },
