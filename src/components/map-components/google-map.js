@@ -78,17 +78,6 @@ export default class GoogleMap extends Component {
     console.warn('User declined to use browser location');
   }
 
-  static getDerivedStateFromProps(props, state) {
-    if(state.currentLocation){
-      return {
-        ...state,
-        currentLocation: state.currentLocation
-      };
-    }else{
-      return state;
-    }
-  }
-
   render() {
     const {result} = this.state;
 
