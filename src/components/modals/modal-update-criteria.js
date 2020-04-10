@@ -1,19 +1,19 @@
-import React, { useContext, useState } from 'react';
+import React, {useContext, useState} from 'react';
+import FabBlueBottom from '../fabBlueBottom';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import CardBlank from '../../components/cardBlank';
-import { Button, Grid } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import {Button, Grid} from '@material-ui/core';
+import {makeStyles} from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Select from '@material-ui/core/Select';
 import Checkbox from '@material-ui/core/Checkbox';
-// import FabBlueBottom from '../fabBlueBottom';
-// import SettingsSVG from '../svgs/svg-settings';
-import { CRITERIA_FORM_DATA } from './modal-update-criteria.constants';
-import { AppContext } from '../../contexts/App.context';
+import SettingsSVG from '../svgs/svg-settings';
+import {CRITERIA_FORM_DATA} from './modal-update-criteria.constants';
+import {AppContext} from '../../contexts/App.context';
 import ModalService from '../../services/modal.service';
 
 export default function UpdateCriteriaModal() {
@@ -33,14 +33,13 @@ export default function UpdateCriteriaModal() {
 
   return (
     <>
-      {/* Note: Hiding the filter fab for prod push */}
-      {/* <FabBlueBottom
+      <FabBlueBottom
         handle_name={() => {
           toggleModal(true, 'body');
         }}
         class_name="btn-blue-bottom hide-mobile">
         {SettingsSVG()}
-      </FabBlueBottom> */}
+      </FabBlueBottom>
       <Dialog
         open={open}
         onClose={() => {
@@ -49,7 +48,7 @@ export default function UpdateCriteriaModal() {
         scroll={scroll}
         aria-labelledby="scroll-dialog-title"
         aria-describedby="scroll-dialog-description"
-        style={{ zIndex: '5' }}
+        style={{zIndex: '5'}}
       >
         <DialogTitle id="scroll-dialog-title">Update Search Criteria</DialogTitle>
         <DialogContent dividers={scroll === 'paper'}>
@@ -67,6 +66,7 @@ export default function UpdateCriteriaModal() {
   );
 }
 
+
 const useStyles = makeStyles((theme) => ({
   button: {
     width: '100%',
@@ -78,19 +78,20 @@ const useStyles = makeStyles((theme) => ({
   track: {},
 }));
 
-function UpdateCriteria({ onClose, onSubmit }) {
+function UpdateCriteria({onClose, onSubmit}) {
   useStyles();
-  const { appState, setAppState } = useContext(AppContext);
+  const {appState, setAppState} = useContext(AppContext);
   let pendingStateUpdates = {};
 
   function commitPendingModalState() {
+
     // compose the updated state before committing it to the app
     let finalUpdateObj = {
       ...appState,
       searchCriteria: {
         ...appState.searchCriteria,
-        ...pendingStateUpdates,
-      },
+        ...pendingStateUpdates
+      }
     };
 
     // update the context
@@ -100,12 +101,15 @@ function UpdateCriteria({ onClose, onSubmit }) {
     onSubmit();
   }
 
+
   function _generateFormItems() {
     return CRITERIA_FORM_DATA.map((formItem, i) => {
-      const { title, options, key } = formItem;
+      const {title, options, key} = formItem;
 
       return (
-        <div key={i} className="sub-card">
+        <div
+          key={i}
+          className="sub-card">
           <h5 className="body-sub-title">{title}</h5>
           <FormControl variant="outlined" className="form-control">
             <Select
@@ -121,20 +125,27 @@ function UpdateCriteria({ onClose, onSubmit }) {
                 pendingStateUpdates[currKey] = currValue;
               }}
             >
-              {options.map((optionItem, i2) => {
-                const { value, text } = optionItem;
 
-                return (
-                  <MenuItem key={i2} value={value} name={text} data-name={text} data-key={key}>
-                    {text}
-                  </MenuItem>
-                );
+              {options.map((optionItem, i2) => {
+                const {value, text} = optionItem;
+
+                return (<MenuItem
+                  key={i2}
+                  value={value}
+                  name={text}
+                  data-name={text}
+                  data-key={key}
+                >
+                  {text}
+                </MenuItem>);
               })}
+
             </Select>
           </FormControl>
         </div>
       );
     });
+
   }
 
   return (
@@ -147,10 +158,13 @@ function UpdateCriteria({ onClose, onSubmit }) {
             flexDirection: 'row',
             alignItems: 'center',
           }}
-        ></div>
+        >
+        </div>
 
         {_generateFormItems()}
+
       </CardBlank>
+
 
       {/*Update Profile Checkbox*/}
       <Grid
@@ -172,7 +186,7 @@ function UpdateCriteria({ onClose, onSubmit }) {
                 name="checkedB"
               />
             }
-            style={{ fontSize: 12, color: 'primary' }}
+            style={{fontSize: 12, color: 'primary'}}
             label="Update Profile Upon Search"
             className="check-label"
           />
@@ -194,20 +208,19 @@ function UpdateCriteria({ onClose, onSubmit }) {
               commitPendingModalState();
               onSubmit();
             }}
-            className="btn-big bg-primary color-white fontsize-16"
-          >
-            Search
-          </Button>
+            className="btn-big bg-primary color-white fontsize-16">Search</Button>
         </Grid>
         <Grid item xs={12} sm={5}>
-          <Button onClick={onClose} className="btn-big bg-grey2 fontsize-16">
-            Cancel
-          </Button>
+          <Button
+            onClick={onClose}
+            className="btn-big bg-grey2 fontsize-16">Cancel</Button>
         </Grid>
       </Grid>
     </>
   );
 }
+
+
 
 // const descriptionElementRef = useRef(null);
 // useEffect(() => {
@@ -218,3 +231,4 @@ function UpdateCriteria({ onClose, onSubmit }) {
 //     }
 //   }
 // }, [open]);
+
