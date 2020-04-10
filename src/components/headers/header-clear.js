@@ -15,7 +15,7 @@ export default function ClearHeader(props) {
           <Link className="header-menu__item" to="/map">
             Find Tests
           </Link>
-          <Link className="header-menu__item" to="/">
+          <Link className="header-menu__item" to="/trace">
             Tracing
           </Link>
           <Link className="header-menu__item" to="/profile-view">
