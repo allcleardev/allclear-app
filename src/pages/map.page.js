@@ -162,7 +162,7 @@ export default function MapPage() {
               <GoogleMap {...mapLocationData}></GoogleMap>
             </div>
           </main>
-          <NavBottom></NavBottom>
+          <NavBottom active={1}></NavBottom>
           <UpdateCriteriaModal></UpdateCriteriaModal>
         </Box>
       </Typography>
