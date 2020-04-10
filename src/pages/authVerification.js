@@ -46,6 +46,8 @@ export default function PhoneVerify({ props, location }) {
       .then((response) => {
         setCookie('sessid', response.data.id);
         sessionStorage.setItem('sessid', response.data.id);
+        sessionStorage.setItem('lat', response.data.person.latitude);
+        sessionStorage.setItem('lng', response.data.person.longitude);
         history.push('/map');
       })
       .catch((error) => {

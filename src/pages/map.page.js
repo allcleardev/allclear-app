@@ -137,7 +137,7 @@ export default function MapPage() {
                   </div>
                 </Box>
                 <Divider className={'hide-mobile-sm ' + classes.divider} orientation="horizontal" />
-                {locations.map((result, index) => (
+                {locations && locations.map((result, index) => (
                   <TestingLocationListItem
                     key={index}
                     index={index}
