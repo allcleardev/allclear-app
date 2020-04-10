@@ -40,7 +40,7 @@ class PhoneNumber extends Component {
     } else {
       sessionStorage.setItem('phone', '');
     }
-    this.props.phoneValidation(this.state.isPhoneValid);
+    this.props.phoneValidation && this.props.phoneValidation(this.state.isPhoneValid);
   }
 
   onKeyDown(evt) {
