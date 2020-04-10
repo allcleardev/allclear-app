@@ -1,7 +1,7 @@
 import React from 'react';
 
 import HomescreenHeader from '../components/headers/header-homescreen';
-import UserProfileCard from '../components/cardProfile';
+import UserProfileCard from '../components/user-profile-card';
 import NavBottom from '../components/navBottom';
 // import UpdateCriteriaModal from './updateTestingCriteriaModal';
 

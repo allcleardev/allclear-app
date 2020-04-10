@@ -60,7 +60,7 @@ export default function ProfileView() {
       </Grid>
       <Grid container className="flex-container flex-just-center">
         <Grid item xs={12} sm={6}>
-          <div className="card-blank">
+          <div className="user-profile-card">
             <div className="flex-container flex-direction-row flex-just-between flex-align-start">
               <div className="flex-container flex-direction-col">
                 <div className="card-detail">
