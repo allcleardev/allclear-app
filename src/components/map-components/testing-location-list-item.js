@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import 'leaflet.locatecontrol';
 
 import { boolToEng, isNullOrUndefined } from '../../util/helpers';
@@ -18,16 +18,16 @@ export default function TestingLocationListItem(props) {
       id={`panel${index}-header`}
       className="testing-location-list-item"
     >
-      <div className="location-card">
+      <div>
         <h3 className="card-title">
           <span>{index + 1}.</span> {title}
         </h3>
 
-        <dl class="results-details">
-          <dd class="results-details__item">{city_state}</dd>
-          <dd class="results-details__item results-details__item--grey">{service_time}</dd>
-          <dd class="results-details__item">{driveThru.toString() === 'true' ? 'Drive Through' : ''}</dd>
-          <dd class="results-details__item results-details__item--semibold">{description}</dd>
+        <dl className="summary">
+          <dd className="summary__item">{city_state}</dd>
+          <dd className="summary__item summary__item--grey">{service_time}</dd>
+          <dd className="detsummaryails__item">{driveThru.toString() === 'true' ? 'Drive Through' : ''}</dd>
+          <dd className="summary__item summary__item--semibold">{description}</dd>
         </dl>
 
         <div className="buttons" style={{ marginTop: '25px' }}>
@@ -51,34 +51,70 @@ export default function TestingLocationListItem(props) {
 
   const body = (
     <ExpansionPanelDetails>
-      <section className="testing-location-list-item__overview">
+      <section className="testing-location-list-item__details">
         <h4>Test Center Overview</h4>
-        <h5>{props.title}</h5>
-
-        {!isNullOrUndefined(props.hours) && <div>Hours: {props.hours}</div>}
-        {!isNullOrUndefined(props.type) && <div>Location Type: {props.type.name}</div>}
-        {!isNullOrUndefined(props.appointmentRequired) && (
-          <div>Appointment Required: {boolToEng(props.appointmentRequired)}</div>
-        )}
-        {!isNullOrUndefined(props.driveThru) && <div>Drive-Through: {boolToEng(props.driveThru)}</div>}
-
-        {!isNullOrUndefined(props.telescreeningAvailable) && (
-          <div>Telescreening Available: {boolToEng(props.telescreeningAvailable)}</div>
-        )}
-        {!isNullOrUndefined(props.acceptsThirdParty) && (
-          <div>Accepts Third Party Orders: {boolToEng(props.acceptsThirdParty)}</div>
-        )}
-        {!isNullOrUndefined(props.referralRequired) && (
-          <div>Referral from Doctor Needed: {boolToEng(props.referralRequired)}</div>
-        )}
-        {!isNullOrUndefined(props.testCriteria) && (
-          <div>If Yes, Known Required Criteria: {boolToEng(props.testCriteria.name)}</div>
-        )}
-
-        {!isNullOrUndefined(props.acceptsInsurance) && (
-          <div>Accepts Insurance: {boolToEng(props.acceptsInsurance)}</div>
-        )}
-        {!isNullOrUndefined(props.freeOrLowCost) && <div>Free or Very Low Cost: {boolToEng(props.freeOrLowCost)}</div>}
+        <dl className="details">
+          {!isNullOrUndefined(props.hours) && (
+            <Fragment>
+              <dt>Hours:</dt>
+              <dd>{props.hours}</dd>
+            </Fragment>
+          )}
+          {!isNullOrUndefined(props.type) && (
+            <Fragment>
+              <dt>Location Type:</dt>
+              <dd> {props.type.name}</dd>
+            </Fragment>
+          )}
+          {!isNullOrUndefined(props.appointmentRequired) && (
+            <Fragment>
+              <dt>Appointment Required:</dt>
+              <dd>{boolToEng(props.appointmentRequired)}</dd>
+            </Fragment>
+          )}
+          {!isNullOrUndefined(props.driveThru) && (
+            <Fragment>
+              <dt>Drive-Through:</dt>
+              <dd>{boolToEng(props.driveThru)}</dd>
+            </Fragment>
+          )}
+          {!isNullOrUndefined(props.telescreeningAvailable) && (
+            <Fragment>
+              <dt>Telescreening Available:</dt>
+              <dd>{boolToEng(props.telescreeningAvailable)}</dd>
+            </Fragment>
+          )}
+          {!isNullOrUndefined(props.acceptsThirdParty) && (
+            <Fragment>
+              <dt>Accepts Third Party Orders: </dt>
+              <dd>{boolToEng(props.acceptsThirdParty)}</dd>
+            </Fragment>
+          )}
+          {!isNullOrUndefined(props.referralRequired) && (
+            <Fragment>
+              <dt>Referral from Doctor Needed:</dt>
+              <dd>{boolToEng(props.referralRequired)}</dd>
+            </Fragment>
+          )}
+          {!isNullOrUndefined(props.testCriteria) && (
+            <Fragment>
+              <dt>If Yes, Known Required Criteria:</dt>
+              <dd>{boolToEng(props.testCriteria.name)}</dd>
+            </Fragment>
+          )}
+          {!isNullOrUndefined(props.acceptsInsurance) && (
+            <Fragment>
+              <dt>Accepts Insurance:</dt>
+              <dd>{boolToEng(props.acceptsInsurance)}</dd>
+            </Fragment>
+          )}
+          {!isNullOrUndefined(props.freeOrLowCost) && (
+            <Fragment>
+              <dt>Free or Very Low Cost:</dt>
+              <dd>{boolToEng(props.freeOrLowCost)}</dd>
+            </Fragment>
+          )}
+        </dl>
       </section>
     </ExpansionPanelDetails>
   );
@@ -89,6 +125,8 @@ export default function TestingLocationListItem(props) {
 const ExpansionPanel = withStyles({
   root: {
     border: '1px solid rgba(0, 0, 0, .125)',
+    borderLeft: 0,
+    borderRight: 0,
     boxShadow: 'none',
     '&:not(:last-child)': {
       borderBottom: 0,
@@ -105,7 +143,7 @@ const ExpansionPanel = withStyles({
 
 const ExpansionPanelSummary = withStyles({
   root: {
-    backgroundColor: 'rgba(0, 0, 0, .02)',
+    backgroundColor: '#fff',
     borderBottom: '1px solid rgba(0, 0, 0, .125)',
     marginBottom: -1,
     minHeight: 56,
@@ -123,7 +161,7 @@ const ExpansionPanelSummary = withStyles({
 const ExpansionPanelDetails = withStyles((theme) => ({
   root: {
     boxShadow: 'inset 0px 11px 8px -10px rgba(0,0,0,.1), inset 0px -11px 8px -10px rgba(0,0,0,.1)',
-    backgroundColor: '#f7f7f7',
+    backgroundColor: '#f9f9f9',
   },
 }))(MuiExpansionPanelDetails);
 

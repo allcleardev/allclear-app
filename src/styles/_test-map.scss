@@ -16,8 +16,6 @@
 }
 
 .nav-left-location {
-  /* Desktop Drawer */
-
   .MuiDrawer-paperAnchorDockedLeft {
     border: 0;
     box-shadow: 5px 0px 20px rgba(0, 0, 0, 0.1);
@@ -28,18 +26,10 @@
   }
 
   @media (max-width: $sm) {
-    background-color: #fff;
     position: fixed;
-    box-shadow: 0px -5px 20px rgba(50, 50, 71, 0.2);
-    border-radius: 13px 13px 0px 0px;
-    width: 100% !important;
-    bottom: 0;
-    top: 0;
-    padding: 0 10px;
 
     .height-300-sm {
       height: 350px;
-      padding: 0 10px 50px 10px;
     }
   }
 
@@ -61,7 +51,7 @@
 
 .btn-hide-nav {
   position: fixed !important;
-  left: -24px !important;
+  left: -25px !important;
   top: 30px !important;
   right: auto !important;
   background-color: transparent !important;

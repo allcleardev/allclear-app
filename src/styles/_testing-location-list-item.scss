@@ -13,8 +13,9 @@
     }
   }
 
-  .results-details {
+  .summary {
     font-size: 13px;
+    color: $black;
 
     &__item {
       line-height: 16px;
@@ -30,15 +31,28 @@
   }
 
   /* Expansion Details */
-  &__overview {
+  &__details {
+    width: 100%;
+    color: $black;
+
     h4 {
+      margin: 0;
       line-height: 22px;
       padding: 15px 0 10px;
-      font-size: 16px;
-      color: $black;
+      font-size: 15px;
 
       span {
         color: $grey;
+      }
+    }
+
+    .details {
+      font-size: 13px;
+
+      dt {
+        font-weight: 700;
+        float: left;
+        margin-right: 7px;
       }
     }
   }
