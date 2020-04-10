@@ -10,65 +10,65 @@ class FindTest extends React.Component {
   render() {
     return (
       <Fragment>
-        <div class="mainWrapperft">
-          <div class="wrapScreenft">
-            <div class="screenHeadft">
+        <div className="mainWrapperft">
+          <div className="wrapScreenft">
+            <div className="screenHeadft">
               <div style={{ paddingTop: 10 }}></div>
 
-              <div class="tabSystem">
-                <div class="tbsxyz-bar tbsxyz-black">
-                  <div class="xyzButtonft">
-                    <div class="xyzBtnsft">
-                      <button class="tbsxyz-bar-item tbsxyz-button btnActiveft" onclick="openCity('Tests')">
+              <div className="tabSystem">
+                <div className="tbsxyz-bar tbsxyz-black">
+                  <div className="xyzButtonft">
+                    <div className="xyzBtnsft">
+                      <button className="tbsxyz-bar-item tbsxyz-button btnActiveft" onclick="openCity('Tests')">
                         Find Tests
                       </button>
-                      <button class="tbsxyz-bar-item tbsxyz-button dvBtnzft" onclick="openCity('Results')">
+                      <button className="tbsxyz-bar-item tbsxyz-button dvBtnzft" onclick="openCity('Results')">
                         Test Results
                       </button>
                     </div>
                   </div>
-                  <div class="arrowft difArrowft">
-                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                  <div className="arrowft difArrowft">
+                    <i className="fa fa-angle-left" aria-hidden="true"></i>
                   </div>
-                  <div id="Tests" class="tbsxyz-container city diffHeaderClass">
-                    <h3 class="mt_zeroft">Test Type: Alpha Test </h3>
-                    <p class="mt_zero1ft">Williamsburg Drive-Thru Testing</p>
-                    <p class="mt_zero1ft">Results: Positive</p>
-                    <p class="mt_zero1ft">2/26/2020</p>
+                  <div id="Tests" className="tbsxyz-container city diffHeaderClass">
+                    <h3 className="mt_zeroft">Test Type: Alpha Test </h3>
+                    <p className="mt_zero1ft">Williamsburg Drive-Thru Testing</p>
+                    <p className="mt_zero1ft">Results: Positive</p>
+                    <p className="mt_zero1ft">2/26/2020</p>
                   </div>
 
-                  <div id="Results" class="tbsxyz-container city" style={{ display: 'none' }}>
-                    <div class="wrkWrap">
-                      <div class="resultDivft">
+                  <div id="Results" className="tbsxyz-container city" style={{ display: 'none' }}>
+                    <div className="wrkWrap">
+                      <div className="resultDivft">
                         <div>Lorem Ipsum Test</div>
                         <div>Date Taken: 3/25/20</div>
                         <div>
-                          Results: <span class="redClr"></span>Positive
+                          Results: <span className="redClr"></span>Positive
                         </div>
                       </div>
-                      <div class="resultDivR">
-                        <i class="fa fa-phone" aria-hidden="true"></i>
-                        <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                      <div className="resultDivR">
+                        <i className="fa fa-phone" aria-hidden="true"></i>
+                        <i className="fa fa-cloud-upload" aria-hidden="true"></i>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="workSpaceAreaft difWorkSpaceAreaft">
-              <div class="btnXyx">
-                <div class="xrzt-bar xrzt-black">
-                  <div class="rusltxyxft">
-                    <button class="xrzt-bar-item xrzt-button rtvActiveft" onclick="openCity('Overviews')">
+            <div className="workSpaceAreaft difWorkSpaceAreaft">
+              <div className="btnXyx">
+                <div className="xrzt-bar xrzt-black">
+                  <div className="rusltxyxft">
+                    <button className="xrzt-bar-item xrzt-button rtvActiveft" onclick="openCity('Overviews')">
                       Symptoms
                     </button>
-                    <button class="xrzt-bar-item xrzt-button " onclick="openCity('Tests')">
+                    <button className="xrzt-bar-item xrzt-button " onclick="openCity('Tests')">
                       Attachments
                     </button>
                   </div>
 
-                  <div style={{ marginTop: 20 }} id="Overviews" class="xrzt-container city">
-                    <div class="listStyle">
+                  <div style={{ marginTop: 20 }} id="Overviews" className="xrzt-container city">
+                    <div className="listStyle">
                       <h4>Description:</h4>
                       <p>
                         Hoodie gluten-free health goth, hashtag mum-blecore you probably haven't heard of them fam
@@ -77,14 +77,14 @@ class FindTest extends React.Component {
                       </p>
                     </div>
                   </div>
-                  <div id="Tests" class="xrzt-container city" style={{ display: 'none' }}>
+                  <div id="Tests" className="xrzt-container city" style={{ display: 'none' }}>
                     demo
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div style={{ marginBottom: 20, float: 'left', width: '100%' }}></div>
+          <div style={{ marginBottom: 20, cssFloat: 'left', width: '100%' }}></div>
         </div>
       </Fragment>
     );
