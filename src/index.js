@@ -9,7 +9,7 @@ import App from './App';
 import theme from './theme';
 
 import * as serviceWorker from './serviceWorker';
-import * as axios from 'axios';
+import {bootstrapAxios} from './util/bootstrap.helpers';
 
 bootstrapAxios();
 
@@ -37,43 +37,3 @@ if (module.hot && process.env.NODE_ENV !== 'production') {
   module.hot.accept();
 }
 
-function bootstrapAxios() {
-  // set baseURL from env file
-  axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
-
-  // REQUEST interceptor
-  axios.interceptors.request.use(
-    (config) => {
-      // const sessionID = localStorage.getItem('sessid');
-      // const authHeader = sessionID
-      //   ? {
-      //       'X-AllClear-SessionID': sessionID,
-      //     }
-      //   : {};
-
-      return {
-        ...config,
-        headers: {
-          ...config.headers,
-        },
-      };
-    },
-    (error) => {
-      // Do something with request error
-      console.warn('request error:', error);
-      return Promise.reject(error);
-    },
-  );
-
-  // RESPONSE interceptor
-  axios.interceptors.response.use(
-    (response) => {
-      // Do something with response data
-      return response;
-    },
-    (error) => {
-      console.warn('response error:', error.response);
-      return Promise.reject(error);
-    },
-  );
-}

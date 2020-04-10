@@ -15,8 +15,15 @@ import SettingsSVG from '../svgs/svg-settings';
 import {CRITERIA_FORM_DATA} from './modal-update-criteria.constants';
 import {AppContext} from '../../contexts/App.context';
 import ModalService from '../../services/modal.service';
+import FacilityService from '../../services/facility.service';
 
 export default function UpdateCriteriaModal() {
+
+  // "DEPENDENCY INJECTION Section"
+  // todo: this will probably have to move into app.js because it will be needed by all different parts of the app
+  const modalService = ModalService.getInstance();
+  modalService.registerModal('criteria', toggleModal);
+
   const [open, setOpen] = useState(false);
   const [scroll, setScroll] = useState('paper');
 
@@ -26,10 +33,6 @@ export default function UpdateCriteriaModal() {
       setScroll(scrollType);
     }
   }
-
-  // todo: this will probably have to move into app.js because it will be needed by all different parts of the app
-  let modalService = ModalService.getInstance();
-  modalService.registerModal('criteria', toggleModal);
 
   return (
     <>
@@ -83,7 +86,10 @@ function UpdateCriteria({onClose, onSubmit}) {
   const {appState, setAppState} = useContext(AppContext);
   let pendingStateUpdates = {};
 
-  function commitPendingModalState() {
+  //eslint-disable-next-line
+  const facilityService = FacilityService.getInstance();
+
+  async function commitPendingModalState() {
 
     // compose the updated state before committing it to the app
     let finalUpdateObj = {
@@ -94,8 +100,12 @@ function UpdateCriteria({onClose, onSubmit}) {
       }
     };
 
+    // const z = await facilityService.search();
+    // debugger;
+
     // update the context
     setAppState(finalUpdateObj);
+
 
     // close the modal
     onSubmit();

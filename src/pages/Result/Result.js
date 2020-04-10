@@ -144,17 +144,12 @@ class Result extends React.Component {
   }
 
   async submitResults() {
-    const sessionId = localStorage.getItem('confirm_sessid');
 
     this.setState({ loading: true });
 
     const payload = this.buildPayload();
 
-    await Axios.post('https://api-dev.allclear.app/peoples/register', payload, {
-      headers: {
-        'X-AllClear-SessionID': sessionId,
-      },
-    })
+    await Axios.post('https://api-dev.allclear.app/peoples/register', payload)
       .then((response) => {
         // this.setCookie('sessid', response.data.id); // blocks progress. check fn
         localStorage.setItem('sessid', response.data.id);

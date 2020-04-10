@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import GoogleMapReact from 'google-map-react';
 import MapMarker from './../map-components/mapMarker.jsx';
-import {GetNewPosition} from '../../services/google-location-svc.js';
+import FacilityService from '../../services/facility.service.js';
 import MapPageContext from '../../contexts/MapPage.context';
 import {bindAll} from 'lodash';
 
@@ -22,6 +22,7 @@ export default class GoogleMap extends Component {
       result: [],
     };
     this.gMap = React.createRef();
+    this.facilityService = FacilityService.getInstance();
 
   }
 
@@ -35,33 +36,59 @@ export default class GoogleMap extends Component {
 
   async componentDidMount() {
     const {lat, lng} = this.props.center;
-    const result = await GetNewPosition(lat, lng, 100);
+    const result = await this.facilityService.search({
+        from:
+          {
+            lat,
+            lng,
+            miles: 100
+          }
+      }
+    );
     if (navigator && navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(this._onLocationAccepted, this._onLocationDeclined);
     }
-    this._setLocations(result.data.records, {lat,lng});
+    this._setLocations(result.data.records, {lat, lng});
 
   }
 
   async onMarkerDragEnd(evt) {
     const lat = evt.center.lat();
     const lng = evt.center.lng();
-    const result = await GetNewPosition(lat, lng,100);
-    this._setLocations(result.data.records, {lat,lng});
+    const result = await this.facilityService.search({
+      from:
+          {
+            lat,
+            lng,
+            miles: 100
+          }
+      });
+
+    debugger;
+    this._setLocations(result.data.records, {lat, lng});
   }
 
   async onMarkerZoomChanged(evt) {
     const lat = evt.center.lat();
     const lng = evt.center.lng();
-    const result = await GetNewPosition(lat, lng, 400);
-    this._setLocations(result.data.records, {lat,lng});
+    const result = await this.facilityService.search({
+        from:
+          {
+            lat,
+            lng,
+            miles: 100
+          }
+      }
+    );
+
+    this._setLocations(result.data.records, {lat, lng});
   }
 
-  _setLocations(locations, currentLocation ){
+  _setLocations(locations, currentLocation) {
     // update local state
     this.setState({
       result: locations,
-      ...(currentLocation && { currentLocation }),
+      ...(currentLocation && {currentLocation}),
     });
 
     // update context state (for other components in map page)
@@ -79,7 +106,16 @@ export default class GoogleMap extends Component {
     //eslint-disable-next-line
     const currBrowserLocation = new google.maps.LatLng(lat, lng);
     this.gMap && this.gMap.current.map_.panTo(currBrowserLocation);
-    const result = await GetNewPosition(lat, lng, 400);
+    const result = await this.facilityService.search({
+        from:
+          {
+            lat,
+            lng,
+            miles: 400
+          }
+      }
+    );
+
     this._setLocations(result.data.records, {
       lat,
       lng
