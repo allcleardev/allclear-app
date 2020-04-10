@@ -3,23 +3,10 @@ import { Link } from 'react-router-dom';
 
 import HomescreenHeader from '../components/headers/header-homescreen';
 import NavBottom from '../components/navBottom';
-// import CardArrow from '../components/cardArrow';
+import userAvatar from '../assets/images/defaultProfile.svg';
 
 import Box from '@material-ui/core/Container';
 import { Button, Grid, IconButton } from '@material-ui/core';
-// import { makeStyles } from "@material-ui/core/styles";
-
-import userAvatar from '../assets/images/defaultProfile.svg';
-// import editSvg from '../assets/images/edit.svg';
-
-// const useStyles = makeStyles(theme => ({
-//   button: {
-//     width: "100%",
-//     margin: "15px 0",
-//     borderRadius: "10px",
-//     height: 48
-//   }
-// }));
 
 const EditIconButton = () => {
   return (
@@ -111,19 +98,6 @@ export default function ProfileView() {
               </Link>
             </div>
           </div>
-          {/* <h3 className="fontsize-17" style={{ padding: '30px 0', marginBottom: '-10px' }}>
-            Test Results
-          </h3>
-          <CardArrow title="Test Type: Alpha Test" description="Williamsburg Drive-Thru Testing">
-            <p className="card-description">
-              Results:{' '}
-              <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="5.59961" cy="5.05566" r="5" fill="#FF0000" />
-              </svg>{' '}
-              Positive
-            </p>
-            <p className="card-description">3/26/2020</p>
-          </CardArrow> */}
         </Grid>
       </Grid>
       <Grid

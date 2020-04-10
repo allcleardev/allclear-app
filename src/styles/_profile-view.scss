@@ -60,43 +60,4 @@
   p {
     margin: 0;
   }
-
-  .card-blank {
-    margin-top: 12px;
-
-    @media (max-width: 576px) {
-      margin-top: -90px;
-    }
-
-    .card-detail {
-      line-height: 20px;
-      margin-bottom: 23px;
-
-      .title {
-        margin: 0;
-        padding: 0;
-        font-weight: 600;
-        font-size: 15px;
-      }
-      .description {
-        margin: 0;
-        padding: 0;
-        font-weight: 400;
-        font-size: 15px;
-      }
-
-      .btn-description {
-        height: 35px;
-        border-radius: 33px;
-        padding: 0 17px;
-        margin: 5px 0;
-        margin-right: 2px;
-
-        @media (max-width: 320px) {
-          padding: 0 13px;
-          font-size: 12px;
-        }
-      }
-    }
-  }
 }
