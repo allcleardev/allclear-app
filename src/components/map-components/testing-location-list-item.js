@@ -1,12 +1,13 @@
-import 'leaflet.locatecontrol';
-import Box from '@material-ui/core/Container';
-import Button from '@material-ui/core/Button';
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import 'leaflet.locatecontrol';
+
+import { boolToEng, isNullOrUndefined } from '../../util/helpers';
+
+import Button from '@material-ui/core/Button';
 import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
 import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import { boolToEng, isNullOrUndefined } from '../../util/helpers';
+import { withStyles } from '@material-ui/core/styles';
 
 export default function TestingLocationListItem(props) {
   const { index, title, description, city_state, service_time, driveThru, phone } = props;
@@ -17,7 +18,7 @@ export default function TestingLocationListItem(props) {
       id={`panel${index}-header`}
       className="testing-location-list-item"
     >
-      <div className="location-container">
+      <div className="location-card">
         <h3 className="card-title">
           <span>{index + 1}.</span> {title}
         </h3>
@@ -29,7 +30,7 @@ export default function TestingLocationListItem(props) {
           <dd class="results-details__item results-details__item--semibold">{description}</dd>
         </dl>
 
-        <div className="buttons" style={{ marginTop: '15px' }}>
+        <div className="buttons" style={{ marginTop: '25px' }}>
           <a
             href={'https://www.google.com/maps/dir/?api=1&destination=' + description}
             rel="noopener noreferrer"
@@ -50,9 +51,9 @@ export default function TestingLocationListItem(props) {
 
   const body = (
     <ExpansionPanelDetails>
-      <section className={'card-map-location__summary'}>
-        <h4>Summary</h4>
-        {<div>title: {props.title}</div>}
+      <section className="testing-location-list-item__overview">
+        <h4>Test Center Overview</h4>
+        <h5>{props.title}</h5>
 
         {!isNullOrUndefined(props.hours) && <div>Hours: {props.hours}</div>}
         {!isNullOrUndefined(props.type) && <div>Location Type: {props.type.name}</div>}
@@ -86,23 +87,43 @@ export default function TestingLocationListItem(props) {
 }
 
 const ExpansionPanel = withStyles({
-  root: {},
+  root: {
+    border: '1px solid rgba(0, 0, 0, .125)',
+    boxShadow: 'none',
+    '&:not(:last-child)': {
+      borderBottom: 0,
+    },
+    '&:before': {
+      display: 'none',
+    },
+    '&$expanded': {
+      margin: 'auto',
+    },
+  },
   expanded: {},
 })(MuiExpansionPanel);
 
 const ExpansionPanelSummary = withStyles({
-  root: {},
-  content: {
+  root: {
+    backgroundColor: 'rgba(0, 0, 0, .02)',
+    borderBottom: '1px solid rgba(0, 0, 0, .125)',
+    marginBottom: -1,
+    minHeight: 56,
     '&$expanded': {
-      margin: '12px 0',
+      minHeight: 56,
     },
+  },
+  content: {
+    margin: '20px 0',
+    '&$expanded': {},
   },
   expanded: {},
 })(MuiExpansionPanelSummary);
 
 const ExpansionPanelDetails = withStyles((theme) => ({
   root: {
-    padding: theme.spacing(2),
+    boxShadow: 'inset 0px 11px 8px -10px rgba(0,0,0,.1), inset 0px -11px 8px -10px rgba(0,0,0,.1)',
+    backgroundColor: '#f7f7f7',
   },
 }))(MuiExpansionPanelDetails);
 

@@ -57,60 +57,8 @@
     border-radius: 23px;
     box-shadow: none;
   }
-
-  .card-map-location {
-    cursor: pointer;
-    box-shadow: none;
-    padding: 0;
-    //border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-
-    @media (max-width: $sm) {
-      border-bottom: none;
-    }
-
-    .container-location {
-      padding-top: 15px;
-      padding-bottom: 15px;
-      display: flex;
-      justify-content: space-between;
-      flex-direction: row;
-
-      @media (max-width: $sm) {
-        border: 1px solid #dadada;
-        box-sizing: border-box;
-        border-radius: 6px;
-        margin-bottom: 5px;
-      }
-
-      .card-content {
-        display: flex;
-        flex-direction: column;
-      }
-
-      .btn-arrow {
-        display: none;
-
-        @media (max-width: $sm) {
-          display: block;
-        }
-      }
-    }
-
-    .buttons {
-      .btn {
-        width: 115px;
-        height: 28px;
-        box-sizing: border-box;
-        border-radius: 14px;
-      }
-    }
-
-    &__summary {
-      border: 1px solid #000;
-      padding: 2px;
-    }
-  }
 }
+
 .btn-hide-nav {
   position: fixed !important;
   left: -24px !important;
