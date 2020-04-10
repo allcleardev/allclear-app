@@ -1,18 +1,5 @@
 .map-page {
   width: 100%;
-
-  .header-white-fullscreen {
-    .map-tab {
-      @media (max-width: $sm) {
-        margin: 60px 0;
-        width: 90%;
-      }
-
-      header .MuiTabs-root .MuiTabs-fixed .MuiTabs-indicator {
-        background-color: transparent !important;
-      }
-    }
-  }
 }
 
 .nav-left-location {
