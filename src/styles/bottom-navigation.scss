@@ -33,8 +33,11 @@
       border-bottom-right-radius: 50px;
     }
   }
+}
 
-  .gradient-mat {
+.map-page,
+.profile-view {
+  .bottom-navigation .gradient-mat {
     @media (max-width: $sm) {
       position: fixed;
       width: 100%;
