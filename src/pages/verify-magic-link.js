@@ -1,7 +1,6 @@
 import React from 'react';
 import qs from 'qs';
 import { useHistory } from 'react-router-dom';
-import { useCookies } from 'react-cookie';
 
 import Box from '@material-ui/core/Container';
 import Axios from 'axios';
@@ -12,9 +11,6 @@ import { Grid } from '@material-ui/core';
 
 export default function VerifyMagicLink({ props, location }) {
   const history = useHistory();
-  const [cookies, setCookie] = useCookies(['cookie-name']);
-
-  console.debug('Total Cookies', cookies);
 
   const santizeSearchParams = (searchParams) => {
     searchParams = searchParams.replace('?', '');
@@ -30,8 +26,7 @@ export default function VerifyMagicLink({ props, location }) {
     })
       .then((response) => {
         console.log('response', response);
-        setCookie('sessid', response.data.id);
-        sessionStorage.setItem('sessid', response.data.id);
+        localStorage.setItem('confirm_sessid', response.data.id);
         sessionStorage.setItem('phone', searchParams.phone);
         history.push('/background');
       })
