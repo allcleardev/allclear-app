@@ -1,0 +1,35 @@
+.testing-location-list-item {
+  $black: #151522;
+  $grey: #999;
+
+  h3 {
+    line-height: 22px;
+    font-weight: 600;
+    font-size: 16px;
+    color: $black;
+
+    span {
+      color: $grey;
+    }
+  }
+
+  .results-details {
+    font-size: 13px;
+
+    &__item {
+      line-height: 16px;
+
+      &--grey {
+        color: $grey;
+      }
+
+      &--semibold {
+        font-weight: 500;
+      }
+    }
+  }
+
+  .MuiExpansionPanelSummary-content {
+    margin: 20px 0;
+  }
+}

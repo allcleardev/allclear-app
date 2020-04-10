@@ -15,41 +15,36 @@ export default function TestingLocationListItem(props) {
     <ExpansionPanelSummary
       aria-controls={`panel${index}-content`}
       id={`panel${index}-header`}
-      className="card-map-location"
+      className="testing-location-list-item"
     >
-      <Box className="container-location">
-        <div className="card-content">
-          <h3 className="card-title" style={{ color: '#000', fontSize: 16 }}>
-            <span className="grey" style={{}}>
-              {index + 1}.
-            </span>{' '}
-            {title}
-          </h3>
-          <div style={{ display: 'flex', flexDirection: 'column', fontSize: '13px' }} className="grey">
-            <p style={{ color: '#151522' }}>{city_state}</p>
-            <p>{service_time}</p>
-            <p>{driveThru.toString() === 'true' ? 'Drive Through' : ''}</p>
-          </div>
-          <p className="card-description" style={{ color: '#151522' }}>
-            {description}
-          </p>
-          <div className="buttons" style={{ marginTop: '15px' }}>
-            <a
-              href={'https://www.google.com/maps/dir/?api=1&destination=' + description}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <Button className="btn primary-color primary-outline">Directions</Button>
-            </a>
+      <div className="location-container">
+        <h3 className="card-title">
+          <span>{index + 1}.</span> {title}
+        </h3>
 
-            <a href={'tel:' + phone} rel="noopener noreferrer" target="_blank">
-              <Button className="btn primary-color primary-outline" style={{ marginLeft: '15px' }}>
-                Call
-              </Button>
-            </a>
-          </div>
+        <dl class="results-details">
+          <dd class="results-details__item">{city_state}</dd>
+          <dd class="results-details__item results-details__item--grey">{service_time}</dd>
+          <dd class="results-details__item">{driveThru.toString() === 'true' ? 'Drive Through' : ''}</dd>
+          <dd class="results-details__item results-details__item--semibold">{description}</dd>
+        </dl>
+
+        <div className="buttons" style={{ marginTop: '15px' }}>
+          <a
+            href={'https://www.google.com/maps/dir/?api=1&destination=' + description}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <Button className="btn primary-color primary-outline">Directions</Button>
+          </a>
+
+          <a href={'tel:' + phone} rel="noopener noreferrer" target="_blank">
+            <Button className="btn primary-color primary-outline" style={{ marginLeft: '15px' }}>
+              Call
+            </Button>
+          </a>
         </div>
-      </Box>
+      </div>
     </ExpansionPanelSummary>
   );
 
