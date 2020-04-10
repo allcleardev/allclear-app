@@ -144,7 +144,7 @@ class Result extends React.Component {
   }
 
   async submitResults() {
-    const sessionId = sessionStorage.getItem('sessid');
+    const sessionId = localStorage.getItem('confirm_sessid');
 
     this.setState({ loading: true });
 
@@ -157,8 +157,8 @@ class Result extends React.Component {
     })
       .then((response) => {
         // this.setCookie('sessid', response.data.id); // blocks progress. check fn
-        sessionStorage.setItem('sessid', response.data.id);
-        sessionStorage.setItem('session', response.data);
+        localStorage.setItem('sessid', response.data.id);
+        localStorage.setItem('session', response.data);
         this.history.push('/map');
       })
       .catch((error) => {

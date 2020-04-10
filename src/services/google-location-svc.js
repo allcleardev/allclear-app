@@ -1,6 +1,8 @@
 import Axios from 'axios';
 /*eslint-disable */
 export const GetNewPosition = (lat, lng, miles) => {
+  const sessionId = localStorage.getItem('sessid');
+
   return Axios.post(
     'facilities/search',
     {
@@ -11,6 +13,11 @@ export const GetNewPosition = (lat, lng, miles) => {
             miles: miles,
         }
     },
+    {
+      headers: {
+        'X-AllClear-SessionID': sessionId,
+      }
+    }
   );
 };
 /*eslint-enable */

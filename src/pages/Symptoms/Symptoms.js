@@ -85,7 +85,7 @@ class Symptom extends Component {
       return true;
     });
     this.setState({ symptoms });
-    sessionStorage.setItem('stymptoms', JSON.stringify(symptoms));
+    sessionStorage.setItem('symptoms', JSON.stringify(symptoms));
   }
 
   checkForSelection() {
@@ -172,7 +172,7 @@ class Symptom extends Component {
   }
 
   async submitResults() {
-    const sessionId = sessionStorage.getItem('sessid');
+    const sessionId = localStorage.getItem('confirm_sessid');
 
     this.setState({ loading: true });
 
@@ -185,8 +185,8 @@ class Symptom extends Component {
     })
       .then((response) => {
         // this.setCookie('sessid', response.data.id); // TODO: blocks progress. check fn
-        sessionStorage.setItem('sessid', response.data.id);
-        sessionStorage.setItem('session', response.data);
+        localStorage.setItem('sessid', response.data.id);
+        localStorage.setItem('session', response.data);
         this.props.history.push('/map');
       })
       .catch((error) => {
