@@ -1,5 +1,5 @@
 import React from 'react';
-
+import UnderDevelopment from './UnderDevelopment';
 import HomescreenHeader from '../components/headers/header-homescreen';
 import UserProfileCard from '../components/cardProfile';
 import NavBottom from '../components/navBottom';
@@ -25,6 +25,7 @@ export default function ProfileEdit() {
 
   return (
     <Box className="profile-edit">
+      <UnderDevelopment />
       <HomescreenHeader>
         <p>Allclear</p>
       </HomescreenHeader>
