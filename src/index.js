@@ -1,4 +1,4 @@
-import React from 'react';
+import React  from 'react';
 import ReactDOM from 'react-dom';
 import { colorLog } from './util/helpers';
 
@@ -44,19 +44,17 @@ function bootstrapAxios() {
   // REQUEST interceptor
   axios.interceptors.request.use(
     (config) => {
-      // const {'X-AllClear-SessionID': sessionStorage.getItem('sessid')}
-      const sessionID = sessionStorage.getItem('sessid');
-      const authHeader = sessionID
-        ? {
-            'X-AllClear-SessionID': sessionID,
-          }
-        : {};
+      // const sessionID = localStorage.getItem('sessid');
+      // const authHeader = sessionID
+      //   ? {
+      //       'X-AllClear-SessionID': sessionID,
+      //     }
+      //   : {};
 
       return {
         ...config,
         headers: {
-          ...config.headers,
-          ...authHeader,
+          ...config.headers
         },
       };
     },
@@ -74,9 +72,7 @@ function bootstrapAxios() {
       return response;
     },
     (error) => {
-      // todo: add snackbar with button that links to /login (session timed out most likely)
-
-      console.warn('response error:', error);
+      console.warn('response error:', error.response);
       return Promise.reject(error);
     },
   );

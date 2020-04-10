@@ -24,7 +24,7 @@ class Settings extends React.Component {
     }
 
     async delete() {
-        const sessionId = sessionStorage.getItem('sessid');
+        const sessionId = localStorage.getItem('sessid');
         this.setState({ loading: true });
 
 
@@ -118,7 +118,7 @@ class Settings extends React.Component {
                             className="btn-group"
                         >
                             <Grid item xs={12} sm={5}>
-                                <Button onClick={() => this.delete()} 
+                                <Button onClick={() => this.delete()}
                                 className="btn-big settingDelBtn " >Permanently Delete Account</Button>
                             </Grid>
                             <Grid item xs={12} sm={5}>

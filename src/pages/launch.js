@@ -22,10 +22,18 @@ const ContainerStyle = {
 
 const Launch = ({ props }) => {
   const history = useHistory();
+  const confirm_sessid = localStorage.getItem('confirm_sessid');
+  const sessid = localStorage.getItem('sessid');
 
   useEffect(() => {
     setTimeout(() => {
-      history.push('/sign-up');
+      if (sessid)  {
+        history.push('/map');
+      } else if (confirm_sessid) {
+        history.push('/background');
+      } else {
+        history.push('/sign-up');
+      }
     }, 3000);
   });
 

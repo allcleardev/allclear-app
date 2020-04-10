@@ -47,8 +47,7 @@ export default function PhoneVerify({ props, location }) {
       code,
     })
       .then((response) => {
-        setCookie('sessid', response.data.id);
-        sessionStorage.setItem('sessid', response.data.id);
+        localStorage.setItem('confirm_sessid', response.data.id);
         history.push('/background');
       })
       .catch((error) => {
