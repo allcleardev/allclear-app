@@ -10,7 +10,7 @@ import { Button, Grid, IconButton } from '@material-ui/core';
 // import { makeStyles } from "@material-ui/core/styles";
 
 import userAvatar from '../assets/images/defaultProfile.svg';
-import editSvg from '../assets/images/edit.svg';
+// import editSvg from '../assets/images/edit.svg';
 
 // const useStyles = makeStyles(theme => ({
 //   button: {
@@ -41,13 +41,12 @@ export default function ProfileView() {
     <Box className="profile-view">
       <HomescreenHeader>
         <div className="avatar-edit">
-          <div className="avatar" >
-            <div className="settingLogoEdit">
-              <img src={editSvg} alt="edit" />
-
-            </div>
-            <img src={userAvatar} alt="avatar" style={{ borderRadius: '50%', backgroundColor: 'white',border: '1px solid white' }} />
-
+          <div className="avatar">
+            <img
+              src={userAvatar}
+              alt="avatar"
+              style={{ borderRadius: '50%', backgroundColor: 'white', border: '1px solid white' }}
+            />
           </div>
           {/* <EditIconButton></EditIconButton> */}
         </div>
@@ -103,7 +102,7 @@ export default function ProfileView() {
                   <div className="flex-containter flex-wrap-on">
                     <Button className="btn-description color-white bg-navy">Fever</Button>
                     <Button className="btn-description color-white bg-navy">Dry Cough</Button>
-                    <Button className="btn-description color-white bg-navy">Runny Nose or Nasal Congestion</Button>
+                    <Button className="btn-description color-white bg-navy">Runny Nose/Nasal Congestion</Button>
                   </div>
                 </div>
               </div>
