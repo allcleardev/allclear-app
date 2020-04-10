@@ -2,21 +2,21 @@ export const testResult = [
   {
     title: 'Lorem Ipsum Result',
     date: '30/3/2020',
-    result: 'positive'
+    result: 'positive',
   },
   {
     title: 'Lorem Ipsum Result',
     date: '30/3/2020',
-    result: 'positive'
+    result: 'positive',
   },
   {
     title: 'Lorem Ipsum Result',
     date: '30/3/2020',
-    result: 'negative'
+    result: 'negative',
   },
   {
     title: 'Lorem Ipsum Result',
     date: '30/3/2020',
-    result: 'positive'
-  }
+    result: 'positive',
+  },
 ];

@@ -1,6 +1,5 @@
 import React from 'react';
-
-import Header from '../components/homescreen-header';
+import HomescreenHeader from '../components/headers/header-homescreen';
 import CardBlank from '../components/cardBlank';
 import { Link } from 'react-router-dom';
 import SwitchComponent from '../components/switch';
@@ -63,7 +62,7 @@ export default function UpdateCriteria() {
 
   return (
     <Box className="update-criteria">
-      <Header>
+      <HomescreenHeader>
         <div className="header-title-area">
           <Fab size="small" aria-label="add" className="btn-back-fab">
             <svg width="9" height="15" viewBox="0 0 9 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -78,7 +77,7 @@ export default function UpdateCriteria() {
           </Fab>
           <p className="header-title">Update testing Center Criteria</p>
         </div>
-      </Header>
+      </HomescreenHeader>
       <Grid container style={{ display: 'flex', justifyContent: 'center' }}>
         <Grid item xs={12} sm={7}>
           <CardBlank>
@@ -193,7 +192,7 @@ export default function UpdateCriteria() {
                   onChange={(event) => handleConditionsChange(event, 'conditions')}
                   className="select-white-back"
                 >
-                  <MenuItem value="">Weekend Immune System</MenuItem>
+                  <MenuItem value="">Weakened Immune System</MenuItem>
                   <MenuItem value={10}>Ten</MenuItem>
                   <MenuItem value={20}>Twenty</MenuItem>
                   <MenuItem value={30}>Thirty</MenuItem>
@@ -231,7 +230,7 @@ export default function UpdateCriteria() {
           >
             <Grid item xs={12} sm={5}>
               <Button className="btn-big bg-primary color-white fontsize-16">Update Profile</Button>
-              <Link to="/find-test-map">
+              <Link to="/map">
                 <Button className="btn-big bg-grey2 fontsize-16">Cancel</Button>
               </Link>
             </Grid>

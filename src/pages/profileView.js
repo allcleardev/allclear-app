@@ -1,15 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Header from '../components/homescreen-header';
+import HomescreenHeader from '../components/headers/header-homescreen';
 import NavBottom from '../components/navBottom';
-import CardArrow from '../components/cardArrow';
+// import CardArrow from '../components/cardArrow';
 
 import Box from '@material-ui/core/Container';
 import { Button, Grid, IconButton } from '@material-ui/core';
 // import { makeStyles } from "@material-ui/core/styles";
 
-import userAvatar from '../assets/images/avatar.svg';
+import userAvatar from '../assets/images/defaultProfile.svg';
+// import editSvg from '../assets/images/edit.svg';
 
 // const useStyles = makeStyles(theme => ({
 //   button: {
@@ -38,14 +39,18 @@ const EditIconButton = () => {
 export default function ProfileView() {
   return (
     <Box className="profile-view">
-      <Header>
+      <HomescreenHeader>
         <div className="avatar-edit">
           <div className="avatar">
-            <img src={userAvatar} alt="avatar" />
+            <img
+              src={userAvatar}
+              alt="avatar"
+              style={{ borderRadius: '50%', backgroundColor: 'white', border: '1px solid white' }}
+            />
           </div>
           {/* <EditIconButton></EditIconButton> */}
         </div>
-      </Header>
+      </HomescreenHeader>
       <Grid container className="flex-container flex-just-center">
         <Grid item xs={12} sm={6}>
           <div className="card-phone">
@@ -88,7 +93,7 @@ export default function ProfileView() {
                 <div className="card-detail">
                   <p className="title">Conditions</p>
                   <div className="flex-containter flex-wrap-on">
-                    <Button className="btn-description color-white bg-navy">Weekend Immune System</Button>
+                    <Button className="btn-description color-white bg-navy">Weakened Immune System</Button>
                     <Button className="btn-description color-white bg-navy">Kidney Failure or Cirrhosis</Button>
                   </div>
                 </div>
@@ -97,7 +102,7 @@ export default function ProfileView() {
                   <div className="flex-containter flex-wrap-on">
                     <Button className="btn-description color-white bg-navy">Fever</Button>
                     <Button className="btn-description color-white bg-navy">Dry Cough</Button>
-                    <Button className="btn-description color-white bg-navy">Runny Nose or Nasal Congestion</Button>
+                    <Button className="btn-description color-white bg-navy">Runny Nose/Nasal Congestion</Button>
                   </div>
                 </div>
               </div>
@@ -106,7 +111,7 @@ export default function ProfileView() {
               </Link>
             </div>
           </div>
-          <h3 className="fontsize-17" style={{ padding: '30px 0', marginBottom: '-10px' }}>
+          {/* <h3 className="fontsize-17" style={{ padding: '30px 0', marginBottom: '-10px' }}>
             Test Results
           </h3>
           <CardArrow title="Test Type: Alpha Test" description="Williamsburg Drive-Thru Testing">
@@ -118,10 +123,26 @@ export default function ProfileView() {
               Positive
             </p>
             <p className="card-description">3/26/2020</p>
-          </CardArrow>
+          </CardArrow> */}
         </Grid>
       </Grid>
-      <NavBottom active={4}></NavBottom>
+      <Grid
+        container
+        style={{
+          display: 'flex',
+          justifyContent: 'space-around',
+
+          padding: '15px 0px 0px 5px',
+        }}
+        className="btn-group"
+      >
+        <Grid item xs={12} sm={6}>
+          <Button style={{ color: '#2A7DF4', border: '1px solid #2A7DF4' }} className="btn-big  fontsize-16">
+            Logout
+          </Button>
+        </Grid>
+      </Grid>
+      <NavBottom active={3}></NavBottom>
     </Box>
   );
 }

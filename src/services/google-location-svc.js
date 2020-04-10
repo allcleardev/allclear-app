@@ -1,15 +1,23 @@
 import Axios from 'axios';
-
+/*eslint-disable */
 export const GetNewPosition = (lat, lng, miles) => {
+  const sessionId = localStorage.getItem('sessid');
+
   return Axios.post(
-    'https://api-dev.allclear.app/facilities/search',
+    'facilities/search',
     {
-      lat,
-      lng,
-      miles,
+        from:
+        {
+            latitude: lat,
+            longitude: lng,
+            miles: miles,
+        }
     },
     {
-      headers: { 'X-AllClear-SessionID': sessionStorage.getItem('sessid') },
-    },
+      headers: {
+        'X-AllClear-SessionID': sessionId,
+      }
+    }
   );
 };
+/*eslint-enable */

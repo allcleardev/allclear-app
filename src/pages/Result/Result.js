@@ -2,7 +2,7 @@ import React from 'react';
 import Axios from 'axios';
 import { Link } from 'react-router-dom';
 
-import Header from '../../components/header-round';
+import RoundHeader from '../../components/headers/header-round';
 import ProgressBottom from '../../components/progressBottom';
 // import states from './Result.state';
 
@@ -144,7 +144,7 @@ class Result extends React.Component {
   }
 
   async submitResults() {
-    const sessionId = sessionStorage.getItem('sessid');
+    const sessionId = localStorage.getItem('confirm_sessid');
 
     this.setState({ loading: true });
 
@@ -156,10 +156,10 @@ class Result extends React.Component {
       },
     })
       .then((response) => {
-        this.setCookie('sessid', response.data.id);
-        sessionStorage.setItem('sessid', response.data.id);
-        sessionStorage.setItem('session', response.data);
-        this.history.push('/home');
+        // this.setCookie('sessid', response.data.id); // blocks progress. check fn
+        localStorage.setItem('sessid', response.data.id);
+        localStorage.setItem('session', response.data);
+        this.history.push('/map');
       })
       .catch((error) => {
         this.setState({ loading: false });
@@ -170,7 +170,7 @@ class Result extends React.Component {
     const grid = (
       <Grid container justify="center">
         <Grid item xs={12} sm={6}>
-          <LinearProgress color="primary" value="50" variant="indeterminate" />
+          <LinearProgress color="primary" value={50} variant="indeterminate" />
         </Grid>
       </Grid>
     );
@@ -231,13 +231,13 @@ class Result extends React.Component {
     return (
       <div className="background-responsive">
         <div className="results onboarding-page">
-          <Header>
+          <RoundHeader>
             <h1 className="heading">Test Results</h1>
             <h2 className="sub-heading">
               If you've taken a COVID-19 test already, please submit test details and results. Refer to our
               <a href="/"> Privacy Policy </a>for more details.
             </h2>
-          </Header>
+          </RoundHeader>
           {this.state && this.state.loading === false ? (
             <Form noValidate autoComplete="off" className="onboarding-body">
               <Box maxWidth="md">

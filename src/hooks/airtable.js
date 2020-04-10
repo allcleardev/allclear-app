@@ -41,15 +41,15 @@ class Locations {
       'Main Website',
       'Hours',
       'Drive Through',
-      'Appointment Needed'
+      'Appointment Needed',
     ];
     this.locations = this.normalize_fields(loc_data);
     this.length = this.locations.length;
   }
 
   normalize_fields(data) {
-    for(let row of data) {
-      for(let key of this.fields) {
+    for (let row of data) {
+      for (let key of this.fields) {
         if (!(key in row)) {
           row[key] = '';
         }
@@ -59,7 +59,7 @@ class Locations {
   }
 
   getById(id) {
-    if( id > -1 && id < this.locations.length) {
+    if (id > -1 && id < this.locations.length) {
       return this.locations[id];
     }
   }

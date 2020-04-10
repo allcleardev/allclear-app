@@ -106,9 +106,9 @@ class ResultDetail extends React.Component {
                         <div className="xyz001">
                           <div className="xyz002 tstType">Did you test positive?</div>
                           <div className="xyz003">
-                            <div class="switch">
+                            <div className="switch">
                               <input type="checkbox" checked />
-                              <span class="slider round"></span>
+                              <span className="slider round"></span>
                             </div>
                           </div>
                         </div>
@@ -168,7 +168,7 @@ class ResultDetail extends React.Component {
                             <div>Lorem Ipsum Test</div>
                             <div>Date Taken: 3/25/20</div>
                             <div>
-                              Results: <span class="redClr"></span>Positive
+                              Results: <span className="redClr"></span>Positive
                             </div>
                           </div>
                           <div className="resultDivR">

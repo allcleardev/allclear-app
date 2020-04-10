@@ -1,37 +1,61 @@
-import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
-
-import Form from '@material-ui/core/Container';
-
-import { Button, Grid } from '@material-ui/core';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Axios from 'axios';
 
-import Header from '../components/header-round';
+import RoundHeader from '../components/headers/header-round';
 import ProgressBottom from '../components/progressBottom';
 import PhoneNumber from '../components/phoneNumber';
+import OnboardingNavigation from '../components/onboarding-navigation';
+
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import { Button, Grid, Container } from '@material-ui/core';
 
-export default function PhoneVerify({ props }) {
-  const [state, setState] = React.useState({
-    checkedB: true,
-    loading: false,
-  });
+export default class PhoneVerify extends Component {
+  constructor() {
+    super();
+    this.state = {
+      termsAndConditions: false,
+      alertable: false,
+      phoneVerified: false,
+      loading: false,
+      error: false,
+    };
 
-  const history = useHistory();
+    this.handleChange = this.handleChange.bind(this);
+    this.checkPhoneValidation = this.checkPhoneValidation.bind(this);
+    this.onSendVerificationClicked = this.onSendVerificationClicked.bind(this);
+    this.verifyLogin = this.verifyLogin.bind(this);
+  }
 
-  const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
-  };
+  handleChange(event) {
+    this.setState({
+      ...this.state,
+      [event.target.name]: event.target.checked,
+    });
 
-  const verifyPhoneNumber = async () => {
-    setState({ loading: true });
+    // Capture alerts opt-in
+    if (event.target.name === 'alertable') {
+      sessionStorage.setItem('alertable', event.target.checked);
+    }
+  }
+
+  checkPhoneValidation(value) {
+    if (value) {
+      this.setState({ phoneVerified: true });
+    } else {
+      this.setState({ phoneVerified: false });
+    }
+  }
+
+  async onSendVerificationClicked() {
+    this.setState({ loading: true });
     let phone = sessionStorage.getItem('phone');
 
     if (!phone) {
       //show error message
-      setState({ loading: false });
+      this.setState({ loading: false });
       return;
     }
     Axios.post('https://api-dev.allclear.app/peoples/start', {
@@ -39,7 +63,7 @@ export default function PhoneVerify({ props }) {
     })
       .then((response) => {
         sessionStorage.setItem('phone', phone);
-        history.push('/phone-verification');
+        this.props.history.push('/sign-up-verification');
       })
       .catch((error) => {
         if (error && error.response) {
@@ -48,33 +72,33 @@ export default function PhoneVerify({ props }) {
             error.response.data.message &&
             error.response.data.message.includes('already exists')
           ) {
-            return verifyLogin();
+            return this.verifyLogin();
           } else if (error.response.data && error.response.data.message) {
-            setState({
+            this.setState({
               error: true,
               message: error.response.data.message,
               loading: false,
             });
           } else {
-            setState({
+            this.setState({
               error: true,
               message: 'An error occurred. Please try again later.',
               loading: false,
             });
           }
         } else {
-          setState({ loading: false });
+          this.setState({ loading: false });
         }
       });
-  };
+  }
 
-  async function verifyLogin() {
-    setState({ loading: true });
+  async verifyLogin() {
+    this.setState({ loading: true });
     const phone = sessionStorage.getItem('phone');
 
     if (!phone) {
       //show error message
-      setState({ loading: false });
+      this.setState({ loading: false });
       return;
     }
     await Axios.post('https://api-dev.allclear.app/peoples/auth', {
@@ -82,59 +106,100 @@ export default function PhoneVerify({ props }) {
     })
       .then((response) => {
         sessionStorage.setItem('phone', phone);
-        history.push('/auth-verification');
+        this.props.history.push('/sign-in-verification');
       })
       .catch((error) => {
         //show error message
-        setState({ loading: false });
+        this.setState({ loading: false });
       });
   }
 
-  return (
-    <div className="background-responsive">
-      <div className="phone-verify onboarding-page">
-        <Header>
-          <h1 className="heading">Phone Number</h1>
-          <h2 className="sub-heading">Enter your phone number to get started.</h2>
-        </Header>
-        {state.loading === false ? (
-          <Form noValidate autoComplete="off" className="onboarding-body">
-            <PhoneNumber className="hide-mobile"></PhoneNumber>
-            {state.error === true ? <p style={{ color: 'red' }}>{state.message}</p> : ''}
-
-            <div className="review-container">
-              <p>
-                Please review and agree to the
-                <a href="https://staging.about.allclear.app/"> Terms & Conditions </a> and
-                <a href="https://staging.about.allclear.app/"> Privacy Policy </a> before continuing.
-              </p>
-
-              <FormControlLabel
-                control={<Checkbox checked={state.checkedB} onChange={handleChange} name="checkedB" color="third" />}
-                label="I have reviewed and agree to the Terms & Conditions and Privacy Policy"
-              />
-            </div>
-
-            <div className="button-container">
-              <Link to="/login">
-                <Button variant="contained" className="back">
+  render() {
+    return (
+      <div className="background-responsive">
+        <div className="sign-up onboarding-page">
+          <RoundHeader>
+            <h1 className="heading">COVID-19 Test Alerts</h1>
+            <h2 className="sub-heading">Enter your phone number to receive SMS alerts on tests for you.</h2>
+          </RoundHeader>
+          {this.state.loading === false ? (
+            <Container className="onboarding-body">
+              <div className="content-container">
+                <PhoneNumber className="hide-mobile" phoneValidation={this.checkPhoneValidation}></PhoneNumber>
+                <Link to="/sign-in" className="hide-mobile sign-in">
                   Sign into Existing Account
-                </Button>
-              </Link>
-              <Button onClick={() => verifyPhoneNumber()} variant="contained" color="primary" className="next">
-                Send Verification Code
-              </Button>
-            </div>
-          </Form>
-        ) : (
-          <Grid container justify="center">
-            <Grid item xs={12} sm={6}>
-              <LinearProgress color="primary" value="50" variant="indeterminate" />
+                </Link>
+                {this.state.error === true ? <p className="error">{this.state.message}</p> : ''}
+              </div>
+              <div className="review-container">
+                <p>
+                  <Link to="/terms"> Terms & Conditions </Link> and
+                  <Link to="/privacypolicy"> Privacy Policy </Link>
+                </p>
+
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={this.state.termsAndConditions}
+                      onChange={this.handleChange}
+                      name="termsAndConditions"
+                      color="secondary"
+                    />
+                  }
+                  label="I have reviewed and agree to the Terms & Conditions and Privacy Policy."
+                />
+
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={this.state.alertable}
+                      onChange={this.handleChange}
+                      name="alertable"
+                      color="secondary"
+                    />
+                  }
+                  label="Receive text alerts when eligible test locations become available."
+                />
+              </div>
+              <OnboardingNavigation
+                back={
+                  <Link to="/sign-in" className="hide-desktop sign-in">
+                    Sign into Existing Account
+                  </Link>
+                }
+                forward={
+                  <Button
+                    className="next"
+                    color="primary"
+                    variant="contained"
+                    onClick={() => this.onSendVerificationClicked()}
+                    disabled={this.state.termsAndConditions && this.state.phoneVerified ? false : true}
+                  >
+                    Send Verification Code
+                  </Button>
+                }
+                tooltipMessage={`To proceed, please
+                    ${!this.state.phoneVerified ? 'enter your phone number' : ''}
+                    ${!this.state.termsAndConditions && !this.state.phoneVerified ? 'and' : ''}
+                    ${
+                      !this.state.termsAndConditions
+                        ? 'review and agree to the Terms & Conditions and Privacy Policy'
+                        : ''
+                    }
+                  `}
+                triggerTooltip={this.state.termsAndConditions && this.state.phoneVerified ? false : true}
+              ></OnboardingNavigation>
+            </Container>
+          ) : (
+            <Grid container justify="center">
+              <Grid item xs={12} sm={6}>
+                <LinearProgress color="primary" value="50" variant="indeterminate" />
+              </Grid>
             </Grid>
-          </Grid>
-        )}
-        {state.loading === false ? <ProgressBottom progress="0"></ProgressBottom> : null}
+          )}
+          {this.state.loading === false ? <ProgressBottom progress="0"></ProgressBottom> : null}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }

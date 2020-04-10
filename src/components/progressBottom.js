@@ -29,7 +29,7 @@ export default function ProgressBottom({ progress }) {
         value={100}
         color="secondary"
         style={{
-          width: '200px',
+          width: '25%',
           backgroundColor: 'transparent',
           left: progress,
         }}

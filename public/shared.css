@@ -1344,3 +1344,107 @@ input:checked + .slider:before {
     border-radius: 8px;
   }
 }
+
+.shareProfile {
+    box-shadow: 0px 24px 32px rgba(50, 50, 71, 0.08), 0px 16px 16px rgba(50, 50, 71, 0.08) !important;
+    margin-top: -60px;
+    align-items: flex-start;
+    border-radius: 15px !important;
+}
+
+.shareImg {
+    width: 75px !important;
+    height: 75px !important;
+    margin: 16px;
+}
+.shareProfileName{
+    margin: 0;
+    padding: 0;
+    font-size: 15px;
+    font-weight: 600;
+}
+.sharecard-description{
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 16px;
+    font-family: SF Pro Text;
+    text-align: center;
+    margin: 5px 0 !important;
+    line-height: 24px;
+    color: #7B7B7B;
+    letter-spacing: -0.408px;
+}
+
+.shareButton {
+    width: 100%;
+    height: 48px;
+    margin: 15px 0;
+    border-radius: 10px;
+    background-color: #007AFF !important;
+    color: white !important;
+    border-radius: 10px !important;
+}
+
+.shareCardContent{
+    border-radius: 15px !important;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2) !important;
+    margin-bottom: 15px;
+}
+
+.shareFrndImg{
+    width: 60px;
+    margin: 10px 0px 10px 10px;
+    height: 60px;
+}
+
+.settingBtn{
+  position: absolute;
+  bottom: 10%;
+  width: 100%;
+
+}
+
+.settingDelBtn {
+  color: #fff !important;
+  widows: 100%;
+  border: 1px solid #E83731;
+  background-color: #E83731 !important;
+}
+
+.isRelaxedBackground{
+  background-color: #F1F8FF !important;
+}
+
+.settingLogoEdit{
+  width: 25px;
+    height: 25px;
+    background-color: white;
+    border-radius: 50%;
+    float: right;
+    /* top: 50%; */
+    position: fixed;
+    margin-left: 78px;
+    margin-top: 70px;
+}
+.settingModalTxt{
+  
+    font-size: 15px;
+    color: black;
+    text-align: center;
+    letter-spacing: -0.41px;
+    line-height: 20px;
+}
+
+
+.root{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2) !important;
+  border-radius: 6px !important;
+}
+
+.MuiBottomNavigationAction-root.Mui-selected{
+color: gray !important;
+}

@@ -91,6 +91,11 @@
         padding: 0 17px;
         margin: 5px 0;
         margin-right: 2px;
+
+        @media (max-width: 320px) {
+          padding: 0 13px;
+          font-size: 12px;
+        }
       }
     }
   }

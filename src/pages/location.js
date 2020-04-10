@@ -5,8 +5,7 @@ import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import NavBottom from '../components/navBottom';
-import Header from '../components/homescreen-header';
-
+import HomescreenHeader from '../components/headers/header-homescreen';
 
 import React, { useState } from 'react';
 import MapComponent from '../components/map';
@@ -38,9 +37,9 @@ export default function Location() {
 
   return (
     <Container>
-      <Header>
+      <HomescreenHeader>
         <p>Allclear</p>
-      </Header>
+      </HomescreenHeader>
       <Paper elevation={0} square>
         <Tabs
           value={currTab}
@@ -56,15 +55,14 @@ export default function Location() {
       </Paper>
 
       <TabPanel value={currTab} index={0}>
-        <VirtualizedList changeTab={{otherTabIdx: 1, changeTabFn: setTabValue}}/>
+        <VirtualizedList changeTab={{ otherTabIdx: 1, changeTabFn: setTabValue }} />
       </TabPanel>
       <TabPanel value={currTab} index={1}>
-        <Container >
-          <MapComponent changeTab={{otherTabIdx: 0, changeTabFn: setTabValue}} />
-        </Container>  
+        <Container>
+          <MapComponent changeTab={{ otherTabIdx: 0, changeTabFn: setTabValue }} />
+        </Container>
       </TabPanel>
       <NavBottom></NavBottom>
     </Container>
-
   );
 }

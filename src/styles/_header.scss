@@ -18,9 +18,9 @@
     letter-spacing: 0.374px;
     font-weight: bold;
     font-size: 34px;
+    margin: 0 15px 16px;
 
     @media (min-width: $md) {
-      margin-bottom: 16px;
       font-size: 56px;
     }
   }
@@ -50,11 +50,19 @@
   .btn-back-fab {
     background-color: transparent; // overriding default fab btn styles
     box-shadow: none; // overriding default fab btn styles
+
+    &:hover {
+      background-color: inherit;
+    }
+
+    &--hidden {
+      visibility: hidden; // hidden to preserve layout (instead of display: none)
+    }
   }
 
   .shape {
     position: absolute;
-    width: 140%;
+    width: 150%;
     height: 100%;
     border-bottom-left-radius: 50%;
     border-bottom-right-radius: 50%;
@@ -100,11 +108,6 @@
     }
   }
 }
-
-
-
-
-
 
 // TODO: Need to fix below
 
@@ -236,68 +239,6 @@
       margin-left: auto;
       margin-right: auto;
       padding-top: 15px;
-    }
-  }
-}
-
-.header-white-fullscreen {
-  display: flex;
-  flex-direction: column;
-  // justify-content: center;
-  align-items: center;
-  background: linear-gradient(180deg, #fff 5%, rgba(255, 255, 255, 0) 100%);
-  // height: 600px;
-  position: absolute;
-  z-index: 1;
-  width: 100vw;
-
-  @media (max-width: $sm) {
-    // height: auto;
-    // height: 130px;
-    display: none;
-  }
-
-  .header-logo {
-    width: 90%;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    margin: 20px 0;
-
-    @media (max-width: $sm) {
-      display: none;
-    }
-
-    .logo {
-      width: 80px;
-    }
-
-    .header-menu {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-
-      p {
-        font-style: normal;
-        font-weight: 500;
-        font-size: 14px;
-        line-height: 20px;
-        /* identical to box height, or 143% */
-
-        text-align: center;
-
-        color: #999999;
-        padding: 0 15px;
-        font-size: 14px;
-
-        @media (min-width: $md) {
-          padding: 0 8px;
-        }
-
-        &.selected {
-          border-bottom: 2px solid #fff;
-        }
-      }
     }
   }
 }

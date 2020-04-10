@@ -1,5 +1,5 @@
 import React from 'react';
-import {makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -46,10 +46,10 @@ export default function ButtonAppBar() {
           <Typography variant="h6" className={classes.title}>
             All-Clear
           </Typography>
-          {/* <Button className={classes.menuButton} color="inherit" component={Link} to="/login">Login / Signup</Button> */}
-          <Button
-            className={classes.menuButton} variant="contained" color="primary"
-            endIcon={<LinkIcon/>}>Share</Button>
+          {/* <Button className={classes.menuButton} color="inherit" component={Link} to="/sign-in">Login / Signup</Button> */}
+          <Button className={classes.menuButton} variant="contained" color="primary" endIcon={<LinkIcon />}>
+            Share
+          </Button>
         </Toolbar>
       </AppBar>
     </div>
