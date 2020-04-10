@@ -96,6 +96,7 @@ export default function MapPage() {
             style={{ zIndex: '2' }}
           >
             <IconButton
+              disableRipple
               aria-label="open drawer"
               onClick={isOpen === false ? () => toggleDrawer(true) : () => toggleDrawer(false)}
               className={clsx(classes.menuButton, isOpen)}
@@ -113,7 +114,7 @@ export default function MapPage() {
               <div
                 id="side-drawer"
                 style={{ width: `${drawerWidth}px`, overflowY: 'scroll' }}
-                className="hide-scrollbar wid100-sm height-300-sm"
+                className="side-drawer hide-scrollbar wid100-sm height-300-sm"
               >
                 <Box>
                   {/*<SearchGoogleMapInput style={{ marginTop: '50px' }}></SearchGoogleMapInput>*/}
@@ -136,20 +137,21 @@ export default function MapPage() {
                     </p>
                   </div>
                 </Box>
-                <Divider className={'hide-mobile-sm ' + classes.divider} orientation="horizontal" />
-                {locations && locations.map((result, index) => (
-                  <TestingLocationListItem
-                    key={index}
-                    index={index}
-                    title={result.name}
-                    description={result.address}
-                    city_state={result.city + ', ' + result.state}
-                    service_time={result.hours}
-                    driveThru={result.driveThru}
-                    phone={result.phone}
-                    {...result}
-                  ></TestingLocationListItem>
-                ))}
+
+                {locations &&
+                  locations.map((result, index) => (
+                    <TestingLocationListItem
+                      key={index}
+                      index={index}
+                      title={result.name}
+                      description={result.address}
+                      city_state={result.city + ', ' + result.state}
+                      service_time={result.hours}
+                      driveThru={result.driveThru}
+                      phone={result.phone}
+                      {...result}
+                    ></TestingLocationListItem>
+                  ))}
               </div>
             </Drawer>
           </Hammer>
