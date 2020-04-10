@@ -10,7 +10,7 @@ class Trace extends React.Component {
         <div className="mobile-content" style={{ padding: '25px 25px 0px 25px' }}>
           <span
             className="MuiButtonBase-root MuiFab-root btn-back-fab MuiFab-sizeSmall"
-            tabindex="0"
+            tabIndex="0"
             aria-disabled="false"
             aria-label="add"
             elevation="0"
@@ -20,9 +20,9 @@ class Trace extends React.Component {
                 <path
                   d="M7.59375 13.1428L1.59375 7.14282L7.59375 1.14282"
                   stroke="white"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 ></path>
               </svg>
             </span>
