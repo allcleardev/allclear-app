@@ -39,7 +39,7 @@ if (module.hot && process.env.NODE_ENV !== 'production') {
 
 function bootstrapAxios() {
   // set baseURL from env file
-  axios.defaults.baseURL = 'https://api-dev.allclear.app';
+  axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
 
   // REQUEST interceptor
   axios.interceptors.request.use(
