@@ -43,89 +43,12 @@ export default class GoogleMap extends Component {
     this.setState({ result: result.data.records });
   }
 
-  // onMarkerClicked(index) {
-  //   debugger;
-  // }
-
   render() {
     const { result } = this.state;
     return (
       <div style={{ height: '100%', width: '100%' }}>
         <GoogleMapReact
-          options={{
-            styles: [
-              {
-                featureType: 'administrative',
-                elementType: 'geometry',
-                stylers: [
-                  {
-                    visibility: 'off',
-                  },
-                ],
-              },
-              {
-                featureType: 'administrative.land_parcel',
-                elementType: 'labels',
-                stylers: [
-                  {
-                    visibility: 'off',
-                  },
-                ],
-              },
-              {
-                featureType: 'administrative.neighborhood',
-                elementType: 'labels.text',
-                stylers: [
-                  {
-                    visibility: 'off',
-                  },
-                ],
-              },
-              {
-                featureType: 'poi',
-                stylers: [
-                  {
-                    visibility: 'off',
-                  },
-                ],
-              },
-              {
-                featureType: 'poi',
-                elementType: 'labels.text',
-                stylers: [
-                  {
-                    visibility: 'off',
-                  },
-                ],
-              },
-              {
-                featureType: 'road',
-                elementType: 'labels.icon',
-                stylers: [
-                  {
-                    visibility: 'off',
-                  },
-                ],
-              },
-              {
-                featureType: 'road.local',
-                elementType: 'labels',
-                stylers: [
-                  {
-                    visibility: 'off',
-                  },
-                ],
-              },
-              {
-                featureType: 'transit',
-                stylers: [
-                  {
-                    visibility: 'off',
-                  },
-                ],
-              },
-            ],
-          }}
+          options={G_MAP_OPTIONS}
           bootstrapURLKeys={{ key: 'AIzaSyAPB7ER1lGxDSZICjq9lmqgxvnlSJCIuYw' }}
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
@@ -141,4 +64,77 @@ export default class GoogleMap extends Component {
   }
 }
 
-// export default connect(null, { addLocation })(GoogleMap);
+const G_MAP_OPTIONS = {
+  styles: [
+    {
+      featureType: 'administrative',
+      elementType: 'geometry',
+      stylers: [
+        {
+          visibility: 'off',
+        },
+      ],
+    },
+    {
+      featureType: 'administrative.land_parcel',
+      elementType: 'labels',
+      stylers: [
+        {
+          visibility: 'off',
+        },
+      ],
+    },
+    {
+      featureType: 'administrative.neighborhood',
+      elementType: 'labels.text',
+      stylers: [
+        {
+          visibility: 'off',
+        },
+      ],
+    },
+    {
+      featureType: 'poi',
+      stylers: [
+        {
+          visibility: 'off',
+        },
+      ],
+    },
+    {
+      featureType: 'poi',
+      elementType: 'labels.text',
+      stylers: [
+        {
+          visibility: 'off',
+        },
+      ],
+    },
+    {
+      featureType: 'road',
+      elementType: 'labels.icon',
+      stylers: [
+        {
+          visibility: 'off',
+        },
+      ],
+    },
+    {
+      featureType: 'road.local',
+      elementType: 'labels',
+      stylers: [
+        {
+          visibility: 'off',
+        },
+      ],
+    },
+    {
+      featureType: 'transit',
+      stylers: [
+        {
+          visibility: 'off',
+        },
+      ],
+    },
+  ],
+};

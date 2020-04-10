@@ -64,7 +64,7 @@ export default function App() {
         <Route path="/settings" component={Settings} />
         <Route path="/trace" component={Trace} />
         {/* Map */}
-        <MapPageProvider value={{ locations: [] }}>
+        <MapPageProvider>
           <Route path="/map" component={MapPage} />
         </MapPageProvider>
         {/* Abandoned??? */}
