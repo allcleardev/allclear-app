@@ -10,11 +10,12 @@ export default class GoogleMap extends Component {
 
   constructor(props) {
     super(props);
-    // const {mapPageState, setMapPageState} = useContext(MapPageContext);
 
     bindAll(this, ['componentDidMount',
       'onMarkerDragEnd',
       'onMarkerZoomChanged',
+      '_setLocations',
+      '_onLocationDeclined',
       '_onLocationAccepted',
     ]);
     this.state = {
@@ -33,42 +34,55 @@ export default class GoogleMap extends Component {
   };
 
   async componentDidMount() {
-    const result = await GetNewPosition(this.props.center.lat, this.props.center.lng, 100);
-    const {setLocations} = this.context;
-    setLocations(result.data.records);
-
+    const {lat, lng} = this.props.center;
+    const result = await GetNewPosition(lat, lng, 100);
     if (navigator && navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(this._onLocationAccepted, this._onLocationDeclined);
     }
-    this.setState({result: result.data.records});
+    this._setLocations(result.data.records, {lat,lng});
+
   }
 
   async onMarkerDragEnd(evt) {
-    const result = await GetNewPosition(evt.center.lat(), evt.center.lng(), 100);
-    const {setLocations} = this.context;
-    setLocations(result.data.records);
-    this.setState({result: result.data.records});
+    const lat = evt.center.lat();
+    const lng = evt.center.lng();
+    const result = await GetNewPosition(lat, lng,100);
+    this._setLocations(result.data.records, {lat,lng});
   }
 
   async onMarkerZoomChanged(evt) {
-    const result = await GetNewPosition(evt.center.lat(), evt.center.lng(), 400);
-    const {setLocations} = this.context;
-    setLocations(result.data.records);
-    this.setState({result: result.data.records});
+    const lat = evt.center.lat();
+    const lng = evt.center.lng();
+    const result = await GetNewPosition(lat, lng, 400);
+    this._setLocations(result.data.records, {lat,lng});
   }
 
-  _onLocationAccepted(pos) {
+  _setLocations(locations, currentLocation ){
+    // update local state
+    this.setState({
+      result: locations,
+      ...(currentLocation && { currentLocation }),
+    });
+
+    // update context state (for other components in map page)
+    const {setMapPageState, mapPageState} = this.context;
+    setMapPageState({
+      ...mapPageState,
+      locations
+    });
+  }
+
+  async _onLocationAccepted(pos) {
     // console.warn('location ACCEPTED');
     const lat = pos.coords.latitude;
     const lng = pos.coords.longitude;
     //eslint-disable-next-line
     const currBrowserLocation = new google.maps.LatLng(lat, lng);
     this.gMap && this.gMap.current.map_.panTo(currBrowserLocation);
-    this.setState({
-      currentLocation: {
-        lat,
-        lng
-      }
+    const result = await GetNewPosition(lat, lng, 400);
+    this._setLocations(result.data.records, {
+      lat,
+      lng
     });
   }
 
@@ -79,7 +93,9 @@ export default class GoogleMap extends Component {
   }
 
   render() {
-    const {result} = this.state;
+    //eslint-disable-next-line
+    const {result, currentLocation} = this.state;
+    // console.log(currentLocation)
 
     return (
       <div style={{height: '100%', width: '100%'}}>
