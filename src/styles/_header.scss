@@ -18,10 +18,9 @@
     letter-spacing: 0.374px;
     font-weight: bold;
     font-size: 34px;
-    margin: 0 15px;
+    margin: 0 15px 16px;
 
     @media (min-width: $md) {
-      margin-bottom: 16px;
       font-size: 56px;
     }
   }

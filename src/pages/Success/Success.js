@@ -20,7 +20,7 @@ class Success extends React.Component {
                 <img alt="success" src={success} />
               </div>
             </div>
-            <div class="workSpaceAreaS">
+            <div className="workSpaceAreaS">
               <div className="sucess008S">
                 <h1>Success!</h1>
                 <p>
@@ -33,7 +33,7 @@ class Success extends React.Component {
               </div>
             </div>
 
-            <div style={{ marginBottom: 20, float: 'left', width: '100%' }}></div>
+            <div style={{ marginBottom: 20, cssFloat: 'left', width: '100%' }}></div>
           </div>
         </div>
       </Fragment>

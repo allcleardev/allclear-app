@@ -15,6 +15,7 @@
     display: flex;
     justify-content: space-between;
     flex-direction: row;
+    width: 90%;
     margin: 18px 0;
 
     @media (max-width: $sm) {

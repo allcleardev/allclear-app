@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { colorLog } from './util/helpers';
 
@@ -54,7 +54,7 @@ function bootstrapAxios() {
       return {
         ...config,
         headers: {
-          ...config.headers
+          ...config.headers,
         },
       };
     },
