@@ -7,7 +7,6 @@ import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import ClearHeader from '../components/headers/header-clear';
 import NavBottom from '../components/navBottom';
@@ -118,24 +117,18 @@ export default function MapPage() {
               >
                 <Box>
                   {/*<SearchGoogleMapInput style={{ marginTop: '50px' }}></SearchGoogleMapInput>*/}
-                  <div style={{ margin: '40px 0' }} className="search-map-filter">
-                    <h3 className="body-title" style={{ margin: '5px 0', fontSize: '16px' }}>
-                      Filters
-                    </h3>
-                    <p className="grey" style={{ fontSize: '16px' }}>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        className={classes.button}
-                        startIcon={SettingsSVG()}
-                        onClick={() => {
-                          modalService.toggleModal('criteria', true);
-                        }}
-                      >
-                        Edit Search Filters
-                      </Button>
-                    </p>
-                  </div>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    startIcon={SettingsSVG()}
+                    style={{ margin: '20px 0' }}
+                    onClick={() => {
+                      modalService.toggleModal('criteria', true);
+                    }}
+                  >
+                    Edit Search Filters
+                  </Button>
                 </Box>
 
                 {locations &&
