@@ -10,7 +10,7 @@ export default function HomescreenHeader(props) {
         <div className="header-menu">
           {/* <p className="selected">Home</p> */}
           <Link to="/map" style={{color:'white'}}> <p className="selected">Find Tests</p></Link>
-          <Link to="/" style={{color:'white'}}> <p>Tracing</p></Link>
+          <Link to="/trace" style={{color:'white'}}> <p>Tracing</p></Link>
           {/* <p>Friends</p> */}
           <Link to="/profile-view" style={{color:'white'}}> <p>Profile</p></Link>
         </div>
