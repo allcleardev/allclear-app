@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import Axios from 'axios';
 import { bindAll } from 'lodash';
+import Axios from 'axios';
+
+import states from './Symptoms.state';
 import RoundHeader from '../../components/headers/header-round';
 import ProgressBottom from '../../components/progressBottom';
-import states from './Symptoms.state';
+import OnboardingNavigation from '../../components/onboarding-navigation';
 
 import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
@@ -15,11 +16,24 @@ class Symptom extends Component {
 
   constructor() {
     super();
-    bindAll(this, ['componentDidMount', 'getSymptoms', 'handleChange', 'buildPayload', 'submitResults']);
+    bindAll(this, [
+      'componentDidMount',
+      'routeChange',
+      'getSymptoms',
+      'handleChange',
+      'deselectAll',
+      'checkForSelection',
+      'buildPayload',
+      'submitResults',
+    ]);
   }
 
   componentDidMount() {
     this.getSymptoms();
+  }
+
+  routeChange(route) {
+    this.props.history.push(route);
   }
 
   getSymptoms() {
@@ -38,14 +52,51 @@ class Symptom extends Component {
 
   handleChange(event) {
     let { symptoms } = this.state;
+    // If "none" is selected, deselect the other chips
+    if (event.id === 'no') {
+      this.deselectAll();
+    } else {
+      symptoms.map((symptom) => {
+        // Making sure "none" is deselected if any other chips are
+        if (symptom.id === 'no') {
+          symptom.isActive = false;
+        } else {
+          if (symptom.name === event.name) {
+            symptom.isActive = !symptom.isActive;
+          }
+        }
+        return true;
+      });
+    }
+
+    this.setState({ symptoms });
+    this.checkForSelection();
+    sessionStorage.setItem('symptoms', JSON.stringify(symptoms));
+  }
+
+  deselectAll() {
+    let { symptoms } = this.state;
     symptoms.map((symptom) => {
-      if (symptom.name === event.name) {
-        symptom.isActive = !symptom.isActive;
+      if (symptom.id !== 'no') {
+        symptom.isActive = false;
+      } else {
+        symptom.isActive = true;
       }
       return true;
     });
     this.setState({ symptoms });
-    sessionStorage.setItem('symptoms', JSON.stringify(symptoms));
+    sessionStorage.setItem('stymptoms', JSON.stringify(symptoms));
+  }
+
+  checkForSelection() {
+    let isSelected = false;
+    this.state.symptoms.map((symptom) => {
+      if (symptom.isActive) {
+        isSelected = true;
+      }
+      return true;
+    });
+    this.setState({ isSelected });
   }
 
   buildPayload() {
@@ -154,7 +205,7 @@ class Symptom extends Component {
           <Form noValidate autoComplete="off" className="onboarding-body">
             <Box maxWidth="md">
               <label className="label">
-                <strong>Select all that apply.</strong>
+                <strong>Select all that apply.</strong> (Required)
               </label>
               <div className="chips-group">
                 {this.state.symptoms &&
@@ -171,18 +222,30 @@ class Symptom extends Component {
                   })}
               </div>
             </Box>
-            <div className="button-container">
-              <Link to="/health-worker" className="hide-mobile">
-                <Button variant="contained" className="back">
+            <OnboardingNavigation
+              back={
+                <Button
+                  variant="contained"
+                  className="back hide-mobile"
+                  onClick={() => this.routeChange('/health-worker')}
+                >
                   Back
                 </Button>
-              </Link>
-
-              {/* Todo: Make `profile-view` access conditional on successful profile creation */}
-              <Button variant="contained" color="primary" className="next" onClick={this.submitResults}>
-                Continue to Home page
-              </Button>
-            </div>
+              }
+              forward={
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className="next"
+                  onClick={this.submitResults}
+                  disabled={!this.state.isSelected}
+                >
+                  Finish
+                </Button>
+              }
+              tooltipMessage={'Please make a selection'}
+              triggerTooltip={!this.state.isSelected}
+            ></OnboardingNavigation>
           </Form>
           <ProgressBottom progress="75%"></ProgressBottom>
         </div>

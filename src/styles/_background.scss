@@ -53,45 +53,4 @@
       width: 55%;
     }
   }
-
-  .autocomplete {
-    // Note: Temporary style solution until Material UI component is used
-    position: relative;
-    .autocomplete-dropdown-container {
-      position: absolute;
-      display: block;
-      width: 100%;
-      margin-top: -7px;
-      z-index: 5;
-      color: #000;
-
-      .suggestion-item {
-        cursor: pointer;
-        background: #fff;
-        padding: 6px 13px;
-        border-color: $primary-color;
-        border-width: 2px;
-        border-left-style: solid;
-        border-right-style: solid;
-        &:last-child {
-          border-bottom-style: solid;
-        }
-
-        @media (min-width: $md) {
-          border: 0;
-        }
-
-        &--active {
-          background: $primary-color;
-          color: #fff;
-        }
-
-        &:last-child {
-          border-bottom-left-radius: 8px;
-          border-bottom-right-radius: 8px;
-          padding-bottom: 13px;
-        }
-      }
-    }
-  }
 }

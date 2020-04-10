@@ -1,25 +1,30 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import Axios from 'axios';
+import React, { Component } from 'react';
 import { bindAll } from 'lodash';
+import Axios from 'axios';
+
+import states from './HealthWorkerStatus.state';
 import RoundHeader from '../../components/headers/header-round';
 import ProgressBottom from '../../components/progressBottom';
-import states from './HealthWorkerStatus.state';
+import OnboardingNavigation from '../../components/onboarding-navigation';
 
 import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
 import { Button, Chip } from '@material-ui/core';
 
-class HealthWorkerStatus extends React.Component {
+class HealthWorkerStatus extends Component {
   state = states;
 
   constructor() {
     super();
-    bindAll(this, ['componentDidMount', 'getHealthWorkerStatuses', 'handleChange', 'render']);
+    bindAll(this, ['componentDidMount', 'routeChange', 'getHealthWorkerStatuses', 'handleChange', 'render']);
   }
 
   componentDidMount() {
     this.getHealthWorkerStatuses();
+  }
+
+  routeChange(route) {
+    this.props.history.push(route);
   }
 
   getHealthWorkerStatuses() {
@@ -50,6 +55,7 @@ class HealthWorkerStatus extends React.Component {
       return true;
     });
     this.setState({ healthWorkerStatus });
+    this.setState({ isSelected: event.isActive });
     sessionStorage.setItem('healthWorkerStatus', JSON.stringify(selectedStatus));
   }
 
@@ -66,6 +72,9 @@ class HealthWorkerStatus extends React.Component {
           </RoundHeader>
           <Form noValidate autoComplete="off" className="onboarding-body">
             <Box maxWidth="md">
+              <label className="label">
+                <strong>Select one.</strong> (Required)
+              </label>
               <div className="chips-group">
                 {this.state.healthWorkerStatus &&
                   this.state.healthWorkerStatus.map((res) => {
@@ -81,18 +90,30 @@ class HealthWorkerStatus extends React.Component {
                   })}
               </div>
             </Box>
-            <div className="button-container">
-              <Link to="/background" className="hide-mobile">
-                <Button variant="contained" className="back">
+            <OnboardingNavigation
+              back={
+                <Button
+                  variant="contained"
+                  className="back hide-mobile"
+                  onClick={() => this.routeChange('/background')}
+                >
                   Back
                 </Button>
-              </Link>
-              <Link to="/symptoms">
-                <Button variant="contained" color="primary" className="next">
+              }
+              forward={
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className="next"
+                  disabled={!this.state.isSelected}
+                  onClick={() => this.routeChange('/symptoms')}
+                >
                   Next
                 </Button>
-              </Link>
-            </div>
+              }
+              tooltipMessage={'Please make a selection'}
+              triggerTooltip={!this.state.isSelected}
+            ></OnboardingNavigation>
           </Form>
           <ProgressBottom progress="50%"></ProgressBottom>
         </div>

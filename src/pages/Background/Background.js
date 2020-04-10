@@ -1,51 +1,25 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import Axios from 'axios';
+import React, { Component } from 'react';
+import { bindAll } from 'lodash';
 
 import RoundHeader from '../../components/headers/header-round';
 import ProgressBottom from '../../components/progressBottom';
+import GoogleMapsAutocomplete from '../../components/inputs/google-maps-autocomplete'; // TODO: v2
+import OnboardingNavigation from '../../components/onboarding-navigation';
 
 import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
 import { Button, TextField } from '@material-ui/core';
-import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
-class Background extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { exposure: 'live_with_someone', dob: '' };
+class Background extends Component {
+  constructor() {
+    super();
+    this.state = { dob: '', location: false };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleLocationChange = this.handleLocationChange.bind(this);
-    this.handleDoBChange = this.handleDoBChange.bind(this);
-    this.getExposures = this.getExposures.bind(this);
-    this.handleTextChange = this.handleTextChange.bind(this);
-    this.handleSelect = this.handleSelect.bind(this);
+    bindAll(this, ['routeChange', 'handleDoBChange', 'handleLocationChange']);
   }
 
-  componentDidMount() {
-    this.getExposures();
-  }
-
-  getExposures() {
-    this.setState({ loading: true });
-
-    Axios.get('https://api-dev.allclear.app/types/exposures', {})
-      .then((response) => {
-        this.setState({ exposures: response.data });
-        this.setState({ loading: false });
-      })
-      .catch((error) => {
-        console.log(error);
-        this.setState({ loading: false });
-      });
-  }
-
-  handleLocationChange(event) {
-    if (event && event.target && event.target.value) {
-      this.setState({ location: event.target.value });
-      sessionStorage.setItem('location', event.target.value);
-    }
+  routeChange(route) {
+    this.props.history.push(route);
   }
 
   handleDoBChange(event) {
@@ -57,61 +31,12 @@ class Background extends React.Component {
     }
   }
 
-  handleChange(event) {
-    let { exposures } = this.state;
-    exposures.map((exposure) => {
-      if (exposure.name === event.name) {
-        exposure.isActive = !exposure.isActive;
-      }
-      return true;
-    });
-    this.setState({ exposures });
-    sessionStorage.setItem('exposures', JSON.stringify(exposures));
-  }
-
-  handleTextChange(address) {
-    this.setState({ address });
-  }
-
-  async handleSelect(address) {
-    this.setState({ address });
-    try {
-      const results = await geocodeByAddress(address);
-      const latLng = await getLatLng(results[0]);
-      const sessionId = sessionStorage.getItem('sessid');
-      sessionStorage.setItem('lat', latLng.lat);
-      sessionStorage.setItem('lng', latLng.lng);
-      const response = await Axios.put(
-        'https://api-dev.allclear.app/peoples',
-        {
-          latitude: latLng.lat,
-          longitude: latLng.lng,
-        },
-        {
-          headers: {
-            'X-AllClear-SessionID': sessionId,
-          },
-        },
-      );
-      console.log(response);
-
-      // .then((response) => {
-      //   setCookie('sessid', response.data.id);
-      //   sessionStorage.setItem('sessid', response.data.id);
-      //   history.push('/map');
-      // })
-      // .catch((error) => {
-      //   console.log('error', error);
-      //   // TODO Display Error Message
-      // });
-    } catch (err) {
-      console.error('Error', err);
-    }
+  async handleLocationChange(value) {
+    this.setState({ location: value });
   }
 
   render() {
     return (
-      // TODO: Update input fields to use Material UI dropdown and date-picker
       <div className="background-responsive">
         <div className="background onboarding-page">
           <RoundHeader navigate={'/sign-up'}>
@@ -128,45 +53,7 @@ class Background extends React.Component {
                       We can give localized test center recommendations with your location.
                     </span>
                   </label>
-                  <div className="autocomplete">
-                    <PlacesAutocomplete
-                      value={this.state.address}
-                      onChange={this.handleTextChange}
-                      onSelect={this.handleSelect}
-                    >
-                      {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                        <div>
-                          {/* TODO: Do not allow submit w/o required field filled out */}
-                          <TextField
-                            required
-                            variant="outlined"
-                            {...getInputProps({
-                              placeholder: 'New York, NY or 11211',
-                              className: 'input',
-                              type: 'search',
-                            })}
-                          />
-                          <div className="autocomplete-dropdown-container">
-                            {loading && <div className="suggestion-item">Loading...</div>}
-                            {suggestions.map((suggestion) => {
-                              const className = suggestion.active
-                                ? 'suggestion-item suggestion-item--active'
-                                : 'suggestion-item';
-                              return (
-                                <div
-                                  {...getSuggestionItemProps(suggestion, {
-                                    className,
-                                  })}
-                                >
-                                  <span>{suggestion.description}</span>
-                                </div>
-                              );
-                            })}
-                          </div>
-                        </div>
-                      )}
-                    </PlacesAutocomplete>
-                  </div>
+                  <GoogleMapsAutocomplete locationSelected={this.handleLocationChange}></GoogleMapsAutocomplete>
                 </article>
                 <article className="article">
                   <label htmlFor="birthdate" className="label">
@@ -185,18 +72,26 @@ class Background extends React.Component {
                 </article>
               </section>
             </Box>
-            <div className="button-container">
-              <Link to="/sign-up" className="hide-mobile">
-                <Button variant="contained" className="back">
+            <OnboardingNavigation
+              back={
+                <Button variant="contained" className="back hide-mobile" onClick={() => this.routeChange('/sign-up')}>
                   Restart
                 </Button>
-              </Link>
-              <Link to="/health-worker">
-                <Button variant="contained" color="primary" className="next">
+              }
+              forward={
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className="next"
+                  onClick={() => this.routeChange('/health-worker')}
+                  disabled={!this.state.location}
+                >
                   Next
                 </Button>
-              </Link>
-            </div>
+              }
+              tooltipMessage={'Please provide your location'}
+              triggerTooltip={!this.state.location}
+            ></OnboardingNavigation>
           </Form>
           <ProgressBottom progress="25%"></ProgressBottom>
         </div>
