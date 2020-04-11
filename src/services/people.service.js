@@ -5,7 +5,6 @@ export default class PeopleService {
 
   constructor() {
     this.baseURL = '/peoples';
-    this.sessionId = localStorage.getItem('sessid');
   }
 
   static getInstance() {
@@ -17,10 +16,6 @@ export default class PeopleService {
   }
 
   getById(id) {
-    return Axios.get(`${this.baseURL}/${id}`, {
-      headers: {
-        'X-AllClear-SessionID': this.sessionId,
-      },
-    });
+    return Axios.get(`${this.baseURL}/${id}`);
   }
 }

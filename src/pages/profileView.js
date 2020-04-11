@@ -21,14 +21,14 @@ export default class ProfileView extends Component {
   }
 
   async componentDidMount() {
-    const apiResponse = await this.peopleService.getById('9DORTS'); // Hardcoding for now
+    const session = localStorage.getItem('session');
 
-    console.log('RESULT:::', apiResponse);
-    this._setProfile(apiResponse);
+    this._setProfile(JSON.parse(session));
   }
 
-  _setProfile(profile) {
-    this.setState({ profile: profile.data });
+  _setProfile(session) {
+    console.log('SESSION:', session);
+    this.setState({ profile: session.person });
   }
 
   render() {
@@ -69,7 +69,11 @@ export default class ProfileView extends Component {
               <dl className="card__content">
                 <dt className="card__term">Exposure to COVID-19</dt>
                 {profile.exposures.map((res) => {
-                  return <dd className="card__description">{res.name}</dd>;
+                  return (
+                    <dd className="card__description" key={res.id}>
+                      {res.name}
+                    </dd>
+                  );
                 })}
               </dl>
             ) : (
@@ -90,7 +94,7 @@ export default class ProfileView extends Component {
                 <dt className="card__term">Conditions</dt>
                 <dd className="card__description">
                   {profile.conditions.map((res) => {
-                    return <Chip label={res.name} className="chip"></Chip>;
+                    return <Chip label={res.name} className="chip" key={res.id}></Chip>;
                   })}
                 </dd>
               </dl>
@@ -103,7 +107,7 @@ export default class ProfileView extends Component {
                 <dt className="card__term">Symptoms</dt>
                 <dd className="card__description">
                   {profile.symptoms.map((res) => {
-                    return <Chip label={res.name} className="chip"></Chip>;
+                    return <Chip label={res.name} className="chip" key={res.id}></Chip>;
                   })}
                 </dd>
               </dl>
