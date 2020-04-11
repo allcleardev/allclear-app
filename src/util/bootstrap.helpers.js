@@ -1,4 +1,6 @@
 import * as axios from 'axios';
+import {get} from 'lodash';
+import {history} from '../App';
 
 export function bootstrapAxios() {
   const AUTH_ROUTES = [
@@ -50,6 +52,14 @@ export function bootstrapAxios() {
       return response;
     },
     (error) => {
+
+      if (get(error,'response.status') === 403){
+        history.push('/sign-in');
+        // todo: figure out how to properly route outside a component
+        window.location.reload();
+        // window.history.pushState("/sign-in", "Sign In", "/sign-in");
+      }
+
       console.warn('response error:', error.response);
       return Promise.reject(error);
     },
