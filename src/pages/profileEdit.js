@@ -37,7 +37,6 @@ export default class ProfileEdit extends Component {
 
   setProfile(session) {
     if (session.person) {
-      console.log('PROFILE:::', session.person);
       this.setState({ profile: session.person, loading: false });
     }
   }
