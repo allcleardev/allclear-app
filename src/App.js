@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, BrowserRouter, Switch } from 'react-router-dom';
+import { Route, BrowserRouter, Switch, Redirect } from 'react-router-dom';
 
 import './styles/app.scss';
 
@@ -30,6 +30,7 @@ import Symptoms from './pages/Symptoms/Symptoms';
 import Trace from './pages/Trace/Trace';
 import UpdateTestingCenterCriteria from './pages/updateTestingCenterCriteria';
 import VerifyMagicLink from './pages/verify-magic-link';
+import NotFound from './pages/not-found';
 
 export default function App() {
   return (
@@ -61,7 +62,9 @@ export default function App() {
           <MapPageProvider>
             <Route path="/map" component={MapPage} />
           </MapPageProvider>
-
+          {/* 404 - Not Found */}
+          <Route path="/404" component={NotFound} />
+          <Redirect to="/404" />
           {/* Abandoned Temporarily*/}
           {/* <ConfirmedRoute path="/conditions" component={Conditions} /> */}
           {/* <ConfirmedRoute path="/results" component={Result} /> */}
