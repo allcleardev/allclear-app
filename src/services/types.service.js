@@ -30,4 +30,14 @@ export default class TypesService {
         return error;
       });
   }
+
+  async getSymptoms() {
+    return Axios.get(`${this.baseURL}/symptoms`, this.headers)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        return error;
+      });
+  }
 }
