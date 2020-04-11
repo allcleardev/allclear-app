@@ -16,7 +16,7 @@ export default class ProfileView extends Component {
     bindAll(this, ['componentDidMount']);
     this.peopleService = PeopleService.getInstance();
     this.state = {
-      profile: [],
+      profile: {},
     };
   }
 

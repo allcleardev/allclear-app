@@ -84,41 +84,6 @@ button {
     }
   }
 
-  /* .onboarding-body button*/
-  .button-container button {
-    padding: 12px 16px;
-    line-height: 22px;
-    letter-spacing: -0.41px;
-    font-weight: 600;
-    font-size: 17px;
-    border-radius: 10px;
-    box-shadow: none;
-    width: 100%;
-
-    @media (min-width: $md) {
-      width: auto;
-      min-width: 228px;
-
-      &.back {
-        color: #fff;
-        border: 1px solid #fff;
-        background-color: transparent;
-      }
-
-      &.next {
-        color: $primary-color;
-        background-color: #fff;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
-      }
-
-      &.Mui-disabled {
-        color: rgba(0, 0, 0, 0.26);
-        box-shadow: none;
-        background-color: rgba(0, 0, 0, 0.12);
-      }
-    }
-  }
-
   /* .onboarding-body label*/
   .label {
     font-size: 16px;
@@ -157,6 +122,41 @@ button {
       @media (min-width: $md) {
         border: 0;
       }
+    }
+  }
+}
+
+// TODO: Move Button to its own component
+.button-container button {
+  padding: 12px 16px;
+  line-height: 22px;
+  letter-spacing: -0.41px;
+  font-weight: 600;
+  font-size: 17px;
+  border-radius: 10px;
+  box-shadow: none;
+  width: 100%;
+
+  @media (min-width: $md) {
+    width: auto;
+    min-width: 228px;
+
+    &.back {
+      color: #fff;
+      border: 1px solid #fff;
+      background-color: transparent;
+    }
+
+    &.next {
+      color: $primary-color;
+      background-color: #fff;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    &.Mui-disabled {
+      color: rgba(0, 0, 0, 0.26);
+      box-shadow: none;
+      background-color: rgba(0, 0, 0, 0.12);
     }
   }
 }

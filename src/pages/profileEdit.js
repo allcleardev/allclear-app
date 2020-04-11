@@ -1,51 +1,54 @@
-import React from 'react';
-import UnderDevelopment from './UnderDevelopment';
+import React, { Component } from 'react';
+import { bindAll } from 'lodash';
+
 import HomescreenHeader from '../components/headers/header-homescreen';
-import UserProfileCard from '../components/user-profile-card';
 import NavBottom from '../components/navBottom';
-// import UpdateCriteriaModal from './updateTestingCriteriaModal';
+import PeopleService from '../services/people.service.js';
+// import UnderDevelopment from './UnderDevelopment';
 
-import Box from '@material-ui/core/Container';
-import { Grid } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import { Button } from '@material-ui/core';
 
-import userAvatar from '../assets/images/avatar.svg';
+export default class ProfileEdit extends Component {
+  constructor(props) {
+    super(props);
+    bindAll(this, ['routeChange']);
+    this.peopleService = PeopleService.getInstance();
+    this.state = {
+      profile: [],
+    };
+  }
 
-const useStyles = makeStyles((theme) => ({
-  button: {
-    width: '100%',
-    margin: '15px 0',
-    borderRadius: '10px',
-    height: 48,
-  },
-}));
+  routeChange(route) {
+    this.props.history.push(route);
+  }
 
-export default function ProfileEdit() {
-  const classes = useStyles();
+  render() {
+    return (
+      <section className="profile-edit">
+        <HomescreenHeader navigate={'/profile-view'}>
+          <h1 className="heading">Edit Profile</h1>
+        </HomescreenHeader>
 
-  return (
-    <Box className="profile-edit">
-      <UnderDevelopment />
-      <HomescreenHeader>
-        <p>Allclear</p>
-      </HomescreenHeader>
+        <Container className="cards-container">
+          <article className="card">
+            <dl className="card__content">
+              <dt className="card__term"></dt>
+              <dd className="card__description"></dd>
+            </dl>
+          </article>
 
-      <UserProfileCard
-        avatar={userAvatar}
-        userName="sdf"
-        location="NYC"
-        health="Sympathic"
-        status="untested"
-      ></UserProfileCard>
-      <Grid container spacing={3} className={classes.root} style={{ justifyContent: 'center', marginBottom: '56px' }}>
-        <Grid item xs={12} sm={11}>
-          <div className="profile-body flex-direction-col">
-            <h2 className="body-title">Test Location Preferences</h2>
-            {/*<UpdateCriteriaModal></UpdateCriteriaModal>*/}
+          <div className="button-container">
+            <Button variant="contained" color="primary" fullWidth>
+              Update Profile
+            </Button>
+            <Button variant="contained" fullWidth onClick={() => this.routeChange('/profile-view')}>
+              Cancel
+            </Button>
           </div>
-        </Grid>
-      </Grid>
-      <NavBottom active={0}></NavBottom>
-    </Box>
-  );
+        </Container>
+        <NavBottom active={3}></NavBottom>
+      </section>
+    );
+  }
 }

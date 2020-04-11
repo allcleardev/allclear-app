@@ -29,6 +29,29 @@
     }
   }
 
+  .mobile-content {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+
+    @media (min-width: $md) {
+      display: none;
+    }
+
+    .btn-back-fab {
+      background-color: transparent; // overriding default fab btn styles
+      box-shadow: none; // overriding default fab btn styles
+
+      &:hover {
+        background-color: inherit;
+      }
+
+      &--hidden {
+        visibility: hidden; // hidden to preserve layout (instead of display: none)
+      }
+    }
+  }
+
   .desktop-container {
     display: none;
 
