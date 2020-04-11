@@ -13,6 +13,9 @@ pool:
 
 #  Build steps for the pipeline
 steps:
+- script: which google-chrome && locate google-chrome
+  displayName: 'Checkign for google chrome'
+
 - script: npm install
   displayName: 'Installing node modules'
 
