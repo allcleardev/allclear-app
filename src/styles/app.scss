@@ -8,22 +8,33 @@
 /* "'Component" styles below */
 @import 'header';
 @import 'header-clear';
-@import 'complete-profile';
-@import 'create-account';
-@import 'background';
-@import 'conditions';
-@import 'health-worker';
-@import 'symptoms';
-@import 'result';
+@import 'header-homescreen';
+
+@import 'login-verification';
+@import 'login';
+
 @import 'phone-number';
 @import 'phone-verify';
 @import 'phone-verifying';
 @import 'phone-verification';
-@import 'test';
-@import 'test-map';
-@import 'testing-location-list-item';
+
+@import 'background';
+@import 'health-worker';
+@import 'symptoms';
+
 @import 'profile-view';
 @import 'profile-edit';
-@import 'login-verification';
-@import 'login';
+@import 'user-profile-card';
+
+@import 'test-map';
+@import 'testing-location-list-item';
+
 @import 'bottom-navigation';
+
+/* Abandoned Temporarily*/
+// @import 'result';
+// @import 'conditions';
+/* Abandoned */
+// @import 'complete-profile';
+// @import 'test';
+// @import 'create-account';

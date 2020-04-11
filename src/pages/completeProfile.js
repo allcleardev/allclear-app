@@ -1,7 +1,13 @@
+// ********************************************************************* //
+//                                                                       //
+//           THIS SCREEN IS ABANDONED          //
+//                                                                      //
+// ******************************************************************** //
+
 import React from 'react';
 
 import HomescreenHeader from '../components/headers/header-homescreen';
-import UserProfileCard from '../components/cardProfile';
+import UserProfileCard from '../components/user-profile-card';
 // import AlertToggleCard from '../components/cardAlertToggle';
 import ArrowCard from '../components/cardArrow';
 import FriendCard from '../components/cardFriend';
@@ -24,19 +30,18 @@ import { friendData } from '../constants';
 //   },
 // }));
 
-export default class CompleteProfile extends React.Component  {
+export default class CompleteProfile extends React.Component {
   // const classes = useStyles();
-  
-  componentDidMount =() => {
-  }
 
-  render(){
+  componentDidMount = () => {};
+
+  render() {
     return (
       <Box className="complete-profile">
         <HomescreenHeader>
           <p>Allclear</p>
         </HomescreenHeader>
-  
+
         <UserProfileCard
           avatar={userAvatar}
           userName="sdf"
@@ -44,7 +49,7 @@ export default class CompleteProfile extends React.Component  {
           health="Sympathic"
           status="untested"
         ></UserProfileCard>
-        <Grid container spacing={3}  style={{ justifyContent: 'center', marginBottom: '56px' }}>
+        <Grid container spacing={3} style={{ justifyContent: 'center', marginBottom: '56px' }}>
           <Grid item xs={12} sm={11}>
             <div className="profile-body" style={{ display: 'flex', justifyContent: 'center' }}>
               {/* <h2 className="body-title">Complete Profile</h2>
@@ -57,34 +62,29 @@ export default class CompleteProfile extends React.Component  {
                 title="East Williamsburg"
                 description="Williamsburg Drive-Thru Testing"
                 symptoms="Fever or Cough"
-                isRelaxed = 'true'
+                isRelaxed="true"
               ></ArrowCard>
-               <ArrowCard
+              <ArrowCard
                 title="Greenoint Clinic"
                 description="Dolor Set Test"
                 symptoms="Fever, Sore Throat"
-                isRelaxed = 'true'
-              ></ArrowCard> <ArrowCard
-              title="Chelsea Drive-Thru Clinic"
-              description="1 Mile"
-              isRelaxed = 'false'
-              ></ArrowCard> <ArrowCard
-              title="Williamsburg Drive-Thru"
-              description="1.4 Mile"
-              isRelaxed = 'false'
-              ></ArrowCard>
+                isRelaxed="true"
+              ></ArrowCard>{' '}
+              <ArrowCard title="Chelsea Drive-Thru Clinic" description="1 Mile" isRelaxed="false"></ArrowCard>{' '}
+              <ArrowCard title="Williamsburg Drive-Thru" description="1.4 Mile" isRelaxed="false"></ArrowCard>
               <Grid container justify="center">
                 <Grid item xs={12} sm={6}>
-                  <Button variant="outlined" color="primary" 
+                  <Button
+                    variant="outlined"
+                    color="primary"
                     onClick={() => this.props.history.push('find-test-map')}
-                    style={{width:'100%',margin:'15px 0', borderRadius:'10px',height:48}}
-                  // className={classes.button}
+                    style={{ width: '100%', margin: '15px 0', borderRadius: '10px', height: 48 }}
+                    // className={classes.button}
                   >
                     View More
                   </Button>
                 </Grid>
               </Grid>
-  
               <h2 className="body-title">Friends</h2>
               {friendData.map((friend, index) => (
                 <FriendCard
@@ -99,7 +99,7 @@ export default class CompleteProfile extends React.Component  {
                   <Button
                     variant="contained"
                     color="primary"
-                    style={{width:'100%',margin:'15px 0', borderRadius:'10px',height:48}}
+                    style={{ width: '100%', margin: '15px 0', borderRadius: '10px', height: 48 }}
                     // className={classes.button}
                     startIcon={
                       <svg width="25" height="21" viewBox="0 0 25 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -129,5 +129,4 @@ export default class CompleteProfile extends React.Component  {
       </Box>
     );
   }
-  
 }

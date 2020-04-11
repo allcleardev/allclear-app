@@ -1,3 +1,9 @@
+// ********************************************************************* //
+//                                                                       //
+//           THIS SCREEN IS ABANDONED          //
+//                                                                      //
+// ******************************************************************** //
+
 import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';

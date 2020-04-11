@@ -1,15 +1,11 @@
 .profile-view {
   display: flex;
-  justify-content: center;
-  padding-bottom: 80px;
+  flex-direction: column;
+  width: 100%;
+  padding-bottom: 80px; // making space for bottom navigation bar
 
-  @media (max-width: $sm) {
-  }
-
-  .header-homescreen {
-    @media (max-width: $sm) {
-      padding-bottom: 210px;
-    }
+  @media (min-width: $md) {
+    padding-bottom: 30px;
   }
 
   .avatar-edit {
@@ -18,85 +14,70 @@
     justify-content: center;
 
     .avatar {
-      // border: 2px solid rgba(228, 228, 228, 0.6);
       box-sizing: border-box;
       box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.35);
       border-radius: 300px;
       width: 100px;
       height: 100px;
     }
+  }
 
-    .btn-avatar-edit {
-      width: 35px;
-      height: 35px;
-      box-shadow: none;
-      position: absolute;
-      margin-left: 42px;
+  .cards-container {
+    margin-top: -10px;
+
+    @media (min-width: $md) {
+      margin-top: 0;
+      max-width: 80%;
+    }
+
+    @media (min-width: $lg) {
+      max-width: 50%;
     }
   }
 
-  .card-phone {
-    background: #ffffff;
-    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+  .card {
+    margin-bottom: 12px;
+    padding: 15px 14px;
     border-radius: 6px;
-    margin-top: -25px;
+    border: 0;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
 
-    @media (max-width: $sm) {
-      margin-top: -182px;
+    dl,
+    dd {
+      margin: 0;
     }
 
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 15px;
-
-    .phone-number {
-      display: flex;
-      flex-direction: column;
-    }
-  }
-
-  p {
-    margin: 0;
-  }
-
-  .card-blank {
-    margin-top: 12px;
-
-    @media (max-width: 576px) {
-      margin-top: -90px;
-    }
-
-    .card-detail {
+    &__content {
+      font-size: 15px;
       line-height: 20px;
-      margin-bottom: 23px;
-
-      .title {
-        margin: 0;
-        padding: 0;
-        font-weight: 600;
-        font-size: 15px;
-      }
-      .description {
-        margin: 0;
-        padding: 0;
-        font-weight: 400;
-        font-size: 15px;
-      }
-
-      .btn-description {
-        height: 35px;
-        border-radius: 33px;
-        padding: 0 17px;
-        margin: 5px 0;
-        margin-right: 2px;
-
-        @media (max-width: 320px) {
-          padding: 0 13px;
-          font-size: 12px;
-        }
+      &:not(:last-child) {
+        margin-bottom: 23px;
       }
     }
+
+    &__term {
+      font-weight: 600;
+    }
+  }
+
+  .edit {
+    position: absolute;
+    right: 0;
+
+    button {
+      margin: -7px 5px 0;
+    }
+  }
+
+  .chip {
+    height: auto;
+    margin: 5px;
+    padding: 7px 17px;
+    line-height: 22px;
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 33px;
+    color: #fff;
+    background-color: $navy;
   }
 }

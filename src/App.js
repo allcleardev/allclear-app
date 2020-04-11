@@ -12,15 +12,19 @@ import './styles/app.scss';
 // import CreateAccount from './pages/create-account';
 // import FindTest from './pages/ResultDetail/FindTest';
 // import ForgotPassword from './pages/forgot-password';
+// import Health from './pages/health';
+// import ResultDetail from './pages/ResultDetail/ResultDetail';
 // **End of Abandoned Routes
+
+// Abandoned Temporarily
+// import Conditions from './pages/Conditions/Conditions';
+// import Result from './pages/Result/Result';
 
 import AppProvider from './contexts/App.context';
 import AddTest from './pages/Test/Add-test';
 import AuthVerifyCode from './pages/authVerification';
 import Background from './pages/Background/Background';
-import Conditions from './pages/Conditions/Conditions';
 import ConfirmedRoute from './routes/confirm-routes';
-import Health from './pages/health';
 import HealthWorkerStatus from './pages/HealthWorkerStatus/HealthWorkerStatus';
 import Launch from './pages/launch';
 import Login from './pages/login';
@@ -32,8 +36,6 @@ import PhoneVerifying from './pages/phoneVerifying';
 import ProfileEdit from './pages/profileEdit';
 import ProfileView from './pages/profileView';
 import ProtectedRoute from './routes/private-routes';
-import Result from './pages/Result/Result';
-import ResultDetail from './pages/ResultDetail/ResultDetail';
 import Settings from './pages/Settings/Settings';
 import ShareApp from './pages/Share/Share';
 import SignUpVerification from './pages/signUpVerification';
@@ -57,17 +59,13 @@ export default function App() {
           <ConfirmedRoute path="/background" component={Background} />
           <ConfirmedRoute path="/health-worker" component={HealthWorkerStatus} />
           <ConfirmedRoute path="/symptoms" component={Symptoms} />
-          <ConfirmedRoute path="/conditions" component={Conditions} />
-          <ConfirmedRoute path="/results" component={Result} />
           {/* Login Pages */}
           <Route path="/sign-in" component={Login} />
           <Route path="/sign-in-verification" component={AuthVerifyCode} />
           {/* Profile Pages / Settings */}
           <ProtectedRoute path="/profile-view" component={ProfileView} />
           <ProtectedRoute path="/profile-edit" component={ProfileEdit} />
-          <ProtectedRoute path="/result-detail" component={ResultDetail} />
           <ProtectedRoute path="/add-test" component={AddTest} />
-          <ProtectedRoute path="/health" component={Health} />
           <ProtectedRoute path="/update-criteria" component={UpdateTestingCenterCriteria} />
           <ProtectedRoute path="/share" component={ShareApp} />
           <ProtectedRoute path="/settings" component={Settings} />
@@ -87,7 +85,13 @@ export default function App() {
           {/*<Route path="/location" component={Location} />*/}
           {/*<Route path="/test" component={Test} />*/}
           {/*<Route path="/find-test" component={FindTest} />*/}
+          {/* <ProtectedRoute path="/health" component={Health} /> */}
+          {/* <ProtectedRoute path="/result-detail" component={ResultDetail} /> */}
           {/* End of Abandoned Routes */}
+
+          {/* Abandoned Temporarily*/}
+          {/* <ConfirmedRoute path="/conditions" component={Conditions} /> */}
+          {/* <ConfirmedRoute path="/results" component={Result} /> */}
         </Switch>
       </BrowserRouter>
     </AppProvider>

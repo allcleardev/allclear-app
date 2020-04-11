@@ -167,7 +167,8 @@ class Symptom extends Component {
       conditions: conditionsArray,
       exposures: exposuresArray,
       symptoms: symptomsArray,
-      healthWorkerStatusId: JSON.parse(healthWorkerStatus).id    };
+      healthWorkerStatusId: JSON.parse(healthWorkerStatus).id,
+    };
     return payload;
   }
 
@@ -181,10 +182,10 @@ class Symptom extends Component {
       headers: {
         'X-AllClear-SessionID': sessionId,
       },
-    }).then((response) => {
-        // this.setCookie('sessid', response.data.id); // TODO: blocks progress. check fn
+    })
+      .then((response) => {
         localStorage.setItem('sessid', response.data.id);
-        localStorage.setItem('session', response.data);
+        localStorage.setItem('session', JSON.stringify(response.data));
         this.props.history.push('/map');
       })
       .catch((error) => {

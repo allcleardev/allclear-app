@@ -1,35 +1,11 @@
 import React from 'react';
 import NavBottom from '../../components/navBottom';
-import UnderDevelopment from '../UnderDevelopment';
 class Trace extends React.Component {
   componentDidMount() {}
 
   render() {
     return (
       <div className="phone-verifying">
-          <UnderDevelopment />
-        <div className="mobile-content" style={{ padding: '25px 25px 0px 25px' }}>
-          <span
-            className="MuiButtonBase-root MuiFab-root btn-back-fab MuiFab-sizeSmall"
-            tabIndex="0"
-            aria-disabled="false"
-            aria-label="add"
-            elevation="0"
-          >
-            <span className="MuiFab-label">
-              <svg width="9" height="15" viewBox="0 0 9 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M7.59375 13.1428L1.59375 7.14282L7.59375 1.14282"
-                  stroke="white"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                ></path>
-              </svg>
-            </span>
-          </span>
-        </div>
-
         <div className="flex-container flex-just-center flex-direction-col" style={{ height: '75vh', width: '100vw' }}>
           <div className="fontsize-34 fontweight-600 color-white aligncenter">Trace with us,</div>
           <p className="fontsize-34 fontweight-600 color-white aligncenter">Beat the virus.</p>

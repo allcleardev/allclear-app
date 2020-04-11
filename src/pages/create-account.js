@@ -1,3 +1,9 @@
+// ********************************************************************* //
+//                                                                       //
+//           THIS SCREEN IS ABANDONED          //
+//                                                                      //
+// ******************************************************************** //
+
 import React from 'react';
 import RoundHeader from '../components/headers/header-round';
 import ProgressBottom from '../components/progressBottom';

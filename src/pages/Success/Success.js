@@ -1,3 +1,9 @@
+// ********************************************************************* //
+//                                                                       //
+//           THIS SCREEN IS ABANDONED          //
+//                                                                      //
+// ******************************************************************** //
+
 import React, { Fragment } from 'react';
 import success from '../../assets/images/sucessImg.png';
 

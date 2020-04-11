@@ -50,7 +50,7 @@ export default function UserProfileCard({ children }) {
   useStyles();
 
   return (
-    <div className="card-blank">
+    <div className="user-profile-card">
       <Grid container style={{ justifyContent: 'center' }}>
         <Grid item xs={12} sm={11}>
           {children}
