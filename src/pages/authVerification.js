@@ -41,6 +41,7 @@ export default function PhoneVerify({ props, location }) {
     })
       .then((response) => {
         localStorage.setItem('sessid', response.data.id);
+        localStorage.setItem('session', JSON.stringify(response.data));
 
         if (response.data.person) {
           sessionStorage.setItem('lat', response.data.person.latitude);
