@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Container from '@material-ui/core/Container';
 
 import HomescreenHeader from '../components/headers/header-homescreen';
 import NavBottom from '../components/navBottom';
 import userAvatar from '../assets/images/defaultProfile.svg';
 
-import Box from '@material-ui/core/Container';
-import { Button, Grid, IconButton } from '@material-ui/core';
+import { Button, IconButton, Chip } from '@material-ui/core';
 
 const EditIconButton = () => {
   return (
@@ -25,7 +25,7 @@ const EditIconButton = () => {
 
 export default function ProfileView() {
   return (
-    <Box className="profile-view">
+    <section className="profile-view">
       <HomescreenHeader>
         <div className="avatar-edit">
           <div className="avatar">
@@ -35,88 +35,61 @@ export default function ProfileView() {
               style={{ borderRadius: '50%', backgroundColor: 'white', border: '1px solid white' }}
             />
           </div>
-          {/* <EditIconButton></EditIconButton> */}
         </div>
       </HomescreenHeader>
-      <Grid container className="flex-container flex-just-center">
-        <Grid item xs={12} sm={6}>
-          <div className="card-phone">
-            <div className="phone-number" style={{}}>
-              <p className="fontsize-15">Phone</p>
-              <p className="fontsize-15">(408) 555 - 5555</p>
-            </div>
-            <IconButton>
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M13.7437 0.712402L18.7437 5.7124L5.74365 18.7124H0.743652V13.7124L13.7437 0.712402Z"
-                  stroke="#242424"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </IconButton>
-          </div>
-        </Grid>
-      </Grid>
-      <Grid container className="flex-container flex-just-center">
-        <Grid item xs={12} sm={6}>
-          <div className="user-profile-card">
-            <div className="flex-container flex-direction-row flex-just-between flex-align-start">
-              <div className="flex-container flex-direction-col">
-                <div className="card-detail">
-                  <p className="title">Location</p>
-                  <p className="description">11211</p>
-                </div>
-                <div className="card-detail">
-                  <p className="title">Exposure to COVID-19</p>
-                  <p className="description">Known Contact With Someone</p>
-                </div>
-                <div className="card-detail">
-                  <p className="title">Health Worker Status</p>
-                  <p className="description">
-                    I live with a health worker or <br /> first responder
-                  </p>
-                </div>
-                <div className="card-detail">
-                  <p className="title">Conditions</p>
-                  <div className="flex-containter flex-wrap-on">
-                    <Button className="btn-description color-white bg-navy">Weakened Immune System</Button>
-                    <Button className="btn-description color-white bg-navy">Kidney Failure or Cirrhosis</Button>
-                  </div>
-                </div>
-                <div className="card-detail">
-                  <p className="title">Symptoms</p>
-                  <div className="flex-containter flex-wrap-on">
-                    <Button className="btn-description color-white bg-navy">Fever</Button>
-                    <Button className="btn-description color-white bg-navy">Dry Cough</Button>
-                    <Button className="btn-description color-white bg-navy">Runny Nose/Nasal Congestion</Button>
-                  </div>
-                </div>
-              </div>
-              <Link to="/profile-edit">
-                <EditIconButton></EditIconButton>
-              </Link>
-            </div>
-          </div>
-        </Grid>
-      </Grid>
-      <Grid
-        container
-        style={{
-          display: 'flex',
-          justifyContent: 'space-around',
 
-          padding: '15px 0px 0px 5px',
-        }}
-        className="btn-group"
-      >
-        <Grid item xs={12} sm={6}>
-          <Button style={{ color: '#2A7DF4', border: '1px solid #2A7DF4' }} className="btn-big  fontsize-16">
-            Logout
-          </Button>
-        </Grid>
-      </Grid>
+      <Container className="cards-container">
+        <article className="card">
+          <dl className="card__content">
+            <dt className="card__term">Phone</dt>
+            <dd className="card__description">(408) 555 - 5555</dd>
+          </dl>
+        </article>
+
+        <article className="card">
+          <Link to="/profile-edit" className="edit">
+            <EditIconButton></EditIconButton>
+          </Link>
+
+          <dl className="card__content">
+            <dt className="card__term">Location</dt>
+            <dd className="card__description">11211</dd>
+          </dl>
+
+          <dl className="card__content">
+            <dt className="card__term">Exposure to COVID-19</dt>
+            <dd className="card__description">Known Contact With Someone</dd>
+          </dl>
+
+          <dl className="card__content">
+            <dt className="card__term">Health Worker Status</dt>
+            <dd className="card__description">I live with a health worker or first responder</dd>
+          </dl>
+
+          <dl className="card__content">
+            <dt className="card__term">Conditions</dt>
+            <dd className="card__description">
+              <Chip label="Weakened Immune System" className="chip"></Chip>
+              <Chip label="Kidney Failure or Cirrhosis" className="chip"></Chip>
+            </dd>
+          </dl>
+
+          <dl className="card__content">
+            <dt className="card__term">Symptoms</dt>
+            <dd className="card__description">
+              <Chip label="Fever" className="chip"></Chip>
+              <Chip label="Dry Cough" className="chip"></Chip>
+              <Chip label="Runny Nose/Nasal Congestion" className="chip"></Chip>
+            </dd>
+          </dl>
+        </article>
+
+        <Button style={{ color: '#2A7DF4', border: '1px solid #2A7DF4' }} className="btn-big  fontsize-16">
+          Logout
+        </Button>
+      </Container>
+
       <NavBottom active={3}></NavBottom>
-    </Box>
+    </section>
   );
 }
