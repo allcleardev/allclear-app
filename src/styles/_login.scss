@@ -1,71 +1,40 @@
 .login {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  @media (min-width: $md) {
-    width: $md !important;
+  form {
+    flex: 1;
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+
+    @media (min-width: $md) {
+      align-items: flex-start;
+    }
   }
 
-  @media (min-width: $lg) {
-    width: $lg !important;
-    display: flex;
-    justify-content: space-between;
+  a.login {
+    font-weight: 600;
+    font-size: 15px;
   }
 
-  .body-phone-verify {
+  .content-container {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
-    text-align: center;
 
-    @media (min-height: $sm) {
-      height: calc(100vh - 280px) !important;
+    a {
+      display: block;
+      margin: 15px 0;
+      font-size: 13px;
+    }
+  }
 
-      @media (min-width: $md) {
-        height: calc(100vh - 336px) !important;
+  .button-container {
+    > a.hide-desktop {
+      margin-top: 15px;
+    }
+
+    @media (min-width: $md) {
+      > button {
+        margin: 0 0 0 auto;
       }
-    }
-  }
-
-  .check-label {
-    color: #999999;
-    display: flex;
-    justify-content: center;
-    width: 87%;
-    margin: auto;
-
-    .MuiTypography-body1 {
-      text-align: left;
-
-      @media (max-width: $sm) {
-        font-size: 13px;
-      }
-    }
-  }
-
-  @media (max-width: $md) {
-    .mobile-grey {
-      background-color: $grey2 !important;
-      color: $black-color;
-    }
-
-    .button {
-      margin: 12px 0 !important;
-      height: 48px !important;
-    }
-  }
-
-  .btn-group {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-
-    @media (max-width: $sm) {
-      flex-direction: column;
     }
   }
 }

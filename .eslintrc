@@ -1,0 +1,90 @@
+{
+  "extends": "react-app",
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "jasmine": true,
+    "node": true,
+    "es6": true
+  },
+  "rules": {
+    "array-callback-return": "off",
+    "brace-style": [
+      2,
+      "1tbs",
+      {
+        "allowSingleLine": false
+      }
+    ],
+    "arrow-spacing": 2,
+    "no-class-assign": 2,
+    "no-const-assign": 2,
+    "no-dupe-class-members": 2,
+    "no-this-before-super": 2,
+    "object-shorthand": 2,
+    "prefer-arrow-callback": 2,
+    "new-parens": "warn",
+    "no-bitwise": "warn",
+    "no-caller": "warn",
+    "no-cond-assign": "warn",
+    "yoda": [
+      1,
+      "never"
+    ],
+    "arrow-parens": [
+      "warn",
+      "always"
+    ],
+    "max-len": [
+      "warn",
+      {
+        "code": 140
+      }
+    ],
+    "indent": "off",
+    "lines-around-comment": [
+      2,
+      {
+        "allowBlockStart": true,
+        "beforeBlockComment": true
+      }
+    ],
+    "one-var": [
+      1,
+      "never"
+    ],
+    "quotes": ["warn", "single", { "allowTemplateLiterals": true }],
+    "quote-props": [
+      1,
+      "as-needed"
+    ],
+    "semi": [
+      1,
+      "always"
+    ],
+    "keyword-spacing": 0,
+    "space-unary-ops": [
+      1,
+      {
+        "words": true,
+        "nonwords": false
+      }
+    ],
+    "vars-on-top": 1,
+    "wrap-iife": [
+      1,
+      "outside"
+    ],
+    "no-dupe-args": 1,
+    "no-dupe-keys": 1,
+    "no-invalid-regexp": 1,
+    "no-invalid-this": 1,
+    "no-mixed-spaces-and-tabs": [
+      1,
+      "smart-tabs"
+    ],
+    "no-undef": 1,
+    "no-unreachable": 1,
+    "no-unused-vars": 1
+  }
+}

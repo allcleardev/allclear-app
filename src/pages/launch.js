@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import LinearProgress from '@material-ui/core/LinearProgress';
-
 import Logo from '../assets/images/logo-green-back.svg';
-
 
 const LogoStyle = {
   justifyContent: 'center',
@@ -24,10 +22,18 @@ const ContainerStyle = {
 
 const Launch = ({ props }) => {
   const history = useHistory();
+  const confirm_sessid = localStorage.getItem('confirm_sessid');
+  const sessid = localStorage.getItem('sessid');
 
   useEffect(() => {
     setTimeout(() => {
-      history.push('/phone-verify');
+      if (sessid)  {
+        history.push('/map');
+      } else if (confirm_sessid) {
+        history.push('/background');
+      } else {
+        history.push('/sign-up');
+      }
     }, 3000);
   });
 
@@ -39,6 +45,7 @@ const Launch = ({ props }) => {
         </div>
 
         <LinearProgress color="primary" value={50} variant="indeterminate" />
+        {process.env.REACT_APP_VERSION} - Built at: {process.env.REACT_APP_BUILT_AT}
       </div>
     </div>
   );

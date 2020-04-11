@@ -1,49 +1,32 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import Axios from 'axios';
+import React, { Component } from 'react';
+import { bindAll } from 'lodash';
 
-import Header from '../../components/header-round';
+import RoundHeader from '../../components/headers/header-round';
 import ProgressBottom from '../../components/progressBottom';
+import GoogleMapsAutocomplete from '../../components/inputs/google-maps-autocomplete';
+import OnboardingNavigation from '../../components/onboarding-navigation';
 
 import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
-import { Button, Chip, TextField } from '@material-ui/core';
-import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+import { Button, TextField } from '@material-ui/core';
 
-class Background extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { exposure: 'live_with_someone', dob: '' };
+class Background extends Component {
+  constructor() {
+    super();
+    this.state = { dob: '', location: false, useCurrentLocation: false };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleLocationChange = this.handleLocationChange.bind(this);
-    this.handleDoBChange = this.handleDoBChange.bind(this);
-    this.getExposures = this.getExposures.bind(this);
+    bindAll(this, [
+      'routeChange',
+      'handleDoBChange',
+      'handleLocationChange',
+      'handleSwitchChange',
+      '_onLocationAccepted',
+      '_onLocationDeclined',
+    ]);
   }
 
-  componentDidMount() {
-    this.getExposures();
-  }
-
-  getExposures() {
-    this.setState({ loading: true });
-
-    Axios.get('https://api-dev.allclear.app/types/exposures', {})
-      .then((response) => {
-        this.setState({ exposures: response.data });
-        this.setState({ loading: false });
-      })
-      .catch((error) => {
-        console.log(error);
-        this.setState({ loading: false });
-      });
-  }
-
-  handleLocationChange(event) {
-    if (event && event.target && event.target.value) {
-      this.setState({ location: event.target.value });
-      sessionStorage.setItem('location', event.target.value);
-    }
+  routeChange(route) {
+    this.props.history.push(route);
   }
 
   handleDoBChange(event) {
@@ -55,41 +38,51 @@ class Background extends React.Component {
     }
   }
 
-  handleChange(event) {
-    let { exposures } = this.state;
-    exposures.filter((exposure) => {
-      if (exposure.name === event.name) {
-        exposure.isActive = !exposure.isActive;
-      }
-    });
-    this.setState({ exposures });
-    sessionStorage.setItem('exposures', JSON.stringify(exposures));
+  async handleLocationChange(value) {
+    this.setState({ location: value });
   }
 
-  handleTextChange = (address) => {
-    this.setState({ address });
-  };
+  async handleSwitchChange() {
+    let switchValue = this.state.useCurrentLocation;
 
-  handleSelect = (address) => {
-    this.setState({ address });
+    switchValue = !switchValue;
 
-    geocodeByAddress(address)
-      .then((results) => getLatLng(results[0]))
-      .then((latLng) => {
-        sessionStorage.setItem('lat', latLng.lat);
-        sessionStorage.setItem('lng', latLng.lng);
-      })
-      .catch((error) => console.error('Error', error));
-  };
+    this.setState({
+      useCurrentLocation: switchValue
+    });
+
+    if (switchValue) {
+      if (navigator && navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(this._onLocationAccepted, this._onLocationDeclined);
+      }
+    }
+  }
+
+  async _onLocationAccepted(pos) {
+    const lat = pos.coords.latitude;
+    const lng = pos.coords.longitude;
+
+    sessionStorage.setItem('lat', lat);
+    sessionStorage.setItem('lng', lng);
+    this.setState({ location: true });
+  }
+
+  _onLocationDeclined() {
+    console.warn('User declined to use browser location');
+
+    this.setState({
+      useCurrentLocation: false,
+    });
+  }
 
   render() {
     return (
       <div className="background-responsive">
         <div className="background onboarding-page">
-          <Header>
+          <RoundHeader navigate={'/sign-up'}>
             <h1 className="heading">Background</h1>
             <h2 className="sub-heading">Provide information to help us recommend the test sites for you.</h2>
-          </Header>
+          </RoundHeader>
           <Form noValidate autoComplete="off" className="onboarding-body">
             <Box maxWidth="md">
               <section className="section">
@@ -100,48 +93,27 @@ class Background extends React.Component {
                       We can give localized test center recommendations with your location.
                     </span>
                   </label>
-                  <PlacesAutocomplete
-                    value={this.state.address}
-                    onChange={this.handleTextChange}
-                    onSelect={this.handleSelect}
-                  >
-                    {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                      <div>
-                        <TextField
-                          type="text"
-                          variant="outlined"
-                          {...getInputProps({
-                            placeholder: 'Search Places ...',
-                            className: 'input location-search-input',
-                          })}
-                        />
-                        <div className="autocomplete-dropdown-container">
-                          {loading && <div>Loading...</div>}
-                          {suggestions.map((suggestion) => {
-                            const className = suggestion.active ? 'suggestion-item--active' : 'suggestion-item';
-                            // inline style for demonstration purpose
-                            const style = suggestion.active
-                              ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                              : { backgroundColor: '#ffffff', cursor: 'pointer' };
-                            return (
-                              <div
-                                {...getSuggestionItemProps(suggestion, {
-                                  className,
-                                  style,
-                                })}
-                              >
-                                <span>{suggestion.description}</span>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    )}
-                  </PlacesAutocomplete>
+                  <GoogleMapsAutocomplete
+                    useCurrentLocation={this.state.useCurrentLocation}
+                    locationSelected={this.handleLocationChange}
+                  ></GoogleMapsAutocomplete>
+
+                  <div className="switchContainer" onClick={this.handleSwitchChange}>
+                    <div className="switch">
+                      <input
+                        type="checkbox"
+                        onChange={this.handleSwitchChange}
+                        checked={this.state.useCurrentLocation}
+                      />
+                      <span className="slider round"></span>
+                    </div>
+
+                    <p className="currentLocation">Use Current Location</p>
+                  </div>
                 </article>
                 <article className="article">
                   <label htmlFor="birthdate" className="label">
-                    <strong>Date of Birth</strong> (Required) <br />
+                    <strong>Date of Birth</strong> <br />
                     <span className="description">Some test centers have minimum age requirements.</span>
                   </label>
                   {/* TODO: swap w/ Material UI Date Picker https://material-ui.com/components/pickers/ */}
@@ -155,45 +127,29 @@ class Background extends React.Component {
                   />
                 </article>
               </section>
-              <section>
-                <label className="label">
-                  <strong>Exposure to COVID-19</strong> <br />
-                  <span className="description">
-                    Some test centers require knowledge of your exposure to people who have tested positive for
-                    COVID-19.
-                  </span>
-                </label>
-                <div className="chips-group">
-                  {/* TODO: Convert group to "Chip array" https://material-ui.com/components/chips/#chip-array */}
-                  {this.state.exposures &&
-                    this.state.exposures.map((res) => {
-                      return (
-                        <Chip
-                          key={res.id}
-                          className={'chip' + (res.isActive ? ' Active' : '')}
-                          label={res.name}
-                          variant="outlined"
-                          onClick={() => this.handleChange(res)}
-                        ></Chip>
-                      );
-                    })}
-                </div>
-              </section>
             </Box>
-            <div className="button-container">
-              <Link to="/phone-verify" className="hide-mobile">
-                <Button variant="contained" className="back">
-                  Back
+            <OnboardingNavigation
+              back={
+                <Button variant="contained" className="back hide-mobile" onClick={() => this.routeChange('/sign-up')}>
+                  Restart
                 </Button>
-              </Link>
-              <Link to="/conditions">
-                <Button variant="contained" color="primary" className="next">
+              }
+              forward={
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className="next"
+                  onClick={() => this.routeChange('/health-worker')}
+                  disabled={!this.state.location}
+                >
                   Next
                 </Button>
-              </Link>
-            </div>
+              }
+              tooltipMessage={'Please provide your location'}
+              triggerTooltip={!this.state.location}
+            ></OnboardingNavigation>
           </Form>
-          <ProgressBottom progress="14%"></ProgressBottom>
+          <ProgressBottom progress="25%"></ProgressBottom>
         </div>
       </div>
     );

@@ -6,20 +6,15 @@ import { Button, Grid } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import Axios from 'axios';
-
-import Header from '../components/header-round';
-import ProgressBottom from '../components/progressBottom';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import { useCookies } from 'react-cookie';
+import RoundHeader from '../components/headers/header-round';
 
 export default function PhoneVerify({ props, location }) {
   const [state] = React.useState({
     checkedB: true,
     loading: false,
   });
-
-  //eslint-disable-next-line
-  const [cookies, setCookie] = useCookies(['cookie-name']);
+  const [isError, setValue] = React.useState(false);
 
   const history = useHistory();
 
@@ -41,59 +36,66 @@ export default function PhoneVerify({ props, location }) {
 
     phone = sanitizePhone(phone);
 
-    await Axios.put('https://api-dev.allclear.app/peoples/auth', {
+    await Axios.put('/peoples/auth', {
       phone,
       token: code,
     })
       .then((response) => {
-        console.log('response', response);
-        setCookie('sessid', response.data.id);
-        sessionStorage.setItem('sessid', response.data.id);
-        history.push('/profile-view');
+        localStorage.setItem('sessid', response.data.id);
+        localStorage.setItem('session', JSON.stringify(response.data));
+
+        if (response.data.person) {
+          sessionStorage.setItem('lat', response.data.person.latitude);
+          sessionStorage.setItem('lng', response.data.person.longitude);
+        }
+
+        history.push('/map');
       })
       .catch((error) => {
+        setValue(true);
         console.log('error', error);
         // TODO Display Error Message
       });
   };
 
-  const [value, setValue] = React.useState('');
-
   const handleCodeChange = (event) => {
-    setValue({ code: event.target.value });
+    setValue(false);
     sessionStorage.setItem('code', event.target.value);
   };
 
   return (
     <div className="background-responsive">
-      <div className="phone-verification onboarding-page">
-        <Header>
+      <div className="verification onboarding-page">
+        <RoundHeader navigate={'/sign-in'}>
           <h1 className="heading">Sign In</h1>
           <h2 className="sub-heading">Enter your phone number to be sent a verification code.</h2>
-        </Header>
+        </RoundHeader>
 
         {state.loading === false ? (
           <Form noValidate autoComplete="off" className="onboarding-body">
             <div className="content-container">
               <p>We texted a verification code to your phone. Please enter the code to sign in.</p>
-              {/* <p>We texted your phone XXX XXX XX42. Please enter the code to sign in.</p> TODO: Speicify Phone Number */}
 
               <FormControl className="control">
                 <TextField
-                  className="input"
+                  id="token"
+                  name="token"
+                  className="input code-input"
+                  placeholder="Enter Code"
+                  variant="outlined"
                   defaultValue=""
+                  autoComplete="one-time-code"
+                  inputProps={{ maxLength: 6, autoComplete: 'one-time-code', inputMode: 'numeric', pattern: '[0-9]*' }}
                   InputLabelProps={{ shrink: false }}
                   onChange={handleCodeChange}
-                  // label={value === "" ? "Verification Code" : ""} // commenting out for now
-                  placeholder="Verification Code"
-                  variant="outlined"
                   style={{}}
                 />
+                {isError ? <p className="codeError">You're entered an incorrect code. Please Try again</p>: ''}
               </FormControl>
             </div>
 
             <div className="button-container">
-              <Link to="/login">
+              <Link to="/sign-up">
                 <Button variant="contained" className="back">
                   Restart
                 </Button>
@@ -106,11 +108,10 @@ export default function PhoneVerify({ props, location }) {
         ) : (
           <Grid container justify="center">
             <Grid item xs={12} sm={6}>
-              <LinearProgress color="primary" value="50" variant="indeterminate" />
+              <LinearProgress color="primary" value={50} variant="indeterminate" />
             </Grid>
           </Grid>
         )}
-        {state.loading === false ? <ProgressBottom progress="100px"></ProgressBottom> : null}
       </div>
     </div>
   );

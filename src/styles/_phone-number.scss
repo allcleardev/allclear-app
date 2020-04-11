@@ -1,0 +1,31 @@
+.phone-input {
+  input {
+    letter-spacing: 1.3px;
+    text-align: center;
+    font-size: 25px;
+  }
+
+  .MuiPhoneNumber-flagButton {
+    display: none;
+  }
+
+  // Fixing spacing issues
+  .MuiInputAdornment-positionStart {
+    margin: 0;
+  }
+
+  // Trick to override input autofill styles
+  input:-webkit-autofill {
+    box-shadow: 0 0 0 50px #fff inset;
+    -webkit-box-shadow: 0 0 0 50px #fff inset;
+    -webkit-text-fill-color: #999;
+  }
+  input:-webkit-autofill:focus {
+    box-shadow: 0 0 0 50px #fff inset;
+    -webkit-box-shadow: 0 0 0 50px #fff inset;
+    -webkit-text-fill-color: #999;
+  }
+  input:-webkit-autofill::first-line {
+    font-size: 25px;
+  }
+}
