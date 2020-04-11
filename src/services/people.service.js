@@ -5,6 +5,7 @@ export default class PeopleService {
 
   constructor() {
     this.baseURL = '/peoples';
+    this.logoutURL = '/sessions';
     this.sessionId = localStorage.getItem('sessid');
     this.headers = {
       headers: {
@@ -23,6 +24,10 @@ export default class PeopleService {
 
   getById(id) {
     return Axios.get(`${this.baseURL}/${id}`, this.headers);
+  }
+
+  logout() {
+    return Axios.delete(this.logoutURL, this.headers);
   }
 
   editProfile(postData) {
