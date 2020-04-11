@@ -27,7 +27,6 @@ export default class ProfileView extends Component {
   }
 
   _setProfile(session) {
-    console.log('SESSION:', session);
     this.setState({ profile: session.person });
   }
 
