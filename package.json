@@ -34,7 +34,6 @@
     "react-scripts": "3.4.1"
   },
   "devDependencies": {
-    "@types/leaflet.locatecontrol": "^0.60.7",
     "customize-cra": "^0.9.1",
     "envfile": "^5.0.0",
     "eslint": "^6.8.0",
