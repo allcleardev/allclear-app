@@ -145,6 +145,12 @@ export default function MapPage() {
                     {...result}
                   ></TestingLocationListItem>
                 ))}
+
+                {locations.length === 0 &&
+
+                  <h2 style={{display: 'flex', justifyContent: 'center'}}>No Results Found </h2>
+                }
+
               </div>
             </Drawer>
           </Hammer>
