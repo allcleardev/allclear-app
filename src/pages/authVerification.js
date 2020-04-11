@@ -14,6 +14,7 @@ export default function PhoneVerify({ props, location }) {
     checkedB: true,
     loading: false,
   });
+  const [isError, setValue] = React.useState(false);
 
   const history = useHistory();
 
@@ -51,12 +52,14 @@ export default function PhoneVerify({ props, location }) {
         history.push('/map');
       })
       .catch((error) => {
+        setValue(true)
         console.log('error', error);
         // TODO Display Error Message
       });
   };
 
   const handleCodeChange = (event) => {
+    setValue(false)
     sessionStorage.setItem('code', event.target.value);
   };
 
@@ -87,6 +90,7 @@ export default function PhoneVerify({ props, location }) {
                   onChange={handleCodeChange}
                   style={{}}
                 />
+                {isError ? <p className="codeError">You're entered an incorrect code. Try again</p>: ''}
               </FormControl>
             </div>
 
