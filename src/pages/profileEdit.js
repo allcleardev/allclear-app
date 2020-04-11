@@ -9,7 +9,7 @@ import PeopleService from '../services/people.service.js';
 import TypesService from '../services/types.service.js';
 
 import Container from '@material-ui/core/Container';
-import { Button, FormControl, Select, MenuItem } from '@material-ui/core';
+import { Button, FormControl, Select, MenuItem, Input, Chip } from '@material-ui/core';
 
 export default class ProfileEdit extends Component {
   constructor(props) {
@@ -18,10 +18,12 @@ export default class ProfileEdit extends Component {
       'routeChange',
       'componentDidMount',
       'fetchHealthWorkerStatuses',
+      'fetchSymptoms',
       'setProfile',
       'onUpdateProfileClicked',
       'handleLocationSelection',
       'handleHealthWorkerSelection',
+      'handleSymptomsSelection',
     ]);
     this.peopleService = PeopleService.getInstance();
     this.typesService = TypesService.getInstance();
@@ -29,9 +31,10 @@ export default class ProfileEdit extends Component {
       profile: {},
       newProfile: {},
       healthWorkerStatusList: [],
-      sympmtomsList: [],
+      symptomsList: [],
       loading: true,
       error: false,
+      userSelectedChips: [],
     };
   }
 
@@ -45,8 +48,10 @@ export default class ProfileEdit extends Component {
     }
     this.setState({ loading: true });
     const session = JSON.parse(localStorage.getItem('session'));
+
     this.setProfile(session);
     this.fetchHealthWorkerStatuses();
+    this.fetchSymptoms();
   }
 
   async fetchHealthWorkerStatuses() {
@@ -54,9 +59,20 @@ export default class ProfileEdit extends Component {
     this.setState({ healthWorkerStatusList: response });
   }
 
+  async fetchSymptoms() {
+    const response = await this.typesService.getSymptoms();
+    this.setState({ symptomsList: response });
+  }
+
   setProfile(session) {
     if (session.person) {
-      this.setState({ profile: session.person, loading: false });
+      const profile = session.person;
+
+      // set up selected symptoms for multi-select chips state
+      profile.symptoms.map((obj) => ({ ...obj, isActive: true }));
+      console.log('PROFILE:', session.person);
+
+      this.setState({ profile, userSelectedChips: profile.symptoms, loading: false });
     }
   }
 
@@ -68,8 +84,28 @@ export default class ProfileEdit extends Component {
 
   handleHealthWorkerSelection(event) {
     if (event.target.value) {
-      this.setState({ newProfile: { ...this.state.newProfile, healthWorkerStatusId: event.target.value } });
+      this.setState({
+        newProfile: { ...this.state.newProfile, healthWorkerStatusId: event.target.value },
+      });
     }
+  }
+
+  handleSymptomsSelection(event) {
+    console.log('SELECTION:', event.target.value);
+    const options = event.target.value;
+    const value = [];
+
+    options.map((option) => {
+      if (option.selected) {
+        value.push(option.value);
+      }
+    });
+
+    console.log('VALUE::', value);
+
+    // this.setState({
+    //   newProfile: { ...this.state.newProfile, symptoms: event.target.value },
+    // });
   }
 
   onUpdateProfileClicked() {
@@ -90,7 +126,7 @@ export default class ProfileEdit extends Component {
             <div className="card__content">
               <label className="card__term">Location</label>
               {this.state.loading ? (
-                'Loading...'
+                ''
               ) : (
                 <GoogleMapsAutocomplete
                   initialValue={profile.locationName}
@@ -103,7 +139,7 @@ export default class ProfileEdit extends Component {
               <label className="card__term">Health Worker Status</label>
               <FormControl variant="outlined">
                 {this.state.loading ? (
-                  'Loading...'
+                  ''
                 ) : (
                   <Select
                     className="input"
@@ -115,6 +151,36 @@ export default class ProfileEdit extends Component {
                           return <MenuItem value={option.id}>{option.name}</MenuItem>;
                         })
                       : ''}
+                  </Select>
+                )}
+              </FormControl>
+            </div>
+
+            <div className="card__content">
+              <label className="card__term">Symptoms</label>
+              <FormControl>
+                {this.state.loading ? (
+                  ''
+                ) : (
+                  <Select
+                    multiple
+                    value={this.state.userSelectedChips}
+                    onChange={this.handleSymptomsSelection}
+                    input={<Input />}
+                    renderValue={(selected) => (
+                      <div className="chips-container">
+                        {selected.map((option) => {
+                          console.log('OPTION:', option);
+                          return <Chip key={option.id} label={option.name} className="chip" />;
+                        })}
+                      </div>
+                    )}
+                  >
+                    {this.state.symptomsList.map((option) => (
+                      <MenuItem key={option.id} value={option}>
+                        {option.name}
+                      </MenuItem>
+                    ))}
                   </Select>
                 )}
               </FormControl>
