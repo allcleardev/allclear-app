@@ -5,7 +5,7 @@ import MapPageContext from '../../contexts/MapPage.context';
 
 export default function MapMarker(props) {
   const { index } = props;
-  const { setMapPageState } = useContext(MapPageContext);
+  const {mapPageState, setMapPageState} = useContext(MapPageContext);
   return (
     <div
       onClick={(e, i) => {
@@ -15,7 +15,10 @@ export default function MapMarker(props) {
           behavior: 'smooth',
         });
         elemToOpen.children[0].click();
-        setMapPageState({ selectedPin: index });
+        setMapPageState({
+          ...mapPageState,
+          selectedPin: index
+        });
       }}
       style={mapMarkerStyle}
     >
