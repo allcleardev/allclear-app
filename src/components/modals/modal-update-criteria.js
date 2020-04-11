@@ -17,7 +17,7 @@ import {CRITERIA_FORM_DATA} from './modal-update-criteria.constants';
 import ModalService from '../../services/modal.service';
 import FacilityService from '../../services/facility.service';
 import {AppContext} from '../../contexts/App.context';
-// import MapPageContext from '../../contexts/MapPage.context';
+import MapPageContext from '../../contexts/MapPage.context';
 
 export default function UpdateCriteriaModal() {
 
@@ -86,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
 function UpdateCriteria({onClose, onSubmit}) {
   useStyles();
   const {appState, setAppState} = useContext(AppContext);
-  // const {setMapPageState, mapPageState} = useContext(MapPageContext);
+  const {setMapPageState, mapPageState} = useContext(MapPageContext);
   let pendingStateUpdates = {};
 
   //eslint-disable-next-line
@@ -115,7 +115,7 @@ function UpdateCriteria({onClose, onSubmit}) {
 
     const latitude = Number(sessionStorage.getItem('lat'));
     const longitude = Number(sessionStorage.getItem('lng'));
-    await facilityService.search({
+    const result = await facilityService.search({
         ...searchCriteria,
         from: {
           latitude,
@@ -125,10 +125,11 @@ function UpdateCriteria({onClose, onSubmit}) {
       }
     );
 
-    // setMapPageState({
-    //   ...mapPageState,
-    //   locations: result.data.records || []
-    // });
+    setMapPageState({
+      ...mapPageState,
+      locations: result.data.records || []
+
+    });
 
     // update the context
     setAppState(finalUpdateObj);

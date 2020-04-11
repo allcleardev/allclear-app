@@ -18,9 +18,6 @@ export default class GoogleMap extends Component {
       '_onLocationDeclined',
       '_onLocationAccepted',
     ]);
-    this.state = {
-      result: [],
-    };
     this.gMap = React.createRef();
     this.facilityService = FacilityService.getInstance();
 
@@ -84,12 +81,7 @@ export default class GoogleMap extends Component {
     this._setLocations(result.data.records, {lat, lng});
   }
 
-  _setLocations(locations, currentLocation) {
-    // update local state
-    this.setState({
-      result: locations,
-      ...(currentLocation && {currentLocation}),
-    });
+  _setLocations(locations) {
 
     // update context state (for other components in map page)
     const {setMapPageState, mapPageState} = this.context;
@@ -129,10 +121,7 @@ export default class GoogleMap extends Component {
   }
 
   render() {
-    //eslint-disable-next-line
-    const {result, currentLocation} = this.state;
-    // console.log(currentLocation)
-
+    const {locations} = this.context.mapPageState;
     return (
       <div style={{height: '100%', width: '100%'}}>
         <GoogleMapReact
@@ -144,7 +133,7 @@ export default class GoogleMap extends Component {
           onDragEnd={(evt) => this.onMarkerDragEnd(evt)}
           onZoomChanged={(evt) => this.onMarkerDragEnd(evt)}
         >
-          {result.map((data, index) => (
+          {locations.map((data, index) => (
             <MapMarker
               key={index}
               index={index}
