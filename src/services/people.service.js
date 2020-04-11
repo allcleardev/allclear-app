@@ -25,7 +25,7 @@ export default class PeopleService {
     return Axios.get(`${this.baseURL}/${id}`, this.headers);
   }
 
-  editProfile(postData) {
+  async editProfile(postData) {
     return Axios.put(`${this.baseURL}`, postData, this.headers)
       .then((response) => {
         return response;
