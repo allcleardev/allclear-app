@@ -17,7 +17,7 @@ export default function MapMarker(props) {
         elemToOpen.children[0].click();
         setMapPageState({
           ...mapPageState,
-          selectedPin: index
+          // selectedPin: index
         });
       }}
       style={mapMarkerStyle}

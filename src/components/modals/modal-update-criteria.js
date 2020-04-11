@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { forEach } from 'lodash';
 import FabBlueBottom from '../fabBlueBottom';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -8,14 +9,15 @@ import { Button, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+// import FormControlLabel from '@material-ui/core/FormControlLabel';
+// import Checkbox from '@material-ui/core/Checkbox';
 import Select from '@material-ui/core/Select';
-import Checkbox from '@material-ui/core/Checkbox';
 import SettingsSVG from '../svgs/svg-settings';
 import { CRITERIA_FORM_DATA } from './modal-update-criteria.constants';
 import { AppContext } from '../../contexts/App.context';
 import ModalService from '../../services/modal.service';
 import FacilityService from '../../services/facility.service';
+// import MapPageContext from '../../contexts/MapPage.context';
 
 export default function UpdateCriteriaModal() {
   // "DEPENDENCY INJECTION Section"
@@ -83,23 +85,46 @@ const useStyles = makeStyles((theme) => ({
 function UpdateCriteria({ onClose, onSubmit }) {
   useStyles();
   const { appState, setAppState } = useContext(AppContext);
+  // const {setMapPageState, mapPageState} = useContext(MapPageContext);
   let pendingStateUpdates = {};
 
   //eslint-disable-next-line
   const facilityService = FacilityService.getInstance();
 
   async function commitPendingModalState() {
+    // sanitize form values for BE filter
+    let searchCriteria = {
+      ...appState.searchCriteria,
+      ...pendingStateUpdates,
+    };
+
+    forEach(searchCriteria, (value, key) => {
+      if (value === 'Any') {
+        delete searchCriteria[key];
+      }
+    });
+
     // compose the updated state before committing it to the app
     let finalUpdateObj = {
       ...appState,
-      searchCriteria: {
-        ...appState.searchCriteria,
-        ...pendingStateUpdates,
-      },
+      ...searchCriteria,
     };
 
-    // const z = await facilityService.search();
-    // debugger;
+    const latitude = Number(sessionStorage.getItem('lat'));
+    const longitude = Number(sessionStorage.getItem('lng'));
+    await facilityService.search({
+      ...searchCriteria,
+      from: {
+        latitude,
+        longitude,
+        miles: 100,
+      },
+    });
+
+    // setMapPageState({
+    //   ...mapPageState,
+    //   locations: result.data.records || []
+    // });
 
     // update the context
     setAppState(finalUpdateObj);
@@ -161,31 +186,29 @@ function UpdateCriteria({ onClose, onSubmit }) {
       </CardBlank>
 
       {/*Update Profile Checkbox*/}
-      <Grid
-        container
-        style={{
-          display: 'flex',
-          justifyContent: 'space-around',
+      {/*<Grid*/}
+      {/*  container*/}
+      {/*  style={{*/}
+      {/*    display: 'flex',*/}
+      {/*    justifyContent: 'space-around',*/}
 
-          padding: '20px 0px 0px 24px',
-        }}
-        className="btn-group"
-      >
-        <Grid item xs={12} sm={12}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                // checked={state.checkedB}
-                // onChange={handleChange}
-                name="checkedB"
-              />
-            }
-            style={{ fontSize: 12, color: 'primary' }}
-            label="Update Profile Upon Search"
-            className="check-label"
-          />
-        </Grid>
-      </Grid>
+      {/*    padding: '20px 0px 0px 24px',*/}
+      {/*  }}*/}
+      {/*  className="btn-group"*/}
+      {/*>*/}
+      {/*    <FormControlLabel*/}
+      {/*      control={*/}
+      {/*        <Checkbox*/}
+      {/*          // checked={state.checkedB}*/}
+      {/*          // onChange={handleChange}*/}
+      {/*          name="checkedB"*/}
+      {/*        />*/}
+      {/*      }*/}
+      {/*      style={{fontSize: 12, color: 'primary'}}*/}
+      {/*      label="Update Profile Upon Search"*/}
+      {/*      className="check-label"*/}
+      {/*    />*/}
+      {/*</Grid>*/}
 
       <Grid
         container
