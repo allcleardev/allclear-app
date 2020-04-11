@@ -37,9 +37,9 @@ export default function GoogleMapsAutocomplete(props) {
         })
         .catch((error) => console.error('Error', error));
 
-      props.locationSelected(true);
+      props.locationSelected(true, value);
     } else {
-      props.locationSelected(false);
+      props.locationSelected(false, value);
     }
   };
 
@@ -88,6 +88,7 @@ export default function GoogleMapsAutocomplete(props) {
         includeInputInList
         onChange={handleSelectionChange}
         disabled={props.useCurrentLocation}
+        defaultValue={props.initialValue}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -108,13 +109,13 @@ export default function GoogleMapsAutocomplete(props) {
           return (
             <Grid container alignItems="center">
               <Grid item>
-                <LocationOnIcon className={classes.icon}/>
+                <LocationOnIcon className={classes.icon} />
               </Grid>
               <Grid item xs>
                 {parts.map((part, index) => (
-                  <span key={index} style={{fontWeight: part.highlight ? 700 : 400}}>
-                  {part.text}
-                </span>
+                  <span key={index} style={{ fontWeight: part.highlight ? 700 : 400 }}>
+                    {part.text}
+                  </span>
                 ))}
 
                 <Typography variant="body2" color="textSecondary">
