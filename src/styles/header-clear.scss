@@ -7,7 +7,7 @@
   width: 100vw;
   background: linear-gradient(180deg, #fff 5%, rgba(255, 255, 255, 0) 100%);
 
-  @media (max-width: $sm) {
+  @media (max-width: $md - 1) {
     display: none;
   }
 
@@ -18,7 +18,7 @@
     width: 90%;
     margin: 18px 0;
 
-    @media (max-width: $sm) {
+    @media (max-width: $md - 1) {
       display: none;
     }
 

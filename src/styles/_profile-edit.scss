@@ -5,7 +5,7 @@
     justify-content: space-between;
   }
 
-  @media (max-width: $sm) {
+  @media (max-width: $md - 1) {
     .user-profile-card {
       margin-top: 0 !important;
     }

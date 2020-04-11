@@ -220,7 +220,7 @@ button {
   font-size: 20px;
   margin: 15px 0;
 
-  @media (max-width: $sm) {
+  @media (max-width: $md - 1) {
     font-size: 18px;
   }
 }
@@ -246,7 +246,7 @@ a {
     margin: 0 7px;
   }
 
-  @media (max-width: $sm) {
+  @media (max-width: $md - 1) {
     padding: 0 3px !important;
   }
 }
@@ -285,7 +285,7 @@ a {
 }
 
 .hide-mobile {
-  @media (max-width: $md) {
+  @media (max-width: $md - 1) {
     display: none !important;
   }
 }
@@ -352,7 +352,7 @@ a {
 }
 
 // responsive classses
-@media (max-width: $sm) {
+@media (max-width: $md - 1) {
   .wid100-sm {
     width: 100% !important;
   }
