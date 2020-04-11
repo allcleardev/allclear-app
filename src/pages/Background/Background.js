@@ -15,7 +15,8 @@ class Background extends Component {
     super();
     this.state = {dob: '', location: false, useCurrentLocation: false};
 
-    bindAll(this, ['routeChange', 'handleDoBChange', 'handleLocationChange', 'handleSwitchChange', '_onLocationAccepted', '_onLocationDeclined']);
+    bindAll(this, ['routeChange', 'handleDoBChange', 'handleLocationChange', 
+     'handleSwitchChange', '_onLocationAccepted', '_onLocationDeclined']);
   }
 
   routeChange(route) {

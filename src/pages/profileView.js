@@ -13,23 +13,26 @@ import { Button, IconButton, Chip } from '@material-ui/core';
 export default class ProfileView extends Component {
   constructor(props) {
     super(props);
-
     bindAll(this, ['componentDidMount']);
-
-    this.state = {
-      result: [],
-    };
-
     this.peopleService = PeopleService.getInstance();
+    this.state = {
+      profile: [],
+    };
   }
 
   async componentDidMount() {
-    const result = await this.peopleService.getById('HHT9T2'); // Hardcoding for now
+    const apiResponse = await this.peopleService.getById('9DORTS'); // Hardcoding for now
 
-    console.log('RESULT:::', result);
+    console.log('RESULT:::', apiResponse);
+    this._setProfile(apiResponse);
+  }
+
+  _setProfile(profile) {
+    this.setState({ profile: profile.data });
   }
 
   render() {
+    const profile = this.state.profile;
     return (
       <section className="profile-view">
         <HomescreenHeader>
@@ -48,7 +51,7 @@ export default class ProfileView extends Component {
           <article className="card">
             <dl className="card__content">
               <dt className="card__term">Phone</dt>
-              <dd className="card__description">(408) 555 - 5555</dd>
+              <dd className="card__description"> {profile.name}</dd>
             </dl>
           </article>
 
@@ -62,32 +65,51 @@ export default class ProfileView extends Component {
               <dd className="card__description">11211</dd>
             </dl>
 
-            <dl className="card__content">
-              <dt className="card__term">Exposure to COVID-19</dt>
-              <dd className="card__description">Known Contact With Someone</dd>
-            </dl>
+            {profile.exposures && profile.exposures.length ? (
+              <dl className="card__content">
+                <dt className="card__term">Exposure to COVID-19</dt>
+                {profile.exposures.map((res) => {
+                  return <dd className="card__description">{res.name}</dd>;
+                })}
+              </dl>
+            ) : (
+              ''
+            )}
 
-            <dl className="card__content">
-              <dt className="card__term">Health Worker Status</dt>
-              <dd className="card__description">I live with a health worker or first responder</dd>
-            </dl>
+            {profile.healthWorkerStatus ? (
+              <dl className="card__content">
+                <dt className="card__term">Health Worker Status</dt>
+                <dd className="card__description">{profile.healthWorkerStatus.name}</dd>
+              </dl>
+            ) : (
+              ''
+            )}
 
-            <dl className="card__content">
-              <dt className="card__term">Conditions</dt>
-              <dd className="card__description">
-                <Chip label="Weakened Immune System" className="chip"></Chip>
-                <Chip label="Kidney Failure or Cirrhosis" className="chip"></Chip>
-              </dd>
-            </dl>
+            {profile.conditions && profile.conditions.length ? (
+              <dl className="card__content">
+                <dt className="card__term">Conditions</dt>
+                <dd className="card__description">
+                  {profile.conditions.map((res) => {
+                    return <Chip label={res.name} className="chip"></Chip>;
+                  })}
+                </dd>
+              </dl>
+            ) : (
+              ''
+            )}
 
-            <dl className="card__content">
-              <dt className="card__term">Symptoms</dt>
-              <dd className="card__description">
-                <Chip label="Fever" className="chip"></Chip>
-                <Chip label="Dry Cough" className="chip"></Chip>
-                <Chip label="Runny Nose/Nasal Congestion" className="chip"></Chip>
-              </dd>
-            </dl>
+            {profile.symptoms && profile.symptoms.length ? (
+              <dl className="card__content">
+                <dt className="card__term">Symptoms</dt>
+                <dd className="card__description">
+                  {profile.symptoms.map((res) => {
+                    return <Chip label={res.name} className="chip"></Chip>;
+                  })}
+                </dd>
+              </dl>
+            ) : (
+              ''
+            )}
           </article>
 
           <Button style={{ color: '#2A7DF4', border: '1px solid #2A7DF4' }} className="btn-big  fontsize-16">
