@@ -50,14 +50,14 @@ export default class ProfileEdit extends Component {
 
   onUpdateProfileClicked() {
     const updatedProfile = { ...this.state.profile, ...this.state.newProfile };
-    this.peopleService.editProfile(updatedProfile).then((res) => this.routeChange('/profile-view'));
+    this.peopleService.editProfile(updatedProfile).then((res) => this.routeChange('/profile'));
   }
 
   render() {
     const profile = this.state.profile;
     return (
       <section className="profile-edit">
-        <HomescreenHeader navigate={'/profile-view'}>
+        <HomescreenHeader navigate={'/profile'}>
           <h1 className="heading">Edit Profile</h1>
         </HomescreenHeader>
 
@@ -80,7 +80,7 @@ export default class ProfileEdit extends Component {
             <Button variant="contained" color="primary" fullWidth onClick={this.onUpdateProfileClicked}>
               Update Profile
             </Button>
-            <Button variant="contained" fullWidth onClick={() => this.routeChange('/profile-view')}>
+            <Button variant="contained" fullWidth onClick={() => this.routeChange('/profile')}>
               Cancel
             </Button>
           </div>
