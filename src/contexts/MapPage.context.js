@@ -15,7 +15,6 @@ export function MapPageProvider(props) {
 
   const [mapPageState, setMapPageState] = useState(initialMapPageState);
 
-  console.log('newstate', mapPageState);
   return (
     // value prop is where we define what values
     // that are accessible to consumer components
