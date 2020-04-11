@@ -9,7 +9,8 @@ const initialAppState = {
   searchCriteria: {
     driveThru: 'Any',
     appointmentRequired: 'Any',
-    symptoms: ['none'],
+
+    // symptoms: ['none'],
     // exposure: 'Select Exposure',
     // conditions: ['none'],
     // healthWorkerStatus: ['none'],

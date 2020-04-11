@@ -23,7 +23,6 @@ import ArrowRight from '../components/svgs/arrow-right';
 import SettingsSVG from '../components/svgs/svg-settings';
 import {useWindowResize} from '../util/helpers';
 import ModalService from '../services/modal.service';
-
 import MapPageContext from '../contexts/MapPage.context';
 
 export default function MapPage() {
