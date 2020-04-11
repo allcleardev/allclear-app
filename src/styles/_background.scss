@@ -15,7 +15,6 @@
     flex: 1 auto;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 
     &:not(:last-child) {
       margin: 0 0 20px 0;
@@ -51,6 +50,18 @@
   .input#birthdate {
     @media (min-width: $md) {
       width: 55%;
+    }
+  }
+
+  .switchContainer {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+
+    .currentLocation {
+      font-weight: normal;
+      font-size: 13px;
+      padding: 5px;
     }
   }
 }

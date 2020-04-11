@@ -7,7 +7,6 @@ import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import Axios from 'axios';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import { useCookies } from 'react-cookie';
 import RoundHeader from '../components/headers/header-round';
 
 export default function PhoneVerify({ props, location }) {
@@ -15,9 +14,6 @@ export default function PhoneVerify({ props, location }) {
     checkedB: true,
     loading: false,
   });
-
-  //eslint-disable-next-line
-  const [cookies, setCookie] = useCookies(['cookie-name']);
 
   const history = useHistory();
 
@@ -45,8 +41,12 @@ export default function PhoneVerify({ props, location }) {
     })
       .then((response) => {
         localStorage.setItem('sessid', response.data.id);
-        sessionStorage.setItem('lat', response.data.person.latitude);
-        sessionStorage.setItem('lng', response.data.person.longitude);
+
+        if (response.data.person) {
+          sessionStorage.setItem('lat', response.data.person.latitude);
+          sessionStorage.setItem('lng', response.data.person.longitude);
+        }
+
         history.push('/map');
       })
       .catch((error) => {
