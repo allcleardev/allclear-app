@@ -50,13 +50,13 @@ export default function App() {
           <Route path="/sign-in" component={Login} />
           <Route path="/sign-in-verification" component={AuthVerifyCode} />
           {/* Profile Pages / Settings */}
-          <ProtectedRoute path="/profile-view" component={ProfileView} />
+          <ProtectedRoute path="/profile" component={ProfileView} />
           <ProtectedRoute path="/profile-edit" component={ProfileEdit} />
           <ProtectedRoute path="/add-test" component={AddTest} />
           <ProtectedRoute path="/update-criteria" component={UpdateTestingCenterCriteria} />
           <ProtectedRoute path="/share" component={ShareApp} />
           <ProtectedRoute path="/settings" component={Settings} />
-          <ProtectedRoute path="/trace" component={Trace} />
+          <ProtectedRoute path="/contact-tracing" component={Trace} />
           {/* Map */}
           <MapPageProvider>
             <Route path="/map" component={MapPage} />

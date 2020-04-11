@@ -41,10 +41,10 @@ export default function HomescreenHeader({ navigate = '', children }) {
           <Link to="/map" className="menu__item">
             Find Tests
           </Link>
-          <Link to="/" className="menu__item">
+          <Link to="/contact-tracing" className="menu__item">
             Tracing
           </Link>
-          <Link to="/profile-view" className="menu__item">
+          <Link to="/profile" className="menu__item">
             Profile
           </Link>
         </nav>
