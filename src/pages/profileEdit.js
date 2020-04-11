@@ -4,7 +4,7 @@ import { bindAll } from 'lodash';
 import HomescreenHeader from '../components/headers/header-homescreen';
 import NavBottom from '../components/navBottom';
 import PeopleService from '../services/people.service.js';
-// import UnderDevelopment from './UnderDevelopment';
+import GoogleMapsAutocomplete from '../components/inputs/google-maps-autocomplete';
 
 import Container from '@material-ui/core/Container';
 import { Button } from '@material-ui/core';
@@ -12,10 +12,13 @@ import { Button } from '@material-ui/core';
 export default class ProfileEdit extends Component {
   constructor(props) {
     super(props);
-    bindAll(this, ['routeChange']);
+    bindAll(this, ['routeChange', 'setProfile', 'handleLocationSelection', 'onUpdateProfileClicked']);
     this.peopleService = PeopleService.getInstance();
     this.state = {
-      profile: [],
+      profile: {},
+      newProfile: {},
+      loading: true,
+      error: false,
     };
   }
 
@@ -23,26 +26,60 @@ export default class ProfileEdit extends Component {
     this.props.history.push(route);
   }
 
+  async componentDidMount() {
+    if (!localStorage.getItem('session')) {
+      return this.props.history('/sign-up');
+    }
+    this.setState({ loading: true });
+    const session = JSON.parse(localStorage.getItem('session'));
+    this.setProfile(session);
+  }
+
+  setProfile(session) {
+    if (session.person) {
+      this.setState({ profile: session.person, loading: false });
+    }
+  }
+
+  handleLocationSelection(bool, value) {
+    if (value) {
+      this.setState({ newProfile: { ...this.state.newProfile, locationName: value.description } });
+    }
+  }
+
+  onUpdateProfileClicked() {
+    const updatedProfile = { ...this.state.profile, ...this.state.newProfile };
+    this.peopleService.editProfile(updatedProfile).then((res) => this.routeChange('/profile'));
+  }
+
   render() {
+    const profile = this.state.profile;
     return (
       <section className="profile-edit">
-        <HomescreenHeader navigate={'/profile-view'}>
+        <HomescreenHeader navigate={'/profile'}>
           <h1 className="heading">Edit Profile</h1>
         </HomescreenHeader>
 
         <Container className="cards-container">
           <article className="card">
-            <dl className="card__content">
-              <dt className="card__term"></dt>
-              <dd className="card__description"></dd>
-            </dl>
+            <div className="card__content">
+              <label className="card__term">Location</label>
+              {this.state.loading ? (
+                'Loading...'
+              ) : (
+                <GoogleMapsAutocomplete
+                  initialValue={profile.locationName}
+                  locationSelected={this.handleLocationSelection}
+                ></GoogleMapsAutocomplete>
+              )}
+            </div>
           </article>
 
           <div className="button-container">
-            <Button variant="contained" color="primary" fullWidth>
+            <Button variant="contained" color="primary" fullWidth onClick={this.onUpdateProfileClicked}>
               Update Profile
             </Button>
-            <Button variant="contained" fullWidth onClick={() => this.routeChange('/profile-view')}>
+            <Button variant="contained" fullWidth onClick={() => this.routeChange('/profile')}>
               Cancel
             </Button>
           </div>
