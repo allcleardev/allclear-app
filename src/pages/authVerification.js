@@ -90,7 +90,7 @@ export default function PhoneVerify({ props, location }) {
                   onChange={handleCodeChange}
                   style={{}}
                 />
-                {isError ? <p className="codeError">You're entered an incorrect code. Try again</p>: ''}
+                {isError ? <p className="codeError">You're entered an incorrect code. Please Try again</p>: ''}
               </FormControl>
             </div>
 
