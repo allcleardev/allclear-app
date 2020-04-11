@@ -1,12 +1,13 @@
 import React from 'react';
 import NavBottom from '../../components/navBottom';
-
+import UnderDevelopment from '../UnderDevelopment';
 class Trace extends React.Component {
   componentDidMount() {}
 
   render() {
     return (
       <div className="phone-verifying">
+          <UnderDevelopment />
         <div className="mobile-content" style={{ padding: '25px 25px 0px 25px' }}>
           <span
             className="MuiButtonBase-root MuiFab-root btn-back-fab MuiFab-sizeSmall"

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import UnderDevelopment from './UnderDevelopment';
 import HomescreenHeader from '../components/headers/header-homescreen';
 import NavBottom from '../components/navBottom';
 // import CardArrow from '../components/cardArrow';
@@ -39,6 +39,7 @@ const EditIconButton = () => {
 export default function ProfileView() {
   return (
     <Box className="profile-view">
+      <UnderDevelopment />
       <HomescreenHeader>
         <div className="avatar-edit">
           <div className="avatar">
