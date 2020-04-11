@@ -17,21 +17,21 @@ export function bootstrapAxios() {
   axios.interceptors.request.use(
     (config) => {
       // routes that require auth
-      if(AUTH_ROUTES.includes(config.url)){
+      if (AUTH_ROUTES.includes(config.url)) {
         const sessionID = localStorage.getItem('sessid');
-        const authHeader = (sessionID)
-                           ? {
-            'X-AllClear-SessionID': sessionID,
-          }
-                           : {};
+        const authHeader = sessionID
+          ? {
+              'X-AllClear-SessionID': sessionID,
+            }
+          : {};
         return {
           ...config,
           headers: {
             ...authHeader,
             ...config.headers,
-          }
+          },
         };
-      } else{
+      } else {
         // routes that dont require auth
         return config;
       }
