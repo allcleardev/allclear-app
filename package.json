@@ -11,7 +11,7 @@
     "eject": "react-app-rewired eject"
   },
   "dependencies": {
-    "@material-ui/core": "latest",
+    "@material-ui/core": "^4.9.10",
     "@material-ui/icons": "latest",
     "@material-ui/lab": "^4.0.0-alpha.48",
     "airtable": "^0.8.1",
