@@ -3,19 +3,6 @@ import { Route, BrowserRouter, Switch } from 'react-router-dom';
 
 import './styles/app.scss';
 
-// Abandoned Routes
-// import Test from './pages/test';
-// import Success from './pages/Success/Success';
-// import PhoneVerifySuccess from './pages/phone-verify-success';
-// import loginOrg from './pages/loginOrg';
-// import Location from './pages/location';import CompleteProfile from './pages/completeProfile';
-// import CreateAccount from './pages/create-account';
-// import FindTest from './pages/ResultDetail/FindTest';
-// import ForgotPassword from './pages/forgot-password';
-// import Health from './pages/health';
-// import ResultDetail from './pages/ResultDetail/ResultDetail';
-// **End of Abandoned Routes
-
 // Abandoned Temporarily
 // import Conditions from './pages/Conditions/Conditions';
 // import Result from './pages/Result/Result';
@@ -63,31 +50,17 @@ export default function App() {
           <Route path="/sign-in" component={Login} />
           <Route path="/sign-in-verification" component={AuthVerifyCode} />
           {/* Profile Pages / Settings */}
-          <ProtectedRoute path="/profile-view" component={ProfileView} />
+          <ProtectedRoute path="/profile" component={ProfileView} />
           <ProtectedRoute path="/profile-edit" component={ProfileEdit} />
           <ProtectedRoute path="/add-test" component={AddTest} />
           <ProtectedRoute path="/update-criteria" component={UpdateTestingCenterCriteria} />
           <ProtectedRoute path="/share" component={ShareApp} />
           <ProtectedRoute path="/settings" component={Settings} />
-          <ProtectedRoute path="/trace" component={Trace} />
+          <ProtectedRoute path="/contact-tracing" component={Trace} />
           {/* Map */}
           <MapPageProvider>
             <Route path="/map" component={MapPage} />
           </MapPageProvider>
-
-          {/* Abandoned */}
-          {/*<Route path="/create-account" component={CreateAccount} />*/}
-          {/*<Route path="/phone-verify-success" component={PhoneVerifySuccess} />*/}
-          {/*<Route path="/complete-profile" component={CompleteProfile} />*/}
-          {/*<Route path="/succcess" component={Success} />*/}
-          {/*<Route path="/forgot" component={ForgotPassword} />*/}
-          {/*<Route path="/login-org" component={loginOrg} />*/}
-          {/*<Route path="/location" component={Location} />*/}
-          {/*<Route path="/test" component={Test} />*/}
-          {/*<Route path="/find-test" component={FindTest} />*/}
-          {/* <ProtectedRoute path="/health" component={Health} /> */}
-          {/* <ProtectedRoute path="/result-detail" component={ResultDetail} /> */}
-          {/* End of Abandoned Routes */}
 
           {/* Abandoned Temporarily*/}
           {/* <ConfirmedRoute path="/conditions" component={Conditions} /> */}
