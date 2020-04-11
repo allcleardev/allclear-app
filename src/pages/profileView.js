@@ -76,7 +76,11 @@ export default class ProfileView extends Component {
 
             <dl className="card__content">
               <dt className="card__term">Location</dt>
-              <dd className="card__description">11211</dd>
+              {profile.locationName ? (
+                <dd className="card__description">{profile.locationName}</dd>
+              ) : (
+                <dd className="card__description">My Current Location</dd>
+              )}
             </dl>
 
             {profile.exposures && profile.exposures.length ? (
