@@ -14,10 +14,10 @@ export default function ClearHeader(props) {
           <Link className="header-menu__item" to="/map">
             Find Tests
           </Link>
-          <Link className="header-menu__item" to="/trace">
+          <Link className="header-menu__item" to="/contact-tracing">
             Tracing
           </Link>
-          <Link className="header-menu__item" to="/profile-view">
+          <Link className="header-menu__item" to="/profile">
             Profile
           </Link>
         </div>

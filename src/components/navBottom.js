@@ -32,7 +32,7 @@ export default function NavBottom({ active }) {
           }
         />
         <BottomNavigationAction
-          onClick={() => routeChange('/trace')}
+          onClick={() => routeChange('/contact-tracing')}
           label="Tracing"
           icon={
             <SvgIcon>
@@ -51,7 +51,7 @@ export default function NavBottom({ active }) {
         />
 
         <BottomNavigationAction
-          onClick={() => routeChange('/profile-view')}
+          onClick={() => routeChange('/profile')}
           label="Profile"
           icon={
             <SvgIcon>
