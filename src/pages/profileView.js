@@ -21,13 +21,28 @@ export default class ProfileView extends Component {
   }
 
   async componentDidMount() {
-    const session = localStorage.getItem('session');
+    if (!localStorage.getItem('session')) {
+      return this.props.history('/sign-up');
+    }
+    const session = JSON.parse(localStorage.getItem('session'));
 
-    this._setProfile(JSON.parse(session));
+    this.setProfile(session);
+    this.fetchProfile(session);
   }
 
-  _setProfile(session) {
-    this.setState({ profile: session.person });
+  setProfile(session) {
+    if (session.person) {
+      this.setState({ profile: session.person });
+    }
+  }
+
+  async fetchProfile(session) {
+    const response = await this.peopleService.getById(session.person.id);
+    const profile = response.data;
+
+    session.person = profile;
+    localStorage.setItem('session', JSON.stringify(session));
+    this.setState({ profile });
   }
 
   render() {
