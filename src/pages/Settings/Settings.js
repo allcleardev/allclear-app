@@ -24,15 +24,10 @@ class Settings extends React.Component {
     }
 
     async delete() {
-        const sessionId = localStorage.getItem('sessid');
         this.setState({ loading: true });
 
 
-        await Axios.delete('https://api-dev.allclear.app/peoples', {
-            headers: {
-                'X-AllClear-SessionID': sessionId,
-            },
-        })
+        await Axios.delete('/peoples')
             .then((response) => {
                 this.history.push('/map');
             })

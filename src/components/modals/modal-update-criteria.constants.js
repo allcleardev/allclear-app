@@ -38,10 +38,6 @@ export const CRITERIA_FORM_DATA = [
 
   ];
 
-
-
-
-
 // {/*SYMPTOMS*/}
 // <div className="sub-card">
 //   <h5 className="body-sub-title">Symptoms</h5>

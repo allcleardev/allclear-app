@@ -39,7 +39,7 @@ class Symptom extends Component {
   getSymptoms() {
     this.setState({ loading: true });
 
-    Axios.get('https://api-dev.allclear.app/types/symptoms', {})
+    Axios.get('/types/symptoms', {})
       .then((response) => {
         this.setState({ symptoms: response.data });
         this.setState({ loading: false });
@@ -172,17 +172,11 @@ class Symptom extends Component {
   }
 
   async submitResults() {
-    const sessionId = localStorage.getItem('confirm_sessid');
-
     this.setState({ loading: true });
 
     const payload = this.buildPayload();
 
-    await Axios.post('https://api-dev.allclear.app/peoples/register', payload, {
-      headers: {
-        'X-AllClear-SessionID': sessionId,
-      },
-    })
+    await Axios.post('/peoples/register', payload)
       .then((response) => {
         // this.setCookie('sessid', response.data.id); // TODO: blocks progress. check fn
         localStorage.setItem('sessid', response.data.id);

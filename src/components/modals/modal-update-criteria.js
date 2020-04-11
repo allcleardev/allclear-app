@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import FabBlueBottom from '../fabBlueBottom';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -10,13 +11,18 @@ import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Select from '@material-ui/core/Select';
 import Checkbox from '@material-ui/core/Checkbox';
-// import FabBlueBottom from '../fabBlueBottom';
-// import SettingsSVG from '../svgs/svg-settings';
+import SettingsSVG from '../svgs/svg-settings';
 import { CRITERIA_FORM_DATA } from './modal-update-criteria.constants';
 import { AppContext } from '../../contexts/App.context';
 import ModalService from '../../services/modal.service';
+import FacilityService from '../../services/facility.service';
 
 export default function UpdateCriteriaModal() {
+  // "DEPENDENCY INJECTION Section"
+  // todo: this will probably have to move into app.js because it will be needed by all different parts of the app
+  const modalService = ModalService.getInstance();
+  modalService.registerModal('criteria', toggleModal);
+
   const [open, setOpen] = useState(false);
   const [scroll, setScroll] = useState('paper');
 
@@ -27,20 +33,16 @@ export default function UpdateCriteriaModal() {
     }
   }
 
-  // todo: this will probably have to move into app.js because it will be needed by all different parts of the app
-  let modalService = ModalService.getInstance();
-  modalService.registerModal('criteria', toggleModal);
-
   return (
     <>
-      {/* Note: Hiding the filter fab for prod push */}
-      {/* <FabBlueBottom
+      <FabBlueBottom
         handle_name={() => {
           toggleModal(true, 'body');
         }}
-        class_name="btn-blue-bottom hide-mobile">
+        class_name="btn-blue-bottom hide-mobile"
+      >
         {SettingsSVG()}
-      </FabBlueBottom> */}
+      </FabBlueBottom>
       <Dialog
         open={open}
         onClose={() => {
@@ -83,7 +85,10 @@ function UpdateCriteria({ onClose, onSubmit }) {
   const { appState, setAppState } = useContext(AppContext);
   let pendingStateUpdates = {};
 
-  function commitPendingModalState() {
+  //eslint-disable-next-line
+  const facilityService = FacilityService.getInstance();
+
+  async function commitPendingModalState() {
     // compose the updated state before committing it to the app
     let finalUpdateObj = {
       ...appState,
@@ -92,6 +97,9 @@ function UpdateCriteria({ onClose, onSubmit }) {
         ...pendingStateUpdates,
       },
     };
+
+    // const z = await facilityService.search();
+    // debugger;
 
     // update the context
     setAppState(finalUpdateObj);

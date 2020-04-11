@@ -7,7 +7,7 @@ import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-// import Button from '@material-ui/core/Button';
+import Button from '@material-ui/core/Button';
 import ClearHeader from '../components/headers/header-clear';
 import NavBottom from '../components/navBottom';
 
@@ -20,9 +20,9 @@ import {mapLocationData} from '../constants';
 
 import ArrowLeft from '../components/svgs/arrow-left';
 import ArrowRight from '../components/svgs/arrow-right';
-// import SettingsSVG from '../components/svgs/svg-settings';
+import SettingsSVG from '../components/svgs/svg-settings';
 import {useWindowResize} from '../util/helpers';
-// import ModalService from '../services/modal.service';
+import ModalService from '../services/modal.service';
 
 import MapPageContext from '../contexts/MapPage.context';
 
@@ -78,7 +78,7 @@ export default function MapPage() {
   const {isOpen, anchor} = mapState;
 
   // get modal service so we can toggle it open
-  // let modalService = ModalService.getInstance();
+  let modalService = ModalService.getInstance();
 
   return (
     <div className="map-page">
@@ -117,21 +117,20 @@ export default function MapPage() {
               >
                 {/*<SearchGoogleMapInput style={{ marginTop: '50px' }}></SearchGoogleMapInput>*/}
 
-                {/* Note: Hiding the filter button for prod push */}
-                {/* <Box>
+                <Box>
                   <Button
                     variant="contained"
                     color="primary"
                     fullWidth
                     startIcon={SettingsSVG()}
-                    style={{ margin: '20px 0' }}
+                    style={{margin: '20px 0'}}
                     onClick={() => {
                       modalService.toggleModal('criteria', true);
                     }}
                   >
                     Edit Search Filters
                   </Button>
-                </Box> */}
+                </Box>
 
                 {locations &&
                 locations.map((result, index) => (
