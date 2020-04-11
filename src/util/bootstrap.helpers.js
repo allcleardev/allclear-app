@@ -23,7 +23,7 @@ export function bootstrapAxios() {
         const sessionID = localStorage.getItem('sessid');
         const authHeader = sessionID
           ? {
-              'X-AllClear-SessionID': sessionID,
+              'X-AllClear-SessionID': sessionID
             }
           : {};
         return {
@@ -54,10 +54,11 @@ export function bootstrapAxios() {
     (error) => {
 
       if (get(error,'response.status') === 403){
+        localStorage.removeItem('confirm_sessid');
+        localStorage.removeItem('sessid');
         history.push('/sign-in');
         // todo: figure out how to properly route outside a component
         window.location.reload();
-        // window.history.pushState("/sign-in", "Sign In", "/sign-in");
       }
 
       console.warn('response error:', error.response);

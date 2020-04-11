@@ -184,6 +184,7 @@ class Symptom extends Component {
       },
     })
       .then((response) => {
+        localStorage.removeItem('confirm_sessid');
         localStorage.setItem('sessid', response.data.id);
         localStorage.setItem('session', JSON.stringify(response.data));
         this.props.history.push('/map');
