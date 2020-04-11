@@ -43,11 +43,15 @@ class Background extends Component {
   }
 
   async handleSwitchChange() {
+    let switchValue = this.state.useCurrentLocation;
+
+    switchValue = !switchValue;
+
     this.setState({
-      useCurrentLocation: !this.state.useCurrentLocation,
+      useCurrentLocation: switchValue
     });
 
-    if (this.state.useCurrentLocation) {
+    if (switchValue) {
       if (navigator && navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(this._onLocationAccepted, this._onLocationDeclined);
       }
