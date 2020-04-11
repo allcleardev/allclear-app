@@ -52,14 +52,14 @@ export default function PhoneVerify({ props, location }) {
         history.push('/map');
       })
       .catch((error) => {
-        setValue(true)
+        setValue(true);
         console.log('error', error);
         // TODO Display Error Message
       });
   };
 
   const handleCodeChange = (event) => {
-    setValue(false)
+    setValue(false);
     sessionStorage.setItem('code', event.target.value);
   };
 
