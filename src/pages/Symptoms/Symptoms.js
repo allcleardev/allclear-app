@@ -175,9 +175,13 @@ class Symptom extends Component {
     this.setState({ loading: true });
 
     const payload = this.buildPayload();
+    const sessionId = localStorage.getItem('confirm_sessid');
 
-    await Axios.post('/peoples/register', payload)
-      .then((response) => {
+    await Axios.post('/peoples/register', payload, {
+      headers: {
+        'X-AllClear-SessionID': sessionId,
+      },
+    }).then((response) => {
         // this.setCookie('sessid', response.data.id); // TODO: blocks progress. check fn
         localStorage.setItem('sessid', response.data.id);
         localStorage.setItem('session', response.data);
