@@ -55,7 +55,6 @@ class PhoneNumber extends Component {
       <Formik
         initialValues={this.state.phone}
         onSubmit={(values) => {
-          debugger;
           this.props.onSubmit(values);
         }}
         validateOnBlur

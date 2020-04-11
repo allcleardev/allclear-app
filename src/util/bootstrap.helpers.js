@@ -3,8 +3,11 @@ import * as axios from 'axios';
 export function bootstrapAxios() {
   const AUTH_ROUTES = [
     '/facilities/search',
+    'facilities/search',
     '/peoples/register',
+    'peoples/register',
     '/peoples',
+    'peoples',
   ];
 
   // set baseURL from env file

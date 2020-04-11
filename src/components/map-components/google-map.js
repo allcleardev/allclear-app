@@ -39,8 +39,8 @@ export default class GoogleMap extends Component {
     const result = await this.facilityService.search({
         from:
           {
-            lat,
-            lng,
+            latitude: lat,
+            longitude: lng,
             miles: 100
           }
       }
@@ -56,15 +56,15 @@ export default class GoogleMap extends Component {
     const lat = evt.center.lat();
     const lng = evt.center.lng();
     const result = await this.facilityService.search({
-      from:
+        from:
           {
-            lat,
-            lng,
+            latitude: lat,
+            longitude: lng,
             miles: 100
           }
-      });
+      }
+    );
 
-    debugger;
     this._setLocations(result.data.records, {lat, lng});
   }
 
@@ -74,8 +74,8 @@ export default class GoogleMap extends Component {
     const result = await this.facilityService.search({
         from:
           {
-            lat,
-            lng,
+            latitude: lat,
+            longitude: lng,
             miles: 100
           }
       }
@@ -109,9 +109,9 @@ export default class GoogleMap extends Component {
     const result = await this.facilityService.search({
         from:
           {
-            lat,
-            lng,
-            miles: 400
+            latitude: lat,
+            longitude: lng,
+            miles: 100
           }
       }
     );
