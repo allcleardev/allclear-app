@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SearchGoogleMapInput({ style }) {
+export default function GoogleMapInput({ style }) {
   const classes = useStyles();
 
   return (

@@ -39,7 +39,7 @@ class Symptom extends Component {
   getSymptoms() {
     this.setState({ loading: true });
 
-    Axios.get('https://api-dev.allclear.app/types/symptoms', {})
+    Axios.get('/types/symptoms', {})
       .then((response) => {
         this.setState({ symptoms: response.data });
         this.setState({ loading: false });
@@ -167,26 +167,26 @@ class Symptom extends Component {
       conditions: conditionsArray,
       exposures: exposuresArray,
       symptoms: symptomsArray,
-      healthWorkerStatusId: JSON.parse(healthWorkerStatus).id    };
+      healthWorkerStatusId: JSON.parse(healthWorkerStatus).id,
+    };
     return payload;
   }
 
   async submitResults() {
-    const sessionId = localStorage.getItem('confirm_sessid');
-
     this.setState({ loading: true });
 
     const payload = this.buildPayload();
+    const sessionId = localStorage.getItem('confirm_sessid');
 
-    await Axios.post('https://api-dev.allclear.app/peoples/register', payload, {
+    await Axios.post('/peoples/register', payload, {
       headers: {
         'X-AllClear-SessionID': sessionId,
       },
     })
       .then((response) => {
-        // this.setCookie('sessid', response.data.id); // TODO: blocks progress. check fn
+        localStorage.removeItem('confirm_sessid');
         localStorage.setItem('sessid', response.data.id);
-        localStorage.setItem('session', response.data);
+        localStorage.setItem('session', JSON.stringify(response.data));
         this.props.history.push('/map');
       })
       .catch((error) => {

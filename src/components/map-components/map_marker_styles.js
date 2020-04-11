@@ -8,6 +8,7 @@ const mapMarkerStyle = {
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+  cursor: 'pointer',
   width: K_WIDTH,
   height: K_HEIGHT,
   left: -K_WIDTH / 2,

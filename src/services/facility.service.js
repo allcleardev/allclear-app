@@ -1,9 +1,12 @@
+import Axios from 'axios';
 
 export default class FacilityService {
 
   static serviceInstance = null;
 
-  // constructor() {}
+  constructor() {
+    this.baseURL = '/facilities';
+  }
 
   static getInstance() {
     if (FacilityService.serviceInstance == null) {
@@ -13,7 +16,13 @@ export default class FacilityService {
     return this.serviceInstance;
   }
 
-  search(filter){
+  search(body){
+    return Axios({
+      method: 'POST',
+      url: `${this.baseURL}/search`,
+      // params: req.query,
+      data: body,
+    });
 
   }
 

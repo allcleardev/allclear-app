@@ -1,6 +1,4 @@
 import React, { Fragment } from 'react';
-import 'leaflet.locatecontrol';
-
 import { boolToEng, isNullOrUndefined } from '../../util/helpers';
 
 import Button from '@material-ui/core/Button';

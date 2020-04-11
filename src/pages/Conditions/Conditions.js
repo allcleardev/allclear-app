@@ -26,7 +26,7 @@ class Condition extends Component {
   getConditions() {
     this.setState({ loading: true });
 
-    Axios.get('https://api-dev.allclear.app/types/conditions', {})
+    Axios.get('/types/conditions', {})
       .then((response) => {
         this.setState({ conditions: response.data });
         this.setState({ loading: false });

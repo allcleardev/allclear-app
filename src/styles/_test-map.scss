@@ -12,7 +12,7 @@
     z-index: 3 !important;
   }
 
-  @media (max-width: $sm) {
+  @media (max-width: $md - 1) {
     position: fixed;
 
     .height-300-sm {
@@ -45,7 +45,7 @@
   width: auto !important;
   box-shadow: none !important;
 
-  @media (max-width: $sm) {
+  @media (max-width: $md - 1) {
     display: none !important;
   }
 }
@@ -60,7 +60,7 @@
   height: 100vh;
   overflow-x: hidden;
 
-  @media (max-width: $sm) {
+  @media (max-width: $md - 1) {
     height: calc(100vh - 350px);
   }
 
@@ -76,7 +76,7 @@
   font-size: 14px;
   color: #fff;
 
-  @media (max-width: $sm) {
+  @media (max-width: $md - 1) {
     bottom: 312px;
   }
 }

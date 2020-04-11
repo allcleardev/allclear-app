@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 // import states from './Symptom.state';
 // import './Symptom.module.css';
 import logo from '../../assets/images/Union.png';
-
+import UnderDevelopment from '../UnderDevelopment';
 class AddTest extends React.Component {
   // state = states
 
@@ -14,6 +14,7 @@ class AddTest extends React.Component {
     return (
       <Fragment>
         <div className="diffBGwrapper">
+          <UnderDevelopment />
           <div className="divClassBG">
             <div className="WrapCondition">
               <div className="wrapInnerPart">

@@ -7,7 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import avatar from '../../assets/images/avatar.svg';
 import NavBottom from '../../components/navBottom';
 import UserAvatar from '@material-ui/core/CardMedia';
-
+import UnderDevelopment from '../UnderDevelopment';
 class ShareApp extends React.Component {
 
   componentDidMount = () => {
@@ -16,6 +16,7 @@ class ShareApp extends React.Component {
   render() {
     return (
       <Box className="complete-profile">
+        <UnderDevelopment />
         <Header>
           <p>Allclear</p>
         </Header>

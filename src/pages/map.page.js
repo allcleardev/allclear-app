@@ -1,13 +1,13 @@
-import React, { useState, useContext } from 'react';
+import React, {useState, useContext} from 'react';
 import clsx from 'clsx';
 // import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Container';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-// import Button from '@material-ui/core/Button';
+import Button from '@material-ui/core/Button';
 import ClearHeader from '../components/headers/header-clear';
 import NavBottom from '../components/navBottom';
 
@@ -16,24 +16,23 @@ import UpdateCriteriaModal from '../components/modals/modal-update-criteria';
 import Hammer from 'react-hammerjs';
 import GoogleMap from '../components/map-components/google-map';
 import TestingLocationListItem from '../components/map-components/testing-location-list-item';
-import { mapLocationData } from '../constants';
+import {mapLocationData} from '../constants';
 
 import ArrowLeft from '../components/svgs/arrow-left';
 import ArrowRight from '../components/svgs/arrow-right';
-// import SettingsSVG from '../components/svgs/svg-settings';
-import { useWindowResize } from '../util/helpers';
-// import ModalService from '../services/modal.service';
-
+import SettingsSVG from '../components/svgs/svg-settings';
+import {useWindowResize} from '../util/helpers';
+import ModalService from '../services/modal.service';
 import MapPageContext from '../contexts/MapPage.context';
 
 export default function MapPage() {
   const classes = useStyles();
 
-  const contextData = useContext(MapPageContext);
+  const {mapPageState} = useContext(MapPageContext);
 
-  const locations = contextData.locations;
+  const locations = mapPageState.locations;
 
-  function onWindowResize({ width, height }) {
+  function onWindowResize({width, height}) {
     if (width <= 576) {
       setMapState({
         ...mapState,
@@ -75,10 +74,10 @@ export default function MapPage() {
     });
   }
 
-  const { isOpen, anchor } = mapState;
+  const {isOpen, anchor} = mapState;
 
   // get modal service so we can toggle it open
-  // let modalService = ModalService.getInstance();
+  let modalService = ModalService.getInstance();
 
   return (
     <div className="map-page">
@@ -92,7 +91,7 @@ export default function MapPage() {
                 [classes.appBarShift]: isOpen,
               })
             }
-            style={{ zIndex: '2' }}
+            style={{zIndex: '2'}}
           >
             <IconButton
               disableRipple
@@ -100,7 +99,7 @@ export default function MapPage() {
               onClick={isOpen === false ? () => toggleDrawer(true) : () => toggleDrawer(false)}
               className={clsx(classes.menuButton, isOpen)}
             >
-              {isOpen === true ? <ArrowLeft /> : <ArrowRight />}
+              {isOpen === true ? <ArrowLeft/> : <ArrowRight/>}
             </IconButton>
           </AppBar>
           <Hammer onSwipe={() => {}} option={touchOptions} direction="DIRECTION_UP">
@@ -112,41 +111,46 @@ export default function MapPage() {
             >
               <div
                 id="side-drawer"
-                style={{ width: `${drawerWidth}px`, overflowY: 'scroll' }}
+                style={{width: `${drawerWidth}px`, overflowY: 'scroll'}}
                 className="side-drawer hide-scrollbar wid100-sm height-300-sm"
               >
-                {/*<SearchGoogleMapInput style={{ marginTop: '50px' }}></SearchGoogleMapInput>*/}
+                {/*<GoogleMapInput style={{ marginTop: '50px' }}></GoogleMapInput>*/}
 
-                {/* Note: Hiding the filter button for prod push */}
-                {/* <Box>
+                <Box>
                   <Button
                     variant="contained"
                     color="primary"
                     fullWidth
                     startIcon={SettingsSVG()}
-                    style={{ margin: '20px 0' }}
+                    style={{margin: '20px 0'}}
                     onClick={() => {
                       modalService.toggleModal('criteria', true);
                     }}
                   >
                     Edit Search Filters
                   </Button>
-                </Box> */}
+                </Box>
 
                 {locations &&
-                  locations.map((result, index) => (
-                    <TestingLocationListItem
-                      key={index}
-                      index={index}
-                      title={result.name}
-                      description={result.address}
-                      city_state={result.city + ', ' + result.state}
-                      service_time={result.hours}
-                      driveThru={result.driveThru}
-                      phone={result.phone}
-                      {...result}
-                    ></TestingLocationListItem>
-                  ))}
+                locations.map((result, index) => (
+                  <TestingLocationListItem
+                    key={index}
+                    index={index}
+                    title={result.name}
+                    description={result.address}
+                    city_state={result.city + ', ' + result.state}
+                    service_time={result.hours}
+                    driveThru={result.driveThru}
+                    phone={result.phone}
+                    {...result}
+                  ></TestingLocationListItem>
+                ))}
+
+                {locations.length === 0 &&
+
+                  <h2 style={{display: 'flex', justifyContent: 'center'}}>No Results Found </h2>
+                }
+
               </div>
             </Drawer>
           </Hammer>

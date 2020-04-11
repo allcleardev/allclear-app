@@ -7,7 +7,6 @@ import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import Axios from 'axios';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import { useCookies } from 'react-cookie';
 import RoundHeader from '../components/headers/header-round';
 
 export default function PhoneVerify({ props, location }) {
@@ -15,9 +14,7 @@ export default function PhoneVerify({ props, location }) {
     checkedB: true,
     loading: false,
   });
-
-  //eslint-disable-next-line
-  const [cookies, setCookie] = useCookies(['cookie-name']);
+  const [isError, setValue] = React.useState(false);
 
   const history = useHistory();
 
@@ -39,23 +36,30 @@ export default function PhoneVerify({ props, location }) {
 
     phone = sanitizePhone(phone);
 
-    await Axios.put('https://api-dev.allclear.app/peoples/auth', {
+    await Axios.put('/peoples/auth', {
       phone,
       token: code,
     })
       .then((response) => {
         localStorage.setItem('sessid', response.data.id);
-        sessionStorage.setItem('lat', response.data.person.latitude);
-        sessionStorage.setItem('lng', response.data.person.longitude);
+        localStorage.setItem('session', JSON.stringify(response.data));
+
+        if (response.data.person) {
+          sessionStorage.setItem('lat', response.data.person.latitude);
+          sessionStorage.setItem('lng', response.data.person.longitude);
+        }
+
         history.push('/map');
       })
       .catch((error) => {
+        setValue(true);
         console.log('error', error);
         // TODO Display Error Message
       });
   };
 
   const handleCodeChange = (event) => {
+    setValue(false);
     sessionStorage.setItem('code', event.target.value);
   };
 
@@ -86,6 +90,7 @@ export default function PhoneVerify({ props, location }) {
                   onChange={handleCodeChange}
                   style={{}}
                 />
+                {isError ? <p className="codeError">You're entered an incorrect code. Please Try again</p>: ''}
               </FormControl>
             </div>
 
