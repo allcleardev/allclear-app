@@ -114,7 +114,7 @@ export default function MapPage() {
                 style={{width: `${drawerWidth}px`, overflowY: 'scroll'}}
                 className="side-drawer hide-scrollbar wid100-sm height-300-sm"
               >
-                {/*<SearchGoogleMapInput style={{ marginTop: '50px' }}></SearchGoogleMapInput>*/}
+                {/*<GoogleMapInput style={{ marginTop: '50px' }}></GoogleMapInput>*/}
 
                 <Box>
                   <Button
