@@ -35,7 +35,7 @@ export default function PhoneVerify({ props, location }) {
 
     phone = sanitizePhone(phone);
 
-    await Axios.put('https://api-dev.allclear.app/peoples/auth', {
+    await Axios.put('/peoples/auth', {
       phone,
       token: code,
     })
