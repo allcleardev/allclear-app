@@ -1,9 +1,7 @@
 import React from 'react';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import { spacing } from '@material-ui/system';
 import { Link } from 'react-router-dom';
-import finn from '../assets/images/finn.png'
+import finn from '../assets/images/finn.png';
 
 
 export default function NotFound() {
@@ -27,5 +25,5 @@ export default function NotFound() {
         </Grid>
       </Grid>
     </Grid>
-  )
-}
+  );
+};
