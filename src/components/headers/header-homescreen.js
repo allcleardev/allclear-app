@@ -1,20 +1,28 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../assets/images/logo-green-back.svg';
+import Container from '@material-ui/core/Container';
 
 export default function HomescreenHeader(props) {
   return (
     <div className="header-homescreen">
-      <div className="header-logo">
+      <div className="shape"></div>
+
+      <Container className="desktop-container" maxWidth="xl">
         <img src={Logo} alt="Logo" className="logo" />
-        <div className="header-menu">
-          {/* <p className="selected">Home</p> */}
-          <Link to="/map" style={{color:'white'}}> <p className="selected">Find Tests</p></Link>
-          <Link to="/" style={{color:'white'}}> <p>Tracing</p></Link>
-          {/* <p>Friends</p> */}
-          <Link to="/profile-view" style={{color:'white'}}> <p>Profile</p></Link>
-        </div>
-      </div>
+        <nav className="menu">
+          <Link to="/map" className="menu__item">
+            Find Tests
+          </Link>
+          <Link to="/" className="menu__item">
+            Tracing
+          </Link>
+          <Link to="/profile-view" className="menu__item">
+            Profile
+          </Link>
+        </nav>
+      </Container>
+
       {props.children}
     </div>
   );
