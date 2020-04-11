@@ -3,20 +3,33 @@ import { bindAll } from 'lodash';
 
 import HomescreenHeader from '../components/headers/header-homescreen';
 import NavBottom from '../components/navBottom';
-import PeopleService from '../services/people.service.js';
 import GoogleMapsAutocomplete from '../components/inputs/google-maps-autocomplete';
 
+import PeopleService from '../services/people.service.js';
+import TypesService from '../services/types.service.js';
+
 import Container from '@material-ui/core/Container';
-import { Button } from '@material-ui/core';
+import { Button, FormControl, Select, MenuItem } from '@material-ui/core';
 
 export default class ProfileEdit extends Component {
   constructor(props) {
     super(props);
-    bindAll(this, ['routeChange', 'setProfile', 'handleLocationSelection', 'onUpdateProfileClicked']);
+    bindAll(this, [
+      'routeChange',
+      'componentDidMount',
+      'fetchHealthWorkerStatuses',
+      'setProfile',
+      'onUpdateProfileClicked',
+      'handleLocationSelection',
+      'handleHealthWorkerSelection',
+    ]);
     this.peopleService = PeopleService.getInstance();
+    this.typesService = TypesService.getInstance();
     this.state = {
       profile: {},
       newProfile: {},
+      healthWorkerStatusList: [],
+      sympmtomsList: [],
       loading: true,
       error: false,
     };
@@ -33,6 +46,12 @@ export default class ProfileEdit extends Component {
     this.setState({ loading: true });
     const session = JSON.parse(localStorage.getItem('session'));
     this.setProfile(session);
+    this.fetchHealthWorkerStatuses();
+  }
+
+  async fetchHealthWorkerStatuses() {
+    const response = await this.typesService.getHealthWorkerStatuses();
+    this.setState({ healthWorkerStatusList: response });
   }
 
   setProfile(session) {
@@ -44,6 +63,12 @@ export default class ProfileEdit extends Component {
   handleLocationSelection(bool, value) {
     if (value) {
       this.setState({ newProfile: { ...this.state.newProfile, locationName: value.description } });
+    }
+  }
+
+  handleHealthWorkerSelection(event) {
+    if (event.target.value) {
+      this.setState({ newProfile: { ...this.state.newProfile, healthWorkerStatusId: event.target.value } });
     }
   }
 
@@ -72,6 +97,27 @@ export default class ProfileEdit extends Component {
                   locationSelected={this.handleLocationSelection}
                 ></GoogleMapsAutocomplete>
               )}
+            </div>
+
+            <div className="card__content">
+              <label className="card__term">Health Worker Status</label>
+              <FormControl variant="outlined">
+                {this.state.loading ? (
+                  'Loading...'
+                ) : (
+                  <Select
+                    className="input"
+                    defaultValue={profile.healthWorkerStatusId}
+                    onChange={this.handleHealthWorkerSelection}
+                  >
+                    {this.state.healthWorkerStatusList
+                      ? this.state.healthWorkerStatusList.map((option) => {
+                          return <MenuItem value={option.id}>{option.name}</MenuItem>;
+                        })
+                      : ''}
+                  </Select>
+                )}
+              </FormControl>
             </div>
           </article>
 
