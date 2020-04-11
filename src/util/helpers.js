@@ -33,6 +33,10 @@ export function boolToEng(boolVal) {
   return (boolVal) ? 'Yes' : 'No';
 }
 
+// export function dropdownValToFilter(ddVal) {
+//   return (ddVal === true || ddVal === false) ? ddVal : undefined;
+// }
+
 export function isNullOrUndefined(value) {
   return isUndefined(value) || isNull(value);
 }

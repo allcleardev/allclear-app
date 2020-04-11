@@ -13,9 +13,10 @@ import {Button, TextField} from '@material-ui/core';
 class Background extends Component {
   constructor() {
     super();
-    this.state = {dob: '', location: false};
+    this.state = {dob: '', location: false, useCurrentLocation: false};
 
-    bindAll(this, ['routeChange', 'handleDoBChange', 'handleLocationChange']);
+    bindAll(this, ['routeChange', 'handleDoBChange', 'handleLocationChange', 
+     'handleSwitchChange', '_onLocationAccepted', '_onLocationDeclined']);
   }
 
   routeChange(route) {
@@ -33,6 +34,35 @@ class Background extends Component {
 
   async handleLocationChange(value) {
     this.setState({location: value});
+  }
+
+  async handleSwitchChange() {
+    this.setState({
+      useCurrentLocation: !this.state.useCurrentLocation
+    });
+
+    if (this.state.useCurrentLocation) {
+      if (navigator && navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(this._onLocationAccepted, this._onLocationDeclined);
+      }
+    }
+  }
+
+  async _onLocationAccepted(pos) {
+    const lat = pos.coords.latitude;
+    const lng = pos.coords.longitude;
+
+    sessionStorage.setItem('lat', lat);
+    sessionStorage.setItem('lng', lng);
+    this.setState({location: true});
+  }
+
+  _onLocationDeclined() {
+    console.warn('User declined to use browser location');
+
+    this.setState({
+      useCurrentLocation: false
+    });
   }
 
   render() {
@@ -53,7 +83,17 @@ class Background extends Component {
                       We can give localized test center recommendations with your location.
                     </span>
                   </label>
-                  <GoogleMapsAutocomplete locationSelected={this.handleLocationChange}></GoogleMapsAutocomplete>
+                  <GoogleMapsAutocomplete useCurrentLocation={this.state.useCurrentLocation}
+                                          locationSelected={this.handleLocationChange}></GoogleMapsAutocomplete>
+
+                  <div className="switchContainer" onClick={this.handleSwitchChange}>
+                    <div className="switch">
+                      <input type="checkbox" onChange={this.handleSwitchChange} checked={this.state.useCurrentLocation} />
+                      <span className="slider round"></span>
+                    </div>
+
+                    <p className="currentLocation">Use Current Location</p>
+                  </div>
                 </article>
                 <article className="article">
                   <label htmlFor="birthdate" className="label">

@@ -58,7 +58,7 @@ export default class PhoneVerify extends Component {
       this.setState({ loading: false });
       return;
     }
-    Axios.post('https://api-dev.allclear.app/peoples/start', {
+    Axios.post('/peoples/start', {
       phone,
     })
       .then((response) => {
@@ -101,7 +101,7 @@ export default class PhoneVerify extends Component {
       this.setState({ loading: false });
       return;
     }
-    await Axios.post('https://api-dev.allclear.app/peoples/auth', {
+    await Axios.post('/peoples/auth', {
       phone,
     })
       .then((response) => {
