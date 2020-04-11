@@ -6,8 +6,6 @@ import NavBottom from '../components/navBottom';
 import PeopleService from '../services/people.service.js';
 import GoogleMapsAutocomplete from '../components/inputs/google-maps-autocomplete';
 
-// import UnderDevelopment from './UnderDevelopment';
-
 import Container from '@material-ui/core/Container';
 import { Button } from '@material-ui/core';
 
@@ -18,10 +16,9 @@ export default class ProfileEdit extends Component {
     this.peopleService = PeopleService.getInstance();
     this.state = {
       profile: {},
+      newProfile: {},
       loading: true,
       error: false,
-      updatedProfile: {},
-      updatedLocationName: '',
     };
   }
 
@@ -47,12 +44,13 @@ export default class ProfileEdit extends Component {
 
   handleLocationSelection(bool, value) {
     if (value) {
-      this.setState({ updatedProfile: { ...this.state.updatedProfile, locationName: value.description } });
+      this.setState({ newProfile: { ...this.state.newProfile, locationName: value.description } });
     }
   }
 
   onUpdateProfileClicked() {
-    console.log('UPDATE PROFILE WITH THESE VALUES:', this.state.updatedProfile);
+    const updatedProfile = { ...this.state.profile, ...this.state.newProfile };
+    this.peopleService.editProfile(updatedProfile).then((res) => this.routeChange('/profile-view'));
   }
 
   render() {
