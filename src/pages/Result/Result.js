@@ -31,7 +31,7 @@ class Result extends React.Component {
   getTestTypes() {
     this.setState({ loading: true });
 
-    Axios.get('https://api-dev.allclear.app/types/testCriteria', {})
+    Axios.get('/types/testCriteria', {})
       .then((response) => {
         this.setState({ testTypes: response.data });
         this.setState({ loading: false });
@@ -45,7 +45,7 @@ class Result extends React.Component {
   getTestLocations() {
     this.setState({ loading: true });
 
-    Axios.get('https://api-dev.allclear.app/types/facilityTypes', {})
+    Axios.get('/types/facilityTypes', {})
       .then((response) => {
         this.setState({ testLocations: response.data });
         this.setState({ loading: false });
@@ -149,7 +149,7 @@ class Result extends React.Component {
 
     const payload = this.buildPayload();
 
-    await Axios.post('https://api-dev.allclear.app/peoples/register', payload)
+    await Axios.post('/peoples/register', payload)
       .then((response) => {
         // this.setCookie('sessid', response.data.id); // blocks progress. check fn
         localStorage.setItem('sessid', response.data.id);

@@ -30,7 +30,7 @@ class HealthWorkerStatus extends Component {
   getHealthWorkerStatuses() {
     this.setState({ loading: true });
 
-    Axios.get('https://api-dev.allclear.app/types/healthWorkerStatuses', {})
+    Axios.get('/types/healthWorkerStatuses', {})
       .then((response) => {
         this.setState({ healthWorkerStatus: response.data });
         this.setState({ loading: false });

@@ -27,7 +27,7 @@ class Settings extends React.Component {
         this.setState({ loading: true });
 
 
-        await Axios.delete('https://api-dev.allclear.app/peoples')
+        await Axios.delete('/peoples')
             .then((response) => {
                 this.history.push('/map');
             })

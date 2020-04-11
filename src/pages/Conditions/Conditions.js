@@ -26,14 +26,14 @@ class Condition extends Component {
   getConditions() {
     this.setState({ loading: true });
 
-    Axios.get('https://api-dev.allclear.app/types/conditions', {})
+    Axios.get('/types/conditions', {})
       .then((response) => {
-        this.setState({ conditions: response.data });
-        this.setState({ loading: false });
+        this.setState({conditions: response.data});
+        this.setState({loading: false});
       })
       .catch((error) => {
         console.log(error);
-        this.setState({ loading: false });
+        this.setState({loading: false});
       });
   }
 
