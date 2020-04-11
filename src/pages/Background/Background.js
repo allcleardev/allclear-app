@@ -15,7 +15,7 @@ class Background extends Component {
     super();
     this.state = {dob: '', location: false, useCurrentLocation: false};
 
-    bindAll(this, ['routeChange', 'handleDoBChange', 'handleLocationChange', 'handleSwitchChange']);
+    bindAll(this, ['routeChange', 'handleDoBChange', 'handleLocationChange', 'handleSwitchChange', '_onLocationAccepted', '_onLocationDeclined']);
   }
 
   routeChange(route) {
@@ -32,7 +32,6 @@ class Background extends Component {
   }
 
   async handleLocationChange(value) {
-    console.log('value', value);
     this.setState({location: value});
   }
 
@@ -54,6 +53,7 @@ class Background extends Component {
 
     sessionStorage.setItem('lat', lat);
     sessionStorage.setItem('lng', lng);
+    this.setState({location: true});
   }
 
   _onLocationDeclined() {
