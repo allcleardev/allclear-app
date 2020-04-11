@@ -1,22 +1,28 @@
-import React, {Component} from 'react';
-import {bindAll} from 'lodash';
+import React, { Component } from 'react';
+import { bindAll } from 'lodash';
 
 import RoundHeader from '../../components/headers/header-round';
 import ProgressBottom from '../../components/progressBottom';
-import GoogleMapsAutocomplete from '../../components/inputs/google-maps-autocomplete'; // TODO: v2
+import GoogleMapsAutocomplete from '../../components/inputs/google-maps-autocomplete';
 import OnboardingNavigation from '../../components/onboarding-navigation';
 
 import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
-import {Button, TextField} from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 
 class Background extends Component {
   constructor() {
     super();
-    this.state = {dob: '', location: false, useCurrentLocation: false};
+    this.state = { dob: '', location: false, useCurrentLocation: false };
 
-    bindAll(this, ['routeChange', 'handleDoBChange', 'handleLocationChange', 
-     'handleSwitchChange', '_onLocationAccepted', '_onLocationDeclined']);
+    bindAll(this, [
+      'routeChange',
+      'handleDoBChange',
+      'handleLocationChange',
+      'handleSwitchChange',
+      '_onLocationAccepted',
+      '_onLocationDeclined',
+    ]);
   }
 
   routeChange(route) {
@@ -25,7 +31,7 @@ class Background extends Component {
 
   handleDoBChange(event) {
     if (event && event.target && event.target.value) {
-      this.setState({dob: event.target.value});
+      this.setState({ dob: event.target.value });
 
       let dob = event.target.value + 'T00:00:00Z';
       sessionStorage.setItem('dob', dob);
@@ -33,12 +39,12 @@ class Background extends Component {
   }
 
   async handleLocationChange(value) {
-    this.setState({location: value});
+    this.setState({ location: value });
   }
 
   async handleSwitchChange() {
     this.setState({
-      useCurrentLocation: !this.state.useCurrentLocation
+      useCurrentLocation: !this.state.useCurrentLocation,
     });
 
     if (this.state.useCurrentLocation) {
@@ -54,14 +60,14 @@ class Background extends Component {
 
     sessionStorage.setItem('lat', lat);
     sessionStorage.setItem('lng', lng);
-    this.setState({location: true});
+    this.setState({ location: true });
   }
 
   _onLocationDeclined() {
     console.warn('User declined to use browser location');
 
     this.setState({
-      useCurrentLocation: false
+      useCurrentLocation: false,
     });
   }
 
@@ -78,17 +84,23 @@ class Background extends Component {
               <section className="section">
                 <article className="article">
                   <label htmlFor="location" className="label">
-                    <strong>Location</strong> (Required) <br/>
+                    <strong>Location</strong> (Required) <br />
                     <span className="description">
                       We can give localized test center recommendations with your location.
                     </span>
                   </label>
-                  <GoogleMapsAutocomplete useCurrentLocation={this.state.useCurrentLocation}
-                                          locationSelected={this.handleLocationChange}></GoogleMapsAutocomplete>
+                  <GoogleMapsAutocomplete
+                    useCurrentLocation={this.state.useCurrentLocation}
+                    locationSelected={this.handleLocationChange}
+                  ></GoogleMapsAutocomplete>
 
                   <div className="switchContainer" onClick={this.handleSwitchChange}>
                     <div className="switch">
-                      <input type="checkbox" onChange={this.handleSwitchChange} checked={this.state.useCurrentLocation} />
+                      <input
+                        type="checkbox"
+                        onChange={this.handleSwitchChange}
+                        checked={this.state.useCurrentLocation}
+                      />
                       <span className="slider round"></span>
                     </div>
 
@@ -97,7 +109,7 @@ class Background extends Component {
                 </article>
                 <article className="article">
                   <label htmlFor="birthdate" className="label">
-                    <strong>Date of Birth</strong> <br/>
+                    <strong>Date of Birth</strong> <br />
                     <span className="description">Some test centers have minimum age requirements.</span>
                   </label>
                   {/* TODO: swap w/ Material UI Date Picker https://material-ui.com/components/pickers/ */}
