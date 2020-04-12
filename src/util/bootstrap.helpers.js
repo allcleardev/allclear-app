@@ -1,4 +1,6 @@
 import * as axios from 'axios';
+import {get} from 'lodash';
+import {history} from '../App';
 
 export function bootstrapAxios() {
   const AUTH_ROUTES = [
@@ -21,7 +23,7 @@ export function bootstrapAxios() {
         const sessionID = localStorage.getItem('sessid');
         const authHeader = sessionID
           ? {
-              'X-AllClear-SessionID': sessionID,
+              'X-AllClear-SessionID': sessionID
             }
           : {};
         return {
@@ -50,6 +52,15 @@ export function bootstrapAxios() {
       return response;
     },
     (error) => {
+
+      if (get(error,'response.status') === 403){
+        localStorage.removeItem('confirm_sessid');
+        localStorage.removeItem('sessid');
+        history.push('/sign-in');
+        // todo: figure out how to properly route outside a component
+        window.location.reload();
+      }
+
       console.warn('response error:', error.response);
       return Promise.reject(error);
     },

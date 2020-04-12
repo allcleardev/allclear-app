@@ -5,7 +5,13 @@ export default class PeopleService {
 
   constructor() {
     this.baseURL = '/peoples';
+    this.logoutURL = '/sessions';
     this.sessionId = localStorage.getItem('sessid');
+    this.headers = {
+      headers: {
+        'X-AllClear-SessionID': this.sessionId,
+      },
+    };
   }
 
   static getInstance() {
@@ -17,10 +23,20 @@ export default class PeopleService {
   }
 
   getById(id) {
-    return Axios.get(`${this.baseURL}/${id}`, {
-      headers: {
-        'X-AllClear-SessionID': this.sessionId,
-      },
-    });
+    return Axios.get(`${this.baseURL}/${id}`, this.headers);
+  }
+
+  logout() {
+    return Axios.delete(this.logoutURL, this.headers);
+  }
+
+  async editProfile(postData) {
+    return Axios.put(`${this.baseURL}`, postData, this.headers)
+      .then((response) => {
+        return response;
+      })
+      .catch((error) => {
+        return error;
+      });
   }
 }

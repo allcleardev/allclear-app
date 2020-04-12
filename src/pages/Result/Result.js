@@ -144,14 +144,13 @@ class Result extends React.Component {
   }
 
   async submitResults() {
-
     this.setState({ loading: true });
 
     const payload = this.buildPayload();
 
     await Axios.post('/peoples/register', payload)
       .then((response) => {
-        // this.setCookie('sessid', response.data.id); // blocks progress. check fn
+        localStorage.removeItem('confirm_sessid');
         localStorage.setItem('sessid', response.data.id);
         localStorage.setItem('session', response.data);
         this.history.push('/map');
@@ -230,7 +229,11 @@ class Result extends React.Component {
             <h1 className="heading">Test Results</h1>
             <h2 className="sub-heading">
               If you've taken a COVID-19 test already, please submit test details and results. Refer to our
-              <a href="/"> Privacy Policy </a>for more details.
+              <a href="https://about.allclear.app/privacy-policy-2/" target="_blank" rel="noopener noreferrer">
+                {' '}
+                Privacy Policy{' '}
+              </a>
+              for more details.
             </h2>
           </RoundHeader>
           {this.state && this.state.loading === false ? (

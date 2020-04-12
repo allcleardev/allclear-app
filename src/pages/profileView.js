@@ -13,7 +13,7 @@ import { Button, IconButton, Chip } from '@material-ui/core';
 export default class ProfileView extends Component {
   constructor(props) {
     super(props);
-    bindAll(this, ['componentDidMount']);
+    bindAll(this, ['componentDidMount', 'fetchProfile', 'executeLogout', 'setProfile']);
     this.peopleService = PeopleService.getInstance();
     this.state = {
       profile: {},
@@ -30,12 +30,6 @@ export default class ProfileView extends Component {
     this.fetchProfile(session);
   }
 
-  setProfile(session) {
-    if (session.person) {
-      this.setState({ profile: session.person });
-    }
-  }
-
   async fetchProfile(session) {
     const response = await this.peopleService.getById(session.person.id);
     const profile = response.data;
@@ -43,6 +37,19 @@ export default class ProfileView extends Component {
     session.person = profile;
     localStorage.setItem('session', JSON.stringify(session));
     this.setState({ profile });
+  }
+
+  async executeLogout() {
+    await this.peopleService.logout();
+    localStorage.removeItem('confirm_sessid');
+    localStorage.removeItem('sessid');
+    return this.props.history.push('/sign-up');
+  }
+
+  setProfile(session) {
+    if (session.person) {
+      this.setState({ profile: session.person });
+    }
   }
 
   render() {
@@ -76,7 +83,11 @@ export default class ProfileView extends Component {
 
             <dl className="card__content">
               <dt className="card__term">Location</dt>
-              <dd className="card__description">11211</dd>
+              {profile.locationName ? (
+                <dd className="card__description">{profile.locationName}</dd>
+              ) : (
+                <dd className="card__description">My Current Location</dd>
+              )}
             </dl>
 
             {profile.exposures && profile.exposures.length ? (
@@ -130,7 +141,11 @@ export default class ProfileView extends Component {
             )}
           </article>
 
-          <Button style={{ color: '#2A7DF4', border: '1px solid #2A7DF4' }} className="btn-big  fontsize-16">
+          <Button
+            onClick={() => this.executeLogout()}
+            style={{ color: '#2A7DF4', border: '1px solid #2A7DF4' }}
+            className="btn-big  fontsize-16"
+          >
             Logout
           </Button>
         </Container>
