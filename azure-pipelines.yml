@@ -16,6 +16,9 @@ steps:
 - script: npm install
   displayName: 'Installing node modules'
 
+- script: npm run test
+  displayName: 'Running e2e tests'
+
 - script: |
     npm run lint && npm run build
   displayName: 'Running build'
