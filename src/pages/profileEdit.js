@@ -31,10 +31,10 @@ export default class ProfileEdit extends Component {
       profile: {},
       newProfile: {},
       healthWorkerStatusList: [],
+      userSelectedSymptoms: [],
       symptomsList: [],
       loading: true,
       error: false,
-      userSelectedChips: [],
     };
   }
 
@@ -61,18 +61,20 @@ export default class ProfileEdit extends Component {
 
   async fetchSymptoms() {
     const response = await this.typesService.getSymptoms();
-    this.setState({ symptomsList: response });
+
+    // merge selected symptoms group w/symptoms list to apply active-selection states in dropdown menu
+    const selectedSymptoms = this.state.userSelectedSymptoms;
+    const combined = Object.values({ ...response, ...selectedSymptoms });
+    console.log('combined:', combined);
+    this.setState({ symptomsList: combined });
   }
 
   setProfile(session) {
     if (session.person) {
       const profile = session.person;
-
       // set up selected symptoms for multi-select chips state
-      profile.symptoms.map((obj) => ({ ...obj, isActive: true }));
-      console.log('PROFILE:', session.person);
-
-      this.setState({ profile, userSelectedChips: profile.symptoms, loading: false });
+      const userSelectedSymptoms = profile.symptoms.map((obj) => ({ ...obj, isSelected: true }));
+      this.setState({ profile, userSelectedSymptoms, loading: false });
     }
   }
 
@@ -91,21 +93,7 @@ export default class ProfileEdit extends Component {
   }
 
   handleSymptomsSelection(event) {
-    console.log('SELECTION:', event.target.value);
-    const options = event.target.value;
-    const value = [];
-
-    options.map((option) => {
-      if (option.selected) {
-        value.push(option.value);
-      }
-    });
-
-    console.log('VALUE::', value);
-
-    // this.setState({
-    //   newProfile: { ...this.state.newProfile, symptoms: event.target.value },
-    // });
+    this.setState({ userSelectedSymptoms: event.target.value });
   }
 
   onUpdateProfileClicked() {
@@ -148,7 +136,11 @@ export default class ProfileEdit extends Component {
                   >
                     {this.state.healthWorkerStatusList
                       ? this.state.healthWorkerStatusList.map((option) => {
-                          return <MenuItem value={option.id}>{option.name}</MenuItem>;
+                          return (
+                            <MenuItem value={option.id} key={option.id}>
+                              {option.name}
+                            </MenuItem>
+                          );
                         })
                       : ''}
                   </Select>
@@ -164,15 +156,14 @@ export default class ProfileEdit extends Component {
                 ) : (
                   <Select
                     multiple
-                    value={this.state.userSelectedChips}
+                    value={this.state.userSelectedSymptoms}
                     onChange={this.handleSymptomsSelection}
                     input={<Input />}
                     renderValue={(selected) => (
                       <div className="chips-container">
-                        {selected.map((option) => {
-                          console.log('OPTION:', option);
-                          return <Chip key={option.id} label={option.name} className="chip" />;
-                        })}
+                        {selected.map((option) => (
+                          <Chip key={option.id} label={option.name} className="chip" />
+                        ))}
                       </div>
                     )}
                   >
