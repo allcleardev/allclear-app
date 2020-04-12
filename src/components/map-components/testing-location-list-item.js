@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
 import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { withStyles } from '@material-ui/core/styles';
 
 export default function TestingLocationListItem(props) {
@@ -15,6 +16,7 @@ export default function TestingLocationListItem(props) {
       aria-controls={`panel${index}-content`}
       id={`panel${index}-header`}
       className="testing-location-list-item"
+      expandIcon={<ExpandMoreIcon />}
     >
       <div>
         <h3 className="card-title">
