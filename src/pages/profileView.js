@@ -51,7 +51,7 @@ export default class ProfileView extends Component {
 
     localStorage.removeItem('confirm_sessid');
     localStorage.removeItem('sessid');
-    return this.props.history('/sign-up');
+    return this.props.history.push('/sign-up');
   }
 
   render() {
