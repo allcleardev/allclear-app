@@ -65,16 +65,20 @@ export default class ProfileEdit extends Component {
     // merge selected symptoms group w/symptoms list to apply active-selection states in dropdown menu
     const selectedSymptoms = this.state.userSelectedSymptoms;
     const combined = Object.values({ ...response, ...selectedSymptoms });
-    console.log('combined:', combined);
     this.setState({ symptomsList: combined });
   }
 
   setProfile(session) {
     if (session.person) {
       const profile = session.person;
+
       // set up selected symptoms for multi-select chips state
-      const userSelectedSymptoms = profile.symptoms.map((obj) => ({ ...obj, isSelected: true }));
-      this.setState({ profile, userSelectedSymptoms, loading: false });
+      if (profile.symptoms) {
+        const userSelectedSymptoms = profile.symptoms.map((obj) => ({ ...obj, isSelected: true }));
+        this.setState({ userSelectedSymptoms });
+      }
+
+      this.setState({ profile, loading: false });
     }
   }
 
@@ -93,7 +97,10 @@ export default class ProfileEdit extends Component {
   }
 
   handleSymptomsSelection(event) {
+    // setting selected values for dropdown options/chips
     this.setState({ userSelectedSymptoms: event.target.value });
+    // setting newly selected symptoms to new profile object to be submitted to server on submit
+    this.setState({ newProfile: { ...this.state.newProfile, symptoms: event.target.value } });
   }
 
   onUpdateProfileClicked() {
