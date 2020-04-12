@@ -61,10 +61,14 @@ export default class ProfileEdit extends Component {
 
   async fetchSymptoms() {
     const response = await this.typesService.getSymptoms();
-
-    // merge selected symptoms group w/symptoms list to apply active-selection states in dropdown menu
     const selectedSymptoms = this.state.userSelectedSymptoms;
-    const combined = Object.values({ ...response, ...selectedSymptoms });
+
+    // merge user selected symptoms w/server symptoms list to mark active selection status in dropdown on load
+    const combined = selectedSymptoms.concat(
+      response.filter((responseOption) =>
+        selectedSymptoms.every((selectedOption) => selectedOption.id !== responseOption.id),
+      ),
+    );
     this.setState({ symptomsList: combined });
   }
 
@@ -72,12 +76,10 @@ export default class ProfileEdit extends Component {
     if (session.person) {
       const profile = session.person;
 
-      // set up selected symptoms for multi-select dropdown state
-      if (profile.symptoms) {
-        const userSelectedSymptoms = profile.symptoms.map((obj) => ({ ...obj, isSelected: true }));
-        this.setState({ userSelectedSymptoms });
+      // need to pull out user selected symptoms and set to own state for isolated data handling
+      if (profile.symptoms && profile.symptoms.length) {
+        this.setState({ userSelectedSymptoms: profile.symptoms });
       }
-
       this.setState({ profile, loading: false });
     }
   }
@@ -96,11 +98,34 @@ export default class ProfileEdit extends Component {
     }
   }
 
-  handleSymptomsSelection(event) {
-    // setting selected values for dropdown options/chips
-    this.setState({ userSelectedSymptoms: event.target.value });
-    // setting newly selected symptoms to new profile object to be submitted to server on submit
-    this.setState({ newProfile: { ...this.state.newProfile, symptoms: event.target.value } });
+  handleSymptomsSelection(event, value) {
+    const selectedValue = value.props.value;
+    let selectedList = event.target.value;
+
+    // return empty lists (forces user to select at least one)
+    if (!selectedList.length) {
+      return;
+    }
+
+    // if 'none' is selectedValue, deselect the rest
+    if (selectedValue.id === 'no') {
+      this.setState({
+        userSelectedSymptoms: [selectedValue],
+        newProfile: { ...this.state.newProfile, symptoms: [selectedValue] },
+      });
+    } else {
+      // if 'none' was previously selected, remove from current selectedList
+      if (selectedList.length) {
+        selectedList = selectedList.filter((selected) => selected.id !== 'no');
+      }
+
+      this.setState({
+        // set chips/dropdown selection state
+        userSelectedSymptoms: selectedList,
+        // update newProfile to be sent to the server on submit
+        newProfile: { ...this.state.newProfile, symptoms: selectedList },
+      });
+    }
   }
 
   onUpdateProfileClicked() {
@@ -142,13 +167,11 @@ export default class ProfileEdit extends Component {
                     onChange={this.handleHealthWorkerSelection}
                   >
                     {this.state.healthWorkerStatusList
-                      ? this.state.healthWorkerStatusList.map((option) => {
-                          return (
-                            <MenuItem value={option.id} key={option.id}>
-                              {option.name}
-                            </MenuItem>
-                          );
-                        })
+                      ? this.state.healthWorkerStatusList.map((option) => (
+                          <MenuItem value={option.id} key={option.id}>
+                            {option.name}
+                          </MenuItem>
+                        ))
                       : ''}
                   </Select>
                 )}
