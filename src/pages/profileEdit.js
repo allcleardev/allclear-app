@@ -72,7 +72,7 @@ export default class ProfileEdit extends Component {
     if (session.person) {
       const profile = session.person;
 
-      // set up selected symptoms for multi-select chips state
+      // set up selected symptoms for multi-select dropdown state
       if (profile.symptoms) {
         const userSelectedSymptoms = profile.symptoms.map((obj) => ({ ...obj, isSelected: true }));
         this.setState({ userSelectedSymptoms });
