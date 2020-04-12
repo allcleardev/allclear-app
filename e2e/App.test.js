@@ -19,6 +19,8 @@ describe('App loads', () => {
     await page.goto('http://localhost:3000/');
     await page.waitForSelector('.heading');
 
+
+    debugger;
     browser.close();
   }, 30000);
 });
