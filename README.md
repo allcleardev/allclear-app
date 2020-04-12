@@ -18,9 +18,11 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
 
-### `npm test`
+### `npm run test:inspect`
 
-Launches the test runner in the interactive watch mode.<br />
+Launches the e2e test runner in the interactive watch mode.
+You can install [nim](https://chrome.google.com/webstore/detail/nodejs-v8-inspector-manag/gnhhdgbaldcilmgcpfddgdbkhjohddkj?hl=en) to automatically open the chrome debugger so you can inspect variables within the scope of your tests. Trigger a breakpoint by placing `debugger` statements in your test.
+
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ### `npm run build`
