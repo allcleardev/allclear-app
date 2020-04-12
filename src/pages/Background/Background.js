@@ -59,11 +59,10 @@ class Background extends Component {
   }
 
   async _onLocationAccepted(pos) {
-    const lat = pos.coords.latitude;
-    const lng = pos.coords.longitude;
+    // const lat = pos.coords.latitude;
+    // const lng = pos.coords.longitude;
+    // todo: set latlng to appprovider here
 
-    sessionStorage.setItem('lat', lat);
-    sessionStorage.setItem('lng', lng);
     this.setState({ location: true });
   }
 

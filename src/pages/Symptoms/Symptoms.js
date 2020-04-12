@@ -102,8 +102,11 @@ class Symptom extends Component {
   buildPayload() {
     const dob = sessionStorage.getItem('dob');
     const phone = sessionStorage.getItem('phone');
-    const lat = sessionStorage.getItem('lat');
-    const lng = sessionStorage.getItem('lng');
+    // const lat = sessionStorage.getItem('lat');
+    // const lng = sessionStorage.getItem('lng');
+    // todo: set latlng to appprovider here - get
+    const lat = 47;
+    const lng = 33;
     const healthWorkerStatus = sessionStorage.getItem('healthWorkerStatus');
     const alertable = sessionStorage.getItem('alertable');
 

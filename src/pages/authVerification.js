@@ -45,8 +45,7 @@ export default function PhoneVerify({ props, location }) {
         localStorage.setItem('session', JSON.stringify(response.data));
 
         if (response.data.person) {
-          sessionStorage.setItem('lat', response.data.person.latitude);
-          sessionStorage.setItem('lng', response.data.person.longitude);
+          // todo: set latlng to appprovider here
         }
 
         history.push('/map');

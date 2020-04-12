@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, BrowserRouter, Switch} from 'react-router-dom';
+import {Route, Switch, Router} from 'react-router-dom';
 import {createBrowserHistory} from 'history';
 
 import './styles/app.scss';
@@ -32,12 +32,11 @@ import Trace from './pages/Trace/Trace';
 import UpdateTestingCenterCriteria from './pages/updateTestingCenterCriteria';
 import VerifyMagicLink from './pages/verify-magic-link';
 
-
 export const history = createBrowserHistory();
 
 export default function App() {
   return (
-    <BrowserRouter
+    <Router
       history={history}
     >
       <AppProvider>
@@ -74,6 +73,6 @@ export default function App() {
           {/* <ConfirmedRoute path="/results" component={Result} /> */}
         </Switch>
       </AppProvider>
-    </BrowserRouter>
+    </Router>
   );
 }

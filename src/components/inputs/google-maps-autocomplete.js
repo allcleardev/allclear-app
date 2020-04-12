@@ -32,8 +32,7 @@ export default function GoogleMapsAutocomplete(props) {
       geocodeByAddress(address)
         .then((results) => getLatLng(results[0]))
         .then((latLng) => {
-          sessionStorage.setItem('lat', latLng.lat);
-          sessionStorage.setItem('lng', latLng.lng);
+          // todo: set latlng to appprovider here
         })
         .catch((error) => console.error('Error', error));
 

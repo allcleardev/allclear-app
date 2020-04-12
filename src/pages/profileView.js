@@ -51,7 +51,7 @@ export default class ProfileView extends Component {
 
     localStorage.removeItem('confirm_sessid');
     localStorage.removeItem('sessid');
-    return this.props.history('/sign-up');
+    return this.props.history.push('/sign-up');
   }
 
   render() {
@@ -143,7 +143,8 @@ export default class ProfileView extends Component {
             )}
           </article>
 
-          <Button  onClick={() => this.executeLogout()} style={{ color: '#2A7DF4', border: '1px solid #2A7DF4' }} className="btn-big  fontsize-16">
+          <Button  onClick={() => this.executeLogout()} style={{ color: '#2A7DF4', border: '1px solid #2A7DF4' }}
+                   className="btn-big  fontsize-16">
             Logout
           </Button>
         </Container>

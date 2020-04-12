@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
+import * as queryString from 'query-string';
 
 import RoundHeader from '../components/headers/header-round';
 import ProgressBottom from '../components/progressBottom';
@@ -11,22 +12,42 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { Button, Grid, Container } from '@material-ui/core';
+import Slide from '@material-ui/core/Slide';
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
+import {makeStyles} from '@material-ui/core/styles';
+import clsx from 'clsx';
+
+function SlideTransition(props) {
+  return <Slide {...props} direction="up" />;
+}
 
 export default class PhoneVerify extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       termsAndConditions: false,
       alertable: false,
       phoneVerified: false,
       loading: false,
       error: false,
+      isSnackbarOpen: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleSnackbarClose = this.handleSnackbarClose.bind(this);
     this.checkPhoneValidation = this.checkPhoneValidation.bind(this);
     this.onSendVerificationClicked = this.onSendVerificationClicked.bind(this);
     this.verifyLogin = this.verifyLogin.bind(this);
+  }
+
+  async componentDidMount() {
+    const queryParams = queryString.parse(this.props.location.search);
+    if (queryParams.logout) {
+      this.setState({
+        isSnackbarOpen: true
+      });
+    }
   }
 
   handleChange(event) {
@@ -39,6 +60,12 @@ export default class PhoneVerify extends Component {
     if (event.target.name === 'alertable') {
       sessionStorage.setItem('alertable', event.target.checked);
     }
+  }
+
+  handleSnackbarClose(event) {
+    this.setState({
+      isSnackbarOpen: false
+    });
   }
 
   checkPhoneValidation(value) {
@@ -117,6 +144,17 @@ export default class PhoneVerify extends Component {
   render() {
     return (
       <div className="background-responsive">
+        <Snackbar
+          open={this.state.isSnackbarOpen}
+          TransitionComponent={SlideTransition}
+          autoHideDuration={6000}
+          onClose={this.handleSnackbarClose}
+          className={'snackbar__error'}
+        >
+          <Alert onClose={this.handleSnackbarClose} severity="error">
+            You must be logged in to use the map feature.
+          </Alert>
+        </Snackbar>
         <div className="sign-up onboarding-page">
           <RoundHeader>
             <h1 className="heading">COVID-19 Test Alerts</h1>
@@ -203,3 +241,10 @@ export default class PhoneVerify extends Component {
     );
   }
 }
+
+const classes = makeStyles((theme) => ({
+  snackbar: {
+    border: '11px solid blue'
+  },
+}));
+
