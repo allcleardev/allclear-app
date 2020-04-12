@@ -3,20 +3,36 @@ import { bindAll } from 'lodash';
 
 import HomescreenHeader from '../components/headers/header-homescreen';
 import NavBottom from '../components/navBottom';
-import PeopleService from '../services/people.service.js';
 import GoogleMapsAutocomplete from '../components/inputs/google-maps-autocomplete';
 
+import PeopleService from '../services/people.service.js';
+import TypesService from '../services/types.service.js';
+
 import Container from '@material-ui/core/Container';
-import { Button } from '@material-ui/core';
+import { Button, FormControl, Select, MenuItem, Input, Chip } from '@material-ui/core';
 
 export default class ProfileEdit extends Component {
   constructor(props) {
     super(props);
-    bindAll(this, ['routeChange', 'setProfile', 'handleLocationSelection', 'onUpdateProfileClicked']);
+    bindAll(this, [
+      'routeChange',
+      'componentDidMount',
+      'fetchHealthWorkerStatuses',
+      'fetchSymptoms',
+      'setProfile',
+      'onUpdateProfileClicked',
+      'handleLocationSelection',
+      'handleHealthWorkerSelection',
+      'handleSymptomsSelection',
+    ]);
     this.peopleService = PeopleService.getInstance();
+    this.typesService = TypesService.getInstance();
     this.state = {
       profile: {},
       newProfile: {},
+      healthWorkerStatusList: [],
+      userSelectedSymptoms: [],
+      symptomsList: [],
       loading: true,
       error: false,
     };
@@ -32,12 +48,37 @@ export default class ProfileEdit extends Component {
     }
     this.setState({ loading: true });
     const session = JSON.parse(localStorage.getItem('session'));
+
     this.setProfile(session);
+    this.fetchHealthWorkerStatuses();
+    this.fetchSymptoms();
+  }
+
+  async fetchHealthWorkerStatuses() {
+    const response = await this.typesService.getHealthWorkerStatuses();
+    this.setState({ healthWorkerStatusList: response });
+  }
+
+  async fetchSymptoms() {
+    const response = await this.typesService.getSymptoms();
+
+    // merge selected symptoms group w/symptoms list to apply active-selection states in dropdown menu
+    const selectedSymptoms = this.state.userSelectedSymptoms;
+    const combined = Object.values({ ...response, ...selectedSymptoms });
+    this.setState({ symptomsList: combined });
   }
 
   setProfile(session) {
     if (session.person) {
-      this.setState({ profile: session.person, loading: false });
+      const profile = session.person;
+
+      // set up selected symptoms for multi-select dropdown state
+      if (profile.symptoms) {
+        const userSelectedSymptoms = profile.symptoms.map((obj) => ({ ...obj, isSelected: true }));
+        this.setState({ userSelectedSymptoms });
+      }
+
+      this.setState({ profile, loading: false });
     }
   }
 
@@ -45,6 +86,21 @@ export default class ProfileEdit extends Component {
     if (value) {
       this.setState({ newProfile: { ...this.state.newProfile, locationName: value.description } });
     }
+  }
+
+  handleHealthWorkerSelection(event) {
+    if (event.target.value) {
+      this.setState({
+        newProfile: { ...this.state.newProfile, healthWorkerStatusId: event.target.value },
+      });
+    }
+  }
+
+  handleSymptomsSelection(event) {
+    // setting selected values for dropdown options/chips
+    this.setState({ userSelectedSymptoms: event.target.value });
+    // setting newly selected symptoms to new profile object to be submitted to server on submit
+    this.setState({ newProfile: { ...this.state.newProfile, symptoms: event.target.value } });
   }
 
   onUpdateProfileClicked() {
@@ -65,13 +121,67 @@ export default class ProfileEdit extends Component {
             <div className="card__content">
               <label className="card__term">Location</label>
               {this.state.loading ? (
-                'Loading...'
+                ''
               ) : (
                 <GoogleMapsAutocomplete
                   initialValue={profile.locationName}
                   locationSelected={this.handleLocationSelection}
                 ></GoogleMapsAutocomplete>
               )}
+            </div>
+
+            <div className="card__content">
+              <label className="card__term">Health Worker Status</label>
+              <FormControl variant="outlined">
+                {this.state.loading ? (
+                  ''
+                ) : (
+                  <Select
+                    className="input"
+                    defaultValue={profile.healthWorkerStatusId}
+                    onChange={this.handleHealthWorkerSelection}
+                  >
+                    {this.state.healthWorkerStatusList
+                      ? this.state.healthWorkerStatusList.map((option) => {
+                          return (
+                            <MenuItem value={option.id} key={option.id}>
+                              {option.name}
+                            </MenuItem>
+                          );
+                        })
+                      : ''}
+                  </Select>
+                )}
+              </FormControl>
+            </div>
+
+            <div className="card__content">
+              <label className="card__term">Symptoms</label>
+              <FormControl>
+                {this.state.loading ? (
+                  ''
+                ) : (
+                  <Select
+                    multiple
+                    value={this.state.userSelectedSymptoms}
+                    onChange={this.handleSymptomsSelection}
+                    input={<Input />}
+                    renderValue={(selected) => (
+                      <div className="chips-container">
+                        {selected.map((option) => (
+                          <Chip key={option.id} label={option.name} className="chip" />
+                        ))}
+                      </div>
+                    )}
+                  >
+                    {this.state.symptomsList.map((option) => (
+                      <MenuItem key={option.id} value={option}>
+                        {option.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                )}
+              </FormControl>
             </div>
           </article>
 
