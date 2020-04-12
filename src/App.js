@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, BrowserRouter, Switch, Redirect } from 'react-router-dom';
+import { Route, BrowserRouter, Switch } from 'react-router-dom';
 
 import './styles/app.scss';
 
@@ -58,13 +58,14 @@ export default function App() {
           <ProtectedRoute path="/share" component={ShareApp} />
           <ProtectedRoute path="/settings" component={Settings} />
           <ProtectedRoute path="/contact-tracing" component={Trace} />
+          <Route component={NotFound} />
           {/* Map */}
           <MapPageProvider>
             <Route path="/map" component={MapPage} />
           </MapPageProvider>
           {/* 404 - Not Found */}
-          <Route path="/404" component={NotFound} />
-          <Redirect to="/404" />
+         
+          {/* <Redirect to="/404" /> */}
           {/* Abandoned Temporarily*/}
           {/* <ConfirmedRoute path="/conditions" component={Conditions} /> */}
           {/* <ConfirmedRoute path="/results" component={Result} /> */}
