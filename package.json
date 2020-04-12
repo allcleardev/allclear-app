@@ -8,6 +8,7 @@
     "lint": "eslint src --max-warnings=0",
     "deploy": "yarn build && surge build --domain allclear.surge.sh",
     "test": "jest",
+    "test:inspect": "node --inspect-brk node_modules/.bin/jest --runInBand --watch",
     "eject": "react-app-rewired eject"
   },
   "dependencies": {

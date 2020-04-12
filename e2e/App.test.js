@@ -2,6 +2,7 @@ const puppeteer = require('puppeteer');
 
 describe('App loads', () => {
   test('App splash page loads correctly', async () => {
+
     let browser = await puppeteer.launch({
       headless: true
     });
