@@ -7,7 +7,8 @@
     "build": "node stampBuild.js && react-app-rewired build",
     "lint": "eslint src --max-warnings=0",
     "deploy": "yarn build && surge build --domain allclear.surge.sh",
-    "test": "react-app-rewired test",
+    "test": "jest",
+    "test:inspect": "node --inspect-brk node_modules/.bin/jest --runInBand --watch",
     "eject": "react-app-rewired eject"
   },
   "dependencies": {
@@ -37,8 +38,10 @@
     "customize-cra": "^0.9.1",
     "envfile": "^5.0.0",
     "eslint": "^6.8.0",
+    "jest-puppeteer": "^4.4.0",
     "prettier": "^2.0.3",
     "pretty-quick": "^2.0.1",
+    "puppeteer": "^2.1.1",
     "react-app-rewired": "^2.1.5"
   },
   "browserslist": {

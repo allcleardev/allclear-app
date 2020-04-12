@@ -21,6 +21,8 @@ steps:
   displayName: 'Running build'
   env:
     GIT_BRANCH: $(Build.SourceBranchName)
+    TWILIO_E2E_SID: $(TWILIO_E2E_SID)
+    TWILIO_E2E_SECRET: $(TWILIO_E2E_SECRET)
 
 # Save artifacts to refer them in release builds
 - task: PublishPipelineArtifact@1
