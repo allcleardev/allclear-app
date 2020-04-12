@@ -97,7 +97,7 @@ export default class GoogleMap extends Component {
     const lng = pos.coords.longitude;
     //eslint-disable-next-line
     const currBrowserLocation = new google.maps.LatLng(lat, lng);
-    this.gMap && this.gMap.current.map_.panTo(currBrowserLocation);
+    this.gMap && this.gMap.current && this.gMap.current.map_.panTo(currBrowserLocation);
     const result = await this.facilityService.search({
         from:
           {
