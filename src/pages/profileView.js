@@ -46,9 +46,7 @@ export default class ProfileView extends Component {
   }
 
   async executeLogout() {
-    const response = await this.peopleService.logout();
-    console.log('logout response', response); //TODO: remove before go live
-
+    await this.peopleService.logout();
     localStorage.removeItem('confirm_sessid');
     localStorage.removeItem('sessid');
     return this.props.history.push('/sign-up');
