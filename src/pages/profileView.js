@@ -13,7 +13,7 @@ import { Button, IconButton, Chip } from '@material-ui/core';
 export default class ProfileView extends Component {
   constructor(props) {
     super(props);
-    bindAll(this, ['componentDidMount']);
+    bindAll(this, ['componentDidMount', 'executeLogout']);
     this.peopleService = PeopleService.getInstance();
     this.state = {
       profile: {},
@@ -43,6 +43,15 @@ export default class ProfileView extends Component {
     session.person = profile;
     localStorage.setItem('session', JSON.stringify(session));
     this.setState({ profile });
+  }
+
+  async executeLogout() {
+    const response = await this.peopleService.logout();
+    console.log('logout response', response); //TODO: remove before go live
+
+    localStorage.removeItem('confirm_sessid');
+    localStorage.removeItem('sessid');
+    return this.props.history('/sign-up');
   }
 
   render() {
@@ -134,7 +143,11 @@ export default class ProfileView extends Component {
             )}
           </article>
 
-          <Button style={{ color: '#2A7DF4', border: '1px solid #2A7DF4' }} className="btn-big  fontsize-16">
+          <Button
+            onClick={() => this.executeLogout()}
+            style={{ color: '#2A7DF4', border: '1px solid #2A7DF4' }}
+            className="btn-big  fontsize-16"
+          >
             Logout
           </Button>
         </Container>
