@@ -26,10 +26,8 @@ export default class GoogleMap extends Component {
   static defaultProps = {
     center: {
       // todo: set latlng to appprovider here - get
-      // lat: Number(sessionStorage.getItem('lat')) || 40.743992,
-      // lng: Number(sessionStorage.getItem('lng')) || -74.032364,
-      lat: 40.743992,
-      lng:  -74.032364,
+      lat: undefined,
+      lng: undefined,
     },
     zoom: 12,
   };
@@ -37,8 +35,7 @@ export default class GoogleMap extends Component {
   async componentDidMount() {
     const {lat, lng} = this.props.center;
     const result = await this.facilityService.search({
-        from:
-          {
+        from: {
             latitude: lat,
             longitude: lng,
             miles: 100
@@ -56,8 +53,7 @@ export default class GoogleMap extends Component {
     const lat = evt.center.lat();
     const lng = evt.center.lng();
     const result = await this.facilityService.search({
-        from:
-          {
+        from: {
             latitude: lat,
             longitude: lng,
             miles: 100
@@ -72,8 +68,7 @@ export default class GoogleMap extends Component {
     const lat = evt.center.lat();
     const lng = evt.center.lng();
     const result = await this.facilityService.search({
-        from:
-          {
+        from: {
             latitude: lat,
             longitude: lng,
             miles: 100
@@ -102,8 +97,7 @@ export default class GoogleMap extends Component {
     const currBrowserLocation = new google.maps.LatLng(lat, lng);
     this.gMap && this.gMap.current.map_.panTo(currBrowserLocation);
     const result = await this.facilityService.search({
-        from:
-          {
+        from: {
             latitude: lat,
             longitude: lng,
             miles: 100

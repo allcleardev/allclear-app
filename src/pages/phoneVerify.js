@@ -15,8 +15,6 @@ import { Button, Grid, Container } from '@material-ui/core';
 import Slide from '@material-ui/core/Slide';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
-import {makeStyles} from '@material-ui/core/styles';
-import clsx from 'clsx';
 
 function SlideTransition(props) {
   return <Slide {...props} direction="up" />;
@@ -147,7 +145,7 @@ export default class PhoneVerify extends Component {
         <Snackbar
           open={this.state.isSnackbarOpen}
           TransitionComponent={SlideTransition}
-          autoHideDuration={6000}
+          autoHideDuration={4000}
           onClose={this.handleSnackbarClose}
           className={'snackbar__error'}
         >
@@ -241,10 +239,3 @@ export default class PhoneVerify extends Component {
     );
   }
 }
-
-const classes = makeStyles((theme) => ({
-  snackbar: {
-    border: '11px solid blue'
-  },
-}));
-

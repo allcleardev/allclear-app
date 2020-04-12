@@ -111,13 +111,12 @@ function UpdateCriteria({ onClose, onSubmit }) {
     };
 
     // todo: set latlng to appprovider here - get
-    // const latitude = Number(sessionStorage.getItem('lat'));
-    // const longitude = Number(sessionStorage.getItem('lng'));
+    const {latitude, longitude} = appState.person;
     const result = await facilityService.search({
       ...searchCriteria,
       from: {
-        latitude: 47,
-        longitude: 71,
+        latitude,
+        longitude,
         miles: 100,
       },
     });

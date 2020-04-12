@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import { bindAll } from 'lodash';
 
 import RoundHeader from '../../components/headers/header-round';
@@ -9,8 +9,11 @@ import OnboardingNavigation from '../../components/onboarding-navigation';
 import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
 import { Button, TextField } from '@material-ui/core';
+import {AppContext} from '../../contexts/App.context';
 
 class Background extends Component {
+  static contextType = AppContext;
+
   constructor() {
     super();
     this.state = { dob: '', location: false, useCurrentLocation: false };
@@ -59,10 +62,18 @@ class Background extends Component {
   }
 
   async _onLocationAccepted(pos) {
-    // const lat = pos.coords.latitude;
-    // const lng = pos.coords.longitude;
-    // todo: set latlng to appprovider here
+    const { appState, setAppState } = this.context;
+    const { latitude, longitude } = pos.coords;
 
+    // todo: set latlng to appprovider here
+    setAppState({
+      ...appState,
+      person: {
+        ...appState.person,
+        latitude,
+        longitude,
+      },
+    });
     this.setState({ location: true });
   }
 

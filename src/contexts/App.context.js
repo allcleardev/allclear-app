@@ -6,9 +6,11 @@ export const AppConsumer = AppContext.Consumer;
 
 // Context state
 const initialAppState = {
+  person:{},
   searchCriteria: {
     driveThru: 'Any',
     appointmentRequired: 'Any',
+
 
     // symptoms: ['none'],
     // exposure: 'Select Exposure',

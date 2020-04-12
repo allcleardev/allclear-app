@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Link, useHistory } from 'react-router-dom';
 // import qs from 'qs';
 import Form from '@material-ui/core/Container';
@@ -8,6 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import Axios from 'axios';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import RoundHeader from '../components/headers/header-round';
+import {AppContext} from '../contexts/App.context';
 
 export default function PhoneVerify({ props, location }) {
   const [state] = React.useState({
@@ -15,6 +16,7 @@ export default function PhoneVerify({ props, location }) {
     loading: false,
   });
   const [isError, setValue] = React.useState(false);
+  const { appState, setAppState } = useContext(AppContext);
 
   const history = useHistory();
 
@@ -46,6 +48,10 @@ export default function PhoneVerify({ props, location }) {
 
         if (response.data.person) {
           // todo: set latlng to appprovider here
+          setAppState({
+            ...appState,
+            person:response.data.person,
+          });
         }
 
         history.push('/map');

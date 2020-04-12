@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 
 import throttle from 'lodash/throttle';
 import parse from 'autosuggest-highlight/parse';
@@ -7,6 +7,7 @@ import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { TextField, Grid, Typography, makeStyles } from '@material-ui/core';
+import {AppContext} from '../../contexts/App.context';
 
 const autocompleteService = { current: null };
 
@@ -21,6 +22,7 @@ export default function GoogleMapsAutocomplete(props) {
   const classes = useStyles();
   const [inputValue, setInputValue] = React.useState('');
   const [options, setOptions] = React.useState([]);
+  const { appState, setAppState } = useContext(AppContext);
 
   const handleTextChange = (event) => {
     setInputValue(event.target.value);
@@ -33,6 +35,14 @@ export default function GoogleMapsAutocomplete(props) {
         .then((results) => getLatLng(results[0]))
         .then((latLng) => {
           // todo: set latlng to appprovider here
+          setAppState({
+            ...appState,
+            person: {
+              ...appState.person,
+              latitude: latLng.lat,
+              longitude: latLng.lng,
+            },
+          });
         })
         .catch((error) => console.error('Error', error));
 
