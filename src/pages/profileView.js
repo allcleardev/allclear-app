@@ -13,7 +13,7 @@ import { Button, IconButton, Chip } from '@material-ui/core';
 export default class ProfileView extends Component {
   constructor(props) {
     super(props);
-    bindAll(this, ['componentDidMount', 'executeLogout']);
+    bindAll(this, ['componentDidMount', 'fetchProfile', 'executeLogout', 'setProfile']);
     this.peopleService = PeopleService.getInstance();
     this.state = {
       profile: {},
@@ -30,12 +30,6 @@ export default class ProfileView extends Component {
     this.fetchProfile(session);
   }
 
-  setProfile(session) {
-    if (session.person) {
-      this.setState({ profile: session.person });
-    }
-  }
-
   async fetchProfile(session) {
     const response = await this.peopleService.getById(session.person.id);
     const profile = response.data;
@@ -50,6 +44,12 @@ export default class ProfileView extends Component {
     localStorage.removeItem('confirm_sessid');
     localStorage.removeItem('sessid');
     return this.props.history.push('/sign-up');
+  }
+
+  setProfile(session) {
+    if (session.person) {
+      this.setState({ profile: session.person });
+    }
   }
 
   render() {
