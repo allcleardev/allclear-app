@@ -30,7 +30,7 @@ export default class PeopleService {
     return Axios.delete(this.logoutURL, this.headers);
   }
 
-  editProfile(postData) {
+  async editProfile(postData) {
     return Axios.put(`${this.baseURL}`, postData, this.headers)
       .then((response) => {
         return response;

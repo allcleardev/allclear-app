@@ -17,7 +17,6 @@
   }
 
   .cards-container {
-    min-height: 60%;
     margin-top: -80px;
 
     @media (min-width: $md) {
@@ -30,7 +29,6 @@
   }
 
   .card {
-    min-height: 100%;
     margin-bottom: 34px;
     padding: 15px 14px;
     border-radius: 6px;
@@ -43,6 +41,8 @@
     }
 
     &__content {
+      display: flex;
+      flex-direction: column;
       font-size: 15px;
       line-height: 20px;
       &:not(:last-child) {
@@ -52,6 +52,15 @@
 
     &__term {
       font-weight: 600;
+    }
+  }
+
+  .chips-container {
+    display: flex;
+    flex-wrap: wrap;
+
+    .chip {
+      margin: 3px;
     }
   }
 

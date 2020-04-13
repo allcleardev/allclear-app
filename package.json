@@ -1,13 +1,14 @@
 {
   "name": "allclear-pwa-2",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "private": true,
   "scripts": {
     "start": "node stampBuild.js && react-app-rewired start",
     "build": "node stampBuild.js && react-app-rewired build",
     "lint": "eslint src --max-warnings=0",
     "deploy": "yarn build && surge build --domain allclear.surge.sh",
-    "test": "react-app-rewired test",
+    "test": "jest",
+    "test:inspect": "node --inspect-brk node_modules/.bin/jest --runInBand --watch",
     "eject": "react-app-rewired eject"
   },
   "dependencies": {
@@ -26,6 +27,7 @@
     "prop-types": "^15.7.2",
     "query-string": "^6.12.0",
     "react": "^16.13.1",
+    "react-animate-height": "^2.0.20",
     "react-cookie": "^4.0.3",
     "react-dom": "^16.13.1",
     "react-hammerjs": "^1.0.1",
@@ -35,12 +37,13 @@
     "react-scripts": "3.4.1"
   },
   "devDependencies": {
-    "@types/leaflet.locatecontrol": "^0.60.7",
     "customize-cra": "^0.9.1",
     "envfile": "^5.0.0",
     "eslint": "^6.8.0",
+    "jest-puppeteer": "^4.4.0",
     "prettier": "^2.0.3",
     "pretty-quick": "^2.0.1",
+    "puppeteer": "^2.1.1",
     "react-app-rewired": "^2.1.5"
   },
   "browserslist": {
