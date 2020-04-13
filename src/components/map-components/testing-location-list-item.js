@@ -143,6 +143,7 @@ const ExpansionPanel = withStyles({
     },
     '&$expanded': {
       margin: 'auto',
+      boxShadow: '0px 18px 8px 20px rgba(0,0,0,.15)'
     },
   },
   expanded: {},
@@ -151,7 +152,7 @@ const ExpansionPanel = withStyles({
 const ExpansionPanelSummary = withStyles({
   root: {
     backgroundColor: '#fff',
-    boxShadow: 'inset 0px 11px 8px -10px rgba(0,0,0,.15)',
+    borderTop: '.2px solid rgba(0, 0, 0, .125)',
     marginBottom: -1,
     minHeight: 56,
     '&$expanded': {
@@ -168,7 +169,8 @@ const ExpansionPanelSummary = withStyles({
 const ExpansionPanelDetails = withStyles((theme) => ({
   root: {
     backgroundColor: '#fff',
-    paddingBottom: 3
+    paddingBottom: 3,
+    boxShadow: 'inset 0px -11px 8px -10px rgba(0,0,0,.15)'
   },
 }))(MuiExpansionPanelDetails);
 
