@@ -53,7 +53,6 @@ export default function PhoneVerify({ props, location }) {
       })
       .catch((error) => {
         setValue(true);
-        console.log('error', error);
         // TODO Display Error Message
       });
   };
@@ -90,8 +89,9 @@ export default function PhoneVerify({ props, location }) {
                   onChange={handleCodeChange}
                   style={{}}
                 />
-                {isError ? <p className="codeError">You're entered an incorrect code. Please Try again</p>: ''}
               </FormControl>
+              {isError ? <p className="codeError">You're entered an incorrect code. Please Try again</p>: ''}
+
             </div>
 
             <div className="button-container">
