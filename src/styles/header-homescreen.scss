@@ -21,7 +21,7 @@
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    background: linear-gradient(to right, #36d1bc, #1195ff);
+    background: $gradient-background;
 
     @media (min-width: $md) {
       border-radius: 0;
