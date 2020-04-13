@@ -31,6 +31,8 @@ import Symptoms from './pages/Symptoms/Symptoms';
 import Trace from './pages/Trace/Trace';
 import UpdateTestingCenterCriteria from './pages/updateTestingCenterCriteria';
 import VerifyMagicLink from './pages/verify-magic-link';
+import NotFound from './pages/not-found';
+import {Redirect} from 'react-router';
 
 export const history = createBrowserHistory();
 
@@ -63,10 +65,18 @@ export default function App() {
           <ProtectedRoute path="/share" component={ShareApp}/>
           <ProtectedRoute path="/settings" component={Settings}/>
           <ProtectedRoute path="/contact-tracing" component={Trace}/>
+
+
           {/* Map */}
           <MapPageProvider>
-            <Route path="/map" component={MapPage}/>
+          <Route path="/map" component={MapPage}/>
           </MapPageProvider>
+
+          {/* 404 */}
+          {/*<Route path="/404" component={NotFound}/>*/}
+          {/*<Route path="*">*/}
+          {/*  <Redirect to="/404"/>*/}
+          {/*</Route>*/}
 
           {/* Abandoned Temporarily*/}
           {/* <ConfirmedRoute path="/conditions" component={Conditions} /> */}
