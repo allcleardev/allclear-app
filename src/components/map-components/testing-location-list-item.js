@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import { boolToEng, isNullOrUndefined } from '../../util/helpers';
 
 import Button from '@material-ui/core/Button';
@@ -28,6 +29,7 @@ export default function TestingLocationListItem(props) {
           <dd className="summary__item summary__item--grey">{service_time}</dd>
           <dd className="detsummaryails__item">{driveThru.toString() === 'true' ? 'Drive Through' : ''}</dd>
           <dd className="summary__item summary__item--semibold">{description}</dd>
+          <dd className="summary__item summary__item--semibold">{phone}</dd>
         </dl>
 
         <div className="buttons" style={{ marginTop: '25px' }}>
@@ -40,7 +42,7 @@ export default function TestingLocationListItem(props) {
           </a>
 
           <a href={'tel:' + phone} rel="noopener noreferrer" target="_blank">
-            <Button className="btn primary-color primary-outline" style={{ marginLeft: '15px' }}>
+            <Button className="btn primary-color primary-outline d-lg-none" style={{ marginLeft: '15px' }}>
               Call
             </Button>
           </a>
@@ -52,12 +54,13 @@ export default function TestingLocationListItem(props) {
   const body = (
     <ExpansionPanelDetails>
       <section className="testing-location-list-item__details">
-        <h4>Test Center Overview</h4>
+        <div className="border"></div>
+        <h4><b>Test Center Overview</b></h4>
         <dl className="details">
-          {!isNullOrUndefined(props.hours) && (
+          {!isNullOrUndefined(props.testCriteria) && (
             <Fragment>
-              <dt>Hours:</dt>
-              <dd>{props.hours}</dd>
+              <dt>Known Test Criteria:</dt>
+              <dd>{props.testCriteria.name}</dd>
             </Fragment>
           )}
           {!isNullOrUndefined(props.type) && (
@@ -92,14 +95,14 @@ export default function TestingLocationListItem(props) {
           )}
           {!isNullOrUndefined(props.referralRequired) && (
             <Fragment>
-              <dt>Referral from Doctor Needed:</dt>
+              <dt>Doctor Referral Required:</dt>
               <dd>{boolToEng(props.referralRequired)}</dd>
             </Fragment>
           )}
-          {!isNullOrUndefined(props.testCriteria) && (
+          {!isNullOrUndefined(props.referralRequired) && (
             <Fragment>
-              <dt>If Yes, Known Required Criteria:</dt>
-              <dd>{boolToEng(props.testCriteria.name)}</dd>
+              <dt>Doctor Referral Criteria:</dt>
+              <dd>{props.doctorReferralCriteria ? props.doctorReferralCriteria : 'None'}</dd>
             </Fragment>
           )}
           {!isNullOrUndefined(props.acceptsInsurance) && (
@@ -114,6 +117,10 @@ export default function TestingLocationListItem(props) {
               <dd>{boolToEng(props.freeOrLowCost)}</dd>
             </Fragment>
           )}
+          <div className="mt-3">
+            <Link><span className="fontsize-15">Suggest Change To Test Center Overview</span></Link>
+            <p className="fontsize-12"><i>Last update: username 4/10/2020 12:38:00 PM</i></p>
+          </div>
         </dl>
       </section>
     </ExpansionPanelDetails>
@@ -128,6 +135,7 @@ const ExpansionPanel = withStyles({
     borderLeft: 0,
     borderRight: 0,
     boxShadow: 'none',
+    transition: 'all 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
     '&:not(:last-child)': {
       borderBottom: 0,
     },
@@ -136,6 +144,7 @@ const ExpansionPanel = withStyles({
     },
     '&$expanded': {
       margin: 'auto',
+      boxShadow: '0px 18px 8px 20px rgba(0,0,0,.15)'
     },
   },
   expanded: {},
@@ -144,11 +153,11 @@ const ExpansionPanel = withStyles({
 const ExpansionPanelSummary = withStyles({
   root: {
     backgroundColor: '#fff',
-    borderBottom: '1px solid rgba(0, 0, 0, .125)',
+    borderTop: '.2px solid rgba(0, 0, 0, .125)',
     marginBottom: -1,
     minHeight: 56,
     '&$expanded': {
-      minHeight: 56,
+      minHeight: 56
     },
   },
   content: {
@@ -160,8 +169,9 @@ const ExpansionPanelSummary = withStyles({
 
 const ExpansionPanelDetails = withStyles((theme) => ({
   root: {
-    boxShadow: 'inset 0px 11px 8px -10px rgba(0,0,0,.1), inset 0px -11px 8px -10px rgba(0,0,0,.1)',
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#fff',
+    paddingBottom: 3,
+    boxShadow: 'inset 0px -11px 8px -10px rgba(0,0,0,.15)'
   },
 }))(MuiExpansionPanelDetails);
 
