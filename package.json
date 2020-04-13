@@ -26,6 +26,7 @@
     "node-sass": "^4.13.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
+    "react-animate-height": "^2.0.20",
     "react-cookie": "^4.0.3",
     "react-dom": "^16.13.1",
     "react-hammerjs": "^1.0.1",
