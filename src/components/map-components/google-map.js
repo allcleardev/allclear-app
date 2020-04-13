@@ -36,10 +36,10 @@ export default class GoogleMap extends Component {
     const {lat, lng} = this.props.center;
     const result = await this.facilityService.search({
         from: {
-            latitude: lat,
-            longitude: lng,
-            miles: 100
-          }
+          latitude: lat,
+          longitude: lng,
+          miles: 100
+        }
       }
     );
     if (navigator && navigator.geolocation) {
@@ -54,10 +54,10 @@ export default class GoogleMap extends Component {
     const lng = evt.center.lng();
     const result = await this.facilityService.search({
         from: {
-            latitude: lat,
-            longitude: lng,
-            miles: 100
-          }
+          latitude: lat,
+          longitude: lng,
+          miles: 100
+        }
       }
     );
 
@@ -69,10 +69,10 @@ export default class GoogleMap extends Component {
     const lng = evt.center.lng();
     const result = await this.facilityService.search({
         from: {
-            latitude: lat,
-            longitude: lng,
-            miles: 100
-          }
+          latitude: lat,
+          longitude: lng,
+          miles: 100
+        }
       }
     );
 
@@ -98,10 +98,10 @@ export default class GoogleMap extends Component {
     this.gMap && this.gMap.current.map_.panTo(currBrowserLocation);
     const result = await this.facilityService.search({
         from: {
-            latitude: lat,
-            longitude: lng,
-            miles: 100
-          }
+          latitude: lat,
+          longitude: lng,
+          miles: 100
+        }
       }
     );
 

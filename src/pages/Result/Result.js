@@ -149,7 +149,6 @@ class Result extends React.Component {
   }
 
   async submitResults() {
-
     this.setState({ loading: true });
 
     const payload = this.buildPayload();
@@ -235,7 +234,11 @@ class Result extends React.Component {
             <h1 className="heading">Test Results</h1>
             <h2 className="sub-heading">
               If you've taken a COVID-19 test already, please submit test details and results. Refer to our
-              <a href="/"> Privacy Policy </a>for more details.
+              <a href="https://about.allclear.app/privacy-policy-2/" target="_blank" rel="noopener noreferrer">
+                {' '}
+                Privacy Policy{' '}
+              </a>
+              for more details.
             </h2>
           </RoundHeader>
           {this.state && this.state.loading === false ? (

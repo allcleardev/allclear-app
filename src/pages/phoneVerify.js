@@ -169,8 +169,15 @@ export default class PhoneVerify extends Component {
               </div>
               <div className="review-container">
                 <p>
-                  <Link to="/terms"> Terms & Conditions </Link> and
-                  <Link to="/privacypolicy"> Privacy Policy </Link>
+                  <a href="https://about.allclear.app/terms-of-service/" target="_blank" rel="noopener noreferrer">
+                    {' '}
+                    Terms & Conditions{' '}
+                  </a>{' '}
+                  and
+                  <a href="https://about.allclear.app/privacy-policy-2/" target="_blank" rel="noopener noreferrer">
+                    {' '}
+                    Privacy Policy{' '}
+                  </a>
                 </p>
 
                 <FormControlLabel

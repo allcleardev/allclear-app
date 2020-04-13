@@ -13,7 +13,7 @@ import { Button, IconButton, Chip } from '@material-ui/core';
 export default class ProfileView extends Component {
   constructor(props) {
     super(props);
-    bindAll(this, ['componentDidMount', 'executeLogout']);
+    bindAll(this, ['componentDidMount', 'fetchProfile', 'executeLogout', 'setProfile']);
     this.peopleService = PeopleService.getInstance();
     this.state = {
       profile: {},
@@ -30,12 +30,6 @@ export default class ProfileView extends Component {
     this.fetchProfile(session);
   }
 
-  setProfile(session) {
-    if (session.person) {
-      this.setState({ profile: session.person });
-    }
-  }
-
   async fetchProfile(session) {
     const response = await this.peopleService.getById(session.person.id);
     const profile = response.data;
@@ -46,12 +40,16 @@ export default class ProfileView extends Component {
   }
 
   async executeLogout() {
-    const response = await this.peopleService.logout();
-    console.log('logout response', response); //TODO: remove before go live
-
+    await this.peopleService.logout();
     localStorage.removeItem('confirm_sessid');
     localStorage.removeItem('sessid');
     return this.props.history.push('/sign-up');
+  }
+
+  setProfile(session) {
+    if (session.person) {
+      this.setState({ profile: session.person });
+    }
   }
 
   render() {
@@ -88,8 +86,8 @@ export default class ProfileView extends Component {
               {profile.locationName ? (
                 <dd className="card__description">{profile.locationName}</dd>
               ) : (
-                <dd className="card__description">My Current Location</dd>
-              )}
+                 <dd className="card__description">My Current Location</dd>
+               )}
             </dl>
 
             {profile.exposures && profile.exposures.length ? (
@@ -104,8 +102,8 @@ export default class ProfileView extends Component {
                 })}
               </dl>
             ) : (
-              ''
-            )}
+               ''
+             )}
 
             {profile.healthWorkerStatus ? (
               <dl className="card__content">
@@ -113,8 +111,8 @@ export default class ProfileView extends Component {
                 <dd className="card__description">{profile.healthWorkerStatus.name}</dd>
               </dl>
             ) : (
-              ''
-            )}
+               ''
+             )}
 
             {profile.conditions && profile.conditions.length ? (
               <dl className="card__content">
@@ -126,8 +124,8 @@ export default class ProfileView extends Component {
                 </dd>
               </dl>
             ) : (
-              ''
-            )}
+               ''
+             )}
 
             {profile.symptoms && profile.symptoms.length ? (
               <dl className="card__content">
@@ -139,12 +137,15 @@ export default class ProfileView extends Component {
                 </dd>
               </dl>
             ) : (
-              ''
-            )}
+               ''
+             )}
           </article>
 
-          <Button  onClick={() => this.executeLogout()} style={{ color: '#2A7DF4', border: '1px solid #2A7DF4' }}
-                   className="btn-big  fontsize-16">
+          <Button
+            onClick={() => this.executeLogout()}
+            style={{ color: '#2A7DF4', border: '1px solid #2A7DF4' }}
+            className="btn-big  fontsize-16"
+          >
             Logout
           </Button>
         </Container>

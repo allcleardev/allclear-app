@@ -82,7 +82,9 @@ class AddTest extends React.Component {
                   </div>
 
                   <div className="priPolicy">
-                    <a href="/">Privacy Policy</a>
+                    <a href="https://about.allclear.app/privacy-policy-2/" target="_blank" rel="noopener noreferrer">
+                      Privacy Policy
+                    </a>
                   </div>
                   <div className="wrapBtn">
                     <button>Edit Test Result</button>
@@ -181,7 +183,9 @@ class AddTest extends React.Component {
                     </div>
                   </div>
                   <div className="priPolicy">
-                    <a href="/">Privacy Policy</a>
+                    <a href="https://about.allclear.app/privacy-policy-2/" target="_blank" rel="noopener noreferrer">
+                      Privacy Policy
+                    </a>
                   </div>
                   <div className="wrapBtn">
                     <button>Edit Test Result</button>
