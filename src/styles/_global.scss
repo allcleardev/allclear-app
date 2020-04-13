@@ -114,6 +114,10 @@ button {
     border-radius: 8px;
     background: #fff;
 
+    input {
+      line-height: normal; // safari fix
+    }
+
     .MuiOutlinedInput-root {
       border-radius: inherit;
     }
