@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import { boolToEng, isNullOrUndefined } from '../../util/helpers';
 
 import Button from '@material-ui/core/Button';
@@ -101,7 +102,7 @@ export default function TestingLocationListItem(props) {
           {!isNullOrUndefined(props.referralRequired) && (
             <Fragment>
               <dt>Doctor Referral Criteria:</dt>
-              <dd>{props.doctorReferralCriteria ? props.doctorReferralCriteria : "None"}</dd>
+              <dd>{props.doctorReferralCriteria ? props.doctorReferralCriteria : 'None'}</dd>
             </Fragment>
           )}
           {!isNullOrUndefined(props.acceptsInsurance) && (
@@ -117,7 +118,7 @@ export default function TestingLocationListItem(props) {
             </Fragment>
           )}
           <div className="mt-3">
-            <a href="#" className="fontsize-15">Suggest Change To Test Center Overview</a>
+            <Link><span className="fontsize-15">Suggest Change To Test Center Overview</span></Link>
             <p className="fontsize-12"><i>Last update: username 4/10/2020 12:38:00 PM</i></p>
           </div>
         </dl>
