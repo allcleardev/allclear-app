@@ -1,8 +1,8 @@
-import React, {useState, useContext} from 'react';
+import React, { useState, useContext } from 'react';
 import clsx from 'clsx';
 // import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Container';
-import {makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
@@ -16,24 +16,24 @@ import UpdateCriteriaModal from '../components/modals/modal-update-criteria';
 import Hammer from 'react-hammerjs';
 import GoogleMap from '../components/map-components/google-map';
 import TestingLocationListItem from '../components/map-components/testing-location-list-item';
-import {mapLocationData} from '../constants';
+import { mapLocationData } from '../constants';
 
 import ArrowLeft from '../components/svgs/arrow-left';
 import ArrowRight from '../components/svgs/arrow-right';
 import SettingsSVG from '../components/svgs/svg-settings';
-import {useWindowResize} from '../util/helpers';
+import { useWindowResize } from '../util/helpers';
 import ModalService from '../services/modal.service';
 import MapPageContext from '../contexts/MapPage.context';
 
 export default function MapPage() {
   const classes = useStyles();
 
-  const {mapPageState} = useContext(MapPageContext);
+  const { mapPageState } = useContext(MapPageContext);
 
   const locations = mapPageState.locations;
 
-  function onWindowResize({width, height}) {
-    if (width <= 576) {
+  function onWindowResize({ width, height }) {
+    if (width <= 768) {
       setMapState({
         ...mapState,
         anchor: 'bottom',
@@ -74,7 +74,7 @@ export default function MapPage() {
     });
   }
 
-  const {isOpen, anchor} = mapState;
+  const { isOpen, anchor } = mapState;
 
   // get modal service so we can toggle it open
   let modalService = ModalService.getInstance();
@@ -91,7 +91,7 @@ export default function MapPage() {
                 [classes.appBarShift]: isOpen,
               })
             }
-            style={{zIndex: '2'}}
+            style={{ zIndex: '2' }}
           >
             <IconButton
               disableRipple
@@ -99,7 +99,7 @@ export default function MapPage() {
               onClick={isOpen === false ? () => toggleDrawer(true) : () => toggleDrawer(false)}
               className={clsx(classes.menuButton, isOpen)}
             >
-              {isOpen === true ? <ArrowLeft/> : <ArrowRight/>}
+              {isOpen === true ? <ArrowLeft /> : <ArrowRight />}
             </IconButton>
           </AppBar>
           <Hammer onSwipe={() => {}} option={touchOptions} direction="DIRECTION_UP">
@@ -111,7 +111,7 @@ export default function MapPage() {
             >
               <div
                 id="side-drawer"
-                style={{width: `${drawerWidth}px`, overflowY: 'scroll'}}
+                style={{ width: `${drawerWidth}px`, overflowY: 'scroll' }}
                 className="side-drawer hide-scrollbar wid100-sm height-300-sm"
               >
                 {/*<GoogleMapInput style={{ marginTop: '50px' }}></GoogleMapInput>*/}
@@ -122,7 +122,7 @@ export default function MapPage() {
                     color="primary"
                     fullWidth
                     startIcon={SettingsSVG()}
-                    style={{margin: '20px 0'}}
+                    style={{ margin: '20px 0' }}
                     onClick={() => {
                       modalService.toggleModal('criteria', true);
                     }}
@@ -132,25 +132,23 @@ export default function MapPage() {
                 </Box>
 
                 {locations &&
-                locations.map((result, index) => (
-                  <TestingLocationListItem
-                    key={index}
-                    index={index}
-                    title={result.name}
-                    description={result.address}
-                    city_state={result.city + ', ' + result.state}
-                    service_time={result.hours}
-                    driveThru={result.driveThru}
-                    phone={result.phone}
-                    {...result}
-                  ></TestingLocationListItem>
-                ))}
+                  locations.map((result, index) => (
+                    <TestingLocationListItem
+                      key={index}
+                      index={index}
+                      title={result.name}
+                      description={result.address}
+                      city_state={result.city + ', ' + result.state}
+                      service_time={result.hours}
+                      driveThru={result.driveThru}
+                      phone={result.phone}
+                      {...result}
+                    ></TestingLocationListItem>
+                  ))}
 
-                {locations.length === 0 &&
-
-                  <h2 style={{display: 'flex', justifyContent: 'center'}}>No Results Found </h2>
-                }
-
+                {locations.length === 0 && (
+                  <h2 style={{ display: 'flex', justifyContent: 'center' }}>No Results Found </h2>
+                )}
               </div>
             </Drawer>
           </Hammer>
