@@ -31,8 +31,8 @@ import Symptoms from './pages/Symptoms/Symptoms';
 import Trace from './pages/Trace/Trace';
 import UpdateTestingCenterCriteria from './pages/updateTestingCenterCriteria';
 import VerifyMagicLink from './pages/verify-magic-link';
-import NotFound from './pages/not-found';
-import {Redirect} from 'react-router';
+// import NotFound from './pages/not-found';
+// import {Redirect} from 'react-router';
 
 export const history = createBrowserHistory();
 

@@ -10,9 +10,11 @@ import OnboardingNavigation from '../../components/onboarding-navigation';
 import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
 import { Button, Chip } from '@material-ui/core';
+import {AppContext} from '../../contexts/App.context';
 
 class Symptom extends Component {
   state = states;
+  static contextType = AppContext;
 
   constructor() {
     super();
@@ -100,13 +102,14 @@ class Symptom extends Component {
   }
 
   buildPayload() {
+    const { appState } = this.context;
+    // todo: set latlng to appprovider here - get
+    const {latitude, longitude} = appState.person;
     const dob = sessionStorage.getItem('dob');
     const phone = sessionStorage.getItem('phone');
     // const lat = sessionStorage.getItem('lat');
     // const lng = sessionStorage.getItem('lng');
-    // todo: set latlng to appprovider here - get
-    const lat = 47;
-    const lng = 33;
+
     const healthWorkerStatus = sessionStorage.getItem('healthWorkerStatus');
     const alertable = sessionStorage.getItem('alertable');
 
@@ -165,8 +168,8 @@ class Symptom extends Component {
       dob,
       alertable,
       name: phone,
-      latitude: lat,
-      longitude: lng,
+      latitude,
+      longitude,
       conditions: conditionsArray,
       exposures: exposuresArray,
       symptoms: symptomsArray,
