@@ -53,6 +53,7 @@ export default function TestingLocationListItem(props) {
   const body = (
     <ExpansionPanelDetails>
       <section className="testing-location-list-item__details">
+        <div className="border"></div>
         <h4><b>Test Center Overview</b></h4>
         <dl className="details">
           {!isNullOrUndefined(props.testCriteria) && (
@@ -149,11 +150,11 @@ const ExpansionPanel = withStyles({
 const ExpansionPanelSummary = withStyles({
   root: {
     backgroundColor: '#fff',
-    borderBottom: '1px solid rgba(0, 0, 0, .125)',
+    boxShadow: 'inset 0px 11px 8px -10px rgba(0,0,0,.15)',
     marginBottom: -1,
     minHeight: 56,
     '&$expanded': {
-      minHeight: 56,
+      minHeight: 56
     },
   },
   content: {
@@ -165,8 +166,8 @@ const ExpansionPanelSummary = withStyles({
 
 const ExpansionPanelDetails = withStyles((theme) => ({
   root: {
-    boxShadow: 'inset 0px 11px 8px -10px rgba(0,0,0,.1), inset 0px -11px 8px -10px rgba(0,0,0,.1)',
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#fff',
+    paddingBottom: 3
   },
 }))(MuiExpansionPanelDetails);
 
