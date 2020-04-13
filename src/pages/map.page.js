@@ -156,11 +156,11 @@ export default function MapPage() {
 
                 <Box>
                   <Button
+                    className={'edit-filters-btn'}
                     variant="contained"
                     color="primary"
                     fullWidth
                     startIcon={SettingsSVG()}
-                    style={{ margin: '0px 0px 20px 0px' }}
                     onClick={() => {
                       modalService.toggleModal('criteria', true);
                     }}

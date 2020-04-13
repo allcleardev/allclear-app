@@ -20,7 +20,7 @@ button {
   width: 100%;
 
   @media (min-width: $md) {
-    background: linear-gradient(to right, #36d1bc, #1195ff);
+    background: $gradient-background;
 
     h4 {
       color: #fff;
