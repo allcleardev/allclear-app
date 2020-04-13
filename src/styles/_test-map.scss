@@ -80,3 +80,12 @@
     bottom: 312px;
   }
 }
+.geolist-resizer {
+  display: none;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: $md - 1) {
+    display: flex;
+  }
+}
