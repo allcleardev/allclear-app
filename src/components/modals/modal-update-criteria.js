@@ -94,7 +94,6 @@ function UpdateCriteria({onClose, onSubmit}) {
 
   const handleChange = (evt) => {
 
-
     const currKey = evt.currentTarget.dataset.key;
     const currValue = evt.target.value;
 
@@ -200,17 +199,23 @@ function UpdateCriteria({onClose, onSubmit}) {
                 },
               });
 
+              // const z = {
+              //   ...appState,
+              //   map: {
+              //     ...appState.map,
+              //     locations: result.data.records || [],
+              //   },
+              //   searchCriteria: formValues
+              // };
+              // debugger;
+
+
               setAppState({
                 ...appState,
                 map: {
                   ...appState.map,
                   locations: result.data.records || [],
                 },
-                // searchCriteria: {
-                //   ...appState.searchCriteria,
-                //   ...searchCriteria
-                // }
-                //
                 searchCriteria: formValues
               });
 
