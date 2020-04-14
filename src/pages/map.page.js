@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import AnimateHeight from 'react-animate-height';
 import clsx from 'clsx';
 // import PropTypes from 'prop-types';

@@ -85,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
 function UpdateCriteria({ onClose, onSubmit }) {
   useStyles();
   const { appState, setAppState } = useContext(AppContext);
-  const { setMapPageState, mapPageState, setIsLoading, isLoading } = useContext(MapPageContext);
+  const { setMapPageState, mapPageState, setIsLoading } = useContext(MapPageContext);
   let pendingStateUpdates = {};
 
   //eslint-disable-next-line
@@ -126,7 +126,7 @@ function UpdateCriteria({ onClose, onSubmit }) {
       locations: result.data.records || [],
     });
 
-    setIsLoading(false)
+    setIsLoading(false);
 
     // update the context
     setAppState(finalUpdateObj);

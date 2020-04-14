@@ -76,12 +76,12 @@ export default class GoogleMap extends Component {
 
   _setLocations(locations) {
     // update context state (for other components in map page)
-    const { setMapPageState, mapPageState, setIsLoading, isLoading } = this.context;
+    const { setMapPageState, mapPageState, setIsLoading } = this.context;
     setMapPageState({
       ...mapPageState,
       locations,
     });
-    setIsLoading(false)
+    setIsLoading(false);
   }
 
   async _onLocationAccepted(pos) {

@@ -14,7 +14,7 @@ const initialMapPageState = {
 export function MapPageProvider(props) {
 
   const [mapPageState, setMapPageState] = useState(initialMapPageState);
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
 
   return (
     // value prop is where we define what values
