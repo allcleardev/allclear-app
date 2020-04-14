@@ -11,7 +11,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import Box from '@material-ui/core/Container';
 import { withStyles } from '@material-ui/core/styles';
 import { Button, Grid, Switch, Select, MenuItem, FormControl, FormControlLabel } from '@material-ui/core';
-import {AppContext} from '../../contexts/App.context';
+// import {AppContext} from '../../contexts/App.context';
 
 class Result extends React.Component {
   constructor() {
