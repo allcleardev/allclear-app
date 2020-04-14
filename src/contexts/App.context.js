@@ -1,10 +1,16 @@
 import React, {useState} from 'react';
-import {get} from 'lodash';
+import {forEach, get} from 'lodash';
+import {CRITERIA_FORM_DATA} from '../components/modals/modal-update-criteria.constants';
 
 // Set Up The Initial Context
 export const AppContext = React.createContext();
 // Create an exportable consumer that can be injected into components
 export const AppConsumer = AppContext.Consumer;
+
+let searchCriteria = {};
+forEach(CRITERIA_FORM_DATA, ((e, i) => {
+  searchCriteria[e.key] = e.options[0].value;
+}));
 
 export const INITIAL_APP_STATE = {
   sessionId: undefined,
@@ -13,14 +19,15 @@ export const INITIAL_APP_STATE = {
     locations: [],
     expandedItems: []
   },
-  searchCriteria: {
-    // driveThru: 'Any',
-    // appointmentRequired: 'Any',
-    // symptoms: ['none'],
-    // exposure: 'Select Exposure',
-    // conditions: ['none'],
-    // healthWorkerStatus: ['none'],
-  }
+  searchCriteria
+  // searchCriteria: {
+  //   // driveThru: 'Any',
+  //   // appointmentRequired: 'Any',
+  //   // symptoms: ['none'],
+  //   // exposure: 'Select Exposure',
+  //   // conditions: ['none'],
+  //   // healthWorkerStatus: ['none'],
+  // }
 };
 
 // Context state

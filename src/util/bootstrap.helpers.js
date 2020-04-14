@@ -56,6 +56,7 @@ export function bootstrapAxios() {
       if (get(error,'response.status') === 403){
         localStorage.removeItem('confirm_sessid');
         localStorage.removeItem('sessid');
+        localStorage.removeItem('appState');
         history.push('/sign-up?logout=true');
       }
 

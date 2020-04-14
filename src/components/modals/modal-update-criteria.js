@@ -18,7 +18,6 @@ import {AppContext} from '../../contexts/App.context';
 import ModalService from '../../services/modal.service';
 import FacilityService from '../../services/facility.service';
 
-
 export default function UpdateCriteriaModal() {
   // "DEPENDENCY INJECTION Section"
   // todo: this will probably have to move into app.js because it will be needed by all different parts of the app
@@ -82,60 +81,29 @@ const useStyles = makeStyles((theme) => ({
   track: {},
 }));
 
+
 function UpdateCriteria({onClose, onSubmit}) {
   useStyles();
   const {setAppState, appState} = useContext(AppContext);
-  let pendingStateUpdates = {};
+
+  const [formValues, setFormValues] = React.useState(appState.searchCriteria);
+  const formItems = _generateFormItems();
 
   //eslint-disable-next-line
   const facilityService = FacilityService.getInstance();
 
-  async function commitPendingModalState() {
-    // sanitize form values for BE filter
+  const handleChange = (evt) => {
 
-    // this is now at appstate.person.searchcriteria?
-    let searchCriteria = {
-      ...appState.searchCriteria,
-      ...pendingStateUpdates,
-    };
 
-    forEach(searchCriteria, (value, key) => {
+    const currKey = evt.currentTarget.dataset.key;
+    const currValue = evt.target.value;
 
-      // remove filter from both places
-      if (value === 'Any') {
-        delete appState.searchCriteria[key];
-        delete searchCriteria[key];
-      }
+    setFormValues({
+      ...formValues,
+      [currKey]: currValue
     });
 
-    // todo: set latlng to appprovider here - get
-    const {latitude, longitude} = appState.person;
-
-    //eslint-disable-next-line
-    const result = await facilityService.search({
-      ...searchCriteria,
-      from: {
-        latitude,
-        longitude,
-        miles: 100,
-      },
-    });
-
-    setAppState({
-      ...appState,
-      map: {
-        ...appState.map,
-        locations: result.data.records || [],
-      },
-      searchCriteria: {
-        ...appState.searchCriteria,
-        ...searchCriteria
-      }
-    });
-
-    // close the modal
-    onSubmit();
-  }
+  };
 
   function _generateFormItems() {
     return CRITERIA_FORM_DATA.map((formItem, i) => {
@@ -149,13 +117,9 @@ function UpdateCriteria({onClose, onSubmit}) {
               labelId="demo-simple-select-outlined-label"
               displayEmpty
               className="select-white-back"
-              value={pendingStateUpdates[key]}
+              value={formValues[key]}
               onChange={(evt) => {
-                const currKey = evt.currentTarget.dataset.key;
-                const currValue = evt.target.value;
-
-                // update the value at that key
-                pendingStateUpdates[currKey] = currValue;
+                return handleChange(evt);
               }}
             >
               {options.map((optionItem, i2) => {
@@ -186,7 +150,7 @@ function UpdateCriteria({onClose, onSubmit}) {
           }}
         ></div>
 
-        {_generateFormItems()}
+        {formItems}
       </CardBlank>
 
       {/*Update Profile Checkbox*/}
@@ -225,8 +189,31 @@ function UpdateCriteria({onClose, onSubmit}) {
       >
         <Grid item xs={12} sm={5}>
           <Button
-            onClick={() => {
-              commitPendingModalState();
+            onClick={async () => {
+              const {latitude, longitude} = appState.person;
+              const result = await facilityService.search({
+                ...formValues,
+                from: {
+                  latitude,
+                  longitude,
+                  miles: 100,
+                },
+              });
+
+              setAppState({
+                ...appState,
+                map: {
+                  ...appState.map,
+                  locations: result.data.records || [],
+                },
+                // searchCriteria: {
+                //   ...appState.searchCriteria,
+                //   ...searchCriteria
+                // }
+                //
+                searchCriteria: formValues
+              });
+
               onSubmit();
             }}
             className="btn-big bg-primary color-white fontsize-16"
@@ -253,3 +240,50 @@ function UpdateCriteria({onClose, onSubmit}) {
 //     }
 //   }
 // }, [open]);
+
+
+// async function commitPendingModalState() {
+//   // sanitize form values for BE filter
+//
+//   // this is now at appstate.person.searchcriteria?
+//   let searchCriteria = {
+//     ...appState.searchCriteria,
+//     ...pendingStateUpdates,
+//   };
+//
+//   forEach(searchCriteria, (value, key) => {
+//     // remove filter from both places
+//     if (value === 'Any') {
+//       delete appState.searchCriteria[key];
+//       delete searchCriteria[key];
+//     }
+//   });
+//
+//   // todo: set latlng to appprovider here - get
+//   const {latitude, longitude} = appState.person;
+//
+//   //eslint-disable-next-line
+//   const result = await facilityService.search({
+//     ...searchCriteria,
+//     from: {
+//       latitude,
+//       longitude,
+//       miles: 100,
+//     },
+//   });
+//
+//   setAppState({
+//     ...appState,
+//     map: {
+//       ...appState.map,
+//       locations: result.data.records || [],
+//     },
+//     searchCriteria: {
+//       ...appState.searchCriteria,
+//       ...searchCriteria
+//     }
+//   });
+//
+//   // close the modal
+//   onSubmit();
+// }
