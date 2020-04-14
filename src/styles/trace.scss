@@ -1,0 +1,31 @@
+.tracing {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  color: #fff;
+  background: $gradient-background;
+
+  h1 {
+    margin-bottom: 56px;
+    line-height: 41px;
+    font-weight: bold;
+    font-size: 34px;
+    letter-spacing: 0.374px;
+  }
+
+  h2 {
+    margin-bottom: 6px;
+    font-weight: bold;
+    font-size: 17px;
+    line-height: 20px;
+  }
+
+  p {
+    line-height: 18px;
+    font-size: 15px;
+  }
+
+  .content {
+    text-align: center;
+  }
+}

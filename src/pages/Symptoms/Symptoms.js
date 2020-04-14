@@ -104,6 +104,7 @@ class Symptom extends Component {
     const phone = sessionStorage.getItem('phone');
     const lat = sessionStorage.getItem('lat');
     const lng = sessionStorage.getItem('lng');
+    const locationName = sessionStorage.getItem('locationName');
     const healthWorkerStatus = sessionStorage.getItem('healthWorkerStatus');
     const alertable = sessionStorage.getItem('alertable');
 
@@ -161,6 +162,7 @@ class Symptom extends Component {
     const payload = {
       dob,
       alertable,
+      locationName,
       name: phone,
       latitude: lat,
       longitude: lng,

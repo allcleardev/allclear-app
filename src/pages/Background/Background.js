@@ -38,8 +38,14 @@ class Background extends Component {
     }
   }
 
-  async handleLocationChange(value) {
-    this.setState({ location: value });
+  async handleLocationChange(bool, value) {
+    this.setState({ location: bool });
+
+    if (value && value.description) {
+      sessionStorage.setItem('locationName', value.description);
+    } else {
+      sessionStorage.removeItem('locationName');
+    }
   }
 
   async handleSwitchChange() {
@@ -48,7 +54,7 @@ class Background extends Component {
     switchValue = !switchValue;
 
     this.setState({
-      useCurrentLocation: switchValue
+      useCurrentLocation: switchValue,
     });
 
     if (switchValue) {
@@ -59,12 +65,18 @@ class Background extends Component {
   }
 
   async _onLocationAccepted(pos) {
-    const lat = pos.coords.latitude;
-    const lng = pos.coords.longitude;
+    if (pos && pos.coords && pos.coords.latitude) {
+      const lat = pos.coords.latitude;
+      const lng = pos.coords.longitude;
 
-    sessionStorage.setItem('lat', lat);
-    sessionStorage.setItem('lng', lng);
-    this.setState({ location: true });
+      sessionStorage.setItem('lat', lat);
+      sessionStorage.setItem('lng', lng);
+      this.setState({ location: true });
+    } else {
+      sessionStorage.removeItem('lat');
+      sessionStorage.removeItem('lng');
+      this.setState({ location: false });
+    }
   }
 
   _onLocationDeclined() {

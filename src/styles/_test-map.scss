@@ -1,5 +1,14 @@
 .map-page {
   width: 100%;
+
+  .edit-filters-btn {
+    margin: 20px 0px 20px 0px;
+
+    @media (max-width: $md ) {
+      margin: 0px 0px 20px 0px
+    }
+
+  }
 }
 
 .nav-left-location {
@@ -78,5 +87,14 @@
 
   @media (max-width: $md - 1) {
     bottom: 312px;
+  }
+}
+.geolist-resizer {
+  display: none;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: $md - 1) {
+    display: flex;
   }
 }

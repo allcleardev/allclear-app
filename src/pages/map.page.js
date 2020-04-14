@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import AnimateHeight from 'react-animate-height';
 import clsx from 'clsx';
 // import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Container';
@@ -38,14 +39,34 @@ export default function MapPage() {
         ...mapState,
         anchor: 'bottom',
         isOpen: true,
+        drawerHeight: 350,
       });
     } else {
       setMapState({
         ...mapState,
         anchor: 'left',
+        isOpen: true,
       });
     }
   }
+
+  const SwipeHandler = (e) => {
+    if (initialState.windowWidth <= 768) {
+      if (e.pointerType === 'touch') {
+        if (e.deltaY > 0) {
+          setMapState({
+            ...mapState,
+            drawerHeight: 350,
+          });
+        } else {
+          setMapState({
+            ...mapState,
+            drawerHeight: 700,
+          });
+        }
+      }
+    }
+  };
 
   const [width, height] = useWindowResize(onWindowResize);
   const initialState = {
@@ -102,27 +123,44 @@ export default function MapPage() {
               {isOpen === true ? <ArrowLeft /> : <ArrowRight />}
             </IconButton>
           </AppBar>
-          <Hammer onSwipe={() => {}} option={touchOptions} direction="DIRECTION_UP">
-            <Drawer
-              className={classes.drawer + ' nav-left-location'}
-              variant="persistent"
-              anchor={anchor}
-              open={isOpen}
-            >
+          <Drawer
+            className={classes.drawer + ' nav-left-location'}
+            variant="persistent"
+            anchor={anchor}
+            open={isOpen}
+            style={{ height: mapState.drawerHeight, zIndex: 4 }}
+          >
+            <AnimateHeight duration={500} height={mapState.drawerHeight}>
               <div
                 id="side-drawer"
-                style={{ width: `${drawerWidth}px`, overflowY: 'scroll' }}
-                className="side-drawer hide-scrollbar wid100-sm height-300-sm"
+                style={{
+                  width: `${drawerWidth}px`,
+                  overflowY: 'scroll',
+                  height: mapState.drawerHeight,
+                }}
+                className="side-drawer hide-scrollbar wid100-sm"
               >
+                <Hammer onSwipe={SwipeHandler} options={touchOptions} direction="DIRECTION_VERTICAL">
+                  <div style={{ height: '60px' }} className="geolist-resizer">
+                    <svg width="37" height="6" viewBox="0 0 37 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M2.75977 5.18164C1.37905 5.18164 0.259766 4.06235 0.259766 2.68164C0.259766
+                      1.30093 1.37905 0.181641 2.75977 0.181641H33.7598C35.1405 0.181641 36.2598 1.30093
+                      36.2598 2.68164C36.2598 4.06235 35.1405 5.18164 33.7598 5.18164H2.75977Z"
+                        fill="#aaadb3"
+                      />
+                    </svg>
+                  </div>
+                </Hammer>
                 {/*<GoogleMapInput style={{ marginTop: '50px' }}></GoogleMapInput>*/}
 
                 <Box>
                   <Button
+                    className={'edit-filters-btn'}
                     variant="contained"
                     color="primary"
                     fullWidth
                     startIcon={SettingsSVG()}
-                    style={{ margin: '20px 0' }}
                     onClick={() => {
                       modalService.toggleModal('criteria', true);
                     }}
@@ -150,8 +188,8 @@ export default function MapPage() {
                   <h2 style={{ display: 'flex', justifyContent: 'center' }}>No Results Found </h2>
                 )}
               </div>
-            </Drawer>
-          </Hammer>
+            </AnimateHeight>
+          </Drawer>
           <main
             className={clsx(classes.content, {
               [classes.contentShift]: isOpen,
