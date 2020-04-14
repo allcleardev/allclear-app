@@ -14,8 +14,8 @@ export const INITIAL_APP_STATE = {
     expandedItems: []
   },
   searchCriteria: {
-    driveThru: 'Any',
-    appointmentRequired: 'Any',
+    // driveThru: 'Any',
+    // appointmentRequired: 'Any',
     // symptoms: ['none'],
     // exposure: 'Select Exposure',
     // conditions: ['none'],

@@ -11,6 +11,7 @@ import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
 import { Button, Chip } from '@material-ui/core';
 import {AppContext} from '../../contexts/App.context';
+import PeopleService from '../../services/people.service';
 
 class Symptom extends Component {
   state = states;
@@ -28,6 +29,7 @@ class Symptom extends Component {
       'buildPayload',
       'submitResults',
     ]);
+    this.peopleService = PeopleService.getInstance();
   }
 
   componentDidMount() {
@@ -182,24 +184,20 @@ class Symptom extends Component {
 
   async submitResults() {
     this.setState({ loading: true });
+    const { appState, setAppState } = this.context;
 
     const payload = this.buildPayload();
-    const sessionId = localStorage.getItem('confirm_sessid');
+    const resp = await this.peopleService.register(payload);
+    setAppState({
+      ...appState,
+      sessionId: resp.data.id,
+      person: {
+        ...appState.person,
+        ...resp.data.person
+      }
+    });
 
-    await Axios.post('/peoples/register', payload, {
-      headers: {
-        'X-AllClear-SessionID': sessionId,
-      },
-    })
-      .then((response) => {
-        localStorage.removeItem('confirm_sessid');
-        localStorage.setItem('sessid', response.data.id);
-        localStorage.setItem('session', JSON.stringify(response.data));
-        this.props.history.push('/map');
-      })
-      .catch((error) => {
-        this.setState({ loading: false });
-      });
+    this.props.history.push('/map');
   }
 
   render() {
