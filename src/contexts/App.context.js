@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {get} from 'lodash';
+import React, { useState } from 'react';
+import { get } from 'lodash';
 
 // Set Up The Initial Context
 export const AppContext = React.createContext();
@@ -11,7 +11,8 @@ export const INITIAL_APP_STATE = {
   person: {},
   map: {
     locations: [],
-    expandedItems: []
+    expandedItems: [],
+    isOpen: true,
   },
   searchCriteria: {
     // driveThru: 'Any',
@@ -20,7 +21,7 @@ export const INITIAL_APP_STATE = {
     // exposure: 'Select Exposure',
     // conditions: ['none'],
     // healthWorkerStatus: ['none'],
-  }
+  },
 };
 
 // Context state
@@ -29,10 +30,9 @@ let initialAppState = INITIAL_APP_STATE;
 const possSavedState = JSON.parse(localStorage.getItem('appState'));
 
 // on first load, check if localstorage has a saved version of app state. use it if so
-initialAppState = (get(possSavedState, 'sessionId')) ? possSavedState : initialAppState;
+initialAppState = get(possSavedState, 'sessionId') ? possSavedState : initialAppState;
 
 export function AppProvider(props) {
-
   const [appState, setAppState] = useState(initialAppState);
 
   // save it for later
@@ -43,13 +43,12 @@ export function AppProvider(props) {
     <AppContext.Provider
       value={{
         appState,
-        setAppState
+        setAppState,
       }}
     >
       {props.children}
     </AppContext.Provider>
   );
-
 }
 
 export default AppProvider;
