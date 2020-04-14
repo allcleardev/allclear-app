@@ -123,7 +123,6 @@ export default class GoogleMap extends Component {
   onZoomChanged(miles) {
     // todo: major work here bro
     // https://stackoverflow.com/questions/52411378/google-maps-api-calculate-zoom-based-of-miles
-    // debugger;
   }
 
   render() {
@@ -236,4 +235,4 @@ const G_MAP_DEFAULTS = {
     lng: 2,
   },
   zoom: 12
-}
+};

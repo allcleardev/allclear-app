@@ -6,13 +6,12 @@ export const AppContext = React.createContext();
 // Create an exportable consumer that can be injected into components
 export const AppConsumer = AppContext.Consumer;
 
-// Context state
-let initialAppState = {
+export const INITIAL_APP_STATE = {
   sessionId: undefined,
-  person:{},
-  map:{
-    locations:[],
-    expandedItems:[]
+  person: {},
+  map: {
+    locations: [],
+    expandedItems: []
   },
   searchCriteria: {
     driveThru: 'Any',
@@ -23,6 +22,9 @@ let initialAppState = {
     // healthWorkerStatus: ['none'],
   }
 };
+
+// Context state
+let initialAppState = INITIAL_APP_STATE;
 
 const possSavedState = JSON.parse(localStorage.getItem('appState'));
 

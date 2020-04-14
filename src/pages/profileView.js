@@ -9,8 +9,11 @@ import userAvatar from '../assets/images/defaultProfile.svg';
 import PeopleService from '../services/people.service.js';
 
 import { Button, IconButton, Chip } from '@material-ui/core';
+import {AppContext, INITIAL_APP_STATE} from '../contexts/App.context';
 
 export default class ProfileView extends Component {
+  static contextType = AppContext;
+
   constructor(props) {
     super(props);
     bindAll(this, ['componentDidMount', 'fetchProfile', 'executeLogout', 'setProfile']);
@@ -44,6 +47,8 @@ export default class ProfileView extends Component {
     localStorage.removeItem('confirm_sessid');
     localStorage.removeItem('sessid');
     localStorage.removeItem('appState');
+    const {setAppState} = this.context;
+    setAppState(INITIAL_APP_STATE);
     return this.props.history.push('/sign-up');
   }
 
