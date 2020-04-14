@@ -5,7 +5,7 @@ import MapPageContext from '../../contexts/MapPage.context';
 
 export default function MapMarker(props) {
   const { index } = props;
-  const {mapPageState, setMapPageState} = useContext(MapPageContext);
+  const { mapPageState, setMapPageState } = useContext(MapPageContext);
   return (
     <div
       onClick={(e, i) => {
@@ -17,6 +17,7 @@ export default function MapMarker(props) {
         elemToOpen.children[0].click();
         setMapPageState({
           ...mapPageState,
+          isOpen: true,
           // selectedPin: index
         });
       }}

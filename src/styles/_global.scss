@@ -349,10 +349,14 @@ a {
 }
 
 /* make scrollbar transparent */
-.hide-scrollbar::-webkit-scrollbar {
-  width: 0px !important;
-  background: transparent !important;
-  // The component has this class, should have the style overflow-y: scroll
+.hide-scrollbar {
+  overflow: scroll !important;
+
+  &::-webkit-scrollbar {
+    width: 0px !important;
+    background: transparent !important;
+    // The component has this class, should have the style overflow-y: scroll
+  }
 }
 
 // responsive classses

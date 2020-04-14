@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import AnimateHeight from 'react-animate-height';
 import clsx from 'clsx';
 // import PropTypes from 'prop-types';
@@ -29,21 +29,21 @@ import MapPageContext from '../contexts/MapPage.context';
 export default function MapPage() {
   const classes = useStyles();
 
-  const { mapPageState } = useContext(MapPageContext);
+  const { mapPageState, setMapPageState } = useContext(MapPageContext);
 
   const locations = mapPageState.locations;
 
   function onWindowResize({ width, height }) {
     if (width <= 768) {
-      setMapState({
-        ...mapState,
+      setMapPageState({
+        ...mapPageState,
         anchor: 'bottom',
         isOpen: true,
         drawerHeight: 350,
       });
     } else {
-      setMapState({
-        ...mapState,
+      setMapPageState({
+        ...mapPageState,
         anchor: 'left',
         isOpen: true,
       });
@@ -54,13 +54,13 @@ export default function MapPage() {
     if (initialState.windowWidth <= 768) {
       if (e.pointerType === 'touch') {
         if (e.deltaY > 0) {
-          setMapState({
-            ...mapState,
+          setMapPageState({
+            ...mapPageState,
             drawerHeight: 350,
           });
         } else {
-          setMapState({
-            ...mapState,
+          setMapPageState({
+            ...mapPageState,
             drawerHeight: 700,
           });
         }
@@ -75,7 +75,7 @@ export default function MapPage() {
     windowWidth: width,
     windowHeight: height,
   };
-  const [mapState, setMapState] = useState(initialState);
+  // const [mapState, setMapState] = useState(initialState);
   // const {mapPageState, setMapPageState} = useContext(MapPageContext);
 
   const touchOptions = {
@@ -89,13 +89,13 @@ export default function MapPage() {
   };
 
   function toggleDrawer(isOpen) {
-    setMapState({
-      ...mapState,
+    setMapPageState({
+      ...mapPageState,
       isOpen,
     });
   }
 
-  const { isOpen, anchor } = mapState;
+  const { isOpen, anchor } = mapPageState;
 
   // get modal service so we can toggle it open
   let modalService = ModalService.getInstance();
@@ -128,15 +128,15 @@ export default function MapPage() {
             variant="persistent"
             anchor={anchor}
             open={isOpen}
-            style={{ height: mapState.drawerHeight, zIndex: 4 }}
+            style={{ height: mapPageState.drawerHeight, zIndex: 4 }}
           >
-            <AnimateHeight duration={500} height={mapState.drawerHeight}>
+            <AnimateHeight duration={500} height={mapPageState.drawerHeight} className="hide-scrollbar">
               <div
                 id="side-drawer"
                 style={{
                   width: `${drawerWidth}px`,
                   overflowY: 'scroll',
-                  height: mapState.drawerHeight,
+                  height: mapPageState.drawerHeight,
                 }}
                 className="side-drawer hide-scrollbar wid100-sm"
               >
