@@ -18,8 +18,8 @@ export default function NotFound() {
           <p>We think Finneas ate it!</p>
           <p>But don't worry; he's a good boy.</p>
           <div className="wrapBtnS" style={{width: '30%'}}>
-            <Link to="/profile-view">
-              <button className="whiteBGS">Go Home</button>
+            <Link to="/map">
+              <button className="whiteBGS">Go To Map</button>
             </Link>
           </div>
         </Grid>

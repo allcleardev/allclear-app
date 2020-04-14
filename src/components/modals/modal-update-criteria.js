@@ -17,7 +17,6 @@ import { CRITERIA_FORM_DATA } from './modal-update-criteria.constants';
 import { AppContext } from '../../contexts/App.context';
 import ModalService from '../../services/modal.service';
 import FacilityService from '../../services/facility.service';
-// import MapPageContext from '../../contexts/MapPage.context';
 
 
 export default function UpdateCriteriaModal() {

@@ -126,7 +126,7 @@ export default class GoogleMap extends Component {
     // todo: snackbar here
     console.warn('User declined to use browser location');
   }
-
+  
   render() {
     const locations = get(this, 'context.appState.map.locations') || [];
     return (
