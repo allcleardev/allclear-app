@@ -1,5 +1,4 @@
 import React, {useContext, useState} from 'react';
-import {forEach} from 'lodash';
 import FabBlueBottom from '../fabBlueBottom';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -92,7 +91,7 @@ function UpdateCriteria({onClose, onSubmit}) {
   //eslint-disable-next-line
   const facilityService = FacilityService.getInstance();
 
-  const handleChange = (evt) => {
+  function _onSelectChanged(evt){
 
     const currKey = evt.currentTarget.dataset.key;
     const currValue = evt.target.value;
@@ -102,7 +101,34 @@ function UpdateCriteria({onClose, onSubmit}) {
       [currKey]: currValue
     });
 
-  };
+  }
+
+  async function _onSubmitClicked(){
+    const {latitude, longitude} = appState.person;
+
+    // call API
+    const result = await facilityService.search({
+      ...formValues,
+      from: {
+        latitude,
+        longitude,
+        miles: 100,
+      },
+    });
+
+    // update persistent app state
+    setAppState({
+      ...appState,
+      map: {
+        ...appState.map,
+        locations: result.data.records || [],
+      },
+      searchCriteria: formValues
+    });
+
+    // call parent submit function
+    onSubmit();
+  }
 
   function _generateFormItems() {
     return CRITERIA_FORM_DATA.map((formItem, i) => {
@@ -117,9 +143,7 @@ function UpdateCriteria({onClose, onSubmit}) {
               displayEmpty
               className="select-white-back"
               value={formValues[key]}
-              onChange={(evt) => {
-                return handleChange(evt);
-              }}
+              onChange={_onSelectChanged}
             >
               {options.map((optionItem, i2) => {
                 const {value, text} = optionItem;
@@ -188,39 +212,7 @@ function UpdateCriteria({onClose, onSubmit}) {
       >
         <Grid item xs={12} sm={5}>
           <Button
-            onClick={async () => {
-              const {latitude, longitude} = appState.person;
-              const result = await facilityService.search({
-                ...formValues,
-                from: {
-                  latitude,
-                  longitude,
-                  miles: 100,
-                },
-              });
-
-              // const z = {
-              //   ...appState,
-              //   map: {
-              //     ...appState.map,
-              //     locations: result.data.records || [],
-              //   },
-              //   searchCriteria: formValues
-              // };
-              // debugger;
-
-
-              setAppState({
-                ...appState,
-                map: {
-                  ...appState.map,
-                  locations: result.data.records || [],
-                },
-                searchCriteria: formValues
-              });
-
-              onSubmit();
-            }}
+            onClick={_onSubmitClicked}
             className="btn-big bg-primary color-white fontsize-16"
           >
             Search
@@ -235,60 +227,3 @@ function UpdateCriteria({onClose, onSubmit}) {
     </>
   );
 }
-
-// const descriptionElementRef = useRef(null);
-// useEffect(() => {
-//   if (open) {
-//     const {current: descriptionElement} = descriptionElementRef;
-//     if (descriptionElement !== null) {
-//       descriptionElement.focus();
-//     }
-//   }
-// }, [open]);
-
-
-// async function commitPendingModalState() {
-//   // sanitize form values for BE filter
-//
-//   // this is now at appstate.person.searchcriteria?
-//   let searchCriteria = {
-//     ...appState.searchCriteria,
-//     ...pendingStateUpdates,
-//   };
-//
-//   forEach(searchCriteria, (value, key) => {
-//     // remove filter from both places
-//     if (value === 'Any') {
-//       delete appState.searchCriteria[key];
-//       delete searchCriteria[key];
-//     }
-//   });
-//
-//   // todo: set latlng to appprovider here - get
-//   const {latitude, longitude} = appState.person;
-//
-//   //eslint-disable-next-line
-//   const result = await facilityService.search({
-//     ...searchCriteria,
-//     from: {
-//       latitude,
-//       longitude,
-//       miles: 100,
-//     },
-//   });
-//
-//   setAppState({
-//     ...appState,
-//     map: {
-//       ...appState.map,
-//       locations: result.data.records || [],
-//     },
-//     searchCriteria: {
-//       ...appState.searchCriteria,
-//       ...searchCriteria
-//     }
-//   });
-//
-//   // close the modal
-//   onSubmit();
-// }
