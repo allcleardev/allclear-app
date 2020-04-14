@@ -86,7 +86,14 @@ export default class ProfileEdit extends Component {
 
   handleLocationSelection(bool, value) {
     if (value) {
-      this.setState({ newProfile: { ...this.state.newProfile, locationName: value.description } });
+      const {latitude, longitude} = value;
+      this.setState({
+        newProfile: {
+          ...this.state.newProfile,
+          locationName: value.description,
+          latitude,
+          longitude,
+        } });
     }
   }
 
@@ -128,9 +135,13 @@ export default class ProfileEdit extends Component {
     }
   }
 
-  onUpdateProfileClicked() {
-    const updatedProfile = { ...this.state.profile, ...this.state.newProfile };
-    this.peopleService.editProfile(updatedProfile).then((res) => this.routeChange('/profile'));
+  async onUpdateProfileClicked() {
+    const updatedProfile = {
+      ...this.state.profile,
+      ...this.state.newProfile
+    };
+    await this.peopleService.editProfile(updatedProfile);
+    this.routeChange('/profile');
   }
 
   render() {
