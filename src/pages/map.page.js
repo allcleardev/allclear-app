@@ -4,6 +4,7 @@ import clsx from 'clsx';
 // import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
+import { CircularProgress } from '@material-ui/core';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
@@ -154,20 +155,23 @@ export default function MapPage() {
                 </Hammer>
                 {/*<GoogleMapInput style={{ marginTop: '50px' }}></GoogleMapInput>*/}
 
-                <Box>
-                  <Button
-                    className={'edit-filters-btn'}
-                    variant="contained"
-                    color="primary"
-                    fullWidth
-                    startIcon={SettingsSVG()}
-                    onClick={() => {
-                      modalService.toggleModal('criteria', true);
-                    }}
-                  >
-                    Edit Search Filters
-                  </Button>
-                </Box>
+
+                {locations.length !== 0 && (
+                  <Box>
+                    <Button
+                      className={'edit-filters-btn'}
+                      variant="contained"
+                      color="primary"
+                      fullWidth
+                      startIcon={SettingsSVG()}
+                      onClick={() => {
+                        modalService.toggleModal('criteria', true);
+                      }}
+                    >
+                      Edit Search Filters
+                    </Button>
+                  </Box>
+                )}
 
                 {locations &&
                   locations.map((result, index) => (
@@ -185,7 +189,17 @@ export default function MapPage() {
                   ))}
 
                 {locations.length === 0 && (
-                  <h2 style={{ display: 'flex', justifyContent: 'center' }}>No Results Found </h2>
+                  <div style={{
+                    height: 'auto',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center'}}
+                    className="mt-4 mt-md-0 vh100-lg"
+                  >
+                    <CircularProgress color="primary" size={70} />
+                    <p className="mt-3">Loading Results</p>
+                  </div>
                 )}
               </div>
             </AnimateHeight>
