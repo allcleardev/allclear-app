@@ -27,7 +27,7 @@ export default class ProfileView extends Component {
     const session = JSON.parse(localStorage.getItem('session'));
 
     this.setProfile(session);
-    this.fetchProfile(session);
+    await this.fetchProfile(session);
   }
 
   async fetchProfile(session) {

@@ -65,29 +65,21 @@ class Background extends Component {
   }
 
   async _onLocationAccepted(pos) {
-    const {appState, setAppState} = this.context;
-    const {latitude, longitude} = pos.coords;
     if (pos && pos.coords && pos.coords.latitude) {
-      const lat = pos.coords.latitude;
-      const lng = pos.coords.longitude;
-
-      sessionStorage.setItem('lat', lat);
-      sessionStorage.setItem('lng', lng);
       this.setState({ location: true });
+      const {appState, setAppState} = this.context;
+      const {latitude, longitude} = pos.coords;
+      setAppState({
+        ...appState,
+        person: {
+          ...appState.person,
+          latitude,
+          longitude,
+        },
+      });
     } else {
-      sessionStorage.removeItem('lat');
-      sessionStorage.removeItem('lng');
       this.setState({ location: false });
     }
-    setAppState({
-      ...appState,
-      person: {
-        ...appState.person,
-        latitude,
-        longitude,
-      },
-    });
-
   }
 
   _onLocationDeclined() {

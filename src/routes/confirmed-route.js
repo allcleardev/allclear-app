@@ -8,6 +8,11 @@ class ConfirmedRoute extends React.Component {
     const Component = this.props.component;
     const isAuthenticated = localStorage.getItem('confirm_sessid');
 
+    // remove all associated storage items
+    if(!isAuthenticated){
+      localStorage.removeItem('appState');
+    }
+
     return isAuthenticated ? (
       <Component {...props}/>
     ) : (
