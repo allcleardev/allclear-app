@@ -9,11 +9,18 @@ import OnboardingNavigation from '../../components/onboarding-navigation';
 import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
 import { Button, TextField } from '@material-ui/core';
+import {AppContext} from '../../contexts/App.context';
 
 class Background extends Component {
+  static contextType = AppContext;
+  state = {
+    dob: '',
+    location: false,
+    useCurrentLocation: false
+  };
+
   constructor() {
     super();
-    this.state = { dob: '', location: false, useCurrentLocation: false };
 
     bindAll(this, [
       'routeChange',
@@ -40,11 +47,20 @@ class Background extends Component {
 
   async handleLocationChange(bool, value) {
     this.setState({ location: bool });
+    const { appState, setAppState } = this.context;
 
     if (value && value.description) {
-      sessionStorage.setItem('locationName', value.description);
-    } else {
-      sessionStorage.removeItem('locationName');
+      const {latitude, longitude} = value;
+      const locationName = value.description;
+      setAppState({
+        ...appState,
+        person: {
+          ...appState.person,
+          locationName,
+          latitude,
+          longitude,
+        },
+      });
     }
   }
 
@@ -66,15 +82,18 @@ class Background extends Component {
 
   async _onLocationAccepted(pos) {
     if (pos && pos.coords && pos.coords.latitude) {
-      const lat = pos.coords.latitude;
-      const lng = pos.coords.longitude;
-
-      sessionStorage.setItem('lat', lat);
-      sessionStorage.setItem('lng', lng);
       this.setState({ location: true });
+      const {appState, setAppState} = this.context;
+      const {latitude, longitude} = pos.coords;
+      setAppState({
+        ...appState,
+        person: {
+          ...appState.person,
+          latitude,
+          longitude,
+        },
+      });
     } else {
-      sessionStorage.removeItem('lat');
-      sessionStorage.removeItem('lng');
       this.setState({ location: false });
     }
   }

@@ -118,7 +118,7 @@ export default function TestingLocationListItem(props) {
             </Fragment>
           )}
           <div className="mt-3">
-            <Link><span className="fontsize-15">Suggest Change To Test Center Overview</span></Link>
+            <Link to={'http://www.google.com'}>Suggest Change To Test Center Overview</Link>
             <p className="fontsize-12"><i>Last update: username 4/10/2020 12:38:00 PM</i></p>
           </div>
         </dl>

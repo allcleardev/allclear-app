@@ -62,3 +62,11 @@ $colors: (
 .flex-wrap-off {
   flex-wrap: nowrap;
 }
+
+.snackbar{
+  &__error{
+    .MuiAlert-standardError{
+      background-color: white;
+    }
+  }
+}

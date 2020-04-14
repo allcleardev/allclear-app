@@ -56,9 +56,7 @@ export function bootstrapAxios() {
       if (get(error,'response.status') === 403){
         localStorage.removeItem('confirm_sessid');
         localStorage.removeItem('sessid');
-        history.push('/sign-in');
-        // todo: figure out how to properly route outside a component
-        window.location.reload();
+        history.push('/sign-up?logout=true');
       }
 
       console.warn('response error:', error.response);

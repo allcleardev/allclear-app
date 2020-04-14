@@ -36,10 +36,10 @@ export default function RoundHeader({ navigate = '', children }) {
       <Container className="desktop-content" maxWidth="xl">
         <img src={Logo} alt="Logo" className="logo" />
         <nav className="menu">
-          <a href="https://staging.about.allclear.app/" className="menu__item">
+          <a href="https://about.allclear.app/" className="menu__item">
             About Us
           </a>
-          <a href="https://staging.about.allclear.app/" className="menu__item">
+          <a href="https://about.allclear.app/" className="menu__item">
             Help
           </a>
         </nav>

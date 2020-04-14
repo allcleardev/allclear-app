@@ -26,14 +26,18 @@ export default function GoogleMapsAutocomplete(props) {
     setInputValue(event.target.value);
   };
 
-  const handleSelectionChange = (e, value) => {
+  const handleSelectionChange = async (e, value) => {
     if (value) {
       const address = value.description;
-      geocodeByAddress(address)
+      await geocodeByAddress(address)
         .then((results) => getLatLng(results[0]))
         .then((latLng) => {
-          sessionStorage.setItem('lat', latLng.lat);
-          sessionStorage.setItem('lng', latLng.lng);
+          // decorate latlng values into the response
+          value = {
+            ...value,
+            latitude: latLng.lat,
+            longitude: latLng.lng,
+          };
         })
         .catch((error) => console.error('Error', error));
 
