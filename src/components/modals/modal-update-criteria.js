@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
 
 function UpdateCriteria({ onClose, onSubmit }) {
   useStyles();
-  const { appState } = useContext(AppContext);
+  const { setAppState, appState } = useContext(AppContext);
   let pendingStateUpdates = {};
 
   //eslint-disable-next-line
@@ -124,15 +124,17 @@ function UpdateCriteria({ onClose, onSubmit }) {
       },
     });
 
-    debugger;
-
-    // setMapPageState({
-    //   ...mapPageState,
-    //   locations: result.data.records || [],
-    // });
-
-    // update the context
-    // setAppState(finalUpdateObj);
+    setAppState({
+      ...appState,
+      map:{
+        ...appState.map,
+        locations: result.data.records || [],
+      },
+      searchCriteria: {
+        ...appState.searchCriteria,
+        ...searchCriteria
+      }
+    });
 
     // close the modal
     onSubmit();
