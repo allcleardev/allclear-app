@@ -1,20 +1,20 @@
-import React, { useContext, useState } from 'react';
-import { forEach } from 'lodash';
+import React, {useContext, useState} from 'react';
+import {forEach} from 'lodash';
 import FabBlueBottom from '../fabBlueBottom';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import CardBlank from '../cards-unused/user-profile-card';
-import { Button, Grid } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import {Button, Grid} from '@material-ui/core';
+import {makeStyles} from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 // import FormControlLabel from '@material-ui/core/FormControlLabel';
 // import Checkbox from '@material-ui/core/Checkbox';
 import Select from '@material-ui/core/Select';
 import SettingsSVG from '../svgs/svg-settings';
-import { CRITERIA_FORM_DATA } from './modal-update-criteria.constants';
-import { AppContext } from '../../contexts/App.context';
+import {CRITERIA_FORM_DATA} from './modal-update-criteria.constants';
+import {AppContext} from '../../contexts/App.context';
 import ModalService from '../../services/modal.service';
 import FacilityService from '../../services/facility.service';
 
@@ -53,7 +53,7 @@ export default function UpdateCriteriaModal() {
         scroll={scroll}
         aria-labelledby="scroll-dialog-title"
         aria-describedby="scroll-dialog-description"
-        style={{ zIndex: '5' }}
+        style={{zIndex: '5'}}
       >
         <DialogTitle id="scroll-dialog-title">Update Search Criteria</DialogTitle>
         <DialogContent dividers={scroll === 'paper'}>
@@ -82,9 +82,9 @@ const useStyles = makeStyles((theme) => ({
   track: {},
 }));
 
-function UpdateCriteria({ onClose, onSubmit }) {
+function UpdateCriteria({onClose, onSubmit}) {
   useStyles();
-  const { setAppState, appState } = useContext(AppContext);
+  const {setAppState, appState} = useContext(AppContext);
   let pendingStateUpdates = {};
 
   //eslint-disable-next-line
@@ -100,16 +100,13 @@ function UpdateCriteria({ onClose, onSubmit }) {
     };
 
     forEach(searchCriteria, (value, key) => {
+
+      // remove filter from both places
       if (value === 'Any') {
+        delete appState.searchCriteria[key];
         delete searchCriteria[key];
       }
     });
-
-    // compose the updated state before committing it to the app
-    // let finalUpdateObj = {
-    //   ...appState,
-    //   ...searchCriteria,
-    // };
 
     // todo: set latlng to appprovider here - get
     const {latitude, longitude} = appState.person;
@@ -126,7 +123,7 @@ function UpdateCriteria({ onClose, onSubmit }) {
 
     setAppState({
       ...appState,
-      map:{
+      map: {
         ...appState.map,
         locations: result.data.records || [],
       },
@@ -142,7 +139,7 @@ function UpdateCriteria({ onClose, onSubmit }) {
 
   function _generateFormItems() {
     return CRITERIA_FORM_DATA.map((formItem, i) => {
-      const { title, options, key } = formItem;
+      const {title, options, key} = formItem;
 
       return (
         <div key={i} className="sub-card">
@@ -162,7 +159,7 @@ function UpdateCriteria({ onClose, onSubmit }) {
               }}
             >
               {options.map((optionItem, i2) => {
-                const { value, text } = optionItem;
+                const {value, text} = optionItem;
 
                 return (
                   <MenuItem key={i2} value={value} name={text} data-name={text} data-key={key}>

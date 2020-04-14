@@ -18,7 +18,8 @@ export default class GoogleMap extends Component {
       '_onLocationDeclined',
       '_onLocationAccepted',
       '_panTo',
-      'onZoomChanged'
+      'onZoomChanged',
+      '_createSearchPayload',
     ]);
     this.gMap = React.createRef();
     this.facilityService = FacilityService.getInstance();
@@ -29,13 +30,7 @@ export default class GoogleMap extends Component {
     const {appState} = this.context;
     const latitude = get(appState, 'person.latitude');
     const longitude = get(appState, 'person.longitude');
-    const result = await this.facilityService.search({
-      from: {
-        latitude,
-        longitude,
-        miles: 100
-      }
-    });
+    const result = await this.facilityService.search(this._createSearchPayload({latitude,longitude}));
     if (navigator && navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(this._onLocationAccepted, this._onLocationDeclined);
     }
@@ -47,14 +42,7 @@ export default class GoogleMap extends Component {
     const latitude = evt.center.lat();
     const longitude = evt.center.lng();
 
-    const result = await this.facilityService.search({
-        from: {
-          latitude,
-          longitude,
-          miles: 100
-        }
-      }
-    );
+    const result = await this.facilityService.search(this._createSearchPayload({latitude,longitude})    );
 
     this._setLocations(result.data.records, {latitude, longitude});
   }
@@ -62,14 +50,7 @@ export default class GoogleMap extends Component {
   async onMarkerZoomChanged(evt) {
     const latitude = evt.center.lat();
     const longitude = evt.center.lng();
-    const result = await this.facilityService.search({
-        from: {
-          latitude,
-          longitude,
-          miles: 100
-        }
-      }
-    );
+    const result = await this.facilityService.search(this._createSearchPayload({latitude,longitude})    );
 
     this._setLocations(result.data.records, {latitude, longitude});
   }
@@ -99,14 +80,7 @@ export default class GoogleMap extends Component {
     const latitude = pos.coords.latitude;
     const longitude = pos.coords.longitude;
     this._panTo(latitude, longitude);
-    const result = await this.facilityService.search({
-        from: {
-          latitude,
-          longitude,
-          miles: 100
-        }
-      }
-    );
+    const result = await this.facilityService.search(this._createSearchPayload({latitude,longitude}));
 
     this._setLocations(result.data.records, {
       latitude,
@@ -125,6 +99,19 @@ export default class GoogleMap extends Component {
     // https://stackoverflow.com/questions/52411378/google-maps-api-calculate-zoom-based-of-miles
   }
 
+  _createSearchPayload({latitude, longitude, shouldIgnoreFilters = false}) {
+    const {appState} = this.context;
+    const searchCriteria = (shouldIgnoreFilters) ? {} : appState.searchCriteria;
+    return {
+      ...searchCriteria,
+      from: {
+        latitude,
+        longitude,
+        miles: 100
+      }
+    };
+  }
+
   render() {
     const locations = get(this, 'context.appState.map.locations') || [];
 
@@ -137,6 +124,7 @@ export default class GoogleMap extends Component {
           defaultCenter={G_MAP_DEFAULTS.center}
           defaultZoom={G_MAP_DEFAULTS.zoom}
           onDragEnd={(evt) => this.onMarkerDragEnd(evt)}
+          onZoomChanged={(evt) => this.onMarkerDragEnd(evt)}
           onZoomAnimationEnd={(evt) => this.onZoomChanged(evt)}
         >
           {locations.map((data, index) => (
