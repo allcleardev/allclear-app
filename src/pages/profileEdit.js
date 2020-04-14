@@ -10,8 +10,11 @@ import TypesService from '../services/types.service.js';
 
 import Container from '@material-ui/core/Container';
 import { Button, FormControl, Select, MenuItem, Input, Chip } from '@material-ui/core';
+import {AppContext} from '../contexts/App.context';
 
 export default class ProfileEdit extends Component {
+  static contextType = AppContext;
+
   constructor(props) {
     super(props);
     bindAll(this, [
@@ -136,11 +139,19 @@ export default class ProfileEdit extends Component {
   }
 
   async onUpdateProfileClicked() {
+    const { appState, setAppState } = this.context;
     const updatedProfile = {
       ...this.state.profile,
       ...this.state.newProfile
     };
     await this.peopleService.editProfile(updatedProfile);
+    setAppState({
+      ...appState,
+      person: {
+        ...appState.person,
+        ...updatedProfile
+      }
+    });
     this.routeChange('/profile');
   }
 
