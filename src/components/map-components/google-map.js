@@ -17,71 +17,67 @@ export default class GoogleMap extends Component {
       '_setLocations',
       '_onLocationDeclined',
       '_onLocationAccepted',
+      '_panTo',
+      'onZoomChanged'
     ]);
     this.gMap = React.createRef();
     this.facilityService = FacilityService.getInstance();
 
   }
 
-  static defaultProps = {
-    center: {
-      // todo: set latlng to appprovider here - get
-      // lat: Number(sessionStorage.getItem('lat')) || 40.743992,
-      // lng: Number(sessionStorage.getItem('lng')) || -74.032364,
-      lat: 40.743992,
-      lng: -74.032364,
-    },
-    zoom: 12,
-  };
-
   async componentDidMount() {
-    const {lat, lng} = this.props.center;
+    const {appState} = this.context;
+    const latitude = get(appState, 'person.latitude');
+    const longitude = get(appState, 'person.longitude');
     const result = await this.facilityService.search({
-        from:
-          {
-            latitude: lat,
-            longitude: lng,
-            miles: 100
-          }
+      from: {
+        latitude,
+        longitude,
+        miles: 100
       }
-    );
+    });
     if (navigator && navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(this._onLocationAccepted, this._onLocationDeclined);
     }
-    this._setLocations(result.data.records, {lat, lng});
-
+    this._setLocations(result.data.records, {latitude, longitude});
+    this._panTo(latitude, longitude);
   }
 
   async onMarkerDragEnd(evt) {
-    const lat = evt.center.lat();
-    const lng = evt.center.lng();
+    const latitude = evt.center.lat();
+    const longitude = evt.center.lng();
+
     const result = await this.facilityService.search({
-        from:
-          {
-            latitude: lat,
-            longitude: lng,
-            miles: 100
-          }
+        from: {
+          latitude,
+          longitude,
+          miles: 100
+        }
       }
     );
 
-    this._setLocations(result.data.records, {lat, lng});
+    this._setLocations(result.data.records, {latitude, longitude});
   }
 
   async onMarkerZoomChanged(evt) {
-    const lat = evt.center.lat();
-    const lng = evt.center.lng();
+    const latitude = evt.center.lat();
+    const longitude = evt.center.lng();
     const result = await this.facilityService.search({
-        from:
-          {
-            latitude: lat,
-            longitude: lng,
-            miles: 100
-          }
+        from: {
+          latitude,
+          longitude,
+          miles: 100
+        }
       }
     );
 
-    this._setLocations(result.data.records, {lat, lng});
+    this._setLocations(result.data.records, {latitude, longitude});
+  }
+
+  _panTo(latitude, longitude) {
+    //eslint-disable-next-line
+    const currBrowserLocation = new google.maps.LatLng(latitude, longitude);
+    this.gMap && this.gMap.current && this.gMap.current.map_.panTo(currBrowserLocation);
   }
 
   _setLocations(locations) {
@@ -100,24 +96,21 @@ export default class GoogleMap extends Component {
 
   async _onLocationAccepted(pos) {
     // console.warn('location ACCEPTED');
-    const lat = pos.coords.latitude;
-    const lng = pos.coords.longitude;
-    //eslint-disable-next-line
-    const currBrowserLocation = new google.maps.LatLng(lat, lng);
-    this.gMap && this.gMap.current && this.gMap.current.map_.panTo(currBrowserLocation);
+    const latitude = pos.coords.latitude;
+    const longitude = pos.coords.longitude;
+    this._panTo(latitude, longitude);
     const result = await this.facilityService.search({
-        from:
-          {
-            latitude: lat,
-            longitude: lng,
-            miles: 100
-          }
+        from: {
+          latitude,
+          longitude,
+          miles: 100
+        }
       }
     );
 
     this._setLocations(result.data.records, {
-      lat,
-      lng
+      latitude,
+      longitude
     });
   }
 
@@ -126,19 +119,26 @@ export default class GoogleMap extends Component {
     // todo: snackbar here
     console.warn('User declined to use browser location');
   }
-  
+
+  onZoomChanged(miles) {
+    // todo: major work here bro
+    // https://stackoverflow.com/questions/52411378/google-maps-api-calculate-zoom-based-of-miles
+    // debugger;
+  }
+
   render() {
     const locations = get(this, 'context.appState.map.locations') || [];
+
     return (
       <div style={{height: '100%', width: '100%'}}>
         <GoogleMapReact
           ref={this.gMap}
           options={G_MAP_OPTIONS}
           bootstrapURLKeys={{key: 'AIzaSyAPB7ER1lGxDSZICjq9lmqgxvnlSJCIuYw'}}
-          defaultCenter={this.props.center}
-          defaultZoom={this.props.zoom}
+          defaultCenter={G_MAP_DEFAULTS.center}
+          defaultZoom={G_MAP_DEFAULTS.zoom}
           onDragEnd={(evt) => this.onMarkerDragEnd(evt)}
-          onZoomChanged={(evt) => this.onMarkerDragEnd(evt)}
+          onZoomAnimationEnd={(evt) => this.onZoomChanged(evt)}
         >
           {locations.map((data, index) => (
             <MapMarker
@@ -229,3 +229,11 @@ const G_MAP_OPTIONS = {
     },
   ],
 };
+
+const G_MAP_DEFAULTS = {
+  center: {
+    lat: 2,
+    lng: 2,
+  },
+  zoom: 12
+}

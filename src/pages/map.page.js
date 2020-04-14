@@ -17,7 +17,6 @@ import UpdateCriteriaModal from '../components/modals/modal-update-criteria';
 import Hammer from 'react-hammerjs';
 import GoogleMap from '../components/map-components/google-map';
 import TestingLocationListItem from '../components/map-components/testing-location-list-item';
-import {mapLocationData} from '../constants';
 
 import ArrowLeft from '../components/svgs/arrow-left';
 import ArrowRight from '../components/svgs/arrow-right';
@@ -196,7 +195,7 @@ export default function MapPage() {
           })}
         >
           <div className="map-fullscreen">
-            <GoogleMap {...mapLocationData}></GoogleMap>
+            <GoogleMap></GoogleMap>
           </div>
         </main>
         <NavBottom active={1}></NavBottom>
