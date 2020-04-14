@@ -14,6 +14,7 @@ const initialMapPageState = {
 export function MapPageProvider(props) {
 
   const [mapPageState, setMapPageState] = useState(initialMapPageState);
+  const [isLoading, setIsLoading] = useState(true)
 
   return (
     // value prop is where we define what values
@@ -21,7 +22,9 @@ export function MapPageProvider(props) {
     <MapPageContext.Provider
       value={{
         mapPageState,
-        setMapPageState
+        setMapPageState,
+        isLoading,
+        setIsLoading
       }}
     >
       {props.children}

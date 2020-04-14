@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import AnimateHeight from 'react-animate-height';
 import clsx from 'clsx';
 // import PropTypes from 'prop-types';
@@ -30,7 +30,7 @@ import MapPageContext from '../contexts/MapPage.context';
 export default function MapPage() {
   const classes = useStyles();
 
-  const { mapPageState } = useContext(MapPageContext);
+  const { mapPageState, isLoading } = useContext(MapPageContext);
 
   const locations = mapPageState.locations;
 
@@ -156,7 +156,7 @@ export default function MapPage() {
                 {/*<GoogleMapInput style={{ marginTop: '50px' }}></GoogleMapInput>*/}
 
 
-                {locations.length !== 0 && (
+                {isLoading === false && (
                   <Box>
                     <Button
                       className={'edit-filters-btn'}
@@ -171,6 +171,20 @@ export default function MapPage() {
                       Edit Search Filters
                     </Button>
                   </Box>
+                )}
+
+                {isLoading === true && (
+                  <div style={{
+                    height: 'auto',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center'}}
+                    className="mt-4 mt-md-0 vh100-lg"
+                  >
+                    <CircularProgress color="primary" size={70} />
+                    <p className="mt-3">Loading Results</p>
+                  </div>
                 )}
 
                 {locations &&
@@ -188,19 +202,9 @@ export default function MapPage() {
                     ></TestingLocationListItem>
                   ))}
 
-                {locations.length === 0 && (
-                  <div style={{
-                    height: 'auto',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center'}}
-                    className="mt-4 mt-md-0 vh100-lg"
-                  >
-                    <CircularProgress color="primary" size={70} />
-                    <p className="mt-3">Loading Results</p>
-                  </div>
-                )}
+                  {locations.length === 0 && isLoading === false && (
+                   <h2 style={{ display: 'flex', justifyContent: 'center' }}>No Results Found </h2>
+                  )}
               </div>
             </AnimateHeight>
           </Drawer>
