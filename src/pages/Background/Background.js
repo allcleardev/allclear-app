@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {bindAll} from 'lodash';
+import React, { Component } from 'react';
+import { bindAll } from 'lodash';
 
 import RoundHeader from '../../components/headers/header-round';
 import ProgressBottom from '../../components/progressBottom';
@@ -8,12 +8,12 @@ import OnboardingNavigation from '../../components/onboarding-navigation';
 
 import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
-import {Button, TextField} from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 
 class Background extends Component {
   constructor() {
     super();
-    this.state = {dob: '', location: false, useCurrentLocation: false};
+    this.state = { dob: '', location: false, useCurrentLocation: false };
 
     bindAll(this, [
       'routeChange',
@@ -31,15 +31,21 @@ class Background extends Component {
 
   handleDoBChange(event) {
     if (event && event.target && event.target.value) {
-      this.setState({dob: event.target.value});
+      this.setState({ dob: event.target.value });
 
       let dob = event.target.value + 'T00:00:00Z';
       sessionStorage.setItem('dob', dob);
     }
   }
 
-  async handleLocationChange(value) {
-    this.setState({location: value});
+  async handleLocationChange(bool, value) {
+    this.setState({ location: bool });
+
+    if (value && value.description) {
+      sessionStorage.setItem('locationName', value.description);
+    } else {
+      sessionStorage.removeItem('locationName');
+    }
   }
 
   async handleSwitchChange() {
@@ -48,7 +54,7 @@ class Background extends Component {
     switchValue = !switchValue;
 
     this.setState({
-      useCurrentLocation: switchValue
+      useCurrentLocation: switchValue,
     });
 
     if (switchValue) {
@@ -61,9 +67,18 @@ class Background extends Component {
   async _onLocationAccepted(pos) {
     const {appState, setAppState} = this.context;
     const {latitude, longitude} = pos.coords;
-    // const lat = pos.coords.latitude;
-    // const lng = pos.coords.longitude;
-    // todo: set latlng to appprovider here
+    if (pos && pos.coords && pos.coords.latitude) {
+      const lat = pos.coords.latitude;
+      const lng = pos.coords.longitude;
+
+      sessionStorage.setItem('lat', lat);
+      sessionStorage.setItem('lng', lng);
+      this.setState({ location: true });
+    } else {
+      sessionStorage.removeItem('lat');
+      sessionStorage.removeItem('lng');
+      this.setState({ location: false });
+    }
     setAppState({
       ...appState,
       person: {
@@ -72,7 +87,7 @@ class Background extends Component {
         longitude,
       },
     });
-    this.setState({location: true});
+
   }
 
   _onLocationDeclined() {
@@ -96,7 +111,7 @@ class Background extends Component {
               <section className="section">
                 <article className="article">
                   <label htmlFor="location" className="label">
-                    <strong>Location</strong> (Required) <br/>
+                    <strong>Location</strong> (Required) <br />
                     <span className="description">
                       We can give localized test center recommendations with your location.
                     </span>
@@ -121,7 +136,7 @@ class Background extends Component {
                 </article>
                 <article className="article">
                   <label htmlFor="birthdate" className="label">
-                    <strong>Date of Birth</strong> <br/>
+                    <strong>Date of Birth</strong> <br />
                     <span className="description">Some test centers have minimum age requirements.</span>
                   </label>
                   {/* TODO: swap w/ Material UI Date Picker https://material-ui.com/components/pickers/ */}
