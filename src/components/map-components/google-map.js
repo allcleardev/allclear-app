@@ -35,7 +35,7 @@ export default class GoogleMap extends Component {
       navigator.geolocation.getCurrentPosition(this._onLocationAccepted, this._onLocationDeclined);
     }
     this._setLocations(result.data.records, {latitude, longitude});
-    this._panTo(latitude, longitude);
+    (latitude && longitude) && this._panTo(latitude, longitude);
   }
 
   async onMarkerDragEnd(evt) {
@@ -58,7 +58,9 @@ export default class GoogleMap extends Component {
   _panTo(latitude, longitude) {
     //eslint-disable-next-line
     const currBrowserLocation = new google.maps.LatLng(latitude, longitude);
-    this.gMap && this.gMap.current && this.gMap.current.map_.panTo(currBrowserLocation);
+    if(get(this, 'gMap.current.map_.panTo')){
+      this.gMap.current.map_.panTo(currBrowserLocation);
+    }
   }
 
   _setLocations(locations) {

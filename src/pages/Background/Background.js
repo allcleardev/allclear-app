@@ -51,11 +51,12 @@ class Background extends Component {
 
     if (value && value.description) {
       const {latitude, longitude} = value;
-      // const locationName = value.description;
+      const locationName = value.description;
       setAppState({
         ...appState,
         person: {
           ...appState.person,
+          locationName,
           latitude,
           longitude,
         },
