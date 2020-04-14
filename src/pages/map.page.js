@@ -4,6 +4,7 @@ import clsx from 'clsx';
 // import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Container';
 import {makeStyles} from '@material-ui/core/styles';
+import {get} from 'lodash';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
@@ -23,7 +24,8 @@ import ArrowRight from '../components/svgs/arrow-right';
 import SettingsSVG from '../components/svgs/svg-settings';
 import {useWindowResize} from '../util/helpers';
 import ModalService from '../services/modal.service';
-import MapPageContext from '../contexts/MapPage.context';
+// import MapPageContext from '../contexts/MapPage.context';
+import {AppContext} from '../contexts/App.context';
 
 export default function MapPage() {
 
@@ -40,7 +42,7 @@ export default function MapPage() {
   const classes = useStyles();
 
   // state & global state
-  const {mapPageState} = useContext(MapPageContext);
+  const {appState} = useContext(AppContext);
   const [width, height] = useWindowResize(onWindowResize);
   const initialState = {
     isOpen: true,
@@ -50,7 +52,7 @@ export default function MapPage() {
   };
   const [mapState, setMapState] = useState(initialState);
   const [drawerHeight, setDrawerHeight] = useState(350);
-  const locations = mapPageState.locations;
+  const locations = get(appState,'map.locations') || [];
 
   // callback handlers
   function onWindowResize({width, height}) {

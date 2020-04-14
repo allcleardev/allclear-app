@@ -17,7 +17,8 @@ import { CRITERIA_FORM_DATA } from './modal-update-criteria.constants';
 import { AppContext } from '../../contexts/App.context';
 import ModalService from '../../services/modal.service';
 import FacilityService from '../../services/facility.service';
-import MapPageContext from '../../contexts/MapPage.context';
+// import MapPageContext from '../../contexts/MapPage.context';
+
 
 export default function UpdateCriteriaModal() {
   // "DEPENDENCY INJECTION Section"
@@ -84,8 +85,7 @@ const useStyles = makeStyles((theme) => ({
 
 function UpdateCriteria({ onClose, onSubmit }) {
   useStyles();
-  const { appState, setAppState } = useContext(AppContext);
-  const { setMapPageState, mapPageState } = useContext(MapPageContext);
+  const { appState } = useContext(AppContext);
   let pendingStateUpdates = {};
 
   //eslint-disable-next-line
@@ -93,6 +93,8 @@ function UpdateCriteria({ onClose, onSubmit }) {
 
   async function commitPendingModalState() {
     // sanitize form values for BE filter
+
+    // this is now at appstate.person.searchcriteria?
     let searchCriteria = {
       ...appState.searchCriteria,
       ...pendingStateUpdates,
@@ -105,13 +107,15 @@ function UpdateCriteria({ onClose, onSubmit }) {
     });
 
     // compose the updated state before committing it to the app
-    let finalUpdateObj = {
-      ...appState,
-      ...searchCriteria,
-    };
+    // let finalUpdateObj = {
+    //   ...appState,
+    //   ...searchCriteria,
+    // };
 
     // todo: set latlng to appprovider here - get
     const {latitude, longitude} = appState.person;
+
+    //eslint-disable-next-line
     const result = await facilityService.search({
       ...searchCriteria,
       from: {
@@ -121,13 +125,15 @@ function UpdateCriteria({ onClose, onSubmit }) {
       },
     });
 
-    setMapPageState({
-      ...mapPageState,
-      locations: result.data.records || [],
-    });
+    debugger;
+
+    // setMapPageState({
+    //   ...mapPageState,
+    //   locations: result.data.records || [],
+    // });
 
     // update the context
-    setAppState(finalUpdateObj);
+    // setAppState(finalUpdateObj);
 
     // close the modal
     onSubmit();

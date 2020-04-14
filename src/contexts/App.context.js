@@ -10,7 +10,10 @@ export const AppConsumer = AppContext.Consumer;
 let initialAppState = {
   sessionId: undefined,
   person:{},
-  mapLocations:[],
+  map:{
+    locations:[],
+    expandedItems:[]
+  },
   searchCriteria: {
     driveThru: 'Any',
     appointmentRequired: 'Any',

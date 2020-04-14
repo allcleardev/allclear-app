@@ -2,11 +2,11 @@ import React, {Component} from 'react';
 import GoogleMapReact from 'google-map-react';
 import MapMarker from './map-marker.jsx';
 import FacilityService from '../../services/facility.service.js';
-import MapPageContext from '../../contexts/MapPage.context';
-import {bindAll} from 'lodash';
+import {bindAll, get} from 'lodash';
+import {AppContext} from '../../contexts/App.context';
 
 export default class GoogleMap extends Component {
-  static contextType = MapPageContext;
+  static contextType = AppContext;
 
   constructor(props) {
     super(props);
@@ -29,7 +29,7 @@ export default class GoogleMap extends Component {
       // lat: Number(sessionStorage.getItem('lat')) || 40.743992,
       // lng: Number(sessionStorage.getItem('lng')) || -74.032364,
       lat: 40.743992,
-      lng:  -74.032364,
+      lng: -74.032364,
     },
     zoom: 12,
   };
@@ -87,10 +87,14 @@ export default class GoogleMap extends Component {
   _setLocations(locations) {
 
     // update context state (for other components in map page)
-    const {setMapPageState, mapPageState} = this.context;
-    setMapPageState({
-      ...mapPageState,
-      locations
+    const {setAppState, appState} = this.context;
+    setAppState({
+      ...appState,
+      map: {
+        ...appState.map,
+        locations
+      }
+
     });
   }
 
@@ -100,7 +104,7 @@ export default class GoogleMap extends Component {
     const lng = pos.coords.longitude;
     //eslint-disable-next-line
     const currBrowserLocation = new google.maps.LatLng(lat, lng);
-    this.gMap && this.gMap.current.map_.panTo(currBrowserLocation);
+    this.gMap && this.gMap.current && this.gMap.current.map_.panTo(currBrowserLocation);
     const result = await this.facilityService.search({
         from:
           {
@@ -124,7 +128,7 @@ export default class GoogleMap extends Component {
   }
 
   render() {
-    const {locations} = this.context.mapPageState;
+    const locations = get(this, 'context.appState.map.locations') || [];
     return (
       <div style={{height: '100%', width: '100%'}}>
         <GoogleMapReact
