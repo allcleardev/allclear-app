@@ -43,6 +43,7 @@ export default class ProfileView extends Component {
     await this.peopleService.logout();
     localStorage.removeItem('confirm_sessid');
     localStorage.removeItem('sessid');
+    localStorage.removeItem('appState');
     return this.props.history.push('/sign-up');
   }
 

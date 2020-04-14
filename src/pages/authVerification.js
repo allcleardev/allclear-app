@@ -42,6 +42,7 @@ export default function PhoneVerify({ props, location }) {
       token: code,
     })
       .then((response) => {
+        // todo: remove this session
         localStorage.setItem('sessid', response.data.id);
         localStorage.setItem('session', JSON.stringify(response.data));
 
@@ -49,7 +50,8 @@ export default function PhoneVerify({ props, location }) {
           // todo: set latlng to appprovider here
           setAppState({
             ...appState,
-            person:response.data.person,
+            sessionId: response.data.id,
+            person:response.data.person
           });
         }
 
