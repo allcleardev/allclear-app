@@ -1,10 +1,10 @@
-import React, {useState, useContext} from 'react';
+import React, { useState, useContext } from 'react';
 import AnimateHeight from 'react-animate-height';
 import clsx from 'clsx';
 // import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Container';
-import {makeStyles} from '@material-ui/core/styles';
-import {get} from 'lodash';
+import { makeStyles } from '@material-ui/core/styles';
+import { get } from 'lodash';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
@@ -21,13 +21,12 @@ import TestingLocationListItem from '../components/map-components/testing-locati
 import ArrowLeft from '../components/svgs/arrow-left';
 import ArrowRight from '../components/svgs/arrow-right';
 import SettingsSVG from '../components/svgs/svg-settings';
-import {useWindowResize} from '../util/helpers';
+import { useWindowResize } from '../util/helpers';
 import ModalService from '../services/modal.service';
 // import MapPageContext from '../contexts/MapPage.context';
-import {AppContext} from '../contexts/App.context';
+import { AppContext } from '../contexts/App.context';
 
 export default function MapPage() {
-
   // constants
   const touchOptions = {
     touchAction: 'compute',
@@ -41,32 +40,37 @@ export default function MapPage() {
   const classes = useStyles();
 
   // state & global state
-  const {appState} = useContext(AppContext);
+  const { appState, setAppState } = useContext(AppContext);
   const [width, height] = useWindowResize(onWindowResize);
   const initialState = {
-    isOpen: true,
     anchor: 'left',
     windowWidth: width,
     windowHeight: height,
   };
   const [mapState, setMapState] = useState(initialState);
   const [drawerHeight, setDrawerHeight] = useState(350);
-  const locations = get(appState,'map.locations') || [];
+  const locations = get(appState, 'map.locations');
+  const isOpen = get(appState, 'map.isOpen');
 
   // callback handlers
-  function onWindowResize({width, height}) {
+  function onWindowResize({ width, height }) {
     if (width <= 768) {
       setMapState({
         ...mapState,
         anchor: 'bottom',
-        isOpen: true
+      });
+      setAppState({
+        ...appState,
+        map: {
+          ...appState.map,
+          isOpen,
+        },
       });
       setDrawerHeight(350);
     } else {
       setMapState({
         ...mapState,
         anchor: 'left',
-        isOpen: true,
       });
       setDrawerHeight(height);
     }
@@ -74,7 +78,7 @@ export default function MapPage() {
 
   function onDrawerSwipe(e) {
     if (initialState.windowWidth <= 768) {
-      const nextHeight = (drawerHeight === 350) ? 750 : 350;
+      const nextHeight = drawerHeight === 350 ? 750 : 350;
       if (e.pointerType === 'touch' || e.type === 'click') {
         setDrawerHeight(nextHeight);
       }
@@ -82,13 +86,16 @@ export default function MapPage() {
   }
 
   function onDrawerToggle(isOpen) {
-    setMapState({
-      ...mapState,
-      isOpen,
+    setAppState({
+      ...appState,
+      map: {
+        ...appState.map,
+        isOpen,
+      },
     });
   }
 
-  const {isOpen, anchor} = mapState;
+  const { anchor } = mapState;
 
   // get modal service so we can toggle it open
   let modalService = ModalService.getInstance();
@@ -104,7 +111,7 @@ export default function MapPage() {
               [classes.appBarShift]: isOpen,
             })
           }
-          style={{zIndex: '2'}}
+          style={{ zIndex: '2' }}
         >
           <IconButton
             disableRipple
@@ -112,7 +119,7 @@ export default function MapPage() {
             onClick={isOpen === false ? () => onDrawerToggle(true) : () => onDrawerToggle(false)}
             className={clsx(classes.menuButton, isOpen)}
           >
-            {isOpen === true ? <ArrowLeft/> : <ArrowRight/>}
+            {isOpen === true ? <ArrowLeft /> : <ArrowRight />}
           </IconButton>
         </AppBar>
         <Drawer
@@ -120,12 +127,9 @@ export default function MapPage() {
           variant="persistent"
           anchor={anchor}
           open={isOpen}
-          style={{height: drawerHeight, zIndex: 4}}
+          style={{ height: drawerHeight, zIndex: 4 }}
         >
-          <AnimateHeight
-            duration={500}
-            height={drawerHeight}
-          >
+          <AnimateHeight duration={500} height={drawerHeight}>
             <div
               id="side-drawer"
               style={{
@@ -136,11 +140,7 @@ export default function MapPage() {
               className="side-drawer hide-scrollbar wid100-sm"
             >
               <Hammer onSwipe={onDrawerSwipe} options={touchOptions} direction="DIRECTION_VERTICAL">
-                <div
-                  style={{height: '60px'}}
-                  className="geolist-resizer"
-                  onClick={onDrawerSwipe}
-                >
+                <div style={{ height: '60px' }} className="geolist-resizer" onClick={onDrawerSwipe}>
                   <svg width="37" height="6" viewBox="0 0 37 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M2.75977 5.18164C1.37905 5.18164 0.259766 4.06235 0.259766 2.68164C0.259766
@@ -169,22 +169,22 @@ export default function MapPage() {
               </Box>
 
               {locations &&
-              locations.map((result, index) => (
-                <TestingLocationListItem
-                  key={index}
-                  index={index}
-                  title={result.name}
-                  description={result.address}
-                  city_state={result.city + ', ' + result.state}
-                  service_time={result.hours}
-                  driveThru={result.driveThru}
-                  phone={result.phone}
-                  {...result}
-                ></TestingLocationListItem>
-              ))}
+                locations.map((result, index) => (
+                  <TestingLocationListItem
+                    key={index}
+                    index={index}
+                    title={result.name}
+                    description={result.address}
+                    city_state={result.city + ', ' + result.state}
+                    service_time={result.hours}
+                    driveThru={result.driveThru}
+                    phone={result.phone}
+                    {...result}
+                  ></TestingLocationListItem>
+                ))}
 
               {locations.length === 0 && (
-                <h2 style={{display: 'flex', justifyContent: 'center'}}>No Results Found </h2>
+                <h2 style={{ display: 'flex', justifyContent: 'center' }}>No Results Found </h2>
               )}
             </div>
           </AnimateHeight>

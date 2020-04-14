@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AppContext } from '../../contexts/App.context';
 
 import { mapMarkerStyle } from './map_marker_styles.js';
-// import {AppContext} from '../../contexts/App.context';
+// import { AppContext } from '../../contexts/App.context';
 
 export default function MapMarker(props) {
   const { index } = props;
-  // const {appState, setAppState} = useContext(AppContext);
+  const { appState, setAppState } = useContext(AppContext);
+
   return (
     <div
       onClick={(e, i) => {
@@ -15,7 +17,13 @@ export default function MapMarker(props) {
           behavior: 'smooth',
         });
         elemToOpen.children[0].click();
-
+        setAppState({
+          ...appState,
+          map: {
+            ...appState.map,
+            isOpen: true,
+          },
+        });
         // todo: instead of touching dom, utilize previously set state and ref markers to accomplish this?
         // setAppState({
         //   ...appState,
