@@ -1,6 +1,6 @@
 import React from 'react';
-import {Route, Switch, Router} from 'react-router-dom';
-import {createBrowserHistory} from 'history';
+import { Route, Switch, Router } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
 
 import './styles/app.scss';
 
@@ -13,11 +13,13 @@ import AddTest from './pages/Test/Add-test';
 import AuthVerifyCode from './pages/authVerification';
 import Background from './pages/Background/Background';
 import ConfirmedRoute from './routes/confirmed-route';
+import GetStarted from './pages/GetStarted/getStarted';
 import HealthWorkerStatus from './pages/HealthWorkerStatus/HealthWorkerStatus';
 import Launch from './pages/launch';
 import Login from './pages/login';
 import LoginMagicLink from './pages/login-magic-link';
 import MapPage from './pages/map.page';
+import NotFound from './pages/not-found';
 import PhoneVerify from './pages/phoneVerify';
 import PhoneVerifying from './pages/phoneVerifying';
 import ProfileEdit from './pages/profileEdit';
@@ -30,51 +32,45 @@ import Symptoms from './pages/Symptoms/Symptoms';
 import Trace from './pages/Trace/Trace';
 import UpdateTestingCenterCriteria from './pages/updateTestingCenterCriteria';
 import VerifyMagicLink from './pages/verify-magic-link';
-import NotFound from './pages/not-found';
-import {Redirect} from 'react-router';
+
+import { Redirect } from 'react-router';
 
 export const history = createBrowserHistory();
 
 export default function App() {
   return (
-    <Router
-      history={history}
-    >
+    <Router history={history}>
       <AppProvider>
-
         <Switch>
-          <Route exact path="/" component={Launch}/>
+          <Route exact path="/" component={Launch} />
           {/* Onboarding Pages */}
-          <Route path="/sign-up" component={PhoneVerify}/>
-          <Route path="/sign-up-verification" component={SignUpVerification}/>
-          <Route path="/verifying" component={PhoneVerifying}/>
-          <Route path="/register" component={VerifyMagicLink}/>
-          <Route path="/auth" component={LoginMagicLink}/>
-          <ConfirmedRoute path="/background" component={Background}/>
-          <ConfirmedRoute path="/health-worker" component={HealthWorkerStatus}/>
-          <ConfirmedRoute path="/symptoms" component={Symptoms}/>
+          <Route path="/get-started" component={GetStarted} />
+          <Route path="/sign-up" component={PhoneVerify} />
+          <Route path="/sign-up-verification" component={SignUpVerification} />
+          <Route path="/verifying" component={PhoneVerifying} />
+          <Route path="/register" component={VerifyMagicLink} />
+          <Route path="/auth" component={LoginMagicLink} />
+          <ConfirmedRoute path="/background" component={Background} />
+          <ConfirmedRoute path="/health-worker" component={HealthWorkerStatus} />
+          <ConfirmedRoute path="/symptoms" component={Symptoms} />
           {/* Login Pages */}
-          <Route path="/sign-in" component={Login}/>
-          <Route path="/sign-in-verification" component={AuthVerifyCode}/>
+          <Route path="/sign-in" component={Login} />
+          <Route path="/sign-in-verification" component={AuthVerifyCode} />
           {/* Profile Pages / Settings */}
-          <ProtectedRoute path="/profile" component={ProfileView}/>
-          <ProtectedRoute path="/profile-edit" component={ProfileEdit}/>
-          <ProtectedRoute path="/add-test" component={AddTest}/>
-          <ProtectedRoute path="/update-criteria" component={UpdateTestingCenterCriteria}/>
-          <ProtectedRoute path="/share" component={ShareApp}/>
-          <ProtectedRoute path="/settings" component={Settings}/>
-          <ProtectedRoute path="/contact-tracing" component={Trace}/>
-
-
+          <ProtectedRoute path="/profile" component={ProfileView} />
+          <ProtectedRoute path="/profile-edit" component={ProfileEdit} />
+          <ProtectedRoute path="/add-test" component={AddTest} />
+          <ProtectedRoute path="/update-criteria" component={UpdateTestingCenterCriteria} />
+          <ProtectedRoute path="/share" component={ShareApp} />
+          <ProtectedRoute path="/settings" component={Settings} />
+          <ProtectedRoute path="/contact-tracing" component={Trace} />
           {/* Map */}
-          <Route path="/map" component={MapPage}/>
-
+          <Route path="/map" component={MapPage} />
           {/* 404 */}
-          <Route path="/404" component={NotFound}/>
+          <Route path="/404" component={NotFound} />
           <Route path="*">
-            <Redirect to="/404"/>
+            <Redirect to="/404" />
           </Route>
-
           {/* Abandoned Temporarily*/}
           {/* <ConfirmedRoute path="/conditions" component={Conditions} /> */}
           {/* <ConfirmedRoute path="/results" component={Result} /> */}

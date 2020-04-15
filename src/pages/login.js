@@ -79,14 +79,14 @@ export default function PhoneVerify({ props }) {
                 onSubmit={() => verifyLogin()}
                 className="hide-mobile"
               ></PhoneNumber>
-              <Link to="/sign-up" className="hide-mobile login">
+              <Link to="/background" className="hide-mobile login">
                 Create Account
               </Link>
               {state.error === true ? <p className="error">{state.message}</p> : ''}
             </div>
 
             <div className="button-container">
-              <Link to="/sign-up" className="hide-desktop login">
+              <Link to="/background" className="hide-desktop login">
                 Create Account
               </Link>
               <Button onClick={() => verifyLogin()} variant="contained" color="primary" className="next">
