@@ -10,9 +10,12 @@ import OnboardingNavigation from '../../components/onboarding-navigation';
 import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
 import { Button, Chip } from '@material-ui/core';
+import {AppContext} from '../../contexts/App.context';
+import PeopleService from '../../services/people.service';
 
 class Symptom extends Component {
   state = states;
+  static contextType = AppContext;
 
   constructor() {
     super();
@@ -26,6 +29,7 @@ class Symptom extends Component {
       'buildPayload',
       'submitResults',
     ]);
+    this.peopleService = PeopleService.getInstance();
   }
 
   componentDidMount() {
@@ -100,10 +104,14 @@ class Symptom extends Component {
   }
 
   buildPayload() {
+    const { appState } = this.context;
+    // todo: set latlng to appprovider here - get
+    const {latitude, longitude} = appState.person;
     const dob = sessionStorage.getItem('dob');
     const phone = sessionStorage.getItem('phone');
-    const lat = sessionStorage.getItem('lat');
-    const lng = sessionStorage.getItem('lng');
+    // todo: none of this should be needed anymore
+    // const lat = sessionStorage.getItem('lat');
+    // const lng = sessionStorage.getItem('lng');
     const locationName = sessionStorage.getItem('locationName');
     const healthWorkerStatus = sessionStorage.getItem('healthWorkerStatus');
     const alertable = sessionStorage.getItem('alertable');
@@ -164,8 +172,8 @@ class Symptom extends Component {
       alertable,
       locationName,
       name: phone,
-      latitude: lat,
-      longitude: lng,
+      latitude,
+      longitude,
       conditions: conditionsArray,
       exposures: exposuresArray,
       symptoms: symptomsArray,
@@ -176,24 +184,20 @@ class Symptom extends Component {
 
   async submitResults() {
     this.setState({ loading: true });
+    const { appState, setAppState } = this.context;
 
     const payload = this.buildPayload();
-    const sessionId = localStorage.getItem('confirm_sessid');
+    const resp = await this.peopleService.register(payload);
+    setAppState({
+      ...appState,
+      sessionId: resp.data.id,
+      person: {
+        ...appState.person,
+        ...resp.data.person
+      }
+    });
 
-    await Axios.post('/peoples/register', payload, {
-      headers: {
-        'X-AllClear-SessionID': sessionId,
-      },
-    })
-      .then((response) => {
-        localStorage.removeItem('confirm_sessid');
-        localStorage.setItem('sessid', response.data.id);
-        localStorage.setItem('session', JSON.stringify(response.data));
-        this.props.history.push('/map');
-      })
-      .catch((error) => {
-        this.setState({ loading: false });
-      });
+    this.props.history.push('/map');
   }
 
   render() {

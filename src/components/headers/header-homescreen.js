@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import Logo from '../../assets/images/logo-green-back.svg';
 import Fab from '@material-ui/core/Fab';
 import Container from '@material-ui/core/Container';
 
-export default function HomescreenHeader({ navigate = '', children }) {
+export default function HomescreenHeader({navigate = '', children}) {
   const history = useHistory();
 
   const routeChange = (route) => {
@@ -36,7 +36,9 @@ export default function HomescreenHeader({ navigate = '', children }) {
       </div>
 
       <Container className="desktop-container" maxWidth="xl">
-        <img src={Logo} alt="Logo" className="logo" />
+        <Link to="/map">
+          <img src={Logo} alt="Logo" className="logo"/>
+        </Link>
         <nav className="menu">
           <Link to="/map" className="menu__item">
             Find Tests

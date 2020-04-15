@@ -25,6 +25,7 @@
     "material-ui-phone-number": "^2.2.6",
     "node-sass": "^4.13.1",
     "prop-types": "^15.7.2",
+    "query-string": "^6.12.0",
     "react": "^16.13.1",
     "react-animate-height": "^2.0.20",
     "react-cookie": "^4.0.3",

@@ -8,6 +8,11 @@ class ProtectedRoute extends React.Component {
     const Component = this.props.component;
     const isAuthenticated = localStorage.getItem('sessid');
 
+    // remove all associated storage items
+    if(!isAuthenticated){
+      localStorage.removeItem('appState');
+    }
+
     return isAuthenticated ? (
       <Component {...props} />
     ) : (

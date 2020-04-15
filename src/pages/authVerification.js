@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Link, useHistory } from 'react-router-dom';
 // import qs from 'qs';
 import Form from '@material-ui/core/Container';
@@ -8,6 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import Axios from 'axios';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import RoundHeader from '../components/headers/header-round';
+import {AppContext} from '../contexts/App.context';
 
 export default function PhoneVerify({ props, location }) {
   const [state] = React.useState({
@@ -15,7 +16,7 @@ export default function PhoneVerify({ props, location }) {
     loading: false,
   });
   const [isError, setValue] = React.useState(false);
-
+  const { appState, setAppState } = useContext(AppContext);
   const history = useHistory();
 
   const sanitizePhone = (phone) => {
@@ -41,12 +42,17 @@ export default function PhoneVerify({ props, location }) {
       token: code,
     })
       .then((response) => {
+        // todo: remove this session
         localStorage.setItem('sessid', response.data.id);
         localStorage.setItem('session', JSON.stringify(response.data));
 
         if (response.data.person) {
-          sessionStorage.setItem('lat', response.data.person.latitude);
-          sessionStorage.setItem('lng', response.data.person.longitude);
+          // todo: set latlng to appprovider here
+          setAppState({
+            ...appState,
+            sessionId: response.data.id,
+            person:response.data.person
+          });
         }
 
         history.push('/map');
@@ -90,7 +96,7 @@ export default function PhoneVerify({ props, location }) {
                   onChange={handleCodeChange}
                   style={{}}
                 />
-                {isError ? <p className="codeError">You're entered an incorrect code. Please Try again</p>: ''}
+                {isError ? <p className="codeError">You're entered an incorrect code. <br/> Please Try again</p>: ''}
               </FormControl>
             </div>
 
