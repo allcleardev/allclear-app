@@ -30,7 +30,8 @@ import MapPageContext from '../contexts/MapPage.context';
 export default function MapPage() {
   const classes = useStyles();
 
-  const { mapPageState, isLoading } = useContext(MapPageContext);
+  const { mapPageState } = useContext(MapPageContext);
+  const { }
 
   const locations = mapPageState.locations;
 

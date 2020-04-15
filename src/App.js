@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, BrowserRouter, Switch} from 'react-router-dom';
+import {Route, Switch, Router} from 'react-router-dom';
 import {createBrowserHistory} from 'history';
 
 import './styles/app.scss';
@@ -18,7 +18,6 @@ import Launch from './pages/launch';
 import Login from './pages/login';
 import LoginMagicLink from './pages/login-magic-link';
 import MapPage from './pages/map.page';
-import {MapPageProvider} from './contexts/MapPage.context';
 import PhoneVerify from './pages/phoneVerify';
 import PhoneVerifying from './pages/phoneVerifying';
 import ProfileEdit from './pages/profileEdit';
@@ -31,13 +30,14 @@ import Symptoms from './pages/Symptoms/Symptoms';
 import Trace from './pages/Trace/Trace';
 import UpdateTestingCenterCriteria from './pages/updateTestingCenterCriteria';
 import VerifyMagicLink from './pages/verify-magic-link';
-
+import NotFound from './pages/not-found';
+import {Redirect} from 'react-router';
 
 export const history = createBrowserHistory();
 
 export default function App() {
   return (
-    <BrowserRouter
+    <Router
       history={history}
     >
       <AppProvider>
@@ -64,16 +64,22 @@ export default function App() {
           <ProtectedRoute path="/share" component={ShareApp}/>
           <ProtectedRoute path="/settings" component={Settings}/>
           <ProtectedRoute path="/contact-tracing" component={Trace}/>
+
+
           {/* Map */}
-          <MapPageProvider>
-            <Route path="/map" component={MapPage}/>
-          </MapPageProvider>
+          <Route path="/map" component={MapPage}/>
+
+          {/* 404 */}
+          <Route path="/404" component={NotFound}/>
+          <Route path="*">
+            <Redirect to="/404"/>
+          </Route>
 
           {/* Abandoned Temporarily*/}
           {/* <ConfirmedRoute path="/conditions" component={Conditions} /> */}
           {/* <ConfirmedRoute path="/results" component={Result} /> */}
         </Switch>
       </AppProvider>
-    </BrowserRouter>
+    </Router>
   );
 }

@@ -9,8 +9,11 @@ import userAvatar from '../assets/images/defaultProfile.svg';
 import PeopleService from '../services/people.service.js';
 
 import { Button, IconButton, Chip } from '@material-ui/core';
+import {AppContext, INITIAL_APP_STATE} from '../contexts/App.context';
 
 export default class ProfileView extends Component {
+  static contextType = AppContext;
+
   constructor(props) {
     super(props);
     bindAll(this, ['componentDidMount', 'fetchProfile', 'executeLogout', 'setProfile']);
@@ -27,7 +30,7 @@ export default class ProfileView extends Component {
     const session = JSON.parse(localStorage.getItem('session'));
 
     this.setProfile(session);
-    this.fetchProfile(session);
+    await this.fetchProfile(session);
   }
 
   async fetchProfile(session) {
@@ -43,6 +46,9 @@ export default class ProfileView extends Component {
     await this.peopleService.logout();
     localStorage.removeItem('confirm_sessid');
     localStorage.removeItem('sessid');
+    localStorage.removeItem('appState');
+    const {setAppState} = this.context;
+    setAppState(INITIAL_APP_STATE);
     return this.props.history.push('/sign-up');
   }
 
@@ -86,8 +92,8 @@ export default class ProfileView extends Component {
               {profile.locationName ? (
                 <dd className="card__description">{profile.locationName}</dd>
               ) : (
-                <dd className="card__description">My Current Location</dd>
-              )}
+                 <dd className="card__description">My Current Location</dd>
+               )}
             </dl>
 
             {profile.exposures && profile.exposures.length ? (
@@ -102,8 +108,8 @@ export default class ProfileView extends Component {
                 })}
               </dl>
             ) : (
-              ''
-            )}
+               ''
+             )}
 
             {profile.healthWorkerStatus ? (
               <dl className="card__content">
@@ -111,8 +117,8 @@ export default class ProfileView extends Component {
                 <dd className="card__description">{profile.healthWorkerStatus.name}</dd>
               </dl>
             ) : (
-              ''
-            )}
+               ''
+             )}
 
             {profile.conditions && profile.conditions.length ? (
               <dl className="card__content">
@@ -124,8 +130,8 @@ export default class ProfileView extends Component {
                 </dd>
               </dl>
             ) : (
-              ''
-            )}
+               ''
+             )}
 
             {profile.symptoms && profile.symptoms.length ? (
               <dl className="card__content">
@@ -137,8 +143,8 @@ export default class ProfileView extends Component {
                 </dd>
               </dl>
             ) : (
-              ''
-            )}
+               ''
+             )}
           </article>
 
           <Button

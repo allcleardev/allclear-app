@@ -23,7 +23,6 @@ export default class FacilityService {
       // params: req.query,
       data: body,
     });
-
   }
 
 }

@@ -81,7 +81,6 @@ export default class GoogleMap extends Component {
       ...mapPageState,
       locations,
     });
-    setIsLoading(false);
   }
 
   async _onLocationAccepted(pos) {

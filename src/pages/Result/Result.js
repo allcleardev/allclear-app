@@ -11,6 +11,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import Box from '@material-ui/core/Container';
 import { withStyles } from '@material-ui/core/styles';
 import { Button, Grid, Switch, Select, MenuItem, FormControl, FormControlLabel } from '@material-ui/core';
+// import {AppContext} from '../../contexts/App.context';
 
 class Result extends React.Component {
   constructor() {
@@ -73,8 +74,8 @@ class Result extends React.Component {
   buildPayload() {
     const dob = sessionStorage.getItem('dob');
     const phone = sessionStorage.getItem('phone');
-    const lat = sessionStorage.getItem('lat');
-    const lng = sessionStorage.getItem('lng');
+    const { appState } = this.context;
+    const {latitude, longitude} = appState.person;
 
     // Format Conditions
     let conditions = sessionStorage.getItem('conditions');
@@ -133,8 +134,8 @@ class Result extends React.Component {
     let payload = {
       dob,
       name: phone,
-      latitude: lat,
-      longitude: lng,
+      latitude,
+      longitude,
       conditions: conditionsArray,
       exposures: exposuresArray,
       symptoms: symptomsArray,

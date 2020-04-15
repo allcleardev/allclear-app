@@ -39,4 +39,22 @@ export default class PeopleService {
         return error;
       });
   }
+
+  async register(payload) {
+    const sessionId = localStorage.getItem('confirm_sessid');
+    return Axios.post('/peoples/register', payload, {
+      headers: {
+        'X-AllClear-SessionID': sessionId,
+      },
+    })
+      .then((response) => {
+        localStorage.removeItem('confirm_sessid');
+        localStorage.setItem('sessid', response.data.id);
+        localStorage.setItem('session', JSON.stringify(response.data));
+        return response;
+      })
+      .catch((error) => {
+        console.warn(error);
+      });
+  }
 }
