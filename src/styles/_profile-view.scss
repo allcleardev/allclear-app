@@ -19,8 +19,13 @@
     margin: 20px;
     color: #fff;
 
+    @media (min-width: $md) {
+      top: -80px;
+      right: 10px;
+    }
+
     &__icon {
-      font-size: 40px;
+      font-size: 35px;
     }
 
     &__text {
@@ -43,6 +48,7 @@
   }
 
   .cards-container {
+    position: relative;
     margin-top: -10px;
 
     @media (min-width: $md) {

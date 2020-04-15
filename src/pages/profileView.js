@@ -63,7 +63,7 @@ export default class ProfileView extends Component {
     const profile = this.state.profile;
     return (
       <section className="profile-view">
-        <div className="settings">
+        <div className="settings hide-desktop">
           <SettingsIcon className="settings__icon"></SettingsIcon>
           <span className="settings__text">Settings</span>
         </div>
@@ -81,6 +81,11 @@ export default class ProfileView extends Component {
         </HomescreenHeader>
 
         <Container className="cards-container">
+          <div className="settings hide-mobile">
+            <SettingsIcon className="settings__icon"></SettingsIcon>
+            <span className="settings__text">Settings</span>
+          </div>
+
           <article className="card">
             <dl className="card__content">
               <dt className="card__term">Phone</dt>
