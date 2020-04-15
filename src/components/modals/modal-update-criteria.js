@@ -123,7 +123,8 @@ function UpdateCriteria({onClose, onSubmit}) {
         ...appState.map,
         locations: result.data.records || [],
       },
-      searchCriteria: formValues
+      searchCriteria: formValues,
+      isListLoading: false
     });
 
     // call parent submit function
