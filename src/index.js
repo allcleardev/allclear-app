@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { colorLog } from './util/helpers';
+import LogRocket from 'logrocket';
+import setupLogRocketReact from 'logrocket-react';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
@@ -10,6 +12,11 @@ import theme from './theme';
 
 import * as serviceWorker from './serviceWorker';
 import {bootstrapAxios} from './util/bootstrap.helpers';
+
+//Initiate LogRocket
+LogRocket.init('jeskuj/allclear');
+setupLogRocketReact(LogRocket);
+
 
 bootstrapAxios();
 
