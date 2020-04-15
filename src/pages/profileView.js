@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { bindAll } from 'lodash';
-import Container from '@material-ui/core/Container';
 
 import HomescreenHeader from '../components/headers/header-homescreen';
 import NavBottom from '../components/navBottom';
 import userAvatar from '../assets/images/defaultProfile.svg';
 import PeopleService from '../services/people.service.js';
+import { AppContext, INITIAL_APP_STATE } from '../contexts/App.context';
 
+import Container from '@material-ui/core/Container';
+import SettingsIcon from '@material-ui/icons/Settings';
 import { Button, IconButton, Chip } from '@material-ui/core';
-import {AppContext, INITIAL_APP_STATE} from '../contexts/App.context';
 
 export default class ProfileView extends Component {
   static contextType = AppContext;
@@ -47,7 +48,7 @@ export default class ProfileView extends Component {
     localStorage.removeItem('confirm_sessid');
     localStorage.removeItem('sessid');
     localStorage.removeItem('appState');
-    const {setAppState} = this.context;
+    const { setAppState } = this.context;
     setAppState(INITIAL_APP_STATE);
     return this.props.history.push('/sign-up');
   }
@@ -62,6 +63,11 @@ export default class ProfileView extends Component {
     const profile = this.state.profile;
     return (
       <section className="profile-view">
+        <div className="settings">
+          <SettingsIcon className="settings__icon"></SettingsIcon>
+          <span className="settings__text">Settings</span>
+        </div>
+
         <HomescreenHeader>
           <div className="avatar-edit">
             <div className="avatar">
@@ -92,8 +98,8 @@ export default class ProfileView extends Component {
               {profile.locationName ? (
                 <dd className="card__description">{profile.locationName}</dd>
               ) : (
-                 <dd className="card__description">My Current Location</dd>
-               )}
+                <dd className="card__description">My Current Location</dd>
+              )}
             </dl>
 
             {profile.exposures && profile.exposures.length ? (
@@ -108,8 +114,8 @@ export default class ProfileView extends Component {
                 })}
               </dl>
             ) : (
-               ''
-             )}
+              ''
+            )}
 
             {profile.healthWorkerStatus ? (
               <dl className="card__content">
@@ -117,8 +123,8 @@ export default class ProfileView extends Component {
                 <dd className="card__description">{profile.healthWorkerStatus.name}</dd>
               </dl>
             ) : (
-               ''
-             )}
+              ''
+            )}
 
             {profile.conditions && profile.conditions.length ? (
               <dl className="card__content">
@@ -130,8 +136,8 @@ export default class ProfileView extends Component {
                 </dd>
               </dl>
             ) : (
-               ''
-             )}
+              ''
+            )}
 
             {profile.symptoms && profile.symptoms.length ? (
               <dl className="card__content">
@@ -143,8 +149,8 @@ export default class ProfileView extends Component {
                 </dd>
               </dl>
             ) : (
-               ''
-             )}
+              ''
+            )}
           </article>
 
           <Button
