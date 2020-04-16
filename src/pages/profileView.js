@@ -63,10 +63,10 @@ export default class ProfileView extends Component {
     const profile = this.state.profile;
     return (
       <section className="profile-view">
-        <div className="settings hide-desktop">
-          <SettingsIcon className="settings__icon"></SettingsIcon>
-          <span className="settings__text">Settings</span>
-        </div>
+        <Link to="/settings" className="settings-option hide-desktop">
+          <SettingsIcon className="settings-option__icon"></SettingsIcon>
+          <span className="settings-option__text">Settings</span>
+        </Link>
 
         <HomescreenHeader>
           <div className="avatar-edit">
@@ -81,10 +81,10 @@ export default class ProfileView extends Component {
         </HomescreenHeader>
 
         <Container className="cards-container">
-          <div className="settings hide-mobile">
-            <SettingsIcon className="settings__icon"></SettingsIcon>
-            <span className="settings__text">Settings</span>
-          </div>
+          <Link to="/settings" className="settings-option hide-mobile">
+            <SettingsIcon className="settings-option__icon"></SettingsIcon>
+            <span className="settings-option__text">Settings</span>
+          </Link>
 
           <article className="card">
             <dl className="card__content">
