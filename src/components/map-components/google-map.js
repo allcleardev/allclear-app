@@ -72,8 +72,8 @@ export default class GoogleMap extends Component {
       map: {
         ...appState.map,
         locations
-      }
-
+      },
+      isListLoading: false
     });
   }
 
@@ -217,6 +217,7 @@ const G_MAP_OPTIONS = {
       ],
     },
   ],
+  fullscreenControl: false
 };
 
 const G_MAP_DEFAULTS = {

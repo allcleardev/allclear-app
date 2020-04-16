@@ -375,5 +375,11 @@ a {
   }
 }
 
+@media (min-width: $md + 1) {
+  .vh100-lg {
+    height: 100vh !important;
+  }
+}
+
 @media (min-width: $md) {
 }

@@ -1,23 +1,21 @@
 import React, {useContext, useState} from 'react';
-import {forEach} from 'lodash';
 import FabBlueBottom from '../fabBlueBottom';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import CardBlank from '../cards-unused/user-profile-card';
-import {Button, Grid} from '@material-ui/core';
-import {makeStyles} from '@material-ui/core/styles';
+import { Button, Grid } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 // import FormControlLabel from '@material-ui/core/FormControlLabel';
 // import Checkbox from '@material-ui/core/Checkbox';
 import Select from '@material-ui/core/Select';
 import SettingsSVG from '../svgs/svg-settings';
-import {CRITERIA_FORM_DATA} from './modal-update-criteria.constants';
-import {AppContext} from '../../contexts/App.context';
+import { CRITERIA_FORM_DATA } from './modal-update-criteria.constants';
+import { AppContext } from '../../contexts/App.context';
 import ModalService from '../../services/modal.service';
 import FacilityService from '../../services/facility.service';
-
 
 export default function UpdateCriteriaModal() {
   // "DEPENDENCY INJECTION Section"
@@ -53,7 +51,7 @@ export default function UpdateCriteriaModal() {
         scroll={scroll}
         aria-labelledby="scroll-dialog-title"
         aria-describedby="scroll-dialog-description"
-        style={{zIndex: '5'}}
+        style={{ zIndex: '5' }}
       >
         <DialogTitle id="scroll-dialog-title">Update Search Criteria</DialogTitle>
         <DialogContent dividers={scroll === 'paper'}>
@@ -82,38 +80,35 @@ const useStyles = makeStyles((theme) => ({
   track: {},
 }));
 
+
 function UpdateCriteria({onClose, onSubmit}) {
   useStyles();
   const {setAppState, appState} = useContext(AppContext);
-  let pendingStateUpdates = {};
+
+  const [formValues, setFormValues] = React.useState(appState.searchCriteria);
+  const formItems = _generateFormItems();
 
   //eslint-disable-next-line
   const facilityService = FacilityService.getInstance();
 
-  async function commitPendingModalState() {
-    // sanitize form values for BE filter
+  function _onSelectChanged(evt){
 
-    // this is now at appstate.person.searchcriteria?
-    let searchCriteria = {
-      ...appState.searchCriteria,
-      ...pendingStateUpdates,
-    };
+    const currKey = evt.currentTarget.dataset.key;
+    const currValue = evt.target.value;
 
-    forEach(searchCriteria, (value, key) => {
-
-      // remove filter from both places
-      if (value === 'Any') {
-        delete appState.searchCriteria[key];
-        delete searchCriteria[key];
-      }
+    setFormValues({
+      ...formValues,
+      [currKey]: currValue
     });
 
-    // todo: set latlng to appprovider here - get
+  }
+
+  async function _onSubmitClicked(){
     const {latitude, longitude} = appState.person;
 
-    //eslint-disable-next-line
+    // call API
     const result = await facilityService.search({
-      ...searchCriteria,
+      ...formValues,
       from: {
         latitude,
         longitude,
@@ -121,25 +116,24 @@ function UpdateCriteria({onClose, onSubmit}) {
       },
     });
 
+    // update persistent app state
     setAppState({
       ...appState,
       map: {
         ...appState.map,
         locations: result.data.records || [],
       },
-      searchCriteria: {
-        ...appState.searchCriteria,
-        ...searchCriteria
-      }
+      searchCriteria: formValues,
+      isListLoading: false
     });
 
-    // close the modal
+    // call parent submit function
     onSubmit();
   }
 
   function _generateFormItems() {
     return CRITERIA_FORM_DATA.map((formItem, i) => {
-      const {title, options, key} = formItem;
+      const { title, options, key } = formItem;
 
       return (
         <div key={i} className="sub-card">
@@ -149,17 +143,11 @@ function UpdateCriteria({onClose, onSubmit}) {
               labelId="demo-simple-select-outlined-label"
               displayEmpty
               className="select-white-back"
-              value={pendingStateUpdates[key]}
-              onChange={(evt) => {
-                const currKey = evt.currentTarget.dataset.key;
-                const currValue = evt.target.value;
-
-                // update the value at that key
-                pendingStateUpdates[currKey] = currValue;
-              }}
+              value={formValues[key]}
+              onChange={_onSelectChanged}
             >
               {options.map((optionItem, i2) => {
-                const {value, text} = optionItem;
+                const { value, text } = optionItem;
 
                 return (
                   <MenuItem key={i2} value={value} name={text} data-name={text} data-key={key}>
@@ -186,7 +174,7 @@ function UpdateCriteria({onClose, onSubmit}) {
           }}
         ></div>
 
-        {_generateFormItems()}
+        {formItems}
       </CardBlank>
 
       {/*Update Profile Checkbox*/}
@@ -225,10 +213,7 @@ function UpdateCriteria({onClose, onSubmit}) {
       >
         <Grid item xs={12} sm={5}>
           <Button
-            onClick={() => {
-              commitPendingModalState();
-              onSubmit();
-            }}
+            onClick={_onSubmitClicked}
             className="btn-big bg-primary color-white fontsize-16"
           >
             Search
@@ -243,13 +228,3 @@ function UpdateCriteria({onClose, onSubmit}) {
     </>
   );
 }
-
-// const descriptionElementRef = useRef(null);
-// useEffect(() => {
-//   if (open) {
-//     const {current: descriptionElement} = descriptionElementRef;
-//     if (descriptionElement !== null) {
-//       descriptionElement.focus();
-//     }
-//   }
-// }, [open]);
