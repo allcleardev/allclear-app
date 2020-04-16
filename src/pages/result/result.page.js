@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 import RoundHeader from '../../components/headers/header-round';
 import ProgressBottom from '../../components/progressBottom';
-// import states from './Result.state';
 
 import Form from '@material-ui/core/Container';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -13,7 +12,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Button, Grid, Switch, Select, MenuItem, FormControl, FormControlLabel } from '@material-ui/core';
 // import {AppContext} from '../../contexts/App.context';
 
-class Result extends React.Component {
+class ResultPage extends React.Component {
   constructor() {
     super();
     this.getTestTypes = this.getTestTypes.bind(this);
@@ -77,7 +76,7 @@ class Result extends React.Component {
     const { appState } = this.context;
     const {latitude, longitude} = appState.person;
 
-    // Format Conditions
+    // Format conditions
     let conditions = sessionStorage.getItem('conditions');
 
     if (typeof conditions === 'string') {
@@ -113,7 +112,7 @@ class Result extends React.Component {
       }
     });
 
-    // Format Symptoms
+    // Format symptoms
     let symptoms = sessionStorage.getItem('symptoms');
 
     if (typeof symptoms === 'string') {
@@ -335,4 +334,4 @@ class Result extends React.Component {
   }
 }
 
-export default Result;
+export default ResultPage;

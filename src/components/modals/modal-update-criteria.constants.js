@@ -36,7 +36,7 @@ export const CRITERIA_FORM_DATA = [
     ]
   },
 
-  ];
+];
 
 // {/*SYMPTOMS*/}
 // <div className="sub-card">

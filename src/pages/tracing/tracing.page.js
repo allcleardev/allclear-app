@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Header from '../../components/headers/header';
 import NavBottom from '../../components/navBottom';
 import Container from '@material-ui/core/Container';
-class Trace extends Component {
+class TracingPage extends Component {
   constructor() {
     super();
     this.state = {};
@@ -29,4 +29,4 @@ class Trace extends Component {
     );
   }
 }
-export default Trace;
+export default TracingPage;

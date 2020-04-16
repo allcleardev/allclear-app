@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { bindAll } from 'lodash';
 import Axios from 'axios';
-
-import states from './Symptoms.state';
 import RoundHeader from '../../components/headers/header-round';
 import ProgressBottom from '../../components/progressBottom';
 import OnboardingNavigation from '../../components/onboarding-navigation';
@@ -13,8 +11,11 @@ import { Button, Chip } from '@material-ui/core';
 import {AppContext} from '../../contexts/App.context';
 import PeopleService from '../../services/people.service';
 
-class Symptom extends Component {
-  state = states;
+class SymptomsPage extends Component {
+  state = {
+    symptomObj: {},
+    symptoms: [],
+  };
   static contextType = AppContext;
 
   constructor() {
@@ -116,7 +117,7 @@ class Symptom extends Component {
     const healthWorkerStatus = sessionStorage.getItem('healthWorkerStatus');
     const alertable = sessionStorage.getItem('alertable');
 
-    // Format Conditions
+    // Format conditions
     let conditions = sessionStorage.getItem('conditions');
     const conditionsArray = [];
     if (conditions) {
@@ -150,7 +151,7 @@ class Symptom extends Component {
       });
     }
 
-    // Format Symptoms
+    // Format symptoms
     let symptoms = sessionStorage.getItem('symptoms');
     const symptomsArray = [];
     if (symptoms) {
@@ -259,4 +260,4 @@ class Symptom extends Component {
     );
   }
 }
-export default Symptom;
+export default SymptomsPage;

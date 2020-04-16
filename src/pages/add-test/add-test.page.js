@@ -1,9 +1,8 @@
 import React, { Fragment } from 'react';
-// import states from './Symptom.state';
-// import './Symptom.module.css';
 import logo from '../../assets/images/Union.png';
 import UnderDevelopment from '../UnderDevelopment';
-class AddTest extends React.Component {
+
+class AddTestPage extends React.Component {
   // state = states
 
   componentDidMount = () => {};
@@ -201,4 +200,4 @@ class AddTest extends React.Component {
     );
   }
 }
-export default AddTest;
+export default AddTestPage;

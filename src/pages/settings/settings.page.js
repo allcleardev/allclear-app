@@ -9,12 +9,13 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import AlertSwitch from '../../components/switch';
-import states from './Setting.state';
 import Axios from 'axios';
 
 
-class Settings extends React.Component {
-    state = states;
+class SettingsPage extends React.Component {
+    state = {
+      open: false,
+    };
 
     componentDidMount = () => {
     };
@@ -126,7 +127,7 @@ class Settings extends React.Component {
         );
     }
 }
-export default Settings;
+export default SettingsPage;
 
 
 

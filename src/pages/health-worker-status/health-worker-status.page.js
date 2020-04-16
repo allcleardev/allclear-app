@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { bindAll } from 'lodash';
 import Axios from 'axios';
 
-import states from './HealthWorkerStatus.state';
 import RoundHeader from '../../components/headers/header-round';
 import ProgressBottom from '../../components/progressBottom';
 import OnboardingNavigation from '../../components/onboarding-navigation';
@@ -11,8 +10,11 @@ import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
 import { Button, Chip } from '@material-ui/core';
 
-class HealthWorkerStatus extends Component {
-  state = states;
+class HealthWorkerStatusPage extends Component {
+  state = {
+    conditionObj: {},
+    conditions: [],
+  };
 
   constructor() {
     super();
@@ -121,4 +123,4 @@ class HealthWorkerStatus extends Component {
     );
   }
 }
-export default HealthWorkerStatus;
+export default HealthWorkerStatusPage;

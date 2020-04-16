@@ -5,15 +5,15 @@ import {createBrowserHistory} from 'history';
 import './styles/app.scss';
 
 // Abandoned Temporarily
-// import Conditions from './pages/Conditions/Conditions';
-// import Result from './pages/Result/Result';
+// import conditions from './pages/conditions/conditions';
+// import result from './pages/result/result';
 
 import AppProvider from './contexts/App.context';
-import AddTest from './pages/Test/Add-test';
+import AddTestPage from './pages/add-test/add-test.page';
 import AuthVerifyCode from './pages/authVerification';
-import Background from './pages/Background/Background';
+import BackgroundPage from './pages/background/background.page';
 import ConfirmedRoute from './routes/confirmed-route';
-import HealthWorkerStatus from './pages/HealthWorkerStatus/HealthWorkerStatus';
+import HealthWorkerStatusPage from './pages/health-worker-status/health-worker-status.page';
 import Launch from './pages/launch';
 import Login from './pages/login';
 import LoginMagicLink from './pages/login-magic-link';
@@ -23,11 +23,11 @@ import PhoneVerifying from './pages/phoneVerifying';
 import ProfileEdit from './pages/profileEdit';
 import ProfileView from './pages/profileView';
 import ProtectedRoute from './routes/protected-route';
-import Settings from './pages/Settings/Settings';
-import ShareApp from './pages/Share/Share';
+import SettingsPage from './pages/settings/settings.page';
+import SharePage from './pages/share/share.page';
 import SignUpVerification from './pages/signUpVerification';
-import Symptoms from './pages/Symptoms/Symptoms';
-import Trace from './pages/Trace/Trace';
+import Symptoms from './pages/symptoms/symptoms.page';
+import TracingPage from './pages/tracing/tracing.page';
 import UpdateTestingCenterCriteria from './pages/updateTestingCenterCriteria';
 import VerifyMagicLink from './pages/verify-magic-link';
 import NotFound from './pages/not-found';
@@ -50,20 +50,20 @@ export default function App() {
           <Route path="/verifying" component={PhoneVerifying}/>
           <Route path="/register" component={VerifyMagicLink}/>
           <Route path="/auth" component={LoginMagicLink}/>
-          <ConfirmedRoute path="/background" component={Background}/>
-          <ConfirmedRoute path="/health-worker" component={HealthWorkerStatus}/>
+          <ConfirmedRoute path="/background" component={BackgroundPage}/>
+          <ConfirmedRoute path="/health-worker" component={HealthWorkerStatusPage}/>
           <ConfirmedRoute path="/symptoms" component={Symptoms}/>
           {/* Login Pages */}
           <Route path="/sign-in" component={Login}/>
           <Route path="/sign-in-verification" component={AuthVerifyCode}/>
-          {/* Profile Pages / Settings */}
+          {/* Profile Pages / SettingsPage */}
           <ProtectedRoute path="/profile" component={ProfileView}/>
           <ProtectedRoute path="/profile-edit" component={ProfileEdit}/>
-          <ProtectedRoute path="/add-test" component={AddTest}/>
+          <ProtectedRoute path="/add-test" component={AddTestPage}/>
           <ProtectedRoute path="/update-criteria" component={UpdateTestingCenterCriteria}/>
-          <ProtectedRoute path="/share" component={ShareApp}/>
-          <ProtectedRoute path="/settings" component={Settings}/>
-          <ProtectedRoute path="/contact-tracing" component={Trace}/>
+          <ProtectedRoute path="/share" component={SharePage}/>
+          <ProtectedRoute path="/settings" component={SettingsPage}/>
+          <ProtectedRoute path="/contact-tracing" component={TracingPage}/>
 
 
           {/* Map */}
@@ -76,8 +76,8 @@ export default function App() {
           </Route>
 
           {/* Abandoned Temporarily*/}
-          {/* <ConfirmedRoute path="/conditions" component={Conditions} /> */}
-          {/* <ConfirmedRoute path="/results" component={Result} /> */}
+          {/* <ConfirmedRoute path="/conditions" component={conditions} /> */}
+          {/* <ConfirmedRoute path="/results" component={result} /> */}
         </Switch>
       </AppProvider>
     </Router>

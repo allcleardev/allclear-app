@@ -8,7 +8,9 @@ import avatar from '../../assets/images/avatar.svg';
 import NavBottom from '../../components/navBottom';
 import UserAvatar from '@material-ui/core/CardMedia';
 import UnderDevelopment from '../UnderDevelopment';
-class ShareApp extends React.Component {
+
+
+class SharePage extends React.Component {
 
   componentDidMount = () => {
   };
@@ -253,4 +255,4 @@ class ShareApp extends React.Component {
     );
   }
 }
-export default ShareApp;
+export default SharePage;

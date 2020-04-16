@@ -226,21 +226,21 @@ export default class PhoneVerify extends Component {
                     ${!this.state.phoneVerified ? 'enter your phone number' : ''}
                     ${!this.state.termsAndConditions && !this.state.phoneVerified ? 'and' : ''}
                     ${
-                      !this.state.termsAndConditions
-                        ? 'review and agree to the Terms & Conditions and Privacy Policy'
-                        : ''
-                    }
+                  !this.state.termsAndConditions
+                  ? 'review and agree to the Terms & Conditions and Privacy Policy'
+                  : ''
+                }
                   `}
                 triggerTooltip={this.state.termsAndConditions && this.state.phoneVerified ? false : true}
               ></OnboardingNavigation>
             </Container>
           ) : (
-            <Grid container justify="center">
-              <Grid item xs={12} sm={6}>
-                <LinearProgress color="primary" value={50} variant="indeterminate" />
-              </Grid>
-            </Grid>
-          )}
+             <Grid container justify="center">
+               <Grid item xs={12} sm={6}>
+                 <LinearProgress color="primary" value={50} variant="indeterminate" />
+               </Grid>
+             </Grid>
+           )}
           {this.state.loading === false ? <ProgressBottom progress="0"></ProgressBottom> : null}
         </div>
       </div>

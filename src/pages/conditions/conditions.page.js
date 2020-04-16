@@ -5,14 +5,16 @@ import { bindAll } from 'lodash';
 
 import RoundHeader from '../../components/headers/header-round';
 import ProgressBottom from '../../components/progressBottom';
-import states from './Conditions.state';
 
 import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
 import { Button, Chip } from '@material-ui/core';
 
-class Condition extends Component {
-  state = states;
+class ConditionsPage extends Component {
+  state = {
+    conditionObj: {},
+    conditions: [],
+  };
 
   constructor() {
     super();
@@ -106,4 +108,4 @@ class Condition extends Component {
     );
   }
 }
-export default Condition;
+export default ConditionsPage;

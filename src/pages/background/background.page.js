@@ -11,7 +11,7 @@ import Box from '@material-ui/core/Container';
 import { Button, TextField } from '@material-ui/core';
 import {AppContext} from '../../contexts/App.context';
 
-class Background extends Component {
+class BackgroundPage extends Component {
   static contextType = AppContext;
   state = {
     dob: '',
@@ -187,4 +187,4 @@ class Background extends Component {
   }
 }
 
-export default Background;
+export default BackgroundPage;
