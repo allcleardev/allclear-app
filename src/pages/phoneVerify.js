@@ -150,7 +150,7 @@ export default class PhoneVerify extends Component {
           className={'snackbar__error'}
         >
           <Alert onClose={this.handleSnackbarClose} severity="error">
-            You must be logged in to use the map feature.
+            You must be logged in to use this feature.
           </Alert>
         </Snackbar>
         <div className="sign-up onboarding-page">
