@@ -85,11 +85,11 @@ function UpdateCriteria({ onClose, onSubmit }) {
   useStyles();
   const { setAppState, appState } = useContext(AppContext);
 
-  const initialPendingStateUpdates = { ...appState.searchCriteria };
+  // const initialPendingStateUpdates = { ...appState.searchCriteria };
 
   console.log('appcri', appState.searchCriteria);
 
-  const [pendingStateUpdates, setPendingStateUpdates] = useState(initialPendingStateUpdates);
+  const [pendingStateUpdates, setPendingStateUpdates] = useState(appState.searchCriteria);
 
   // let pendingStateUpdates = {};
 
@@ -105,13 +105,13 @@ function UpdateCriteria({ onClose, onSubmit }) {
       ...pendingStateUpdates,
     };
 
-    // forEach(searchCriteria, (value, key) => {
-    //   // remove filter from both places
-    //   if (value === 'Any') {
-    //     delete appState.searchCriteria[key];
-    //     delete searchCriteria[key];
-    //   }
-    // });
+    forEach(searchCriteria, (value, key) => {
+      // remove filter from both places
+      if (value === 'Any') {
+        delete appState.searchCriteria[key];
+        delete searchCriteria[key];
+      }
+    });
 
     // todo: set latlng to appprovider here - get
     const { latitude, longitude } = appState.person;
@@ -166,10 +166,10 @@ function UpdateCriteria({ onClose, onSubmit }) {
                 // update the value at that key
                 pendingStateUpdates[currKey] = currValue;
 
-                setPendingStateUpdates({
-                  ...pendingStateUpdates,
-                  [currKey]: currValue,
-                });
+                // setPendingStateUpdates({
+                //   ...pendingStateUpdates,
+                //   // [currKey]: currValue,
+                // });
                 console.log('+++', pendingStateUpdates);
               }}
             >
