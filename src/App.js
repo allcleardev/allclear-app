@@ -12,7 +12,6 @@ import AppProvider from './contexts/App.context';
 import AddTest from './pages/Test/Add-test';
 import AuthVerifyCode from './pages/authVerification';
 import Background from './pages/Background/Background';
-import ConfirmedRoute from './routes/confirmed-route';
 import GetStarted from './pages/GetStarted/getStarted';
 import HealthWorkerStatus from './pages/HealthWorkerStatus/HealthWorkerStatus';
 import Launch from './pages/launch';
@@ -50,9 +49,9 @@ export default function App() {
           <Route path="/verifying" component={PhoneVerifying} />
           <Route path="/register" component={VerifyMagicLink} />
           <Route path="/auth" component={LoginMagicLink} />
-          <ConfirmedRoute path="/background" component={Background} />
-          <ConfirmedRoute path="/health-worker" component={HealthWorkerStatus} />
-          <ConfirmedRoute path="/symptoms" component={Symptoms} />
+          <Route path="/background" component={Background} />
+          <Route path="/health-worker" component={HealthWorkerStatus} />
+          <Route path="/symptoms" component={Symptoms} />
           {/* Login Pages */}
           <Route path="/sign-in" component={Login} />
           <Route path="/sign-in-verification" component={AuthVerifyCode} />

@@ -48,7 +48,6 @@ export default class PeopleService {
       },
     })
       .then((response) => {
-        localStorage.removeItem('confirm_sessid');
         localStorage.setItem('sessid', response.data.id);
         localStorage.setItem('session', JSON.stringify(response.data));
         return response;

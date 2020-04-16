@@ -42,13 +42,14 @@ export default function PhoneVerify({ props, location }) {
 
     phone = sanitizePhone(phone);
 
-    await Axios.post('/peoples/confirm', {
+    await Axios.put('/peoples/confirm', {
       phone,
       code,
     })
       .then((response) => {
-        localStorage.setItem('confirm_sessid', response.data.id);
-        history.push('/background');
+        localStorage.setItem('sessid', response.data.id);
+        localStorage.setItem('session', JSON.stringify(response.data));
+        history.push('/map');
       })
       .catch((error) => {
         console.log('error', error);
@@ -112,7 +113,7 @@ export default function PhoneVerify({ props, location }) {
             </Grid>
           </Grid>
         )}
-        {state.loading === false ? <ProgressBottom progress="15%"></ProgressBottom> : null}
+        {state.loading === false ? <ProgressBottom progress="75%"></ProgressBottom> : null}
       </div>
     </div>
   );

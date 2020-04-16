@@ -6,6 +6,7 @@ import Logo from '../../assets/images/logo-green-back.svg';
 
 import { Button } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
+import * as queryString from 'query-string';
 
 export default class GetStarted extends Component {
   static contextType = AppContext;
@@ -15,6 +16,16 @@ export default class GetStarted extends Component {
     super();
 
     bindAll(this, []);
+  }
+
+  componentDidMount() {
+    const queryParams = queryString.parse(this.props.location.search);
+
+    if (queryParams.logout) {
+      this.setState({
+        isSnackbarOpen: true
+      });
+    }
   }
 
   routeChange(route) {

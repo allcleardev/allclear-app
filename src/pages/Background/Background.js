@@ -161,7 +161,7 @@ class Background extends Component {
             </Box>
             <OnboardingNavigation
               back={
-                <Button variant="contained" className="back hide-mobile" onClick={() => this.routeChange('/sign-up')}>
+                <Button variant="contained" className="back hide-mobile" onClick={() => this.routeChange('/get-started')}>
                   Restart
                 </Button>
               }
@@ -180,7 +180,7 @@ class Background extends Component {
               triggerTooltip={!this.state.location}
             ></OnboardingNavigation>
           </Form>
-          <ProgressBottom progress="25%"></ProgressBottom>
+          <ProgressBottom progress="0%"></ProgressBottom>
         </div>
       </div>
     );

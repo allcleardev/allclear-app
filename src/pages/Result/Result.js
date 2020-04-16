@@ -151,7 +151,6 @@ class Result extends React.Component {
 
     await Axios.post('/peoples/register', payload)
       .then((response) => {
-        localStorage.removeItem('confirm_sessid');
         localStorage.setItem('sessid', response.data.id);
         localStorage.setItem('session', response.data);
         this.history.push('/map');

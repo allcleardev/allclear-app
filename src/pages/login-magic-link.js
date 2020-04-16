@@ -27,6 +27,7 @@ export default function LoginMagicLink({ props, location }) {
       .then((response) => {
         console.log('response', response);
         localStorage.setItem('sessid', response.data.id);
+        localStorage.setItem('session', response.data);
         history.push('/map');
       })
       .catch((error) => {

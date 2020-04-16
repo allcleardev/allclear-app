@@ -115,7 +115,7 @@ class HealthWorkerStatus extends Component {
               triggerTooltip={!this.state.isSelected}
             ></OnboardingNavigation>
           </Form>
-          <ProgressBottom progress="50%"></ProgressBottom>
+          <ProgressBottom progress="25%"></ProgressBottom>
         </div>
       </div>
     );

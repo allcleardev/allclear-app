@@ -44,12 +44,11 @@ export default class ProfileView extends Component {
 
   async executeLogout() {
     await this.peopleService.logout();
-    localStorage.removeItem('confirm_sessid');
     localStorage.removeItem('sessid');
     localStorage.removeItem('appState');
     const {setAppState} = this.context;
     setAppState(INITIAL_APP_STATE);
-    return this.props.history.push('/sign-up');
+    return this.props.history.push('/get-started');
   }
 
   setProfile(session) {
