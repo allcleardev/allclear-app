@@ -6,7 +6,7 @@ import Form from '@material-ui/core/Container';
 import { Button, Grid } from '@material-ui/core';
 import Axios from 'axios';
 
-import RoundHeader from '../components/headers/header-round';
+import RoundHeader from '../components/general/headers/header-round';
 import PhoneNumber from '../components/phoneNumber';
 import LinearProgress from '@material-ui/core/LinearProgress';
 

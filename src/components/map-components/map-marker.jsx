@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { mapMarkerStyle } from './map_marker_styles.js';
-// import {AppContext} from '../../contexts/App.context';
+// import {AppContext} from '../../contexts/app.context';
 
 export default function MapMarker(props) {
   const { index } = props;

@@ -6,7 +6,7 @@
 
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import Logo from '../../assets/images/logo-green-back.svg';
+import Logo from '../../../assets/images/logo-green-back.svg';
 import Fab from '@material-ui/core/Fab';
 import Container from '@material-ui/core/Container';
 

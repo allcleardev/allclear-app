@@ -1,6 +1,6 @@
 import React from 'react';
-import HomescreenHeader from '../components/headers/header-homescreen';
-import CardBlank from '../components/cards-unused/user-profile-card';
+import HomescreenHeader from '../components/general/headers/header-homescreen';
+import CardBlank from '../components/general/cards-unused/user-profile-card';
 import { Link } from 'react-router-dom';
 import SwitchComponent from '../components/switch';
 

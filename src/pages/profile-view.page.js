@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 import { bindAll } from 'lodash';
 import Container from '@material-ui/core/Container';
 
-import HomescreenHeader from '../components/headers/header-homescreen';
+import HomescreenHeader from '../components/general/headers/header-homescreen';
 import NavBottom from '../components/navBottom';
 import userAvatar from '../assets/images/defaultProfile.svg';
 import PeopleService from '../services/people.service.js';
 
 import { Button, IconButton, Chip } from '@material-ui/core';
-import {AppContext, INITIAL_APP_STATE} from '../contexts/App.context';
+import {AppContext, INITIAL_APP_STATE} from '../contexts/app.context';
 
 export default class ProfileViewPage extends Component {
   static contextType = AppContext;

@@ -22,7 +22,7 @@ import ArrowRight from '@svg/arrow-right';
 import SettingsSVG from '@svg/svg-settings';
 import {useWindowResize} from '@util/helpers';
 import ModalService from '@services/modal.service';
-import {AppContext} from '@contexts/App.context';
+import {AppContext} from '@contexts/app.context';
 
 export default function MapPage() {
 

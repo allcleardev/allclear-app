@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { bindAll } from 'lodash';
 import Axios from 'axios';
-import RoundHeader from '../components/headers/header-round';
+import RoundHeader from '../components/general/headers/header-round';
 import ProgressBottom from '../components/progressBottom';
 import OnboardingNavigation from '../components/onboarding-navigation';
 
 import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
 import { Button, Chip } from '@material-ui/core';
-import {AppContext} from '../contexts/App.context';
+import {AppContext} from '../contexts/app.context';
 import PeopleService from '../services/people.service';
 
 class SymptomsPage extends Component {

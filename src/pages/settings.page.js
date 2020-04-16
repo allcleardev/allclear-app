@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from '@material-ui/core/Container';
 import { Grid, Button } from '@material-ui/core';
-import Header from '../components/headers/header-homescreen';
+import Header from '../components/general/headers/header-homescreen';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import NavBottom from '../components/navBottom';

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Axios from 'axios';
 import * as queryString from 'query-string';
 
-import RoundHeader from '../components/headers/header-round';
+import RoundHeader from '../components/general/headers/header-round';
 import ProgressBottom from '../components/progressBottom';
 import PhoneNumber from '../components/phoneNumber';
 

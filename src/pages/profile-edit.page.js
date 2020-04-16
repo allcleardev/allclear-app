@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindAll } from 'lodash';
 
-import HomescreenHeader from '../components/headers/header-homescreen';
+import HomescreenHeader from '../components/general/headers/header-homescreen';
 import NavBottom from '../components/navBottom';
 import GoogleMapsAutocomplete from '../components/inputs/google-maps-autocomplete';
 
@@ -10,7 +10,7 @@ import TypesService from '../services/types.service.js';
 
 import Container from '@material-ui/core/Container';
 import { Button, FormControl, Select, MenuItem, Input, Chip } from '@material-ui/core';
-import {AppContext} from '../contexts/App.context';
+import {AppContext} from '../contexts/app.context';
 
 export default class ProfileEditPage extends Component {
   static contextType = AppContext;

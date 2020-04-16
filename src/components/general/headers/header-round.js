@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import Fab from '@material-ui/core/Fab';
 import Container from '@material-ui/core/Container';
-import Logo from '../../assets/images/logo-green-back.svg';
+import Logo from '../../../assets/images/logo-green-back.svg';
 
 export default function RoundHeader({ navigate = '', children }) {
   const history = useHistory();

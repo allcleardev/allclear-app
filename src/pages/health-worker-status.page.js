@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindAll } from 'lodash';
 import Axios from 'axios';
 
-import RoundHeader from '../components/headers/header-round';
+import RoundHeader from '../components/general/headers/header-round';
 import ProgressBottom from '../components/progressBottom';
 import OnboardingNavigation from '../components/onboarding-navigation';
 

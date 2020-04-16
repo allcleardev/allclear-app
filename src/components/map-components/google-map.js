@@ -3,7 +3,7 @@ import GoogleMapReact from 'google-map-react';
 import MapMarker from './map-marker.jsx';
 import FacilityService from '../../services/facility.service.js';
 import {bindAll, get} from 'lodash';
-import {AppContext} from '../../contexts/App.context';
+import {AppContext} from '../../contexts/app.context';
 
 export default class GoogleMap extends Component {
   static contextType = AppContext;

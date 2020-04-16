@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import FabBlueBottom from '../fabBlueBottom';
+import FabBlueBottom from '../../fabBlueBottom';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -13,13 +13,13 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import SettingsSVG from '@svg/svg-settings';
 import { CRITERIA_FORM_DATA } from './modal-update-criteria.constants';
-import { AppContext } from '../../contexts/App.context';
-import ModalService from '../../services/modal.service';
-import FacilityService from '../../services/facility.service';
+import { AppContext } from '../../../contexts/app.context';
+import ModalService from '../../../services/modal.service';
+import FacilityService from '../../../services/facility.service';
 
 export default function UpdateCriteriaModal() {
   // "DEPENDENCY INJECTION Section"
-  // todo: this will probably have to move into app.js because it will be needed by all different parts of the app
+  // todo: this will probably have to move into App.js because it will be needed by all different parts of the app
   const modalService = ModalService.getInstance();
   modalService.registerModal('criteria', toggleModal);
 

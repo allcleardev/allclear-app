@@ -8,7 +8,7 @@ import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import { Button, Grid } from '@material-ui/core';
 
-import RoundHeader from '../components/headers/header-round';
+import RoundHeader from '../components/general/headers/header-round';
 import ProgressBottom from '../components/progressBottom';
 import LinearProgress from '@material-ui/core/LinearProgress';
 

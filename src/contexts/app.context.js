@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {forEach, get} from 'lodash';
-import {CRITERIA_FORM_DATA} from '../components/modals/modal-update-criteria.constants';
+import {CRITERIA_FORM_DATA} from '../components/general/modals/modal-update-criteria.constants';
 
 // Set Up The Initial Context
 export const AppContext = React.createContext();

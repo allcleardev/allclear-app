@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import Box from '@material-ui/core/Container';
 import Axios from 'axios';
 
-import RoundHeader from '../components/headers/header-round';
+import RoundHeader from '../components/general/headers/header-round';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { Grid } from '@material-ui/core';
 
