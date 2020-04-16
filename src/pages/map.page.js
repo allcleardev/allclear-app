@@ -194,7 +194,7 @@ export default function MapPage() {
           })}
         >
           <div className="map-fullscreen">
-            <GoogleMap></GoogleMap>
+            <GoogleMap onCenterClicked={() => onCenterClicked}></GoogleMap>
           </div>
         </main>
         <NavBottom active={1}></NavBottom>

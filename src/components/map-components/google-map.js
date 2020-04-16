@@ -99,10 +99,6 @@ export default class GoogleMap extends Component {
     // https://stackoverflow.com/questions/52411378/google-maps-api-calculate-zoom-based-of-miles
   }
 
-  onCenterChanged(evt) {
-    console.log('here', evt);
-  }
-
   _createSearchPayload({ latitude, longitude, shouldIgnoreFilters = false }) {
     const { appState } = this.context;
     const searchCriteria = shouldIgnoreFilters ? {} : appState.searchCriteria;
@@ -130,7 +126,6 @@ export default class GoogleMap extends Component {
           onDragEnd={(evt) => this.onMarkerDragEnd(evt)}
           onZoomChanged={(evt) => this.onMarkerDragEnd(evt)}
           onZoomAnimationEnd={(evt) => this.onZoomChanged(evt)}
-          onCenterChanged={(evt) => this.onCenterChanged(evt)}
         >
           {locations.map((data, index) => (
             <MapMarker key={index} index={index} lat={data.latitude} lng={data.longitude} text={index + 1} />
