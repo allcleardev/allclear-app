@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import Box from '@material-ui/core/Container';
 import {makeStyles} from '@material-ui/core/styles';
 import {CircularProgress} from '@material-ui/core';
+import Badge from '@material-ui/core/Badge';
 import {get} from 'lodash';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -156,18 +157,25 @@ export default function MapPage() {
 
               {appState.isListLoading === false && (
                 <Box>
-                  <Button
-                    className={'edit-filters-btn'}
-                    variant="contained"
-                    color="primary"
-                    fullWidth
-                    startIcon={SettingsSVG()}
-                    onClick={() => {
-                      modalService.toggleModal('criteria', true);
-                    }}
+                  <Badge
+                    badgeContent={''}
+                    overlap={'rectangle'}
+                    style={{width: '100%'}}
+                    invisible={!appState.searchFilterActive}
                   >
-                    Edit Search Filters
-                  </Button>
+                    <Button
+                      className={'edit-filters-btn'}
+                      variant="contained"
+                      color="primary"
+                      fullWidth
+                      startIcon={SettingsSVG()}
+                      onClick={() => {
+                        modalService.toggleModal('criteria', true);
+                      }}
+                    >
+                      Edit Search Filters
+                    </Button>
+                  </Badge>
                 </Box>
               )}
 
@@ -263,8 +271,15 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
     marginLeft: 0,
-  },
+  }
 }));
+
+// .MuiBadge-anchorOriginTopRightCircle {
+//     top: 35%;
+//     right: 2%;
+//     transform: scale(1) translate(50%, -50%);
+//     transform-origin: 100% 0%;
+// }
 
 // todo: might still be useful at some point just not now
 // function TabPanel(props) {
