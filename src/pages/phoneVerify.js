@@ -6,7 +6,8 @@ import * as queryString from 'query-string';
 import RoundHeader from '../components/headers/header-round';
 import ProgressBottom from '../components/progressBottom';
 import PhoneNumber from '../components/phoneNumber';
-import OnboardingNavigation from '../components/onboarding-navigation';
+
+import OnboardingNavigation from '@components/onboarding-navigation';
 
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';

@@ -17,7 +17,7 @@ import HealthWorkerStatus from './pages/HealthWorkerStatus/HealthWorkerStatus';
 import Launch from './pages/launch';
 import Login from './pages/login';
 import LoginMagicLink from './pages/login-magic-link';
-import MapPage from './pages/map.page';
+import MapPage from './pages/map/map.page';
 import PhoneVerify from './pages/phoneVerify';
 import PhoneVerifying from './pages/phoneVerifying';
 import ProfileEdit from './pages/profileEdit';

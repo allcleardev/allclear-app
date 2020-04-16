@@ -1,29 +1,39 @@
-# TODO
-- get all the points rendered on map
-- allow points from list to fly onto location on map
-- collect user current location from browser
-- filter list based on whats close to that person currently
+# AllClear Front End Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- [General Info](#general-info)
+- [Running the Project](#running-the-project)
+- [Testing the Project](#testing-the-project)
+- [Building the Project](#building-the-project)
+- [Further Reading](#further-reading)
 
-## Available Scripts
+### General Info
 
-In the project directory, you can run:
+This is the web version of http://allclear.app, a COVID-19 tracing application.
+
+### Running the Project
+
+In the project directory, run:
 
 ### `npm start`
 
-Runs the app in the development mode.<br />
+This will start the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
+
+### Testing the Project
+
+In the project directory, run:
 
 ### `npm run test:inspect`
 
 Launches the e2e test runner in the interactive watch mode.
 You can install [nim](https://chrome.google.com/webstore/detail/nodejs-v8-inspector-manag/gnhhdgbaldcilmgcpfddgdbkhjohddkj?hl=en) to automatically open the chrome debugger so you can inspect variables within the scope of your tests. Trigger a breakpoint by placing `debugger` statements in your test.
 
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Building the Project
+
+In the project directory, run:
 
 ### `npm run build`
 
@@ -33,44 +43,6 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.<br />
 Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## Further Reading
+- [Naming Conventions](./docs/naming-conventions.md)
