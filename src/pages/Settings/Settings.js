@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { bindAll } from 'lodash';
-import Axios from 'axios';
 
 import states from './Setting.state';
 import { AppContext } from '../../contexts/App.context';
+import PeopleService from '../../services/people.service.js';
 
 import HomescreenHeader from '../../components/headers/header-homescreen';
 import NavBottom from '../../components/navBottom';
-import PeopleService from '../../services/people.service.js';
 import AlertSwitch from '../../components/switch';
 
 import Container from '@material-ui/core/Container';
@@ -25,6 +24,7 @@ export default class Settings extends Component {
     super(props);
     bindAll(this, ['componentDidMount', 'onDeleteProfileClicked', 'handleClose']);
     this.peopleService = PeopleService.getInstance();
+    this.session = JSON.parse(localStorage.getItem('session'));
   }
 
   state = states;
@@ -35,20 +35,17 @@ export default class Settings extends Component {
     this.setState({ open: true });
   }
 
-  async onDeleteConfirmedClicked() {
-    this.setState({ loading: true });
-
-    await Axios.delete('/peoples')
-      .then((response) => {
-        this.history.push('/map');
-      })
-      .catch((error) => {
-        this.setState({ loading: false });
-      });
-  }
-
   handleClose() {
     this.setState({ open: false });
+  }
+
+  async onDeleteConfirmedClicked() {
+    const id = this.session.person.id;
+    this.setState({ loading: true });
+    await this.peopleService.deleteProfile(id).then((res) => {
+      this.setState({ loading: false });
+      this.props.history.push('/');
+    });
   }
 
   render() {
