@@ -5,6 +5,7 @@
 
 trigger:
 - master
+- staging
 - dev
 
 #  Defines the host for agent (MS hosted)
