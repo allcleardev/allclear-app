@@ -10,28 +10,28 @@ import './styles/app.scss';
 
 import AppProvider from './contexts/App.context';
 import AddTestPage from './pages/add-test/add-test.page';
-import AuthVerifyCode from './pages/authVerification';
+import AuthVerifyCode from './pages/sign-up.page';
 import BackgroundPage from './pages/background/background.page';
 import ConfirmedRoute from './routes/confirmed-route';
 import HealthWorkerStatusPage from './pages/health-worker-status/health-worker-status.page';
-import Launch from './pages/launch';
-import Login from './pages/login';
-import LoginMagicLink from './pages/login-magic-link';
+import LaunchPage from './pages/launch.page';
+import Login from './pages/login.page';
+import LoginMagicLinkPage from './pages/login-magic-link.page';
 import MapPage from './pages/map/map.page';
-import PhoneVerify from './pages/phoneVerify';
-import PhoneVerifying from './pages/phoneVerifying';
-import ProfileEdit from './pages/profileEdit';
-import ProfileView from './pages/profileView';
+import ProfileEditPage from './pages/profile-edit.page';
+import ProfileViewPage from './pages/profile-view.page';
 import ProtectedRoute from './routes/protected-route';
 import SettingsPage from './pages/settings/settings.page';
 import SharePage from './pages/share/share.page';
-import SignUpVerification from './pages/signUpVerification';
+import SignUpVerificationPage from './pages/sign-up-verification.page';
 import Symptoms from './pages/symptoms/symptoms.page';
 import TracingPage from './pages/tracing/tracing.page';
-import UpdateTestingCenterCriteria from './pages/updateTestingCenterCriteria';
-import VerifyMagicLink from './pages/verify-magic-link';
-import NotFound from './pages/not-found';
+import UpdateTestingCenterCriteria from './pages/update-testing-center-criteria.page';
+import VerifyMagicLinkPage from './pages/verify-magic-link.page';
+import NotFoundPage from './pages/not-found.page';
 import {Redirect} from 'react-router';
+import SignUpPage from './pages/sign-up.page';
+import VerifyingPage from './pages/verifying.page';
 
 export const history = createBrowserHistory();
 
@@ -43,13 +43,13 @@ export default function App() {
       <AppProvider>
 
         <Switch>
-          <Route exact path="/" component={Launch}/>
+          <Route exact path="/" component={LaunchPage}/>
           {/* Onboarding Pages */}
-          <Route path="/sign-up" component={PhoneVerify}/>
-          <Route path="/sign-up-verification" component={SignUpVerification}/>
-          <Route path="/verifying" component={PhoneVerifying}/>
-          <Route path="/register" component={VerifyMagicLink}/>
-          <Route path="/auth" component={LoginMagicLink}/>
+          <Route path="/sign-up" component={SignUpPage}/>
+          <Route path="/sign-up-verification" component={SignUpVerificationPage}/>
+          <Route path="/verifying" component={VerifyingPage}/>
+          <Route path="/register" component={VerifyMagicLinkPage}/>
+          <Route path="/auth" component={LoginMagicLinkPage}/>
           <ConfirmedRoute path="/background" component={BackgroundPage}/>
           <ConfirmedRoute path="/health-worker" component={HealthWorkerStatusPage}/>
           <ConfirmedRoute path="/symptoms" component={Symptoms}/>
@@ -57,8 +57,8 @@ export default function App() {
           <Route path="/sign-in" component={Login}/>
           <Route path="/sign-in-verification" component={AuthVerifyCode}/>
           {/* Profile Pages / SettingsPage */}
-          <ProtectedRoute path="/profile" component={ProfileView}/>
-          <ProtectedRoute path="/profile-edit" component={ProfileEdit}/>
+          <ProtectedRoute path="/profile" component={ProfileViewPage}/>
+          <ProtectedRoute path="/profile-edit" component={ProfileEditPage}/>
           <ProtectedRoute path="/add-test" component={AddTestPage}/>
           <ProtectedRoute path="/update-criteria" component={UpdateTestingCenterCriteria}/>
           <ProtectedRoute path="/share" component={SharePage}/>
@@ -70,7 +70,7 @@ export default function App() {
           <Route path="/map" component={MapPage}/>
 
           {/* 404 */}
-          <Route path="/404" component={NotFound}/>
+          <Route path="/404" component={NotFoundPage}/>
           <Route path="*">
             <Redirect to="/404"/>
           </Route>

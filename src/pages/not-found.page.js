@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import finn from '../assets/images/finn.png';
 
 
-export default function NotFound() {
+export default function NotFoundPage() {
   return (
     <Grid container spacing={24} alignContent="center" className="bg-primary white flex-container flex-just-center">
       <Grid item xs={12} className="aligncenter" style={{marginBottom: '10vh'}}>

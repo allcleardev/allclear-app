@@ -20,7 +20,7 @@ function getStepContent(step) {
   }
 }
 
-export default function Home() {
+export default function HomePage() {
   return (
     <Container>
       <VerticalLinearStepper getSteps={getSteps} getStepContent={getStepContent} />

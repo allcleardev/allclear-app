@@ -27,7 +27,7 @@ const useStyles = makeStyles(() => ({
   track: {},
 }));
 
-export default function UpdateCriteria() {
+export default function UpdateTestingCenterCriteriaPage() {
   useStyles();
 
   const [drive_through, setDriveThrough] = React.useState('');

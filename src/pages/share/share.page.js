@@ -7,7 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import avatar from '../../assets/images/avatar.svg';
 import NavBottom from '../../components/navBottom';
 import UserAvatar from '@material-ui/core/CardMedia';
-import UnderDevelopment from '../UnderDevelopment';
+import UnderDevelopment from '../../components/UnderDevelopment';
 
 
 class SharePage extends React.Component {

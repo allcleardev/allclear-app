@@ -11,7 +11,7 @@ import PeopleService from '../services/people.service.js';
 import { Button, IconButton, Chip } from '@material-ui/core';
 import {AppContext, INITIAL_APP_STATE} from '../contexts/App.context';
 
-export default class ProfileView extends Component {
+export default class ProfileViewPage extends Component {
   static contextType = AppContext;
 
   constructor(props) {

@@ -9,7 +9,7 @@ import RoundHeader from '../components/headers/header-round';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { Grid } from '@material-ui/core';
 
-export default function VerifyMagicLink({ props, location }) {
+export default function VerifyMagicLinkPage({ props, location }) {
   const history = useHistory();
 
   const santizeSearchParams = (searchParams) => {

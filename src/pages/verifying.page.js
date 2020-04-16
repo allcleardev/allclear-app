@@ -21,7 +21,7 @@ function SlideTransition(props) {
   return <Slide {...props} direction="up" />;
 }
 
-export default class PhoneVerify extends Component {
+export default class VerifyingPage extends Component {
   constructor(props) {
     super(props);
     this.state = {

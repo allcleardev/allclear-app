@@ -12,7 +12,7 @@ import Container from '@material-ui/core/Container';
 import { Button, FormControl, Select, MenuItem, Input, Chip } from '@material-ui/core';
 import {AppContext} from '../contexts/App.context';
 
-export default class ProfileEdit extends Component {
+export default class ProfileEditPage extends Component {
   static contextType = AppContext;
 
   constructor(props) {

@@ -20,7 +20,7 @@ const ContainerStyle = {
   alignItems: 'center',
 };
 
-const Launch = ({ props }) => {
+const LaunchPage = ({ props }) => {
   const history = useHistory();
   const confirm_sessid = localStorage.getItem('confirm_sessid');
   const sessid = localStorage.getItem('sessid');
@@ -51,4 +51,4 @@ const Launch = ({ props }) => {
   );
 };
 
-export default Launch;
+export default LaunchPage;
