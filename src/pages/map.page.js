@@ -161,7 +161,7 @@ export default function MapPage() {
                     badgeContent={''}
                     overlap={'rectangle'}
                     style={{width: '100%'}}
-                    invisible={!appState.searchFilterActive}
+                    invisible={!appState.map.searchFilterActive}
                   >
                     <Button
                       className={'edit-filters-btn'}
