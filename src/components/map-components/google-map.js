@@ -72,8 +72,8 @@ export default class GoogleMap extends Component {
       map: {
         ...appState.map,
         locations
-      }
-
+      },
+      isListLoading: false
     });
   }
 

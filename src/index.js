@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactGA from 'react-ga';
 import ReactDOM from 'react-dom';
 import { colorLog } from './util/helpers';
 import LogRocket from 'logrocket';
@@ -13,10 +14,12 @@ import theme from './theme';
 import * as serviceWorker from './serviceWorker';
 import {bootstrapAxios} from './util/bootstrap.helpers';
 
+//Initialize GA
+ReactGA.initialize('G-W6BW925QD6');
+
 //Initiate LogRocket
 LogRocket.init('jeskuj/allclear');
 setupLogRocketReact(LogRocket);
-
 
 bootstrapAxios();
 
