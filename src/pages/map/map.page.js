@@ -14,16 +14,15 @@ import Button from '@material-ui/core/Button';
 import NavBottom from '@components/navBottom';
 import ClearHeader from '@components/headers/header-clear';
 import UpdateCriteriaModal from '@components/modals/modal-update-criteria';
-import GoogleMap from '../../components/map-components/google-map';
-import TestingLocationListItem from '../../components/map-components/testing-location-list-item';
+import GoogleMap from '@components/map-components/google-map';
+import TestingLocationListItem from '@components/map-components/testing-location-list-item';
 
-import ArrowLeft from '../../components/svgs/arrow-left';
-import ArrowRight from '../../components/svgs/arrow-right';
-import SettingsSVG from '../../components/svgs/svg-settings';
-import {useWindowResize} from '../../util/helpers';
+import ArrowLeft from '@svg/arrow-left';
+import ArrowRight from '@svg/arrow-right';
+import SettingsSVG from '@svg/svg-settings';
+import {useWindowResize} from '@util/helpers';
 import ModalService from '@services/modal.service';
-// import MapPageContext from '../contexts/MapPage.context';
-import {AppContext} from '../../contexts/App.context';
+import {AppContext} from '@contexts/App.context';
 
 export default function MapPage() {
 

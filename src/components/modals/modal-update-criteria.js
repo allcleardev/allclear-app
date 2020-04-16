@@ -11,7 +11,7 @@ import FormControl from '@material-ui/core/FormControl';
 // import FormControlLabel from '@material-ui/core/FormControlLabel';
 // import Checkbox from '@material-ui/core/Checkbox';
 import Select from '@material-ui/core/Select';
-import SettingsSVG from '../svgs/svg-settings';
+import SettingsSVG from '@svg/svg-settings';
 import { CRITERIA_FORM_DATA } from './modal-update-criteria.constants';
 import { AppContext } from '../../contexts/App.context';
 import ModalService from '../../services/modal.service';
