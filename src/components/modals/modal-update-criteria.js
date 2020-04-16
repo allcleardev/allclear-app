@@ -105,7 +105,6 @@ function UpdateCriteria({onClose, onSubmit}) {
 
   async function _onSubmitClicked(){
     const {latitude, longitude} = appState.person;
-    let filterActive = false;
 
     // call API
     const result = await facilityService.search({
@@ -117,11 +116,6 @@ function UpdateCriteria({onClose, onSubmit}) {
       },
     });
 
-    // Check if search filter is applied
-    if(Object.values(formValues).includes(true) || Object.values(formValues).includes(false)) {
-      filterActive = true;
-    }
-
     // update persistent app state
     setAppState({
       ...appState,
@@ -131,7 +125,7 @@ function UpdateCriteria({onClose, onSubmit}) {
       },
       searchCriteria: formValues,
       isListLoading: false,
-      searchFilterActive: filterActive
+      searchFilterActive: Object.values(formValues).includes(true) || Object.values(formValues).includes(false)
     });
 
     // call parent submit function
