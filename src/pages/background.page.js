@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { bindAll } from 'lodash';
 
-import RoundHeader from '../../components/headers/header-round';
-import ProgressBottom from '../../components/progressBottom';
-import GoogleMapsAutocomplete from '../../components/inputs/google-maps-autocomplete';
-import OnboardingNavigation from '../../components/onboarding-navigation';
+import RoundHeader from '../components/headers/header-round';
+import ProgressBottom from '../components/progressBottom';
+import GoogleMapsAutocomplete from '../components/inputs/google-maps-autocomplete';
+import OnboardingNavigation from '../components/onboarding-navigation';
 
 import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
 import { Button, TextField } from '@material-ui/core';
-import {AppContext} from '../../contexts/App.context';
+import {AppContext} from '../contexts/App.context';
 
 class BackgroundPage extends Component {
   static contextType = AppContext;

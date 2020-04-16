@@ -1,14 +1,14 @@
 import React from 'react';
 import Box from '@material-ui/core/Container';
 import { Grid, Button } from '@material-ui/core';
-import Header from '../../components/headers/header-homescreen';
+import Header from '../components/headers/header-homescreen';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import NavBottom from '../../components/navBottom';
+import NavBottom from '../components/navBottom';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
-import AlertSwitch from '../../components/switch';
+import AlertSwitch from '../components/switch';
 import Axios from 'axios';
 
 

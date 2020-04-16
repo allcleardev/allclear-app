@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
-import logo from '../../assets/images/Union.png';
-import UnderDevelopment from '../../components/UnderDevelopment';
+import logo from '../assets/images/Union.png';
+import UnderDevelopment from '../components/UnderDevelopment';
 
 class AddTestPage extends React.Component {
   // state = states

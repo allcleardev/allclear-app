@@ -1,13 +1,13 @@
 import React from 'react';
 import Box from '@material-ui/core/Container';
 import { Grid, Avatar, IconButton, Button } from '@material-ui/core';
-import Header from '../../components/headers/header-homescreen';
+import Header from '../components/headers/header-homescreen';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import avatar from '../../assets/images/avatar.svg';
-import NavBottom from '../../components/navBottom';
+import avatar from '../assets/images/avatar.svg';
+import NavBottom from '../components/navBottom';
 import UserAvatar from '@material-ui/core/CardMedia';
-import UnderDevelopment from '../../components/UnderDevelopment';
+import UnderDevelopment from '../components/UnderDevelopment';
 
 
 class SharePage extends React.Component {

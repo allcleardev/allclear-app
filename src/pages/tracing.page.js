@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Header from '../../components/headers/header';
-import NavBottom from '../../components/navBottom';
+import Header from '../components/headers/header';
+import NavBottom from '../components/navBottom';
 import Container from '@material-ui/core/Container';
 class TracingPage extends Component {
   constructor() {
