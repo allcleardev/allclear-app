@@ -18,7 +18,8 @@ export const INITIAL_APP_STATE = {
   map: {
     locations: [],
     expandedItems: [],
-    isListLoading: true
+    isListLoading: true,
+    searchFilterActive: false
   },
   searchCriteria
   // searchCriteria: {
