@@ -1,6 +1,7 @@
+// TODO: combine this and signup verification
+
 import React, {useContext} from 'react';
 import { Link, useHistory } from 'react-router-dom';
-// import qs from 'qs';
 import Form from '@material-ui/core/Container';
 import { Button, Grid } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
@@ -64,6 +65,13 @@ export default function SignInVerificationPage({ props, location }) {
       });
   };
 
+  const onKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      verifyPhoneNumber();
+    }
+  };
+
   const handleCodeChange = (event) => {
     setValue(false);
     sessionStorage.setItem('code', event.target.value);
@@ -94,6 +102,7 @@ export default function SignInVerificationPage({ props, location }) {
                   inputProps={{ maxLength: 6, autoComplete: 'one-time-code', inputMode: 'numeric', pattern: '[0-9]*' }}
                   InputLabelProps={{ shrink: false }}
                   onChange={handleCodeChange}
+                  onKeyPress={(e) => onKeyPress(e)}
                   style={{}}
                 />
                 {isError ? <p className="codeError">You're entered an incorrect code. <br/> Please Try again</p>: ''}
