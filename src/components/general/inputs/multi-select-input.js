@@ -7,7 +7,7 @@ class MultiSelectInput extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userSelectedSymptoms: [],
+      userSelectedItems: [],
     };
     bindAll(this, ['_onItemSelected', '_onSelectClosed']);
   }
@@ -15,9 +15,9 @@ class MultiSelectInput extends Component {
   // set any pre-selected values directly into the state
   static getDerivedStateFromProps(props, state) {
     const possItems = get(props, 'existingItems');
-    if (possItems && possItems.length > 0 && state.userSelectedSymptoms.length === 0) {
+    if (possItems && possItems.length > 0 && state.userSelectedItems.length === 0) {
       return {
-        userSelectedSymptoms: possItems
+        userSelectedItems: possItems
       };
     } else {
       return state;
@@ -36,7 +36,7 @@ class MultiSelectInput extends Component {
     // if 'none' is selectedValue, deselect the rest
     if (selectedValue.id === 'no') {
       this.setState({
-        userSelectedSymptoms: [selectedValue],
+        userSelectedItems: [selectedValue],
       });
     } else {
 
@@ -46,13 +46,13 @@ class MultiSelectInput extends Component {
       }
 
       this.setState({
-        userSelectedSymptoms: selectedList,
+        userSelectedItems: selectedList,
       });
     }
   }
 
   _onSelectClosed() {
-    this.props.onSelectClosed(this.state.userSelectedSymptoms);
+    this.props.onSelectClosed(this.state.userSelectedItems);
   }
 
 
@@ -63,7 +63,7 @@ class MultiSelectInput extends Component {
         <FormControl>
           <Select
             multiple
-            value={this.state.userSelectedSymptoms}
+            value={this.state.userSelectedItems}
             onChange={this._onItemSelected}
             onClose={this._onSelectClosed}
             input={<Input/>}
