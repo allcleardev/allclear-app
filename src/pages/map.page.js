@@ -1,12 +1,12 @@
-import React, {useState, useContext} from 'react';
+import React, { useState, useContext } from 'react';
 import AnimateHeight from 'react-animate-height';
 import clsx from 'clsx';
 import Hammer from 'react-hammerjs';
 import Box from '@material-ui/core/Container';
-import {makeStyles} from '@material-ui/core/styles';
-import {CircularProgress} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { CircularProgress } from '@material-ui/core';
 import Badge from '@material-ui/core/Badge';
-import {get} from 'lodash';
+import { get } from 'lodash';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
@@ -22,11 +22,10 @@ import ArrowLeft from '@svg/arrow-left';
 import ArrowRight from '@svg/arrow-right';
 import SettingsSVG from '@svg/svg-settings';
 import ModalService from '@services/modal.service';
-import {AppContext} from '@contexts/app.context';
-import {useWindowResize} from '@hooks/general.hooks';
+import { AppContext } from '@contexts/app.context';
+import { useWindowResize } from '@hooks/general.hooks';
 
 export default function MapPage() {
-
   // constants
   const touchOptions = {
     touchAction: 'compute',
@@ -40,7 +39,7 @@ export default function MapPage() {
   const classes = useStyles();
 
   // state & global state
-  const {appState} = useContext(AppContext);
+  const { appState } = useContext(AppContext);
   const [width, height] = useWindowResize(onWindowResize);
   const initialState = {
     isOpen: true,
@@ -50,15 +49,15 @@ export default function MapPage() {
   };
   const [mapState, setMapState] = useState(initialState);
   const [drawerHeight, setDrawerHeight] = useState(350);
-  const locations = get(appState,'map.locations') || [];
+  const locations = get(appState, 'map.locations') || [];
 
   // callback handlers
-  function onWindowResize({width, height}) {
+  function onWindowResize({ width, height }) {
     if (width <= 768) {
       setMapState({
         ...mapState,
         anchor: 'bottom',
-        isOpen: true
+        isOpen: true,
       });
       setDrawerHeight(350);
     } else {
@@ -73,7 +72,7 @@ export default function MapPage() {
 
   function onDrawerSwipe(e) {
     if (initialState.windowWidth <= 768) {
-      const nextHeight = (drawerHeight === 350) ? 750 : 350;
+      const nextHeight = drawerHeight === 350 ? 750 : 350;
       if (e.pointerType === 'touch' || e.type === 'click') {
         setDrawerHeight(nextHeight);
       }
@@ -87,7 +86,7 @@ export default function MapPage() {
     });
   }
 
-  const {isOpen, anchor} = mapState;
+  const { isOpen, anchor } = mapState;
 
   // get modal service so we can toggle it open
   let modalService = ModalService.getInstance();
@@ -103,7 +102,7 @@ export default function MapPage() {
               [classes.appBarShift]: isOpen,
             })
           }
-          style={{zIndex: '2'}}
+          style={{ zIndex: '2' }}
         >
           <IconButton
             disableRipple
@@ -111,7 +110,7 @@ export default function MapPage() {
             onClick={isOpen === false ? () => onDrawerToggle(true) : () => onDrawerToggle(false)}
             className={clsx(classes.menuButton, isOpen)}
           >
-            {isOpen === true ? <ArrowLeft/> : <ArrowRight/>}
+            {isOpen === true ? <ArrowLeft /> : <ArrowRight />}
           </IconButton>
         </AppBar>
         <Drawer
@@ -119,12 +118,9 @@ export default function MapPage() {
           variant="persistent"
           anchor={anchor}
           open={isOpen}
-          style={{height: drawerHeight, zIndex: 4}}
+          style={{ height: drawerHeight, zIndex: 4 }}
         >
-          <AnimateHeight
-            duration={500}
-            height={drawerHeight}
-          >
+          <AnimateHeight duration={500} height={drawerHeight}>
             <div
               id="side-drawer"
               style={{
@@ -135,11 +131,7 @@ export default function MapPage() {
               className="side-drawer hide-scrollbar wid100-sm"
             >
               <Hammer onSwipe={onDrawerSwipe} options={touchOptions} direction="DIRECTION_VERTICAL">
-                <div
-                  style={{height: '60px'}}
-                  className="geolist-resizer"
-                  onClick={onDrawerSwipe}
-                >
+                <div style={{ height: '60px' }} className="geolist-resizer" onClick={onDrawerSwipe}>
                   <svg width="37" height="6" viewBox="0 0 37 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M2.75977 5.18164C1.37905 5.18164 0.259766 4.06235 0.259766 2.68164C0.259766
@@ -157,7 +149,7 @@ export default function MapPage() {
                   <Badge
                     badgeContent={''}
                     overlap={'rectangle'}
-                    style={{width: '100%'}}
+                    style={{ width: '100%' }}
                     invisible={!appState.map.searchFilterActive}
                   >
                     <Button
@@ -177,12 +169,14 @@ export default function MapPage() {
               )}
 
               {appState.isListLoading === true && (
-                <div style={{
-                  height: 'auto',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center'}}
+                <div
+                  style={{
+                    height: 'auto',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
                   className="mt-4 mt-md-0 vh100-lg"
                 >
                   <CircularProgress color="primary" size={70} />
@@ -191,22 +185,22 @@ export default function MapPage() {
               )}
 
               {locations &&
-              locations.map((result, index) => (
-                <TestingLocationListItem
-                  key={index}
-                  index={index}
-                  title={result.name}
-                  description={result.address}
-                  city_state={result.city + ', ' + result.state}
-                  service_time={result.hours}
-                  driveThru={result.driveThru}
-                  phone={result.phone}
-                  {...result}
-                ></TestingLocationListItem>
-              ))}
+                locations.map((result, index) => (
+                  <TestingLocationListItem
+                    key={index}
+                    index={index}
+                    title={result.name}
+                    description={result.address}
+                    city_state={result.city + ', ' + result.state}
+                    service_time={result.hours}
+                    driveThru={result.driveThru}
+                    phone={result.phone}
+                    {...result}
+                  ></TestingLocationListItem>
+                ))}
 
               {locations.length === 0 && appState.isListLoading === false && (
-               <h2 style={{ display: 'flex', justifyContent: 'center' }}>No Results Found </h2>
+                <h2 style={{ display: 'flex', justifyContent: 'center' }}>No Results Found </h2>
               )}
             </div>
           </AnimateHeight>
@@ -268,7 +262,7 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
     marginLeft: 0,
-  }
+  },
 }));
 
 // .MuiBadge-anchorOriginTopRightCircle {

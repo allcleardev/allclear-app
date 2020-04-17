@@ -44,7 +44,7 @@ export default class VerifyingPage extends Component {
     const queryParams = queryString.parse(this.props.location.search);
     if (queryParams.logout) {
       this.setState({
-        isSnackbarOpen: true
+        isSnackbarOpen: true,
       });
     }
   }
@@ -63,7 +63,7 @@ export default class VerifyingPage extends Component {
 
   handleSnackbarClose(event) {
     this.setState({
-      isSnackbarOpen: false
+      isSnackbarOpen: false,
     });
   }
 
@@ -162,7 +162,10 @@ export default class VerifyingPage extends Component {
           {this.state.loading === false ? (
             <Container className="onboarding-body">
               <div className="content-container">
-                <PhoneNumberInput className="hide-mobile" phoneValidation={this.checkPhoneValidation}></PhoneNumberInput>
+                <PhoneNumberInput
+                  className="hide-mobile"
+                  phoneValidation={this.checkPhoneValidation}
+                ></PhoneNumberInput>
                 <Link to="/sign-in" className="hide-mobile sign-in">
                   Sign into Existing Account
                 </Link>
@@ -226,21 +229,21 @@ export default class VerifyingPage extends Component {
                     ${!this.state.phoneVerified ? 'enter your phone number' : ''}
                     ${!this.state.termsAndConditions && !this.state.phoneVerified ? 'and' : ''}
                     ${
-                  !this.state.termsAndConditions
-                  ? 'review and agree to the Terms & Conditions and Privacy Policy'
-                  : ''
-                }
+                      !this.state.termsAndConditions
+                        ? 'review and agree to the Terms & Conditions and Privacy Policy'
+                        : ''
+                    }
                   `}
                 triggerTooltip={this.state.termsAndConditions && this.state.phoneVerified ? false : true}
               ></OnboardingNavigation>
             </Container>
           ) : (
-             <Grid container justify="center">
-               <Grid item xs={12} sm={6}>
-                 <LinearProgress color="primary" value={50} variant="indeterminate" />
-               </Grid>
-             </Grid>
-           )}
+            <Grid container justify="center">
+              <Grid item xs={12} sm={6}>
+                <LinearProgress color="primary" value={50} variant="indeterminate" />
+              </Grid>
+            </Grid>
+          )}
           {this.state.loading === false ? <ProgressBottom progress="0"></ProgressBottom> : null}
         </div>
       </div>

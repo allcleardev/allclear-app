@@ -27,7 +27,7 @@ const LaunchPage = ({ props }) => {
 
   useEffect(() => {
     setTimeout(() => {
-      if (sessid)  {
+      if (sessid) {
         history.push('/map');
       } else if (confirm_sessid) {
         history.push('/background');
@@ -43,7 +43,6 @@ const LaunchPage = ({ props }) => {
         <div style={LogoStyle}>
           <img src={Logo} alt="Logo" />
         </div>
-
         <LinearProgress color="primary" value={50} variant="indeterminate" />
         {process.env.REACT_APP_VERSION} - Built at: {process.env.REACT_APP_BUILT_AT}
       </div>

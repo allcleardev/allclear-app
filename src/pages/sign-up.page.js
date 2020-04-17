@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 // import qs from 'qs';
 import Form from '@material-ui/core/Container';
@@ -8,7 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import Axios from 'axios';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import RoundHeader from '../components/general/headers/header-round';
-import {AppContext} from '../contexts/app.context';
+import { AppContext } from '../contexts/app.context';
 
 export default function SignUpPage({ props, location }) {
   const [state] = React.useState({
@@ -51,7 +51,7 @@ export default function SignUpPage({ props, location }) {
           setAppState({
             ...appState,
             sessionId: response.data.id,
-            person:response.data.person
+            person: response.data.person,
           });
         }
 
@@ -96,7 +96,13 @@ export default function SignUpPage({ props, location }) {
                   onChange={handleCodeChange}
                   style={{}}
                 />
-                {isError ? <p className="codeError">You're entered an incorrect code. <br/> Please Try again</p>: ''}
+                {isError ? (
+                  <p className="codeError">
+                    You're entered an incorrect code. <br /> Please Try again
+                  </p>
+                ) : (
+                  ''
+                )}
               </FormControl>
             </div>
 

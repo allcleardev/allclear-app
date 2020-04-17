@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, { useContext, useState } from 'react';
 import BottomFab from '../buttons/bottom-fab';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -80,10 +80,9 @@ const useStyles = makeStyles((theme) => ({
   track: {},
 }));
 
-
-function UpdateCriteria({onClose, onSubmit}) {
+function UpdateCriteria({ onClose, onSubmit }) {
   useStyles();
-  const {setAppState, appState} = useContext(AppContext);
+  const { setAppState, appState } = useContext(AppContext);
 
   const [formValues, setFormValues] = React.useState(appState.searchCriteria);
   const formItems = _generateFormItems();
@@ -91,23 +90,20 @@ function UpdateCriteria({onClose, onSubmit}) {
   const facilityService = FacilityService.getInstance();
 
   const currFormValues = Object.values(formValues);
-  const searchFilterActive = (currFormValues.includes(true) || currFormValues.includes(false));
+  const searchFilterActive = currFormValues.includes(true) || currFormValues.includes(false);
 
-
-  function _onSelectChanged(evt){
-
+  function _onSelectChanged(evt) {
     const currKey = evt.currentTarget.dataset.key;
     const currValue = evt.target.value;
 
     setFormValues({
       ...formValues,
-      [currKey]: currValue
+      [currKey]: currValue,
     });
-
   }
 
-  async function _onSubmitClicked(){
-    const {latitude, longitude} = appState.person;
+  async function _onSubmitClicked() {
+    const { latitude, longitude } = appState.person;
 
     // call API
     const result = await facilityService.search({
@@ -216,10 +212,7 @@ function UpdateCriteria({onClose, onSubmit}) {
         className="btn-group"
       >
         <Grid item xs={12} sm={5}>
-          <Button
-            onClick={_onSubmitClicked}
-            className="btn-big bg-primary color-white fontsize-16"
-          >
+          <Button onClick={_onSubmitClicked} className="btn-big bg-primary color-white fontsize-16">
             Search
           </Button>
         </Grid>

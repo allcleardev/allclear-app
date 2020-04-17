@@ -15,7 +15,7 @@ export const CRITERIA_FORM_DATA = [
         value: false,
         text: 'No Drive Throughs',
       },
-    ]
+    ],
   },
   {
     title: 'Show Appointment Only Test Centers',
@@ -33,9 +33,8 @@ export const CRITERIA_FORM_DATA = [
         value: false,
         text: 'No Appointment',
       },
-    ]
+    ],
   },
-
 ];
 
 // {/*SYMPTOMS*/}
@@ -125,5 +124,3 @@ export const CRITERIA_FORM_DATA = [
 //     </Select>
 //   </FormControl>
 // </div>
-
-

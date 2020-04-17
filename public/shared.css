@@ -1471,7 +1471,7 @@ input:checked + .slider:before {
   text-align: center;
   margin: 5px 0 !important;
   line-height: 24px;
-  color: #7B7B7B;
+  color: #7b7b7b;
   letter-spacing: -0.408px;
 }
 
@@ -1480,7 +1480,7 @@ input:checked + .slider:before {
   height: 48px;
   margin: 15px 0;
   border-radius: 10px;
-  background-color: #007AFF !important;
+  background-color: #007aff !important;
   color: white !important;
   border-radius: 10px !important;
 }
@@ -1501,18 +1501,17 @@ input:checked + .slider:before {
   position: absolute;
   bottom: 10%;
   width: 100%;
-
 }
 
 .settingDelBtn {
   color: #fff !important;
   widows: 100%;
-  border: 1px solid #E83731;
-  background-color: #E83731 !important;
+  border: 1px solid #e83731;
+  background-color: #e83731 !important;
 }
 
 .isRelaxedBackground {
-  background-color: #F1F8FF !important;
+  background-color: #f1f8ff !important;
 }
 
 .settingLogoEdit {
@@ -1528,14 +1527,12 @@ input:checked + .slider:before {
 }
 
 .settingModalTxt {
-
   font-size: 15px;
   color: black;
   text-align: center;
   letter-spacing: -0.41px;
   line-height: 20px;
 }
-
 
 .root {
   display: flex;
