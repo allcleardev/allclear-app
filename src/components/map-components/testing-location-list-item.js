@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { boolToEng, isNullOrUndefined } from '../../util/helpers';
+import { boolToEng, isNullOrUndefined } from '../../util/general.helpers';
 
 import Button from '@material-ui/core/Button';
 import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';

@@ -13,5 +13,6 @@ module.exports = override(
     '@services': path.resolve(__dirname, 'src/services'),
     '@styles': path.resolve(__dirname, 'src/styles'),
     '@util': path.resolve(__dirname, 'src/util'),
+    '@hooks': path.resolve(__dirname, 'src/hooks'),
   })
 );

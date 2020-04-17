@@ -20,9 +20,9 @@ import TestingLocationListItem from '@components/map-components/testing-location
 import ArrowLeft from '@svg/arrow-left';
 import ArrowRight from '@svg/arrow-right';
 import SettingsSVG from '@svg/svg-settings';
-import {useWindowResize} from '@util/helpers';
 import ModalService from '@services/modal.service';
 import {AppContext} from '@contexts/app.context';
+import {useWindowResize} from '@hooks/general.hooks';
 
 export default function MapPage() {
 

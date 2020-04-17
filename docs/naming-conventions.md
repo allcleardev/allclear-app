@@ -35,7 +35,7 @@ Contains a collection of guidelines for writing file names used in this applicat
 
 ## Classes and Symbols
 
-- Use upper camel case for class names. For general components, prefix upper camel case class name with "AC" (**ex:** `ACFabButton`).
+- Use upper camel case for class names.
 - Match the name of the symbol to the name of the file:
 
   `app.context.js`
