@@ -91,8 +91,6 @@ export default function MapPage() {
   // get modal service so we can toggle it open
   let modalService = ModalService.getInstance();
 
-  console.log('locations', locations);
-
   return (
     <div className="map-page">
       <ClearHeader isOpen={isOpen}></ClearHeader>
