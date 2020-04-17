@@ -4,7 +4,7 @@ import { bindAll } from 'lodash';
 import Container from '@material-ui/core/Container';
 
 import HomescreenHeader from '../components/general/headers/header-homescreen';
-import NavBottom from '../components/navBottom';
+import BottomNav from '../components/general/navs/bottom-nav';
 import userAvatar from '../assets/images/defaultProfile.svg';
 import PeopleService from '../services/people.service.js';
 
@@ -156,7 +156,7 @@ export default class ProfileViewPage extends Component {
           </Button>
         </Container>
 
-        <NavBottom active={3}></NavBottom>
+        <BottomNav active={3}></BottomNav>
       </section>
     );
   }

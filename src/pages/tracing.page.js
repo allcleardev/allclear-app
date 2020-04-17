@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Header from '../components/general/headers/header';
-import NavBottom from '../components/navBottom';
+import BottomNav from '../components/general/navs/bottom-nav';
 import Container from '@material-ui/core/Container';
 class TracingPage extends Component {
   constructor() {
@@ -24,7 +24,7 @@ class TracingPage extends Component {
           <h2>Coming Soon</h2>
           <p>Participate in community-driven contact tracing to beat COVID-19.</p>
         </Container>
-        <NavBottom active={2}></NavBottom>
+        <BottomNav active={2}></BottomNav>
       </div>
     );
   }

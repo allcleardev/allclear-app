@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindAll } from 'lodash';
 
 import HomescreenHeader from '../components/general/headers/header-homescreen';
-import NavBottom from '../components/navBottom';
+import BottomNav from '../components/general/navs/bottom-nav';
 import GoogleMapsAutocomplete from '../components/inputs/google-maps-autocomplete';
 
 import PeopleService from '../services/people.service.js';
@@ -239,7 +239,7 @@ export default class ProfileEditPage extends Component {
             </Button>
           </div>
         </Container>
-        <NavBottom active={3}></NavBottom>
+        <BottomNav active={3}></BottomNav>
       </section>
     );
   }

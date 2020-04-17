@@ -10,7 +10,7 @@ const useStyles = makeStyles(() => ({
   content: {},
 }));
 
-export default function fabBlueBottom({ children, style, class_name, handle_name }) {
+export default function BottomFab({ children, style, class_name, handle_name }) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useStyles();
 

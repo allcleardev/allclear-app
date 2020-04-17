@@ -5,7 +5,7 @@ import Header from '../components/general/headers/header-homescreen';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import avatar from '../assets/images/avatar.svg';
-import NavBottom from '../components/navBottom';
+import BottomNav from '../components/general/navs/bottom-nav';
 import UserAvatar from '@material-ui/core/CardMedia';
 import UnderDevelopment from '../components/UnderDevelopment';
 
@@ -250,7 +250,7 @@ class SharePage extends React.Component {
             </div>
           </Grid>
         </Grid>
-        <NavBottom active={0}></NavBottom>
+        <BottomNav active={0}></BottomNav>
       </Box>
     );
   }

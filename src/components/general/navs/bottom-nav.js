@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { BottomNavigation, BottomNavigationAction, SvgIcon } from '@material-ui/core';
 
-export default function NavBottom({ active }) {
+export default function BottomNav({ active }) {
   const history = useHistory();
 
   const routeChange = (route) => {

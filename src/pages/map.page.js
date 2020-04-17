@@ -11,9 +11,9 @@ import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 
-import NavBottom from '@components/navBottom';
-import ClearHeader from '@components/headers/header-clear';
-import UpdateCriteriaModal from '@components/modals/modal-update-criteria';
+import BottomNav from '@general/navs/bottom-nav';
+import ClearHeader from '@general/headers/header-clear';
+import UpdateCriteriaModal from '@general/modals/modal-update-criteria';
 import GoogleMap from '@components/map-components/google-map';
 import TestingLocationListItem from '@components/map-components/testing-location-list-item';
 
@@ -212,7 +212,7 @@ export default function MapPage() {
             <GoogleMap></GoogleMap>
           </div>
         </main>
-        <NavBottom active={1}></NavBottom>
+        <BottomNav active={1}></BottomNav>
         <UpdateCriteriaModal></UpdateCriteriaModal>
       </Box>
     </div>

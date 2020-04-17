@@ -4,7 +4,7 @@ import { Grid, Button } from '@material-ui/core';
 import Header from '../components/general/headers/header-homescreen';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import NavBottom from '../components/navBottom';
+import BottomNav from '../components/general/navs/bottom-nav';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -90,7 +90,7 @@ class SettingsPage extends React.Component {
                 </Grid>
 
 
-                <NavBottom active={0}></NavBottom>
+                <BottomNav active={0}></BottomNav>
                 <Dialog
                     open={this.state.open}
                     onClose={() => this.handleClose()}

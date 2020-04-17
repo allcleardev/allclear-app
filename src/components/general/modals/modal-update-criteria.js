@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import FabBlueBottom from '../../fabBlueBottom';
+import BottomFab from '../buttons/bottom-fab';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -35,14 +35,14 @@ export default function UpdateCriteriaModal() {
 
   return (
     <>
-      <FabBlueBottom
+      <BottomFab
         handle_name={() => {
           toggleModal(true, 'body');
         }}
         class_name="btn-blue-bottom hide-mobile"
       >
         {SettingsSVG()}
-      </FabBlueBottom>
+      </BottomFab>
       <Dialog
         open={open}
         onClose={() => {
