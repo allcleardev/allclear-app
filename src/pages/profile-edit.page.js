@@ -9,8 +9,9 @@ import PeopleService from '../services/people.service.js';
 import TypesService from '../services/types.service.js';
 
 import Container from '@material-ui/core/Container';
-import { Button, FormControl, Select, MenuItem, Input, Chip } from '@material-ui/core';
-import { AppContext } from '../contexts/app.context';
+import { Button, FormControl, Select, MenuItem } from '@material-ui/core';
+import { AppContext } from '@contexts/app.context';
+import MultiSelectInput from '@general/inputs/multi-select-input';
 
 export default class ProfileEditPage extends Component {
   static contextType = AppContext;
@@ -109,34 +110,13 @@ export default class ProfileEditPage extends Component {
     }
   }
 
-  handleSymptomsSelection(event, value) {
-    const selectedValue = value.props.value;
-    let selectedList = event.target.value;
-
-    // return empty lists (forces user to select at least one)
-    if (!selectedList.length) {
-      return;
-    }
-
-    // if 'none' is selectedValue, deselect the rest
-    if (selectedValue.id === 'no') {
-      this.setState({
-        userSelectedSymptoms: [selectedValue],
-        newProfile: { ...this.state.newProfile, symptoms: [selectedValue] },
-      });
-    } else {
-      // if 'none' was previously selected, remove from current selectedList
-      if (selectedList.length) {
-        selectedList = selectedList.filter((selected) => selected.id !== 'no');
-      }
-
+  handleSymptomsSelection(symptomList) {
       this.setState({
         // set chips/dropdown selection state
-        userSelectedSymptoms: selectedList,
+        userSelectedSymptoms: symptomList,
         // update newProfile to be sent to the server on submit
-        newProfile: { ...this.state.newProfile, symptoms: selectedList },
+        newProfile: { ...this.state.newProfile, symptoms: symptomList },
       });
-    }
   }
 
   async onUpdateProfileClicked() {
@@ -202,32 +182,13 @@ export default class ProfileEditPage extends Component {
             </div>
 
             <div className="card__content">
-              <label className="card__term">Symptoms</label>
-              <FormControl>
-                {this.state.loading ? (
-                  ''
-                ) : (
-                  <Select
-                    multiple
-                    value={this.state.userSelectedSymptoms}
-                    onChange={this.handleSymptomsSelection}
-                    input={<Input />}
-                    renderValue={(selected) => (
-                      <div className="chips-container">
-                        {selected.map((option) => (
-                          <Chip key={option.id} label={option.name} className="chip" />
-                        ))}
-                      </div>
-                    )}
-                  >
-                    {this.state.symptomsList.map((option) => (
-                      <MenuItem key={option.id} value={option}>
-                        {option.name}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                )}
-              </FormControl>
+              <MultiSelectInput
+                label='Symptoms'
+                items={this.state.symptomsList}
+                onSelectClosed={this.handleSymptomsSelection}
+                existingItems={profile && profile.symptoms}
+              >
+              </MultiSelectInput>
             </div>
           </article>
 
