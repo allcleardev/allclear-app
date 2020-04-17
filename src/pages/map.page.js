@@ -221,12 +221,11 @@ export default function MapPage() {
           })}
         >
           <div className="map-fullscreen">
-            <GoogleMap onCenterClicked={() => onCenterClicked}></GoogleMap>
+            <GoogleMap></GoogleMap>
           </div>
         </main>
         <NavBottom active={1}></NavBottom>
         <UpdateCriteriaModal></UpdateCriteriaModal>
-        <MyLocationBtn aria-label="Go to Profile Location" onClick={() => onMyProfileLocationClick()} />
       </Box>
     </div>
   );
