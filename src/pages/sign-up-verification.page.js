@@ -56,7 +56,7 @@ export default function SignUpVerificationPage({ props, location }) {
       });
   };
 
-  const onKeyPress = (e) => {
+  const onKeyPress = async (e) => {
     if (e.key === 'Enter') {
       verifyPhoneNumber();
       e.preventDefault();
