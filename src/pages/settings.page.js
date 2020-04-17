@@ -1,42 +1,26 @@
-import React from 'react';
-import Box from '@material-ui/core/Container';
-import { Grid, Button } from '@material-ui/core';
-import Header from '../components/general/headers/header-homescreen';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import BottomNav from '../components/general/navs/bottom-nav';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import AlertSwitch from '../components/general/buttons/toggle';
-import Axios from 'axios';
-
-
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { bindAll } from 'lodash';
-import { AppContext } from '../../contexts/App.context';
-import PeopleService from '../../services/people.service.js';
-
-import HomescreenHeader from '../../components/headers/header-homescreen';
-import NavBottom from '../../components/navBottom';
-import AlertSwitch from '../../components/switch';
-
+import {Button} from '@material-ui/core';
 import Container from '@material-ui/core/Container';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import { Button } from '@material-ui/core';
+import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
+import {bindAll} from 'lodash';
+
+import BottomNav from '@general/navs/bottom-nav';
+import AlertSwitch from '@general/buttons/toggle';
+import {AppContext} from '@contexts/app.context';
+import PeopleService from '@services/people.service.js';
+import HomescreenHeader from '@general/headers/header-homescreen';
 
 
-
-
-class SettingsPage extends React.Component {
-    state = {
-      open: false,
-    };
+class SettingsPage extends Component {
+  state = {
+    open: false,
+  };
   static contextType = AppContext;
+
   constructor(props) {
     super(props);
     bindAll(this, ['componentDidMount', 'onDeleteProfileClicked', 'handleClose']);
@@ -47,18 +31,18 @@ class SettingsPage extends React.Component {
   componentDidMount = () => {};
 
   onDeleteProfileClicked() {
-    this.setState({ open: true });
+    this.setState({open: true});
   }
 
   handleClose() {
-    this.setState({ open: false });
+    this.setState({open: false});
   }
 
   async onDeleteConfirmedClicked() {
     const id = this.session.person.id;
-    this.setState({ loading: true });
+    this.setState({loading: true});
     await this.peopleService.deleteProfile(id).then((res) => {
-      this.setState({ loading: false });
+      this.setState({loading: false});
       this.props.history.push('/');
     });
   }
@@ -94,7 +78,7 @@ class SettingsPage extends React.Component {
             </Button>
           </div>
         </Container>
-        <NavBottom active={3}></NavBottom>
+        <BottomNav active={3}></BottomNav>
 
         <Dialog
           open={this.state.open}
@@ -110,25 +94,25 @@ class SettingsPage extends React.Component {
           }}
         >
           <DialogTitle id="scroll-dialog-title">
-            <span style={{ fontWeight: 600 }}>Delete Account</span>
+            <span style={{fontWeight: 600}}>Delete Account</span>
           </DialogTitle>
           <DialogContent>
-            <p style={{ fontSize: 15, marginBottom: 28 }}>
+            <p style={{fontSize: 15, marginBottom: 28}}>
               Are you sure you want to permanently delete your Account? This is irreversible.
             </p>
             <div
               className="button-container"
-              style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}
+              style={{display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap'}}
             >
               <Button
                 variant="contained"
                 onClick={() => this.onDeleteConfirmedClicked()}
                 className="delete"
-                style={{ margin: 5 }}
+                style={{margin: 5}}
               >
                 Permanently Delete Account
               </Button>
-              <Button variant="contained" onClick={() => this.handleClose()} style={{ margin: 5 }}>
+              <Button variant="contained" onClick={() => this.handleClose()} style={{margin: 5}}>
                 Cancel
               </Button>
             </div>
@@ -138,4 +122,5 @@ class SettingsPage extends React.Component {
     );
   }
 }
+
 export default SettingsPage;

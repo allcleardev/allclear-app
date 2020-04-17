@@ -6,7 +6,7 @@ import HomescreenHeader from '../components/general/headers/header-homescreen';
 import BottomNav from '../components/general/navs/bottom-nav';
 import userAvatar from '../assets/images/defaultProfile.svg';
 import PeopleService from '../services/people.service.js';
-import { AppContext, INITIAL_APP_STATE } from '../contexts/App.context';
+import { AppContext, INITIAL_APP_STATE } from '../contexts/app.context';
 
 import Container from '@material-ui/core/Container';
 import SettingsIcon from '@material-ui/icons/Settings';
