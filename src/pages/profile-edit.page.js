@@ -10,7 +10,7 @@ import TypesService from '../services/types.service.js';
 
 import Container from '@material-ui/core/Container';
 import { Button, FormControl, Select, MenuItem, Input, Chip } from '@material-ui/core';
-import {AppContext} from '../contexts/app.context';
+import { AppContext } from '../contexts/app.context';
 
 export default class ProfileEditPage extends Component {
   static contextType = AppContext;
@@ -89,14 +89,15 @@ export default class ProfileEditPage extends Component {
 
   handleLocationSelection(bool, value) {
     if (value) {
-      const {latitude, longitude} = value;
+      const { latitude, longitude } = value;
       this.setState({
         newProfile: {
           ...this.state.newProfile,
           locationName: value.description,
           latitude,
           longitude,
-        } });
+        },
+      });
     }
   }
 
@@ -142,15 +143,15 @@ export default class ProfileEditPage extends Component {
     const { appState, setAppState } = this.context;
     const updatedProfile = {
       ...this.state.profile,
-      ...this.state.newProfile
+      ...this.state.newProfile,
     };
     await this.peopleService.editProfile(updatedProfile);
     setAppState({
       ...appState,
       person: {
         ...appState.person,
-        ...updatedProfile
-      }
+        ...updatedProfile,
+      },
     });
     this.routeChange('/profile');
   }

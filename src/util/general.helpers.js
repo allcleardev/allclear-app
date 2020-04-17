@@ -1,12 +1,11 @@
-import { isUndefined, isNull} from 'lodash';
+import { isUndefined, isNull } from 'lodash';
 
 export function colorLog(color, input) {
   console.log(`%c${input}`, `color:${color};`);
 }
 
-
 export function boolToEng(boolVal) {
-  return (boolVal) ? 'Yes' : 'No';
+  return boolVal ? 'Yes' : 'No';
 }
 
 export function isNullOrUndefined(value) {

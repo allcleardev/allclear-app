@@ -1,7 +1,8 @@
 import React from 'react';
 
 export default function ArrowLeft() {
-  return (<svg width="89" height="87" viewBox="0 0 89 87" fill="none" xmlns="http://www.w3.org/2000/svg">
+  return (
+    <svg width="89" height="87" viewBox="0 0 89 87" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g filter="url(#filter0_d)">
         <path
           d="M12.6566 12.7188H42.9841C58.4481 12.7188 70.9841 25.2548 70.9841 40.7188C70.9841 56.1827
@@ -37,5 +38,5 @@ export default function ArrowLeft() {
         </filter>
       </defs>
     </svg>
-);
+  );
 }

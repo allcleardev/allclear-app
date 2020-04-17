@@ -74,7 +74,7 @@ class ResultPage extends React.Component {
     const dob = sessionStorage.getItem('dob');
     const phone = sessionStorage.getItem('phone');
     const { appState } = this.context;
-    const {latitude, longitude} = appState.person;
+    const { latitude, longitude } = appState.person;
 
     // Format conditions
     let conditions = sessionStorage.getItem('conditions');

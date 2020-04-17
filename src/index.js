@@ -12,12 +12,12 @@ import App from './App';
 import theme from './theme';
 
 import * as serviceWorker from './service-worker';
-import {bootstrapAxios} from '@util/bootstrap.helpers';
+import { bootstrapAxios } from '@util/bootstrap.helpers';
 
-const isLocalDevBuild = (process.env.NODE_ENV === 'development');
+const isLocalDevBuild = process.env.NODE_ENV === 'development';
 
 // run GA and logrocket on deployed versions of the app
-if(!isLocalDevBuild){
+if (!isLocalDevBuild) {
   //Initialize GA
   ReactGA.initialize('G-W6BW925QD6');
 
@@ -51,4 +51,3 @@ if (module.hot && process.env.NODE_ENV !== 'production') {
   console.log('%c ===== Hot Reload ===== ', 'background: #222; color: #bada55');
   module.hot.accept();
 }
-

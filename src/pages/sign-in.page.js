@@ -75,10 +75,7 @@ export default function SignInPage({ props }) {
         {state.loading === false ? (
           <Form noValidate autoComplete="off" className="onboarding-body">
             <div className="content-container">
-              <PhoneNumberInput
-                onSubmit={() => verifyLogin()}
-                className="hide-mobile"
-              ></PhoneNumberInput>
+              <PhoneNumberInput onSubmit={() => verifyLogin()} className="hide-mobile"></PhoneNumberInput>
               <Link to="/sign-up" className="hide-mobile login">
                 Create Account
               </Link>

@@ -9,14 +9,14 @@ import OnboardingNavigation from '../components/general/navs/onboarding-navigati
 import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
 import { Button, TextField } from '@material-ui/core';
-import {AppContext} from '../contexts/app.context';
+import { AppContext } from '../contexts/app.context';
 
 class BackgroundPage extends Component {
   static contextType = AppContext;
   state = {
     dob: '',
     location: false,
-    useCurrentLocation: false
+    useCurrentLocation: false,
   };
 
   constructor() {
@@ -50,7 +50,7 @@ class BackgroundPage extends Component {
     const { appState, setAppState } = this.context;
 
     if (value && value.description) {
-      const {latitude, longitude} = value;
+      const { latitude, longitude } = value;
       const locationName = value.description;
       setAppState({
         ...appState,
@@ -83,8 +83,8 @@ class BackgroundPage extends Component {
   async _onLocationAccepted(pos) {
     if (pos && pos.coords && pos.coords.latitude) {
       this.setState({ location: true });
-      const {appState, setAppState} = this.context;
-      const {latitude, longitude} = pos.coords;
+      const { appState, setAppState } = this.context;
+      const { latitude, longitude } = pos.coords;
       setAppState({
         ...appState,
         person: {

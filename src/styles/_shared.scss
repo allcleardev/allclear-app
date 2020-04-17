@@ -1,10 +1,10 @@
 $colors: (
-  "primary": $primary-color,
-  "white": $white-color,
-  "black": $black-color,
-  "grey": $grey-color,
-  "grey2": $grey2,
-  "navy": $navy
+  'primary': $primary-color,
+  'white': $white-color,
+  'black': $black-color,
+  'grey': $grey-color,
+  'grey2': $grey2,
+  'navy': $navy,
 );
 
 @each $name, $color in $colors {
@@ -63,9 +63,9 @@ $colors: (
   flex-wrap: nowrap;
 }
 
-.snackbar{
-  &__error{
-    .MuiAlert-standardError{
+.snackbar {
+  &__error {
+    .MuiAlert-standardError {
       background-color: white;
     }
   }

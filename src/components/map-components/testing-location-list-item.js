@@ -55,7 +55,9 @@ export default function TestingLocationListItem(props) {
     <ExpansionPanelDetails>
       <section className="testing-location-list-item__details">
         <div className="border"></div>
-        <h4><b>Test Center Overview</b></h4>
+        <h4>
+          <b>Test Center Overview</b>
+        </h4>
         <dl className="details">
           {!isNullOrUndefined(props.testCriteria) && (
             <Fragment>
@@ -119,7 +121,9 @@ export default function TestingLocationListItem(props) {
           )}
           <div className="mt-3">
             <Link to={'http://www.google.com'}>Suggest Change To Test Center Overview</Link>
-            <p className="fontsize-12"><i>Last update: username 4/10/2020 12:38:00 PM</i></p>
+            <p className="fontsize-12">
+              <i>Last update: username 4/10/2020 12:38:00 PM</i>
+            </p>
           </div>
         </dl>
       </section>
@@ -144,7 +148,7 @@ const ExpansionPanel = withStyles({
     },
     '&$expanded': {
       margin: 'auto',
-      boxShadow: '0px 18px 8px 20px rgba(0,0,0,.15)'
+      boxShadow: '0px 18px 8px 20px rgba(0,0,0,.15)',
     },
   },
   expanded: {},
@@ -157,7 +161,7 @@ const ExpansionPanelSummary = withStyles({
     marginBottom: -1,
     minHeight: 56,
     '&$expanded': {
-      minHeight: 56
+      minHeight: 56,
     },
   },
   content: {
@@ -171,7 +175,7 @@ const ExpansionPanelDetails = withStyles((theme) => ({
   root: {
     backgroundColor: '#fff',
     paddingBottom: 3,
-    boxShadow: 'inset 0px -11px 8px -10px rgba(0,0,0,.15)'
+    boxShadow: 'inset 0px -11px 8px -10px rgba(0,0,0,.15)',
   },
 }))(MuiExpansionPanelDetails);
 

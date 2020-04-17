@@ -16,11 +16,11 @@ const useStyles = makeStyles((theme) => ({
   content: {},
 }));
 
-export default function ArrowCard({ title, description, symptoms,isRelaxed }) {
+export default function ArrowCard({ title, description, symptoms, isRelaxed }) {
   const classes = useStyles();
 
   return (
-    <Card className={isRelaxed === 'true' ? 'isRelaxedBackground root' : 'root'}  style={{ marginBottom: 10 }}>
+    <Card className={isRelaxed === 'true' ? 'isRelaxedBackground root' : 'root'} style={{ marginBottom: 10 }}>
       <CardContent className={classes.content}>
         <p className="card-title" style={{ color: '#000' }}>
           {title}
@@ -29,13 +29,13 @@ export default function ArrowCard({ title, description, symptoms,isRelaxed }) {
           {description}
         </p>
 
-        {symptoms ?
+        {symptoms ? (
           <p className="card-description" style={{ color: '#929292' }}>
             Symptoms: {symptoms}
           </p>
-          : ''}
-
-
+        ) : (
+          ''
+        )}
       </CardContent>
       <IconButton>
         <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
