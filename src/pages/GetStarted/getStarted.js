@@ -3,6 +3,7 @@ import { bindAll } from 'lodash';
 
 import { AppContext } from '../../contexts/App.context';
 import Logo from '../../assets/images/logo-green-back.svg';
+import Header from '../../components/headers/header';
 
 import { Button } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
@@ -14,8 +15,11 @@ export default class GetStarted extends Component {
 
   constructor() {
     super();
-
     bindAll(this, []);
+    this.navItems = [
+      { route: 'about.allclear.app', name: 'About Us', absolutePath: true },
+      { route: 'about.allclear.app', name: 'Help', absolutePath: true },
+    ];
   }
 
   componentDidMount() {
@@ -23,7 +27,7 @@ export default class GetStarted extends Component {
 
     if (queryParams.logout) {
       this.setState({
-        isSnackbarOpen: true
+        isSnackbarOpen: true,
       });
     }
   }
@@ -35,6 +39,7 @@ export default class GetStarted extends Component {
   render() {
     return (
       <div className="get-started-page">
+        <Header navItems={this.navItems}></Header>
         <Container className="content" maxWidth="md">
           <img src={Logo} alt="Logo" className="logo" />
           <div className="button-container">
