@@ -1,17 +1,21 @@
 import React from 'react';
 import Tooltip from '@material-ui/core/Tooltip';
 import MyLocationIcon from '@material-ui/icons/MyLocation';
+import { bindAll } from 'lodash';
 
 export default class MyLocationBtn extends React.Component {
   constructor(props) {
     super(props);
+    bindAll(this, ['onHover', 'onClick']);
     this.state = { isHovered: false };
-    this.onHover = this.onHover.bind(this);
-    this.onClick = props.onClick.bind(this);
   }
 
   onHover(isEnter) {
     this.setState(() => ({ isHovered: isEnter }));
+  }
+
+  onClick() {
+    this.props.onClick();
   }
 
   render() {
