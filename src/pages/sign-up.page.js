@@ -140,6 +140,13 @@ export default class SignUpPage extends Component {
       });
   }
 
+  // ALLCLEAR-274
+  // Eventually add functionality to parse the error message and display
+  // properly. For now hide the error messages from the user
+  parseError() {
+    // return this.state.error === true ? <p className="error">{this.state.message}</p> : '';
+  };
+
   render() {
     return (
       <div className="background-responsive">
@@ -166,7 +173,7 @@ export default class SignUpPage extends Component {
                 <Link to="/sign-in" className="hide-mobile sign-in">
                   Sign into Existing Account
                 </Link>
-                {this.state.error === true ? <p className="error">{this.state.message}</p> : ''}
+                {this.parseError()}
               </div>
               <div className="review-container">
                 <p>
