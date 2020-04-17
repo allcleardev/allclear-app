@@ -57,4 +57,16 @@ export default class PeopleService {
         console.warn(error);
       });
   }
+
+  async deleteProfile(id) {
+    return Axios.delete('/peoples')
+      .then((response) => {
+        localStorage.clear();
+        sessionStorage.clear();
+        return response;
+      })
+      .catch((error) => {
+        console.warn(error);
+      });
+  }
 }

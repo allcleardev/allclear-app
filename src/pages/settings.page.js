@@ -12,122 +12,130 @@ import AlertSwitch from '../components/general/buttons/toggle';
 import Axios from 'axios';
 
 
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { bindAll } from 'lodash';
+import { AppContext } from '../../contexts/App.context';
+import PeopleService from '../../services/people.service.js';
+
+import HomescreenHeader from '../../components/headers/header-homescreen';
+import NavBottom from '../../components/navBottom';
+import AlertSwitch from '../../components/switch';
+
+import Container from '@material-ui/core/Container';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import { Button } from '@material-ui/core';
+
+
+
+
 class SettingsPage extends React.Component {
     state = {
       open: false,
     };
+  static contextType = AppContext;
+  constructor(props) {
+    super(props);
+    bindAll(this, ['componentDidMount', 'onDeleteProfileClicked', 'handleClose']);
+    this.peopleService = PeopleService.getInstance();
+    this.session = JSON.parse(localStorage.getItem('session'));
+  }
 
-    componentDidMount = () => {
-    };
+  componentDidMount = () => {};
 
-    confirm() {
-        this.setState({ open: true });
-    }
+  onDeleteProfileClicked() {
+    this.setState({ open: true });
+  }
 
-    async delete() {
-        this.setState({ loading: true });
+  handleClose() {
+    this.setState({ open: false });
+  }
 
+  async onDeleteConfirmedClicked() {
+    const id = this.session.person.id;
+    this.setState({ loading: true });
+    await this.peopleService.deleteProfile(id).then((res) => {
+      this.setState({ loading: false });
+      this.props.history.push('/');
+    });
+  }
 
-        await Axios.delete('/peoples')
-            .then((response) => {
-                this.history.push('/map');
-            })
-            .catch((error) => {
-                this.setState({ loading: false });
-            });
-    }
+  render() {
+    return (
+      <section className="settings">
+        <HomescreenHeader navigate={'/profile'}>
+          <h1 className="heading">Settings</h1>
+        </HomescreenHeader>
 
-    handleClose() {
-        this.setState({ open: false });
-    }
+        <Container className="cards-container">
+          <Link to="/profile" className="desktop-back-btn hide-mobile">
+            <ArrowBackIosIcon className=""></ArrowBackIosIcon>
+            Back
+          </Link>
 
-    render() {
-        return (
-            <Box className="complete-profile">
-                <Header>
-                    <p>Settings</p>
-                </Header>
-                <Grid container spacing={3} style={{ justifyContent: 'center', margin: '-55px 0px 0px -9px' }}>
-                    <Grid item xs={12} sm={11}>
-                        <div className="profile-body" style={{ display: 'flex', justifyContent: 'center' }}>
-                            <Card style={{
-                                alignItems: 'center',
-                                justifyContent: 'space-between',
-                                borderRadius: 15,
-                            }}>
-                                <div style={{ width: '100%', display: 'flex' }}>
-                                    <CardContent style={{ width: '80%' }}>
-                                        <p className="card-title" style={{ color: 'black' }}>
-                                            {'Text Notification Settings'}
-                                        </p>
-                                    </CardContent>
-                                    <div style={{ width: '20%' }}>
-                                        <div style={{ float: 'right' }}>
-                                            <AlertSwitch></AlertSwitch>
-                                        </div>
+          <article className="card">
+            <div className="card__content">
+              <label className="card__term">Text Notification Settings</label>
+              <AlertSwitch></AlertSwitch>
+            </div>
 
-                                    </div>
-                                </div>
-                                <div style={{ width: '100%', display: 'flex' }}>
-                                    <CardContent style={{ width: '80%' }}>
-                                        <p className="card-title" style={{ color: 'black' }}>
-                                            {'Location Settings'}
-                                        </p>
-                                    </CardContent>
-                                    <div style={{ width: '20%' }}>
-                                        <div style={{ float: 'right' }}>
-                                            <AlertSwitch></AlertSwitch>
-                                        </div>
+            <div className="card__content">
+              <label className="card__term">Location Settings</label>
+              <AlertSwitch></AlertSwitch>
+            </div>
+          </article>
 
-                                    </div>
-                                </div>
-                            </Card>
-                        </div>
-                    </Grid>
-                    <Grid item xs={12} sm={6} className="settingBtn">
-                        <Button onClick={() => this.confirm()} className="btn-big settingDelBtn fontsize-16">Delete Profile</Button>
-                    </Grid>
-                </Grid>
+          <div className="button-container">
+            <Button variant="contained" className="delete" fullWidth onClick={this.onDeleteProfileClicked}>
+              Delete Profile
+            </Button>
+          </div>
+        </Container>
+        <NavBottom active={3}></NavBottom>
 
-
-                <BottomNav active={0}></BottomNav>
-                <Dialog
-                    open={this.state.open}
-                    onClose={() => this.handleClose()}
-                    aria-labelledby="scroll-dialog-title"
-                    aria-describedby="scroll-dialog-description"
-                    style={{ zIndex: '5', borderRadius: '14px' }}
-                >
-                    <DialogTitle id="scroll-dialog-title" style={{ textAlign: 'center' }}>Delete Account</DialogTitle>
-                    <DialogContent >
-                        <h5 className="settingModalTxt">
-                            Are you sure you want to permanently delete your Account? This is irreversible.
-                        </h5>
-                        <Grid
-                            container
-                            style={{
-                                display: 'flex',
-                                justifyContent: 'space-around',
-
-                                padding: '5px 0',
-                            }}
-                            className="btn-group"
-                        >
-                            <Grid item xs={12} sm={5}>
-                                <Button onClick={() => this.delete()}
-                                className="btn-big settingDelBtn " >Permanently Delete Account</Button>
-                            </Grid>
-                            <Grid item xs={12} sm={5}>
-                                <Button onClick={() => this.handleClose()} className="btn-big bg-grey2 fontsize-16">Cancel</Button>
-                            </Grid>
-                        </Grid>
-                    </DialogContent>
-                </Dialog>
-            </Box>
-        );
-    }
+        <Dialog
+          open={this.state.open}
+          onClose={() => this.handleClose()}
+          aria-labelledby="scroll-dialog-title"
+          aria-describedby="scroll-dialog-description"
+          PaperProps={{
+            style: {
+              borderRadius: 14,
+              padding: '19px 16px',
+              textAlign: 'center',
+            },
+          }}
+        >
+          <DialogTitle id="scroll-dialog-title">
+            <span style={{ fontWeight: 600 }}>Delete Account</span>
+          </DialogTitle>
+          <DialogContent>
+            <p style={{ fontSize: 15, marginBottom: 28 }}>
+              Are you sure you want to permanently delete your Account? This is irreversible.
+            </p>
+            <div
+              className="button-container"
+              style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}
+            >
+              <Button
+                variant="contained"
+                onClick={() => this.onDeleteConfirmedClicked()}
+                className="delete"
+                style={{ margin: 5 }}
+              >
+                Permanently Delete Account
+              </Button>
+              <Button variant="contained" onClick={() => this.handleClose()} style={{ margin: 5 }}>
+                Cancel
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
+      </section>
+    );
+  }
 }
 export default SettingsPage;
-
-
-
