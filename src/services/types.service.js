@@ -31,6 +31,16 @@ export default class TypesService {
       });
   }
 
+  async getExposures() {
+    return Axios.get(`${this.baseURL}/exposures`)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        return error;
+      });
+  }
+
   async getSymptoms(shouldSkipHeaders) {
     const headers = (shouldSkipHeaders) ? {} : this.headers;
     return Axios.get(`${this.baseURL}/symptoms`, headers)

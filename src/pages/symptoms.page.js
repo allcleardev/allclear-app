@@ -45,16 +45,25 @@ class SymptomsPage extends Component {
 
   async getSymptoms() {
     this.setState({loading: true});
-
-    const response = await this.typesService.getSymptoms(true)
+    const {appState, setAppState} = this.context;
+    const symptoms = await this.typesService.getSymptoms(true)
       .catch((error) => {
-        console.log(error);
         this.setState({loading: false});
       });
-
-    this.setState({symptoms: response});
+    this.setState({symptoms});
     this.setState({loading: false});
 
+    // save to global state for later usage
+    setAppState({
+      ...appState,
+      profile: {
+        ...appState.profile,
+        options: {
+          ...appState.profile.options,
+          symptoms
+        }
+      }
+    });
   }
 
   handleChange(event) {
@@ -108,13 +117,9 @@ class SymptomsPage extends Component {
 
   buildPayload() {
     const {appState} = this.context;
-    // todo: set latlng to appprovider here - get
     const {latitude, longitude} = appState.person;
     const dob = sessionStorage.getItem('dob');
     const phone = sessionStorage.getItem('phone');
-    // todo: none of this should be needed anymore
-    // const lat = sessionStorage.getItem('lat');
-    // const lng = sessionStorage.getItem('lng');
     const locationName = sessionStorage.getItem('locationName');
     const healthWorkerStatus = sessionStorage.getItem('healthWorkerStatus');
     const alertable = sessionStorage.getItem('alertable');

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { forEach, get } from 'lodash';
-import { CRITERIA_FORM_DATA } from '../components/general/modals/modal-update-criteria.constants';
+import { CRITERIA_FORM_DATA } from '@general/modals/update-criteria-modal.constants';
 
 // Set Up The Initial Context
 export const AppContext = React.createContext();
@@ -22,6 +22,14 @@ export const INITIAL_APP_STATE = {
     searchFilterActive: false,
   },
   searchCriteria,
+  profile:{
+    options:{
+      healthWorkerStatus: undefined,
+      symptoms: undefined,
+      exposures: undefined,
+    }
+  }
+
   // searchCriteria: {
   //   // driveThru: 'Any',
   //   // appointmentRequired: 'Any',

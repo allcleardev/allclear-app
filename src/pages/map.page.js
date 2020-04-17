@@ -14,7 +14,7 @@ import Button from '@material-ui/core/Button';
 
 import BottomNav from '@general/navs/bottom-nav';
 import ClearHeader from '@general/headers/header-clear';
-import UpdateCriteriaModal from '@general/modals/modal-update-criteria';
+import UpdateCriteriaModal from '@general/modals/update-criteria-modal';
 import GoogleMap from '@components/map-components/google-map';
 import TestingLocationListItem from '@components/map-components/testing-location-list-item';
 
