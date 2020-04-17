@@ -41,17 +41,21 @@ export default function TestingLocationListItem(props) {
             <Button className="btn primary-color primary-outline">Directions</Button>
           </a>
 
-          <a href={'tel:' + phone} rel="noopener noreferrer" target="_blank">
-            <Button className="btn primary-color primary-outline" style={{ marginLeft: '10px' }}>
-              Call
-            </Button>
-          </a>
+          {phone && (
+            <a href={'tel:' + phone} rel="noopener noreferrer" target="_blank">
+              <Button className="btn primary-color primary-outline" style={{ marginLeft: '10px' }}>
+                Call
+              </Button>
+            </a>
+          )}
 
-          <a href={website} rel="noopener noreferrer" target="_blank">
-            <Button className="btn primary-color primary-outline" style={{ marginLeft: '10px' }}>
-              Website
-            </Button>
-          </a>
+          {website && (
+            <a href={website} rel="noopener noreferrer" target="_blank">
+              <Button className="btn primary-color primary-outline" style={{ marginLeft: '10px' }}>
+                Website
+              </Button>
+            </a>
+          )}
         </div>
       </div>
     </ExpansionPanelSummary>
