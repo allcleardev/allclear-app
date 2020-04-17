@@ -51,6 +51,6 @@ There are currently 3 subfolders directly under the Components folder: `pages` a
 
 2. General
 
-   - Contains all reusable component subfolders, prefixed with "AC"
+   - Contains all reusable component subfolders
    - Directory shortcut:
      > `@components/*`
