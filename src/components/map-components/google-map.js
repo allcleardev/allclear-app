@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import MapMarker from './map-marker.jsx';
-import MyLocationBtn from './home-fab-btn';
+import MyLocationBtn from './my-location-btn';
 import FacilityService from '../../services/facility.service.js';
 import { bindAll, get } from 'lodash';
 import { AppContext } from '../../contexts/App.context';
@@ -16,12 +16,14 @@ export default class GoogleMap extends Component {
       'componentDidMount',
       'onMarkerDragEnd',
       'onMarkerZoomChanged',
-      '_setLocations',
-      '_onLocationDeclined',
-      '_onLocationAccepted',
-      '_panTo',
       'onZoomChanged',
+      'onMyLocationClicked',
+      '_panTo',
+      '_setLocations',
+      '_onLocationAccepted',
+      '_onLocationDeclined',
       '_createSearchPayload',
+      '_search',
     ]);
     this.gMap = React.createRef();
     this.facilityService = FacilityService.getInstance();
@@ -39,7 +41,6 @@ export default class GoogleMap extends Component {
       navigator.geolocation.getCurrentPosition(this._onLocationAccepted, this._onLocationDeclined);
     }
     this._setLocations(result.data.records, { latitude, longitude });
-    // this._search(latitude, longitude);
     latitude && longitude && this._panTo(latitude, longitude);
   }
 

@@ -13,8 +13,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import ClearHeader from '../components/headers/header-clear';
 import NavBottom from '../components/navBottom';
-import MyLocationBtn from '../components/map-components/home-fab-btn';
-
 import UpdateCriteriaModal from '../components/modals/modal-update-criteria';
 
 import Hammer from 'react-hammerjs';
@@ -88,12 +86,6 @@ export default function MapPage() {
       ...mapState,
       isOpen,
     });
-  }
-
-  function onMyProfileLocationClick() {
-    const latitude = get(appState, 'person.latitude');
-    const longitude = get(appState, 'person.longitude');
-    console.log('al', latitude, longitude);
   }
 
   const { isOpen, anchor } = mapState;
