@@ -141,10 +141,8 @@ export default class SignUpPage extends Component {
   }
 
   // ALLCLEAR-274
-  // Eventually add functionality to parse the error message and display
-  // properly. For now hide the error messages from the user
   parseError() {
-    // return this.state.error === true ? <p className="error">{this.state.message}</p> : '';
+    return this.state.error === true ? <p className="error">{JSON.parse(this.state.message).message}</p> : '';
   };
 
   render() {
