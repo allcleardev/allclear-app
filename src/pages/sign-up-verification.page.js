@@ -1,18 +1,18 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { useCookies } from 'react-cookie';
+import {Link, useHistory} from 'react-router-dom';
+import {useCookies} from 'react-cookie';
 
 import Axios from 'axios';
 import Form from '@material-ui/core/Container';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
-import { Button, Grid } from '@material-ui/core';
+import {Button, Grid} from '@material-ui/core';
 
 import RoundHeader from '../components/general/headers/header-round';
 import ProgressBottom from '../components/general/navs/progress-bottom';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-export default function SignUpVerificationPage({ props, location }) {
+export default function SignUpVerificationPage({props, location}) {
   //eslint-disable-next-line
   const [state, setState] = React.useState({
     checkedB: true,
@@ -56,11 +56,18 @@ export default function SignUpVerificationPage({ props, location }) {
       });
   };
 
+  const onKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      verifyPhoneNumber();
+    }
+  };
+
   //eslint-disable-next-line
   const [value, setValue] = React.useState('');
 
   const handleCodeChange = (event) => {
-    setValue({ code: event.target.value });
+    setValue({code: event.target.value});
     sessionStorage.setItem('code', event.target.value);
   };
 
@@ -86,10 +93,11 @@ export default function SignUpVerificationPage({ props, location }) {
                   variant="outlined"
                   defaultValue=""
                   autoComplete="one-time-code"
-                  inputProps={{ maxLength: 6, autoComplete: 'one-time-code', inputMode: 'numeric', pattern: '[0-9]*' }}
-                  InputLabelProps={{ shrink: false }}
+                  inputProps={{maxLength: 6, autoComplete: 'one-time-code', inputMode: 'numeric', pattern: '[0-9]*'}}
+                  InputLabelProps={{shrink: false}}
                   onChange={handleCodeChange}
                   style={{}}
+                  onKeyPress={(e) => onKeyPress(e)}
                 />
               </FormControl>
             </div>
@@ -106,12 +114,12 @@ export default function SignUpVerificationPage({ props, location }) {
             </div>
           </Form>
         ) : (
-          <Grid container justify="center">
-            <Grid item xs={12} sm={6}>
-              <LinearProgress color="primary" value={50} variant="indeterminate" />
-            </Grid>
-          </Grid>
-        )}
+           <Grid container justify="center">
+             <Grid item xs={12} sm={6}>
+               <LinearProgress color="primary" value={50} variant="indeterminate"/>
+             </Grid>
+           </Grid>
+         )}
         {state.loading === false ? <ProgressBottom progress="15%"></ProgressBottom> : null}
       </div>
     </div>
