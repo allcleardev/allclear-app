@@ -31,8 +31,9 @@ export default class TypesService {
       });
   }
 
-  async getSymptoms() {
-    return Axios.get(`${this.baseURL}/symptoms`, this.headers)
+  async getSymptoms(shouldSkipHeaders) {
+    const headers = (shouldSkipHeaders) ? {} : this.headers;
+    return Axios.get(`${this.baseURL}/symptoms`, headers)
       .then((response) => {
         return response.data;
       })
