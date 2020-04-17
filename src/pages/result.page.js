@@ -3,7 +3,7 @@ import Axios from 'axios';
 import { Link } from 'react-router-dom';
 
 import RoundHeader from '../components/general/headers/header-round';
-import ProgressBottom from '../components/progressBottom';
+import ProgressBottom from '../components/general/navs/progress-bottom';
 
 import Form from '@material-ui/core/Container';
 import LinearProgress from '@material-ui/core/LinearProgress';

@@ -1,7 +1,7 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
 
-import VerticalLinearStepper from '../components/vertical-stepper';
+import VerticalLinearStepper from '../components/general/steppers/vertical-stepper';
 
 function getSteps() {
   return ['Basic Demographic Information', 'Symptoms', 'Recent Activity'];

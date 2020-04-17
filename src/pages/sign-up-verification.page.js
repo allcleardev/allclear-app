@@ -9,7 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import { Button, Grid } from '@material-ui/core';
 
 import RoundHeader from '../components/general/headers/header-round';
-import ProgressBottom from '../components/progressBottom';
+import ProgressBottom from '../components/general/navs/progress-bottom';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 export default function SignUpVerificationPage({ props, location }) {

@@ -58,7 +58,7 @@ const IOSSwitch = withStyles((theme) => ({
   );
 });
 
-export default function SwitchComponent() {
+export default function Toggle() {
   const [toggleState, setToggleState] = React.useState({
     checkedA: true,
     checkedB: true,

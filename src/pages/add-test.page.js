@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import logo from '../assets/images/Union.png';
-import UnderDevelopment from '../components/UnderDevelopment';
+import UnderDevelopmentBanner from '../components/general/banners/under-development-banner';
 
 class AddTestPage extends React.Component {
   // state = states
@@ -13,7 +13,7 @@ class AddTestPage extends React.Component {
     return (
       <Fragment>
         <div className="diffBGwrapper">
-          <UnderDevelopment />
+          <UnderDevelopmentBanner />
           <div className="divClassBG">
             <div className="WrapCondition">
               <div className="wrapInnerPart">

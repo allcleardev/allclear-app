@@ -3,7 +3,7 @@ import { bindAll } from 'lodash';
 
 import HomescreenHeader from '../components/general/headers/header-homescreen';
 import BottomNav from '../components/general/navs/bottom-nav';
-import GoogleMapsAutocomplete from '../components/inputs/google-maps-autocomplete';
+import GoogleMapsAutocomplete from '../components/general/inputs/google-maps-autocomplete';
 
 import PeopleService from '../services/people.service.js';
 import TypesService from '../services/types.service.js';

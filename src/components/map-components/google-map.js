@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import GoogleMapReact from 'google-map-react';
-import MapMarker from './map-marker.jsx';
+import MapMarker from './map-marker.js';
 import FacilityService from '../../services/facility.service.js';
 import {bindAll, get} from 'lodash';
 import {AppContext} from '../../contexts/app.context';

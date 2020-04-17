@@ -8,7 +8,7 @@ import BottomNav from '../components/general/navs/bottom-nav';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
-import AlertSwitch from '../components/switch';
+import AlertSwitch from '../components/general/buttons/toggle';
 import Axios from 'axios';
 
 

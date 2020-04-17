@@ -4,7 +4,7 @@ import Axios from 'axios';
 import { bindAll } from 'lodash';
 
 import RoundHeader from '../components/general/headers/header-round';
-import ProgressBottom from '../components/progressBottom';
+import ProgressBottom from '../components/general/navs/progress-bottom';
 
 import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';

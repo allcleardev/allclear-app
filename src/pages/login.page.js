@@ -7,7 +7,7 @@ import { Button, Grid } from '@material-ui/core';
 import Axios from 'axios';
 
 import RoundHeader from '../components/general/headers/header-round';
-import PhoneNumber from '../components/phoneNumber';
+import PhoneNumberInput from '../components/general/inputs/phone-number-input';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 export default function PhoneVerify({ props }) {
@@ -75,10 +75,10 @@ export default function PhoneVerify({ props }) {
         {state.loading === false ? (
           <Form noValidate autoComplete="off" className="onboarding-body">
             <div className="content-container">
-              <PhoneNumber
+              <PhoneNumberInput
                 onSubmit={() => verifyLogin()}
                 className="hide-mobile"
-              ></PhoneNumber>
+              ></PhoneNumberInput>
               <Link to="/sign-up" className="hide-mobile login">
                 Create Account
               </Link>

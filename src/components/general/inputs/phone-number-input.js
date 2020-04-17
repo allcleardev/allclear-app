@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Formik, Form } from 'formik';
 
 const styles = {};
-class PhoneNumber extends Component {
+class PhoneNumberInput extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -86,4 +86,4 @@ class PhoneNumber extends Component {
     );
   }
 }
-export default withStyles(styles)(PhoneNumber);
+export default withStyles(styles)(PhoneNumberInput);

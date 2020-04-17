@@ -4,10 +4,10 @@ import Axios from 'axios';
 import * as queryString from 'query-string';
 
 import RoundHeader from '../components/general/headers/header-round';
-import ProgressBottom from '../components/progressBottom';
-import PhoneNumber from '../components/phoneNumber';
+import ProgressBottom from '../components/general/navs/progress-bottom';
+import PhoneNumberInput from '../components/general/inputs/phone-number-input';
 
-import OnboardingNavigation from '@components/onboarding-navigation';
+import OnboardingNavigation from '@general/navs/onboarding-navigation';
 
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -162,7 +162,7 @@ export default class VerifyingPage extends Component {
           {this.state.loading === false ? (
             <Container className="onboarding-body">
               <div className="content-container">
-                <PhoneNumber className="hide-mobile" phoneValidation={this.checkPhoneValidation}></PhoneNumber>
+                <PhoneNumberInput className="hide-mobile" phoneValidation={this.checkPhoneValidation}></PhoneNumberInput>
                 <Link to="/sign-in" className="hide-mobile sign-in">
                   Sign into Existing Account
                 </Link>

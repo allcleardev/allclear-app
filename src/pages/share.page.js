@@ -7,7 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import avatar from '../assets/images/avatar.svg';
 import BottomNav from '../components/general/navs/bottom-nav';
 import UserAvatar from '@material-ui/core/CardMedia';
-import UnderDevelopment from '../components/UnderDevelopment';
+import UnderDevelopmentBanner from '../components/general/banners/under-development-banner';
 
 
 class SharePage extends React.Component {
@@ -18,7 +18,7 @@ class SharePage extends React.Component {
   render() {
     return (
       <Box className="complete-profile">
-        <UnderDevelopment />
+        <UnderDevelopmentBanner />
         <Header>
           <p>Allclear</p>
         </Header>

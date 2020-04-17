@@ -2,7 +2,7 @@ import React from 'react';
 import HomescreenHeader from '../components/general/headers/header-homescreen';
 import CardBlank from '../components/general/cards-unused/user-profile-card';
 import { Link } from 'react-router-dom';
-import SwitchComponent from '../components/switch';
+import Toggle from '../components/general/buttons/toggle';
 
 import Box from '@material-ui/core/Container';
 import { Button, Grid } from '@material-ui/core';
@@ -91,7 +91,7 @@ export default function UpdateTestingCenterCriteriaPage() {
             >
               <h3 className="body-title">Use My Location</h3>
               <div>
-                <SwitchComponent></SwitchComponent>
+                <Toggle></Toggle>
               </div>
             </div>
 

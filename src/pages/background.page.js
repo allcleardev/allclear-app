@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { bindAll } from 'lodash';
 
 import RoundHeader from '../components/general/headers/header-round';
-import ProgressBottom from '../components/progressBottom';
-import GoogleMapsAutocomplete from '../components/inputs/google-maps-autocomplete';
-import OnboardingNavigation from '../components/onboarding-navigation';
+import ProgressBottom from '@general/navs/progress-bottom';
+import GoogleMapsAutocomplete from '../components/general/inputs/google-maps-autocomplete';
+import OnboardingNavigation from '../components/general/navs/onboarding-navigation';
 
 import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
