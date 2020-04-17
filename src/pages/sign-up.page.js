@@ -140,6 +140,11 @@ export default class SignUpPage extends Component {
       });
   }
 
+  // ALLCLEAR-274
+  parseError() {
+    return this.state.error === true ? <p className="error">{JSON.parse(this.state.message).message}</p> : '';
+  };
+
   render() {
     return (
       <div className="background-responsive">
@@ -166,7 +171,7 @@ export default class SignUpPage extends Component {
                 <Link to="/sign-in" className="hide-mobile sign-in">
                   Sign into Existing Account
                 </Link>
-                {this.state.error === true ? <p className="error">{this.state.message}</p> : ''}
+                {this.parseError()}
               </div>
               <div className="review-container">
                 <p>
