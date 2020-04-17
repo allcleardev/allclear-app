@@ -10,7 +10,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { withStyles } from '@material-ui/core/styles';
 
 export default function TestingLocationListItem(props) {
-  const { index, title, description, city_state, service_time, driveThru, phone } = props;
+  const { index, title, description, city_state, service_time, driveThru, phone, website } = props;
 
   const summary = (
     <ExpansionPanelSummary
@@ -32,7 +32,7 @@ export default function TestingLocationListItem(props) {
           <dd className="summary__item summary__item--semibold">{phone}</dd>
         </dl>
 
-        <div className="buttons" style={{ marginTop: '15px' }}>
+        <div className="buttons" style={{ display: 'flex', marginTop: '15px' }}>
           <a
             href={'https://www.google.com/maps/dir/?api=1&destination=' + description}
             rel="noopener noreferrer"
@@ -42,8 +42,14 @@ export default function TestingLocationListItem(props) {
           </a>
 
           <a href={'tel:' + phone} rel="noopener noreferrer" target="_blank">
-            <Button className="btn primary-color primary-outline d-lg-none" style={{ marginLeft: '15px' }}>
+            <Button className="btn primary-color primary-outline" style={{ marginLeft: '10px' }}>
               Call
+            </Button>
+          </a>
+
+          <a href={website} rel="noopener noreferrer" target="_blank">
+            <Button className="btn primary-color primary-outline" style={{ marginLeft: '10px' }}>
+              Website
             </Button>
           </a>
         </div>
@@ -145,7 +151,7 @@ const ExpansionPanel = withStyles({
     },
     '&$expanded': {
       margin: 'auto',
-      boxShadow: '0px 18px 8px 20px rgba(0,0,0,.15)'
+      boxShadow: '0px 18px 8px 20px rgba(0,0,0,.15)',
     },
   },
   expanded: {},
@@ -173,7 +179,7 @@ const ExpansionPanelDetails = withStyles((theme) => ({
     backgroundColor: '#fff',
     paddingTop: 0,
     paddingBottom: 3,
-    boxShadow: 'inset 0px -11px 8px -10px rgba(0,0,0,.15)'
+    boxShadow: 'inset 0px -11px 8px -10px rgba(0,0,0,.15)',
   },
 }))(MuiExpansionPanelDetails);
 

@@ -91,6 +91,8 @@ export default function MapPage() {
   // get modal service so we can toggle it open
   let modalService = ModalService.getInstance();
 
+  console.log('locations', locations);
+
   return (
     <div className="map-page">
       <ClearHeader isOpen={isOpen}></ClearHeader>
@@ -195,6 +197,7 @@ export default function MapPage() {
                     service_time={result.hours}
                     driveThru={result.driveThru}
                     phone={result.phone}
+                    website={result.url}
                     {...result}
                   ></TestingLocationListItem>
                 ))}
