@@ -27,9 +27,6 @@ export default class GoogleMap extends Component {
     ]);
     this.gMap = React.createRef();
     this.facilityService = FacilityService.getInstance();
-    // this.onEventTest = props.onEventTest.bind(this);
-
-    console.log('props', this);
   }
 
   async componentDidMount() {
