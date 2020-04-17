@@ -141,6 +141,11 @@ button {
   box-shadow: none;
   width: 100%;
 
+  &.delete {
+    color: #fff;
+    background-color: $error-color;
+  }
+
   @media (min-width: $md) {
     width: auto;
     min-width: 228px;
