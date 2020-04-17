@@ -1,124 +1,249 @@
-import React, {useContext} from 'react';
-import { Link, useHistory } from 'react-router-dom';
-// import qs from 'qs';
-import Form from '@material-ui/core/Container';
-import { Button, Grid } from '@material-ui/core';
-import FormControl from '@material-ui/core/FormControl';
-import TextField from '@material-ui/core/TextField';
+import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import Axios from 'axios';
-import LinearProgress from '@material-ui/core/LinearProgress';
+import * as queryString from 'query-string';
+
 import RoundHeader from '../components/general/headers/header-round';
-import {AppContext} from '../contexts/app.context';
+import ProgressBottom from '../components/general/navs/progress-bottom';
+import PhoneNumberInput from '../components/general/inputs/phone-number-input';
 
-export default function SignUpPage({ props, location }) {
-  const [state] = React.useState({
-    checkedB: true,
-    loading: false,
-  });
-  const [isError, setValue] = React.useState(false);
-  const { appState, setAppState } = useContext(AppContext);
-  const history = useHistory();
+import OnboardingNavigation from '@general/navs/onboarding-navigation';
 
-  const sanitizePhone = (phone) => {
-    if (phone && typeof phone === 'string') {
-      phone = phone.replace(/ /g, '');
-      phone = phone.replace('(', '');
-      phone = phone.replace(')', '');
-      phone = phone.replace('-', '');
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import {Button, Grid, Container} from '@material-ui/core';
+import Slide from '@material-ui/core/Slide';
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
+
+function SlideTransition(props) {
+  return <Slide {...props} direction="up"/>;
+}
+
+export default class SignUpPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      termsAndConditions: false,
+      alertable: false,
+      phoneVerified: false,
+      loading: false,
+      error: false,
+      isSnackbarOpen: false,
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSnackbarClose = this.handleSnackbarClose.bind(this);
+    this.checkPhoneValidation = this.checkPhoneValidation.bind(this);
+    this.onSendVerificationClicked = this.onSendVerificationClicked.bind(this);
+    this.verifyLogin = this.verifyLogin.bind(this);
+  }
+
+  async componentDidMount() {
+    const queryParams = queryString.parse(this.props.location.search);
+    if (queryParams.logout) {
+      this.setState({
+        isSnackbarOpen: true
+      });
     }
+  }
 
-    return phone;
-  };
+  handleChange(event) {
+    this.setState({
+      ...this.state,
+      [event.target.name]: event.target.checked,
+    });
 
-  // Function to make call backend service to confirm the magic link
-  const verifyPhoneNumber = async () => {
+    // Capture alerts opt-in
+    if (event.target.name === 'alertable') {
+      sessionStorage.setItem('alertable', event.target.checked);
+    }
+  }
+
+  handleSnackbarClose(event) {
+    this.setState({
+      isSnackbarOpen: false
+    });
+  }
+
+  checkPhoneValidation(value) {
+    if (value) {
+      this.setState({phoneVerified: true});
+    } else {
+      this.setState({phoneVerified: false});
+    }
+  }
+
+  async onSendVerificationClicked() {
+    this.setState({loading: true});
     let phone = sessionStorage.getItem('phone');
-    const code = sessionStorage.getItem('code');
 
-    phone = sanitizePhone(phone);
-
-    await Axios.put('/peoples/auth', {
+    if (!phone) {
+      //show error message
+      this.setState({loading: false});
+      return;
+    }
+    Axios.post('/peoples/start', {
       phone,
-      token: code,
     })
       .then((response) => {
-        // todo: remove this session
-        localStorage.setItem('sessid', response.data.id);
-        localStorage.setItem('session', JSON.stringify(response.data));
-
-        if (response.data.person) {
-          // todo: set latlng to appprovider here
-          setAppState({
-            ...appState,
-            sessionId: response.data.id,
-            person:response.data.person
-          });
-        }
-
-        history.push('/map');
+        sessionStorage.setItem('phone', phone);
+        this.props.history.push('/sign-up-verification');
       })
       .catch((error) => {
-        setValue(true);
-        console.log('error', error);
-        // TODO Display Error Message
+        if (error && error.response) {
+          if (
+            error.response.data &&
+            error.response.data.message &&
+            error.response.data.message.includes('already exists')
+          ) {
+            return this.verifyLogin();
+          } else if (error.response.data && error.response.data.message) {
+            this.setState({
+              error: true,
+              message: error.response.data.message,
+              loading: false,
+            });
+          } else {
+            this.setState({
+              error: true,
+              message: 'An error occurred. Please try again later.',
+              loading: false,
+            });
+          }
+        } else {
+          this.setState({loading: false});
+        }
       });
-  };
+  }
 
-  const handleCodeChange = (event) => {
-    setValue(false);
-    sessionStorage.setItem('code', event.target.value);
-  };
+  async verifyLogin() {
+    this.setState({loading: true});
+    const phone = sessionStorage.getItem('phone');
 
-  return (
-    <div className="background-responsive">
-      <div className="verification onboarding-page">
-        <RoundHeader navigate={'/sign-in'}>
-          <h1 className="heading">Sign In</h1>
-          <h2 className="sub-heading">Enter your phone number to be sent a verification code.</h2>
-        </RoundHeader>
+    if (!phone) {
+      //show error message
+      this.setState({loading: false});
+      return;
+    }
+    await Axios.post('/peoples/auth', {
+      phone,
+    })
+      .then((response) => {
+        sessionStorage.setItem('phone', phone);
+        this.props.history.push('/sign-in-verification');
+      })
+      .catch((error) => {
+        //show error message
+        this.setState({loading: false});
+      });
+  }
 
-        {state.loading === false ? (
-          <Form noValidate autoComplete="off" className="onboarding-body">
-            <div className="content-container">
-              <p>We texted a verification code to your phone. Please enter the code to sign in.</p>
+  render() {
+    return (
+      <div className="background-responsive">
+        <Snackbar
+          open={this.state.isSnackbarOpen}
+          TransitionComponent={SlideTransition}
+          autoHideDuration={4000}
+          onClose={this.handleSnackbarClose}
+          className={'snackbar__error'}
+        >
+          <Alert onClose={this.handleSnackbarClose} severity="error">
+            You must be logged in to use this feature.
+          </Alert>
+        </Snackbar>
+        <div className="sign-up onboarding-page">
+          <RoundHeader>
+            <h1 className="heading">COVID-19 Test Alerts</h1>
+            <h2 className="sub-heading">Enter your phone number to receive SMS alerts on tests for you.</h2>
+          </RoundHeader>
+          {this.state.loading === false ? (
+            <Container className="onboarding-body">
+              <div className="content-container">
+                <PhoneNumberInput className="hide-mobile" phoneValidation={this.checkPhoneValidation}></PhoneNumberInput>
+                <Link to="/sign-in" className="hide-mobile sign-in">
+                  Sign into Existing Account
+                </Link>
+                {this.state.error === true ? <p className="error">{this.state.message}</p> : ''}
+              </div>
+              <div className="review-container">
+                <p>
+                  <a href="https://about.allclear.app/terms-of-service/" target="_blank" rel="noopener noreferrer">
+                    {' '}
+                    Terms & Conditions{' '}
+                  </a>{' '}
+                  and
+                  <a href="https://about.allclear.app/privacy-policy-2/" target="_blank" rel="noopener noreferrer">
+                    {' '}
+                    Privacy Policy{' '}
+                  </a>
+                </p>
 
-              <FormControl className="control">
-                <TextField
-                  id="token"
-                  name="token"
-                  className="input code-input"
-                  placeholder="Enter Code"
-                  variant="outlined"
-                  defaultValue=""
-                  autoComplete="one-time-code"
-                  inputProps={{ maxLength: 6, autoComplete: 'one-time-code', inputMode: 'numeric', pattern: '[0-9]*' }}
-                  InputLabelProps={{ shrink: false }}
-                  onChange={handleCodeChange}
-                  style={{}}
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={this.state.termsAndConditions}
+                      onChange={this.handleChange}
+                      name="termsAndConditions"
+                      color="secondary"
+                    />
+                  }
+                  label="I have reviewed and agree to the Terms & Conditions and Privacy Policy."
                 />
-                {isError ? <p className="codeError">You're entered an incorrect code. <br/> Please Try again</p>: ''}
-              </FormControl>
-            </div>
 
-            <div className="button-container">
-              <Link to="/sign-up">
-                <Button variant="contained" className="back">
-                  Restart
-                </Button>
-              </Link>
-              <Button onClick={() => verifyPhoneNumber()} variant="contained" color="primary" className="next">
-                Verify
-              </Button>
-            </div>
-          </Form>
-        ) : (
-          <Grid container justify="center">
-            <Grid item xs={12} sm={6}>
-              <LinearProgress color="primary" value={50} variant="indeterminate" />
-            </Grid>
-          </Grid>
-        )}
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={this.state.alertable}
+                      onChange={this.handleChange}
+                      name="alertable"
+                      color="secondary"
+                    />
+                  }
+                  label="Receive text alerts when eligible test locations become available."
+                />
+              </div>
+              <OnboardingNavigation
+                back={
+                  <Link to="/sign-in" className="hide-desktop sign-in">
+                    Sign into Existing Account
+                  </Link>
+                }
+                forward={
+                  <Button
+                    className="next"
+                    color="primary"
+                    variant="contained"
+                    onClick={() => this.onSendVerificationClicked()}
+                    disabled={this.state.termsAndConditions && this.state.phoneVerified ? false : true}
+                  >
+                    Send Verification Code
+                  </Button>
+                }
+                tooltipMessage={`To proceed, please
+                    ${!this.state.phoneVerified ? 'enter your phone number' : ''}
+                    ${!this.state.termsAndConditions && !this.state.phoneVerified ? 'and' : ''}
+                    ${
+                  !this.state.termsAndConditions
+                  ? 'review and agree to the Terms & Conditions and Privacy Policy'
+                  : ''
+                }
+                  `}
+                triggerTooltip={this.state.termsAndConditions && this.state.phoneVerified ? false : true}
+              ></OnboardingNavigation>
+            </Container>
+          ) : (
+             <Grid container justify="center">
+               <Grid item xs={12} sm={6}>
+                 <LinearProgress color="primary" value={50} variant="indeterminate"/>
+               </Grid>
+             </Grid>
+           )}
+          {this.state.loading === false ? <ProgressBottom progress="0"></ProgressBottom> : null}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }

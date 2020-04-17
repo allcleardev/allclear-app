@@ -10,7 +10,7 @@ import RoundHeader from '../components/general/headers/header-round';
 import PhoneNumberInput from '../components/general/inputs/phone-number-input';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-export default function PhoneVerify({ props }) {
+export default function SignInPage({ props }) {
   const [state, setState] = React.useState({
     loading: false,
   });
