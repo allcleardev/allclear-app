@@ -1,6 +1,6 @@
 import React from 'react';
 import Tooltip from '@material-ui/core/Tooltip';
-import MyLocation from '../svgs/my-location';
+import MyLocationIcon from '@material-ui/icons/MyLocation';
 
 export default class MyLocationBtn extends React.Component {
   constructor(props) {
@@ -36,7 +36,7 @@ export default class MyLocationBtn extends React.Component {
           onMouseLeave={() => this.onHover(false)}
           onClick={() => this.onClick()}
         >
-          <MyLocation color={this.state.isHovered ? 'black' : '#666666'} />
+          <MyLocationIcon style={{ color: this.state.isHovered ? 'black' : '#666666' }} />
         </div>
       </Tooltip>
     );

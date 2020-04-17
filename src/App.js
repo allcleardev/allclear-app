@@ -2,36 +2,36 @@ import React from 'react';
 import {Route, Switch, Router} from 'react-router-dom';
 import {createBrowserHistory} from 'history';
 
-import './styles/app.scss';
+import '@styles/app.scss';
 
 // Abandoned Temporarily
-// import Conditions from './pages/Conditions/Conditions';
-// import Result from './pages/Result/Result';
+// import conditions from '@pages/conditions/conditions';
+// import result from '@pages/result/result';
 
-import AppProvider from './contexts/App.context';
-import AddTest from './pages/Test/Add-test';
-import AuthVerifyCode from './pages/authVerification';
-import Background from './pages/Background/Background';
-import ConfirmedRoute from './routes/confirmed-route';
-import HealthWorkerStatus from './pages/HealthWorkerStatus/HealthWorkerStatus';
-import Launch from './pages/launch';
-import Login from './pages/login';
-import LoginMagicLink from './pages/login-magic-link';
-import MapPage from './pages/map.page';
-import PhoneVerify from './pages/phoneVerify';
-import PhoneVerifying from './pages/phoneVerifying';
-import ProfileEdit from './pages/profileEdit';
-import ProfileView from './pages/profileView';
-import ProtectedRoute from './routes/protected-route';
-import Settings from './pages/Settings/Settings';
-import ShareApp from './pages/Share/Share';
-import SignUpVerification from './pages/signUpVerification';
-import Symptoms from './pages/Symptoms/Symptoms';
-import Trace from './pages/Trace/Trace';
-import UpdateTestingCenterCriteria from './pages/updateTestingCenterCriteria';
-import VerifyMagicLink from './pages/verify-magic-link';
-import NotFound from './pages/not-found';
+import AppProvider from './contexts/app.context';
+import AddTestPage from '@pages/add-test.page';
+import AuthVerifyCode from '@pages/sign-up.page';
+import BackgroundPage from '@pages/background.page';
+import ConfirmedRoute from './routes/confirmed.route';
+import HealthWorkerStatusPage from '@pages/health-worker-status.page';
+import LaunchPage from '@pages/launch.page';
+import Login from '@pages/login.page';
+import LoginMagicLinkPage from '@pages/login-magic-link.page';
+import MapPage from '@pages/map.page';
+import ProfileEditPage from '@pages/profile-edit.page';
+import ProfileViewPage from '@pages/profile-view.page';
+import ProtectedRoute from './routes/protected.route';
+import SettingsPage from '@pages/settings.page';
+import SharePage from '@pages/share.page';
+import SignUpVerificationPage from '@pages/sign-up-verification.page';
+import Symptoms from '@pages/symptoms.page';
+import TracingPage from '@pages/tracing.page';
+import UpdateTestingCenterCriteria from '@pages/update-testing-center-criteria.page';
+import VerifyMagicLinkPage from '@pages/verify-magic-link.page';
+import NotFoundPage from '@pages/not-found.page';
 import {Redirect} from 'react-router';
+import SignUpPage from '@pages/sign-up.page';
+import VerifyingPage from '@pages/verifying.page';
 
 export const history = createBrowserHistory();
 
@@ -43,41 +43,41 @@ export default function App() {
       <AppProvider>
 
         <Switch>
-          <Route exact path="/" component={Launch}/>
+          <Route exact path="/" component={LaunchPage}/>
           {/* Onboarding Pages */}
-          <Route path="/sign-up" component={PhoneVerify}/>
-          <Route path="/sign-up-verification" component={SignUpVerification}/>
-          <Route path="/verifying" component={PhoneVerifying}/>
-          <Route path="/register" component={VerifyMagicLink}/>
-          <Route path="/auth" component={LoginMagicLink}/>
-          <ConfirmedRoute path="/background" component={Background}/>
-          <ConfirmedRoute path="/health-worker" component={HealthWorkerStatus}/>
+          <Route path="/sign-up" component={SignUpPage}/>
+          <Route path="/sign-up-verification" component={SignUpVerificationPage}/>
+          <Route path="/verifying" component={VerifyingPage}/>
+          <Route path="/register" component={VerifyMagicLinkPage}/>
+          <Route path="/auth" component={LoginMagicLinkPage}/>
+          <ConfirmedRoute path="/background" component={BackgroundPage}/>
+          <ConfirmedRoute path="/health-worker" component={HealthWorkerStatusPage}/>
           <ConfirmedRoute path="/symptoms" component={Symptoms}/>
           {/* Login Pages */}
           <Route path="/sign-in" component={Login}/>
           <Route path="/sign-in-verification" component={AuthVerifyCode}/>
-          {/* Profile Pages / Settings */}
-          <ProtectedRoute path="/profile" component={ProfileView}/>
-          <ProtectedRoute path="/profile-edit" component={ProfileEdit}/>
-          <ProtectedRoute path="/add-test" component={AddTest}/>
+          {/* Profile Pages / SettingsPage */}
+          <ProtectedRoute path="/profile" component={ProfileViewPage}/>
+          <ProtectedRoute path="/profile-edit" component={ProfileEditPage}/>
+          <ProtectedRoute path="/add-test" component={AddTestPage}/>
           <ProtectedRoute path="/update-criteria" component={UpdateTestingCenterCriteria}/>
-          <ProtectedRoute path="/share" component={ShareApp}/>
-          <ProtectedRoute path="/settings" component={Settings}/>
-          <ProtectedRoute path="/contact-tracing" component={Trace}/>
+          <ProtectedRoute path="/share" component={SharePage}/>
+          <ProtectedRoute path="/settings" component={SettingsPage}/>
+          <ProtectedRoute path="/contact-tracing" component={TracingPage}/>
 
 
           {/* Map */}
           <Route path="/map" component={MapPage}/>
 
           {/* 404 */}
-          <Route path="/404" component={NotFound}/>
+          <Route path="/404" component={NotFoundPage}/>
           <Route path="*">
             <Redirect to="/404"/>
           </Route>
 
           {/* Abandoned Temporarily*/}
-          {/* <ConfirmedRoute path="/conditions" component={Conditions} /> */}
-          {/* <ConfirmedRoute path="/results" component={Result} /> */}
+          {/* <ConfirmedRoute path="/conditions" component={conditions} /> */}
+          {/* <ConfirmedRoute path="/results" component={result} /> */}
         </Switch>
       </AppProvider>
     </Router>

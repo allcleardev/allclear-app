@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import AnimateHeight from 'react-animate-height';
 import clsx from 'clsx';
-// import PropTypes from 'prop-types';
+import Hammer from 'react-hammerjs';
 import Box from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import { CircularProgress } from '@material-ui/core';
@@ -11,21 +11,19 @@ import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
-import ClearHeader from '../components/headers/header-clear';
-import NavBottom from '../components/navBottom';
-import UpdateCriteriaModal from '../components/modals/modal-update-criteria';
 
-import Hammer from 'react-hammerjs';
-import GoogleMap from '../components/map-components/google-map';
-import TestingLocationListItem from '../components/map-components/testing-location-list-item';
+import BottomNav from '@general/navs/bottom-nav';
+import ClearHeader from '@general/headers/header-clear';
+import UpdateCriteriaModal from '@general/modals/modal-update-criteria';
+import GoogleMap from '@components/map-components/google-map';
+import TestingLocationListItem from '@components/map-components/testing-location-list-item';
 
-import ArrowLeft from '../components/svgs/arrow-left';
-import ArrowRight from '../components/svgs/arrow-right';
-import SettingsSVG from '../components/svgs/svg-settings';
-import { useWindowResize } from '../util/helpers';
-import ModalService from '../services/modal.service';
-// import MapPageContext from '../contexts/MapPage.context';
-import { AppContext } from '../contexts/App.context';
+import ArrowLeft from '@svg/arrow-left';
+import ArrowRight from '@svg/arrow-right';
+import SettingsSVG from '@svg/svg-settings';
+import ModalService from '@services/modal.service';
+import { AppContext } from '@contexts/app.context';
+import { useWindowResize } from '@hooks/general.hooks';
 
 export default function MapPage() {
   // constants
@@ -216,7 +214,7 @@ export default function MapPage() {
             <GoogleMap></GoogleMap>
           </div>
         </main>
-        <NavBottom active={1}></NavBottom>
+        <BottomNav active={1}></BottomNav>
         <UpdateCriteriaModal></UpdateCriteriaModal>
       </Box>
     </div>

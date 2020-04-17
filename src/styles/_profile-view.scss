@@ -1,4 +1,5 @@
 .profile-view {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -6,6 +7,31 @@
 
   @media (min-width: $md) {
     padding-bottom: 30px;
+  }
+
+  .settings-option {
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 20px;
+    color: #fff;
+
+    @media (min-width: $md) {
+      top: -80px;
+      right: 10px;
+    }
+
+    &__icon {
+      font-size: 35px;
+    }
+
+    &__text {
+      font-size: 10px;
+    }
   }
 
   .avatar-edit {
@@ -23,6 +49,7 @@
   }
 
   .cards-container {
+    position: relative;
     margin-top: -10px;
 
     @media (min-width: $md) {
