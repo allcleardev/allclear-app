@@ -85,19 +85,18 @@ export default function UserProfileCard({ avatar, userName, location, health, st
               </Grid>
             </CardContent>
             <div>
-            <Link to="/setting">
-            <IconButton>
-            
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M12 15.2178C13.6569 15.2178 15 13.8746 15 12.2178C15 10.5609 13.6569 9.21777 12
+              <Link to="/setting">
+                <IconButton>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M12 15.2178C13.6569 15.2178 15 13.8746 15 12.2178C15 10.5609 13.6569 9.21777 12
                 9.21777C10.3431 9.21777 9 10.5609 9 12.2178C9 13.8746 10.3431 15.2178 12 15.2178Z"
-                stroke="#929292"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M19.4 15.2178C19.2669 15.5194 19.2272 15.854 19.286 16.1784C19.3448 16.5028 19.4995 16.8021
+                      stroke="#929292"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M19.4 15.2178C19.2669 15.5194 19.2272 15.854 19.286 16.1784C19.3448 16.5028 19.4995 16.8021
                  19.73 17.0378L19.79 17.0978C19.976 17.2835 20.1235 17.5041 20.2241 17.7469C20.3248 17.9897
                   20.3766 18.2499 20.3766 18.5128C20.3766 18.7756 20.3248 19.0359 20.2241 19.2787C20.1235 19.5215
                   19.976 19.742 19.79 19.9278C19.6043 20.1137 19.3837 20.2612 19.1409 20.3619C18.8981 20.4625
@@ -140,14 +139,13 @@ export default function UserProfileCard({ avatar, userName, location, health, st
                         11.1786 23 11.6873 23 12.2178C23 12.7482 22.7893 13.2569 22.4142 13.632C22.0391 14.0071
                         21.5304 14.2178 21 14.2178H20.91C20.5882 14.2191 20.2738 14.3144 20.0055 14.4921C19.7372
                         14.6698 19.5268 14.922 19.4 15.2178Z"
-                stroke="#929292"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </IconButton>
-                </Link>
-             
+                      stroke="#929292"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </IconButton>
+              </Link>
             </div>
           </div>
         </Card>

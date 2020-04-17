@@ -1,12 +1,12 @@
-import {useLayoutEffect, useState} from 'react';
-import {debounce} from 'lodash';
+import { useLayoutEffect, useState } from 'react';
+import { debounce } from 'lodash';
 
 export function useWindowResize(updateFunc) {
   const [size, setSize] = useState([0, 0]);
   useLayoutEffect(() => {
     function updateSize() {
       setSize([window.innerWidth, window.innerHeight]);
-      updateFunc({width: window.innerWidth, height: window.innerHeight});
+      updateFunc({ width: window.innerWidth, height: window.innerHeight });
     }
 
     const debouncedFunc = debounce(updateSize, 400);

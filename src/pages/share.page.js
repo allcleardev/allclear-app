@@ -9,11 +9,8 @@ import BottomNav from '../components/general/navs/bottom-nav';
 import UserAvatar from '@material-ui/core/CardMedia';
 import UnderDevelopmentBanner from '../components/general/banners/under-development-banner';
 
-
 class SharePage extends React.Component {
-
-  componentDidMount = () => {
-  };
+  componentDidMount = () => {};
 
   render() {
     return (
@@ -24,20 +21,18 @@ class SharePage extends React.Component {
         </Header>
         <Grid container spacing={3} style={{ justifyContent: 'center' }}>
           <Grid item xs={12} sm={11}>
-            <Card className="shareProfile"
-              style={{ display: 'flex', justifyContent: 'space-between' }}
-            >
+            <Card className="shareProfile" style={{ display: 'flex', justifyContent: 'space-between' }}>
               <Avatar className="shareImg">
-                <img src={avatar} alt="shareImg" ></img>
+                <img src={avatar} alt="shareImg"></img>
               </Avatar>
               <div
                 style={{
                   display: 'flex',
                   justifyContent: 'space-between',
-                  width: '100%'
+                  width: '100%',
                 }}
               >
-                <CardContent >
+                <CardContent>
                   <p className="shareProfileName">{'ravi'}</p>
                   <Grid container spacing={0}>
                     <Grid item xs={12} sm={4}>
@@ -59,13 +54,7 @@ class SharePage extends React.Component {
                 </CardContent>
                 <div>
                   <IconButton>
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M12 15.2178C13.6569 15.2178 15 13.8746 15 12.2178C15 10.5609 13.6569 9.21777 12
                     9.21777C10.3431 9.21777 9 10.5609 9 12.2178C9 13.8746 10.3431 15.2178 12 15.2178Z"
@@ -133,16 +122,22 @@ class SharePage extends React.Component {
             <div className="profile-body" style={{ display: 'flex', justifyContent: 'center' }}>
               <h2 className="body-title">Your Contacts</h2>
               <Card className="shareCardContent">
-                <CardContent >
-                  <p className="sharecard-description" >
-                    {'Help your friends find tests and share results'}
-                  </p>
+                <CardContent>
+                  <p className="sharecard-description">{'Help your friends find tests and share results'}</p>
                   <Grid container justify="center">
                     <Grid container justify="center">
                       <Grid item xs={12} sm={6}>
-                        <Button className="shareButton" variant="outlined"
+                        <Button
+                          className="shareButton"
+                          variant="outlined"
                           startIcon={
-                            <svg width="25" height="21" viewBox="0 0 25 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg
+                              width="25"
+                              height="21"
+                              viewBox="0 0 25 21"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
                               <path
                                 d="M16.1206 19.7041V17.7041C16.1206 16.6432 15.6992 15.6258 14.949 14.8757C14.1989 14.1255
                         13.1815 13.7041 12.1206 13.7041H5.12061C4.05974 13.7041 3.04232 14.1255 2.29218 14.8757C1.54203
@@ -157,7 +152,8 @@ class SharePage extends React.Component {
                               />
                             </svg>
                           }
-                          color="primary" >
+                          color="primary"
+                        >
                           Invite Friends
                         </Button>
                       </Grid>
@@ -170,11 +166,7 @@ class SharePage extends React.Component {
                 <Grid container justify="space-between">
                   <Grid item xs={2}>
                     <UserAvatar>
-                      <img
-                        className="shareFrndImg"
-                        src={avatar}
-                        alt={'username'}
-                      ></img>
+                      <img className="shareFrndImg" src={avatar} alt={'username'}></img>
                     </UserAvatar>
                   </Grid>
                   <Grid item xs={8}>
@@ -197,11 +189,7 @@ class SharePage extends React.Component {
                 <Grid container justify="space-between">
                   <Grid item xs={2}>
                     <UserAvatar>
-                      <img
-                        className="shareFrndImg"
-                        src={avatar}
-                        alt={'username'}
-                      ></img>
+                      <img className="shareFrndImg" src={avatar} alt={'username'}></img>
                     </UserAvatar>
                   </Grid>
                   <Grid item xs={8}>
@@ -224,11 +212,7 @@ class SharePage extends React.Component {
                 <Grid container justify="space-between">
                   <Grid item xs={2}>
                     <UserAvatar>
-                      <img
-                        className="shareFrndImg"
-                        src={avatar}
-                        alt={'username'}
-                      ></img>
+                      <img className="shareFrndImg" src={avatar} alt={'username'}></img>
                     </UserAvatar>
                   </Grid>
                   <Grid item xs={8}>

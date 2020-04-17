@@ -8,7 +8,7 @@ import OnboardingNavigation from '../components/general/navs/onboarding-navigati
 import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
 import { Button, Chip } from '@material-ui/core';
-import {AppContext} from '../contexts/app.context';
+import { AppContext } from '../contexts/app.context';
 import PeopleService from '../services/people.service';
 
 class SymptomsPage extends Component {
@@ -107,7 +107,7 @@ class SymptomsPage extends Component {
   buildPayload() {
     const { appState } = this.context;
     // todo: set latlng to appprovider here - get
-    const {latitude, longitude} = appState.person;
+    const { latitude, longitude } = appState.person;
     const dob = sessionStorage.getItem('dob');
     const phone = sessionStorage.getItem('phone');
     // todo: none of this should be needed anymore
@@ -194,8 +194,8 @@ class SymptomsPage extends Component {
       sessionId: resp.data.id,
       person: {
         ...appState.person,
-        ...resp.data.person
-      }
+        ...resp.data.person,
+      },
     });
 
     this.props.history.push('/map');

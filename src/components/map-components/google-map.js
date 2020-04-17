@@ -155,7 +155,14 @@ export default class GoogleMap extends Component {
           onZoomAnimationEnd={(evt) => this.onZoomChanged(evt)}
         >
           {locations.map((data, index) => (
-            <MapMarker key={index} index={index} lat={data.latitude} lng={data.longitude} text={index + 1} />
+            <MapMarker
+              key={index}
+              index={index}
+              length={locations.length}
+              lat={data.latitude}
+              lng={data.longitude}
+              text={index + 1}
+            />
           ))}
         </GoogleMapReact>
         <MyLocationBtn aria-label="Go to Profile Location" onClick={() => this.onMyLocationClicked()} />
