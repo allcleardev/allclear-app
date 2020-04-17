@@ -4,6 +4,8 @@ import clsx from 'clsx';
 // import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
+import { CircularProgress } from '@material-ui/core';
+import Badge from '@material-ui/core/Badge';
 import { get } from 'lodash';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -152,20 +154,45 @@ export default function MapPage() {
               </Hammer>
               {/*<GoogleMapInput style={{ marginTop: '50px' }}></GoogleMapInput>*/}
 
-              <Box>
-                <Button
-                  className={'edit-filters-btn'}
-                  variant="contained"
-                  color="primary"
-                  fullWidth
-                  startIcon={SettingsSVG()}
-                  onClick={() => {
-                    modalService.toggleModal('criteria', true);
+              {appState.isListLoading === false && (
+                <Box>
+                  <Badge
+                    badgeContent={''}
+                    overlap={'rectangle'}
+                    style={{ width: '100%' }}
+                    invisible={!appState.map.searchFilterActive}
+                  >
+                    <Button
+                      className={'edit-filters-btn'}
+                      variant="contained"
+                      color="primary"
+                      fullWidth
+                      startIcon={SettingsSVG()}
+                      onClick={() => {
+                        modalService.toggleModal('criteria', true);
+                      }}
+                    >
+                      Edit Search Filters
+                    </Button>
+                  </Badge>
+                </Box>
+              )}
+
+              {appState.isListLoading === true && (
+                <div
+                  style={{
+                    height: 'auto',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                   }}
+                  className="mt-4 mt-md-0 vh100-lg"
                 >
-                  Edit Search Filters
-                </Button>
-              </Box>
+                  <CircularProgress color="primary" size={70} />
+                  <p className="mt-3">Loading Results</p>
+                </div>
+              )}
 
               {locations &&
                 locations.map((result, index) => (
@@ -182,7 +209,7 @@ export default function MapPage() {
                   ></TestingLocationListItem>
                 ))}
 
-              {locations.length === 0 && (
+              {locations.length === 0 && appState.isListLoading === false && (
                 <h2 style={{ display: 'flex', justifyContent: 'center' }}>No Results Found </h2>
               )}
             </div>
@@ -248,6 +275,13 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 0,
   },
 }));
+
+// .MuiBadge-anchorOriginTopRightCircle {
+//     top: 35%;
+//     right: 2%;
+//     transform: scale(1) translate(50%, -50%);
+//     transform-origin: 100% 0%;
+// }
 
 // todo: might still be useful at some point just not now
 // function TabPanel(props) {

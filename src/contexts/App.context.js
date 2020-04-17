@@ -17,7 +17,9 @@ export const INITIAL_APP_STATE = {
   person: {},
   map: {
     locations: [],
-    expandedItems: []
+    expandedItems: [],
+    isListLoading: true,
+    searchFilterActive: false
   },
   searchCriteria
   // searchCriteria: {
