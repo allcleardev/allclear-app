@@ -61,5 +61,17 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "_moduleAliases": {
+    "@root": "./",
+    "@components": "./src/components",
+    "@general": "./src/components/general",
+    "@svg": "./src/components/svg",
+    "@pages": "./src/pages",
+    "@contexts":  "./src/contexts",
+    "@services": "./src/services",
+    "@styles":  "./src/styles",
+    "@util":  "./src/util",
+    "@hooks": "./src/hooks"
   }
 }
