@@ -56,6 +56,13 @@ export default function SignUpVerificationPage({ props, location }) {
       });
   };
 
+  const onKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      verifyPhoneNumber();
+      e.preventDefault();
+    }
+  };
+
   //eslint-disable-next-line
   const [value, setValue] = React.useState('');
 
@@ -90,6 +97,7 @@ export default function SignUpVerificationPage({ props, location }) {
                   InputLabelProps={{ shrink: false }}
                   onChange={handleCodeChange}
                   style={{}}
+                  onKeyPress={(e) => onKeyPress(e)}
                 />
               </FormControl>
             </div>
