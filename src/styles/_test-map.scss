@@ -9,6 +9,19 @@
     }
 
   }
+
+  .MuiBadge-badge {
+    background-color: #ED1C23;
+  }
+
+  .MuiBadge-anchorOriginTopRightRectangle {
+    right: 2%;
+    top: 12%;
+
+    @media (min-width: $md + 1 ) {
+      top: 35%;
+    }
+  }
 }
 
 .nav-left-location {

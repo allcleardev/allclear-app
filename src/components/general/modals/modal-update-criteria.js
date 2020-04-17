@@ -88,8 +88,11 @@ function UpdateCriteria({onClose, onSubmit}) {
   const [formValues, setFormValues] = React.useState(appState.searchCriteria);
   const formItems = _generateFormItems();
 
-  //eslint-disable-next-line
   const facilityService = FacilityService.getInstance();
+
+  const currFormValues = Object.values(formValues);
+  const searchFilterActive = (currFormValues.includes(true) || currFormValues.includes(false));
+
 
   function _onSelectChanged(evt){
 
@@ -122,9 +125,10 @@ function UpdateCriteria({onClose, onSubmit}) {
       map: {
         ...appState.map,
         locations: result.data.records || [],
+        searchFilterActive,
       },
       searchCriteria: formValues,
-      isListLoading: false
+      isListLoading: false,
     });
 
     // call parent submit function
