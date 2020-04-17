@@ -15,7 +15,14 @@ const fs = require('fs');
 const date = new Date();
 const fullDate = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
 const time = date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
-const baseURL = (process.env.GIT_BRANCH === 'master') ? 'https://api.allclear.app' : 'https://api-dev.allclear.app';
+
+if (process.env.GIT_BRANCH === 'master') {
+  const baseURL = 'https://api.allclear.app';
+} else if (process.env.GIT_BRANCH === 'staging') {
+  const baseURL = 'https://api-staging.allclear.app';
+} else {
+  const baseURL = 'https://api-dev.allclear.app';
+}
 
 // read env file
 const envfile = require('envfile');
