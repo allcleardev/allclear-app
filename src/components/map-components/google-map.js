@@ -133,6 +133,7 @@ export default class GoogleMap extends Component {
             <MapMarker
               key={index}
               index={index}
+              length={locations.length}
               lat={data.latitude}
               lng={data.longitude}
               text={index + 1}

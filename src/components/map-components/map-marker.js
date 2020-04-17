@@ -6,14 +6,18 @@ export default function MapMarker(props) {
   return (
     <div
       onClick={(e, i) => {
+
         // todo: dont touch dom lol, do this with refs (much harder)
         const elemToOpen = document.querySelectorAll('.MuiExpansionPanel-root')[index];
         const isCurrentlyExpanded = [].slice.call(elemToOpen.classList).includes('Mui-expanded');
         if (!isCurrentlyExpanded) elemToOpen.children[0].click();
-        const isLastElement = index === length - 1;
+        const isLastElement = (index === length - 1);
         if (isLastElement) {
+
           // wait for expansion panel animation to end before scrolling
-          setTimeout(() => elemToOpen.scrollIntoView({ behavior: 'smooth' }), 300);
+          setTimeout(() => {
+            elemToOpen.scrollIntoView({behavior: "smooth", block: "end"});
+            }, 300);
         } else elemToOpen.scrollIntoView({ behavior: 'smooth' });
 
         // todo: instead of touching dom, utilize previously set state and ref markers to accomplish this?
