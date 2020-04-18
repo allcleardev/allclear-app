@@ -35,10 +35,8 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: $md - 1) {
   .not-found-page {
-    // padding-top: 50px;
-
     h1 {
       font-size: 30px;
     }
