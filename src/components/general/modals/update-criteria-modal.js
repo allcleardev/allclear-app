@@ -129,7 +129,11 @@ function UpdateCriteria({ onClose, onSubmit }) {
   }
 
   async function _onSubmitClicked() {
-    const { latitude, longitude } = appState.person;
+    let {latitude, longitude} = appState.person;
+
+    // default to last submitted search
+    latitude = (latitude) ? latitude : appState.map.latitude;
+    longitude = (longitude) ? longitude : appState.map.longitude;
 
     // call API
     const result = await facilityService.search({
@@ -151,7 +155,7 @@ function UpdateCriteria({ onClose, onSubmit }) {
       },
       searchCriteria: formValues,
       isListLoading: false,
-      modalSubmitCount: appState.modalSubmitCount+1
+      modalSubmitCount: appState.modalSubmitCount + 1
     });
 
     // call parent submit function

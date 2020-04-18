@@ -24,6 +24,8 @@ export const INITIAL_APP_STATE = {
     expandedItems: [],
     isListLoading: true,
     searchFilterActive: false,
+    latitude:undefined,
+    longitude:undefined
   },
   searchCriteria,
   profile: {
