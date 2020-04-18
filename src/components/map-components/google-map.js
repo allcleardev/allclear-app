@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import MapMarker from './map-marker.js';
+import MyLocationBtn from './my-location-btn';
 import FacilityService from '../../services/facility.service.js';
 import { bindAll, get } from 'lodash';
 import { AppContext } from '../../contexts/app.context';
@@ -15,12 +16,14 @@ export default class GoogleMap extends Component {
       'componentDidMount',
       'onMarkerDragEnd',
       'onMarkerZoomChanged',
-      '_setLocations',
-      '_onLocationDeclined',
-      '_onLocationAccepted',
-      '_panTo',
       'onZoomChanged',
+      'onMyLocationClicked',
+      '_panTo',
+      '_setLocations',
+      '_onLocationAccepted',
+      '_onLocationDeclined',
       '_createSearchPayload',
+      '_search',
     ]);
     this.gMap = React.createRef();
     this.facilityService = FacilityService.getInstance();
@@ -38,22 +41,38 @@ export default class GoogleMap extends Component {
     latitude && longitude && this._panTo(latitude, longitude);
   }
 
+  /******************************************************************
+   * MAP INTERACTION EVENT HANDLERS
+   ******************************************************************/
+
   async onMarkerDragEnd(evt) {
     const latitude = evt.center.lat();
     const longitude = evt.center.lng();
-
-    const result = await this.facilityService.search(this._createSearchPayload({ latitude, longitude }));
-
-    this._setLocations(result.data.records, { latitude, longitude });
+    this._search(latitude, longitude);
   }
 
   async onMarkerZoomChanged(evt) {
     const latitude = evt.center.lat();
     const longitude = evt.center.lng();
-    const result = await this.facilityService.search(this._createSearchPayload({ latitude, longitude }));
-
-    this._setLocations(result.data.records, { latitude, longitude });
+    this._search(latitude, longitude);
   }
+
+  onZoomChanged(miles) {
+    // todo: major work here bro
+    // https://stackoverflow.com/questions/52411378/google-maps-api-calculate-zoom-based-of-miles
+  }
+
+  onMyLocationClicked() {
+    const { appState } = this.context;
+    const latitude = get(appState, 'person.latitude');
+    const longitude = get(appState, 'person.longitude');
+    this._panTo(latitude, longitude);
+    this._search(latitude, longitude);
+  }
+
+  /******************************************************************
+   * MAP INTERACTION EVENT ACTIONS
+   ******************************************************************/
 
   _panTo(latitude, longitude) {
     //eslint-disable-next-line
@@ -95,10 +114,9 @@ export default class GoogleMap extends Component {
     console.warn('User declined to use browser location');
   }
 
-  onZoomChanged(miles) {
-    // todo: major work here bro
-    // https://stackoverflow.com/questions/52411378/google-maps-api-calculate-zoom-based-of-miles
-  }
+  /******************************************************************
+   * SEARCH
+   ******************************************************************/
 
   _createSearchPayload({ latitude, longitude, shouldIgnoreFilters = false }) {
     const { appState } = this.context;
@@ -111,6 +129,14 @@ export default class GoogleMap extends Component {
         miles: 100,
       },
     };
+  }
+
+  async _search(latitude, longitude) {
+    const result = await this.facilityService.search(this._createSearchPayload({ latitude, longitude }));
+    this._setLocations(result.data.records, {
+      latitude,
+      longitude,
+    });
   }
 
   render() {
@@ -139,6 +165,7 @@ export default class GoogleMap extends Component {
             />
           ))}
         </GoogleMapReact>
+        <MyLocationBtn aria-label="Go to Profile Location" onClick={() => this.onMyLocationClicked()} />
       </div>
     );
   }
