@@ -22,7 +22,7 @@ export default class TypesService {
   }
 
   async getHealthWorkerStatuses() {
-    return Axios.get(`${this.baseURL}/healthWorkerStatuses`, this.headers)
+    return Axios.get(`${this.baseURL}/healthWorkerStatuses`)
       .then((response) => {
         return response.data;
       })
@@ -31,8 +31,19 @@ export default class TypesService {
       });
   }
 
-  async getSymptoms() {
-    return Axios.get(`${this.baseURL}/symptoms`, this.headers)
+  async getExposures() {
+    return Axios.get(`${this.baseURL}/exposures`)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        return error;
+      });
+  }
+
+  async getSymptoms(shouldSkipHeaders) {
+    const headers = (shouldSkipHeaders) ? {} : this.headers;
+    return Axios.get(`${this.baseURL}/symptoms`, headers)
       .then((response) => {
         return response.data;
       })

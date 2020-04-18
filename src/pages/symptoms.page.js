@@ -1,15 +1,16 @@
-import React, { Component } from 'react';
-import { bindAll } from 'lodash';
-import Axios from 'axios';
-import RoundHeader from '../components/general/headers/header-round';
-import ProgressBottom from '../components/general/navs/progress-bottom';
-import OnboardingNavigation from '../components/general/navs/onboarding-navigation';
-
+import React, {Component} from 'react';
+import {bindAll} from 'lodash';
 import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
-import { Button, Chip } from '@material-ui/core';
-import { AppContext } from '../contexts/app.context';
-import PeopleService from '../services/people.service';
+import {Button, Chip} from '@material-ui/core';
+
+import RoundHeader from '@general/headers/header-round';
+import ProgressBottom from '@general/navs/progress-bottom';
+import OnboardingNavigation from '@general/navs/onboarding-navigation';
+import {AppContext} from '@contexts/app.context';
+import PeopleService from '@services/people.service';
+import TypesService from '@services/types.service';
+
 
 class SymptomsPage extends Component {
   state = {
@@ -31,6 +32,7 @@ class SymptomsPage extends Component {
       'submitResults',
     ]);
     this.peopleService = PeopleService.getInstance();
+    this.typesService = TypesService.getInstance();
   }
 
   componentDidMount() {
@@ -41,22 +43,31 @@ class SymptomsPage extends Component {
     this.props.history.push(route);
   }
 
-  getSymptoms() {
-    this.setState({ loading: true });
-
-    Axios.get('/types/symptoms', {})
-      .then((response) => {
-        this.setState({ symptoms: response.data });
-        this.setState({ loading: false });
-      })
+  async getSymptoms() {
+    this.setState({loading: true});
+    const {appState, setAppState} = this.context;
+    const symptoms = await this.typesService.getSymptoms(true)
       .catch((error) => {
-        console.log(error);
-        this.setState({ loading: false });
+        this.setState({loading: false});
       });
+    this.setState({symptoms});
+    this.setState({loading: false});
+
+    // save to global state for later usage
+    setAppState({
+      ...appState,
+      profile: {
+        ...appState.profile,
+        options: {
+          ...appState.profile.options,
+          symptoms
+        }
+      }
+    });
   }
 
   handleChange(event) {
-    let { symptoms } = this.state;
+    let {symptoms} = this.state;
     // If "none" is selected, deselect the other chips
     if (event.id === 'no') {
       this.deselectAll();
@@ -74,13 +85,13 @@ class SymptomsPage extends Component {
       });
     }
 
-    this.setState({ symptoms });
+    this.setState({symptoms});
     this.checkForSelection();
     sessionStorage.setItem('symptoms', JSON.stringify(symptoms));
   }
 
   deselectAll() {
-    let { symptoms } = this.state;
+    let {symptoms} = this.state;
     symptoms.map((symptom) => {
       if (symptom.id !== 'no') {
         symptom.isActive = false;
@@ -89,7 +100,7 @@ class SymptomsPage extends Component {
       }
       return true;
     });
-    this.setState({ symptoms });
+    this.setState({symptoms});
     sessionStorage.setItem('symptoms', JSON.stringify(symptoms));
   }
 
@@ -101,18 +112,14 @@ class SymptomsPage extends Component {
       }
       return true;
     });
-    this.setState({ isSelected });
+    this.setState({isSelected});
   }
 
   buildPayload() {
-    const { appState } = this.context;
-    // todo: set latlng to appprovider here - get
-    const { latitude, longitude } = appState.person;
+    const {appState} = this.context;
+    const {latitude, longitude} = appState.person;
     const dob = sessionStorage.getItem('dob');
     const phone = sessionStorage.getItem('phone');
-    // todo: none of this should be needed anymore
-    // const lat = sessionStorage.getItem('lat');
-    // const lng = sessionStorage.getItem('lng');
     const locationName = sessionStorage.getItem('locationName');
     const healthWorkerStatus = sessionStorage.getItem('healthWorkerStatus');
     const alertable = sessionStorage.getItem('alertable');
@@ -184,8 +191,8 @@ class SymptomsPage extends Component {
   }
 
   async submitResults() {
-    this.setState({ loading: true });
-    const { appState, setAppState } = this.context;
+    this.setState({loading: true});
+    const {appState, setAppState} = this.context;
 
     const payload = this.buildPayload();
     const resp = await this.peopleService.register(payload);
@@ -216,17 +223,17 @@ class SymptomsPage extends Component {
               </label>
               <div className="chips-group">
                 {this.state.symptoms &&
-                  this.state.symptoms.map((res) => {
-                    return (
-                      <Chip
-                        key={res.id}
-                        className={'chip' + (res.isActive ? ' Active' : '')}
-                        label={res.name}
-                        variant="outlined"
-                        onClick={() => this.handleChange(res)}
-                      ></Chip>
-                    );
-                  })}
+                this.state.symptoms.map((res) => {
+                  return (
+                    <Chip
+                      key={res.id}
+                      className={'chip' + (res.isActive ? ' Active' : '')}
+                      label={res.name}
+                      variant="outlined"
+                      onClick={() => this.handleChange(res)}
+                    ></Chip>
+                  );
+                })}
               </div>
             </Box>
             <OnboardingNavigation
@@ -260,4 +267,5 @@ class SymptomsPage extends Component {
     );
   }
 }
+
 export default SymptomsPage;

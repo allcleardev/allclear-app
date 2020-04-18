@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { forEach, get } from 'lodash';
-import { CRITERIA_FORM_DATA } from '../components/general/modals/modal-update-criteria.constants';
+import React, {useEffect, useState} from 'react';
+import {forEach, get} from 'lodash';
+import {CRITERIA_FORM_DATA} from '@general/modals/update-criteria-modal.constants';
+import TypesService from '@services/types.service';
 
 // Set Up The Initial Context
 export const AppContext = React.createContext();
@@ -9,7 +10,9 @@ export const AppConsumer = AppContext.Consumer;
 
 let searchCriteria = {};
 forEach(CRITERIA_FORM_DATA, (e, i) => {
-  searchCriteria[e.key] = e.options[0].value;
+  if(e.options){
+    searchCriteria[e.key] = e.options[0].value;
+  }
 });
 
 export const INITIAL_APP_STATE = {
@@ -22,6 +25,14 @@ export const INITIAL_APP_STATE = {
     searchFilterActive: false,
   },
   searchCriteria,
+  profile: {
+    options: {
+      healthWorkerStatus: undefined,
+      symptoms: undefined,
+      exposures: undefined,
+    }
+  }
+
   // searchCriteria: {
   //   // driveThru: 'Any',
   //   // appointmentRequired: 'Any',
@@ -42,6 +53,41 @@ initialAppState = get(possSavedState, 'sessionId') ? possSavedState : initialApp
 
 export function AppProvider(props) {
   const [appState, setAppState] = useState(initialAppState);
+  const typesService = TypesService.getInstance();
+
+  async function _populateFormOptions() {
+    let {exposures, healthWorkerStatus, symptoms} = appState.profile.options;
+
+    // only make the ajax calls if the options dont already exist in app state
+    exposures = (exposures) ? exposures : await typesService.getExposures();
+    healthWorkerStatus = (healthWorkerStatus) ? healthWorkerStatus : await typesService.getHealthWorkerStatuses();
+    symptoms = (symptoms) ? symptoms : await typesService.getSymptoms(true);
+
+    return {
+      exposures,
+      healthWorkerStatus,
+      symptoms
+    };
+  }
+
+
+  useEffect(() => {
+    (async () => {
+      const formOptions = await _populateFormOptions();
+      setAppState({
+        ...appState,
+        profile: {
+          ...appState.profile,
+          options: {
+            ...appState.profile.options,
+            ...formOptions
+          }
+        }
+      });
+    })
+    ();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // save it for later
   localStorage.setItem('appState', JSON.stringify(appState));

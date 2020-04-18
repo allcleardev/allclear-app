@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import { bindAll } from 'lodash';
-import Axios from 'axios';
-
-import RoundHeader from '../components/general/headers/header-round';
-import ProgressBottom from '../components/general/navs/progress-bottom';
-import OnboardingNavigation from '../components/general/navs/onboarding-navigation';
-
 import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
 import { Button, Chip } from '@material-ui/core';
 
+import RoundHeader from '@general/headers/header-round';
+import ProgressBottom from '@general/navs/progress-bottom';
+import OnboardingNavigation from '@general/navs/onboarding-navigation';
+import TypesService from '@services/types.service';
+import {AppContext} from '@contexts/app.context';
+
 class HealthWorkerStatusPage extends Component {
+  static contextType = AppContext;
   state = {
     conditionObj: {},
     conditions: [],
@@ -18,6 +19,7 @@ class HealthWorkerStatusPage extends Component {
 
   constructor() {
     super();
+    this.typesService = TypesService.getInstance();
     bindAll(this, ['componentDidMount', 'routeChange', 'getHealthWorkerStatuses', 'handleChange', 'render']);
   }
 
@@ -29,19 +31,28 @@ class HealthWorkerStatusPage extends Component {
     this.props.history.push(route);
   }
 
-  getHealthWorkerStatuses() {
-    this.setState({ loading: true });
-
-    Axios.get('/types/healthWorkerStatuses', {})
-      .then((response) => {
-        this.setState({ healthWorkerStatus: response.data });
-        this.setState({ loading: false });
-      })
+  async getHealthWorkerStatuses() {
+    const {appState, setAppState} = this.context;
+    const healthWorkerStatus = await this.typesService.getHealthWorkerStatuses()
       .catch((error) => {
-        console.log(error);
-        this.setState({ loading: false });
+        this.setState({loading: false});
       });
+    this.setState({ healthWorkerStatus });
+
+    // save to global state for later usage
+    setAppState({
+      ...appState,
+      profile:{
+        ...appState.profile,
+        options:{
+          ...appState.profile.options,
+          healthWorkerStatus
+        }
+      }
+    });
+    this.setState({ loading: false });
   }
+
 
   handleChange(event) {
     const { healthWorkerStatus } = this.state;

@@ -23,7 +23,14 @@ export default class PeopleService {
   }
 
   getById(id) {
-    return Axios.get(`${this.baseURL}/${id}`, this.headers);
+    return Axios({
+      method: 'GET',
+      url: `${this.baseURL}/${id}`,
+      headers: {
+        ...this.headers.headers
+      },
+    });
+    // return Axios.get(`${this.baseURL}/${id}`, this.headers);
   }
 
   logout() {
