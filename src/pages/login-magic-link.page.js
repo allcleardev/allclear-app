@@ -1,9 +1,6 @@
 import React, {useContext} from 'react';
 import qs from 'qs';
-import { useHistory } from 'react-router-dom';
-
 import Box from '@material-ui/core/Container';
-import Axios from 'axios';
 
 import RoundHeader from '../components/general/headers/header-round';
 import LinearProgress from '@material-ui/core/LinearProgress';

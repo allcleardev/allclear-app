@@ -1,19 +1,16 @@
 import React, {useContext} from 'react';
-import {Link, useHistory} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {useCookies} from 'react-cookie';
-
-import Axios from 'axios';
 import Form from '@material-ui/core/Container';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import {Button, Grid} from '@material-ui/core';
 
-import RoundHeader from '../components/general/headers/header-round';
-import ProgressBottom from '../components/general/navs/progress-bottom';
+import RoundHeader from '@general/headers/header-round';
+import ProgressBottom from '@general/navs/progress-bottom';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 import PeopleService from '@services/people.service';
-
 import {AppContext} from '@contexts/app.context';
 
 export default function SignUpVerificationPage({props, location}) {
@@ -29,7 +26,7 @@ export default function SignUpVerificationPage({props, location}) {
   //eslint-disable-next-line
   const [cookies, setCookie] = useCookies(['cookie-name']);
 
-  const history = useHistory();
+  // const history = useHistory();
 
   const sanitizePhone = (phone) => {
     if (phone && typeof phone === 'string') {

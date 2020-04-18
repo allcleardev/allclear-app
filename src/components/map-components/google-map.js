@@ -121,8 +121,18 @@ export default class GoogleMap extends Component {
    ******************************************************************/
 
   _createSearchPayload({ latitude, longitude, shouldIgnoreFilters = false }) {
-    const { appState } = this.context;
+    const { appState, setAppState } = this.context;
     const searchCriteria = shouldIgnoreFilters ? {} : appState.searchCriteria;
+
+    setAppState({
+      ...appState,
+      map: {
+        ...appState.map,
+        latitude,
+        longitude
+      }
+    });
+
     return {
       ...searchCriteria,
       from: {
