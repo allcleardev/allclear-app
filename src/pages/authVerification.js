@@ -73,15 +73,15 @@ export default function PhoneVerify({ props, location }) {
     <div className="background-responsive">
       <div className="verification onboarding-page">
         <RoundHeader navigate={'/sign-in'}>
-          <h1 className="heading">Sign In</h1>
-          <h2 className="sub-heading">Enter your phone number to be sent a verification code.</h2>
+          <h1 className="heading">Verification Code</h1>
+          <h2 className="sub-heading">
+            We texted a verification code to your phone. Please enter the code to continue.
+          </h2>
         </RoundHeader>
 
         {state.loading === false ? (
           <Form noValidate autoComplete="off" className="onboarding-body">
             <div className="content-container">
-              <p>We texted a verification code to your phone. Please enter the code to sign in.</p>
-
               <FormControl className="control">
                 <TextField
                   id="token"
@@ -96,12 +96,18 @@ export default function PhoneVerify({ props, location }) {
                   onChange={handleCodeChange}
                   style={{}}
                 />
-                {isError ? <p className="codeError">You're entered an incorrect code. <br/> Please Try again</p>: ''}
+                {isError ? (
+                  <p className="codeError">
+                    You're entered an incorrect code. <br /> Please Try again
+                  </p>
+                ) : (
+                  ''
+                )}
               </FormControl>
             </div>
 
             <div className="button-container">
-              <Link to="/sign-up">
+              <Link to="/sign-in">
                 <Button variant="contained" className="back">
                   Restart
                 </Button>

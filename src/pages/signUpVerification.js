@@ -49,7 +49,7 @@ export default function PhoneVerify({ props, location }) {
       .then((response) => {
         localStorage.setItem('sessid', response.data.id);
         localStorage.setItem('session', JSON.stringify(response.data));
-        history.push('/map');
+        history.push('/success');
       })
       .catch((error) => {
         console.log('error', error);
@@ -70,14 +70,14 @@ export default function PhoneVerify({ props, location }) {
       <div className="verification onboarding-page">
         <RoundHeader navigate={'/sign-up'}>
           <h1 className="heading">Phone Number</h1>
-          <h2 className="sub-heading">Enter your phone number to get started.</h2>
+          <h2 className="sub-heading">
+            We texted a verification code to your phone. Please enter the code to continue.
+          </h2>
         </RoundHeader>
 
         {state.loading === false ? (
           <Form noValidate autoComplete="off" className="onboarding-body">
             <div className="content-container">
-              <p>We texted a verification code to your phone. Please enter the code to continue.</p>
-
               <FormControl className="control">
                 <TextField
                   id="token"
