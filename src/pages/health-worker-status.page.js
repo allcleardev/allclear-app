@@ -39,6 +39,7 @@ class HealthWorkerStatusPage extends Component {
       });
     this.setState({ healthWorkerStatus });
 
+    console.log('appState', appState);
     // save to global state for later usage
     setAppState({
       ...appState,
@@ -128,7 +129,7 @@ class HealthWorkerStatusPage extends Component {
               triggerTooltip={!this.state.isSelected}
             ></OnboardingNavigation>
           </Form>
-          <ProgressBottom progress="50%"></ProgressBottom>
+          <ProgressBottom progress="25%"></ProgressBottom>
         </div>
       </div>
     );

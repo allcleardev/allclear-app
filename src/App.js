@@ -12,7 +12,7 @@ import AppProvider from './contexts/app.context';
 import AddTestPage from '@pages/add-test.page';
 import SignInVerificationPage from '@pages/sign-in-verification.page';
 import BackgroundPage from '@pages/background.page';
-import ConfirmedRoute from './routes/confirmed.route';
+import GetStartedPage from '@pages/get-started.page';
 import HealthWorkerStatusPage from '@pages/health-worker-status.page';
 import LaunchPage from '@pages/launch.page';
 import SignInPage from '@pages/sign-in.page';
@@ -46,15 +46,16 @@ export default function App() {
           <Route exact path="/" component={LaunchPage}/>
 
           {/* Onboarding Pages */}
+          <Route path="/get-started" component={GetStartedPage}/>
           <Route path="/sign-up" component={SignUpPage}/>
           <Route path="/sign-up-verification" component={SignUpVerificationPage}/>
 
           <Route path="/register" component={VerifyMagicLinkPage}/>
           <Route path="/auth" component={LoginMagicLinkPage}/>
 
-          <ConfirmedRoute path="/background" component={BackgroundPage}/>
-          <ConfirmedRoute path="/health-worker" component={HealthWorkerStatusPage}/>
-          <ConfirmedRoute path="/symptoms" component={Symptoms}/>
+          <Route path="/background" component={BackgroundPage}/>
+          <Route path="/health-worker" component={HealthWorkerStatusPage}/>
+          <Route path="/symptoms" component={Symptoms}/>
 
           {/* Login Pages */}
           <Route path="/sign-in" component={SignInPage}/>

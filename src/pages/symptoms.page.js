@@ -27,11 +27,8 @@ class SymptomsPage extends Component {
       'getSymptoms',
       'handleChange',
       'deselectAll',
-      'checkForSelection',
-      'buildPayload',
-      'submitResults',
+      'checkForSelection'
     ]);
-    this.peopleService = PeopleService.getInstance();
     this.typesService = TypesService.getInstance();
   }
 
@@ -115,99 +112,6 @@ class SymptomsPage extends Component {
     this.setState({isSelected});
   }
 
-  buildPayload() {
-    const {appState} = this.context;
-    const {latitude, longitude} = appState.person;
-    const dob = sessionStorage.getItem('dob');
-    const phone = sessionStorage.getItem('phone');
-    const locationName = sessionStorage.getItem('locationName');
-    const healthWorkerStatus = sessionStorage.getItem('healthWorkerStatus');
-    const alertable = sessionStorage.getItem('alertable');
-
-    // Format conditions
-    let conditions = sessionStorage.getItem('conditions');
-    const conditionsArray = [];
-    if (conditions) {
-      if (typeof conditions === 'string') {
-        conditions = JSON.parse(conditions);
-      }
-      conditions.forEach((condition) => {
-        if (condition.isActive) {
-          conditionsArray.push({
-            id: condition.id,
-            name: condition.name,
-          });
-        }
-      });
-    }
-
-    // Format Exposures
-    let exposures = sessionStorage.getItem('exposures');
-    const exposuresArray = [];
-    if (exposures) {
-      if (typeof exposures === 'string') {
-        exposures = JSON.parse(exposures);
-      }
-      exposures.forEach((exposure) => {
-        if (exposure.isActive) {
-          exposuresArray.push({
-            id: exposure.id,
-            name: exposure.name,
-          });
-        }
-      });
-    }
-
-    // Format symptoms
-    let symptoms = sessionStorage.getItem('symptoms');
-    const symptomsArray = [];
-    if (symptoms) {
-      if (typeof symptoms === 'string') {
-        symptoms = JSON.parse(symptoms);
-      }
-      symptoms.forEach((symptom) => {
-        if (symptom.isActive) {
-          symptomsArray.push({
-            id: symptom.id,
-            name: symptom.name,
-          });
-        }
-      });
-    }
-
-    const payload = {
-      dob,
-      alertable,
-      locationName,
-      name: phone,
-      latitude,
-      longitude,
-      conditions: conditionsArray,
-      exposures: exposuresArray,
-      symptoms: symptomsArray,
-      healthWorkerStatusId: JSON.parse(healthWorkerStatus).id,
-    };
-    return payload;
-  }
-
-  async submitResults() {
-    this.setState({loading: true});
-    const {appState, setAppState} = this.context;
-
-    const payload = this.buildPayload();
-    const resp = await this.peopleService.register(payload);
-    setAppState({
-      ...appState,
-      sessionId: resp.data.id,
-      person: {
-        ...appState.person,
-        ...resp.data.person,
-      },
-    });
-
-    this.props.history.push('/map');
-  }
-
   render() {
     return (
       <div className="background-responsive">
@@ -251,7 +155,7 @@ class SymptomsPage extends Component {
                   variant="contained"
                   color="primary"
                   className="next"
-                  onClick={this.submitResults}
+                  onClick={() => this.routeChange('/sign-up')}
                   disabled={!this.state.isSelected}
                 >
                   Finish
