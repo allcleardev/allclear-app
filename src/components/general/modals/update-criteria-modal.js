@@ -138,6 +138,7 @@ function UpdateCriteria({ onClose, onSubmit }) {
 
       // account for options that come from an endpoint
       options = (options) ? options : appState.profile.options[key];
+      options = options || [];
 
       return (
         <div key={i} className="sub-card">

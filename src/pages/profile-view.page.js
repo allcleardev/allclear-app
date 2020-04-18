@@ -48,6 +48,7 @@ export default class ProfileViewPage extends Component {
     localStorage.removeItem('confirm_sessid');
     localStorage.removeItem('sessid');
     localStorage.removeItem('appState');
+    localStorage.removeItem('session');
     const { setAppState } = this.context;
     setAppState(INITIAL_APP_STATE);
     return this.props.history.push('/sign-up');

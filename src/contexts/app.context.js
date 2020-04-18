@@ -32,16 +32,10 @@ export const INITIAL_APP_STATE = {
       symptoms: undefined,
       exposures: undefined,
     }
-  }
+  },
 
-  // searchCriteria: {
-  //   // driveThru: 'Any',
-  //   // appointmentRequired: 'Any',
-  //   // symptoms: ['none'],
-  //   // exposure: 'Select Exposure',
-  //   // conditions: ['none'],
-  //   // healthWorkerStatus: ['none'],
-  // }
+  // this is to re-trigger a render on modal (
+  forceRefresh: false,
 };
 
 // Context state
@@ -109,10 +103,28 @@ export function AppProvider(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // forEach(appState.profile.options, (e, i) => {
-  //
-  // });
+  useEffect(() => {
 
+    // // // check one last time for profile values to pre-select (used for first map refresh on login)
+    let dynamicSearchCriteria = {};
+    forEach(appState.profile.options, (e, i) => {
+      // if user has saved this part of the profile, use that
+      const savedProfileOption = appState.person[i];
+      if (savedProfileOption) {
+        dynamicSearchCriteria[i] = savedProfileOption.id;
+      }
+    });
+    let finalAppState = {
+      ...appState,
+      searchCriteria: {
+        ...appState.searchCriteria,
+        ...dynamicSearchCriteria
+      },
+    };
+
+    setAppState(finalAppState);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [appState.forceRefresh]);
 
   // save it for later
   localStorage.setItem('appState', JSON.stringify(appState));

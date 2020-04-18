@@ -39,7 +39,7 @@ export default function MapPage() {
   const classes = useStyles();
 
   // state & global state
-  const { appState } = useContext(AppContext);
+  const { setAppState, appState } = useContext(AppContext);
   const [width, height] = useWindowResize(onWindowResize);
   const initialState = {
     isOpen: true,
@@ -159,6 +159,11 @@ export default function MapPage() {
                       fullWidth
                       startIcon={SettingsSVG()}
                       onClick={() => {
+                        // app context needs one more refresh before its ready to populate modal
+                        setAppState({
+                          ...appState,
+                          forceRefresh: !appState.forceRefresh
+                        });
                         modalService.toggleModal('criteria', true);
                       }}
                     >
