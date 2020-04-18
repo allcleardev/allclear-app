@@ -43,7 +43,7 @@ export default function TestingLocationListItem(props) {
 
           {phone && (
             <a href={'tel:' + phone} rel="noopener noreferrer" target="_blank">
-              <Button className="btn primary-color primary-outline" style={{ marginLeft: '10px' }}>
+              <Button className="btn primary-color primary-outline d-lg-none" style={{ marginLeft: '10px' }}>
                 Call
               </Button>
             </a>
