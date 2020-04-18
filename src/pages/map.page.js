@@ -195,6 +195,7 @@ export default function MapPage() {
                     service_time={result.hours}
                     driveThru={result.driveThru}
                     phone={result.phone}
+                    website={result.url}
                     {...result}
                   ></TestingLocationListItem>
                 ))}
