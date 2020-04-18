@@ -84,12 +84,11 @@ export function AppProvider(props) {
 
         // if user has saved this part of the profile, use that
         const savedProfileOption = appState.person[i];
-        if(savedProfileOption){
-          console.log('found a saved one', savedProfileOption)
+        if (savedProfileOption) {
           dynamicSearchCriteria[i] = savedProfileOption.id;
         }
 
-      })
+      });
 
       setAppState({
         ...appState,

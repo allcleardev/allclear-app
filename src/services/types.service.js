@@ -46,7 +46,7 @@ export default class TypesService {
             name: 'Select Exposure'
           },
           ...response.data
-        ]
+        ];
 
       })
       .catch((error) => {
