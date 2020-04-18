@@ -5,6 +5,7 @@ import MyLocationBtn from './my-location-btn';
 import FacilityService from '../../services/facility.service.js';
 import { bindAll, get } from 'lodash';
 import { AppContext } from '../../contexts/app.context';
+import MyLocationMapMarker from './my-location-map-marker.js';
 
 export default class GoogleMap extends Component {
   static contextType = AppContext;
@@ -33,6 +34,7 @@ export default class GoogleMap extends Component {
     const { appState } = this.context;
     const latitude = get(appState, 'person.latitude');
     const longitude = get(appState, 'person.longitude');
+
     const result = await this.facilityService.search(this._createSearchPayload({ latitude, longitude }));
     if (navigator && navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(this._onLocationAccepted, this._onLocationDeclined);
@@ -141,6 +143,9 @@ export default class GoogleMap extends Component {
 
   render() {
     const locations = get(this, 'context.appState.map.locations') || [];
+    const homeLat = get(this, 'context.appState.person.latitude');
+    const homeLng = get(this, 'context.appState.person.longitude');
+    const homeIndex = locations.length;
 
     return (
       <div style={{ height: '100%', width: '100%' }}>
@@ -164,6 +169,7 @@ export default class GoogleMap extends Component {
               text={index + 1}
             />
           ))}
+          <MyLocationMapMarker key={homeIndex} lat={homeLat} lng={homeLng} />
         </GoogleMapReact>
         <MyLocationBtn aria-label="Go to Profile Location" onClick={() => this.onMyLocationClicked()} />
       </div>
