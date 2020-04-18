@@ -59,6 +59,9 @@ export default function MapPage() {
   function checkFilterActive() {
     const currFormValues = Object.values(appState.searchCriteria).filter(Boolean);
     // if any selections have anything but 'any' selected, search is active
+    // console.log('filterss', currFormValues);
+    // console.log(appState.searchCriteria)
+
     const searchFilterActive = !currFormValues.every((e) => e === 'Any');
 
     setAppState({
@@ -69,8 +72,12 @@ export default function MapPage() {
       }
     });
 
+    // console.log('zzz', searchFilterActive);
+
     // hide badge when filters are inactive
-    badgeRef.current.children[1].hidden = !searchFilterActive;
+    if(get(badgeRef,'current.children[1]')) {
+      badgeRef.current.children[1].hidden = !searchFilterActive;
+    }
 
   }
 

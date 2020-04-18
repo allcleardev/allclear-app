@@ -12,7 +12,7 @@ export const AppConsumer = AppContext.Consumer;
 let searchCriteria = {};
 forEach(CRITERIA_FORM_DATA, (e, i) => {
   if(e.options){
-    searchCriteria[e.key] = e.options[0].id;
+    searchCriteria[e.key] = get(e,'options[0].id');
   }
 });
 
@@ -59,7 +59,8 @@ export function AppProvider(props) {
     // only make the ajax calls if the options dont already exist in app state
     exposures = (exposures) ? exposures : await typesService.getExposures();
     healthWorkerStatus = (healthWorkerStatus) ? healthWorkerStatus : await typesService.getHealthWorkerStatuses();
-    symptoms = (symptoms) ? symptoms : await typesService.getSymptoms(true);
+    // todo: put this back when symptoms comes into modal
+    // symptoms = (symptoms) ? symptoms : await typesService.getSymptoms(true);
 
     return {
       exposures,
@@ -76,7 +77,7 @@ export function AppProvider(props) {
       let defaultSelections = {};
       forEach(formOptions, (e, i) => {
         // if selection exists from last filter, use it. else choose the first option
-        defaultSelections[i] = (appState.searchCriteria[i]) ? appState.searchCriteria[i] : e[0].id;
+        defaultSelections[i] = (appState.searchCriteria[i]) ? appState.searchCriteria[i] : get(e,'[0].id');
       });
 
       setAppState({
