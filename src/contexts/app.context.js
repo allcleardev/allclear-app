@@ -79,19 +79,16 @@ export function AppProvider(props) {
       let dynamicSearchCriteria = {};
       forEach(formOptions, (e, i) => {
 
-        // dynamicSearchCriteria[i] = (cond1) ? true : false;
-        dynamicSearchCriteria[i] = e[0].id;
-
+        // if selection exists from last filter, use it. else choose the first option
+        dynamicSearchCriteria[i] = (appState.searchCriteria[i]) ? appState.searchCriteria[i] : e[0].id;
       })
-      // debugger;
-
 
       setAppState({
         ...appState,
-        // searchCriteria: {
-        //   ...searchCriteria,
-        //   ...dynamicSearchCriteria
-        // },
+        searchCriteria: {
+          ...appState.searchCriteria,
+          ...dynamicSearchCriteria
+        },
         profile: {
           ...appState.profile,
           options: {
