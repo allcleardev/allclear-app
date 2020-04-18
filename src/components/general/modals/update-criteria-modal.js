@@ -88,11 +88,6 @@ function UpdateCriteria({ onClose, onSubmit }) {
 
   const facilityService = FacilityService.getInstance();
 
-  const currFormValues = Object.values(formValues);
-
-  // todo: fix thsi for the dynamic ones
-  const searchFilterActive = currFormValues.includes(true) || currFormValues.includes(false);
-
   function _onSelectChanged(evt) {
     const currKey = evt.currentTarget.dataset.key;
     const currValue = evt.target.value;
@@ -122,10 +117,10 @@ function UpdateCriteria({ onClose, onSubmit }) {
       map: {
         ...appState.map,
         locations: result.data.records || [],
-        searchFilterActive,
       },
       searchCriteria: formValues,
       isListLoading: false,
+      forceRefresh: !appState.forceRefresh
     });
 
     // call parent submit function
