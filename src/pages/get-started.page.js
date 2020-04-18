@@ -8,6 +8,13 @@ import Header from '../components/general/headers/header';
 import { Button } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import * as queryString from 'query-string';
+import Alert from '@material-ui/lab/Alert';
+import Snackbar from '@material-ui/core/Snackbar';
+import Slide from '@material-ui/core/Slide';
+
+function SlideTransition(props) {
+  return <Slide {...props} direction="up"/>;
+}
 
 export default class GetStartedPage extends Component {
   static contextType = AppContext;
@@ -15,11 +22,18 @@ export default class GetStartedPage extends Component {
 
   constructor() {
     super();
-    bindAll(this, []);
+    this.state = {
+      isSnackbarOpen: false,
+    };
     this.navItems = [
       { route: 'about.allclear.app', name: 'About Us', absolutePath: true },
       { route: 'about.allclear.app', name: 'Help', absolutePath: true },
     ];
+
+    bindAll(this, [
+      'routeChange',
+      'handleSnackbarClose',
+    ]);
   }
 
   componentDidMount() {
@@ -36,9 +50,27 @@ export default class GetStartedPage extends Component {
     this.props.history.push(route);
   }
 
+  handleSnackbarClose() {
+    this.setState({
+      isSnackbarOpen: false
+    });
+  }
+
+
   render() {
     return (
       <div className="get-started-page">
+        <Snackbar
+          open={this.state.isSnackbarOpen}
+          TransitionComponent={SlideTransition}
+          autoHideDuration={4000}
+          onClose={this.handleSnackbarClose}
+          className={'snackbar__error'}
+        >
+          <Alert onClose={this.handleSnackbarClose} severity="error">
+            You must be logged in to use this feature.
+          </Alert>
+        </Snackbar>
         <Header navItems={this.navItems}></Header>
         <Container className="content" maxWidth="md">
           <img src={Logo} alt="Logo" className="logo" />

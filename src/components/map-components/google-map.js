@@ -4,7 +4,7 @@ import MapMarker from './map-marker.js';
 import MyLocationBtn from './my-location-btn';
 import FacilityService from '../../services/facility.service.js';
 import { bindAll, get } from 'lodash';
-import { AppContext } from '../../contexts/app.context';
+import { AppContext } from '@contexts/app.context';
 import MyLocationMapMarker from './my-location-map-marker.js';
 
 export default class GoogleMap extends Component {
@@ -121,8 +121,18 @@ export default class GoogleMap extends Component {
    ******************************************************************/
 
   _createSearchPayload({ latitude, longitude, shouldIgnoreFilters = false }) {
-    const { appState } = this.context;
+    const { appState, setAppState } = this.context;
     const searchCriteria = shouldIgnoreFilters ? {} : appState.searchCriteria;
+
+    setAppState({
+      ...appState,
+      map: {
+        ...appState.map,
+        latitude,
+        longitude
+      }
+    });
+
     return {
       ...searchCriteria,
       from: {

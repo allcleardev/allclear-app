@@ -8,17 +8,16 @@ import { Button, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import Checkbox from '@material-ui/core/Checkbox';
+
 import Select from '@material-ui/core/Select';
 import SettingsSVG from '@svg/svg-settings';
 import { CRITERIA_FORM_DATA } from './update-criteria-modal.constants';
-import { AppContext } from '../../../contexts/app.context';
-import ModalService from '../../../services/modal.service';
-import FacilityService from '../../../services/facility.service';
+import { AppContext } from '@contexts/app.context';
+import ModalService from '@services/modal.service';
+import FacilityService from '@services/facility.service';
 
 export default function UpdateCriteriaModal() {
-  // "DEPENDENCY INJECTION Section"
+
   // todo: this will probably have to move into App.js because it will be needed by all different parts of the app
   const modalService = ModalService.getInstance();
   modalService.registerModal('criteria', toggleModal);
@@ -32,6 +31,21 @@ export default function UpdateCriteriaModal() {
       setScroll(scrollType);
     }
   }
+
+  // todo: this
+  // const { setAppState, appState } = useContext(AppContext);
+  // function _onResetClicked(){
+  //   let searchCriteria = {};
+  //   forEach(appState.searchCriteria, (e, i) => {
+  //     searchCriteria[i] = 'Any';
+  //   });
+  //
+  //   setAppState({
+  //     ...appState,
+  //     searchCriteria,
+  //     forceRefresh: true
+  //   })
+  // }
 
   return (
     <>
@@ -55,6 +69,14 @@ export default function UpdateCriteriaModal() {
       >
         <DialogTitle id="scroll-dialog-title">Update Search Criteria</DialogTitle>
         <DialogContent dividers={scroll === 'paper'}>
+
+          {/*<Button*/}
+          {/*  onClick={_onResetClicked}*/}
+          {/*  className="btn-big bg-primary color-white fontsize-16"*/}
+          {/*>*/}
+          {/*  Reset Search Criteria*/}
+          {/*</Button>*/}
+
           <UpdateCriteria
             onClose={() => {
               toggleModal(false);
@@ -89,9 +111,6 @@ function UpdateCriteria({ onClose, onSubmit }) {
 
   const facilityService = FacilityService.getInstance();
 
-  const currFormValues = Object.values(formValues);
-  const searchFilterActive = currFormValues.includes(true) || currFormValues.includes(false);
-
   function _onSelectChanged(evt) {
     const currKey = evt.currentTarget.dataset.key;
     const currValue = evt.target.value;
@@ -103,7 +122,11 @@ function UpdateCriteria({ onClose, onSubmit }) {
   }
 
   async function _onSubmitClicked() {
-    const { latitude, longitude } = appState.person;
+    let {latitude, longitude} = appState.person;
+
+    // default to last submitted search
+    latitude = (latitude) ? latitude : appState.map.latitude;
+    longitude = (longitude) ? longitude : appState.map.longitude;
 
     // call API
     const result = await facilityService.search({
@@ -121,10 +144,11 @@ function UpdateCriteria({ onClose, onSubmit }) {
       map: {
         ...appState.map,
         locations: result.data.records || [],
-        searchFilterActive,
       },
       searchCriteria: formValues,
       isListLoading: false,
+      modalSubmitCount: appState.modalSubmitCount + 1,
+      forceRefresh: !appState.forceRefresh
     });
 
     // call parent submit function
@@ -135,18 +159,9 @@ function UpdateCriteria({ onClose, onSubmit }) {
     return CRITERIA_FORM_DATA.map((formItem, i) => {
       let {title, options, key, inputType} = formItem;
 
-      // options from BE need to be remapped
-      if(!options){
-        const savedOptions = appState.profile.options;
-        // debugger;
-        options = savedOptions[key].map((e) => {
-          return {
-            value: e.id,
-            text: e.name,
-          };
-        });
-
-      }
+      // account for options that come from an endpoint
+      options = (options) ? options : appState.profile.options[key];
+      options = options || [];
 
       return (
         <div key={i} className="sub-card">
@@ -173,10 +188,10 @@ function UpdateCriteria({ onClose, onSubmit }) {
             onChange={_onSelectChanged}
           >
             {options.map((optionItem, i2) => {
-              const {value, text} = optionItem;
+              const {id, name} = optionItem;
               return (
-                <MenuItem key={i2} value={value} name={text} data-name={text} data-key={key}>
-                  {text}
+                <MenuItem key={i2} value={id} name={name} data-name={name} data-key={key}>
+                  {name}
                 </MenuItem>
               );
             })}

@@ -25,7 +25,6 @@ export default function VerifyMagicLinkPage({ props, location }) {
       code: searchParams.code,
     })
       .then((response) => {
-        console.log('response', response);
         localStorage.setItem('sessid', response.data.id);
         localStorage.setItem('session', response.data);
         sessionStorage.setItem('phone', searchParams.phone);

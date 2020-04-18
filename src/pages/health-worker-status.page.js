@@ -39,7 +39,6 @@ class HealthWorkerStatusPage extends Component {
       });
     this.setState({ healthWorkerStatus });
 
-    console.log('appState', appState);
     // save to global state for later usage
     setAppState({
       ...appState,
@@ -70,6 +69,8 @@ class HealthWorkerStatusPage extends Component {
     });
     this.setState({ healthWorkerStatus });
     this.setState({ isSelected: event.isActive });
+
+    // todo: put this in proper app state place
     sessionStorage.setItem('healthWorkerStatus', JSON.stringify(selectedStatus));
   }
 

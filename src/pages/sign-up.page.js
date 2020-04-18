@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import * as queryString from 'query-string';
 
-import RoundHeader from '../components/general/headers/header-round';
-import ProgressBottom from '../components/general/navs/progress-bottom';
-import PhoneNumberInput from '../components/general/inputs/phone-number-input';
+import RoundHeader from '@general/headers/header-round';
+import ProgressBottom from '@general/navs/progress-bottom';
+import PhoneNumberInput from '@general/inputs/phone-number-input';
 
 import OnboardingNavigation from '@general/navs/onboarding-navigation';
 
@@ -17,6 +17,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 
 import PeopleService from '@services/people.service';
+import {bindAll} from 'lodash';
 
 function SlideTransition(props) {
   return <Slide {...props} direction="up"/>;
@@ -36,11 +37,14 @@ export default class SignUpPage extends Component {
 
     this.peopleService = PeopleService.getInstance();
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSnackbarClose = this.handleSnackbarClose.bind(this);
-    this.checkPhoneValidation = this.checkPhoneValidation.bind(this);
-    this.onSendVerificationClicked = this.onSendVerificationClicked.bind(this);
-    this.verifyLogin = this.verifyLogin.bind(this);
+    bindAll(this, [
+      'handleChange',
+      'handleSnackbarClose',
+      'checkPhoneValidation',
+      'onSendVerificationClicked',
+      'verifyLogin',
+    ]);
+
   }
 
   async componentDidMount() {
@@ -83,12 +87,13 @@ export default class SignUpPage extends Component {
   }
 
   buildPayload() {
+
+    // todo: do this the right way (appcontext, remove all sessionstorage usage)
     // const { appState } = this.context;
-    // todo: set latlng to appprovider here - get
     // const {latitude, longitude} = appState.person;
+
     const dob = sessionStorage.getItem('dob');
     const phone = sessionStorage.getItem('phone');
-    // todo: none of this should be needed anymore
     const latitude = sessionStorage.getItem('lat');
     const longitude = sessionStorage.getItem('lng');
     const locationName = sessionStorage.getItem('locationName');
