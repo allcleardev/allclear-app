@@ -70,25 +70,17 @@ export function AppProvider(props) {
     (async () => {
       const formOptions = await _populateFormOptions();
 
-      let dynamicSearchCriteria = {};
+      let defaultSelections = {};
       forEach(formOptions, (e, i) => {
-
         // if selection exists from last filter, use it. else choose the first option
-        dynamicSearchCriteria[i] = (appState.searchCriteria[i]) ? appState.searchCriteria[i] : e[0].id;
-
-        // if user has saved this part of the profile, use that
-        const savedProfileOption = appState.person[i];
-        if (savedProfileOption) {
-          dynamicSearchCriteria[i] = savedProfileOption.id;
-        }
-
+        defaultSelections[i] = (appState.searchCriteria[i]) ? appState.searchCriteria[i] : e[0].id;
       });
 
       setAppState({
         ...appState,
         searchCriteria: {
           ...appState.searchCriteria,
-          ...dynamicSearchCriteria
+          ...defaultSelections
         },
         profile: {
           ...appState.profile,
@@ -103,6 +95,7 @@ export function AppProvider(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // check user profile for saved option values before modal actually opens
   useEffect(() => {
 
     // // // check one last time for profile values to pre-select (used for first map refresh on login)
