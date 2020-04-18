@@ -8,10 +8,11 @@ export const AppContext = React.createContext();
 // Create an exportable consumer that can be injected into components
 export const AppConsumer = AppContext.Consumer;
 
+// set default selections for non-dynamic criteria modal options
 let searchCriteria = {};
 forEach(CRITERIA_FORM_DATA, (e, i) => {
   if(e.options){
-    searchCriteria[e.key] = e.options[0].value;
+    searchCriteria[e.key] = e.options[0].id;
   }
 });
 
@@ -70,12 +71,27 @@ export function AppProvider(props) {
     };
   }
 
-
+  // grab dynamic form options, set them to searchCriteria for modal usage
   useEffect(() => {
     (async () => {
       const formOptions = await _populateFormOptions();
+
+      let dynamicSearchCriteria = {};
+      forEach(formOptions, (e, i) => {
+
+        // dynamicSearchCriteria[i] = (cond1) ? true : false;
+        dynamicSearchCriteria[i] = e[0].id;
+
+      })
+      // debugger;
+
+
       setAppState({
         ...appState,
+        // searchCriteria: {
+        //   ...searchCriteria,
+        //   ...dynamicSearchCriteria
+        // },
         profile: {
           ...appState.profile,
           options: {

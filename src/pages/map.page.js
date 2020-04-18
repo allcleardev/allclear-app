@@ -9,7 +9,6 @@ import Badge from '@material-ui/core/Badge';
 import { get } from 'lodash';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
-import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 
 import BottomNav from '@general/navs/bottom-nav';
@@ -18,8 +17,9 @@ import UpdateCriteriaModal from '@general/modals/update-criteria-modal';
 import GoogleMap from '@components/map-components/google-map';
 import TestingLocationListItem from '@components/map-components/testing-location-list-item';
 
-import ArrowLeft from '@svg/arrow-left';
-import ArrowRight from '@svg/arrow-right';
+// import IconButton from '@material-ui/core/IconButton';
+// import ArrowLeft from '@svg/arrow-left';
+// import ArrowRight from '@svg/arrow-right';
 import SettingsSVG from '@svg/svg-settings';
 import ModalService from '@services/modal.service';
 import { AppContext } from '@contexts/app.context';
@@ -79,12 +79,12 @@ export default function MapPage() {
     }
   }
 
-  function onDrawerToggle(isOpen) {
-    setMapState({
-      ...mapState,
-      isOpen,
-    });
-  }
+  // function onDrawerToggle(isOpen) {
+  //   setMapState({
+  //     ...mapState,
+  //     isOpen,
+  //   });
+  // }
 
   const { isOpen, anchor } = mapState;
 

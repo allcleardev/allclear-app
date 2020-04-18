@@ -8,14 +8,13 @@ import { Button, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import Checkbox from '@material-ui/core/Checkbox';
+
 import Select from '@material-ui/core/Select';
 import SettingsSVG from '@svg/svg-settings';
 import { CRITERIA_FORM_DATA } from './update-criteria-modal.constants';
-import { AppContext } from '../../../contexts/app.context';
-import ModalService from '../../../services/modal.service';
-import FacilityService from '../../../services/facility.service';
+import { AppContext } from '@contexts/app.context';
+import ModalService from '@services/modal.service';
+import FacilityService from '@services/facility.service';
 
 export default function UpdateCriteriaModal() {
   // "DEPENDENCY INJECTION Section"
@@ -90,6 +89,8 @@ function UpdateCriteria({ onClose, onSubmit }) {
   const facilityService = FacilityService.getInstance();
 
   const currFormValues = Object.values(formValues);
+
+  // todo: fix thsi for the dynamic ones
   const searchFilterActive = currFormValues.includes(true) || currFormValues.includes(false);
 
   function _onSelectChanged(evt) {
@@ -135,18 +136,8 @@ function UpdateCriteria({ onClose, onSubmit }) {
     return CRITERIA_FORM_DATA.map((formItem, i) => {
       let {title, options, key, inputType} = formItem;
 
-      // options from BE need to be remapped
-      if(!options){
-        const savedOptions = appState.profile.options;
-        // debugger;
-        options = savedOptions[key].map((e) => {
-          return {
-            value: e.id,
-            text: e.name,
-          };
-        });
-
-      }
+      // account for options that come from an endpoint
+      options = (options) ? options : appState.profile.options[key];
 
       return (
         <div key={i} className="sub-card">
@@ -173,10 +164,10 @@ function UpdateCriteria({ onClose, onSubmit }) {
             onChange={_onSelectChanged}
           >
             {options.map((optionItem, i2) => {
-              const {value, text} = optionItem;
+              const {id, name} = optionItem;
               return (
-                <MenuItem key={i2} value={value} name={text} data-name={text} data-key={key}>
-                  {text}
+                <MenuItem key={i2} value={id} name={name} data-name={name} data-key={key}>
+                  {name}
                 </MenuItem>
               );
             })}
