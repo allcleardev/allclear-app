@@ -143,7 +143,7 @@ export default class GoogleMap extends Component {
               text={index + 1}
             />
           ))}
-          <MyLocationMapMarker key={homeIndex} lat={homeLat} lng={homeLng} text={''} />
+          <MyLocationMapMarker key={homeIndex} lat={homeLat} lng={homeLng} />
         </GoogleMapReact>
       </div>
     );
