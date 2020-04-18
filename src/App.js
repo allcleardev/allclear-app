@@ -17,6 +17,7 @@ import HealthWorkerStatus from './pages/HealthWorkerStatus/HealthWorkerStatus';
 import Launch from './pages/launch';
 import Login from './pages/login';
 import LoginMagicLink from './pages/login-magic-link';
+import AccountCreated from './pages/account-created';
 import MapPage from './pages/map.page';
 import NotFound from './pages/not-found';
 import PhoneVerify from './pages/phoneVerify';
@@ -52,6 +53,7 @@ export default function App() {
           <Route path="/background" component={Background} />
           <Route path="/health-worker" component={HealthWorkerStatus} />
           <Route path="/symptoms" component={Symptoms} />
+          <Route path="/success" component={AccountCreated} />
           {/* Login Pages */}
           <Route path="/sign-in" component={Login} />
           <Route path="/sign-in-verification" component={AuthVerifyCode} />
