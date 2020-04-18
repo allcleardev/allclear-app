@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { forEach, get } from 'lodash';
 import { CRITERIA_FORM_DATA } from '@general/modals/update-criteria-modal.constants';
+import TypesService from '@services/types.service';
 
 // Set Up The Initial Context
 export const AppContext = React.createContext();
@@ -50,6 +51,39 @@ initialAppState = get(possSavedState, 'sessionId') ? possSavedState : initialApp
 
 export function AppProvider(props) {
   const [appState, setAppState] = useState(initialAppState);
+  const typesService = TypesService.getInstance();
+
+  async function _populateFormOptions() {
+    let {exposures, healthWorkerStatus, symptoms} = appState.profile.options;
+
+    // only make the ajax calls if the options dont already exist in app state
+    exposures = (exposures) ? exposures : await typesService.getExposures();
+    healthWorkerStatus = (healthWorkerStatus) ? healthWorkerStatus : await typesService.getHealthWorkerStatuses();
+    symptoms = (symptoms) ? symptoms : await typesService.getSymptoms();
+
+    return {
+      exposures,
+      healthWorkerStatus,
+      symptoms
+    };
+  }
+
+
+  useEffect(() => {
+    (async () => {
+      const formOptions = await _populateFormOptions();
+      setAppState({
+        ...appState,
+        profile: {
+          ...appState.profile,
+          options: {
+            ...appState.profile.options,
+            ...formOptions
+          }
+        }
+      })
+    })();
+  }, []);
 
   // save it for later
   localStorage.setItem('appState', JSON.stringify(appState));
