@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { bindAll } from 'lodash';
 
-import { AppContext } from '../contexts/App.context';
+import { AppContext } from '../contexts/app.context';
 import Success from '../assets/images/success-check.svg';
-import Header from '../components/headers/header';
-import OnboardingNavigation from '../components/onboarding-navigation';
+import Header from '../components/general/headers/header';
+import OnboardingNavigation from '../components/general/navs/onboarding-navigation';
 
 import { Button } from '@material-ui/core';
 import Container from '@material-ui/core/Container';

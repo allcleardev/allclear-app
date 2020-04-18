@@ -69,8 +69,8 @@ export default function SignInPage({ props }) {
     <div className="background-responsive">
       <div className="login onboarding-page">
         <RoundHeader>
-          <h1 className="heading">Sign In</h1>
-          <h2 className="sub-heading">Enter your phone number to be sent a verification code.</h2>
+          <h1 className="heading">Phone Number</h1>
+          <h2 className="sub-heading">Enter your phone number to access your account.</h2>
         </RoundHeader>
         {state.loading === false ? (
           <Form noValidate autoComplete="off" className="onboarding-body">

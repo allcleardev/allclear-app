@@ -10,7 +10,7 @@ import '@styles/app.scss';
 
 import AppProvider from './contexts/app.context';
 
-import AccountCreated from '@pages/account-created';
+import AccountCreated from '@pages/account-created.page';
 import AddTestPage from '@pages/add-test.page';
 import SignInVerificationPage from '@pages/sign-in-verification.page';
 import BackgroundPage from '@pages/background.page';
