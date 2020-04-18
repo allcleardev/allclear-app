@@ -104,14 +104,14 @@ export default function MapPage() {
           }
           style={{ zIndex: '2' }}
         >
-          <IconButton
+          {/* <IconButton
             disableRipple
             aria-label="open drawer"
             onClick={isOpen === false ? () => onDrawerToggle(true) : () => onDrawerToggle(false)}
             className={clsx(classes.menuButton, isOpen)}
           >
             {isOpen === true ? <ArrowLeft /> : <ArrowRight />}
-          </IconButton>
+          </IconButton> */}
         </AppBar>
         <Drawer
           className={classes.drawer + ' nav-left-location'}
