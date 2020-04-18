@@ -147,7 +147,7 @@ function UpdateCriteria({ onClose, onSubmit }) {
       },
       searchCriteria: formValues,
       isListLoading: false,
-      modalSubmitCount: appState.modalSubmitCount + 1
+      modalSubmitCount: appState.modalSubmitCount + 1,
       forceRefresh: !appState.forceRefresh
     });
 
