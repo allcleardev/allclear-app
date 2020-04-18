@@ -1,7 +1,7 @@
 import Axios from 'axios';
+import { forEach } from 'lodash';
 
 export default class FacilityService {
-
   static serviceInstance = null;
 
   constructor() {
@@ -16,7 +16,16 @@ export default class FacilityService {
     return this.serviceInstance;
   }
 
-  search(body){
+  search(body) {
+    // cleanup filters before sending
+    forEach(body, (value, key) => {
+      // remove filter from both places
+      if (value === 'Any') {
+        // delete appState.searchCriteria[key];
+        delete body[key];
+      }
+    });
+
     return Axios({
       method: 'POST',
       url: `${this.baseURL}/search`,
@@ -24,5 +33,4 @@ export default class FacilityService {
       data: body,
     });
   }
-
 }

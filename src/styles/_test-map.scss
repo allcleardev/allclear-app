@@ -4,10 +4,22 @@
   .edit-filters-btn {
     margin: 20px 0px 20px 0px;
 
-    @media (max-width: $md ) {
-      margin: 0px 0px 20px 0px
+    @media (max-width: $md) {
+      margin: 0px 0px 20px 0px;
     }
+  }
 
+  .MuiBadge-badge {
+    background-color: #ed1c23;
+  }
+
+  .MuiBadge-anchorOriginTopRightRectangle {
+    right: 2%;
+    top: 12%;
+
+    @media (min-width: $md + 1) {
+      top: 35%;
+    }
   }
 }
 
@@ -65,11 +77,16 @@
   top: 0;
   left: 0;
   z-index: 0;
-  width: 100vw;
   height: 100vh;
   overflow-x: hidden;
 
+  @media (min-width: $md) {
+    width: calc(100vw - 400px);
+    left: 400px;
+  }
+
   @media (max-width: $md - 1) {
+    width: 100vw;
     height: calc(100vh - 350px);
   }
 

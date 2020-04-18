@@ -141,6 +141,11 @@ button {
   box-shadow: none;
   width: 100%;
 
+  &.delete {
+    color: #fff;
+    background-color: $error-color;
+  }
+
   @media (min-width: $md) {
     width: auto;
     min-width: 228px;
@@ -367,6 +372,12 @@ a {
 
   .hide-mobile-sm {
     display: none !important;
+  }
+}
+
+@media (min-width: $md + 1) {
+  .vh100-lg {
+    height: 100vh !important;
   }
 }
 

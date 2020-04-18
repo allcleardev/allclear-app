@@ -23,7 +23,14 @@ export default class PeopleService {
   }
 
   getById(id) {
-    return Axios.get(`${this.baseURL}/${id}`, this.headers);
+    return Axios({
+      method: 'GET',
+      url: `${this.baseURL}/${id}`,
+      headers: {
+        ...this.headers.headers
+      },
+    });
+    // return Axios.get(`${this.baseURL}/${id}`, this.headers);
   }
 
   logout() {
@@ -40,20 +47,65 @@ export default class PeopleService {
       });
   }
 
-  async register(payload) {
-    const sessionId = localStorage.getItem('confirm_sessid');
-    return Axios.post('/peoples/register', payload, {
-      headers: {
-        'X-AllClear-SessionID': sessionId,
-      },
-    })
+  async authStart(payload) {
+    return Axios.put('/peoples/start', payload, {})
       .then((response) => {
-        localStorage.setItem('sessid', response.data.id);
-        localStorage.setItem('session', JSON.stringify(response.data));
         return response;
       })
       .catch((error) => {
+        error.err = true;
         console.warn(error);
+        return error;
+      });
+  }
+
+  async verifyAuthRequest(payload) {
+    return Axios.post('/peoples/auth', payload, {})
+      .then((response) => {
+        return response;
+      })
+      .catch((error) => {
+        error.err = true;
+        console.warn(error);
+        return error;
+      });
+  }
+
+  async confirmAuthRequest(payload) {
+    return Axios.put('/peoples/confirm', payload, {})
+      .then((response) => {
+        return response;
+      })
+      .catch((error) => {
+        error.err = true;
+        console.warn(error);
+        return error;
+      });
+  }
+
+  async login(payload) {
+    return Axios.put('/peoples/auth', payload, {})
+      .then((response) => {
+        return response;
+      })
+      .catch((error) => {
+        error.err = true;
+        console.warn(error);
+        return error;
+      });
+  }
+
+  async deleteProfile(id) {
+    return Axios.delete('/peoples')
+      .then((response) => {
+        localStorage.clear();
+        sessionStorage.clear();
+        return response;
+      })
+      .catch((error) => {
+        error.err = true;
+        console.warn(error);
+        return error;
       });
   }
 }
