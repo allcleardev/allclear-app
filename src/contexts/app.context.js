@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import { forEach, get } from 'lodash';
-import { CRITERIA_FORM_DATA } from '@general/modals/update-criteria-modal.constants';
+import {forEach, get} from 'lodash';
+import {CRITERIA_FORM_DATA} from '@general/modals/update-criteria-modal.constants';
 import TypesService from '@services/types.service';
 
 // Set Up The Initial Context
@@ -23,8 +23,8 @@ export const INITIAL_APP_STATE = {
     searchFilterActive: false,
   },
   searchCriteria,
-  profile:{
-    options:{
+  profile: {
+    options: {
       healthWorkerStatus: undefined,
       symptoms: undefined,
       exposures: undefined,
@@ -81,8 +81,10 @@ export function AppProvider(props) {
             ...formOptions
           }
         }
-      })
-    })();
+      });
+    })
+    ();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // save it for later
