@@ -31,8 +31,6 @@ export default class GoogleMap extends Component {
     const { appState } = this.context;
     const latitude = get(appState, 'person.latitude');
     const longitude = get(appState, 'person.longitude');
-    this.latitude = latitude;
-    this.longitude = longitude;
 
     const result = await this.facilityService.search(this._createSearchPayload({ latitude, longitude }));
     if (navigator && navigator.geolocation) {
@@ -120,9 +118,8 @@ export default class GoogleMap extends Component {
   render() {
     const locations = get(this, 'context.appState.map.locations') || [];
     const homeLat = get(this, 'context.appState.person.latitude');
-    const homeLong = get(this, 'context.appState.person.longitude');
+    const homeLng = get(this, 'context.appState.person.longitude');
     const homeIndex = locations.length;
-    console.log(homeLat, homeLong, homeIndex);
 
     return (
       <div style={{ height: '100%', width: '100%' }}>
@@ -146,7 +143,7 @@ export default class GoogleMap extends Component {
               text={index + 1}
             />
           ))}
-          <MyLocationMapMarker lat={homeLat} lng={homeLong} text={''} />
+          <MyLocationMapMarker key={homeIndex} lat={homeLat} lng={homeLng} text={''} />
         </GoogleMapReact>
       </div>
     );
