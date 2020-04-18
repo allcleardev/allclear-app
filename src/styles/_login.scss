@@ -18,6 +18,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: auto 0;
+    transform: translateY(-50%);
 
     a {
       display: block;
