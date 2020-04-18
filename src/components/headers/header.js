@@ -18,7 +18,7 @@ export default function Header({
   const history = useHistory();
 
   return (
-    <div className="header">
+    <div className="header main">
       <div className="shape"></div>
       {enableBackBtn ? (
         <div className="mobile-content">
