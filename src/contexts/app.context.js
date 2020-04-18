@@ -36,6 +36,7 @@ export const INITIAL_APP_STATE = {
 
   // this is to re-trigger a render on modal (
   forceRefresh: false,
+  modalSubmitCount: 0,
 };
 
 // Context state
@@ -103,7 +104,7 @@ export function AppProvider(props) {
     forEach(appState.profile.options, (e, i) => {
       // if user has saved this part of the profile, use that
       const savedProfileOption = appState.person[i];
-      if (savedProfileOption) {
+      if (savedProfileOption && appState.modalSubmitCount === 0) {
         dynamicSearchCriteria[i] = savedProfileOption.id;
       }
     });

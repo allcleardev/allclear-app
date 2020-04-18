@@ -15,6 +15,7 @@ import { CRITERIA_FORM_DATA } from './update-criteria-modal.constants';
 import { AppContext } from '@contexts/app.context';
 import ModalService from '@services/modal.service';
 import FacilityService from '@services/facility.service';
+// import {forEach} from 'lodash';
 
 export default function UpdateCriteriaModal() {
 
@@ -25,12 +26,28 @@ export default function UpdateCriteriaModal() {
   const [open, setOpen] = useState(false);
   const [scroll, setScroll] = useState('paper');
 
+
   function toggleModal(isOpen, scrollType) {
     setOpen(isOpen);
     if (isOpen === true) {
       setScroll(scrollType);
     }
   }
+
+  // todo: this
+  // const { setAppState, appState } = useContext(AppContext);
+  // function _onResetClicked(){
+  //   let searchCriteria = {};
+  //   forEach(appState.searchCriteria, (e, i) => {
+  //     searchCriteria[i] = 'Any';
+  //   });
+  //
+  //   setAppState({
+  //     ...appState,
+  //     searchCriteria,
+  //     forceRefresh: true
+  //   })
+  // }
 
   return (
     <>
@@ -54,6 +71,14 @@ export default function UpdateCriteriaModal() {
       >
         <DialogTitle id="scroll-dialog-title">Update Search Criteria</DialogTitle>
         <DialogContent dividers={scroll === 'paper'}>
+
+          {/*<Button*/}
+          {/*  onClick={_onResetClicked}*/}
+          {/*  className="btn-big bg-primary color-white fontsize-16"*/}
+          {/*>*/}
+          {/*  Reset Search Criteria*/}
+          {/*</Button>*/}
+
           <UpdateCriteria
             onClose={() => {
               toggleModal(false);
@@ -126,6 +151,7 @@ function UpdateCriteria({ onClose, onSubmit }) {
       },
       searchCriteria: formValues,
       isListLoading: false,
+      modalSubmitCount: appState.modalSubmitCount+1
     });
 
     // call parent submit function
