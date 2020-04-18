@@ -47,21 +47,51 @@ export default class PeopleService {
       });
   }
 
-  async register(payload) {
-    const sessionId = localStorage.getItem('confirm_sessid');
-    return Axios.post('/peoples/register', payload, {
-      headers: {
-        'X-AllClear-SessionID': sessionId,
-      },
-    })
+  async authStart(payload) {
+    return Axios.put('/peoples/start', payload, {})
       .then((response) => {
-        localStorage.removeItem('confirm_sessid');
-        localStorage.setItem('sessid', response.data.id);
-        localStorage.setItem('session', JSON.stringify(response.data));
         return response;
       })
       .catch((error) => {
+        error.err = true;
         console.warn(error);
+        return error;
+      });
+  }
+
+  async verifyAuthRequest(payload) {
+    return Axios.post('/peoples/auth', payload, {})
+      .then((response) => {
+        return response;
+      })
+      .catch((error) => {
+        error.err = true;
+        console.warn(error);
+        return error;
+      });
+  }
+
+  async confirmAuthRequest(payload) {
+    return Axios.put('/peoples/confirm', payload, {})
+      .then((response) => {
+        return response;
+      })
+      .catch((error) => {
+        error.err = true;
+        console.warn(error);
+        return error;
+      });
+  }
+
+  async login(payload) {
+    return Axios.put('/peoples/auth', payload, {})
+      .then((response) => {
+        return response;
+      })
+      .catch((error) => {
+        error.err = true;
+        console.warn(error);
+        return error;
       });
   }
 
@@ -73,7 +103,9 @@ export default class PeopleService {
         return response;
       })
       .catch((error) => {
+        error.err = true;
         console.warn(error);
+        return error;
       });
   }
 }

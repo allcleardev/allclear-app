@@ -68,10 +68,10 @@
     "@general": "./src/components/general",
     "@svg": "./src/components/svg",
     "@pages": "./src/pages",
-    "@contexts":  "./src/contexts",
+    "@contexts": "./src/contexts",
     "@services": "./src/services",
-    "@styles":  "./src/styles",
-    "@util":  "./src/util",
+    "@styles": "./src/styles",
+    "@util": "./src/util",
     "@hooks": "./src/hooks"
   }
 }
