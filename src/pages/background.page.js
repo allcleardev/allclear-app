@@ -112,7 +112,9 @@ class BackgroundPage extends Component {
         <div className="background onboarding-page">
           <RoundHeader navigate={'/sign-up'}>
             <h1 className="heading">Background</h1>
-            <h2 className="sub-heading">Provide information to help us recommend the test sites for you.</h2>
+            <h2 className="sub-heading">
+              Please provide background information to help us recommend relevant test locations for you.
+            </h2>
           </RoundHeader>
           <Form noValidate autoComplete="off" className="onboarding-body">
             <Box maxWidth="md">
@@ -161,8 +163,12 @@ class BackgroundPage extends Component {
             </Box>
             <OnboardingNavigation
               back={
-                <Button variant="contained" className="back hide-mobile" onClick={() => this.routeChange('/get-started')}>
-                  Restart
+                <Button
+                  variant="contained"
+                  className="back hide-mobile"
+                  onClick={() => this.routeChange('/get-started')}
+                >
+                  Back
                 </Button>
               }
               forward={

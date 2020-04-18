@@ -51,9 +51,13 @@ export default class SignUpPage extends Component {
     const queryParams = queryString.parse(this.props.location.search);
     if (queryParams.logout) {
       this.setState({
-        isSnackbarOpen: true
+        isSnackbarOpen: true,
       });
     }
+  }
+
+  routeChange(route) {
+    this.props.history.push(route);
   }
 
   handleChange(event) {
@@ -70,7 +74,7 @@ export default class SignUpPage extends Component {
 
   handleSnackbarClose(event) {
     this.setState({
-      isSnackbarOpen: false
+      isSnackbarOpen: false,
     });
   }
 
@@ -255,8 +259,8 @@ export default class SignUpPage extends Component {
         </Snackbar>
         <div className="sign-up onboarding-page">
           <RoundHeader>
-            <h1 className="heading">COVID-19 Test Alerts</h1>
-            <h2 className="sub-heading">Enter your phone number to receive SMS alerts on tests for you.</h2>
+            <h1 className="heading">Phone Number Registration</h1>
+            <h2 className="sub-heading">Enter your phone number to register your account.</h2>
           </RoundHeader>
           {this.state.loading === false ? (
             <Container className="onboarding-body">
@@ -269,15 +273,15 @@ export default class SignUpPage extends Component {
               </div>
               <div className="review-container">
                 <p>
+                  Please review and agree to the
                   <a href="https://about.allclear.app/terms-of-service/" target="_blank" rel="noopener noreferrer">
-                    {' '}
-                    Terms & Conditions{' '}
-                  </a>{' '}
+                    {''} Terms & Conditions {''}
+                  </a>
                   and
                   <a href="https://about.allclear.app/privacy-policy-2/" target="_blank" rel="noopener noreferrer">
-                    {' '}
-                    Privacy Policy{' '}
+                    {''} Privacy Policy {''}
                   </a>
+                  before continuing.
                 </p>
 
                 <FormControlLabel
@@ -306,9 +310,13 @@ export default class SignUpPage extends Component {
               </div>
               <OnboardingNavigation
                 back={
-                  <Link to="/sign-in" className="hide-desktop sign-in">
-                    Sign into Existing Account
-                  </Link>
+                  <Button
+                    variant="contained"
+                    className="back hide-mobile"
+                    onClick={() => this.routeChange('/symptoms')}
+                  >
+                    Back
+                  </Button>
                 }
                 forward={
                   <Button

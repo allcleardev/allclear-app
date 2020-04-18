@@ -81,8 +81,7 @@ class HealthWorkerStatusPage extends Component {
           <RoundHeader navigate={'/background'}>
             <h1 className="heading">Health Worker Status</h1>
             <h2 className="sub-heading">
-              Some test centers will test you if you’re a medical professional or first responder, even if you have no
-              symptoms.
+              Per the CDC, Health Worker and First Responder statuses impact test location availability.
             </h2>
           </RoundHeader>
           <Form noValidate autoComplete="off" className="onboarding-body">

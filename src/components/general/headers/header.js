@@ -1,7 +1,7 @@
-// ********************************************************************************* //
-//                                                                                   //
-// TODO: Make this the one and only header component   //
-//                                                                                   //
+// **************************************************** //
+//                                                      //
+// TODO: Make this the one and only header component    //
+//                                                      //
 // ____________________________________________________ //
 
 import React from 'react';
@@ -10,13 +10,16 @@ import Logo from '../../../assets/images/logo-green-back.svg';
 import Fab from '@material-ui/core/Fab';
 import Container from '@material-ui/core/Container';
 
-export default function Header({ enableBackBtn = false, navItems = [], children }) {
+export default function Header({
+  enableBackBtn = false,
+  navItems = [{ route: '', name: '', absolutePath: false }],
+  children,
+}) {
   const history = useHistory();
 
   return (
-    <div className="header">
+    <div className="header main">
       <div className="shape"></div>
-
       {enableBackBtn ? (
         <div className="mobile-content">
           <Fab
@@ -44,11 +47,27 @@ export default function Header({ enableBackBtn = false, navItems = [], children 
       <Container className="desktop-content" maxWidth="xl">
         <img src={Logo} alt="Logo" className="logo" />
         <nav className="menu">
-          {navItems.map((item) => (
-            <Link to={item.route} className="menu__item" key={item.route}>
-              {item.name}
-            </Link>
-          ))}
+          {navItems.map((item) => {
+            if (item.absolutePath) {
+              return (
+                <a
+                  href={`https://${item.route}`}
+                  className="menu__item"
+                  key={item.route}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  {item.name}
+                </a>
+              );
+            } else {
+              return (
+                <Link to={item.route} className="menu__item" key={item.route}>
+                  {item.name}
+                </Link>
+              );
+            }
+          })}
         </nav>
       </Container>
 

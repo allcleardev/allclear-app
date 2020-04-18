@@ -3,6 +3,7 @@ import { bindAll } from 'lodash';
 
 import { AppContext } from '../contexts/app.context';
 import Logo from '../assets/images/logo-green-back.svg';
+import Header from '../components/general/headers/header';
 
 import { Button } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
@@ -24,6 +25,10 @@ export default class GetStartedPage extends Component {
     this.state = {
       isSnackbarOpen: false,
     };
+    this.navItems = [
+      { route: 'about.allclear.app', name: 'About Us', absolutePath: true },
+      { route: 'about.allclear.app', name: 'Help', absolutePath: true },
+    ];
 
     bindAll(this, [
       'routeChange',
@@ -36,7 +41,7 @@ export default class GetStartedPage extends Component {
 
     if (queryParams.logout) {
       this.setState({
-        isSnackbarOpen: true
+        isSnackbarOpen: true,
       });
     }
   }
@@ -66,6 +71,7 @@ export default class GetStartedPage extends Component {
             You must be logged in to use this feature.
           </Alert>
         </Snackbar>
+        <Header navItems={this.navItems}></Header>
         <Container className="content" maxWidth="md">
           <img src={Logo} alt="Logo" className="logo" />
           <div className="button-container">

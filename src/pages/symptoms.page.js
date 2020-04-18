@@ -1,13 +1,14 @@
-import React, {Component} from 'react';
-import {bindAll} from 'lodash';
+import React, { Component } from 'react';
+import { bindAll } from 'lodash';
 import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
-import {Button, Chip} from '@material-ui/core';
+import { Button, Chip } from '@material-ui/core';
 
 import RoundHeader from '@general/headers/header-round';
 import ProgressBottom from '@general/navs/progress-bottom';
 import OnboardingNavigation from '@general/navs/onboarding-navigation';
-import {AppContext} from '@contexts/app.context';
+import { AppContext } from '@contexts/app.context';
+import PeopleService from '@services/people.service';
 import TypesService from '@services/types.service';
 
 class SymptomsPage extends Component {
@@ -25,7 +26,7 @@ class SymptomsPage extends Component {
       'getSymptoms',
       'handleChange',
       'deselectAll',
-      'checkForSelection'
+      'checkForSelection',
     ]);
     this.typesService = TypesService.getInstance();
   }
@@ -39,14 +40,13 @@ class SymptomsPage extends Component {
   }
 
   async getSymptoms() {
-    this.setState({loading: true});
-    const {appState, setAppState} = this.context;
-    const symptoms = await this.typesService.getSymptoms(true)
-      .catch((error) => {
-        this.setState({loading: false});
-      });
-    this.setState({symptoms});
-    this.setState({loading: false});
+    this.setState({ loading: true });
+    const { appState, setAppState } = this.context;
+    const symptoms = await this.typesService.getSymptoms(true).catch((error) => {
+      this.setState({ loading: false });
+    });
+    this.setState({ symptoms });
+    this.setState({ loading: false });
 
     // save to global state for later usage
     setAppState({
@@ -55,14 +55,14 @@ class SymptomsPage extends Component {
         ...appState.profile,
         options: {
           ...appState.profile.options,
-          symptoms
-        }
-      }
+          symptoms,
+        },
+      },
     });
   }
 
   handleChange(event) {
-    let {symptoms} = this.state;
+    let { symptoms } = this.state;
     // If "none" is selected, deselect the other chips
     if (event.id === 'no') {
       this.deselectAll();
@@ -80,13 +80,13 @@ class SymptomsPage extends Component {
       });
     }
 
-    this.setState({symptoms});
+    this.setState({ symptoms });
     this.checkForSelection();
     sessionStorage.setItem('symptoms', JSON.stringify(symptoms));
   }
 
   deselectAll() {
-    let {symptoms} = this.state;
+    let { symptoms } = this.state;
     symptoms.map((symptom) => {
       if (symptom.id !== 'no') {
         symptom.isActive = false;
@@ -95,7 +95,7 @@ class SymptomsPage extends Component {
       }
       return true;
     });
-    this.setState({symptoms});
+    this.setState({ symptoms });
     sessionStorage.setItem('symptoms', JSON.stringify(symptoms));
   }
 
@@ -107,7 +107,7 @@ class SymptomsPage extends Component {
       }
       return true;
     });
-    this.setState({isSelected});
+    this.setState({ isSelected });
   }
 
   render() {
@@ -116,7 +116,7 @@ class SymptomsPage extends Component {
         <div className="symptoms onboarding-page">
           <RoundHeader navigate={'/health-worker'}>
             <h1 className="heading">Symptoms</h1>
-            <h2 className="sub-heading">Most test centers are only seeing patients with certain symptoms.</h2>
+            <h2 className="sub-heading">Per the CDC, certain symptoms impact test location availability.</h2>
           </RoundHeader>
           <Form noValidate autoComplete="off" className="onboarding-body">
             <Box maxWidth="md">
@@ -125,17 +125,17 @@ class SymptomsPage extends Component {
               </label>
               <div className="chips-group">
                 {this.state.symptoms &&
-                this.state.symptoms.map((res) => {
-                  return (
-                    <Chip
-                      key={res.id}
-                      className={'chip' + (res.isActive ? ' Active' : '')}
-                      label={res.name}
-                      variant="outlined"
-                      onClick={() => this.handleChange(res)}
-                    ></Chip>
-                  );
-                })}
+                  this.state.symptoms.map((res) => {
+                    return (
+                      <Chip
+                        key={res.id}
+                        className={'chip' + (res.isActive ? ' Active' : '')}
+                        label={res.name}
+                        variant="outlined"
+                        onClick={() => this.handleChange(res)}
+                      ></Chip>
+                    );
+                  })}
               </div>
             </Box>
             <OnboardingNavigation
@@ -156,7 +156,7 @@ class SymptomsPage extends Component {
                   onClick={() => this.routeChange('/sign-up')}
                   disabled={!this.state.isSelected}
                 >
-                  Finish
+                  Next
                 </Button>
               }
               tooltipMessage={'Please make a selection'}

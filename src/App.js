@@ -1,6 +1,6 @@
 import React from 'react';
-import {Route, Switch, Router} from 'react-router-dom';
-import {createBrowserHistory} from 'history';
+import { Route, Switch, Router } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
 
 import '@styles/app.scss';
 
@@ -9,6 +9,8 @@ import '@styles/app.scss';
 // import result from '@pages/result/result';
 
 import AppProvider from './contexts/app.context';
+
+import AccountCreated from '@pages/account-created.page';
 import AddTestPage from '@pages/add-test.page';
 import SignInVerificationPage from '@pages/sign-in-verification.page';
 import BackgroundPage from '@pages/background.page';
@@ -36,51 +38,45 @@ export const history = createBrowserHistory();
 
 export default function App() {
   return (
-    <Router
-      history={history}
-    >
+    <Router history={history}>
       <AppProvider>
-
         <Switch>
           {/* Loader Page */}
-          <Route exact path="/" component={LaunchPage}/>
+          <Route exact path="/" component={LaunchPage} />
 
           {/* Onboarding Pages */}
-          <Route path="/get-started" component={GetStartedPage}/>
-          <Route path="/sign-up" component={SignUpPage}/>
-          <Route path="/sign-up-verification" component={SignUpVerificationPage}/>
+          <Route path="/get-started" component={GetStartedPage} />
+          <Route path="/sign-up" component={SignUpPage} />
+          <Route path="/sign-up-verification" component={SignUpVerificationPage} />
+          <Route path="/success" component={AccountCreated} />
 
-          <Route path="/register" component={VerifyMagicLinkPage}/>
-          <Route path="/auth" component={LoginMagicLinkPage}/>
+          <Route path="/register" component={VerifyMagicLinkPage} />
+          <Route path="/auth" component={LoginMagicLinkPage} />
 
-          <Route path="/background" component={BackgroundPage}/>
-          <Route path="/health-worker" component={HealthWorkerStatusPage}/>
-          <Route path="/symptoms" component={Symptoms}/>
+          <Route path="/background" component={BackgroundPage} />
+          <Route path="/health-worker" component={HealthWorkerStatusPage} />
+          <Route path="/symptoms" component={Symptoms} />
 
           {/* Login Pages */}
-          <Route path="/sign-in" component={SignInPage}/>
-          <Route path="/sign-in-verification" component={SignInVerificationPage}/>
-
+          <Route path="/sign-in" component={SignInPage} />
+          <Route path="/sign-in-verification" component={SignInVerificationPage} />
 
           {/* Profile Pages / SettingsPage */}
-          <ProtectedRoute path="/profile" component={ProfileViewPage}/>
-          <ProtectedRoute path="/profile-edit" component={ProfileEditPage}/>
-          <ProtectedRoute path="/add-test" component={AddTestPage}/>
-          <ProtectedRoute path="/update-criteria" component={UpdateTestingCenterCriteria}/>
-          <ProtectedRoute path="/share" component={SharePage}/>
-          <ProtectedRoute path="/settings" component={SettingsPage}/>
-          <ProtectedRoute path="/contact-tracing" component={TracingPage}/>
-
+          <ProtectedRoute path="/profile" component={ProfileViewPage} />
+          <ProtectedRoute path="/profile-edit" component={ProfileEditPage} />
+          <ProtectedRoute path="/add-test" component={AddTestPage} />
+          <ProtectedRoute path="/update-criteria" component={UpdateTestingCenterCriteria} />
+          <ProtectedRoute path="/share" component={SharePage} />
+          <ProtectedRoute path="/settings" component={SettingsPage} />
+          <ProtectedRoute path="/contact-tracing" component={TracingPage} />
 
           {/* Map */}
-          <Route path="/map" component={MapPage}/>
-
+          <Route path="/map" component={MapPage} />
           {/* 404 */}
-          <Route path="/404" component={NotFoundPage}/>
+          <Route path="/404" component={NotFoundPage} />
           <Route path="*">
-            <Redirect to="/404"/>
+            <Redirect to="/404" />
           </Route>
-
           {/* Abandoned Temporarily*/}
           {/* <ConfirmedRoute path="/conditions" component={conditions} /> */}
           {/* <ConfirmedRoute path="/results" component={result} /> */}
