@@ -43,10 +43,6 @@ export default function SignInVerificationPage({ props, location }) {
       token: code,
     })
       .then((response) => {
-        // todo: remove this session
-        localStorage.setItem('sessid', response.data.id);
-        localStorage.setItem('session', JSON.stringify(response.data));
-
         if (response.data.person) {
           // todo: set latlng to appprovider here
           setAppState({

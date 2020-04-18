@@ -26,8 +26,6 @@ export default function SignUpVerificationPage({props, location}) {
   //eslint-disable-next-line
   const [cookies, setCookie] = useCookies(['cookie-name']);
 
-  // const history = useHistory();
-
   const sanitizePhone = (phone) => {
     if (phone && typeof phone === 'string') {
       phone = phone.replace(/ /g, '');
