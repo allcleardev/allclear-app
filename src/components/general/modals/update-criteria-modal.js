@@ -32,6 +32,21 @@ export default function UpdateCriteriaModal() {
     }
   }
 
+  // todo: this
+  // const { setAppState, appState } = useContext(AppContext);
+  // function _onResetClicked(){
+  //   let searchCriteria = {};
+  //   forEach(appState.searchCriteria, (e, i) => {
+  //     searchCriteria[i] = 'Any';
+  //   });
+  //
+  //   setAppState({
+  //     ...appState,
+  //     searchCriteria,
+  //     forceRefresh: true
+  //   })
+  // }
+
   return (
     <>
       <BottomFab
@@ -54,6 +69,14 @@ export default function UpdateCriteriaModal() {
       >
         <DialogTitle id="scroll-dialog-title">Update Search Criteria</DialogTitle>
         <DialogContent dividers={scroll === 'paper'}>
+
+          {/*<Button*/}
+          {/*  onClick={_onResetClicked}*/}
+          {/*  className="btn-big bg-primary color-white fontsize-16"*/}
+          {/*>*/}
+          {/*  Reset Search Criteria*/}
+          {/*</Button>*/}
+
           <UpdateCriteria
             onClose={() => {
               toggleModal(false);
@@ -99,7 +122,11 @@ function UpdateCriteria({ onClose, onSubmit }) {
   }
 
   async function _onSubmitClicked() {
-    const { latitude, longitude } = appState.person;
+    let {latitude, longitude} = appState.person;
+
+    // default to last submitted search
+    latitude = (latitude) ? latitude : appState.map.latitude;
+    longitude = (longitude) ? longitude : appState.map.longitude;
 
     // call API
     const result = await facilityService.search({
@@ -120,6 +147,7 @@ function UpdateCriteria({ onClose, onSubmit }) {
       },
       searchCriteria: formValues,
       isListLoading: false,
+      modalSubmitCount: appState.modalSubmitCount + 1
       forceRefresh: !appState.forceRefresh
     });
 

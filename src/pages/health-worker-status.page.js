@@ -69,6 +69,8 @@ class HealthWorkerStatusPage extends Component {
     });
     this.setState({ healthWorkerStatus });
     this.setState({ isSelected: event.isActive });
+
+    // todo: put this in proper app state place
     sessionStorage.setItem('healthWorkerStatus', JSON.stringify(selectedStatus));
   }
 
@@ -128,7 +130,7 @@ class HealthWorkerStatusPage extends Component {
               triggerTooltip={!this.state.isSelected}
             ></OnboardingNavigation>
           </Form>
-          <ProgressBottom progress="50%"></ProgressBottom>
+          <ProgressBottom progress="25%"></ProgressBottom>
         </div>
       </div>
     );

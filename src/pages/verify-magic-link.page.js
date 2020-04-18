@@ -25,10 +25,10 @@ export default function VerifyMagicLinkPage({ props, location }) {
       code: searchParams.code,
     })
       .then((response) => {
-        console.log('response', response);
-        localStorage.setItem('confirm_sessid', response.data.id);
+        localStorage.setItem('sessid', response.data.id);
+        localStorage.setItem('session', response.data);
         sessionStorage.setItem('phone', searchParams.phone);
-        history.push('/background');
+        history.push('/map');
       })
       .catch((error) => {
         console.log('error', error);

@@ -1,0 +1,51 @@
+.get-started-page {
+  width: 100%;
+  background: $gradient-background;
+
+  .content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    @media (min-width: $md) {
+      align-items: center;
+    }
+  }
+
+  .logo {
+    flex: 1;
+    max-width: 275px;
+    align-self: center;
+    @media (min-width: $md) {
+      flex: 2;
+    }
+  }
+
+  .button-container {
+    display: flex;
+    flex-direction: column;
+
+    @media (min-width: $md) {
+      flex: 1;
+    }
+
+    .signup {
+      background: #fff;
+      color: $primary-color;
+      margin-bottom: 20px;
+    }
+
+    .signin {
+      font-size: 15px;
+      color: #fff;
+      margin-bottom: 50px;
+      font-weight: normal;
+
+      .cta {
+        font-weight: 600;
+        margin-left: 6px;
+      }
+    }
+  }
+}

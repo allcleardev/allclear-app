@@ -1,18 +1,22 @@
-import React from 'react';
-import {Link, useHistory} from 'react-router-dom';
+import React, {useContext} from 'react';
+import {Link} from 'react-router-dom';
 import {useCookies} from 'react-cookie';
-
-import Axios from 'axios';
 import Form from '@material-ui/core/Container';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import {Button, Grid} from '@material-ui/core';
 
-import RoundHeader from '../components/general/headers/header-round';
-import ProgressBottom from '../components/general/navs/progress-bottom';
+import RoundHeader from '@general/headers/header-round';
+import ProgressBottom from '@general/navs/progress-bottom';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
+import PeopleService from '@services/people.service';
+import {AppContext} from '@contexts/app.context';
+
 export default function SignUpVerificationPage({props, location}) {
+  const { appState, setAppState } = useContext(AppContext);
+  const peopleService = PeopleService.getInstance();
+
   //eslint-disable-next-line
   const [state, setState] = React.useState({
     checkedB: true,
@@ -22,7 +26,7 @@ export default function SignUpVerificationPage({props, location}) {
   //eslint-disable-next-line
   const [cookies, setCookie] = useCookies(['cookie-name']);
 
-  const history = useHistory();
+  // const history = useHistory();
 
   const sanitizePhone = (phone) => {
     if (phone && typeof phone === 'string') {
@@ -42,18 +46,19 @@ export default function SignUpVerificationPage({props, location}) {
 
     phone = sanitizePhone(phone);
 
-    await Axios.post('/peoples/confirm', {
-      phone,
-      code,
-    })
-      .then((response) => {
-        localStorage.setItem('confirm_sessid', response.data.id);
-        history.push('/background');
-      })
-      .catch((error) => {
-        console.log('error', error);
-        // TODO Display Error Message
+    const response = await peopleService.confirmAuthRequest({phone, code});
+
+    if (!response.err) {
+      setAppState({
+        ...appState,
+        sessionId: response.data.id,
+        person:response.data.person
       });
+
+      this.props.history.push('/map');
+    } else {
+      //TODO Error Message
+    }
   };
 
   const onKeyPress = (e) => {
@@ -120,7 +125,7 @@ export default function SignUpVerificationPage({props, location}) {
              </Grid>
            </Grid>
          )}
-        {state.loading === false ? <ProgressBottom progress="15%"></ProgressBottom> : null}
+        {state.loading === false ? <ProgressBottom progress="75%"></ProgressBottom> : null}
       </div>
     </div>
   );

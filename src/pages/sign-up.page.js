@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import Axios from 'axios';
 import * as queryString from 'query-string';
 
-import RoundHeader from '../components/general/headers/header-round';
-import ProgressBottom from '../components/general/navs/progress-bottom';
-import PhoneNumberInput from '../components/general/inputs/phone-number-input';
+import RoundHeader from '@general/headers/header-round';
+import ProgressBottom from '@general/navs/progress-bottom';
+import PhoneNumberInput from '@general/inputs/phone-number-input';
 
 import OnboardingNavigation from '@general/navs/onboarding-navigation';
 
@@ -16,6 +15,9 @@ import {Button, Grid, Container} from '@material-ui/core';
 import Slide from '@material-ui/core/Slide';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
+
+import PeopleService from '@services/people.service';
+import {bindAll} from 'lodash';
 
 function SlideTransition(props) {
   return <Slide {...props} direction="up"/>;
@@ -33,11 +35,16 @@ export default class SignUpPage extends Component {
       isSnackbarOpen: false,
     };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSnackbarClose = this.handleSnackbarClose.bind(this);
-    this.checkPhoneValidation = this.checkPhoneValidation.bind(this);
-    this.onSendVerificationClicked = this.onSendVerificationClicked.bind(this);
-    this.verifyLogin = this.verifyLogin.bind(this);
+    this.peopleService = PeopleService.getInstance();
+
+    bindAll(this, [
+      'handleChange',
+      'handleSnackbarClose',
+      'checkPhoneValidation',
+      'onSendVerificationClicked',
+      'verifyLogin',
+    ]);
+
   }
 
   async componentDidMount() {
@@ -75,69 +82,156 @@ export default class SignUpPage extends Component {
     }
   }
 
+  buildPayload() {
+
+    // todo: do this the right way (appcontext, remove all sessionstorage usage)
+    // const { appState } = this.context;
+    // const {latitude, longitude} = appState.person;
+
+    const dob = sessionStorage.getItem('dob');
+    const phone = sessionStorage.getItem('phone');
+    const latitude = sessionStorage.getItem('lat');
+    const longitude = sessionStorage.getItem('lng');
+    const locationName = sessionStorage.getItem('locationName');
+    const healthWorkerStatus = sessionStorage.getItem('healthWorkerStatus');
+    const alertable = sessionStorage.getItem('alertable');
+
+    // Format Conditions
+    let conditions = sessionStorage.getItem('conditions');
+    const conditionsArray = [];
+    if (conditions) {
+      if (typeof conditions === 'string') {
+        conditions = JSON.parse(conditions);
+      }
+      conditions.forEach((condition) => {
+        if (condition.isActive) {
+          conditionsArray.push({
+            id: condition.id,
+            name: condition.name,
+          });
+        }
+      });
+    }
+
+    // Format Exposures
+    let exposures = sessionStorage.getItem('exposures');
+    const exposuresArray = [];
+    if (exposures) {
+      if (typeof exposures === 'string') {
+        exposures = JSON.parse(exposures);
+      }
+      exposures.forEach((exposure) => {
+        if (exposure.isActive) {
+          exposuresArray.push({
+            id: exposure.id,
+            name: exposure.name,
+          });
+        }
+      });
+    }
+
+    // Format Symptoms
+    let symptoms = sessionStorage.getItem('symptoms');
+    const symptomsArray = [];
+    if (symptoms) {
+      if (typeof symptoms === 'string') {
+        symptoms = JSON.parse(symptoms);
+      }
+      symptoms.forEach((symptom) => {
+        if (symptom.isActive) {
+          symptomsArray.push({
+            id: symptom.id,
+            name: symptom.name,
+          });
+        }
+      });
+    }
+
+    const payload = {
+      dob,
+      alertable,
+      locationName,
+      phone,
+      name: Date.now(),
+      latitude,
+      longitude,
+      conditions: conditionsArray,
+      exposures: exposuresArray,
+      symptoms: symptomsArray,
+      healthWorkerStatusId: JSON.parse(healthWorkerStatus).id,
+    };
+
+    return payload;
+  }
+
+  async submitResults() {
+    this.setState({ loading: true });
+    const { appState, setAppState } = this.context;
+
+    const payload = this.buildPayload();
+    const resp = await this.peopleService.register(payload);
+    setAppState({
+      ...appState,
+      sessionId: resp.data.id,
+      person: {
+        ...appState.person,
+        ...resp.data.person
+      }
+    });
+
+    this.props.history.push('/map');
+  }
+
   async onSendVerificationClicked() {
     this.setState({loading: true});
     let phone = sessionStorage.getItem('phone');
 
-    if (!phone) {
-      //show error message
-      this.setState({loading: false});
-      return;
-    }
-    Axios.post('/peoples/start', {
-      phone,
-    })
-      .then((response) => {
-        sessionStorage.setItem('phone', phone);
-        this.props.history.push('/sign-up-verification');
-      })
-      .catch((error) => {
-        if (error && error.response) {
-          if (
-            error.response.data &&
-            error.response.data.message &&
-            error.response.data.message.includes('already exists')
-          ) {
-            return this.verifyLogin();
-          } else if (error.response.data && error.response.data.message) {
-            this.setState({
-              error: true,
-              message: error.response.data.message,
-              loading: false,
-            });
-          } else {
-            this.setState({
-              error: true,
-              message: 'An error occurred. Please try again later.',
-              loading: false,
-            });
-          }
+    const payload = this.buildPayload();
+
+    const response = await this.peopleService.authStart(payload);
+
+    if (!response.err) {
+      sessionStorage.setItem('phone', phone);
+      this.props.history.push('/sign-up-verification');
+    } else {
+      const error = response;
+
+      if (error && error.response) {
+        if (
+          error.response.data &&
+          error.response.data.message &&
+          error.response.data.message.includes('already exists')
+        ) {
+          return this.verifyLogin();
+        } else if (error.response.data && error.response.data.message) {
+          this.setState({
+            error: true,
+            message: error.response.data.message,
+            loading: false,
+          });
         } else {
-          this.setState({loading: false});
+          this.setState({
+            error: true,
+            message: 'An error occurred. Please try again later.',
+            loading: false,
+          });
         }
-      });
+      }
+    }
   }
 
   async verifyLogin() {
     this.setState({loading: true});
     const phone = sessionStorage.getItem('phone');
 
-    if (!phone) {
-      //show error message
-      this.setState({loading: false});
-      return;
+    const response = await this.peopleService.verifyAuthRequest({phone});
+
+    if (!response.err) {
+      sessionStorage.setItem('phone', phone);
+      this.props.history.push('/sign-up-verification');
+    } else {
+      //TODO Error Message
     }
-    await Axios.post('/peoples/auth', {
-      phone,
-    })
-      .then((response) => {
-        sessionStorage.setItem('phone', phone);
-        this.props.history.push('/sign-in-verification');
-      })
-      .catch((error) => {
-        //show error message
-        this.setState({loading: false});
-      });
   }
 
   // ALLCLEAR-274
@@ -242,11 +336,11 @@ export default class SignUpPage extends Component {
           ) : (
              <Grid container justify="center">
                <Grid item xs={12} sm={6}>
-                 <LinearProgress color="primary" value={50} variant="indeterminate"/>
+                 <LinearProgress color="primary" value={75} variant="indeterminate"/>
                </Grid>
              </Grid>
            )}
-          {this.state.loading === false ? <ProgressBottom progress="0"></ProgressBottom> : null}
+          {this.state.loading === false ? <ProgressBottom progress="75%"></ProgressBottom> : null}
         </div>
       </div>
     );
