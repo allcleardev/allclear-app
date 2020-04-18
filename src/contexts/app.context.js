@@ -10,7 +10,9 @@ export const AppConsumer = AppContext.Consumer;
 
 let searchCriteria = {};
 forEach(CRITERIA_FORM_DATA, (e, i) => {
-  searchCriteria[e.key] = e.options[0].value;
+  if(e.options){
+    searchCriteria[e.key] = e.options[0].value;
+  }
 });
 
 export const INITIAL_APP_STATE = {
@@ -59,7 +61,7 @@ export function AppProvider(props) {
     // only make the ajax calls if the options dont already exist in app state
     exposures = (exposures) ? exposures : await typesService.getExposures();
     healthWorkerStatus = (healthWorkerStatus) ? healthWorkerStatus : await typesService.getHealthWorkerStatuses();
-    symptoms = (symptoms) ? symptoms : await typesService.getSymptoms();
+    symptoms = (symptoms) ? symptoms : await typesService.getSymptoms(true);
 
     return {
       exposures,

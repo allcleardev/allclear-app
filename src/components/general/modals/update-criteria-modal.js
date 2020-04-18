@@ -133,7 +133,20 @@ function UpdateCriteria({ onClose, onSubmit }) {
 
   function _generateFormItems() {
     return CRITERIA_FORM_DATA.map((formItem, i) => {
-      const {title, options, key, inputType} = formItem;
+      let {title, options, key, inputType} = formItem;
+
+      // options from BE need to be remapped
+      if(!options){
+        const savedOptions = appState.profile.options;
+        // debugger;
+        options = savedOptions[key].map((e) => {
+          return {
+            value: e.id,
+            text: e.name,
+          };
+        });
+
+      }
 
       return (
         <div key={i} className="sub-card">
@@ -187,31 +200,6 @@ function UpdateCriteria({ onClose, onSubmit }) {
 
         {formItems}
       </CardBlank>
-
-      {/*Update Profile Checkbox*/}
-      {/*<Grid*/}
-      {/*  container*/}
-      {/*  style={{*/}
-      {/*    display: 'flex',*/}
-      {/*    justifyContent: 'space-around',*/}
-
-      {/*    padding: '20px 0px 0px 24px',*/}
-      {/*  }}*/}
-      {/*  className="btn-group"*/}
-      {/*>*/}
-      {/*    <FormControlLabel*/}
-      {/*      control={*/}
-      {/*        <Checkbox*/}
-      {/*          // checked={state.checkedB}*/}
-      {/*          // onChange={handleChange}*/}
-      {/*          name="checkedB"*/}
-      {/*        />*/}
-      {/*      }*/}
-      {/*      style={{fontSize: 12, color: 'primary'}}*/}
-      {/*      label="Update Profile Upon Search"*/}
-      {/*      className="check-label"*/}
-      {/*    />*/}
-      {/*</Grid>*/}
 
       <Grid
         container

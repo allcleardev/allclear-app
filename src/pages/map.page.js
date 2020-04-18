@@ -221,10 +221,6 @@ export default function MapPage() {
   );
 }
 
-// export default connect((state) => {
-//   return { locations: state.locations };
-// })(MapPage);
-
 const drawerWidth = 400;
 const useStyles = makeStyles((theme) => ({
   root: {

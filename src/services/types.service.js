@@ -22,7 +22,7 @@ export default class TypesService {
   }
 
   async getHealthWorkerStatuses() {
-    return Axios.get(`${this.baseURL}/healthWorkerStatuses`, this.headers)
+    return Axios.get(`${this.baseURL}/healthWorkerStatuses`)
       .then((response) => {
         return response.data;
       })
