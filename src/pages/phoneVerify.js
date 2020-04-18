@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import Axios from 'axios';
 import * as queryString from 'query-string';
 
@@ -43,9 +42,13 @@ export default class PhoneVerify extends Component {
     const queryParams = queryString.parse(this.props.location.search);
     if (queryParams.logout) {
       this.setState({
-        isSnackbarOpen: true
+        isSnackbarOpen: true,
       });
     }
+  }
+
+  routeChange(route) {
+    this.props.history.push(route);
   }
 
   handleChange(event) {
@@ -62,7 +65,7 @@ export default class PhoneVerify extends Component {
 
   handleSnackbarClose(event) {
     this.setState({
-      isSnackbarOpen: false
+      isSnackbarOpen: false,
     });
   }
 
@@ -166,8 +169,8 @@ export default class PhoneVerify extends Component {
       sessionId: resp.data.id,
       person: {
         ...appState.person,
-        ...resp.data.person
-      }
+        ...resp.data.person,
+      },
     });
 
     this.props.history.push('/map');
@@ -257,29 +260,26 @@ export default class PhoneVerify extends Component {
         </Snackbar>
         <div className="sign-up onboarding-page">
           <RoundHeader>
-            <h1 className="heading">COVID-19 Test Alerts</h1>
-            <h2 className="sub-heading">Enter your phone number to receive SMS alerts on tests for you.</h2>
+            <h1 className="heading">Phone Number Registration</h1>
+            <h2 className="sub-heading">Enter your phone number to register your account.</h2>
           </RoundHeader>
           {this.state.loading === false ? (
             <Container className="onboarding-body">
               <div className="content-container">
                 <PhoneNumber className="hide-mobile" phoneValidation={this.checkPhoneValidation}></PhoneNumber>
-                <Link to="/sign-in" className="hide-mobile sign-in">
-                  Sign into Existing Account
-                </Link>
                 {this.state.error === true ? <p className="error">{this.state.message}</p> : ''}
               </div>
               <div className="review-container">
                 <p>
+                  Please review and agree to the
                   <a href="https://about.allclear.app/terms-of-service/" target="_blank" rel="noopener noreferrer">
-                    {' '}
-                    Terms & Conditions{' '}
-                  </a>{' '}
+                    {''} Terms & Conditions {''}
+                  </a>
                   and
                   <a href="https://about.allclear.app/privacy-policy-2/" target="_blank" rel="noopener noreferrer">
-                    {' '}
-                    Privacy Policy{' '}
+                    {''} Privacy Policy {''}
                   </a>
+                  before continuing.
                 </p>
 
                 <FormControlLabel
@@ -308,9 +308,13 @@ export default class PhoneVerify extends Component {
               </div>
               <OnboardingNavigation
                 back={
-                  <Link to="/sign-in" className="hide-desktop sign-in">
-                    Sign into Existing Account
-                  </Link>
+                  <Button
+                    variant="contained"
+                    className="back hide-mobile"
+                    onClick={() => this.routeChange('/symptoms')}
+                  >
+                    Back
+                  </Button>
                 }
                 forward={
                   <Button
