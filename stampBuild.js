@@ -16,12 +16,14 @@ const date = new Date();
 const fullDate = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
 const time = date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
 
+let baseURL;
+
 if (process.env.GIT_BRANCH === 'master') {
-  const baseURL = 'https://api.allclear.app';
+  baseURL = 'https://api.allclear.app';
 } else if (process.env.GIT_BRANCH === 'staging') {
-  const baseURL = 'https://api-staging.allclear.app';
+  baseURL = 'https://api-staging.allclear.app';
 } else {
-  const baseURL = 'https://api-dev.allclear.app';
+  baseURL = 'https://api-dev.allclear.app';
 }
 
 // read env file
