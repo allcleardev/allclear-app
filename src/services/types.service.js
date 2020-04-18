@@ -24,7 +24,13 @@ export default class TypesService {
   async getHealthWorkerStatuses() {
     return Axios.get(`${this.baseURL}/healthWorkerStatuses`)
       .then((response) => {
-        return response.data;
+        return [
+          {
+            id: 'Any',
+            name: 'Select Health Worker Status'
+          },
+          ...response.data
+        ];
       })
       .catch((error) => {
         return error;
@@ -34,7 +40,14 @@ export default class TypesService {
   async getExposures() {
     return Axios.get(`${this.baseURL}/exposures`)
       .then((response) => {
-        return response.data;
+        return [
+          {
+            id: 'Any',
+            name: 'Select Exposure'
+          },
+          ...response.data
+        ]
+
       })
       .catch((error) => {
         return error;

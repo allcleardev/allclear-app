@@ -81,6 +81,14 @@ export function AppProvider(props) {
 
         // if selection exists from last filter, use it. else choose the first option
         dynamicSearchCriteria[i] = (appState.searchCriteria[i]) ? appState.searchCriteria[i] : e[0].id;
+
+        // if user has saved this part of the profile, use that
+        const savedProfileOption = appState.person[i];
+        if(savedProfileOption){
+          console.log('found a saved one', savedProfileOption)
+          dynamicSearchCriteria[i] = savedProfileOption.id;
+        }
+
       })
 
       setAppState({
@@ -101,6 +109,11 @@ export function AppProvider(props) {
     ();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // forEach(appState.profile.options, (e, i) => {
+  //
+  // });
+
 
   // save it for later
   localStorage.setItem('appState', JSON.stringify(appState));
