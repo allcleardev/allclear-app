@@ -1,9 +1,10 @@
 const puppeteer = require('puppeteer');
 const accountSid = 'ACc5e6ed7ed6c090937eedf9090f8f21fe';
-const authToken = 'e1e7ac1a0e4da5b16be2412d35b72d92';
+const authToken = '';
 const client = require('twilio')(accountSid, authToken);
 const e2ePhoneNumber = '6466030984';
 var verificationCode = "";
+
 
 describe('App loads', () => {
   test('App splash page loads correctly', async () => {
@@ -52,7 +53,15 @@ describe('App loads', () => {
     await page.waitForSelector('.heading');
     await page.screenshot({path: 'buddy-screenshot.png'});
 
-    debugger;
+    await page.focus('[placeholder="Enter Code"]');
+    await page.type('[placeholder="Enter Code"]',verificationCode);
+    await page.click('.next');
+    await delay(2000);
+    await page.focus('#google-maps-autocomplete');
+    await page.type('#google-maps-autocomplete',"Dallas TX");
+
+    await page.screenshot({path: 'screenshot.png'});
+
     browser.close();
   }, 30000);
 });
