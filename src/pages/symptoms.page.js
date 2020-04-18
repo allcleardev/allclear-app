@@ -8,9 +8,7 @@ import RoundHeader from '@general/headers/header-round';
 import ProgressBottom from '@general/navs/progress-bottom';
 import OnboardingNavigation from '@general/navs/onboarding-navigation';
 import {AppContext} from '@contexts/app.context';
-import PeopleService from '@services/people.service';
 import TypesService from '@services/types.service';
-
 
 class SymptomsPage extends Component {
   state = {

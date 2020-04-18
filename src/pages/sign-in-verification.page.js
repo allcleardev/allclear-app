@@ -8,8 +8,8 @@ import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import Axios from 'axios';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import RoundHeader from '../components/general/headers/header-round';
-import {AppContext} from '../contexts/app.context';
+import RoundHeader from '@components/general/headers/header-round';
+import {AppContext} from '@contexts/app.context';
 
 export default function SignInVerificationPage({ props, location }) {
   const [state] = React.useState({
