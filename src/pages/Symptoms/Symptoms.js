@@ -107,7 +107,7 @@ class Symptom extends Component {
         <div className="symptoms onboarding-page">
           <RoundHeader navigate={'/health-worker'}>
             <h1 className="heading">Symptoms</h1>
-            <h2 className="sub-heading">Most test centers are only seeing patients with certain symptoms.</h2>
+            <h2 className="sub-heading">Per the CDC, certain symptoms impact test location availability.</h2>
           </RoundHeader>
           <Form noValidate autoComplete="off" className="onboarding-body">
             <Box maxWidth="md">
@@ -147,7 +147,7 @@ class Symptom extends Component {
                   onClick={() => this.routeChange('/sign-up')}
                   disabled={!this.state.isSelected}
                 >
-                  Finish
+                  Next
                 </Button>
               }
               tooltipMessage={'Please make a selection'}
