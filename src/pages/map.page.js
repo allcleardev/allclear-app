@@ -1,12 +1,12 @@
-import React, { useState, useContext } from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import AnimateHeight from 'react-animate-height';
 import clsx from 'clsx';
 import Hammer from 'react-hammerjs';
 import Box from '@material-ui/core/Container';
-import { makeStyles } from '@material-ui/core/styles';
-import { CircularProgress } from '@material-ui/core';
+import {makeStyles} from '@material-ui/core/styles';
+import {CircularProgress} from '@material-ui/core';
 import Badge from '@material-ui/core/Badge';
-import { get } from 'lodash';
+import { get} from 'lodash';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
@@ -17,13 +17,10 @@ import UpdateCriteriaModal from '@general/modals/update-criteria-modal';
 import GoogleMap from '@components/map-components/google-map';
 import TestingLocationListItem from '@components/map-components/testing-location-list-item';
 
-// import IconButton from '@material-ui/core/IconButton';
-// import ArrowLeft from '@svg/arrow-left';
-// import ArrowRight from '@svg/arrow-right';
 import SettingsSVG from '@svg/svg-settings';
 import ModalService from '@services/modal.service';
-import { AppContext } from '@contexts/app.context';
-import { useWindowResize } from '@hooks/general.hooks';
+import {AppContext} from '@contexts/app.context';
+import {useWindowResize} from '@hooks/general.hooks';
 
 export default function MapPage() {
   // constants
@@ -37,22 +34,55 @@ export default function MapPage() {
     },
   };
   const classes = useStyles();
+  const badgeRef = React.createRef();
+
 
   // state & global state
-  const { setAppState, appState } = useContext(AppContext);
+  const {setAppState, appState} = useContext(AppContext);
   const [width, height] = useWindowResize(onWindowResize);
   const initialState = {
     isOpen: true,
     anchor: 'left',
     windowWidth: width,
     windowHeight: height,
+    searchFilterActive: false,
   };
   const [mapState, setMapState] = useState(initialState);
   const [drawerHeight, setDrawerHeight] = useState(350);
   const locations = get(appState, 'map.locations') || [];
 
+  // on mount, check if filter is active
+  useEffect(checkFilterActive,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [appState.forceRefresh]);
+
+  function checkFilterActive() {
+    const currFormValues = Object.values(appState.searchCriteria).filter(Boolean);
+    // if any selections have anything but 'any' selected, search is active
+    // console.log('filterss', currFormValues);
+    // console.log(appState.searchCriteria)
+
+    const searchFilterActive = !currFormValues.every((e) => e === 'Any');
+
+    setAppState({
+      ...appState,
+      map: {
+        ...appState.map,
+        searchFilterActive,
+      }
+    });
+
+    // console.log('zzz', searchFilterActive);
+
+    // hide badge when filters are inactive
+    if(get(badgeRef,'current.children[1]')) {
+      badgeRef.current.children[1].hidden = !searchFilterActive;
+    }
+
+  }
+
   // callback handlers
-  function onWindowResize({ width, height }) {
+  function onWindowResize({width, height}) {
     if (width <= 768) {
       setMapState({
         ...mapState,
@@ -86,7 +116,7 @@ export default function MapPage() {
   //   });
   // }
 
-  const { isOpen, anchor } = mapState;
+  const {isOpen, anchor} = mapState;
 
   // get modal service so we can toggle it open
   let modalService = ModalService.getInstance();
@@ -102,7 +132,7 @@ export default function MapPage() {
               [classes.appBarShift]: isOpen,
             })
           }
-          style={{ zIndex: '2' }}
+          style={{zIndex: '2'}}
         >
           {/* <IconButton
             disableRipple
@@ -118,7 +148,7 @@ export default function MapPage() {
           variant="persistent"
           anchor={anchor}
           open={isOpen}
-          style={{ height: drawerHeight, zIndex: 4 }}
+          style={{height: drawerHeight, zIndex: 4}}
         >
           <AnimateHeight duration={500} height={drawerHeight}>
             <div
@@ -131,7 +161,7 @@ export default function MapPage() {
               className="side-drawer hide-scrollbar wid100-sm"
             >
               <Hammer onSwipe={onDrawerSwipe} options={touchOptions} direction="DIRECTION_VERTICAL">
-                <div style={{ height: '60px' }} className="geolist-resizer" onClick={onDrawerSwipe}>
+                <div style={{height: '60px'}} className="geolist-resizer" onClick={onDrawerSwipe}>
                   <svg width="37" height="6" viewBox="0 0 37 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M2.75977 5.18164C1.37905 5.18164 0.259766 4.06235 0.259766 2.68164C0.259766
@@ -147,10 +177,10 @@ export default function MapPage() {
               {appState.isListLoading === false && (
                 <Box>
                   <Badge
+                    ref={badgeRef}
                     badgeContent={''}
                     overlap={'rectangle'}
-                    style={{ width: '100%' }}
-                    invisible={!appState.map.searchFilterActive}
+                    style={{width: '100%'}}
                   >
                     <Button
                       className={'edit-filters-btn'}
@@ -184,29 +214,29 @@ export default function MapPage() {
                   }}
                   className="mt-4 mt-md-0 vh100-lg"
                 >
-                  <CircularProgress color="primary" size={70} />
+                  <CircularProgress color="primary" size={70}/>
                   <p className="mt-3">Loading Results</p>
                 </div>
               )}
 
               {locations &&
-                locations.map((result, index) => (
-                  <TestingLocationListItem
-                    key={index}
-                    index={index}
-                    title={result.name}
-                    description={result.address}
-                    city_state={result.city + ', ' + result.state}
-                    service_time={result.hours}
-                    driveThru={result.driveThru}
-                    phone={result.phone}
-                    website={result.url}
-                    {...result}
-                  ></TestingLocationListItem>
-                ))}
+              locations.map((result, index) => (
+                <TestingLocationListItem
+                  key={index}
+                  index={index}
+                  title={result.name}
+                  description={result.address}
+                  city_state={result.city + ', ' + result.state}
+                  service_time={result.hours}
+                  driveThru={result.driveThru}
+                  phone={result.phone}
+                  website={result.url}
+                  {...result}
+                ></TestingLocationListItem>
+              ))}
 
               {locations.length === 0 && appState.isListLoading === false && (
-                <h2 style={{ display: 'flex', justifyContent: 'center' }}>No Results Found </h2>
+                <h2 style={{display: 'flex', justifyContent: 'center'}}>No Results Found </h2>
               )}
             </div>
           </AnimateHeight>

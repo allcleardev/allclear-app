@@ -15,7 +15,6 @@ import { CRITERIA_FORM_DATA } from './update-criteria-modal.constants';
 import { AppContext } from '@contexts/app.context';
 import ModalService from '@services/modal.service';
 import FacilityService from '@services/facility.service';
-// import {forEach} from 'lodash';
 
 export default function UpdateCriteriaModal() {
 
@@ -25,7 +24,6 @@ export default function UpdateCriteriaModal() {
 
   const [open, setOpen] = useState(false);
   const [scroll, setScroll] = useState('paper');
-
 
   function toggleModal(isOpen, scrollType) {
     setOpen(isOpen);
@@ -113,11 +111,6 @@ function UpdateCriteria({ onClose, onSubmit }) {
 
   const facilityService = FacilityService.getInstance();
 
-  const currFormValues = Object.values(formValues);
-
-  // todo: fix thsi for the dynamic ones
-  const searchFilterActive = currFormValues.includes(true) || currFormValues.includes(false);
-
   function _onSelectChanged(evt) {
     const currKey = evt.currentTarget.dataset.key;
     const currValue = evt.target.value;
@@ -151,11 +144,11 @@ function UpdateCriteria({ onClose, onSubmit }) {
       map: {
         ...appState.map,
         locations: result.data.records || [],
-        searchFilterActive,
       },
       searchCriteria: formValues,
       isListLoading: false,
-      modalSubmitCount: appState.modalSubmitCount + 1
+      modalSubmitCount: appState.modalSubmitCount + 1,
+      forceRefresh: !appState.forceRefresh
     });
 
     // call parent submit function
