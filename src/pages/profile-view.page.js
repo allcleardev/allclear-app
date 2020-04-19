@@ -89,7 +89,7 @@ export default class ProfileViewPage extends Component {
           <article className="card">
             <dl className="card__content">
               <dt className="card__term">Phone</dt>
-              <dd className="card__description"> {profile.name}</dd>
+              <dd className="card__description"> {profile.phone}</dd>
             </dl>
           </article>
 
