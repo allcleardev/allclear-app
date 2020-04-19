@@ -19,7 +19,10 @@
   }
 
   .MuiBadge-badge {
-    background-color: #ed1c23;
+    background-color: white;
+    color: $primary-color;
+    font-weight: bold;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
   }
 
   .MuiBadge-anchorOriginTopRightRectangle {
