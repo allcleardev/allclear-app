@@ -24,7 +24,6 @@ class SettingsPage extends Component {
     super(props);
     bindAll(this, ['componentDidMount', 'onDeleteProfileClicked', 'handleClose']);
     this.peopleService = PeopleService.getInstance();
-    this.session = JSON.parse(localStorage.getItem('session'));
   }
 
   componentDidMount = () => {};
@@ -38,7 +37,7 @@ class SettingsPage extends Component {
   }
 
   async onDeleteConfirmedClicked() {
-    const id = this.session.person.id;
+    const id = this.context.appState.person.id;
     this.setState({ loading: true });
     await this.peopleService.deleteProfile(id).then((res) => {
       this.setState({ loading: false });

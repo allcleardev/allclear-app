@@ -9,7 +9,9 @@ export default class PeopleService {
     this._setAuthHeaders();
   }
 
-  _setAuthHeaders(){
+  // todo: all sessions in storage seem to be borked. i monkey patched the appstate value in
+  // to the calls that were failing but it needs to actually be fixed for these others to work
+  _setAuthHeaders() {
     this.sessionId = localStorage.getItem('sessid');
     this.headers = {
       headers: {
@@ -43,8 +45,13 @@ export default class PeopleService {
     return Axios.delete(this.logoutURL, this.headers);
   }
 
-  async editProfile(postData) {
-    return Axios.put(`${this.baseURL}`, postData, this.headers)
+  async editProfile(postData, currSession) {
+    currSession = (currSession) ? {
+      'X-AllClear-SessionID': currSession,
+    } : {
+      ...this.headers.headers
+    };
+    return Axios.put(`${this.baseURL}`, postData, currSession)
       .then((response) => {
         return response;
       })
