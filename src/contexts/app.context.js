@@ -18,7 +18,15 @@ forEach(CRITERIA_FORM_DATA, (e, i) => {
 
 export const INITIAL_APP_STATE = {
   sessionId: undefined,
-  person: {},
+  person: {
+    dob: undefined,
+    alertable: undefined,
+    locationName: undefined,
+    phone: undefined,
+    name: undefined,
+    latitude: undefined,
+    longitude: undefined
+  },
   map: {
     locations: [],
     expandedItems: [],

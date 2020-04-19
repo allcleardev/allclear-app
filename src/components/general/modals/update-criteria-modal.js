@@ -187,7 +187,7 @@ function UpdateCriteria({ onClose, onSubmit }) {
             value={formValues[key]}
             onChange={_onSelectChanged}
           >
-            {options.map((optionItem, i2) => {
+            {options && options.map((optionItem, i2) => {
               const {id, name} = optionItem;
               return (
                 <MenuItem key={i2} value={id} name={name} data-name={name} data-key={key}>

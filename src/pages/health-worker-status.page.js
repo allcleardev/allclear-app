@@ -32,29 +32,19 @@ class HealthWorkerStatusPage extends Component {
   }
 
   async getHealthWorkerStatuses() {
-    const {appState, setAppState} = this.context;
+
     const healthWorkerStatus = await this.typesService.getHealthWorkerStatuses()
       .catch((error) => {
         this.setState({loading: false});
       });
     this.setState({ healthWorkerStatus });
 
-    // save to global state for later usage
-    setAppState({
-      ...appState,
-      profile:{
-        ...appState.profile,
-        options:{
-          ...appState.profile.options,
-          healthWorkerStatus
-        }
-      }
-    });
     this.setState({ loading: false });
   }
 
 
   handleChange(event) {
+    const {appState, setAppState} = this.context;
     const { healthWorkerStatus } = this.state;
     const selectedStatus = event;
 
@@ -70,8 +60,16 @@ class HealthWorkerStatusPage extends Component {
     this.setState({ healthWorkerStatus });
     this.setState({ isSelected: event.isActive });
 
-    // todo: put this in proper app state place
-    sessionStorage.setItem('healthWorkerStatus', JSON.stringify(selectedStatus));
+    setAppState({
+      ...appState,
+      profile:{
+        ...appState.profile,
+        options:{
+          ...appState.profile.options,
+          healthWorkerStatus: selectedStatus
+        }
+      }
+    });
   }
 
   render() {
@@ -81,8 +79,7 @@ class HealthWorkerStatusPage extends Component {
           <RoundHeader navigate={'/background'}>
             <h1 className="heading">Health Worker Status</h1>
             <h2 className="sub-heading">
-              Some test centers will test you if you’re a medical professional or first responder, even if you have no
-              symptoms.
+              Per the CDC, Health Worker and First Responder statuses impact test location availability.
             </h2>
           </RoundHeader>
           <Form noValidate autoComplete="off" className="onboarding-body">
@@ -130,7 +127,7 @@ class HealthWorkerStatusPage extends Component {
               triggerTooltip={!this.state.isSelected}
             ></OnboardingNavigation>
           </Form>
-          <ProgressBottom progress="25%"></ProgressBottom>
+          <ProgressBottom progress="20%"></ProgressBottom>
         </div>
       </div>
     );

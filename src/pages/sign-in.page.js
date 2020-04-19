@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 import Form from '@material-ui/core/Container';
@@ -9,8 +9,12 @@ import Axios from 'axios';
 import RoundHeader from '../components/general/headers/header-round';
 import PhoneNumberInput from '../components/general/inputs/phone-number-input';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import {AppContext} from '@contexts/app.context';
 
 export default function SignInPage({ props }) {
+
+  const { appState } = useContext(AppContext);
+
   const [state, setState] = React.useState({
     loading: false,
   });
@@ -22,10 +26,10 @@ export default function SignInPage({ props }) {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
 
-  //eslint-disable-next-line
   async function verifyLogin() {
+
     setState({ loading: true });
-    const phone = sessionStorage.getItem('phone');
+    const phone = appState.person.phone;
 
     if (!phone) {
       setState({ loading: false });
@@ -35,7 +39,6 @@ export default function SignInPage({ props }) {
       phone,
     })
       .then((response) => {
-        sessionStorage.setItem('phone', phone);
         history.push('/sign-in-verification');
       })
       .catch((error) => {
@@ -69,8 +72,8 @@ export default function SignInPage({ props }) {
     <div className="background-responsive">
       <div className="login onboarding-page">
         <RoundHeader>
-          <h1 className="heading">Sign In</h1>
-          <h2 className="sub-heading">Enter your phone number to be sent a verification code.</h2>
+          <h1 className="heading">Phone Number</h1>
+          <h2 className="sub-heading">Enter your phone number to access your account.</h2>
         </RoundHeader>
         {state.loading === false ? (
           <Form noValidate autoComplete="off" className="onboarding-body">
@@ -83,7 +86,7 @@ export default function SignInPage({ props }) {
             </div>
 
             <div className="button-container">
-              <Link to="/sign-up" className="hide-desktop login">
+              <Link to="/background" className="hide-desktop login">
                 Create Account
               </Link>
               <Button onClick={() => verifyLogin()} variant="contained" color="primary" className="next">
