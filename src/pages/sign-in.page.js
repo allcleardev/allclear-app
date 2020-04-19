@@ -96,7 +96,7 @@ export default class SignInPage extends Component {
               </div>
 
               <div className="button-container">
-                <Link to="/background" className="hide-desktop login">
+                <Link to="/location" className="hide-desktop login">
                   Create Account
                 </Link>
                 <Button onClick={() => this.verifyLogin()} variant="contained" color="primary" className="next">
@@ -107,7 +107,7 @@ export default class SignInPage extends Component {
           ) : (
             <Grid container justify="center">
               <Grid item xs={12} sm={6}>
-                <LinearProgress color="primary" value={50} variant="indeterminate"/>
+                <LinearProgress color="primary" value={50} variant="indeterminate" />
               </Grid>
             </Grid>
           )}
