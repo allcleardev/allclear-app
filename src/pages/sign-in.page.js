@@ -87,7 +87,7 @@ export default class SignInPage extends Component {
           </RoundHeader>
           {this.state.loading === false ? (
             <Form noValidate autoComplete="off" className="onboarding-body">
-              <div className="content-container">
+              <div className="content-container phone-number-box">
                 <PhoneNumberInput onSubmit={() => this.verifyLogin()} className="hide-mobile"></PhoneNumberInput>
                 <Link to="/sign-up" className="hide-mobile login">
                   Create Account
