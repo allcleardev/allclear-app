@@ -29,17 +29,10 @@ import { getNumActiveFilters } from '@util/general.helpers';
 
 export default function MapPage() {
   // constants
-  const touchOptions = {
-    touchAction: 'compute',
-    recognizers: {
-      swipe: {
-        time: 600,
-        threshold: 100,
-      },
-    },
-  };
   const classes = useStyles();
   const badgeRef = React.createRef();
+  const DRAWER_EXPANDED_HEIGHT = '100%';
+  const DRAWER_COLLAPSED_HEIGHT = 350;
 
   // state & global state
   const { setAppState, appState } = useContext(AppContext);
@@ -53,7 +46,7 @@ export default function MapPage() {
     searchFilterActive: false,
   };
   const [mapState, setMapState] = useState(initialState);
-  const [drawerHeight, setDrawerHeight] = useState(350);
+  const [drawerHeight, setDrawerHeight] = useState(DRAWER_COLLAPSED_HEIGHT);
   const locations = get(appState, 'map.locations') || [];
   const numActiveFilters = getNumActiveFilters(get(appState, 'searchCriteria'));
   // on mount, check if filter is active
@@ -95,7 +88,7 @@ export default function MapPage() {
         anchor: 'bottom',
         isOpen: true,
       });
-      setDrawerHeight(350);
+      setDrawerHeight(DRAWER_COLLAPSED_HEIGHT);
     } else {
       setMapState({
         ...mapState,
@@ -108,7 +101,7 @@ export default function MapPage() {
 
   function onDrawerSwipe(e) {
     if (initialState.windowWidth <= 768) {
-      const nextHeight = drawerHeight === 350 ? '100vh' : 350;
+      const nextHeight = drawerHeight === DRAWER_COLLAPSED_HEIGHT ? DRAWER_EXPANDED_HEIGHT : DRAWER_COLLAPSED_HEIGHT;
       if (e.pointerType === 'touch' || e.type === 'click') {
         setDrawerHeight(nextHeight);
       }
@@ -199,11 +192,11 @@ export default function MapPage() {
                   {anchor === 'bottom' && (
                     <Button
                       className={'view-full-results-btn'}
-                      endIcon={drawerHeight === '100vh' ? VerticalCollapseIcon() : VerticalExpandIcon()}
+                      endIcon={drawerHeight === DRAWER_EXPANDED_HEIGHT ? VerticalCollapseIcon() : VerticalExpandIcon()}
                       style={{ width: '50%', color: '#666666', size: 'large', paddingRight: '0px' }}
                       onClick={onDrawerSwipe}
                     >
-                      {drawerHeight === '100vh' ? 'Map View' : 'Full Results View'}
+                      {drawerHeight === DRAWER_EXPANDED_HEIGHT ? 'Map View' : 'Full Results View'}
                     </Button>
                   )}
                 </Box>
