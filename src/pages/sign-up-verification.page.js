@@ -46,7 +46,7 @@ export default class SignUpVerificationPage extends Component {
   };
 
   // Function to make call backend service to confirm the magic link
-  verifyPhoneNumber = async () => {
+  async verifyPhoneNumber() {
     const { appState, setAppState } = this.context;
 
     let phone = sessionStorage.getItem('phone');
@@ -69,7 +69,7 @@ export default class SignUpVerificationPage extends Component {
     }
   };
 
-  onKeyPress = (e) => {
+  onKeyPress(e) {
     if (e.key === 'Enter') {
       e.preventDefault();
       this.verifyPhoneNumber();

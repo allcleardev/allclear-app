@@ -48,7 +48,7 @@ export default function App() {
           <Route path="/get-started" component={GetStartedPage} />
           <Route path="/sign-up" component={SignUpPage} />
           <Route path="/sign-up-verification" component={SignUpVerificationPage} />
-          <Route path="/success" component={AccountCreated} />
+          <ProtectedRoute path="/success" component={AccountCreated} />
 
           <Route path="/register" component={VerifyMagicLinkPage} />
           <Route path="/auth" component={LoginMagicLinkPage} />

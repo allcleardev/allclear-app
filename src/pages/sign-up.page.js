@@ -36,6 +36,7 @@ export default class SignUpPage extends Component {
       phoneVerified: false,
       loading: false,
       error: false,
+      message: undefined,
       accountExists: true,
       isSnackbarOpen: false,
     };
@@ -43,20 +44,32 @@ export default class SignUpPage extends Component {
     this.peopleService = PeopleService.getInstance();
 
     bindAll(this, [
+      'validateState',
       'handleChange',
       'handleSnackbarClose',
       'checkPhoneValidation',
       'onSendVerificationClicked'
     ]);
-
   }
 
   async componentDidMount() {
+    this.validateState();
     const queryParams = queryString.parse(this.props.location.search);
     if (queryParams.logout) {
       this.setState({
         isSnackbarOpen: true,
       });
+    }
+  }
+
+  validateState() {
+    const { appState } = this.context;
+    const healthWorkerStatus = appState.profile.options.healthWorkerStatus;
+    const latitude = appState.person.latitude;
+    const longitude = appState.person.longitude;
+
+    if (!healthWorkerStatus || !latitude || !longitude) {
+      return this.routeChange('/get-started');
     }
   }
 
@@ -66,7 +79,6 @@ export default class SignUpPage extends Component {
 
   handleChange(event) {
     this.setState({
-      ...this.state,
       [event.target.name]: event.target.checked,
     });
 
@@ -84,15 +96,17 @@ export default class SignUpPage extends Component {
 
   checkPhoneValidation(value) {
     if (value) {
-      this.setState({phoneVerified: true});
+      this.setState({
+        phoneVerified: true
+      });
     } else {
-      this.setState({phoneVerified: false});
+      this.setState({
+        phoneVerified: false
+      });
     }
   }
 
   buildPayload() {
-
-    // todo: do this the right way (appcontext, remove all sessionstorage usage)
     const { appState } = this.context;
     const phone = sessionStorage.getItem('phone');
 
@@ -100,7 +114,7 @@ export default class SignUpPage extends Component {
     const longitude = appState.person.longitude;
     const locationName = appState.person.locationName;
     const dob = appState.person.dob;
-    const alertable = appState.person.alertable;
+    const alertable = appState.person.alertable || true;
     const healthWorkerStatus = appState.profile.options.healthWorkerStatus;
     let exposures = appState.profile.options.exposures;
     let conditions = appState.profile.options.conditions;
@@ -172,7 +186,9 @@ export default class SignUpPage extends Component {
   }
 
   async onSendVerificationClicked() {
-    this.setState({loading: true});
+    this.setState({
+      loading: true
+    });
     let phone = sessionStorage.getItem('phone');
 
     const payload = this.buildPayload();
@@ -217,7 +233,7 @@ export default class SignUpPage extends Component {
 
   // ALLCLEAR-274
   parseError() {
-    return this.state.error === true ? <p className="error">{JSON.parse(this.state.message).message}</p> : '';
+    return this.state.error === true ? <p className="error">{this.state.message}</p> : '';
   };
 
   render() {
