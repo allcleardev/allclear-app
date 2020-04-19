@@ -32,24 +32,13 @@ class HealthWorkerStatusPage extends Component {
   }
 
   async getHealthWorkerStatuses() {
-    const {appState, setAppState} = this.context;
+
     const healthWorkerStatus = await this.typesService.getHealthWorkerStatuses()
       .catch((error) => {
         this.setState({loading: false});
       });
     this.setState({ healthWorkerStatus });
 
-    // save to global state for later usage
-    setAppState({
-      ...appState,
-      profile:{
-        ...appState.profile,
-        options:{
-          ...appState.profile.options,
-          healthWorkerStatus
-        }
-      }
-    });
     this.setState({ loading: false });
   }
 

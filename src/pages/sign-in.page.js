@@ -29,7 +29,7 @@ export default function SignInPage({ props }) {
   async function verifyLogin() {
 
     setState({ loading: true });
-    const phone = appState.person.phone
+    const phone = appState.person.phone;
 
     if (!phone) {
       setState({ loading: false });
