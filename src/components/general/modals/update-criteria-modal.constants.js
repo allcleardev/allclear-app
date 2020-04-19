@@ -46,14 +46,14 @@ export const CRITERIA_FORM_DATA = [
   //   optionsKey: 'symptoms',
   //   inputType: 'MultiSelectInput',
   // },
-  {
-    title: 'Exposure to COVID-19',
-    subtitle: 'Some test centers require knowledge of your exposure to people who have tested positive for COVID-19',
-    key: 'exposures',
-    optionsKey: 'exposures',
-    inputType: 'select',
-    placeholder: 'Select Exposure to COVID-19'
-  },
+  // {
+  //   title: 'Exposure to COVID-19',
+  //   subtitle: 'Some test centers require knowledge of your exposure to people who have tested positive for COVID-19',
+  //   key: 'exposures',
+  //   optionsKey: 'exposures',
+  //   inputType: 'select',
+  //   placeholder: 'Select Exposure to COVID-19'
+  // },
   // {
   //   title: 'Conditions',
   //   subtitle: 'Select all that apply',
@@ -61,12 +61,12 @@ export const CRITERIA_FORM_DATA = [
   //   optionsKey: 'conditions',
   //   inputType: 'MultiSelectInput',
   // },
-  {
-    title: 'Health Worker Status',
-    subtitle: 'Some test centeres require you or someone you live with to be a health worker.',
-    key: 'healthWorkerStatus',
-    optionsKey: 'healthWorkerStatus',
-    inputType: 'select',
-    placeholder: 'Select Health Worker Status'
-  },
+  // {
+  //   title: 'Health Worker Status',
+  //   subtitle: 'Some test centeres require you or someone you live with to be a health worker.',
+  //   key: 'healthWorkerStatus',
+  //   optionsKey: 'healthWorkerStatus',
+  //   inputType: 'select',
+  //   placeholder: 'Select Health Worker Status'
+  // },
 ];
