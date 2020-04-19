@@ -69,4 +69,17 @@ $colors: (
       background-color: white;
     }
   }
+
+  &--map {
+    position: absolute;
+    .MuiAlert-standardError {
+      background-color: white;
+    }
+    .MuiAlert-icon{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+  }
 }

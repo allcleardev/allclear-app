@@ -6,12 +6,17 @@ import FacilityService from '../../services/facility.service.js';
 import { bindAll, get } from 'lodash';
 import { AppContext } from '@contexts/app.context';
 import MyLocationMapMarker from './my-location-map-marker.js';
+import SnackbarMessage from '@general/alerts/snackbar-message';
 
 export default class GoogleMap extends Component {
   static contextType = AppContext;
 
   constructor(props) {
     super(props);
+
+    this.state = {
+      isSnackbarOpen: false,
+    };
 
     bindAll(this, [
       'componentDidMount',
@@ -25,6 +30,7 @@ export default class GoogleMap extends Component {
       '_onLocationDeclined',
       '_createSearchPayload',
       '_search',
+      'handleSnackbarClose',
     ]);
     this.gMap = React.createRef();
     this.facilityService = FacilityService.getInstance();
@@ -41,6 +47,12 @@ export default class GoogleMap extends Component {
     }
     this._setLocations(result.data.records, { latitude, longitude });
     latitude && longitude && this._panTo(latitude, longitude);
+  }
+
+  handleSnackbarClose() {
+    this.setState({
+      isSnackbarOpen: false
+    });
   }
 
   /******************************************************************
@@ -111,8 +123,14 @@ export default class GoogleMap extends Component {
   }
 
   _onLocationDeclined() {
-    // console.warn('location DECLINED');
-    // todo: snackbar here
+    console.warn('location DECLINED');
+    const { appState } = this.context;
+    const {longitude, latitude} = appState.map;
+    this._panTo(latitude, longitude);
+    this._search(latitude, longitude);
+    this.setState({
+      isSnackbarOpen: true,
+    })
     console.warn('User declined to use browser location');
   }
 
@@ -159,6 +177,12 @@ export default class GoogleMap extends Component {
 
     return (
       <div style={{ height: '100%', width: '100%' }}>
+        <SnackbarMessage
+          snackbarClass={'snackbar--map'}
+          isOpen={this.state.isSnackbarOpen}
+          onClose={this.handleSnackbarClose}
+          message={'Browser location declined. Using location from your profile instead.'}
+        />
         <GoogleMapReact
           ref={this.gMap}
           options={G_MAP_OPTIONS}
