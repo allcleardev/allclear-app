@@ -53,7 +53,7 @@ export default class AccountCreated extends Component {
               </Button>
             }
             forward={
-              <Button variant="contained" className="next" onClick={() => this.routeChange('/maps')}>
+              <Button variant="contained" className="next" onClick={() => this.routeChange('/map')}>
                 Continue to Profile
               </Button>
             }

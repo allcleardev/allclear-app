@@ -4,8 +4,12 @@ import MuiPhoneNumber from 'material-ui-phone-number';
 import { withStyles } from '@material-ui/core/styles';
 import { Formik, Form } from 'formik';
 
+import { AppContext } from '@contexts/app.context';
+
 const styles = {};
 class PhoneNumberInput extends Component {
+  static contextType = AppContext;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -35,11 +39,22 @@ class PhoneNumberInput extends Component {
   }
 
   handleValidation(value) {
+    const { appState, setAppState } = this.context;
+
+    let phone = null;
+
     if (this.state.isPhoneValid) {
-      sessionStorage.setItem('phone', `+1 ${value}`);
-    } else {
-      sessionStorage.setItem('phone', '');
+      phone = `+1 ${value}`;
     }
+
+    setAppState({
+      ...appState,
+      person: {
+        ...appState.person,
+        phone
+      },
+    });
+
     this.props.phoneValidation && this.props.phoneValidation(this.state.isPhoneValid);
   }
 

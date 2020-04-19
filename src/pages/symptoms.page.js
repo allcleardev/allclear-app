@@ -8,7 +8,6 @@ import RoundHeader from '@general/headers/header-round';
 import ProgressBottom from '@general/navs/progress-bottom';
 import OnboardingNavigation from '@general/navs/onboarding-navigation';
 import { AppContext } from '@contexts/app.context';
-import PeopleService from '@services/people.service';
 import TypesService from '@services/types.service';
 
 class SymptomsPage extends Component {
@@ -62,6 +61,7 @@ class SymptomsPage extends Component {
   }
 
   handleChange(event) {
+    const { appState, setAppState } = this.context;
     let { symptoms } = this.state;
     // If "none" is selected, deselect the other chips
     if (event.id === 'no') {
@@ -82,7 +82,17 @@ class SymptomsPage extends Component {
 
     this.setState({ symptoms });
     this.checkForSelection();
-    sessionStorage.setItem('symptoms', JSON.stringify(symptoms));
+
+    setAppState({
+      ...appState,
+      profile:{
+        ...appState.profile,
+        options:{
+          ...appState.profile.options,
+          symptoms
+        }
+      }
+    });
   }
 
   deselectAll() {
@@ -163,7 +173,7 @@ class SymptomsPage extends Component {
               triggerTooltip={!this.state.isSelected}
             ></OnboardingNavigation>
           </Form>
-          <ProgressBottom progress="75%"></ProgressBottom>
+          <ProgressBottom progress="40%"></ProgressBottom>
         </div>
       </div>
     );

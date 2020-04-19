@@ -8,7 +8,7 @@ import OnboardingNavigation from '../components/general/navs/onboarding-navigati
 
 import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
-import { Button, TextField } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { AppContext } from '../contexts/app.context';
 
 class BackgroundPage extends Component {
@@ -21,10 +21,8 @@ class BackgroundPage extends Component {
 
   constructor() {
     super();
-
     bindAll(this, [
       'routeChange',
-      'handleDoBChange',
       'handleLocationChange',
       'handleSwitchChange',
       '_onLocationAccepted',
@@ -34,15 +32,6 @@ class BackgroundPage extends Component {
 
   routeChange(route) {
     this.props.history.push(route);
-  }
-
-  handleDoBChange(event) {
-    if (event && event.target && event.target.value) {
-      this.setState({ dob: event.target.value });
-
-      let dob = event.target.value + 'T00:00:00Z';
-      sessionStorage.setItem('dob', dob);
-    }
   }
 
   async handleLocationChange(bool, value) {
@@ -59,7 +48,7 @@ class BackgroundPage extends Component {
           locationName,
           latitude,
           longitude,
-        },
+        }
       });
     }
   }
@@ -143,21 +132,6 @@ class BackgroundPage extends Component {
 
                     <p className="currentLocation">Use Current Location</p>
                   </div>
-                </article>
-                <article className="article">
-                  <label htmlFor="birthdate" className="label">
-                    <strong>Date of Birth</strong> <br />
-                    <span className="description">Some test centers have minimum age requirements.</span>
-                  </label>
-                  {/* TODO: swap w/ Material UI Date Picker https://material-ui.com/components/pickers/ */}
-                  <TextField
-                    id="birthdate"
-                    className="input"
-                    type="date"
-                    placeholder="MM/DD/YYYY"
-                    variant="outlined"
-                    onChange={this.handleDoBChange}
-                  />
                 </article>
               </section>
             </Box>

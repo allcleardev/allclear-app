@@ -44,7 +44,6 @@ export default function SignInVerificationPage({ props, location }) {
     })
       .then((response) => {
         if (response.data.person) {
-          // todo: set latlng to appprovider here
           setAppState({
             ...appState,
             sessionId: response.data.id,

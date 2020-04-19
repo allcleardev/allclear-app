@@ -16,6 +16,7 @@ import Slide from '@material-ui/core/Slide';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 
+import { AppContext } from '@contexts/app.context';
 import PeopleService from '@services/people.service';
 import {bindAll} from 'lodash';
 
@@ -24,14 +25,18 @@ function SlideTransition(props) {
 }
 
 export default class SignUpPage extends Component {
+  static contextType = AppContext;
+
   constructor(props) {
     super(props);
+
     this.state = {
       termsAndConditions: false,
       alertable: false,
       phoneVerified: false,
       loading: false,
       error: false,
+      accountExists: true,
       isSnackbarOpen: false,
     };
 
@@ -41,8 +46,7 @@ export default class SignUpPage extends Component {
       'handleChange',
       'handleSnackbarClose',
       'checkPhoneValidation',
-      'onSendVerificationClicked',
-      'verifyLogin',
+      'onSendVerificationClicked'
     ]);
 
   }
@@ -89,19 +93,20 @@ export default class SignUpPage extends Component {
   buildPayload() {
 
     // todo: do this the right way (appcontext, remove all sessionstorage usage)
-    // const { appState } = this.context;
-    // const {latitude, longitude} = appState.person;
-
-    const dob = sessionStorage.getItem('dob');
+    const { appState } = this.context;
     const phone = sessionStorage.getItem('phone');
-    const latitude = sessionStorage.getItem('lat');
-    const longitude = sessionStorage.getItem('lng');
-    const locationName = sessionStorage.getItem('locationName');
-    const healthWorkerStatus = sessionStorage.getItem('healthWorkerStatus');
-    const alertable = sessionStorage.getItem('alertable');
+
+    const latitude = appState.person.latitude;
+    const longitude = appState.person.longitude;
+    const locationName = appState.person.locationName;
+    const dob = appState.person.dob;
+    const alertable = appState.person.alertable;
+    const healthWorkerStatus = appState.profile.options.healthWorkerStatus;
+    let exposures = appState.profile.options.exposures;
+    let conditions = appState.profile.options.conditions;
+    let symptoms = appState.profile.options.symptoms;
 
     // Format Conditions
-    let conditions = sessionStorage.getItem('conditions');
     const conditionsArray = [];
     if (conditions) {
       if (typeof conditions === 'string') {
@@ -118,7 +123,6 @@ export default class SignUpPage extends Component {
     }
 
     // Format Exposures
-    let exposures = sessionStorage.getItem('exposures');
     const exposuresArray = [];
     if (exposures) {
       if (typeof exposures === 'string') {
@@ -135,7 +139,6 @@ export default class SignUpPage extends Component {
     }
 
     // Format Symptoms
-    let symptoms = sessionStorage.getItem('symptoms');
     const symptomsArray = [];
     if (symptoms) {
       if (typeof symptoms === 'string') {
@@ -162,28 +165,10 @@ export default class SignUpPage extends Component {
       conditions: conditionsArray,
       exposures: exposuresArray,
       symptoms: symptomsArray,
-      healthWorkerStatusId: JSON.parse(healthWorkerStatus).id,
+      healthWorkerStatusId: healthWorkerStatus ? healthWorkerStatus.id : null
     };
 
     return payload;
-  }
-
-  async submitResults() {
-    this.setState({ loading: true });
-    const { appState, setAppState } = this.context;
-
-    const payload = this.buildPayload();
-    const resp = await this.peopleService.register(payload);
-    setAppState({
-      ...appState,
-      sessionId: resp.data.id,
-      person: {
-        ...appState.person,
-        ...resp.data.person
-      }
-    });
-
-    this.props.history.push('/map');
   }
 
   async onSendVerificationClicked() {
@@ -206,7 +191,13 @@ export default class SignUpPage extends Component {
           error.response.data.message &&
           error.response.data.message.includes('already exists')
         ) {
-          return this.verifyLogin();
+          this.state.accountExists = true;
+          this.setState({
+            error: true,
+            message: error.response.data.message,
+            loading: false,
+          });
+
         } else if (error.response.data && error.response.data.message) {
           this.setState({
             error: true,
@@ -221,20 +212,6 @@ export default class SignUpPage extends Component {
           });
         }
       }
-    }
-  }
-
-  async verifyLogin() {
-    this.setState({loading: true});
-    const phone = sessionStorage.getItem('phone');
-
-    const response = await this.peopleService.verifyAuthRequest({phone});
-
-    if (!response.err) {
-      sessionStorage.setItem('phone', phone);
-      this.props.history.push('/sign-up-verification');
-    } else {
-      //TODO Error Message
     }
   }
 
@@ -295,18 +272,6 @@ export default class SignUpPage extends Component {
                   }
                   label="I have reviewed and agree to the Terms & Conditions and Privacy Policy."
                 />
-
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={this.state.alertable}
-                      onChange={this.handleChange}
-                      name="alertable"
-                      color="secondary"
-                    />
-                  }
-                  label="Receive text alerts when eligible test locations become available."
-                />
               </div>
               <OnboardingNavigation
                 back={
@@ -344,11 +309,11 @@ export default class SignUpPage extends Component {
           ) : (
              <Grid container justify="center">
                <Grid item xs={12} sm={6}>
-                 <LinearProgress color="primary" value={75} variant="indeterminate"/>
+                 <LinearProgress color="primary" value={60} variant="indeterminate"/>
                </Grid>
              </Grid>
            )}
-          {this.state.loading === false ? <ProgressBottom progress="75%"></ProgressBottom> : null}
+          {this.state.loading === false ? <ProgressBottom progress="60%"></ProgressBottom> : null}
         </div>
       </div>
     );

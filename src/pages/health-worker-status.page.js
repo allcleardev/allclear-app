@@ -55,6 +55,7 @@ class HealthWorkerStatusPage extends Component {
 
 
   handleChange(event) {
+    const {appState, setAppState} = this.context;
     const { healthWorkerStatus } = this.state;
     const selectedStatus = event;
 
@@ -70,8 +71,16 @@ class HealthWorkerStatusPage extends Component {
     this.setState({ healthWorkerStatus });
     this.setState({ isSelected: event.isActive });
 
-    // todo: put this in proper app state place
-    sessionStorage.setItem('healthWorkerStatus', JSON.stringify(selectedStatus));
+    setAppState({
+      ...appState,
+      profile:{
+        ...appState.profile,
+        options:{
+          ...appState.profile.options,
+          healthWorkerStatus: selectedStatus
+        }
+      }
+    });
   }
 
   render() {
@@ -129,7 +138,7 @@ class HealthWorkerStatusPage extends Component {
               triggerTooltip={!this.state.isSelected}
             ></OnboardingNavigation>
           </Form>
-          <ProgressBottom progress="25%"></ProgressBottom>
+          <ProgressBottom progress="20%"></ProgressBottom>
         </div>
       </div>
     );
