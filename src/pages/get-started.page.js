@@ -1,20 +1,14 @@
 import React, { Component } from 'react';
 import { bindAll } from 'lodash';
 
-import { AppContext } from '../contexts/app.context';
+import { AppContext } from '@contexts/app.context';
 import Logo from '../assets/images/logo-green-back.svg';
-import Header from '../components/general/headers/header';
+import Header from '@general/headers/header';
 
 import { Button } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import * as queryString from 'query-string';
-import Alert from '@material-ui/lab/Alert';
-import Snackbar from '@material-ui/core/Snackbar';
-import Slide from '@material-ui/core/Slide';
-
-function SlideTransition(props) {
-  return <Slide {...props} direction="up"/>;
-}
+import SnackbarMessage from '@general/alerts/snackbar-message';
 
 export default class GetStartedPage extends Component {
   static contextType = AppContext;
@@ -46,31 +40,27 @@ export default class GetStartedPage extends Component {
     }
   }
 
-  routeChange(route) {
-    this.props.history.push(route);
-  }
-
   handleSnackbarClose() {
     this.setState({
       isSnackbarOpen: false
     });
   }
 
+  routeChange(route) {
+    this.props.history.push(route);
+  }
+
 
   render() {
     return (
       <div className="get-started-page">
-        <Snackbar
-          open={this.state.isSnackbarOpen}
-          TransitionComponent={SlideTransition}
-          autoHideDuration={4000}
+        <SnackbarMessage
+          isOpen={this.state.isSnackbarOpen}
           onClose={this.handleSnackbarClose}
-          className={'snackbar__error'}
-        >
-          <Alert onClose={this.handleSnackbarClose} severity="error">
-            You must be logged in to use this feature.
-          </Alert>
-        </Snackbar>
+          message={'You must be logged in to use this feature.'}
+          duration={4000}
+        />
+
         <Header navItems={this.navItems}></Header>
         <Container className="content" maxWidth="md">
           <img src={Logo} alt="Logo" className="logo" />
