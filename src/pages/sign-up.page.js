@@ -267,7 +267,7 @@ export default class SignUpPage extends Component {
             <Container className="onboarding-body">
               <div className="content-container">
                 <PhoneNumberInput className="hide-mobile" phoneValidation={this.checkPhoneValidation}></PhoneNumberInput>
-                <Link to="/sign-in" className="hide-mobile sign-in">
+                <Link to="/sign-in" className="sign-in">
                   Sign into Existing Account
                 </Link>
                 {this.parseError()}

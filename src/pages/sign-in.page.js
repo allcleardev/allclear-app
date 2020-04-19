@@ -89,7 +89,7 @@ export default class SignInPage extends Component {
             <Form noValidate autoComplete="off" className="onboarding-body">
               <div className="content-container phone-number-box">
                 <PhoneNumberInput onSubmit={() => this.verifyLogin()} className="hide-mobile"></PhoneNumberInput>
-                <Link to="/sign-up" className="hide-mobile login">
+                <Link to="/get-started" className="hide-mobile login">
                   Create Account
                 </Link>
                 {this.state.error === true ? <p className="error">{this.state.message}</p> : ''}
