@@ -25,17 +25,13 @@ export default class ProfileViewPage extends Component {
   }
 
   async componentDidMount() {
-    if (!localStorage.getItem('session')) {
-      return this.props.history('/get-started?logout=true');
-    }
-    const session = this.context.appState.sessionId;
-
-    this.setProfile(session);
-    await this.fetchProfile(session);
+    const currState = this.context.appState;
+    this.setProfile(currState);
+    await this.fetchProfile(currState);
   }
 
   async fetchProfile(session) {
-    const currSession = localStorage.getItem('sessid');
+    const currSession = this.context.appState.sessionId;
     const {id} = this.context.appState.person;
 
     const response = await this.peopleService.getById(id, currSession);
