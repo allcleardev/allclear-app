@@ -108,7 +108,7 @@ export default class SignUpPage extends Component {
 
   buildPayload() {
     const { appState } = this.context;
-    const phone = sessionStorage.getItem('phone');
+    const phone = appState.person.phone;
 
     const latitude = appState.person.latitude;
     const longitude = appState.person.longitude;
@@ -189,8 +189,8 @@ export default class SignUpPage extends Component {
     this.setState({
       loading: true
     });
-    let phone = sessionStorage.getItem('phone');
-
+    const { appState } = this.context;
+    let phone = appState.person.phone;
     const payload = this.buildPayload();
 
     const response = await this.peopleService.authStart(payload);

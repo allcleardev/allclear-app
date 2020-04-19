@@ -47,8 +47,7 @@ export default function Header({
       <Container className="desktop-content" maxWidth="xl">
         <img src={Logo} alt="Logo" className="logo" />
         <nav className="menu">
-          {navItems.map((item,i ) => {
-            console.log(item, i)
+          {navItems.map((item ) => {
             if (item.absolutePath) {
               return (
                 <a
