@@ -45,6 +45,7 @@ export default function SignInVerificationPage({ props, location }) {
       .then((response) => {
         if (response.data.person) {
           localStorage.setItem('sessid', response.data.id);
+          localStorage.setItem('session', JSON.stringify(response.data));
           setAppState({
             ...appState,
             sessionId: response.data.id,
