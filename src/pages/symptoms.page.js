@@ -106,7 +106,6 @@ class SymptomsPage extends Component {
       return true;
     });
     this.setState({ symptoms });
-    sessionStorage.setItem('symptoms', JSON.stringify(symptoms));
   }
 
   checkForSelection() {
