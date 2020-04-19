@@ -6,6 +6,10 @@ export default class PeopleService {
   constructor() {
     this.baseURL = '/peoples';
     this.logoutURL = '/sessions';
+    this._setAuthHeaders();
+  }
+
+  _setAuthHeaders(){
     this.sessionId = localStorage.getItem('sessid');
     this.headers = {
       headers: {
@@ -22,15 +26,17 @@ export default class PeopleService {
     return this.serviceInstance;
   }
 
-  getById(id) {
+  getById(id, currSession) {
+    currSession = (currSession) ? {
+      'X-AllClear-SessionID': currSession,
+    } : {
+      ...this.headers.headers
+    };
     return Axios({
       method: 'GET',
       url: `${this.baseURL}/${id}`,
-      headers: {
-        ...this.headers.headers
-      },
+      headers: currSession,
     });
-    // return Axios.get(`${this.baseURL}/${id}`, this.headers);
   }
 
   logout() {
