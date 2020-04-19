@@ -24,13 +24,7 @@ export default class TypesService {
   async getHealthWorkerStatuses() {
     return Axios.get(`${this.baseURL}/healthWorkerStatuses`)
       .then((response) => {
-        return [
-          {
-            id: 'Any',
-            name: 'Select Health Worker Status'
-          },
-          ...response.data
-        ];
+        return response.data;
       })
       .catch((error) => {
         return error;
@@ -40,14 +34,7 @@ export default class TypesService {
   async getExposures() {
     return Axios.get(`${this.baseURL}/exposures`)
       .then((response) => {
-        return [
-          {
-            id: 'Any',
-            name: 'Select Exposure'
-          },
-          ...response.data
-        ];
-
+        return response.data;
       })
       .catch((error) => {
         return error;
@@ -55,7 +42,7 @@ export default class TypesService {
   }
 
   async getSymptoms(shouldSkipHeaders) {
-    const headers = (shouldSkipHeaders) ? {} : this.headers;
+    const headers = shouldSkipHeaders ? {} : this.headers;
     return Axios.get(`${this.baseURL}/symptoms`, headers)
       .then((response) => {
         return response.data;
