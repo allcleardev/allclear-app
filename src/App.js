@@ -53,7 +53,7 @@ export default function App() {
           <Route path="/register" component={VerifyMagicLinkPage} />
           <Route path="/auth" component={LoginMagicLinkPage} />
 
-          <Route path="/background" component={BackgroundPage} />
+          <Route path="/location" component={BackgroundPage} />
           <Route path="/health-worker" component={HealthWorkerStatusPage} />
           <Route path="/symptoms" component={Symptoms} />
 

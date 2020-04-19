@@ -65,7 +65,7 @@ export default class GetStartedPage extends Component {
         <Container className="content" maxWidth="md">
           <img src={Logo} alt="Logo" className="logo" />
           <div className="button-container">
-            <Button className="signup" variant="contained" onClick={() => this.routeChange('/background')}>
+            <Button className="signup" variant="contained" onClick={() => this.routeChange('/location')}>
               Get Started
             </Button>
             <Button className="signin" onClick={() => this.routeChange('/sign-in')}>
