@@ -26,6 +26,10 @@
       margin: 15px 0;
       font-size: 13px;
     }
+
+    @media (max-width: $md - 1) {
+      padding-top: 9rem;
+    }
   }
 
   .button-container {
