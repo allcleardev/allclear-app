@@ -5,12 +5,6 @@ export default class TypesService {
 
   constructor() {
     this.baseURL = '/types';
-    this.sessionId = localStorage.getItem('sessid');
-    this.headers = {
-      headers: {
-        'X-AllClear-SessionID': this.sessionId,
-      },
-    };
   }
 
   static getInstance() {
@@ -41,9 +35,8 @@ export default class TypesService {
       });
   }
 
-  async getSymptoms(shouldSkipHeaders) {
-    const headers = shouldSkipHeaders ? {} : this.headers;
-    return Axios.get(`${this.baseURL}/symptoms`, headers)
+  async getSymptoms() {
+    return Axios.get(`${this.baseURL}/symptoms`)
       .then((response) => {
         return response.data;
       })

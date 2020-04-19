@@ -35,7 +35,8 @@ export default class ProfileViewPage extends Component {
   }
 
   async fetchProfile(session) {
-    const response = await this.peopleService.getById(session.person.id);
+    const currSession = localStorage.getItem('sessid');
+    const response = await this.peopleService.getById(session.person.id, currSession);
     const profile = response.data;
 
     session.person = profile;
