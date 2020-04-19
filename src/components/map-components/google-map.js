@@ -130,7 +130,7 @@ export default class GoogleMap extends Component {
     this._search(latitude, longitude);
     this.setState({
       isSnackbarOpen: true,
-    })
+    });
     console.warn('User declined to use browser location');
   }
 
