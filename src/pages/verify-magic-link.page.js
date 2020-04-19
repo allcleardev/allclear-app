@@ -57,6 +57,9 @@ export default class VerifyMagicLinkPage extends Component {
         person:response.data.person
       });
 
+      localStorage.setItem('sessionId', response.data.id);
+      localStorage.setItem('session', response.data);
+
       this.props.history.push('/success');
     } else {
       const error = response;

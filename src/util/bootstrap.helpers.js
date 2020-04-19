@@ -20,7 +20,7 @@ export function bootstrapAxios() {
     (config) => {
       // routes that require auth
       if (AUTH_ROUTES.includes(config.url)) {
-        const sessionID = localStorage.getItem('sessid');
+        const sessionID = localStorage.getItem('sessionId');
         const authHeader = sessionID
           ? {
               'X-AllClear-SessionID': sessionID,

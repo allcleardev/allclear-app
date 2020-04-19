@@ -60,7 +60,7 @@ export default class PeopleService {
   }
 
   async verifyAuthRequest(payload) {
-    return Axios.post('/peoples/auth', payload, {})
+    return Axios.put('/peoples/auth', payload, {})
       .then((response) => {
         return response;
       })
@@ -84,7 +84,7 @@ export default class PeopleService {
   }
 
   async login(payload) {
-    return Axios.put('/peoples/auth', payload, {})
+    return Axios.post('/peoples/auth', payload, {})
       .then((response) => {
         return response;
       })

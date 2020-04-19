@@ -36,6 +36,9 @@ export default function LoginMagicLinkPage({ props, location }) {
       person:response.data.person
     });
 
+    localStorage.setItem('sessionId', response.data.id);
+    localStorage.setItem('session', response.data);
+
     this.props.history.push('/map');
   };
 

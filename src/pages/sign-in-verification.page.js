@@ -1,26 +1,56 @@
-// TODO: combine this and signup verification
-
-import React, {useContext} from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import Form from '@material-ui/core/Container';
-import { Button, Grid } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
-import Axios from 'axios';
+import {Button, Grid} from '@material-ui/core';
+
+import RoundHeader from '@general/headers/header-round';
+import ProgressBottom from '@general/navs/progress-bottom';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import RoundHeader from '@components/general/headers/header-round';
+
+import PeopleService from '@services/people.service';
 import {AppContext} from '@contexts/app.context';
+import {bindAll} from 'lodash';
 
-export default function SignInVerificationPage({ props, location }) {
-  const [state] = React.useState({
-    checkedB: true,
-    loading: false,
-  });
-  const [isError, setValue] = React.useState(false);
-  const { appState, setAppState } = useContext(AppContext);
-  const history = useHistory();
+export default class SignInVerificationPage extends Component {
+  static contextType = AppContext;
 
-  const sanitizePhone = (phone) => {
+  constructor(props) {
+    super(props);
+
+    this.peopleService = PeopleService.getInstance();
+
+    //eslint-disable-next-line
+    this.state = {
+      checkedB: true,
+      loading: false,
+      code: undefined
+    };
+
+    bindAll(this, [
+      'sanitizePhone',
+      'verifyPhoneNumber',
+      'handleCodeChange',
+      'onKeyPress',
+      'validateState'
+    ]);
+  }
+
+  componentDidMount() {
+    this.validateState();
+  }
+
+  validateState() {
+    const { appState } = this.context;
+    const phone = appState.person.phone;
+
+    if (!phone) {
+      return this.routeChange('/sign-in');
+    }
+  }
+
+  sanitizePhone = (phone) => {
     if (phone && typeof phone === 'string') {
       phone = phone.replace(/ /g, '');
       phone = phone.replace('(', '');
@@ -32,105 +62,114 @@ export default function SignInVerificationPage({ props, location }) {
   };
 
   // Function to make call backend service to confirm the magic link
-  const verifyPhoneNumber = async () => {
+  async verifyPhoneNumber() {
+    const { appState, setAppState } = this.context;
+
     let phone = appState.person.phone;
-    const code = sessionStorage.getItem('code');
+    const token = this.state.code;
 
-    phone = sanitizePhone(phone);
+    phone = this.sanitizePhone(phone);
 
-    await Axios.put('/peoples/auth', {
-      phone,
-      token: code,
-    })
-      .then((response) => {
-        if (response.data.person) {
-          localStorage.setItem('sessid', response.data.id);
-          localStorage.setItem('session', JSON.stringify(response.data));
-          setAppState({
-            ...appState,
-            sessionId: response.data.id,
-            person:response.data.person
+    const response = await this.peopleService.verifyAuthRequest({phone, token});
+
+    if (!response.err) {
+      setAppState({
+        ...appState,
+        sessionId: response.data.id,
+        person:response.data.person
+      });
+
+      localStorage.setItem('sessionId', response.data.id);
+      localStorage.setItem('session', response.data);
+
+      this.props.history.push('/map');
+    } else {
+      const error = response;
+
+      if (error && error.response) {
+        if (error.response.data && error.response.data.message) {
+          this.setState({
+            error: true,
+            message: error.response.data.message,
+            loading: false,
+          });
+        } else {
+          this.setState({
+            error: true,
+            message: 'An error occurred. Please try again later.',
+            loading: false,
           });
         }
-
-        history.push('/map');
-      })
-      .catch((error) => {
-        setValue(true);
-        console.log('error', error);
-        // TODO Display Error Message
-      });
-  };
-
-  const onKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      verifyPhoneNumber();
+      }
     }
   };
 
-  const handleCodeChange = (event) => {
-    setValue(false);
-    sessionStorage.setItem('code', event.target.value);
+  onKeyPress(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      this.verifyPhoneNumber();
+    }
   };
 
-  return (
-    <div className="background-responsive">
-      <div className="verification onboarding-page">
-        <RoundHeader navigate={'/sign-in'}>
-          <h1 className="heading">Verification Code</h1>
-          <h2 className="sub-heading">
-            We texted a verification code to your phone. Please enter the code to continue.
-          </h2>
-        </RoundHeader>
+  handleCodeChange(event) {
+    this.setState({code: event.target.value});
+  };
 
-        {state.loading === false ? (
-          <Form noValidate autoComplete="off" className="onboarding-body">
-            <div className="content-container">
-              <FormControl className="control">
-                <TextField
-                  id="token"
-                  name="token"
-                  className="input code-input"
-                  placeholder="Enter Code"
-                  variant="outlined"
-                  defaultValue=""
-                  autoComplete="one-time-code"
-                  inputProps={{ maxLength: 6, autoComplete: 'one-time-code', inputMode: 'numeric', pattern: '[0-9]*' }}
-                  InputLabelProps={{ shrink: false }}
-                  onChange={handleCodeChange}
-                  onKeyPress={(e) => onKeyPress(e)}
-                  style={{}}
-                />
-                {isError ? (
-                  <p className="codeError">
-                    You're entered an incorrect code. <br /> Please Try again
-                  </p>
-                ) : (
-                  ''
-                )}
-              </FormControl>
-            </div>
+  render() {
+    return (
+      <div className="background-responsive">
+        <div className="verification onboarding-page">
+          <RoundHeader navigate={'/get-started'}>
+            <h1 className="heading">Phone Number</h1>
+            <h2 className="sub-heading">
+              We texted a verification code to your phone. Please enter the code to continue.
+            </h2>
+          </RoundHeader>
 
-            <div className="button-container">
-              <Link to="/sign-in">
-                <Button variant="contained" className="back">
-                  Restart
+          {this.state.loading === false ? (
+            <Form noValidate autoComplete="off" className="onboarding-body">
+              <div className="content-container">
+                <FormControl className="control">
+                  <TextField
+                    id="token"
+                    name="token"
+                    className="input code-input"
+                    placeholder="Enter Code"
+                    variant="outlined"
+                    defaultValue=""
+                    autoComplete="one-time-code"
+                    inputProps={{maxLength: 6, autoComplete: 'one-time-code', inputMode: 'numeric', pattern: '[0-9]*'}}
+                    InputLabelProps={{shrink: false}}
+                    onChange={this.handleCodeChange}
+                    style={{}}
+                    onKeyPress={(e) => this.onKeyPress(e)}
+                  />
+                </FormControl>
+
+                {this.state.error === true ? <p className="error">{this.state.message}</p> : ''}
+              </div>
+
+              <div className="button-container">
+                <Link to="/sign-in">
+                  <Button variant="contained" className="back hide-mobile">
+                    Restart
+                  </Button>
+                </Link>
+                <Button onClick={() => this.verifyPhoneNumber()} variant="contained" color="primary" className="next">
+                  Verify
                 </Button>
-              </Link>
-              <Button onClick={() => verifyPhoneNumber()} variant="contained" color="primary" className="next">
-                Verify
-              </Button>
-            </div>
-          </Form>
-        ) : (
-          <Grid container justify="center">
-            <Grid item xs={12} sm={6}>
-              <LinearProgress color="primary" value={50} variant="indeterminate" />
+              </div>
+            </Form>
+          ) : (
+            <Grid container justify="center">
+              <Grid item xs={12} sm={6}>
+                <LinearProgress color="primary" value={50} variant="indeterminate"/>
+              </Grid>
             </Grid>
-          </Grid>
-        )}
+          )}
+          {this.state.loading === false ? <ProgressBottom progress="75%"></ProgressBottom> : null}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }

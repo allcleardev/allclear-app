@@ -30,7 +30,8 @@ export default class SignUpVerificationPage extends Component {
     bindAll(this, [
       'sanitizePhone',
       'verifyPhoneNumber',
-      'handleCodeChange'
+      'handleCodeChange',
+      'onKeyPress'
     ]);
   }
 
@@ -50,7 +51,7 @@ export default class SignUpVerificationPage extends Component {
     const { appState, setAppState } = this.context;
 
     let phone = appState.person.phone;
-    const code = sessionStorage.getItem('code');
+    const code = this.state.code;
 
     phone = this.sanitizePhone(phone);
 
@@ -62,8 +63,9 @@ export default class SignUpVerificationPage extends Component {
         sessionId: response.data.id,
         person:response.data.person
       });
-      localStorage.setItem('sessid', response.data.id);
-      localStorage.setItem('session', JSON.stringify(response.data));
+      localStorage.setItem('sessionId', response.data.id);
+      localStorage.setItem('session', response.data);
+
       this.props.history.push('/map');
 
     } else {
@@ -78,8 +80,8 @@ export default class SignUpVerificationPage extends Component {
     }
   };
 
-  handleCodeChange = (event) => {
-    sessionStorage.setItem('code', event.target.value);
+  handleCodeChange(event) {
+    this.setState({code: event.target.value});
   };
 
   render() {
