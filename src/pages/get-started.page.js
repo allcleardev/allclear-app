@@ -3,7 +3,7 @@ import { bindAll } from 'lodash';
 
 import { AppContext } from '@contexts/app.context';
 import Logo from '../assets/images/logo-green-back.svg';
-// import Header from '../components/general/headers/header';
+import Header from '@general/headers/header';
 
 import { Button } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
