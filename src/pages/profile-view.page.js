@@ -28,7 +28,7 @@ export default class ProfileViewPage extends Component {
     if (!localStorage.getItem('session')) {
       return this.props.history('/get-started?logout=true');
     }
-    const session = JSON.parse(localStorage.getItem('session'));
+    const session = this.context.appState.sessionId;
 
     this.setProfile(session);
     await this.fetchProfile(session);
@@ -36,11 +36,11 @@ export default class ProfileViewPage extends Component {
 
   async fetchProfile(session) {
     const currSession = localStorage.getItem('sessid');
-    const response = await this.peopleService.getById(session.person.id, currSession);
+    const {id} = this.context.appState.person;
+
+    const response = await this.peopleService.getById(id, currSession);
     const profile = response.data;
 
-    session.person = profile;
-    localStorage.setItem('session', JSON.stringify(session));
     this.setState({ profile });
   }
 

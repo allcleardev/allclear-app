@@ -51,9 +51,9 @@ export default class ProfileEditPage extends Component {
       return this.props.history('/sign-up');
     }
     this.setState({ loading: true });
-    const session = JSON.parse(localStorage.getItem('session'));
+    const currState = this.context.appState;
 
-    this.setProfile(session);
+    this.setProfile(currState);
     this.fetchHealthWorkerStatuses();
     this.fetchSymptoms();
   }
