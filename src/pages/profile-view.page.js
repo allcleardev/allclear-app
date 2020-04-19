@@ -26,7 +26,7 @@ export default class ProfileViewPage extends Component {
 
   async componentDidMount() {
     if (!localStorage.getItem('session')) {
-      return this.props.history('/sign-up');
+      return this.props.history('/get-started?logout=true');
     }
     const session = JSON.parse(localStorage.getItem('session'));
 
