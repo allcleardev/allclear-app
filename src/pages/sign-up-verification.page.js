@@ -49,7 +49,7 @@ export default class SignUpVerificationPage extends Component {
   async verifyPhoneNumber() {
     const { appState, setAppState } = this.context;
 
-    let phone = sessionStorage.getItem('phone');
+    let phone = appState.person.phone;
     const code = sessionStorage.getItem('code');
 
     phone = this.sanitizePhone(phone);
@@ -62,7 +62,9 @@ export default class SignUpVerificationPage extends Component {
         sessionId: response.data.id,
         person:response.data.person
       });
-
+      localStorage.setItem('sessid', response.data.id);
+      localStorage.setItem('session', JSON.stringify(response.data));
+      this.props.history.push('/map');
 
     } else {
       //TODO Error Message

@@ -47,13 +47,13 @@ export default function Header({
       <Container className="desktop-content" maxWidth="xl">
         <img src={Logo} alt="Logo" className="logo" />
         <nav className="menu">
-          {navItems.map((item) => {
+          {navItems.map((item ) => {
             if (item.absolutePath) {
               return (
                 <a
                   href={`https://${item.route}`}
                   className="menu__item"
-                  key={item.route}
+                  key={item.name}
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -62,7 +62,7 @@ export default function Header({
               );
             } else {
               return (
-                <Link to={item.route} className="menu__item" key={item.route}>
+                <Link to={item.route} className="menu__item" key={item.name}>
                   {item.name}
                 </Link>
               );

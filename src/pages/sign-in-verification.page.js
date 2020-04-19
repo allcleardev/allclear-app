@@ -33,7 +33,7 @@ export default function SignInVerificationPage({ props, location }) {
 
   // Function to make call backend service to confirm the magic link
   const verifyPhoneNumber = async () => {
-    let phone = sessionStorage.getItem('phone');
+    let phone = appState.person.phone;
     const code = sessionStorage.getItem('code');
 
     phone = sanitizePhone(phone);
@@ -44,6 +44,8 @@ export default function SignInVerificationPage({ props, location }) {
     })
       .then((response) => {
         if (response.data.person) {
+          localStorage.setItem('sessid', response.data.id);
+          localStorage.setItem('session', JSON.stringify(response.data));
           setAppState({
             ...appState,
             sessionId: response.data.id,
