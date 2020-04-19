@@ -68,7 +68,7 @@ export default function UpdateCriteriaModal() {
         style={{ zIndex: '5' }}
       >
         <DialogTitle id="scroll-dialog-title">Update Search Criteria</DialogTitle>
-        <DialogContent dividers={scroll === 'paper'}>
+        <DialogContent dividers={scroll === 'paper'} className="update-criteria-modal">
 
           {/*<Button*/}
           {/*  onClick={_onResetClicked}*/}
