@@ -17,6 +17,7 @@ export const CRITERIA_FORM_DATA = [
         name: 'No Drive Throughs',
       },
     ],
+    placeholder: false
   },
   {
     title: 'Show Appointment Only Test Centers',
@@ -36,6 +37,7 @@ export const CRITERIA_FORM_DATA = [
         name: 'No Appointment',
       },
     ],
+    placeholder: false
   },
   // {
   //   title: 'Symptoms',
@@ -50,6 +52,7 @@ export const CRITERIA_FORM_DATA = [
     key: 'exposures',
     optionsKey: 'exposures',
     inputType: 'select',
+    placeholder: 'Select Exposure to COVID-19'
   },
   // {
   //   title: 'Conditions',
@@ -64,5 +67,6 @@ export const CRITERIA_FORM_DATA = [
     key: 'healthWorkerStatus',
     optionsKey: 'healthWorkerStatus',
     inputType: 'select',
+    placeholder: 'Select Health Worker Status'
   },
 ];

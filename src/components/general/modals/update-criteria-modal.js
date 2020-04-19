@@ -68,7 +68,7 @@ export default function UpdateCriteriaModal() {
         style={{ zIndex: '5' }}
       >
         <DialogTitle id="scroll-dialog-title">Update Search Criteria</DialogTitle>
-        <DialogContent dividers={scroll === 'paper'} className="update-criteria-modal">
+        <DialogContent dividers={scroll === 'paper'} className={'update-criteria-modal'}>
 
           {/*<Button*/}
           {/*  onClick={_onResetClicked}*/}
@@ -157,7 +157,7 @@ function UpdateCriteria({ onClose, onSubmit }) {
 
   function _generateFormItems() {
     return CRITERIA_FORM_DATA.map((formItem, i) => {
-      let {title, options, key, inputType} = formItem;
+      let {title, options, key, inputType, placeholder} = formItem;
 
       // account for options that come from an endpoint
       options = (options) ? options : appState.profile.options[key];
@@ -167,7 +167,7 @@ function UpdateCriteria({ onClose, onSubmit }) {
         <div key={i} className="sub-card">
 
           {/*REGULAR SELECT*/}
-          {(inputType === 'select') && singleSelect({title, options, key})}
+          {(inputType === 'select') && singleSelect({title, options, key, placeholder})}
 
         </div>
       );
@@ -175,7 +175,8 @@ function UpdateCriteria({ onClose, onSubmit }) {
   }
 
   // Form Options
-  function singleSelect({title, options, key}) {
+  function singleSelect({title, options, key, placeholder}) {
+
     return (
       <>
         <h5 className="body-sub-title">{title}</h5>
@@ -184,10 +185,15 @@ function UpdateCriteria({ onClose, onSubmit }) {
             labelId="demo-simple-select-outlined-label"
             displayEmpty
             className="select-white-back"
-            value={formValues[key]}
+            defaultValue={placeholder}
             onChange={_onSelectChanged}
           >
-            {options && options.map((optionItem, i2) => {
+            {placeholder && (
+              <MenuItem value={placeholder} disabled>
+                {placeholder}
+              </MenuItem>
+            )}
+            {options.map((optionItem, i2) => {
               const {id, name} = optionItem;
               return (
                 <MenuItem key={i2} value={id} name={name} data-name={name} data-key={key}>
