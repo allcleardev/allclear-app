@@ -1,60 +1,98 @@
-import React from 'react';
+import React, {Component} from 'react';
 import qs from 'qs';
-import { useHistory } from 'react-router-dom';
 
 import Box from '@material-ui/core/Container';
-import Axios from 'axios';
 
 import RoundHeader from '../components/general/headers/header-round';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { Grid } from '@material-ui/core';
 
-export default function VerifyMagicLinkPage({ props, location }) {
-  const history = useHistory();
+import {bindAll} from 'lodash';
 
-  const santizeSearchParams = (searchParams) => {
+import PeopleService from '@services/people.service';
+import {AppContext} from '@contexts/app.context';
+
+export default class VerifyMagicLinkPage extends Component {
+  static contextType = AppContext;
+
+  constructor(props) {
+    super(props);
+
+    this.peopleService = PeopleService.getInstance();
+
+    //eslint-disable-next-line
+    this.state = {
+      checkedB: true,
+      loading: false,
+      error: false
+    };
+
+    bindAll(this, [
+      'santizeSearchParams',
+      'verifyMagicLink'
+    ]);
+  }
+
+  componentDidMount() {
+    this.verifyMagicLink();
+  }
+
+  santizeSearchParams = (searchParams) => {
     searchParams = searchParams.replace('?', '');
     searchParams = qs.parse(searchParams, []);
     return searchParams;
   };
 
   // Function to make call backend service to confirm the magic link
-  const verifyMagicLink = async (searchParams) => {
-    await Axios.post('/peoples/confirm', {
-      phone: searchParams.phone,
-      code: searchParams.code,
-    })
-      .then((response) => {
-        localStorage.setItem('sessid', response.data.id);
-        localStorage.setItem('session', response.data);
-        sessionStorage.setItem('phone', searchParams.phone);
-        history.push('/map');
-      })
-      .catch((error) => {
-        console.log('error', error);
-        // TODO Display Error Message
+  async verifyMagicLink() {
+    const { appState, setAppState } = this.context;
+    let searchParams = this.santizeSearchParams(this.props.location.search);
+
+    const response = await this.peopleService.confirmAuthRequest({phone: searchParams.phone, code: searchParams.code});
+
+    if (!response.err) {
+      setAppState({
+        ...appState,
+        sessionId: response.data.id,
+        person:response.data.person
       });
+
+      this.props.history.push('/success');
+    } else {
+      const error = response;
+
+      this.setState({
+        error: true,
+        message: error.response.data.message,
+        loading: false,
+      });
+    }
   };
 
-  let searchParams = santizeSearchParams(location.search);
+  // ALLCLEAR-274
+  parseError() {
+    return this.state.error === true ? <p className="error">{this.state.message}</p> : '';
+  };
 
-  verifyMagicLink(searchParams);
+  render() {
+    return (
+      <div className="background-responsive">
+        <Box className="sign-up">
+          <RoundHeader>
+            <h1 style={{justifyContent: 'center', margin: '0'}}>Verifying Phone Number</h1>
+            <p>We are verifying your phone number.</p>
+            <p>After verifying it, you will advance to complete your profile.</p>
+          </RoundHeader>
 
-  return (
-    <div className="background-responsive">
-      <Box className="sign-up">
-        <RoundHeader>
-          <h1 style={{ justifyContent: 'center', margin: '0' }}>Verifying Phone Number</h1>
-          <p>We are verifying your phone number.</p>
-          <p>After verifying it, you will advance to complete your profile.</p>
-        </RoundHeader>
+          {this.parseError()}
 
-        <Grid container justify="center">
-          <Grid item xs={12} sm={6}>
-            <LinearProgress color="primary" value={50} variant="indeterminate" />
+          <Grid container justify="center">
+            <Grid item xs={12} sm={6}>
+              <LinearProgress color="primary" value={50} variant="indeterminate"/>
+            </Grid>
           </Grid>
-        </Grid>
-      </Box>
-    </div>
-  );
+        </Box>
+      </div>
+    );
+  }
 }
