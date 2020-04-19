@@ -1,0 +1,107 @@
+.home-page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-bottom: 80px; // making space for bottom navigation bar
+
+  @media (min-width: $md) {
+    padding-bottom: 30px;
+  }
+
+  .settings-option {
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 20px;
+    color: #fff;
+
+    @media (min-width: $md) {
+      top: -80px;
+      right: 10px;
+    }
+
+    &__text {
+      font-size: 10px;
+    }
+  }
+
+  .header-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__heading {
+      line-height: 22px;
+      font-weight: 600;
+      font-size: 17px;
+    }
+
+    &__highlights {
+      display: flex;
+      line-height: 22px;
+      font-size: 15px;
+    }
+
+    &__highlight {
+      position: relative;
+      margin: 0 20px;
+    }
+  }
+
+  .avatar-container {
+    margin-bottom: 13px;
+    padding: 1px;
+    border-radius: 50%;
+    background-color: #fff;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08), 0 0px 10px rgba(0, 0, 0, 0.2);
+
+    &__img {
+      width: 56px;
+      height: 56px;
+    }
+  }
+
+  .cards-container {
+    position: relative;
+    margin-top: -10px;
+
+    @media (min-width: $md) {
+      margin-top: 0;
+      max-width: 80%;
+    }
+
+    @media (min-width: $lg) {
+      max-width: 50%;
+    }
+  }
+
+  .card {
+    margin-bottom: 12px;
+    padding: 15px 14px;
+    border-radius: 6px;
+    border: 0;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+
+    dl,
+    dd {
+      margin: 0;
+    }
+
+    &__content {
+      font-size: 15px;
+      line-height: 20px;
+      &:not(:last-child) {
+        margin-bottom: 23px;
+      }
+    }
+
+    &__term {
+      font-weight: 600;
+    }
+  }
+}
