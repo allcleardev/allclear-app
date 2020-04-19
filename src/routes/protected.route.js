@@ -5,14 +5,14 @@ class ProtectedRoute extends React.Component {
   render() {
     const props = this.props;
     const Component = this.props.component;
-    const isAuthenticated = localStorage.getItem('sessid');
+    const isAuthenticated = localStorage.getItem('sessionId');
 
     // remove all associated storage items
     if (!isAuthenticated) {
       localStorage.removeItem('appState');
     }
 
-    return isAuthenticated ? <Component {...props} /> : <Redirect to={{ pathname: '/sign-up' }} />;
+    return isAuthenticated ? <Component {...props} /> : <Redirect to={{ pathname: '/get-started' }} />;
   }
 }
 

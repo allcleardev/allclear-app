@@ -78,15 +78,23 @@ export default class SignUpPage extends Component {
   }
 
   handleChange(event) {
+    const { appState, setAppState } = this.context;
+
     this.setState({
       [event.target.name]: event.target.checked,
     });
 
-    // Capture alerts opt-in
-    if (event.target.name === 'alertable') {
-      sessionStorage.setItem('alertable', event.target.checked);
-    }
-  }
+    let person = {
+      ...appState.person,
+    };
+
+    person[event.target.name] = event.target.checked;
+
+    setAppState({
+      ...appState,
+      person
+    });
+  };
 
   handleSnackbarClose(event) {
     this.setState({
@@ -251,7 +259,7 @@ export default class SignUpPage extends Component {
           </Alert>
         </Snackbar>
         <div className="sign-up onboarding-page">
-          <RoundHeader>
+          <RoundHeader navigate={'/symptoms'}>
             <h1 className="heading">Phone Number Registration</h1>
             <h2 className="sub-heading">Enter your phone number to register your account.</h2>
           </RoundHeader>
@@ -287,6 +295,18 @@ export default class SignUpPage extends Component {
                     />
                   }
                   label="I have reviewed and agree to the Terms & Conditions and Privacy Policy."
+                />
+
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={this.state.alertable}
+                      onChange={this.handleChange}
+                      name="alertable"
+                      color="secondary"
+                    />
+                  }
+                  label="Receive text alerts when eligible test locations become available."
                 />
               </div>
               <OnboardingNavigation
