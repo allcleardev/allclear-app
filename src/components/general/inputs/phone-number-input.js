@@ -25,7 +25,6 @@ class PhoneNumberInput extends Component {
   async handlePhoneChange(value) {
     if (value) {
       const phoneNumber = value.replace(/\D/g, '');
-
       if (phoneNumber.length === 10) {
         await this.setState({ isPhoneValid: true, phone: value }); // needed await to update State in time
       } else {
@@ -34,7 +33,6 @@ class PhoneNumberInput extends Component {
     } else {
       await this.setState({ isPhoneValid: false, phone: '' }); // needed await to update State in time
     }
-
     this.handleValidation(value);
   }
 
@@ -46,7 +44,6 @@ class PhoneNumberInput extends Component {
     if (this.state.isPhoneValid) {
       phone = `+1 ${value}`;
     }
-
     setAppState({
       ...appState,
       person: {
@@ -60,10 +57,9 @@ class PhoneNumberInput extends Component {
 
   onKeyDown(evt) {
     // todo: for enter key
-    // if(evt.key === 'Enter'){
-    //   debugger;
-    //   this.props.onSubmit(this.state.phone);
-    // }
+    if(evt.key === 'Enter'){
+      this.props.onSubmit(this.state.phone);
+    }
   }
   render() {
     return (
