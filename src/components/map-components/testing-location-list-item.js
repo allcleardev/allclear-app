@@ -31,33 +31,7 @@ export default function TestingLocationListItem(props) {
           <dd className="summary__item summary__item--semibold">{description}</dd>
           <dd className="summary__item summary__item--semibold">{phone}</dd>
         </dl>
-
-        <div className="buttons" style={{marginTop: '15px' }}>
-          <a
-            href={'https://www.google.com/maps/dir/?api=1&destination=' + description}
-            onClick={(evt) => evt.stopPropagation()}
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <Button className="btn primary-color primary-outline">Directions</Button>
-          </a>
-
-          {phone && (
-            <a href={'tel:' + phone} onClick={(evt) => evt.stopPropagation()} rel="noopener noreferrer" target="_blank">
-              <Button className="btn primary-color primary-outline d-lg-none" style={{ marginLeft: '10px' }}>
-                Call
-              </Button>
-            </a>
-          )}
-
-          {website && (
-            <a href={website} onClick={(evt) => evt.stopPropagation()} rel="noopener noreferrer" target="_blank">
-              <Button className="btn primary-color primary-outline" style={{ position: 'absolute', marginLeft: '10px' }}>
-                Website
-              </Button>
-            </a>
-          )}
-        </div>
+        <ButtonsDiv display={'d-none d-md-block'} margin={{marginTop: '15px', marginBottom: '20px'}} description={description} phone={phone} website={website} />
       </div>
     </ExpansionPanelSummary>
   );
@@ -65,6 +39,7 @@ export default function TestingLocationListItem(props) {
   const body = (
     <ExpansionPanelDetails>
       <section className="testing-location-list-item__details">
+        <ButtonsDiv display={'d-md-none'} margin={{marginBottom: '15px'}} description={description} phone={phone} website={website} />
         <h4>Test Center Details:</h4>
         <dl className="details">
           {!isNullOrUndefined(props.testCriteria) && (
@@ -173,8 +148,10 @@ const ExpansionPanelSummary = withStyles({
     },
   },
   content: {
-    margin: '20px 0',
-    '&$expanded': {},
+    marginBottom: -1,
+    '&$expanded': {
+      marginBottom: -1
+    },
   },
   expanded: {},
 })(MuiExpansionPanelSummary);
@@ -201,4 +178,35 @@ function CustomizedExpansionPanel(props) {
       {props.body}
     </ExpansionPanel>
   );
+}
+
+function ButtonsDiv(props) {
+  return (
+    <div className={`buttons ${props.display}`} style={props.margin}>
+      <a
+        href={'https://www.google.com/maps/dir/?api=1&destination=' + props.description}
+        onClick={(evt) => evt.stopPropagation()}
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <Button className="btn primary-color primary-outline">Directions</Button>
+      </a>
+
+      {props.phone && (
+        <a href={'tel:' + props.phone} onClick={(evt) => evt.stopPropagation()} rel="noopener noreferrer" target="_blank">
+          <Button className="btn primary-color primary-outline d-lg-none" style={{ marginLeft: '10px' }}>
+            Call
+          </Button>
+        </a>
+      )}
+
+      {props.website && (
+        <a href={props.website} onClick={(evt) => evt.stopPropagation()} rel="noopener noreferrer" target="_blank">
+          <Button className="btn primary-color primary-outline" style={{ position: 'absolute', marginLeft: '10px' }}>
+            Website
+          </Button>
+        </a>
+      )}
+    </div>
+  )
 }

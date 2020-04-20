@@ -28,6 +28,12 @@
         font-weight: 500;
       }
     }
+
+    .MuiExpansionPanelSummary-content.Mui-expanded {
+      &__buttons {
+        display: none;
+      }
+    }
   }
 
   /* Expansion Details */
