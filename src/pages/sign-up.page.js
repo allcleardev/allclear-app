@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import * as queryString from 'query-string';
 
 import RoundHeader from '@general/headers/header-round';
@@ -11,17 +11,17 @@ import OnboardingNavigation from '@general/navs/onboarding-navigation';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import {Button, Grid, Container} from '@material-ui/core';
+import { Button, Grid, Container } from '@material-ui/core';
 import Slide from '@material-ui/core/Slide';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 
 import { AppContext } from '@contexts/app.context';
 import PeopleService from '@services/people.service';
-import {bindAll} from 'lodash';
+import { bindAll } from 'lodash';
 
 function SlideTransition(props) {
-  return <Slide {...props} direction="up"/>;
+  return <Slide {...props} direction="up" />;
 }
 
 export default class SignUpPage extends Component {
@@ -32,6 +32,7 @@ export default class SignUpPage extends Component {
 
     this.state = {
       termsAndConditions: false,
+      ageVerification: false,
       alertable: false,
       phoneVerified: false,
       loading: false,
@@ -48,7 +49,7 @@ export default class SignUpPage extends Component {
       'handleChange',
       'handleSnackbarClose',
       'checkPhoneValidation',
-      'onSendVerificationClicked'
+      'onSendVerificationClicked',
     ]);
   }
 
@@ -92,9 +93,9 @@ export default class SignUpPage extends Component {
 
     setAppState({
       ...appState,
-      person
+      person,
     });
-  };
+  }
 
   handleSnackbarClose(event) {
     this.setState({
@@ -105,11 +106,11 @@ export default class SignUpPage extends Component {
   checkPhoneValidation(value) {
     if (value) {
       this.setState({
-        phoneVerified: true
+        phoneVerified: true,
       });
     } else {
       this.setState({
-        phoneVerified: false
+        phoneVerified: false,
       });
     }
   }
@@ -187,7 +188,7 @@ export default class SignUpPage extends Component {
       conditions: conditionsArray,
       exposures: exposuresArray,
       symptoms: symptomsArray,
-      healthWorkerStatusId: healthWorkerStatus ? healthWorkerStatus.id : null
+      healthWorkerStatusId: healthWorkerStatus ? healthWorkerStatus.id : null,
     };
 
     return payload;
@@ -195,8 +196,17 @@ export default class SignUpPage extends Component {
 
   async onSendVerificationClicked() {
     this.setState({
-      loading: true
+      loading: true,
     });
+
+    if (!this.state.ageVerification) {
+      return this.setState({
+        error: true,
+        message: 'You are ineligible for registering for an account at this time.',
+        loading: false,
+      });
+    }
+
     const { appState } = this.context;
     let phone = appState.person.phone;
     const payload = this.buildPayload();
@@ -221,7 +231,6 @@ export default class SignUpPage extends Component {
             message: error.response.data.message,
             loading: false,
           });
-
         } else if (error.response.data && error.response.data.message) {
           this.setState({
             error: true,
@@ -242,7 +251,7 @@ export default class SignUpPage extends Component {
   // ALLCLEAR-274
   parseError() {
     return this.state.error === true ? <p className="error">{this.state.message}</p> : '';
-  };
+  }
 
   render() {
     return (
@@ -266,7 +275,10 @@ export default class SignUpPage extends Component {
           {this.state.loading === false ? (
             <Container className="onboarding-body">
               <div className="content-container">
-                <PhoneNumberInput className="hide-mobile" phoneValidation={this.checkPhoneValidation}></PhoneNumberInput>
+                <PhoneNumberInput
+                  className="hide-mobile"
+                  phoneValidation={this.checkPhoneValidation}
+                ></PhoneNumberInput>
                 <Link to="/sign-in" className="sign-in">
                   Sign into Existing Account
                 </Link>
@@ -285,29 +297,43 @@ export default class SignUpPage extends Component {
                   before continuing.
                 </p>
 
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={this.state.termsAndConditions}
-                      onChange={this.handleChange}
-                      name="termsAndConditions"
-                      color="secondary"
-                    />
-                  }
-                  label="I have reviewed and agree to the Terms & Conditions and Privacy Policy."
-                />
+                <div className="checkbox-container">
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={this.state.termsAndConditions}
+                        onChange={this.handleChange}
+                        name="termsAndConditions"
+                        color="secondary"
+                      />
+                    }
+                    label="I have reviewed and agree to the Terms & Conditions and Privacy Policy."
+                  />
 
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={this.state.alertable}
-                      onChange={this.handleChange}
-                      name="alertable"
-                      color="secondary"
-                    />
-                  }
-                  label="Receive text alerts when eligible test locations become available."
-                />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={this.state.ageVerification}
+                        onChange={this.handleChange}
+                        name="ageVerification"
+                        color="secondary"
+                      />
+                    }
+                    label="I am at least 13 years of age or older."
+                  />
+
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={this.state.alertable}
+                        onChange={this.handleChange}
+                        name="alertable"
+                        color="secondary"
+                      />
+                    }
+                    label="Receive text alerts when eligible test locations become available."
+                  />
+                </div>
               </div>
               <OnboardingNavigation
                 back={
@@ -334,21 +360,21 @@ export default class SignUpPage extends Component {
                     ${!this.state.phoneVerified ? 'enter your phone number' : ''}
                     ${!this.state.termsAndConditions && !this.state.phoneVerified ? 'and' : ''}
                     ${
-                  !this.state.termsAndConditions
-                  ? 'review and agree to the Terms & Conditions and Privacy Policy'
-                  : ''
-                }
+                      !this.state.termsAndConditions
+                        ? 'review and agree to the Terms & Conditions and Privacy Policy'
+                        : ''
+                    }
                   `}
                 triggerTooltip={this.state.termsAndConditions && this.state.phoneVerified ? false : true}
               ></OnboardingNavigation>
             </Container>
           ) : (
-             <Grid container justify="center">
-               <Grid item xs={12} sm={6}>
-                 <LinearProgress color="primary" value={60} variant="indeterminate"/>
-               </Grid>
-             </Grid>
-           )}
+            <Grid container justify="center">
+              <Grid item xs={12} sm={6}>
+                <LinearProgress color="primary" value={60} variant="indeterminate" />
+              </Grid>
+            </Grid>
+          )}
           {this.state.loading === false ? <ProgressBottom progress="60%"></ProgressBottom> : null}
         </div>
       </div>
