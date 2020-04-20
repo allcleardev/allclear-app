@@ -172,7 +172,6 @@ function UpdateCriteria({ onClose, onSubmit }) {
 
   // Form Options
   function singleSelect({ title, options, key }) {
-    console.log('options', options);
     return (
       <>
         <h5 className="body-sub-title">{title}</h5>
