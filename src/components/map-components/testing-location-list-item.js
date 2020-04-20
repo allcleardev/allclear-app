@@ -34,7 +34,7 @@ export default function TestingLocationListItem(props) {
           <dd className="summary__item summary__item--grey">{service_time}</dd>
         </dl>
 
-        <ButtonsDiv
+        <ExternalItemLinks
           display={'d-none d-md-block'}
           margin={{marginTop: '15px', marginBottom: '20px'}}
           description={description}
@@ -52,7 +52,7 @@ export default function TestingLocationListItem(props) {
           <dd className="detsummaryails__item">{driveThru.toString() === 'true' ? 'Drive Through' : ''}</dd>
           <dd className="summary__item summary__item--semibold">{phone}</dd>
         </dl>
-        <ButtonsDiv
+        <ExternalItemLinks
           display={'d-md-none'}
           margin={{marginBottom: '15px'}}
           description={description}
@@ -200,7 +200,7 @@ function CustomizedExpansionPanel(props) {
   );
 }
 
-function ButtonsDiv(props) {
+function ExternalItemLinks(props) {
   return (
     <div className={`buttons ${props.display}`} style={props.margin}>
       <a
