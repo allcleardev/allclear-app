@@ -32,7 +32,7 @@ export default function TestingLocationListItem(props) {
           <dd className="summary__item summary__item--semibold">{phone}</dd>
         </dl>
 
-        <div className="buttons" style={{ display: 'flex', marginTop: '15px' }}>
+        <div className="buttons" style={{marginTop: '15px' }}>
           <a
             href={'https://www.google.com/maps/dir/?api=1&destination=' + description}
             onClick={(evt) => evt.stopPropagation()}
@@ -52,7 +52,7 @@ export default function TestingLocationListItem(props) {
 
           {website && (
             <a href={website} onClick={(evt) => evt.stopPropagation()} rel="noopener noreferrer" target="_blank">
-              <Button className="btn primary-color primary-outline" style={{ marginLeft: '10px' }}>
+              <Button className="btn primary-color primary-outline" style={{ position: 'absolute', marginLeft: '10px' }}>
                 Website
               </Button>
             </a>
