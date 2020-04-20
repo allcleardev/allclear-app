@@ -1,10 +1,10 @@
 $colors: (
-  "primary": $primary-color,
-  "white": $white-color,
-  "black": $black-color,
-  "grey": $grey-color,
-  "grey2": $grey2,
-  "navy": $navy
+  'primary': $primary-color,
+  'white': $white-color,
+  'black': $black-color,
+  'grey': $grey-color,
+  'grey2': $grey2,
+  'navy': $navy,
 );
 
 @each $name, $color in $colors {
@@ -61,4 +61,25 @@ $colors: (
 
 .flex-wrap-off {
   flex-wrap: nowrap;
+}
+
+.snackbar {
+  &__error {
+    .MuiAlert-standardError {
+      background-color: white;
+    }
+  }
+
+  &--map {
+    position: absolute;
+    .MuiAlert-standardError {
+      background-color: white;
+    }
+    .MuiAlert-icon{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+  }
 }

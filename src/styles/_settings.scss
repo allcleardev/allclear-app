@@ -1,0 +1,104 @@
+.settings {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-bottom: 80px; // making space for bottom navigation bar
+
+  @media (min-width: $md) {
+    padding-bottom: 30px;
+  }
+
+  .heading {
+    text-align: center;
+    line-height: 22px;
+    font-weight: 600;
+    font-size: 17px;
+    color: #fff;
+
+    @media (min-width: $md) {
+      font-size: 24px;
+    }
+  }
+
+  .cards-container {
+    margin-top: -80px;
+
+    @media (min-width: $md) {
+      max-width: 80%;
+    }
+
+    @media (min-width: $lg) {
+      max-width: 50%;
+    }
+  }
+
+  .card {
+    visibility: hidden; // This is Temporary -- TODO: Remove when other features are added back
+
+    margin-bottom: 34px;
+    padding: 15px 14px;
+    border-radius: 6px;
+    border: 0;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+
+    dl,
+    dd {
+      margin: 0;
+    }
+
+    &__content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 15px;
+      line-height: 20px;
+      &:not(:last-child) {
+        margin-bottom: 23px;
+      }
+    }
+
+    &__term {
+      margin: 0;
+      font-weight: 600;
+    }
+  }
+
+  .desktop-back-btn {
+    display: flex;
+    align-items: center;
+    position: relative;
+    top: -50px;
+    font-size: 13px;
+    color: #fff;
+    svg {
+      font-size: 20px;
+    }
+  }
+
+  // Child component edits below
+  .header-homescreen {
+    // Adjusting the Header Homescreen
+    justify-content: flex-start;
+    padding: 18px 0 0;
+  }
+
+  .shape {
+    // Adjusting the Gradient bg from header-homescreen
+    height: 208px;
+  }
+
+  .button-container {
+    // Adjusting button-container from global styles
+    display: flex;
+    flex-direction: column;
+
+    button:first-child {
+      margin-bottom: 14px;
+    }
+  }
+
+  .MuiFormControlLabel-root {
+    // Adjusting margin from alert-switch component
+    margin: 0;
+  }
+}
