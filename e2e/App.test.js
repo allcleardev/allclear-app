@@ -105,7 +105,7 @@ describe('App loads', () => {
     await page.keyboard.press('Enter');
 
     // wait for the button to be enabled
-    await page.waitFor(4000)
+    await page.waitFor(4000);
     let button = await page.$x('.//button[contains(@class, "next")]');
     button[0].click();
 
@@ -215,7 +215,7 @@ describe('App loads', () => {
     // await takeScreenshot(page, 'neither-selected');
 
     // wait for the button to be enabled
-    await page.waitFor(2000)
+    await page.waitFor(4000);
     let button = await page.$x('.//button[contains(@class, "next")]');
     button[0].click();
 
@@ -227,4 +227,28 @@ describe('App loads', () => {
 
     await browser.close();
   }, 10000);
+
+  test('Can lang on symptoms page', async () => {
+    let browser = await puppeteer.launch({
+      args: defaultArgs,
+      headless: true
+    });
+    let page = await browser.newPage();
+
+    page.emulate({
+      viewport: {
+        width: 500,
+        height: 2400
+      },
+      userAgent: ''
+    });
+
+    await page.goto('http://localhost:3000/symptoms');
+
+    let header = await page.$x('.//h1[@class="heading"]');
+    var text = await (await header[0].getProperty('textContent')).jsonValue();
+    expect(text).toBe('Symptoms');
+
+    await browser.close();
+  }, 5000);
 });
