@@ -21,6 +21,10 @@
     margin: 0 15px 16px;
 
     @media (min-width: $md) {
+      font-size: 50px;
+    }
+
+    @media (min-width: $xl) {
       font-size: 56px;
     }
   }
@@ -33,6 +37,10 @@
     font-size: 17px;
 
     @media (min-width: $md) {
+      font-size: 18px;
+    }
+
+    @media (min-width: $xl) {
       font-size: 21px;
     }
   }
