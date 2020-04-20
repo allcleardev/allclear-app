@@ -1,5 +1,5 @@
 <div markdown="1">
-    ![allclear](<img src="drawing.jpg" alt="drawing" width="200"/>src/assets/images/logo-blue.svg =250x)](https://allclear.app)
+    [![allclear](<img src="src/assets/images/logo-blue.svg" alt="drawing" width="200"/>)](https://allclear.app)
 </div>
 
 =================
