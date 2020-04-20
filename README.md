@@ -1,4 +1,4 @@
-[![allclear](src/assets/images/logo-blue.svg)](https://allclear.app)
+[![allclear](public/android-chrome-192x192.png)](https://allclear.app)
 
 =================
 
