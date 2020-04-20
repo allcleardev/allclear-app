@@ -315,6 +315,10 @@ a {
   color: $white-color !important;
 }
 
+.text-small {
+  font-size: 12px;
+}
+
 .list::before {
   content: '•';
   padding-right: 5px;

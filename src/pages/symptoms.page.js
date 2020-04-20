@@ -85,9 +85,9 @@ class SymptomsPage extends Component {
 
     setAppState({
       ...appState,
-      profile:{
+      profile: {
         ...appState.profile,
-        options:{
+        options: {
           ...appState.profile.options,
           symptoms
         }
@@ -130,7 +130,7 @@ class SymptomsPage extends Component {
           <Form noValidate autoComplete="off" className="onboarding-body">
             <Box maxWidth="md">
               <label className="label">
-                <strong>Select all that apply.</strong> (Required)
+                <strong>Select all that apply</strong><span className="text-small"> (Required)</span>
               </label>
               <div className="chips-group">
                 {this.state.symptoms &&

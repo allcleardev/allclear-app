@@ -8,7 +8,7 @@ import RoundHeader from '@general/headers/header-round';
 import ProgressBottom from '@general/navs/progress-bottom';
 import OnboardingNavigation from '@general/navs/onboarding-navigation';
 import TypesService from '@services/types.service';
-import {AppContext} from '@contexts/app.context';
+import { AppContext } from '@contexts/app.context';
 
 class HealthWorkerStatusPage extends Component {
   static contextType = AppContext;
@@ -35,7 +35,7 @@ class HealthWorkerStatusPage extends Component {
 
     const healthWorkerStatus = await this.typesService.getHealthWorkerStatuses()
       .catch((error) => {
-        this.setState({loading: false});
+        this.setState({ loading: false });
       });
     this.setState({ healthWorkerStatus });
 
@@ -44,7 +44,7 @@ class HealthWorkerStatusPage extends Component {
 
 
   handleChange(event) {
-    const {appState, setAppState} = this.context;
+    const { appState, setAppState } = this.context;
     const { healthWorkerStatus } = this.state;
     const selectedStatus = event;
 
@@ -62,9 +62,9 @@ class HealthWorkerStatusPage extends Component {
 
     setAppState({
       ...appState,
-      profile:{
+      profile: {
         ...appState.profile,
-        options:{
+        options: {
           ...appState.profile.options,
           healthWorkerStatus: selectedStatus
         }
@@ -85,7 +85,7 @@ class HealthWorkerStatusPage extends Component {
           <Form noValidate autoComplete="off" className="onboarding-body">
             <Box maxWidth="md">
               <label className="label">
-                <strong>Select one.</strong> (Required)
+                <strong>Select one</strong><span className="text-small"> (Required)</span>
               </label>
               <div className="chips-group">
                 {this.state.healthWorkerStatus &&
