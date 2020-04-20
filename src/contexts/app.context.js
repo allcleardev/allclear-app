@@ -65,47 +65,50 @@ export function AppProvider(props) {
     let {exposures, healthWorkerStatus, symptoms} = appState.profile.options;
 
     // only make the ajax calls if the options dont already exist in app state
-    exposures = (exposures) ? exposures : await typesService.getExposures();
-    healthWorkerStatus = (healthWorkerStatus) ? healthWorkerStatus : await typesService.getHealthWorkerStatuses();
+
     // todo: put this back when symptoms comes into modal
+    // exposures = (exposures) ? exposures : await typesService.getExposures();
+    // healthWorkerStatus = (healthWorkerStatus) ? healthWorkerStatus : await typesService.getHealthWorkerStatuses();
     // symptoms = (symptoms) ? symptoms : await typesService.getSymptoms(true);
 
     return {
-      exposures,
-      healthWorkerStatus,
-      symptoms
+      // exposures,
+      // healthWorkerStatus,
+      // symptoms
     };
   }
 
   // grab dynamic form options, set them to searchCriteria for modal usage
-  useEffect(() => {
-    (async () => {
-      const formOptions = await _populateFormOptions();
+  // useEffect(() => {
+  //   (async () => {
+  //     const formOptions = await _populateFormOptions();
+  //
+  //     let defaultSelections = {};
+  //     forEach(formOptions, (e, i) => {
+  //       // if selection exists from last filter, use it. else choose the first option
+  //       defaultSelections[i] = (appState.searchCriteria[i]) ? appState.searchCriteria[i] : get(e,'[0].id');
+  //     });
+  //
+  //     setAppState({
+  //       ...appState,
+  //       searchCriteria: {
+  //         ...appState.searchCriteria,
+  //         ...defaultSelections
+  //       },
+  //       profile: {
+  //         ...appState.profile,
+  //         options: {
+  //           ...appState.profile.options,
+  //           ...formOptions
+  //         }
+  //       }
+  //     });
+  //   })
+  //   ();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
-      let defaultSelections = {};
-      forEach(formOptions, (e, i) => {
-        // if selection exists from last filter, use it. else choose the first option
-        defaultSelections[i] = (appState.searchCriteria[i]) ? appState.searchCriteria[i] : get(e,'[0].id');
-      });
 
-      setAppState({
-        ...appState,
-        searchCriteria: {
-          ...appState.searchCriteria,
-          ...defaultSelections
-        },
-        profile: {
-          ...appState.profile,
-          options: {
-            ...appState.profile.options,
-            ...formOptions
-          }
-        }
-      });
-    })
-    ();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   // check user profile for saved option values before modal actually opens
   useEffect(() => {
