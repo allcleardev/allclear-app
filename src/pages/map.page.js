@@ -1,44 +1,40 @@
-import React, {useState, useContext, useEffect} from 'react';
-import AnimateHeight from 'react-animate-height';
+// external
+import React, { useState, useContext, useEffect } from 'react';
 import clsx from 'clsx';
-import Hammer from 'react-hammerjs';
-import Box from '@material-ui/core/Container';
-import {makeStyles} from '@material-ui/core/styles';
-import {CircularProgress} from '@material-ui/core';
-import Badge from '@material-ui/core/Badge';
-import { get} from 'lodash';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
+import AnimateHeight from 'react-animate-height';
+import { makeStyles } from '@material-ui/core/styles';
+import { get } from 'lodash';
 
+// components / icons
 import BottomNav from '@general/navs/bottom-nav';
 import ClearHeader from '@general/headers/header-clear';
 import UpdateCriteriaModal from '@general/modals/update-criteria-modal';
 import GoogleMap from '@components/map-components/google-map';
 import TestingLocationListItem from '@components/map-components/testing-location-list-item';
-
+import VerticalCollapseIcon from '@svg/vert-collapse';
+import VerticalExpandIcon from '@svg/vert-expand';
 import SettingsSVG from '@svg/svg-settings';
+import Box from '@material-ui/core/Container';
+import { CircularProgress } from '@material-ui/core';
+import Badge from '@material-ui/core/Badge';
+import Drawer from '@material-ui/core/Drawer';
+import AppBar from '@material-ui/core/AppBar';
+import Button from '@material-ui/core/Button';
+
+// other
 import ModalService from '@services/modal.service';
-import {AppContext} from '@contexts/app.context';
-import {useWindowResize} from '@hooks/general.hooks';
+import { AppContext } from '@contexts/app.context';
+import { useWindowResize } from '@hooks/general.hooks';
 
 export default function MapPage() {
   // constants
-  const touchOptions = {
-    touchAction: 'compute',
-    recognizers: {
-      swipe: {
-        time: 600,
-        threshold: 100,
-      },
-    },
-  };
   const classes = useStyles();
   const badgeRef = React.createRef();
-
+  const DRAWER_EXPANDED_HEIGHT = '100vh';
+  const DRAWER_COLLAPSED_HEIGHT = 350;
 
   // state & global state
-  const {setAppState, appState} = useContext(AppContext);
+  const { setAppState, appState } = useContext(AppContext);
   const [width, height] = useWindowResize(onWindowResize);
   const initialState = {
     isOpen: true,
@@ -48,13 +44,15 @@ export default function MapPage() {
     searchFilterActive: false,
   };
   const [mapState, setMapState] = useState(initialState);
-  const [drawerHeight, setDrawerHeight] = useState(350);
+  const [drawerHeight, setDrawerHeight] = useState(DRAWER_COLLAPSED_HEIGHT);
   const locations = get(appState, 'map.locations') || [];
 
   // on mount, check if filter is active
-  useEffect(checkFilterActive,
+  useEffect(
+    checkFilterActive,
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [appState.forceRefresh]);
+    [appState.forceRefresh],
+  );
 
   function checkFilterActive() {
     const currFormValues = Object.values(appState.searchCriteria).filter(Boolean);
@@ -69,27 +67,26 @@ export default function MapPage() {
       map: {
         ...appState.map,
         searchFilterActive,
-      }
+      },
     });
 
     // console.log('zzz', searchFilterActive);
 
     // hide badge when filters are inactive
-    if(get(badgeRef,'current.children[1]')) {
+    if (get(badgeRef, 'current.children[1]')) {
       badgeRef.current.children[1].hidden = !searchFilterActive;
     }
-
   }
 
   // callback handlers
-  function onWindowResize({width, height}) {
+  function onWindowResize({ width, height }) {
     if (width <= 768) {
       setMapState({
         ...mapState,
         anchor: 'bottom',
         isOpen: true,
       });
-      setDrawerHeight(350);
+      setDrawerHeight(DRAWER_COLLAPSED_HEIGHT);
     } else {
       setMapState({
         ...mapState,
@@ -102,7 +99,7 @@ export default function MapPage() {
 
   function onDrawerSwipe(e) {
     if (initialState.windowWidth <= 768) {
-      const nextHeight = drawerHeight === 350 ? 750 : 350;
+      const nextHeight = drawerHeight === DRAWER_COLLAPSED_HEIGHT ? DRAWER_EXPANDED_HEIGHT : DRAWER_COLLAPSED_HEIGHT;
       if (e.pointerType === 'touch' || e.type === 'click') {
         setDrawerHeight(nextHeight);
       }
@@ -116,7 +113,7 @@ export default function MapPage() {
   //   });
   // }
 
-  const {isOpen, anchor} = mapState;
+  const { isOpen, anchor } = mapState;
 
   // get modal service so we can toggle it open
   let modalService = ModalService.getInstance();
@@ -132,7 +129,7 @@ export default function MapPage() {
               [classes.appBarShift]: isOpen,
             })
           }
-          style={{zIndex: '2'}}
+          style={{ zIndex: '2' }}
         >
           {/* <IconButton
             disableRipple
@@ -148,9 +145,9 @@ export default function MapPage() {
           variant="persistent"
           anchor={anchor}
           open={isOpen}
-          style={{height: drawerHeight, zIndex: 4}}
+          style={{ height: drawerHeight, zIndex: 4 }}
         >
-          <AnimateHeight duration={500} height={drawerHeight}>
+          <AnimateHeight duration={500} height={drawerHeight === DRAWER_EXPANDED_HEIGHT ? '100%' : drawerHeight}>
             <div
               id="side-drawer"
               style={{
@@ -160,7 +157,7 @@ export default function MapPage() {
               }}
               className="side-drawer hide-scrollbar wid100-sm"
             >
-              <Hammer onSwipe={onDrawerSwipe} options={touchOptions} direction="DIRECTION_VERTICAL">
+              {/* <Hammer onSwipe={onDrawerSwipe} options={touchOptions} direction="DIRECTION_VERTICAL">
                 <div style={{height: '60px'}} className="geolist-resizer" onClick={onDrawerSwipe}>
                   <svg width="37" height="6" viewBox="0 0 37 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -171,16 +168,16 @@ export default function MapPage() {
                     />
                   </svg>
                 </div>
-              </Hammer>
+              </Hammer> */}
               {/*<GoogleMapInput style={{ marginTop: '50px' }}></GoogleMapInput>*/}
 
               {appState.isListLoading === false && (
-                <Box>
+                <Box style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <Badge
                     ref={badgeRef}
                     badgeContent={''}
                     overlap={'rectangle'}
-                    style={{width: '100%'}}
+                    style={{ width: anchor === 'bottom' ? '40%' : '100%' }}
                   >
                     <Button
                       className={'edit-filters-btn'}
@@ -192,14 +189,24 @@ export default function MapPage() {
                         // app context needs one more refresh before its ready to populate modal
                         setAppState({
                           ...appState,
-                          forceRefresh: !appState.forceRefresh
+                          forceRefresh: !appState.forceRefresh,
                         });
                         modalService.toggleModal('criteria', true);
                       }}
                     >
-                      Edit Search Filters
+                      {anchor === 'bottom' ? 'Edit Filters' : 'Edit Search Filters'}
                     </Button>
                   </Badge>
+                  {anchor === 'bottom' && (
+                    <Button
+                      className={'view-full-results-btn'}
+                      endIcon={drawerHeight === DRAWER_EXPANDED_HEIGHT ? VerticalCollapseIcon() : VerticalExpandIcon()}
+                      style={{ width: '50%', color: '#666666', size: 'large', paddingRight: '0px' }}
+                      onClick={onDrawerSwipe}
+                    >
+                      {drawerHeight === DRAWER_EXPANDED_HEIGHT ? 'Map View' : 'Full Results View'}
+                    </Button>
+                  )}
                 </Box>
               )}
 
@@ -214,29 +221,29 @@ export default function MapPage() {
                   }}
                   className="mt-4 mt-md-0 vh100-lg"
                 >
-                  <CircularProgress color="primary" size={70}/>
+                  <CircularProgress color="primary" size={70} />
                   <p className="mt-3">Loading Results</p>
                 </div>
               )}
 
               {locations &&
-              locations.map((result, index) => (
-                <TestingLocationListItem
-                  key={index}
-                  index={index}
-                  title={result.name}
-                  description={result.address}
-                  city_state={result.city + ', ' + result.state}
-                  service_time={result.hours}
-                  driveThru={result.driveThru}
-                  phone={result.phone}
-                  website={result.url}
-                  {...result}
-                ></TestingLocationListItem>
-              ))}
+                locations.map((result, index) => (
+                  <TestingLocationListItem
+                    key={index}
+                    index={index}
+                    title={result.name}
+                    description={result.address}
+                    city_state={result.city + ', ' + result.state}
+                    service_time={result.hours}
+                    driveThru={result.driveThru}
+                    phone={result.phone}
+                    website={result.url}
+                    {...result}
+                  ></TestingLocationListItem>
+                ))}
 
               {locations.length === 0 && appState.isListLoading === false && (
-                <h2 style={{display: 'flex', justifyContent: 'center'}}>No Results Found </h2>
+                <h2 style={{ display: 'flex', justifyContent: 'center' }}>No Results Found </h2>
               )}
             </div>
           </AnimateHeight>
