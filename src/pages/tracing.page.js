@@ -2,9 +2,14 @@ import React, { Component } from 'react';
 import Header from '../components/general/headers/header';
 import BottomNav from '../components/general/navs/bottom-nav';
 import Container from '@material-ui/core/Container';
+import GAService from '@services/ga.service';
 class TracingPage extends Component {
   constructor() {
     super();
+
+    this.gaService = GAService.getInstance();
+    this.gaService.setScreenName('tracing');
+
     this.state = {};
     this.navItems = [
       { route: '/map', name: 'Find Tests' },

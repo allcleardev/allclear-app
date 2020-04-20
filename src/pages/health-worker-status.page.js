@@ -9,6 +9,7 @@ import ProgressBottom from '@general/navs/progress-bottom';
 import OnboardingNavigation from '@general/navs/onboarding-navigation';
 import TypesService from '@services/types.service';
 import { AppContext } from '@contexts/app.context';
+import GAService from '@services/ga.service';
 
 class HealthWorkerStatusPage extends Component {
   static contextType = AppContext;
@@ -19,6 +20,10 @@ class HealthWorkerStatusPage extends Component {
 
   constructor() {
     super();
+
+    this.gaService = GAService.getInstance();
+    this.gaService.setScreenName('health-worker');
+
     this.typesService = TypesService.getInstance();
     bindAll(this, ['componentDidMount', 'routeChange', 'getHealthWorkerStatuses', 'handleChange', 'render']);
   }

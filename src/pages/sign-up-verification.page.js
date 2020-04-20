@@ -12,12 +12,16 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import PeopleService from '@services/people.service';
 import {AppContext} from '@contexts/app.context';
 import {bindAll} from 'lodash';
+import GAService from '@services/ga.service';
 
 export default class SignUpVerificationPage extends Component {
   static contextType = AppContext;
 
   constructor(props) {
     super(props);
+
+    this.gaService = GAService.getInstance();
+    this.gaService.setScreenName('sign-up-verification');
 
     this.peopleService = PeopleService.getInstance();
 
