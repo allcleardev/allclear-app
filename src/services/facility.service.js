@@ -21,7 +21,6 @@ export default class FacilityService {
     forEach(body, (value, key) => {
       // remove filter from both places
       if (value === 'Any') {
-        // delete appState.searchCriteria[key];
         delete body[key];
       }
     });

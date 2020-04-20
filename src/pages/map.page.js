@@ -1,5 +1,5 @@
 // external
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import clsx from 'clsx';
 import AnimateHeight from 'react-animate-height';
 import { makeStyles } from '@material-ui/core/styles';
@@ -36,7 +36,6 @@ export default function MapPage() {
 
   // state & global state
   const { setAppState, appState } = useContext(AppContext);
-  console.log('appState', appState);
   const [width, height] = useWindowResize(onWindowResize);
   const initialState = {
     isOpen: true,
@@ -49,36 +48,6 @@ export default function MapPage() {
   const [drawerHeight, setDrawerHeight] = useState(DRAWER_COLLAPSED_HEIGHT);
   const locations = get(appState, 'map.locations') || [];
   const numActiveFilters = getNumActiveFilters(get(appState, 'searchCriteria'));
-  // on mount, check if filter is active
-  useEffect(
-    checkFilterActive,
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [appState.forceRefresh],
-  );
-
-  function checkFilterActive() {
-    const currFormValues = Object.values(appState.searchCriteria).filter(Boolean);
-    // if any selections have anything but 'any' selected, search is active
-    // console.log('filterss', currFormValues);
-    // console.log(appState.searchCriteria)
-
-    const searchFilterActive = !currFormValues.every((e) => e === 'Any');
-
-    setAppState({
-      ...appState,
-      map: {
-        ...appState.map,
-        searchFilterActive,
-      },
-    });
-
-    // console.log('zzz', searchFilterActive);
-
-    // hide badge when filters are inactive
-    if (get(badgeRef, 'current.children[1]')) {
-      badgeRef.current.children[1].hidden = !searchFilterActive;
-    }
-  }
 
   // callback handlers
   function onWindowResize({ width, height }) {
@@ -311,12 +280,6 @@ function EditFiltersBtn(props) {
   );
 }
 
-// .MuiBadge-anchorOriginTopRightCircle {
-//     top: 35%;
-//     right: 2%;
-//     transform: scale(1) translate(50%, -50%);
-//     transform-origin: 100% 0%;
-// }
 
 // todo: might still be useful at some point just not now
 // function TabPanel(props) {
@@ -339,3 +302,33 @@ function EditFiltersBtn(props) {
 //   index: PropTypes.any.isRequired,
 //   value: PropTypes.any.isRequired,
 // };
+
+
+// on mount, check if filter is active
+// useEffect(
+//   checkFilterActive,
+//   // eslint-disable-next-line react-hooks/exhaustive-deps
+//   [appState.forceRefresh],
+// );
+//
+// function checkFilterActive() {
+//   const currFormValues = Object.values(appState.searchCriteria).filter(Boolean);
+//   // if any selections have anything but 'any' selected, search is active
+//   // console.log('filterss', currFormValues);
+//   // console.log(appState.searchCriteria)
+//
+//   const searchFilterActive = !currFormValues.every((e) => e === 'Any');
+//
+//   setAppState({
+//     ...appState,
+//     map: {
+//       ...appState.map,
+//       searchFilterActive,
+//     },
+//   });
+//
+//   // hide badge when filters are inactive
+//   if (get(badgeRef, 'current.children[1]')) {
+//     badgeRef.current.children[1].hidden = !searchFilterActive;
+//   }
+// }
