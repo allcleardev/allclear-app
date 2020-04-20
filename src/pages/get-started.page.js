@@ -9,6 +9,8 @@ import { Button } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import * as queryString from 'query-string';
 import SnackbarMessage from '@general/alerts/snackbar-message';
+import ModalService from '@services/modal.service';
+import EmergencyNoticeModal from '@general/modals/emergency-notice-modal';
 
 export default class GetStartedPage extends Component {
   static contextType = AppContext;
@@ -16,6 +18,7 @@ export default class GetStartedPage extends Component {
 
   constructor() {
     super();
+    this.modalService = ModalService.getInstance();
     this.state = {
       isSnackbarOpen: false,
     };
@@ -24,10 +27,7 @@ export default class GetStartedPage extends Component {
       { route: 'about.allclear.app', name: 'Help', absolutePath: true },
     ];
 
-    bindAll(this, [
-      'routeChange',
-      'handleSnackbarClose',
-    ]);
+    bindAll(this, ['routeChange', 'handleSnackbarClose']);
   }
 
   componentDidMount() {
@@ -38,18 +38,20 @@ export default class GetStartedPage extends Component {
         isSnackbarOpen: true,
       });
     }
+
+    console.log('opening modal...');
+    this.modalService.toggleModal('emergencyNotice', true);
   }
 
   handleSnackbarClose() {
     this.setState({
-      isSnackbarOpen: false
+      isSnackbarOpen: false,
     });
   }
 
   routeChange(route) {
     this.props.history.push(route);
   }
-
 
   render() {
     return (
@@ -74,6 +76,7 @@ export default class GetStartedPage extends Component {
             </Button>
           </div>
         </Container>
+        <EmergencyNoticeModal />
       </div>
     );
   }
