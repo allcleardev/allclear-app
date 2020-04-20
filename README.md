@@ -1,4 +1,7 @@
-[![allclear](src/assets/images/logo-blue.svg =250x)](https://allclear.app)
+<div markdown="1">
+    ![allclear](<img src="drawing.jpg" alt="drawing" width="200"/>src/assets/images/logo-blue.svg =250x)](https://allclear.app)
+</div>
+
 =================
 [![Release](https://badgen.net/github/release/allcleardev/allclear-app)](https://github.com/allcleardev/allclear-app/releases)
 [![Commits](https://badgen.net/github/commits/allcleardev/allclear-app)](https://github.com/allcleardev/allclear-app/commits/master)
