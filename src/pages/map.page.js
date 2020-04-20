@@ -31,7 +31,7 @@ export default function MapPage() {
   // constants
   const classes = useStyles();
   const badgeRef = React.createRef();
-  const DRAWER_EXPANDED_HEIGHT = '100%';
+  const DRAWER_EXPANDED_HEIGHT = '100vh';
   const DRAWER_COLLAPSED_HEIGHT = 350;
 
   // state & global state
@@ -151,7 +151,7 @@ export default function MapPage() {
           open={isOpen}
           style={{ height: drawerHeight, zIndex: 4 }}
         >
-          <AnimateHeight duration={500} height={drawerHeight}>
+          <AnimateHeight duration={500} height={drawerHeight === DRAWER_EXPANDED_HEIGHT ? '100%' : drawerHeight}>
             <div
               id="side-drawer"
               style={{
