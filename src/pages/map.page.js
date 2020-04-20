@@ -149,7 +149,9 @@ export default function MapPage() {
               {/*<GoogleMapInput style={{ marginTop: '50px' }}></GoogleMapInput>*/}
 
               {appState.isListLoading === false && (
-                <Box style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Box
+                  className={'button-box'}
+                  style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   {numActiveFilters > 0 ? (
                     <Badge
                       ref={badgeRef}

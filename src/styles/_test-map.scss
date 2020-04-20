@@ -8,12 +8,19 @@
   }
 
   .view-full-results-btn {
-    margin: 15px;
+    margin-left: 15px;
 
     svg {
       font-size: 32px;
       height: 25px;
     }
+
+    .MuiButton-endIcon{
+      margin-right: 0px;
+    }
+  }
+
+  .side-drawer{
   }
 
   .MuiBadge-badge {
