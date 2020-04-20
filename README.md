@@ -1,4 +1,4 @@
-[![allclear](src/assets/images/logo-blue.png)](https://allclear.app)
+[![allclear](src/assets/images/logo-blue.svg)](https://allclear.app)
 =================
 [![Release](https://badgen.net/github/release/allcleardev/allclear-app)](https://github.com/allcleardev/allclear-app/releases)
 [![Commits](https://badgen.net/github/commits/allcleardev/allclear-app)](https://github.com/allcleardev/allclear-app/commits/master)
