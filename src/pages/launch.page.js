@@ -22,7 +22,7 @@ const ContainerStyle = {
 
 const LaunchPage = ({ props }) => {
   const history = useHistory();
-  const sessid = localStorage.getItem('sessid');
+  const sessid = localStorage.getItem('sessionId');
 
   useEffect(() => {
     setTimeout(() => {
