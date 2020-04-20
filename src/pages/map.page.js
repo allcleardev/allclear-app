@@ -1,5 +1,5 @@
 // external
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import clsx from 'clsx';
 import AnimateHeight from 'react-animate-height';
 import { makeStyles } from '@material-ui/core/styles';

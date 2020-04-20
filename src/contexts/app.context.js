@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {forEach, get} from 'lodash';
 import {CRITERIA_FORM_DATA} from '@general/modals/update-criteria-modal.constants';
-import TypesService from '@services/types.service';
+// import TypesService from '@services/types.service';
 
 // Set Up The Initial Context
 export const AppContext = React.createContext();
@@ -59,13 +59,11 @@ initialAppState = get(possSavedState, 'sessionId') ? possSavedState : initialApp
 
 export function AppProvider(props) {
   const [appState, setAppState] = useState(initialAppState);
-  const typesService = TypesService.getInstance();
+  // const typesService = TypesService.getInstance();
 
+  // only make the ajax calls if the options dont already exist in app state
   async function _populateFormOptions() {
-    let {exposures, healthWorkerStatus, symptoms} = appState.profile.options;
-
-    // only make the ajax calls if the options dont already exist in app state
-
+    // let {exposures, healthWorkerStatus, symptoms} = appState.profile.options;
     // todo: put this back when symptoms comes into modal
     // exposures = (exposures) ? exposures : await typesService.getExposures();
     // healthWorkerStatus = (healthWorkerStatus) ? healthWorkerStatus : await typesService.getHealthWorkerStatuses();
@@ -79,34 +77,34 @@ export function AppProvider(props) {
   }
 
   // grab dynamic form options, set them to searchCriteria for modal usage
-  // useEffect(() => {
-  //   (async () => {
-  //     const formOptions = await _populateFormOptions();
-  //
-  //     let defaultSelections = {};
-  //     forEach(formOptions, (e, i) => {
-  //       // if selection exists from last filter, use it. else choose the first option
-  //       defaultSelections[i] = (appState.searchCriteria[i]) ? appState.searchCriteria[i] : get(e,'[0].id');
-  //     });
-  //
-  //     setAppState({
-  //       ...appState,
-  //       searchCriteria: {
-  //         ...appState.searchCriteria,
-  //         ...defaultSelections
-  //       },
-  //       profile: {
-  //         ...appState.profile,
-  //         options: {
-  //           ...appState.profile.options,
-  //           ...formOptions
-  //         }
-  //       }
-  //     });
-  //   })
-  //   ();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  useEffect(() => {
+    (async () => {
+      const formOptions = await _populateFormOptions();
+
+      let defaultSelections = {};
+      forEach(formOptions, (e, i) => {
+        // if selection exists from last filter, use it. else choose the first option
+        defaultSelections[i] = (appState.searchCriteria[i]) ? appState.searchCriteria[i] : get(e,'[0].id');
+      });
+
+      setAppState({
+        ...appState,
+        searchCriteria: {
+          ...appState.searchCriteria,
+          ...defaultSelections
+        },
+        profile: {
+          ...appState.profile,
+          options: {
+            ...appState.profile.options,
+            ...formOptions
+          }
+        }
+      });
+    })
+    ();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
 
 
