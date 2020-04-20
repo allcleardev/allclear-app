@@ -26,7 +26,7 @@ const takeScreenshot = async (page, name) => {
   page.screenshot({path: `./e2e/screenshots/${name}.png`});
 }
 
-describe('App loads', () => {
+describe('Testing individual pages', () => {
   test('App splash page loads correctly', async () => {
 
     let browser = await puppeteer.launch({
@@ -228,7 +228,7 @@ describe('App loads', () => {
     await browser.close();
   }, 10000);
 
-  test('Can lang on symptoms page', async () => {
+  test('Can land on symptoms page', async () => {
     let browser = await puppeteer.launch({
       args: defaultArgs,
       headless: true
@@ -251,4 +251,78 @@ describe('App loads', () => {
 
     await browser.close();
   }, 5000);
+});
+
+describe('Stepping through from get-started to sign-up', () => {
+  test('Can get to sign-up page', async () => {
+    let browser = await puppeteer.launch({
+      headless: false
+    });
+    let page = await browser.newPage();
+
+    page.emulate({
+      viewport: {
+        width: 500,
+        height: 2400
+      },
+      userAgent: ''
+    });
+
+    await page.goto('http://localhost:3000/get-started');
+
+    await page.waitForXPath('.//button[contains(@class, "signup")]');
+    let signupButton = await page.$x('.//button[contains(@class, "signup")]');
+    signupButton[0].click();
+
+    // navigate to background page
+
+    await page.waitForNavigation();
+
+    await page.waitForXPath('.//input[@id="google-maps-autocomplete"]');
+    await page.type('#google-maps-autocomplete', '11211')
+
+    // wait for popup to show
+    await page.waitForSelector('#google-maps-autocomplete-popup');
+
+    // select the first option in the list
+    await page.keyboard.press('ArrowDown');
+    await page.keyboard.press('Enter');
+
+    // wait for the button to be enabled
+    await page.waitFor(4000);
+    let nextButton = await page.$x('.//button[contains(@class, "next")]');
+    nextButton[0].click();
+
+    // navigate to HWS page
+    await page.waitForNavigation();
+
+    await page.waitFor(2000);
+    let chipsOnHWSPage = await page.$$('[role="button"]');
+    chipsOnHWSPage[0].click();
+
+    // wait for the button to be enabled
+    await page.waitFor(4000);
+    let nextButtonHWS = await page.$x('.//button[contains(@class, "next")]');
+    nextButtonHWS[0].click();
+
+    // navigate to symptoms page
+    await page.waitForNavigation();
+
+    await page.waitFor(2000);
+    let chipsOnSymptomsPage = await page.$$('[role="button"]');
+    chipsOnSymptomsPage[0].click(); // select "Fever"
+
+    // wait for the button to be enabled
+    await page.waitFor(4000);
+    let nextButtonSymptoms = await page.$x('.//button[contains(@class, "next")]');
+    nextButtonSymptoms[0].click();
+
+    // navigate to sign-up page
+    await page.waitForNavigation();
+
+    let header = await page.$x('.//h1[@class="heading"]');
+    var text = await (await header[0].getProperty('textContent')).jsonValue();
+    expect(text).toBe('Phone Number Registration');
+
+  }, 25000);
 });
