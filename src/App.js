@@ -16,7 +16,7 @@ import SignInVerificationPage from '@pages/sign-in-verification.page';
 import BackgroundPage from '@pages/background.page';
 import GetStartedPage from '@pages/get-started.page';
 import HealthWorkerStatusPage from '@pages/health-worker-status.page';
-import LaunchPage from '@pages/launch.page';
+// import LaunchPage from '@pages/launch.page';
 import SignInPage from '@pages/sign-in.page';
 import LoginMagicLinkPage from '@pages/login-magic-link.page';
 import MapPage from '@pages/map.page';
