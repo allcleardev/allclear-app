@@ -28,12 +28,6 @@
         font-weight: 500;
       }
     }
-
-    .MuiExpansionPanelSummary-content.Mui-expanded {
-      &__buttons {
-        display: none;
-      }
-    }
   }
 
   /* Expansion Details */
@@ -63,5 +57,11 @@
         color: #808080;
       }
     }
+  }
+}
+
+.MuiExpansionPanelSummary-root.Mui-expanded.MuiExpansionPanelSummary-content {
+  .summary {
+    display: none;
   }
 }

@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { boolToEng, isNullOrUndefined } from '../../util/general.helpers';
-
 import Button from '@material-ui/core/Button';
 import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
 import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -10,7 +9,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { withStyles } from '@material-ui/core/styles';
 
 export default function TestingLocationListItem(props) {
-  const { index, title, description, city_state, service_time, driveThru, phone, website } = props;
+  const { index, title, description, service_time, driveThru, phone, website } = props;
 
   const summary = (
     <ExpansionPanelSummary
@@ -19,19 +18,29 @@ export default function TestingLocationListItem(props) {
       className="testing-location-list-item"
       expandIcon={<ExpandMoreIcon />}
     >
-      <div>
+      <div className="my-auto">
         <h3 className="card-title">
           <span>{index + 1}.</span> {title}
         </h3>
 
-        <dl className="summary">
-          <dd className="summary__item">{city_state}</dd>
+        <dl className="summary d-none d-md-block">
+          <dd className="summary__item summary__item--semibold">{description}</dd>
           <dd className="summary__item summary__item--grey">{service_time}</dd>
           <dd className="detsummaryails__item">{driveThru.toString() === 'true' ? 'Drive Through' : ''}</dd>
-          <dd className="summary__item summary__item--semibold">{description}</dd>
           <dd className="summary__item summary__item--semibold">{phone}</dd>
         </dl>
-        <ButtonsDiv display={'d-none d-md-block'} margin={{marginTop: '15px', marginBottom: '20px'}} description={description} phone={phone} website={website} />
+        <dl className="summary d-md-none mb-0">
+          <dd className="summary__item summary__item--semibold">{description}</dd>
+          <dd className="summary__item summary__item--grey">{service_time}</dd>
+        </dl>
+
+        <ButtonsDiv
+          display={'d-none d-md-block'}
+          margin={{marginTop: '15px', marginBottom: '20px'}}
+          description={description}
+          phone={phone}
+          website={website}
+        />
       </div>
     </ExpansionPanelSummary>
   );
@@ -39,7 +48,17 @@ export default function TestingLocationListItem(props) {
   const body = (
     <ExpansionPanelDetails>
       <section className="testing-location-list-item__details">
-        <ButtonsDiv display={'d-md-none'} margin={{marginBottom: '15px'}} description={description} phone={phone} website={website} />
+        <dl className="summary d-md-none">
+          <dd className="detsummaryails__item">{driveThru.toString() === 'true' ? 'Drive Through' : ''}</dd>
+          <dd className="summary__item summary__item--semibold">{phone}</dd>
+        </dl>
+        <ButtonsDiv
+          display={'d-md-none'}
+          margin={{marginBottom: '15px'}}
+          description={description}
+          phone={phone}
+          website={website}
+        />
         <h4>Test Center Details:</h4>
         <dl className="details">
           {!isNullOrUndefined(props.testCriteria) && (
@@ -123,6 +142,7 @@ const ExpansionPanel = withStyles({
     borderRight: 0,
     boxShadow: 'none',
     transition: 'all 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+    paddingBottom: 5,
     '&:not(:last-child)': {
       borderBottom: 0,
     },
@@ -208,5 +228,5 @@ function ButtonsDiv(props) {
         </a>
       )}
     </div>
-  )
+  );
 }
