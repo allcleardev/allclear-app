@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {forEach, get} from 'lodash';
 import {CRITERIA_FORM_DATA} from '@general/modals/update-criteria-modal.constants';
 // import TypesService from '@services/types.service';
@@ -11,8 +11,8 @@ export const AppConsumer = AppContext.Consumer;
 // set default selections for non-dynamic criteria modal options
 let searchCriteria = {};
 forEach(CRITERIA_FORM_DATA, (e, i) => {
-  if(e.options){
-    searchCriteria[e.key] = get(e,'options[0].id');
+  if (e.options) {
+    searchCriteria[e.key] = get(e, 'options[0].id');
   }
 });
 
@@ -32,8 +32,8 @@ export const INITIAL_APP_STATE = {
     expandedItems: [],
     isListLoading: true,
     searchFilterActive: false,
-    latitude:undefined,
-    longitude:undefined
+    latitude: undefined,
+    longitude: undefined
   },
   searchCriteria,
   profile: {
@@ -62,75 +62,77 @@ export function AppProvider(props) {
   // const typesService = TypesService.getInstance();
 
   // only make the ajax calls if the options dont already exist in app state
-  async function _populateFormOptions() {
-    // let {exposures, healthWorkerStatus, symptoms} = appState.profile.options;
-    // todo: put this back when symptoms comes into modal
-    // exposures = (exposures) ? exposures : await typesService.getExposures();
-    // healthWorkerStatus = (healthWorkerStatus) ? healthWorkerStatus : await typesService.getHealthWorkerStatuses();
-    // symptoms = (symptoms) ? symptoms : await typesService.getSymptoms(true);
+  // todo: put this back when dynamic options come back into modal
+  // async function _populateFormOptions() {
+  //   let {exposures, healthWorkerStatus, symptoms} = appState.profile.options;
+  //
+  //   exposures = (exposures) ? exposures : await typesService.getExposures();
+  //   healthWorkerStatus = (healthWorkerStatus) ? healthWorkerStatus : await typesService.getHealthWorkerStatuses();
+  //   symptoms = (symptoms) ? symptoms : await typesService.getSymptoms(true);
+  //
+  //   return {
+  //     exposures,
+  //     healthWorkerStatus,
+  //     symptoms
+  //   };
+  // }
 
-    return {
-      // exposures,
-      // healthWorkerStatus,
-      // symptoms
-    };
-  }
-
+  // todo: put this back when dynamic options come back into modal
   // grab dynamic form options, set them to searchCriteria for modal usage
-  useEffect(() => {
-    (async () => {
-      const formOptions = await _populateFormOptions();
+  // useEffect(() => {
+  //   (async () => {
+  //     const formOptions = await _populateFormOptions();
+  //
+  //     let defaultSelections = {};
+  //     forEach(formOptions, (e, i) => {
+  //       // if selection exists from last filter, use it. else choose the first option
+  //       defaultSelections[i] = (appState.searchCriteria[i]) ? appState.searchCriteria[i] : get(e,'[0].id');
+  //     });
+  //
+  //     setAppState({
+  //       ...appState,
+  //       searchCriteria: {
+  //         ...appState.searchCriteria,
+  //         ...defaultSelections
+  //       },
+  //       profile: {
+  //         ...appState.profile,
+  //         options: {
+  //           ...appState.profile.options,
+  //           ...formOptions
+  //         }
+  //       }
+  //     });
+  //   })
+  //   ();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
-      let defaultSelections = {};
-      forEach(formOptions, (e, i) => {
-        // if selection exists from last filter, use it. else choose the first option
-        defaultSelections[i] = (appState.searchCriteria[i]) ? appState.searchCriteria[i] : get(e,'[0].id');
-      });
 
-      setAppState({
-        ...appState,
-        searchCriteria: {
-          ...appState.searchCriteria,
-          ...defaultSelections
-        },
-        profile: {
-          ...appState.profile,
-          options: {
-            ...appState.profile.options,
-            ...formOptions
-          }
-        }
-      });
-    })
-    ();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-
-
+  // todo: put this back when dynamic options come back into modal
   // check user profile for saved option values before modal actually opens
-  useEffect(() => {
-
-    // // // check one last time for profile values to pre-select (used for first map refresh on login)
-    let dynamicSearchCriteria = {};
-    forEach(appState.profile.options, (e, i) => {
-      // if user has saved this part of the profile, use that
-      const savedProfileOption = appState.person[i];
-      if (savedProfileOption && appState.modalSubmitCount === 0) {
-        dynamicSearchCriteria[i] = savedProfileOption.id;
-      }
-    });
-    let finalAppState = {
-      ...appState,
-      searchCriteria: {
-        ...appState.searchCriteria,
-        ...dynamicSearchCriteria
-      },
-    };
-
-    setAppState(finalAppState);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [appState.forceRefresh]);
+  // useEffect(() => {
+  //
+  //   // // // check one last time for profile values to pre-select (used for first map refresh on login)
+  //   let dynamicSearchCriteria = {};
+  //   forEach(appState.profile.options, (e, i) => {
+  //     // if user has saved this part of the profile, use that
+  //     const savedProfileOption = appState.person[i];
+  //     if (savedProfileOption && appState.modalSubmitCount === 0) {
+  //       dynamicSearchCriteria[i] = savedProfileOption.id;
+  //     }
+  //   });
+  //   let finalAppState = {
+  //     ...appState,
+  //     searchCriteria: {
+  //       ...appState.searchCriteria,
+  //       ...dynamicSearchCriteria
+  //     },
+  //   };
+  //
+  //   setAppState(finalAppState);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [appState.forceRefresh]);
 
   // save it for later
   localStorage.setItem('appState', JSON.stringify(appState));
