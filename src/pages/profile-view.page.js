@@ -41,13 +41,14 @@ export default class ProfileViewPage extends Component {
   }
 
   async executeLogout() {
-    await this.peopleService.logout();
+    const currSession = this.context.appState.sessionId;
+    await this.peopleService.logout(currSession);
     localStorage.removeItem('sessid');
     localStorage.removeItem('appState');
     localStorage.removeItem('session');
     const { setAppState } = this.context;
     setAppState(INITIAL_APP_STATE);
-    return this.props.history.push('/get-started');
+    return this.props.history.push('/get-started?logout=You%20have%20been%20successfully%20logged%20out.');
   }
 
   setProfile(session) {

@@ -41,8 +41,17 @@ export default class PeopleService {
     });
   }
 
-  logout() {
-    return Axios.delete(this.logoutURL, this.headers);
+  logout(currSession) {
+    const headers = (currSession) ? {
+      'X-AllClear-SessionID': currSession,
+    } : {
+      ...this.headers.headers
+    };
+    return Axios({
+      method: 'DELETE',
+      url: this.logoutURL,
+      headers,
+    });
   }
 
   async editProfile(postData, currSession) {
