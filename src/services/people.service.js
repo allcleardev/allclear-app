@@ -12,7 +12,7 @@ export default class PeopleService {
   // todo: all sessions in storage seem to be borked. i monkey patched the appstate value in
   // to the calls that were failing but it needs to actually be fixed for these others to work
   _setAuthHeaders() {
-    this.sessionId = localStorage.getItem('sessid');
+    this.sessionId = localStorage.getItem('sessionId');
     this.headers = {
       headers: {
         'X-AllClear-SessionID': this.sessionId,

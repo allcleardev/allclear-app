@@ -11,12 +11,16 @@ import {bindAll} from 'lodash';
 
 import PeopleService from '@services/people.service';
 import {AppContext} from '@contexts/app.context';
+import GAService from '@services/ga.service';
 
 export default class VerifyMagicLinkPage extends Component {
   static contextType = AppContext;
 
   constructor(props) {
     super(props);
+
+    this.gaService = GAService.getInstance();
+    this.gaService.setScreenName('verify-magic-link');
 
     this.peopleService = PeopleService.getInstance();
 

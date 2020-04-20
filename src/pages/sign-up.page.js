@@ -19,6 +19,7 @@ import Alert from '@material-ui/lab/Alert';
 import { AppContext } from '@contexts/app.context';
 import PeopleService from '@services/people.service';
 import { bindAll } from 'lodash';
+import GAService from '@services/ga.service';
 
 function SlideTransition(props) {
   return <Slide {...props} direction="up" />;
@@ -29,6 +30,9 @@ export default class SignUpPage extends Component {
 
   constructor(props) {
     super(props);
+
+    this.gaService = GAService.getInstance();
+    this.gaService.setScreenName('sign-up');
 
     this.state = {
       termsAndConditions: false,

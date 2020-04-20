@@ -12,12 +12,16 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { AppContext } from '@contexts/app.context';
 import PeopleService from '@services/people.service';
 import {bindAll} from 'lodash';
+import GAService from '@services/ga.service';
 
 export default class SignInPage extends Component {
   static contextType = AppContext;
 
   constructor(props) {
     super(props);
+
+    this.gaService = GAService.getInstance();
+    this.gaService.setScreenName('sign-in');
 
     this.state = {
       phone: undefined,

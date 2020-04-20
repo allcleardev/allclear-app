@@ -11,12 +11,18 @@ import Container from '@material-ui/core/Container';
 import * as queryString from 'query-string';
 import SnackbarMessage from '@general/alerts/snackbar-message';
 
+import GAService from '@services/ga.service';
+
 export default class GetStartedPage extends Component {
   static contextType = AppContext;
   state = {};
 
   constructor() {
     super();
+
+    this.gaService = GAService.getInstance();
+    this.gaService.setScreenName('get-started');
+
     this.state = {
       isSnackbarOpen: false,
       snackbarMessage: 'You must be logged in to use this feature.',
