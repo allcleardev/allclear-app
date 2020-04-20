@@ -9,6 +9,7 @@ import ProgressBottom from '../components/general/navs/progress-bottom';
 import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
 import { Button, Chip } from '@material-ui/core';
+import GAService from '@services/ga.service';
 
 class ConditionsPage extends Component {
   state = {
@@ -18,6 +19,10 @@ class ConditionsPage extends Component {
 
   constructor() {
     super();
+
+    this.gaService = GAService.getInstance();
+    this.gaService.setScreenName('conditions');
+
     bindAll(this, ['componentDidMount', 'getConditions', 'selectAll', 'handleChange']);
   }
 

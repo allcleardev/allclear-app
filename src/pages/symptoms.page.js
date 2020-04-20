@@ -9,6 +9,7 @@ import ProgressBottom from '@general/navs/progress-bottom';
 import OnboardingNavigation from '@general/navs/onboarding-navigation';
 import { AppContext } from '@contexts/app.context';
 import TypesService from '@services/types.service';
+import GAService from '@services/ga.service';
 
 class SymptomsPage extends Component {
   state = {
@@ -19,6 +20,10 @@ class SymptomsPage extends Component {
 
   constructor() {
     super();
+
+    this.gaService = GAService.getInstance();
+    this.gaService.setScreenName('symptoms');
+
     bindAll(this, [
       'componentDidMount',
       'routeChange',

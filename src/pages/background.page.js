@@ -10,6 +10,7 @@ import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
 import { Button } from '@material-ui/core';
 import { AppContext } from '../contexts/app.context';
+import GAService from '@services/ga.service';
 
 class BackgroundPage extends Component {
   static contextType = AppContext;
@@ -21,6 +22,10 @@ class BackgroundPage extends Component {
 
   constructor() {
     super();
+
+    this.gaService = GAService.getInstance();
+    this.gaService.setScreenName('background');
+
     bindAll(this, [
       'routeChange',
       'handleLocationChange',
