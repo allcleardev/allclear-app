@@ -142,7 +142,6 @@ const ExpansionPanel = withStyles({
     borderRight: 0,
     boxShadow: 'none',
     transition: 'all 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
-    paddingBottom: 5,
     '&:not(:last-child)': {
       borderBottom: 0,
     },
