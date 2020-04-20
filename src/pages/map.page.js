@@ -25,6 +25,7 @@ import Button from '@material-ui/core/Button';
 import ModalService from '@services/modal.service';
 import { AppContext } from '@contexts/app.context';
 import { useWindowResize } from '@hooks/general.hooks';
+import { getNumActiveFilters } from '@util/general.helpers';
 
 export default function MapPage() {
   // constants
@@ -35,6 +36,7 @@ export default function MapPage() {
 
   // state & global state
   const { setAppState, appState } = useContext(AppContext);
+  console.log('appState', appState);
   const [width, height] = useWindowResize(onWindowResize);
   const initialState = {
     isOpen: true,
@@ -46,7 +48,7 @@ export default function MapPage() {
   const [mapState, setMapState] = useState(initialState);
   const [drawerHeight, setDrawerHeight] = useState(DRAWER_COLLAPSED_HEIGHT);
   const locations = get(appState, 'map.locations') || [];
-
+  const numActiveFilters = getNumActiveFilters(get(appState, 'searchCriteria'));
   // on mount, check if filter is active
   useEffect(
     checkFilterActive,
@@ -106,12 +108,14 @@ export default function MapPage() {
     }
   }
 
-  // function onDrawerToggle(isOpen) {
-  //   setMapState({
-  //     ...mapState,
-  //     isOpen,
-  //   });
-  // }
+  function onEditFiltersBtnClick() {
+    // app context needs one more refresh before its ready to populate modal
+    setAppState({
+      ...appState,
+      forceRefresh: !appState.forceRefresh,
+    });
+    modalService.toggleModal('criteria', true);
+  }
 
   const { isOpen, anchor } = mapState;
 
@@ -173,30 +177,18 @@ export default function MapPage() {
 
               {appState.isListLoading === false && (
                 <Box style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <Badge
-                    ref={badgeRef}
-                    badgeContent={''}
-                    overlap={'rectangle'}
-                    style={{ width: anchor === 'bottom' ? '40%' : '100%' }}
-                  >
-                    <Button
-                      className={'edit-filters-btn'}
-                      variant="contained"
-                      color="primary"
-                      fullWidth
-                      startIcon={SettingsSVG()}
-                      onClick={() => {
-                        // app context needs one more refresh before its ready to populate modal
-                        setAppState({
-                          ...appState,
-                          forceRefresh: !appState.forceRefresh,
-                        });
-                        modalService.toggleModal('criteria', true);
-                      }}
+                  {numActiveFilters > 0 ? (
+                    <Badge
+                      ref={badgeRef}
+                      badgeContent={`${numActiveFilters} Active`}
+                      overlap={'rectangle'}
+                      style={{ width: anchor === 'bottom' ? '40%' : '100%' }}
                     >
-                      {anchor === 'bottom' ? 'Edit Filters' : 'Edit Search Filters'}
-                    </Button>
-                  </Badge>
+                      <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} />
+                    </Badge>
+                  ) : (
+                    <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} />
+                  )}
                   {anchor === 'bottom' && (
                     <Button
                       className={'view-full-results-btn'}
@@ -303,6 +295,21 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 0,
   },
 }));
+
+function EditFiltersBtn(props) {
+  return (
+    <Button
+      className={'edit-filters-btn'}
+      variant="contained"
+      color="primary"
+      fullWidth
+      startIcon={SettingsSVG()}
+      onClick={props.onClick}
+    >
+      {props.anchor === 'bottom' ? 'Edit Filters' : 'Edit Search Filters'}
+    </Button>
+  );
+}
 
 // .MuiBadge-anchorOriginTopRightCircle {
 //     top: 35%;
