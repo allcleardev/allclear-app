@@ -4,7 +4,7 @@ import { bindAll } from 'lodash';
 
 import HomescreenHeader from '../components/general/headers/header-homescreen';
 import BottomNav from '../components/general/navs/bottom-nav';
-import userAvatar from '../assets/images/defaultProfile.svg';
+import userAvatar from '@assets/images/defaultProfile.svg';
 import PeopleService from '../services/people.service.js';
 import { AppContext, INITIAL_APP_STATE } from '../contexts/app.context';
 
@@ -32,7 +32,7 @@ export default class ProfileViewPage extends Component {
 
   async fetchProfile(session) {
     const currSession = this.context.appState.sessionId;
-    const {id} = this.context.appState.person;
+    const { id } = this.context.appState.person;
 
     const response = await this.peopleService.getById(id, currSession);
     const profile = response.data;

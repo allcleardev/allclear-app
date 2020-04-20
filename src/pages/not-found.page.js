@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import finn from '../assets/images/finn.png';
+import finn from '@assets/images/finn.png';
 
 export default function NotFoundPage() {
   return (
