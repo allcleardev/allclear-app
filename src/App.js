@@ -53,7 +53,7 @@ export default function App() {
           <Route path="/register" component={VerifyMagicLinkPage} />
           <Route path="/auth" component={LoginMagicLinkPage} />
 
-          <Route path="/background" component={BackgroundPage} />
+          <Route path="/location" component={BackgroundPage} />
           <Route path="/health-worker" component={HealthWorkerStatusPage} />
           <Route path="/symptoms" component={Symptoms} />
 
@@ -62,13 +62,13 @@ export default function App() {
           <Route path="/sign-in-verification" component={SignInVerificationPage} />
 
           {/* Profile Pages / SettingsPage */}
-          <ProtectedRoute path="/profile" component={ProfileViewPage} />
-          <ProtectedRoute path="/profile-edit" component={ProfileEditPage} />
-          <ProtectedRoute path="/add-test" component={AddTestPage} />
-          <ProtectedRoute path="/update-criteria" component={UpdateTestingCenterCriteria} />
-          <ProtectedRoute path="/share" component={SharePage} />
-          <ProtectedRoute path="/settings" component={SettingsPage} />
-          <ProtectedRoute path="/contact-tracing" component={TracingPage} />
+          <Route path="/profile" component={ProfileViewPage} />
+          <Route path="/profile-edit" component={ProfileEditPage} />
+          <Route path="/add-test" component={AddTestPage} />
+          <Route path="/update-criteria" component={UpdateTestingCenterCriteria} />
+          <Route path="/share" component={SharePage} />
+          <Route path="/settings" component={SettingsPage} />
+          <Route path="/contact-tracing" component={TracingPage} />
 
           {/* Map */}
           <Route path="/map" component={MapPage} />

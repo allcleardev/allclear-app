@@ -90,7 +90,7 @@ class ConditionsPage extends Component {
               </div>
             </Box>
             <div className="button-container">
-              <Link to="/background" className="hide-mobile">
+              <Link to="/location" className="hide-mobile">
                 <Button variant="contained" className="back">
                   Back
                 </Button>
