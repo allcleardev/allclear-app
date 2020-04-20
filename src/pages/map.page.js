@@ -1,98 +1,93 @@
+// external
 import React, { useState, useContext } from 'react';
-import AnimateHeight from 'react-animate-height';
 import clsx from 'clsx';
-// import PropTypes from 'prop-types';
-import Box from '@material-ui/core/Container';
+import AnimateHeight from 'react-animate-height';
 import { makeStyles } from '@material-ui/core/styles';
+import { get } from 'lodash';
+
+// components / icons
+import BottomNav from '@general/navs/bottom-nav';
+import ClearHeader from '@general/headers/header-clear';
+import UpdateCriteriaModal from '@general/modals/update-criteria-modal';
+import GoogleMap from '@components/map-components/google-map';
+import TestingLocationListItem from '@components/map-components/testing-location-list-item';
+import VerticalCollapseIcon from '@svg/vert-collapse';
+import VerticalExpandIcon from '@svg/vert-expand';
+import SettingsSVG from '@svg/svg-settings';
+import Box from '@material-ui/core/Container';
+import { CircularProgress } from '@material-ui/core';
+import Badge from '@material-ui/core/Badge';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import ClearHeader from '../components/headers/header-clear';
-import NavBottom from '../components/navBottom';
 
-import UpdateCriteriaModal from '../components/modals/modal-update-criteria';
-
-import Hammer from 'react-hammerjs';
-import GoogleMap from '../components/map-components/google-map';
-import TestingLocationListItem from '../components/map-components/testing-location-list-item';
-import { mapLocationData } from '../constants';
-
-import ArrowLeft from '../components/svgs/arrow-left';
-import ArrowRight from '../components/svgs/arrow-right';
-import SettingsSVG from '../components/svgs/svg-settings';
-import { useWindowResize } from '../util/helpers';
-import ModalService from '../services/modal.service';
-import MapPageContext from '../contexts/MapPage.context';
+// other
+import ModalService from '@services/modal.service';
+import { AppContext } from '@contexts/app.context';
+import { useWindowResize } from '@hooks/general.hooks';
+import { getNumActiveFilters } from '@util/general.helpers';
+import GAService from '@services/ga.service';
 
 export default function MapPage() {
+  const gaService = GAService.getInstance();
+  gaService.setScreenName('map');
+
+  // constants
   const classes = useStyles();
+  const badgeRef = React.createRef();
+  const DRAWER_EXPANDED_HEIGHT = '100vh';
+  const DRAWER_COLLAPSED_HEIGHT = 350;
 
-  const { mapPageState } = useContext(MapPageContext);
-
-  const locations = mapPageState.locations;
-
-  function onWindowResize({ width, height }) {
-    if (width <= 768) {
-      setMapState({
-        ...mapState,
-        anchor: 'bottom',
-        isOpen: true,
-        drawerHeight: 350,
-      });
-    } else {
-      setMapState({
-        ...mapState,
-        anchor: 'left',
-        isOpen: true,
-      });
-    }
-  }
-
-  const SwipeHandler = (e) => {
-    if (initialState.windowWidth <= 768) {
-      if (e.pointerType === 'touch') {
-        if (e.deltaY > 0) {
-          setMapState({
-            ...mapState,
-            drawerHeight: 350,
-          });
-        } else {
-          setMapState({
-            ...mapState,
-            drawerHeight: 700,
-          });
-        }
-      }
-    }
-  };
-
+  // state & global state
+  const { setAppState, appState } = useContext(AppContext);
   const [width, height] = useWindowResize(onWindowResize);
   const initialState = {
     isOpen: true,
     anchor: 'left',
     windowWidth: width,
     windowHeight: height,
+    searchFilterActive: false,
   };
   const [mapState, setMapState] = useState(initialState);
-  // const {mapPageState, setMapPageState} = useContext(MapPageContext);
+  const [drawerHeight, setDrawerHeight] = useState(DRAWER_COLLAPSED_HEIGHT);
+  const locations = get(appState, 'map.locations') || [];
+  const numActiveFilters = getNumActiveFilters(get(appState, 'searchCriteria'));
 
-  const touchOptions = {
-    touchAction: 'compute',
-    recognizers: {
-      swipe: {
-        time: 600,
-        threshold: 100,
-      },
-    },
-  };
+  // callback handlers
+  function onWindowResize({ width, height }) {
+    if (width <= 768) {
+      setMapState({
+        ...mapState,
+        anchor: 'bottom',
+        isOpen: true,
+      });
+      setDrawerHeight(DRAWER_COLLAPSED_HEIGHT);
+    } else {
+      setMapState({
+        ...mapState,
+        anchor: 'left',
+        isOpen: true,
+      });
+      setDrawerHeight(height);
+    }
+  }
 
-  function toggleDrawer(isOpen) {
-    setMapState({
-      ...mapState,
-      isOpen,
+  function onDrawerSwipe(e) {
+    if (initialState.windowWidth <= 768) {
+      const nextHeight = drawerHeight === DRAWER_COLLAPSED_HEIGHT ? DRAWER_EXPANDED_HEIGHT : DRAWER_COLLAPSED_HEIGHT;
+      if (e.pointerType === 'touch' || e.type === 'click') {
+        setDrawerHeight(nextHeight);
+      }
+    }
+  }
+
+  function onEditFiltersBtnClick() {
+    // app context needs one more refresh before its ready to populate modal
+    setAppState({
+      ...appState,
+      forceRefresh: !appState.forceRefresh,
     });
+    modalService.toggleModal('criteria', true);
   }
 
   const { isOpen, anchor } = mapState;
@@ -103,113 +98,138 @@ export default function MapPage() {
   return (
     <div className="map-page">
       <ClearHeader isOpen={isOpen}></ClearHeader>
-      <Typography component="div" role="tabpanel" aria-labelledby={'simple-tab'}>
-        <Box p={3}>
-          <AppBar
-            className={
-              'btn-hide-nav ' +
-              clsx(classes.appBar, {
-                [classes.appBarShift]: isOpen,
-              })
-            }
-            style={{ zIndex: '2' }}
+      <Box p={3}>
+        <AppBar
+          className={
+            'btn-hide-nav ' +
+            clsx(classes.appBar, {
+              [classes.appBarShift]: isOpen,
+            })
+          }
+          style={{ zIndex: '2' }}
+        >
+          {/* <IconButton
+            disableRipple
+            aria-label="open drawer"
+            onClick={isOpen === false ? () => onDrawerToggle(true) : () => onDrawerToggle(false)}
+            className={clsx(classes.menuButton, isOpen)}
           >
-            <IconButton
-              disableRipple
-              aria-label="open drawer"
-              onClick={isOpen === false ? () => toggleDrawer(true) : () => toggleDrawer(false)}
-              className={clsx(classes.menuButton, isOpen)}
+            {isOpen === true ? <ArrowLeft /> : <ArrowRight />}
+          </IconButton> */}
+        </AppBar>
+        <Drawer
+          className={classes.drawer + ' nav-left-location'}
+          variant="persistent"
+          anchor={anchor}
+          open={isOpen}
+          style={{ height: drawerHeight, zIndex: 4 }}
+        >
+          <AnimateHeight duration={500} height={drawerHeight === DRAWER_EXPANDED_HEIGHT ? '100%' : drawerHeight}>
+            <div
+              id="side-drawer"
+              style={{
+                width: `${drawerWidth}px`,
+                overflowY: 'scroll',
+                height: drawerHeight,
+              }}
+              className="side-drawer hide-scrollbar wid100-sm"
             >
-              {isOpen === true ? <ArrowLeft /> : <ArrowRight />}
-            </IconButton>
-          </AppBar>
-          <Drawer
-            className={classes.drawer + ' nav-left-location'}
-            variant="persistent"
-            anchor={anchor}
-            open={isOpen}
-            style={{ height: mapState.drawerHeight, zIndex: 4 }}
-          >
-            <AnimateHeight duration={500} height={mapState.drawerHeight}>
-              <div
-                id="side-drawer"
-                style={{
-                  width: `${drawerWidth}px`,
-                  overflowY: 'scroll',
-                  height: mapState.drawerHeight,
-                }}
-                className="side-drawer hide-scrollbar wid100-sm"
-              >
-                <Hammer onSwipe={SwipeHandler} options={touchOptions} direction="DIRECTION_VERTICAL">
-                  <div style={{ height: '60px' }} className="geolist-resizer">
-                    <svg width="37" height="6" viewBox="0 0 37 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M2.75977 5.18164C1.37905 5.18164 0.259766 4.06235 0.259766 2.68164C0.259766
+              {/* <Hammer onSwipe={onDrawerSwipe} options={touchOptions} direction="DIRECTION_VERTICAL">
+                <div style={{height: '60px'}} className="geolist-resizer" onClick={onDrawerSwipe}>
+                  <svg width="37" height="6" viewBox="0 0 37 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M2.75977 5.18164C1.37905 5.18164 0.259766 4.06235 0.259766 2.68164C0.259766
                       1.30093 1.37905 0.181641 2.75977 0.181641H33.7598C35.1405 0.181641 36.2598 1.30093
                       36.2598 2.68164C36.2598 4.06235 35.1405 5.18164 33.7598 5.18164H2.75977Z"
-                        fill="#aaadb3"
-                      />
-                    </svg>
-                  </div>
-                </Hammer>
-                {/*<GoogleMapInput style={{ marginTop: '50px' }}></GoogleMapInput>*/}
+                      fill="#aaadb3"
+                    />
+                  </svg>
+                </div>
+              </Hammer> */}
+              {/*<GoogleMapInput style={{ marginTop: '50px' }}></GoogleMapInput>*/}
 
-                <Box>
-                  <Button
-                    className={'edit-filters-btn'}
-                    variant="contained"
-                    color="primary"
-                    fullWidth
-                    startIcon={SettingsSVG()}
-                    onClick={() => {
-                      modalService.toggleModal('criteria', true);
-                    }}
-                  >
-                    Edit Search Filters
-                  </Button>
+              {appState.isListLoading === false && (
+                <Box
+                  className={'button-box'}
+                  style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  {numActiveFilters > 0 ? (
+                    <Badge
+                      ref={badgeRef}
+                      badgeContent={`${numActiveFilters} Active`}
+                      overlap={'rectangle'}
+                      style={{ width: anchor === 'bottom' ? '40%' : '100%' }}
+                    >
+                      <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} />
+                    </Badge>
+                  ) : (
+                    <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} />
+                  )}
+                  {anchor === 'bottom' && (
+                    <Button
+                      className={'view-full-results-btn'}
+                      endIcon={drawerHeight === DRAWER_EXPANDED_HEIGHT ? VerticalCollapseIcon() : VerticalExpandIcon()}
+                      style={{ width: '50%', color: '#666666', size: 'large', paddingRight: '0px' }}
+                      onClick={onDrawerSwipe}
+                    >
+                      {drawerHeight === DRAWER_EXPANDED_HEIGHT ? 'Map View' : 'Full Results View'}
+                    </Button>
+                  )}
                 </Box>
+              )}
 
-                {locations &&
-                  locations.map((result, index) => (
-                    <TestingLocationListItem
-                      key={index}
-                      index={index}
-                      title={result.name}
-                      description={result.address}
-                      city_state={result.city + ', ' + result.state}
-                      service_time={result.hours}
-                      driveThru={result.driveThru}
-                      phone={result.phone}
-                      {...result}
-                    ></TestingLocationListItem>
-                  ))}
+              {appState.isListLoading === true && (
+                <div
+                  style={{
+                    height: 'auto',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                  className="mt-4 mt-md-0 vh100-lg"
+                >
+                  <CircularProgress color="primary" size={70} />
+                  <p className="mt-3">Loading Results</p>
+                </div>
+              )}
 
-                {locations.length === 0 && (
-                  <h2 style={{ display: 'flex', justifyContent: 'center' }}>No Results Found </h2>
-                )}
-              </div>
-            </AnimateHeight>
-          </Drawer>
-          <main
-            className={clsx(classes.content, {
-              [classes.contentShift]: isOpen,
-            })}
-          >
-            <div className="map-fullscreen">
-              <GoogleMap {...mapLocationData}></GoogleMap>
+              {locations &&
+                locations.map((result, index) => (
+                  <TestingLocationListItem
+                    key={index}
+                    index={index}
+                    title={result.name}
+                    description={result.address}
+                    city_state={result.city + ', ' + result.state}
+                    service_time={result.hours}
+                    driveThru={result.driveThru}
+                    phone={result.phone}
+                    website={result.url}
+                    {...result}
+                  ></TestingLocationListItem>
+                ))}
+
+              {locations.length === 0 && appState.isListLoading === false && (
+                <h2 style={{ display: 'flex', justifyContent: 'center' }}>No Results Found </h2>
+              )}
             </div>
-          </main>
-          <NavBottom active={1}></NavBottom>
-          <UpdateCriteriaModal></UpdateCriteriaModal>
-        </Box>
-      </Typography>
+          </AnimateHeight>
+        </Drawer>
+        <main
+          className={clsx(classes.content, {
+            [classes.contentShift]: isOpen,
+          })}
+        >
+          <div className="map-fullscreen">
+            <GoogleMap></GoogleMap>
+          </div>
+        </main>
+        <BottomNav active={1}></BottomNav>
+        <UpdateCriteriaModal></UpdateCriteriaModal>
+      </Box>
     </div>
   );
 }
-
-// export default connect((state) => {
-//   return { locations: state.locations };
-// })(MapPage);
 
 const drawerWidth = 400;
 const useStyles = makeStyles((theme) => ({
@@ -237,7 +257,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'none',
   },
   drawer: {
-    // width: drawerWidth,
     flexShrink: 0,
   },
   content: {
@@ -251,6 +270,22 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 0,
   },
 }));
+
+function EditFiltersBtn(props) {
+  return (
+    <Button
+      className={'edit-filters-btn'}
+      variant="contained"
+      color="primary"
+      fullWidth
+      startIcon={SettingsSVG()}
+      onClick={props.onClick}
+    >
+      {props.anchor === 'bottom' ? 'Edit Filters' : 'Edit Search Filters'}
+    </Button>
+  );
+}
+
 
 // todo: might still be useful at some point just not now
 // function TabPanel(props) {
@@ -273,3 +308,33 @@ const useStyles = makeStyles((theme) => ({
 //   index: PropTypes.any.isRequired,
 //   value: PropTypes.any.isRequired,
 // };
+
+
+// on mount, check if filter is active
+// useEffect(
+//   checkFilterActive,
+//   // eslint-disable-next-line react-hooks/exhaustive-deps
+//   [appState.forceRefresh],
+// );
+//
+// function checkFilterActive() {
+//   const currFormValues = Object.values(appState.searchCriteria).filter(Boolean);
+//   // if any selections have anything but 'any' selected, search is active
+//   // console.log('filterss', currFormValues);
+//   // console.log(appState.searchCriteria)
+//
+//   const searchFilterActive = !currFormValues.every((e) => e === 'Any');
+//
+//   setAppState({
+//     ...appState,
+//     map: {
+//       ...appState.map,
+//       searchFilterActive,
+//     },
+//   });
+//
+//   // hide badge when filters are inactive
+//   if (get(badgeRef, 'current.children[1]')) {
+//     badgeRef.current.children[1].hidden = !searchFilterActive;
+//   }
+// }

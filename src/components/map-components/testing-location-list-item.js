@@ -1,16 +1,16 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { boolToEng, isNullOrUndefined } from '../../util/helpers';
+import { boolToEng, isNullOrUndefined } from '../../util/general.helpers';
 
 import Button from '@material-ui/core/Button';
 import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { withStyles } from '@material-ui/core/styles';
 
 export default function TestingLocationListItem(props) {
-  const { index, title, description, city_state, service_time, driveThru, phone } = props;
+  const { index, title, description, city_state, service_time, driveThru, phone, website } = props;
 
   const summary = (
     <ExpansionPanelSummary
@@ -32,20 +32,31 @@ export default function TestingLocationListItem(props) {
           <dd className="summary__item summary__item--semibold">{phone}</dd>
         </dl>
 
-        <div className="buttons" style={{ marginTop: '25px' }}>
+        <div className="buttons" style={{marginTop: '15px' }}>
           <a
             href={'https://www.google.com/maps/dir/?api=1&destination=' + description}
+            onClick={(evt) => evt.stopPropagation()}
             rel="noopener noreferrer"
             target="_blank"
           >
             <Button className="btn primary-color primary-outline">Directions</Button>
           </a>
 
-          <a href={'tel:' + phone} rel="noopener noreferrer" target="_blank">
-            <Button className="btn primary-color primary-outline d-lg-none" style={{ marginLeft: '15px' }}>
-              Call
-            </Button>
-          </a>
+          {phone && (
+            <a href={'tel:' + phone} onClick={(evt) => evt.stopPropagation()} rel="noopener noreferrer" target="_blank">
+              <Button className="btn primary-color primary-outline d-lg-none" style={{ marginLeft: '10px' }}>
+                Call
+              </Button>
+            </a>
+          )}
+
+          {website && (
+            <a href={website} onClick={(evt) => evt.stopPropagation()} rel="noopener noreferrer" target="_blank">
+              <Button className="btn primary-color primary-outline" style={{ position: 'absolute', marginLeft: '10px' }}>
+                Website
+              </Button>
+            </a>
+          )}
         </div>
       </div>
     </ExpansionPanelSummary>
@@ -54,8 +65,7 @@ export default function TestingLocationListItem(props) {
   const body = (
     <ExpansionPanelDetails>
       <section className="testing-location-list-item__details">
-        <div className="border"></div>
-        <h4><b>Test Center Overview</b></h4>
+        <h4>Test Center Details:</h4>
         <dl className="details">
           {!isNullOrUndefined(props.testCriteria) && (
             <Fragment>
@@ -118,8 +128,10 @@ export default function TestingLocationListItem(props) {
             </Fragment>
           )}
           <div className="mt-3">
-            <Link><span className="fontsize-15">Suggest Change To Test Center Overview</span></Link>
-            <p className="fontsize-12"><i>Last update: username 4/10/2020 12:38:00 PM</i></p>
+            <Link to={'http://www.google.com'}>Suggest Change To Test Center Information</Link>
+            <p className="fontsize-12">
+              <i>Last update: username 4/10/2020 12:38:00 PM</i>
+            </p>
           </div>
         </dl>
       </section>
@@ -144,7 +156,7 @@ const ExpansionPanel = withStyles({
     },
     '&$expanded': {
       margin: 'auto',
-      boxShadow: '0px 18px 8px 20px rgba(0,0,0,.15)'
+      boxShadow: '0px 18px 8px 20px rgba(0,0,0,.15)',
     },
   },
   expanded: {},
@@ -157,7 +169,7 @@ const ExpansionPanelSummary = withStyles({
     marginBottom: -1,
     minHeight: 56,
     '&$expanded': {
-      minHeight: 56
+      minHeight: 56,
     },
   },
   content: {
@@ -170,8 +182,9 @@ const ExpansionPanelSummary = withStyles({
 const ExpansionPanelDetails = withStyles((theme) => ({
   root: {
     backgroundColor: '#fff',
+    paddingTop: 0,
     paddingBottom: 3,
-    boxShadow: 'inset 0px -11px 8px -10px rgba(0,0,0,.15)'
+    boxShadow: 'inset 0px -11px 8px -10px rgba(0,0,0,.15)',
   },
 }))(MuiExpansionPanelDetails);
 

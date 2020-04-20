@@ -50,6 +50,10 @@ button {
 
     @media (min-width: $md) {
       flex-direction: row;
+      margin: 20px 0 50px;
+    }
+
+    @media (min-width: $xl) {
       margin: 40px 0 70px;
     }
 
@@ -140,6 +144,11 @@ button {
   border-radius: 10px;
   box-shadow: none;
   width: 100%;
+
+  &.delete {
+    color: #fff;
+    background-color: $error-color;
+  }
 
   @media (min-width: $md) {
     width: auto;
@@ -306,6 +315,10 @@ a {
   color: $white-color !important;
 }
 
+.text-small {
+  font-size: 12px;
+}
+
 .list::before {
   content: '•';
   padding-right: 5px;
@@ -367,6 +380,12 @@ a {
 
   .hide-mobile-sm {
     display: none !important;
+  }
+}
+
+@media (min-width: $md + 1) {
+  .vh100-lg {
+    height: 100vh !important;
   }
 }
 

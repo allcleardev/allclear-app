@@ -5,12 +5,6 @@ export default class TypesService {
 
   constructor() {
     this.baseURL = '/types';
-    this.sessionId = localStorage.getItem('sessid');
-    this.headers = {
-      headers: {
-        'X-AllClear-SessionID': this.sessionId,
-      },
-    };
   }
 
   static getInstance() {
@@ -22,7 +16,17 @@ export default class TypesService {
   }
 
   async getHealthWorkerStatuses() {
-    return Axios.get(`${this.baseURL}/healthWorkerStatuses`, this.headers)
+    return Axios.get(`${this.baseURL}/healthWorkerStatuses`)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        return error;
+      });
+  }
+
+  async getExposures() {
+    return Axios.get(`${this.baseURL}/exposures`)
       .then((response) => {
         return response.data;
       })
@@ -32,7 +36,7 @@ export default class TypesService {
   }
 
   async getSymptoms() {
-    return Axios.get(`${this.baseURL}/symptoms`, this.headers)
+    return Axios.get(`${this.baseURL}/symptoms`)
       .then((response) => {
         return response.data;
       })
