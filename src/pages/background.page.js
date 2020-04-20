@@ -110,7 +110,7 @@ class BackgroundPage extends Component {
               <section className="section">
                 <article className="article">
                   <label htmlFor="location" className="label">
-                    <strong>Location</strong> (Required) <br />
+                    <strong>Select one</strong><span className="text-small"> (Required)</span> <br />
                     <span className="description">
                       We can give localized test center recommendations with your location.
                     </span>
