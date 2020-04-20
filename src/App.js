@@ -42,7 +42,8 @@ export default function App() {
       <AppProvider>
         <Switch>
           {/* Loader Page */}
-          <Route exact path="/" component={LaunchPage} />
+          {/*<Route exact path="/" component={LaunchPage} />*/}
+          <Route exact path="/" component={GetStartedPage} />
 
           {/* Onboarding Pages */}
           <Route path="/get-started" component={GetStartedPage} />
