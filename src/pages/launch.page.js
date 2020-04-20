@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import Logo from '../assets/images/logo-green-back.svg';
+import Logo from '@assets/images/logo-white.svg';
 
 const LogoStyle = {
   justifyContent: 'center',

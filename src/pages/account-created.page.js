@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindAll } from 'lodash';
 
 import { AppContext } from '../contexts/app.context';
-import Success from '../assets/images/success-check.svg';
+import Success from '@assets/images/success-check.svg';
 import Header from '../components/general/headers/header';
 import OnboardingNavigation from '../components/general/navs/onboarding-navigation';
 

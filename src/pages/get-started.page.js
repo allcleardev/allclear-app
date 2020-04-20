@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { bindAll } from 'lodash';
 
 import { AppContext } from '@contexts/app.context';
-import Logo from '../assets/images/logo-green-back.svg';
+import Logo from '@assets/images/logo-white.svg';
+
 import Header from '@general/headers/header';
 
 import { Button } from '@material-ui/core';
@@ -24,10 +25,7 @@ export default class GetStartedPage extends Component {
       { route: 'about.allclear.app', name: 'Help', absolutePath: true },
     ];
 
-    bindAll(this, [
-      'routeChange',
-      'handleSnackbarClose',
-    ]);
+    bindAll(this, ['routeChange', 'handleSnackbarClose']);
   }
 
   componentDidMount() {
@@ -42,14 +40,13 @@ export default class GetStartedPage extends Component {
 
   handleSnackbarClose() {
     this.setState({
-      isSnackbarOpen: false
+      isSnackbarOpen: false,
     });
   }
 
   routeChange(route) {
     this.props.history.push(route);
   }
-
 
   render() {
     return (

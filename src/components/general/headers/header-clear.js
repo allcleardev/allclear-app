@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Logo from '../../../assets/images/logo-white-back.svg';
+import Logo from '@assets/images/logo-blue.svg';
 
 export default function ClearHeader(props) {
   const { isOpen } = props;

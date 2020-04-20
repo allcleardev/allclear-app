@@ -6,7 +6,7 @@
 
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import Logo from '../../../assets/images/logo-green-back.svg';
+import Logo from '@assets/images/logo-white.svg';
 import Fab from '@material-ui/core/Fab';
 import Container from '@material-ui/core/Container';
 
@@ -47,7 +47,7 @@ export default function Header({
       <Container className="desktop-content" maxWidth="xl">
         <img src={Logo} alt="Logo" className="logo" />
         <nav className="menu">
-          {navItems.map((item ) => {
+          {navItems.map((item) => {
             if (item.absolutePath) {
               return (
                 <a

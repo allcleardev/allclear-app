@@ -72,6 +72,7 @@
     "@services": "./src/services",
     "@styles": "./src/styles",
     "@util": "./src/util",
-    "@hooks": "./src/hooks"
+    "@hooks": "./src/hooks",
+    "@assets": "./src/assets"
   }
 }
