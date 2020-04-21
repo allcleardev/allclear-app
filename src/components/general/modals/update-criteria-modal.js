@@ -67,7 +67,7 @@ export default function UpdateCriteriaModal() {
         style={{ zIndex: '5' }}
       >
         <DialogTitle id="scroll-dialog-title">Update Search Criteria</DialogTitle>
-        <DialogContent dividers={scroll === 'paper'} style={{width: '40%', minWidth: '600px'}}>
+        <DialogContent dividers={scroll === 'paper'} classes={{root: 'update-criteria-modal'}}>
           {/*<Button*/}
           {/*  onClick={_onResetClicked}*/}
           {/*  className="btn-big bg-primary color-white fontsize-16"*/}
