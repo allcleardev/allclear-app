@@ -150,7 +150,7 @@ export default class SignInVerificationPage extends Component {
                     onKeyPress={(e) => this.onKeyPress(e)}
                   />
                   {this.state.error && (
-                    <FormLabel error={this.state.error}>
+                    <FormLabel error={this.state.error} classes={{error: 'error-message'}}>
                       You've entered an incorrect code. Please try again.
                     </FormLabel>
                   )}
