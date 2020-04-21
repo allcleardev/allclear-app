@@ -29,12 +29,14 @@ export default class SignInVerificationPage extends Component {
     this.state = {
       checkedB: true,
       loading: false,
-      code: undefined
+      code: undefined,
+      smsTimeoutEnabled: false
     };
 
     bindAll(this, [
       'sanitizePhone',
       'verifyPhoneNumber',
+      'resendCode',
       'handleCodeChange',
       'onKeyPress',
       'validateState'
@@ -43,6 +45,15 @@ export default class SignInVerificationPage extends Component {
 
   componentDidMount() {
     this.validateState();
+    this.setSMSTimeout();
+  }
+
+  setSMSTimeout() {
+    this.setState({smsTimeoutEnabled: false});
+
+    setTimeout(() => {
+      this.setState({smsTimeoutEnabled: true});
+    }, 5000);
   }
 
   validateState() {
@@ -108,6 +119,46 @@ export default class SignInVerificationPage extends Component {
     }
   };
 
+  async resendCode() {
+    const { appState } = this.context;
+    const phone = appState.person.phone;
+
+    //reset sms text timeout
+    this.setSMSTimeout();
+
+    this.setState({ loading: true });
+
+    if (!phone) {
+      this.setState({ loading: false });
+      return this.props.history.push('/sign-in');
+    }
+
+    const response = await this.peopleService.login({phone});
+
+    this.setState({ loading: false });
+
+    if (response.err) {
+      this.setState({smsTimeoutEnabled: true});
+      const error = response;
+
+      if (error && error.response) {
+        if (error.response.data && error.response.data.message) {
+          this.setState({
+            error: true,
+            message: error.response.data.message,
+            loading: false,
+          });
+        } else {
+          this.setState({
+            error: true,
+            message: 'An error occurred. Please try again later.',
+            loading: false,
+          });
+        }
+      }
+    }
+  }
+
   onKeyPress(e) {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -149,8 +200,16 @@ export default class SignInVerificationPage extends Component {
                     onKeyPress={(e) => this.onKeyPress(e)}
                   />
                 </FormControl>
+              </div>
 
+              <div className="alert-messages">
                 {this.state.error === true ? <p className="error">{this.state.message}</p> : ''}
+                {this.state.smsTimeoutEnabled === true ? <p className="no-code-message">Didnt receive a code?</p> : ''}
+                {this.state.smsTimeoutEnabled === true ?
+                  <Button onClick={() => this.resendCode()} variant="contained" className="back">
+                    Resend Code
+                  </Button>
+                  : ''}
               </div>
 
               <div className="button-container">
