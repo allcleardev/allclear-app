@@ -43,7 +43,7 @@ export default class ProfileViewPage extends Component {
   async executeLogout() {
     const currSession = this.context.appState.sessionId;
     await this.peopleService.logout(currSession);
-    localStorage.removeItem('sessid');
+    localStorage.removeItem('sessionId');
     localStorage.removeItem('appState');
     localStorage.removeItem('session');
     const { setAppState } = this.context;

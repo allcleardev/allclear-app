@@ -13,6 +13,7 @@ import AlertSwitch from '@general/buttons/toggle';
 import { AppContext } from '@contexts/app.context';
 import PeopleService from '@services/people.service.js';
 import HomescreenHeader from '@general/headers/header-homescreen';
+import GAService from '@services/ga.service';
 
 class SettingsPage extends Component {
   state = {
@@ -22,6 +23,10 @@ class SettingsPage extends Component {
 
   constructor(props) {
     super(props);
+
+    this.gaService = GAService.getInstance();
+    this.gaService.setScreenName('settings');
+
     bindAll(this, ['componentDidMount', 'onDeleteProfileClicked', 'handleClose']);
     this.peopleService = PeopleService.getInstance();
   }
