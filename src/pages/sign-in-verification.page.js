@@ -53,7 +53,7 @@ export default class SignInVerificationPage extends Component {
 
     setTimeout(() => {
       this.setState({smsTimeoutEnabled: true});
-    }, 5000);
+    }, 20000);
   }
 
   validateState() {
