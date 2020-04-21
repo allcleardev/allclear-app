@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindAll } from 'lodash';
 
 import { AppContext } from '../contexts/app.context';
-import Success from '../assets/images/success-check.svg';
+import Success from '@assets/images/success-check.svg';
 import Header from '../components/general/headers/header';
 import OnboardingNavigation from '../components/general/navs/onboarding-navigation';
 
@@ -19,7 +19,7 @@ export default class AccountCreated extends Component {
     bindAll(this, []);
     this.navItems = [
       { route: 'about.allclear.app', name: 'About Us', absolutePath: true },
-      { route: 'about.allclear.app', name: 'Help', absolutePath: true },
+      { route: 'about.allclear.app/#comitment', name: 'Help', absolutePath: true },
     ];
   }
 

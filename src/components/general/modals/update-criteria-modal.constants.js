@@ -52,7 +52,6 @@ export const CRITERIA_FORM_DATA = [
   //   key: 'exposures',
   //   optionsKey: 'exposures',
   //   inputType: 'select',
-  //   placeholder: 'Select Exposure to COVID-19'
   // },
   // {
   //   title: 'Conditions',
@@ -67,6 +66,5 @@ export const CRITERIA_FORM_DATA = [
   //   key: 'healthWorkerStatus',
   //   optionsKey: 'healthWorkerStatus',
   //   inputType: 'select',
-  //   placeholder: 'Select Health Worker Status'
   // },
 ];

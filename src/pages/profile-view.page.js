@@ -4,7 +4,7 @@ import { bindAll } from 'lodash';
 
 import HomescreenHeader from '../components/general/headers/header-homescreen';
 import BottomNav from '../components/general/navs/bottom-nav';
-import userAvatar from '../assets/images/defaultProfile.svg';
+import userAvatar from '@assets/images/defaultProfile.svg';
 import PeopleService from '../services/people.service.js';
 import { AppContext, INITIAL_APP_STATE } from '../contexts/app.context';
 
@@ -25,32 +25,30 @@ export default class ProfileViewPage extends Component {
   }
 
   async componentDidMount() {
-    if (!localStorage.getItem('session')) {
-      return this.props.history('/sign-up');
-    }
-    const session = JSON.parse(localStorage.getItem('session'));
-
-    this.setProfile(session);
-    await this.fetchProfile(session);
+    const currState = this.context.appState;
+    this.setProfile(currState);
+    await this.fetchProfile(currState);
   }
 
   async fetchProfile(session) {
-    const response = await this.peopleService.getById(session.person.id);
+    const currSession = this.context.appState.sessionId;
+    const { id } = this.context.appState.person;
+
+    const response = await this.peopleService.getById(id, currSession);
     const profile = response.data;
 
-    session.person = profile;
-    localStorage.setItem('session', JSON.stringify(session));
     this.setState({ profile });
   }
 
   async executeLogout() {
-    await this.peopleService.logout();
-    localStorage.removeItem('sessid');
+    const currSession = this.context.appState.sessionId;
+    await this.peopleService.logout(currSession);
+    localStorage.removeItem('sessionId');
     localStorage.removeItem('appState');
     localStorage.removeItem('session');
     const { setAppState } = this.context;
     setAppState(INITIAL_APP_STATE);
-    return this.props.history.push('/get-started');
+    return this.props.history.push('/get-started?logout=You%20have%20been%20successfully%20logged%20out.');
   }
 
   setProfile(session) {
@@ -89,7 +87,7 @@ export default class ProfileViewPage extends Component {
           <article className="card">
             <dl className="card__content">
               <dt className="card__term">Phone</dt>
-              <dd className="card__description"> {profile.name}</dd>
+              <dd className="card__description"> {profile.phone}</dd>
             </dl>
           </article>
 

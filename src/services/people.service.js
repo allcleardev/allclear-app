@@ -6,7 +6,13 @@ export default class PeopleService {
   constructor() {
     this.baseURL = '/peoples';
     this.logoutURL = '/sessions';
-    this.sessionId = localStorage.getItem('sessid');
+    this._setAuthHeaders();
+  }
+
+  // todo: all sessions in storage seem to be borked. i monkey patched the appstate value in
+  // to the calls that were failing but it needs to actually be fixed for these others to work
+  _setAuthHeaders() {
+    this.sessionId = localStorage.getItem('sessionId');
     this.headers = {
       headers: {
         'X-AllClear-SessionID': this.sessionId,
@@ -22,23 +28,39 @@ export default class PeopleService {
     return this.serviceInstance;
   }
 
-  getById(id) {
+  getById(id, currSession) {
+    currSession = (currSession) ? {
+      'X-AllClear-SessionID': currSession,
+    } : {
+      ...this.headers.headers
+    };
     return Axios({
       method: 'GET',
       url: `${this.baseURL}/${id}`,
-      headers: {
-        ...this.headers.headers
-      },
+      headers: currSession,
     });
-    // return Axios.get(`${this.baseURL}/${id}`, this.headers);
   }
 
-  logout() {
-    return Axios.delete(this.logoutURL, this.headers);
+  logout(currSession) {
+    const headers = (currSession) ? {
+      'X-AllClear-SessionID': currSession,
+    } : {
+      ...this.headers.headers
+    };
+    return Axios({
+      method: 'DELETE',
+      url: this.logoutURL,
+      headers,
+    });
   }
 
-  async editProfile(postData) {
-    return Axios.put(`${this.baseURL}`, postData, this.headers)
+  async editProfile(postData, currSession) {
+    currSession = (currSession) ? {
+      'X-AllClear-SessionID': currSession,
+    } : {
+      ...this.headers.headers
+    };
+    return Axios.put(`${this.baseURL}`, postData, currSession)
       .then((response) => {
         return response;
       })
@@ -60,7 +82,7 @@ export default class PeopleService {
   }
 
   async verifyAuthRequest(payload) {
-    return Axios.post('/peoples/auth', payload, {})
+    return Axios.put('/peoples/auth', payload, {})
       .then((response) => {
         return response;
       })
@@ -84,7 +106,7 @@ export default class PeopleService {
   }
 
   async login(payload) {
-    return Axios.put('/peoples/auth', payload, {})
+    return Axios.post('/peoples/auth', payload, {})
       .then((response) => {
         return response;
       })

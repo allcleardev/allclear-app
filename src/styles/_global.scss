@@ -50,6 +50,10 @@ button {
 
     @media (min-width: $md) {
       flex-direction: row;
+      margin: 20px 0 50px;
+    }
+
+    @media (min-width: $xl) {
       margin: 40px 0 70px;
     }
 
@@ -309,6 +313,10 @@ a {
 
 .white {
   color: $white-color !important;
+}
+
+.text-small {
+  font-size: 12px;
 }
 
 .list::before {

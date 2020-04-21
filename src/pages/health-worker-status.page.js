@@ -8,7 +8,8 @@ import RoundHeader from '@general/headers/header-round';
 import ProgressBottom from '@general/navs/progress-bottom';
 import OnboardingNavigation from '@general/navs/onboarding-navigation';
 import TypesService from '@services/types.service';
-import {AppContext} from '@contexts/app.context';
+import { AppContext } from '@contexts/app.context';
+import GAService from '@services/ga.service';
 
 class HealthWorkerStatusPage extends Component {
   static contextType = AppContext;
@@ -19,6 +20,10 @@ class HealthWorkerStatusPage extends Component {
 
   constructor() {
     super();
+
+    this.gaService = GAService.getInstance();
+    this.gaService.setScreenName('health-worker');
+
     this.typesService = TypesService.getInstance();
     bindAll(this, ['componentDidMount', 'routeChange', 'getHealthWorkerStatuses', 'handleChange', 'render']);
   }
@@ -35,7 +40,7 @@ class HealthWorkerStatusPage extends Component {
 
     const healthWorkerStatus = await this.typesService.getHealthWorkerStatuses()
       .catch((error) => {
-        this.setState({loading: false});
+        this.setState({ loading: false });
       });
     this.setState({ healthWorkerStatus });
 
@@ -44,7 +49,7 @@ class HealthWorkerStatusPage extends Component {
 
 
   handleChange(event) {
-    const {appState, setAppState} = this.context;
+    const { appState, setAppState } = this.context;
     const { healthWorkerStatus } = this.state;
     const selectedStatus = event;
 
@@ -62,9 +67,9 @@ class HealthWorkerStatusPage extends Component {
 
     setAppState({
       ...appState,
-      profile:{
+      profile: {
         ...appState.profile,
-        options:{
+        options: {
           ...appState.profile.options,
           healthWorkerStatus: selectedStatus
         }
@@ -76,7 +81,7 @@ class HealthWorkerStatusPage extends Component {
     return (
       <div className="background-responsive">
         <div className="health-worker onboarding-page">
-          <RoundHeader navigate={'/background'}>
+          <RoundHeader navigate={'/location'}>
             <h1 className="heading">Health Worker Status</h1>
             <h2 className="sub-heading">
               Per the CDC, Health Worker and First Responder statuses impact test location availability.
@@ -85,7 +90,7 @@ class HealthWorkerStatusPage extends Component {
           <Form noValidate autoComplete="off" className="onboarding-body">
             <Box maxWidth="md">
               <label className="label">
-                <strong>Select one.</strong> (Required)
+                <strong>Select one</strong><span className="text-small"> (Required)</span>
               </label>
               <div className="chips-group">
                 {this.state.healthWorkerStatus &&
@@ -104,11 +109,7 @@ class HealthWorkerStatusPage extends Component {
             </Box>
             <OnboardingNavigation
               back={
-                <Button
-                  variant="contained"
-                  className="back hide-mobile"
-                  onClick={() => this.routeChange('/background')}
-                >
+                <Button variant="contained" className="back hide-mobile" onClick={() => this.routeChange('/location')}>
                   Back
                 </Button>
               }

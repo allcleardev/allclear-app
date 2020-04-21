@@ -13,6 +13,7 @@ import AlertSwitch from '@general/buttons/toggle';
 import { AppContext } from '@contexts/app.context';
 import PeopleService from '@services/people.service.js';
 import HomescreenHeader from '@general/headers/header-homescreen';
+import GAService from '@services/ga.service';
 
 class SettingsPage extends Component {
   state = {
@@ -22,9 +23,12 @@ class SettingsPage extends Component {
 
   constructor(props) {
     super(props);
+
+    this.gaService = GAService.getInstance();
+    this.gaService.setScreenName('settings');
+
     bindAll(this, ['componentDidMount', 'onDeleteProfileClicked', 'handleClose']);
     this.peopleService = PeopleService.getInstance();
-    this.session = JSON.parse(localStorage.getItem('session'));
   }
 
   componentDidMount = () => {};
@@ -38,7 +42,7 @@ class SettingsPage extends Component {
   }
 
   async onDeleteConfirmedClicked() {
-    const id = this.session.person.id;
+    const id = this.context.appState.person.id;
     this.setState({ loading: true });
     await this.peopleService.deleteProfile(id).then((res) => {
       this.setState({ loading: false });

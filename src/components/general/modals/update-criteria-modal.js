@@ -17,7 +17,6 @@ import ModalService from '@services/modal.service';
 import FacilityService from '@services/facility.service';
 
 export default function UpdateCriteriaModal() {
-
   // todo: this will probably have to move into App.js because it will be needed by all different parts of the app
   const modalService = ModalService.getInstance();
   modalService.registerModal('criteria', toggleModal);
@@ -68,8 +67,7 @@ export default function UpdateCriteriaModal() {
         style={{ zIndex: '5' }}
       >
         <DialogTitle id="scroll-dialog-title">Update Search Criteria</DialogTitle>
-        <DialogContent dividers={scroll === 'paper'} className={'update-criteria-modal'}>
-
+        <DialogContent dividers={scroll === 'paper'}>
           {/*<Button*/}
           {/*  onClick={_onResetClicked}*/}
           {/*  className="btn-big bg-primary color-white fontsize-16"*/}
@@ -122,11 +120,11 @@ function UpdateCriteria({ onClose, onSubmit }) {
   }
 
   async function _onSubmitClicked() {
-    let {latitude, longitude} = appState.person;
+    let { latitude, longitude } = appState.person;
 
     // default to last submitted search
-    latitude = (latitude) ? latitude : appState.map.latitude;
-    longitude = (longitude) ? longitude : appState.map.longitude;
+    latitude = latitude ? latitude : appState.map.latitude;
+    longitude = longitude ? longitude : appState.map.longitude;
 
     // call API
     const result = await facilityService.search({
@@ -148,7 +146,7 @@ function UpdateCriteria({ onClose, onSubmit }) {
       searchCriteria: formValues,
       isListLoading: false,
       modalSubmitCount: appState.modalSubmitCount + 1,
-      forceRefresh: !appState.forceRefresh
+      forceRefresh: !appState.forceRefresh,
     });
 
     // call parent submit function
@@ -157,25 +155,23 @@ function UpdateCriteria({ onClose, onSubmit }) {
 
   function _generateFormItems() {
     return CRITERIA_FORM_DATA.map((formItem, i) => {
-      let {title, options, key, inputType, placeholder} = formItem;
+      let { title, options, key, inputType } = formItem;
 
       // account for options that come from an endpoint
-      options = (options) ? options : appState.profile.options[key];
+      options = options ? options : appState.profile.options[key];
       options = options || [];
 
       return (
         <div key={i} className="sub-card">
-
           {/*REGULAR SELECT*/}
-          {(inputType === 'select') && singleSelect({title, options, key, placeholder})}
-
+          {inputType === 'select' && singleSelect({ title, options, key })}
         </div>
       );
     });
   }
 
   // Form Options
-  function singleSelect({title, options, key, placeholder}) {
+  function singleSelect({ title, options, key }) {
 
     return (
       <>
@@ -188,6 +184,7 @@ function UpdateCriteria({ onClose, onSubmit }) {
             defaultValue={placeholder}
             onChange={_onSelectChanged}
           >
+<<<<<<< HEAD
             {placeholder && (
               <MenuItem value={placeholder} disabled>
                 {placeholder}
@@ -201,6 +198,16 @@ function UpdateCriteria({ onClose, onSubmit }) {
                 </MenuItem>
               );
             })}
+=======
+            {options &&
+              options.map((optionItem, i2) => {
+                const { id, name } = optionItem;
+                return (
+                  <MenuItem key={i2} value={id} name={name} data-name={name} data-key={key}>
+                    {name}
+                  </MenuItem>
+                );
+              })}
           </Select>
         </FormControl>
       </>
@@ -209,7 +216,14 @@ function UpdateCriteria({ onClose, onSubmit }) {
 
   return (
     <>
-      <CardBlank>
+      <CardBlank
+        style={{
+          boxShadow: 'none',
+          borderRadius: 0,
+          padding: '0px 15px 25px 15px',
+          marginTop: 'none',
+        }}
+      >
         <div
           style={{
             display: 'flex',

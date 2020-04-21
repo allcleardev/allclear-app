@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import Logo from '../assets/images/logo-green-back.svg';
+import Logo from '@assets/images/logo-white.svg';
+import GAService from '@services/ga.service';
 
 const LogoStyle = {
   justifyContent: 'center',
@@ -21,8 +22,11 @@ const ContainerStyle = {
 };
 
 const LaunchPage = ({ props }) => {
+  const gaService = GAService.getInstance();
+  gaService.setScreenName('launch');
+
   const history = useHistory();
-  const sessid = localStorage.getItem('sessid');
+  const sessid = localStorage.getItem('sessionId');
 
   useEffect(() => {
     setTimeout(() => {

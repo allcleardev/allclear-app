@@ -4,7 +4,7 @@ import { Grid, Avatar, IconButton, Button } from '@material-ui/core';
 import Header from '../components/general/headers/header-homescreen';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import avatar from '../assets/images/avatar.svg';
+import avatar from '@assets/images/avatar.svg';
 import BottomNav from '../components/general/navs/bottom-nav';
 import UserAvatar from '@material-ui/core/CardMedia';
 import UnderDevelopmentBanner from '@general/alerts/under-development-banner';
