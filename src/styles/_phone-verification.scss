@@ -18,3 +18,13 @@
     }
   }
 }
+
+// Error message for incorrect verification code
+.MuiFormLabel-root.Mui-error {
+  font-weight: 500;
+  font-size: 13px;
+  color: #bd0025 !important;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+}
