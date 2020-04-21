@@ -222,7 +222,7 @@ function ExternalItemLinks(props) {
 
       {props.website && (
         <a href={props.website} onClick={(evt) => evt.stopPropagation()} rel="noopener noreferrer" target="_blank">
-          <Button className="btn primary-color primary-outline" style={{ position: 'absolute', marginLeft: '10px' }}>
+          <Button className="btn primary-color primary-outline website-btn">
             Website
           </Button>
         </a>
