@@ -1,17 +1,13 @@
 .health-worker {
   .chips-group {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+  }
 
+  .chip {
     @media (min-width: $md) {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-column-gap: 10px;
-      grid-row-gap: 20px;
-
-      .chip {
-        margin: 0;
-      }
+      min-width: 50%;
     }
   }
 

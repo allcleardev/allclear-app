@@ -17,24 +17,27 @@
 @import 'phone-verify';
 @import 'phone-verifying';
 @import 'phone-verification';
+@import 'account-created';
 
+@import 'get-started';
 @import 'background';
 @import 'health-worker';
 @import 'symptoms';
 
 @import 'profile-view';
 @import 'profile-edit';
+@import 'settings';
 @import 'user-profile-card';
 
 @import 'test-map';
 @import 'testing-location-list-item';
 
+@import 'trace';
+
 @import 'bottom-navigation';
+
+@import 'not-found-page';
 
 /* Abandoned Temporarily*/
 // @import 'result';
 // @import 'conditions';
-/* Abandoned */
-// @import 'complete-profile';
-// @import 'test';
-// @import 'create-account';

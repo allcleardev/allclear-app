@@ -1,5 +1,43 @@
 .map-page {
   width: 100%;
+
+  .edit-filters-btn {
+    margin: 20px 0px;
+    max-height: 40px;
+
+  }
+
+  .view-full-results-btn {
+    margin-left: 15px;
+
+    svg {
+      font-size: 32px;
+      height: 25px;
+    }
+
+    .MuiButton-endIcon{
+      margin-right: 0px;
+    }
+  }
+
+  .side-drawer{
+  }
+
+  .MuiBadge-badge {
+    background-color: white;
+    color: $primary-color;
+    font-weight: bold;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  }
+
+  .MuiBadge-anchorOriginTopRightRectangle {
+    right: 2%;
+    top: 30%;
+
+    @media (min-width: $md + 1) {
+      top: 35%;
+    }
+  }
 }
 
 .nav-left-location {
@@ -56,11 +94,16 @@
   top: 0;
   left: 0;
   z-index: 0;
-  width: 100vw;
   height: 100vh;
   overflow-x: hidden;
 
+  @media (min-width: $md) {
+    width: calc(100vw - 400px);
+    left: 400px;
+  }
+
   @media (max-width: $md - 1) {
+    width: 100vw;
     height: calc(100vh - 350px);
   }
 
@@ -78,5 +121,14 @@
 
   @media (max-width: $md - 1) {
     bottom: 312px;
+  }
+}
+.geolist-resizer {
+  display: none;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: $md - 1) {
+    display: flex;
   }
 }

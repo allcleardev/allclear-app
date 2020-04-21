@@ -3,7 +3,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 206px;
   margin-bottom: 34px;
   padding: 18px 0 50px;
   text-align: center;
@@ -11,6 +10,7 @@
   color: #fff;
 
   @media (min-width: $md) {
+    min-height: 206px;
     margin-bottom: 0;
   }
 
@@ -21,6 +21,10 @@
     margin: 0 15px 16px;
 
     @media (min-width: $md) {
+      font-size: 50px;
+    }
+
+    @media (min-width: $xl) {
       font-size: 56px;
     }
   }
@@ -33,6 +37,10 @@
     font-size: 17px;
 
     @media (min-width: $md) {
+      font-size: 18px;
+    }
+
+    @media (min-width: $xl) {
       font-size: 21px;
     }
   }
@@ -54,7 +62,9 @@
     &:hover {
       background-color: inherit;
     }
+  }
 
+  &.main .btn-back-fab {
     &--hidden {
       visibility: hidden; // hidden to preserve layout (instead of display: none)
     }
@@ -70,7 +80,7 @@
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    background: linear-gradient(to right, #36d1bc, #1195ff);
+    background: $gradient-background;
   }
 
   .desktop-content {
@@ -79,11 +89,13 @@
     @media (min-width: $md) {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 50px;
+      align-items: flex-start; // safari fix
+      margin-bottom: 20px;
     }
 
     .logo {
-      width: 80px;
+      width: 55px;
+      margin-left: 5px;
     }
 
     .menu {
@@ -108,4 +120,3 @@
     }
   }
 }
-
