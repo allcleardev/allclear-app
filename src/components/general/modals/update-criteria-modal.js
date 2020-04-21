@@ -172,7 +172,6 @@ function UpdateCriteria({ onClose, onSubmit }) {
 
   // Form Options
   function singleSelect({ title, options, key }) {
-
     return (
       <>
         <h5 className="body-sub-title">{title}</h5>
@@ -181,24 +180,9 @@ function UpdateCriteria({ onClose, onSubmit }) {
             labelId="demo-simple-select-outlined-label"
             displayEmpty
             className="select-white-back"
-            defaultValue={placeholder}
+            value={formValues[key]}
             onChange={_onSelectChanged}
           >
-<<<<<<< HEAD
-            {placeholder && (
-              <MenuItem value={placeholder} disabled>
-                {placeholder}
-              </MenuItem>
-            )}
-            {options.map((optionItem, i2) => {
-              const {id, name} = optionItem;
-              return (
-                <MenuItem key={i2} value={id} name={name} data-name={name} data-key={key}>
-                  {name}
-                </MenuItem>
-              );
-            })}
-=======
             {options &&
               options.map((optionItem, i2) => {
                 const { id, name } = optionItem;
