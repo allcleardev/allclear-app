@@ -67,7 +67,7 @@ export default function UpdateCriteriaModal() {
         style={{ zIndex: '5' }}
       >
         <DialogTitle id="scroll-dialog-title">Update Search Criteria</DialogTitle>
-        <DialogContent dividers={scroll === 'paper'} style={{minWidth: '600px', width: '40%'}}>
+        <DialogContent dividers={scroll === 'paper'} style={{width: '40%', minWidth: '600px'}}>
           {/*<Button*/}
           {/*  onClick={_onResetClicked}*/}
           {/*  className="btn-big bg-primary color-white fontsize-16"*/}
@@ -200,23 +200,7 @@ function UpdateCriteria({ onClose, onSubmit }) {
 
   return (
     <>
-      <CardBlank
-        style={{
-          boxShadow: 'none',
-          borderRadius: 0,
-          padding: '0px 15px 25px 15px',
-          marginTop: 'none',
-        }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}
-        ></div>
-
+      <CardBlank>
         {formItems}
       </CardBlank>
 
