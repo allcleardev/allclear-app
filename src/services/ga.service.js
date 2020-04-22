@@ -22,12 +22,25 @@ export default class GAService {
   }
 
   sendEvent(name, params) {
+    console.log('sending', name, params);
     if (!this.isLocalDevBuild) {
       ReactGA.ga('event', name, params);
     }
   }
 }
 
-export function MAP_PAGE_GA_EVENTS(testingSiteName, buttonIndex, ...filters) {
+export const GA_EVENT_MAP = {
+  directions: 'directions_button_click',
+  call: 'call_button_clicked',
+  expand: 'list_item_expand',
+  contract: 'list_item_contract'
+};
 
+export function MAP_PAGE_GA_EVENTS(testingSiteId, testingSiteName, buttonIndex, enabledFilters) {
+  return {
+    testingSiteName: `${testingSiteName}`,
+    testingSiteId,
+    listIndex: `${buttonIndex}`,
+    enabledFilters
+  };
 }

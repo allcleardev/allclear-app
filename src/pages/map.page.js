@@ -25,8 +25,9 @@ import Button from '@material-ui/core/Button';
 import ModalService from '@services/modal.service';
 import { AppContext } from '@contexts/app.context';
 import { useWindowResize } from '@hooks/general.hooks';
-import { getNumActiveFilters } from '@util/general.helpers';
+import { getNumActiveFilters, getActiveFilters } from '@util/general.helpers';
 import GAService from '@services/ga.service';
+import { MAP_PAGE_GA_EVENTS, GA_EVENT_MAP } from '../services/ga.service';
 
 export default function MapPage() {
   const gaService = GAService.getInstance();
@@ -90,12 +91,10 @@ export default function MapPage() {
     modalService.toggleModal('criteria', true);
   }
 
-  function onActionClick(action) {
-    console.log('action', action);
-    let eventName;
-    if (action === 'directions') eventName = 'directions_button_click';
-    else if (action === 'call') eventName = 'call_button_clicked';
-    gaService.sendEvent(eventName);
+  function onActionClick(action, itemId, itemIndex, itemName) {
+    const enabledFilters = getActiveFilters(get(appState, ['searchCriteria'], {}));
+    const eventName = GA_EVENT_MAP[action];
+    gaService.sendEvent(eventName, MAP_PAGE_GA_EVENTS(itemId, itemName, itemIndex, enabledFilters));
   }
 
   const { isOpen, anchor } = mapState;
@@ -204,6 +203,7 @@ export default function MapPage() {
               {locations &&
                 locations.map((result, index) => (
                   <TestingLocationListItem
+                    id={result.id}
                     key={index}
                     index={index}
                     title={result.name}
