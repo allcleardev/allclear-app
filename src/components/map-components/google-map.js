@@ -32,7 +32,7 @@ export default class GoogleMap extends Component {
       '_search',
       'handleSnackbarClose',
     ]);
-    this.gMap = React.createRef();
+    this.gMapRef = React.createRef();
     this.facilityService = FacilityService.getInstance();
   }
 
@@ -91,8 +91,8 @@ export default class GoogleMap extends Component {
   _panTo(latitude, longitude) {
     //eslint-disable-next-line
     const currBrowserLocation = new google.maps.LatLng(latitude, longitude);
-    if (get(this, 'gMap.current.map_.panTo')) {
-      this.gMap.current.map_.panTo(currBrowserLocation);
+    if (get(this, 'gMapRef.current.map_.panTo')) {
+      this.gMapRef.current.map_.panTo(currBrowserLocation);
     }
   }
 
@@ -106,6 +106,13 @@ export default class GoogleMap extends Component {
         locations,
       },
       isListLoading: false,
+      effects:{
+        ...appState.effects,
+        map:{
+          ...appState.effects.map,
+          onLocationAccepted: this._onLocationAccepted,
+        }
+      }
     });
   }
 
@@ -184,7 +191,7 @@ export default class GoogleMap extends Component {
           message={'Browser location declined. Using location from your profile instead.'}
         />
         <GoogleMapReact
-          ref={this.gMap}
+          ref={this.gMapRef}
           options={G_MAP_OPTIONS}
           bootstrapURLKeys={{ key: 'AIzaSyAPB7ER1lGxDSZICjq9lmqgxvnlSJCIuYw' }}
           defaultCenter={G_MAP_DEFAULTS.center}

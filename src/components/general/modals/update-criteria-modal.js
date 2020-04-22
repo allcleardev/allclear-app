@@ -144,6 +144,8 @@ function UpdateCriteria({ onClose, onSubmit }) {
       map: {
         ...appState.map,
         locations: result.data.records || [],
+        latitude,
+        longitude,
       },
       searchCriteria: formValues,
       isListLoading: false,
