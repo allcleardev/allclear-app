@@ -208,8 +208,8 @@ function UpdateCriteria({ onClose, onSubmit }) {
         container
         style={{
           display: 'flex',
-          justifyContent: 'space-around',
-          padding: '5px 0',
+          justifyContent: 'space-between',
+          padding: '19px 0px 18px',
         }}
         className="btn-group"
       >
