@@ -7,42 +7,57 @@ import BottomNav from '../components/general/navs/bottom-nav';
 import UserAvatar from '../assets/images/defaultProfile.svg';
 import SettingsIcon from '../assets/images/settings-icon.svg';
 import PersonShareIcon from '../assets/images/person-share-icon.svg';
+import { ReactComponent as PinIcon } from '../assets/images/pin.svg';
 import { AppContext } from '../contexts/app.context';
 
 import Container from '@material-ui/core/Container';
 import WarningRoundedIcon from '@material-ui/icons/WarningRounded';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'; // TODO: Ask Ashley for uncorrupted svg version from her mock
-import { Button } from '@material-ui/core';
+import { Button, IconButton } from '@material-ui/core';
 
 export default class HomePage extends Component {
   static contextType = AppContext;
 
   constructor(props) {
     super(props);
-    bindAll(this, ['componentDidMount', 'routeChange', 'onShareClicked']);
+    bindAll(this, ['componentDidMount', 'routeChange', 'onLocationSelected', 'onShareClicked']);
+    this.state = {
+      testLocations: [],
+    };
   }
 
   componentDidMount() {
     const { appState } = this.context;
+    this.locations = get(appState, 'map.locations') || [];
 
-    this.testLocations = get(appState, 'map.locations') || [];
-    this.testLocations.reduce((arr, item, index) => {
-      if (index > 6) {
-        arr.push(item);
-      }
-
-      return arr;
-    }, []);
-    console.log('LOCATIONS:', this.testLocations);
+    this.setState({ testLocations: this.locations.slice(0, 5) }, () => {
+      console.log('LOCATIONS:', this.state.testLocations);
+    });
   }
 
   routeChange(route) {
     this.props.history.push(route);
   }
 
+  onLocationSelected(pinnedLocation) {
+    // toggle pinned status for selected location
+    pinnedLocation.favorite = !pinnedLocation.favorite;
+    // making a copy of testLocations state
+    const testLocations = [...this.state.testLocations];
+    // override selected location with new pinned (favorite) state
+    testLocations.map((location) => {
+      if (location.id === pinnedLocation.id) {
+        location = pinnedLocation;
+      }
+    });
+    this.setState({ testLocations });
+    // TODO: Update App State w/new favorited location status
+  }
+
   onShareClicked() {}
 
   render() {
+    const testLocations = this.state.testLocations;
     return (
       <section className="home-page">
         <Link to="/settings" className="settings-option hide-desktop">
@@ -87,14 +102,21 @@ export default class HomePage extends Component {
               Test Locations Near You <InfoOutlinedIcon className="info-icon"></InfoOutlinedIcon>
             </h2>
 
-            {this.testLocations && this.testLocations.length
-              ? this.testLocations.slice(0, 5).map((location) => (
-                  <article className="card">
+            {testLocations && testLocations.length
+              ? testLocations.map((location) => (
+                  <article className="card" key={location.id}>
                     <dl className="card__content">
                       <dt className="card__term">{location.name}</dt>
                       <dd className="card__description">{location.address}</dd>
                       <dd className="card__description">Lorem ipsum dolor sit amet, consectetur.</dd>
                     </dl>
+                    <IconButton
+                      className="pin-button"
+                      aria-label="pin"
+                      onClick={this.onLocationSelected.bind(this, location)}
+                    >
+                      <PinIcon className={location.favorite ? 'pin active' : 'pin'} key={location.id} />
+                    </IconButton>
                   </article>
                 ))
               : 'No Results Found'}
