@@ -134,6 +134,9 @@
   }
 
   .card {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
     margin-bottom: 12px;
     padding: 14px 16px;
     border-radius: 6px;
@@ -170,6 +173,25 @@
 
       &:not(:first-of-type) {
         color: #878787;
+      }
+    }
+  }
+
+  .pin-button:hover {
+    background-color: transparent;
+  }
+
+  .pin {
+    cursor: pointer;
+
+    &.active {
+      transform: rotate(-15deg);
+      transition: all ease .3s;
+      transition-delay: 8ms;
+      fill: $navy;
+
+      path {
+        stroke: $navy;
       }
     }
   }
