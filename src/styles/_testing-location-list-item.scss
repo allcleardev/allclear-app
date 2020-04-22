@@ -38,8 +38,9 @@
     h4 {
       margin: 0;
       line-height: 22px;
-      padding: 15px 0 10px;
-      font-size: 15px;
+      padding: 0px 0 10px;
+      font-size: 13px;
+      font-weight: 400;
 
       span {
         color: $grey;
@@ -50,9 +51,10 @@
       font-size: 13px;
 
       dt {
-        font-weight: 700;
+        font-weight: 400;
         float: left;
         margin-right: 7px;
+        color: #808080;
       }
     }
   }

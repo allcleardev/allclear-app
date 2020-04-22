@@ -6,7 +6,13 @@ export default class PeopleService {
   constructor() {
     this.baseURL = '/peoples';
     this.logoutURL = '/sessions';
-    this.sessionId = localStorage.getItem('sessid');
+    this._setAuthHeaders();
+  }
+
+  // todo: all sessions in storage seem to be borked. i monkey patched the appstate value in
+  // to the calls that were failing but it needs to actually be fixed for these others to work
+  _setAuthHeaders() {
+    this.sessionId = localStorage.getItem('sessionId');
     this.headers = {
       headers: {
         'X-AllClear-SessionID': this.sessionId,
@@ -22,16 +28,39 @@ export default class PeopleService {
     return this.serviceInstance;
   }
 
-  getById(id) {
-    return Axios.get(`${this.baseURL}/${id}`, this.headers);
+  getById(id, currSession) {
+    currSession = (currSession) ? {
+      'X-AllClear-SessionID': currSession,
+    } : {
+      ...this.headers.headers
+    };
+    return Axios({
+      method: 'GET',
+      url: `${this.baseURL}/${id}`,
+      headers: currSession,
+    });
   }
 
-  logout() {
-    return Axios.delete(this.logoutURL, this.headers);
+  logout(currSession) {
+    const headers = (currSession) ? {
+      'X-AllClear-SessionID': currSession,
+    } : {
+      ...this.headers.headers
+    };
+    return Axios({
+      method: 'DELETE',
+      url: this.logoutURL,
+      headers,
+    });
   }
 
-  async editProfile(postData) {
-    return Axios.put(`${this.baseURL}`, postData, this.headers)
+  async editProfile(postData, currSession) {
+    currSession = (currSession) ? {
+      'X-AllClear-SessionID': currSession,
+    } : {
+      ...this.headers.headers
+    };
+    return Axios.put(`${this.baseURL}`, postData, currSession)
       .then((response) => {
         return response;
       })
@@ -40,21 +69,65 @@ export default class PeopleService {
       });
   }
 
-  async register(payload) {
-    const sessionId = localStorage.getItem('confirm_sessid');
-    return Axios.post('/peoples/register', payload, {
-      headers: {
-        'X-AllClear-SessionID': sessionId,
-      },
-    })
+  async authStart(payload) {
+    return Axios.put('/peoples/start', payload, {})
       .then((response) => {
-        localStorage.removeItem('confirm_sessid');
-        localStorage.setItem('sessid', response.data.id);
-        localStorage.setItem('session', JSON.stringify(response.data));
         return response;
       })
       .catch((error) => {
+        error.err = true;
         console.warn(error);
+        return error;
+      });
+  }
+
+  async verifyAuthRequest(payload) {
+    return Axios.put('/peoples/auth', payload, {})
+      .then((response) => {
+        return response;
+      })
+      .catch((error) => {
+        error.err = true;
+        console.warn(error);
+        return error;
+      });
+  }
+
+  async confirmAuthRequest(payload) {
+    return Axios.put('/peoples/confirm', payload, {})
+      .then((response) => {
+        return response;
+      })
+      .catch((error) => {
+        error.err = true;
+        console.warn(error);
+        return error;
+      });
+  }
+
+  async login(payload) {
+    return Axios.post('/peoples/auth', payload, {})
+      .then((response) => {
+        return response;
+      })
+      .catch((error) => {
+        error.err = true;
+        console.warn(error);
+        return error;
+      });
+  }
+
+  async deleteProfile(id) {
+    return Axios.delete('/peoples')
+      .then((response) => {
+        localStorage.clear();
+        sessionStorage.clear();
+        return response;
+      })
+      .catch((error) => {
+        error.err = true;
+        console.warn(error);
+        return error;
       });
   }
 }

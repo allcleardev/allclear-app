@@ -1,6 +1,6 @@
 import * as axios from 'axios';
-import {get} from 'lodash';
-import {history} from '../App';
+import { get } from 'lodash';
+import { history } from '../App';
 
 export function bootstrapAxios() {
   const AUTH_ROUTES = [
@@ -20,10 +20,10 @@ export function bootstrapAxios() {
     (config) => {
       // routes that require auth
       if (AUTH_ROUTES.includes(config.url)) {
-        const sessionID = localStorage.getItem('sessid');
+        const sessionID = localStorage.getItem('sessionId');
         const authHeader = sessionID
           ? {
-              'X-AllClear-SessionID': sessionID
+              'X-AllClear-SessionID': sessionID,
             }
           : {};
         return {
@@ -52,12 +52,10 @@ export function bootstrapAxios() {
       return response;
     },
     (error) => {
-
-      if (get(error,'response.status') === 403){
-        localStorage.removeItem('confirm_sessid');
-        localStorage.removeItem('sessid');
+      if (get(error, 'response.status') === 403) {
+        localStorage.removeItem('sessionId');
         localStorage.removeItem('appState');
-        history.push('/sign-up?logout=true');
+        history.push('/get-started?logout=true');
       }
 
       console.warn('response error:', error.response);
