@@ -7,6 +7,8 @@
   }
 
   .edit-filters-btn-container {
+    width: 100%;
+    
     @media (max-width: $md - 1){
       width: 50%;
     }
