@@ -35,7 +35,7 @@ export default function MapPage() {
   // constants
   const classes = useStyles();
   const badgeRef = React.createRef();
-  const DRAWER_EXPANDED_HEIGHT = '100vh';
+  const DRAWER_EXPANDED_HEIGHT = '95vh';
   const DRAWER_COLLAPSED_HEIGHT = 350;
 
   // state & global state
@@ -162,8 +162,8 @@ export default function MapPage() {
                       <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} />
                     </Badge>
                   ) : (
-                    <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} />
-                  )}
+                      <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} />
+                    )}
                   {anchor === 'bottom' && (
                     <Button
                       className={'view-full-results-btn'}
