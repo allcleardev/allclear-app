@@ -32,7 +32,7 @@ export default function TestingLocationListItem(props) {
           <dd className="summary__item summary__item--semibold">{phone}</dd>
         </dl>
 
-        <div className="buttons" style={{marginTop: '15px' }}>
+        <div className="buttons" style={{ marginTop: '15px' }}>
           <a
             href={'https://www.google.com/maps/dir/?api=1&destination=' + description}
             onClick={(evt) => evt.stopPropagation()}
@@ -128,7 +128,9 @@ export default function TestingLocationListItem(props) {
             </Fragment>
           )}
           <div className="mt-3">
-            <Link to={'http://www.google.com'}>Suggest Change To Test Center Information</Link>
+            <a href="https://airtable.com/shrVJrPQs4qQkcW4o" target="_blank" rel="noopener noreferrer">
+              Suggest Change To Test Center Information
+            </a>
             <p className="fontsize-12">
               <i>Last update: username 4/10/2020 12:38:00 PM</i>
             </p>
