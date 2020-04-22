@@ -92,15 +92,19 @@ export default function MapPage() {
   }
 
   function onActionClick(action, itemId, itemIndex, itemName) {
-    const enabledFilters = getActiveFilters(get(appState, ['searchCriteria'], {}));
-    const eventName = GA_EVENT_MAP[action];
-    gaService.sendEvent(eventName, MAP_PAGE_GA_EVENTS(itemId, itemName, itemIndex, enabledFilters));
+    handleGAEvent(action, itemId, itemIndex, itemName);
   }
 
   function onTestingLocationExpand(itemId, itemIndex, itemName, isExpanded) {
+    const eventKey = isExpanded ? 'expand' : 'contract';
+    handleGAEvent(eventKey, itemId, itemIndex, itemName);
+  }
+
+  function handleGAEvent(eventKey, itemId, itemIndex, itemName) {
+    const eventName = GA_EVENT_MAP[eventKey];
     const enabledFilters = getActiveFilters(get(appState, ['searchCriteria'], {}));
-    const eventName = GA_EVENT_MAP[isExpanded ? 'expand' : 'contract'];
-    gaService.sendEvent(eventName, MAP_PAGE_GA_EVENTS(itemId, itemName, itemIndex, enabledFilters));
+    const additionalParams = MAP_PAGE_GA_EVENTS(itemId, itemName, itemIndex, enabledFilters);
+    gaService.sendEvent(eventName, additionalParams);
   }
 
   const { isOpen, anchor } = mapState;
