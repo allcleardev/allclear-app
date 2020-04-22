@@ -1,17 +1,24 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { boolToEng, isNullOrUndefined } from '../../util/general.helpers';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { boolToEng, isNullOrUndefined } from '../../util/general.helpers';
 import ExternalItemLinks from './external-item-links';
 import CustomizedExpansionPanel, { ExpansionPanelSummary, ExpansionPanelDetails } from './expansion-panel';
 
 
 export default function TestingLocationListItem(props) {
-  const { id, index, title, description, service_time, driveThru, phone, website, onActionClick } = props;
+  const { id, index, title, description, service_time, driveThru, phone, website } = props; // values
+  const { onActionClick, onTestingLocationExpand } = props; // events
 
   const onClick = (evt, buttonName) => {
     evt.stopPropagation();
     onActionClick(buttonName, id, index, title);
+  };
+
+  // corresponds to the expanded state change of a single testing location in the expansion panel list
+  const onExpandedChange = (itemIndex, isExpanded) => {
+    // itemIndex is same as props.index, but keeping for readability with child component
+    onTestingLocationExpand(id, itemIndex, title, isExpanded);
   };
 
   const summary = (
@@ -49,7 +56,7 @@ export default function TestingLocationListItem(props) {
     </ExpansionPanelSummary>
   );
 
-  const body = (
+  const details = (
     <ExpansionPanelDetails>
       <section className="testing-location-list-item__details">
         <dl className="summary d-md-none">
@@ -136,5 +143,13 @@ export default function TestingLocationListItem(props) {
     </ExpansionPanelDetails>
   );
 
-  return <CustomizedExpansionPanel index={index} summary={summary} body={body}></CustomizedExpansionPanel>;
+  return (
+    <CustomizedExpansionPanel
+      index={index}
+      summary={summary}
+      details={details}
+      onExpandedChange={onExpandedChange}
+    >
+    </CustomizedExpansionPanel>
+  );
 }

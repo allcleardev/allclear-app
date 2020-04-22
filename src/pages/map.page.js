@@ -97,6 +97,12 @@ export default function MapPage() {
     gaService.sendEvent(eventName, MAP_PAGE_GA_EVENTS(itemId, itemName, itemIndex, enabledFilters));
   }
 
+  function onTestingLocationExpand(itemId, itemIndex, itemName, isExpanded) {
+    const enabledFilters = getActiveFilters(get(appState, ['searchCriteria'], {}));
+    const eventName = GA_EVENT_MAP[isExpanded ? 'expand' : 'contract'];
+    gaService.sendEvent(eventName, MAP_PAGE_GA_EVENTS(itemId, itemName, itemIndex, enabledFilters));
+  }
+
   const { isOpen, anchor } = mapState;
 
   // get modal service so we can toggle it open
@@ -215,6 +221,7 @@ export default function MapPage() {
                     website={result.url}
                     {...result}
                     onActionClick={onActionClick}
+                    onTestingLocationExpand={onTestingLocationExpand}
                   ></TestingLocationListItem>
                 ))}
 
