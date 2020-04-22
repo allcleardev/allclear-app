@@ -157,12 +157,14 @@ export default function MapPage() {
                       ref={badgeRef}
                       badgeContent={`${numActiveFilters} Active`}
                       overlap={'rectangle'}
-                      style={{ width: anchor === 'bottom' ? '40%' : '100%' }}
+                      style={{ width: anchor === 'bottom' ? '48%' : '100%' }}
                     >
                       <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} />
                     </Badge>
                   ) : (
-                    <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} />
+                    <span className="edit-filters-btn-container">
+                      <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} style/>
+                    </span>
                   )}
                   {anchor === 'bottom' && (
                     <Button
@@ -171,7 +173,7 @@ export default function MapPage() {
                       style={{ width: '50%', color: '#666666', size: 'large', paddingRight: '0px' }}
                       onClick={onDrawerSwipe}
                     >
-                      {drawerHeight === DRAWER_EXPANDED_HEIGHT ? 'Map View' : 'Full Results View'}
+                      {drawerHeight === DRAWER_EXPANDED_HEIGHT ? 'Map View' : 'Full List View'}
                     </Button>
                   )}
                 </Box>

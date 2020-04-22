@@ -7,6 +7,12 @@
 
   }
 
+  .edit-filters-btn-container {
+    @media (max-width: $md - 1){
+      width: 50%;
+    }
+  }
+
   .view-full-results-btn {
     margin-left: 15px;
 
