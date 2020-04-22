@@ -90,6 +90,14 @@ export default function MapPage() {
     modalService.toggleModal('criteria', true);
   }
 
+  function onActionClick(action) {
+    console.log('action', action);
+    let eventName;
+    if (action === 'directions') eventName = 'directions_button_click';
+    else if (action === 'call') eventName = 'call_button_clicked';
+    gaService.sendEvent(eventName);
+  }
+
   const { isOpen, anchor } = mapState;
 
   // get modal service so we can toggle it open
@@ -206,6 +214,7 @@ export default function MapPage() {
                     phone={result.phone}
                     website={result.url}
                     {...result}
+                    onActionClick={onActionClick}
                   ></TestingLocationListItem>
                 ))}
 

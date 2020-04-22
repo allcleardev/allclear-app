@@ -9,7 +9,12 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { withStyles } from '@material-ui/core/styles';
 
 export default function TestingLocationListItem(props) {
-  const { index, title, description, service_time, driveThru, phone, website } = props;
+  const { index, title, description, service_time, driveThru, phone, website, onActionClick } = props;
+
+  const onClick = (evt, buttonName) => {
+    evt.stopPropagation();
+    onActionClick(buttonName);
+  };
 
   const summary = (
     <ExpansionPanelSummary
@@ -36,10 +41,11 @@ export default function TestingLocationListItem(props) {
 
         <ExternalItemLinks
           display={'d-none d-md-block'}
-          margin={{marginTop: '15px', marginBottom: '20px'}}
+          margin={{ marginTop: '15px', marginBottom: '20px' }}
           description={description}
           phone={phone}
           website={website}
+          onClick={onClick}
         />
       </div>
     </ExpansionPanelSummary>
@@ -54,7 +60,7 @@ export default function TestingLocationListItem(props) {
         </dl>
         <ExternalItemLinks
           display={'d-md-none'}
-          margin={{marginBottom: '15px'}}
+          margin={{ marginBottom: '15px' }}
           description={description}
           phone={phone}
           website={website}
@@ -205,7 +211,7 @@ function ExternalItemLinks(props) {
     <div className={`buttons ${props.display}`} style={props.margin}>
       <a
         href={'https://www.google.com/maps/dir/?api=1&destination=' + props.description}
-        onClick={(evt) => evt.stopPropagation()}
+        onClick={(evt) => props.onClick(evt, 'directions')}
         rel="noopener noreferrer"
         target="_blank"
       >

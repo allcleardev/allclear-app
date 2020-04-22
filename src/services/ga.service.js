@@ -27,3 +27,7 @@ export default class GAService {
     }
   }
 }
+
+export function MAP_PAGE_GA_EVENTS(testingSiteName, buttonIndex, ...filters) {
+
+}
