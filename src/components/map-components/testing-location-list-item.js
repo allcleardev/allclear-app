@@ -127,14 +127,14 @@ export default function TestingLocationListItem(props) {
               <dd>{boolToEng(props.freeOrLowCost)}</dd>
             </Fragment>
           )}
-          <div className="mt-3">
+          {/* <div className="mt-3">
             <a href="https://airtable.com/shrVJrPQs4qQkcW4o" target="_blank" rel="noopener noreferrer">
               Suggest Change To Test Center Information
             </a>
             <p className="fontsize-12">
               <i>Last update: username 4/10/2020 12:38:00 PM</i>
             </p>
-          </div>
+          </div> */}
         </dl>
       </section>
     </ExpansionPanelDetails>
