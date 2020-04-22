@@ -19,6 +19,7 @@ import Alert from '@material-ui/lab/Alert';
 import { AppContext } from '@contexts/app.context';
 import PeopleService from '@services/people.service';
 import { bindAll } from 'lodash';
+import GAService from '@services/ga.service';
 
 function SlideTransition(props) {
   return <Slide {...props} direction="up" />;
@@ -29,6 +30,9 @@ export default class SignUpPage extends Component {
 
   constructor(props) {
     super(props);
+
+    this.gaService = GAService.getInstance();
+    this.gaService.setScreenName('sign-up');
 
     this.state = {
       termsAndConditions: false,
@@ -123,7 +127,7 @@ export default class SignUpPage extends Component {
     const longitude = appState.person.longitude;
     const locationName = appState.person.locationName;
     const dob = appState.person.dob;
-    const alertable = appState.person.alertable || true;
+    const alertable = appState.person.alertable;
     const healthWorkerStatus = appState.profile.options.healthWorkerStatus;
     let exposures = appState.profile.options.exposures;
     let conditions = appState.profile.options.conditions;
@@ -331,7 +335,8 @@ export default class SignUpPage extends Component {
                         color="secondary"
                       />
                     }
-                    label="Receive text alerts when eligible test locations become available."
+                    label="I agree to receive text message alerts when eligible tests and locations become available.
+                    Text messages may be sent using an automatic telephone dialing system and standard message and data rates apply."
                   />
                 </div>
               </div>

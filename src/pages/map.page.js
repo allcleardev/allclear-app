@@ -26,8 +26,12 @@ import ModalService from '@services/modal.service';
 import { AppContext } from '@contexts/app.context';
 import { useWindowResize } from '@hooks/general.hooks';
 import { getNumActiveFilters } from '@util/general.helpers';
+import GAService from '@services/ga.service';
 
 export default function MapPage() {
+  const gaService = GAService.getInstance();
+  gaService.setScreenName('map');
+
   // constants
   const classes = useStyles();
   const badgeRef = React.createRef();
@@ -145,7 +149,9 @@ export default function MapPage() {
               {/*<GoogleMapInput style={{ marginTop: '50px' }}></GoogleMapInput>*/}
 
               {appState.isListLoading === false && (
-                <Box style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Box
+                  className={'button-box'}
+                  style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   {numActiveFilters > 0 ? (
                     <Badge
                       ref={badgeRef}
@@ -162,7 +168,7 @@ export default function MapPage() {
                     <Button
                       className={'view-full-results-btn'}
                       endIcon={drawerHeight === DRAWER_EXPANDED_HEIGHT ? VerticalCollapseIcon() : VerticalExpandIcon()}
-                      style={{ width: '50%', color: '#666666', size: 'large', paddingRight: '0px' }}
+                      style={{ width: '50%', color: '#666666', size: 'large', paddingRight: '0px', lineHeight: 1.2 }}
                       onClick={onDrawerSwipe}
                     >
                       {drawerHeight === DRAWER_EXPANDED_HEIGHT ? 'Map View' : 'Full Results View'}

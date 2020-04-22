@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import Form from '@material-ui/core/Container';
 import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 import TextField from '@material-ui/core/TextField';
 import {Button, Grid} from '@material-ui/core';
 
@@ -12,12 +13,16 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import PeopleService from '@services/people.service';
 import {AppContext} from '@contexts/app.context';
 import {bindAll} from 'lodash';
+import GAService from '@services/ga.service';
 
 export default class SignInVerificationPage extends Component {
   static contextType = AppContext;
 
   constructor(props) {
     super(props);
+
+    this.gaService = GAService.getInstance();
+    this.gaService.setScreenName('sign-in-verification');
 
     this.peopleService = PeopleService.getInstance();
 
@@ -144,9 +149,12 @@ export default class SignInVerificationPage extends Component {
                     style={{}}
                     onKeyPress={(e) => this.onKeyPress(e)}
                   />
+                  {this.state.error && (
+                    <FormLabel error={this.state.error} classes={{error: 'error-message'}}>
+                      You've entered an incorrect code. Please try again.
+                    </FormLabel>
+                  )}
                 </FormControl>
-
-                {this.state.error === true ? <p className="error">{this.state.message}</p> : ''}
               </div>
 
               <div className="button-container">

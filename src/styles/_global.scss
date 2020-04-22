@@ -7,15 +7,6 @@ button {
   outline: none !important;
 }
 
-.error {
-  margin: 5px 0;
-  opacity: 0.8;
-  text-align: center;
-  font-weight: 500;
-  font-size: 13px;
-  color: #bd0025;
-}
-
 .background-responsive {
   width: 100%;
 
@@ -313,6 +304,10 @@ a {
 
 .white {
   color: $white-color !important;
+}
+
+.text-small {
+  font-size: 12px;
 }
 
 .list::before {

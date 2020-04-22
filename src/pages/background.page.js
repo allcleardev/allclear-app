@@ -10,6 +10,7 @@ import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
 import { Button } from '@material-ui/core';
 import { AppContext } from '../contexts/app.context';
+import GAService from '@services/ga.service';
 
 class BackgroundPage extends Component {
   static contextType = AppContext;
@@ -21,6 +22,10 @@ class BackgroundPage extends Component {
 
   constructor() {
     super();
+
+    this.gaService = GAService.getInstance();
+    this.gaService.setScreenName('background');
+
     bindAll(this, [
       'routeChange',
       'handleLocationChange',
@@ -110,7 +115,7 @@ class BackgroundPage extends Component {
               <section className="section">
                 <article className="article">
                   <label htmlFor="location" className="label">
-                    <strong>Location</strong> (Required) <br />
+                    <strong>Select one</strong><span className="text-small"> (Required)</span> <br />
                     <span className="description">
                       We can give localized test center recommendations with your location.
                     </span>

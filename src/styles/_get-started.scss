@@ -5,7 +5,7 @@
   background: $gradient-background;
 
   .header {
-    @media(max-width: $md - 1) {
+    @media (max-width: $md - 1) {
       display: none;
     }
   }
@@ -20,15 +20,15 @@
     @media (min-width: $md) {
       align-items: center;
     }
-  }
 
-  .logo {
-    flex: 1;
-    max-width: 275px;
-    align-self: center;
-    @media (min-width: $md) {
-      flex: none;
-      margin-bottom: 55px;
+    .logo {
+      flex: 1;
+      max-width: 275px;
+      align-self: center;
+      @media (min-width: $md) {
+        flex: none;
+        margin-bottom: 55px;
+      }
     }
   }
 

@@ -13,7 +13,6 @@ export function isNullOrUndefined(value) {
 }
 
 export function getNumActiveFilters(searchCriteria) {
-  console.log('reducing', searchCriteria);
   return reduce(
     searchCriteria,
     (acc, filterVal) => {
