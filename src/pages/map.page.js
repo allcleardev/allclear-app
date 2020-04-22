@@ -91,6 +91,7 @@ export default function MapPage() {
     modalService.toggleModal('criteria', true);
   }
 
+  // analytics handlers
   function onActionClick(action, itemId, itemIndex, itemName) {
     handleGAEvent(action, itemId, itemIndex, itemName);
   }
