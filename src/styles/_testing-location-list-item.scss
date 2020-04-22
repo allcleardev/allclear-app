@@ -59,3 +59,15 @@
     }
   }
 }
+
+.MuiButtonBase-root.MuiButton-root.MuiButton-text.btn.primary-color.primary-outline.website-btn {
+  @media (min-width: $md) {
+    position: absolute;
+    margin-left: 10px;
+  }
+
+  @media (max-width: $md - 1) {
+    margin-top: 8px;
+    display: block;
+  }
+}
