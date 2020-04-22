@@ -100,9 +100,9 @@ class BackgroundPage extends Component {
       <div className="background-responsive">
         <div className="background onboarding-page">
           <RoundHeader navigate={'/sign-up'}>
-            <h1 className="heading">Background</h1>
+            <h1 className="heading">Your Location</h1>
             <h2 className="sub-heading">
-              Please provide background information to help us recommend relevant test locations for you.
+              Please provide your location information to help us recommend nearby test locations for you.
             </h2>
           </RoundHeader>
           <Form noValidate autoComplete="off" className="onboarding-body">

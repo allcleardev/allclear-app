@@ -76,7 +76,7 @@ class HealthWorkerStatusPage extends Component {
     return (
       <div className="background-responsive">
         <div className="health-worker onboarding-page">
-          <RoundHeader navigate={'/background'}>
+          <RoundHeader navigate={'/location'}>
             <h1 className="heading">Health Worker Status</h1>
             <h2 className="sub-heading">
               Per the CDC, Health Worker and First Responder statuses impact test location availability.
@@ -104,11 +104,7 @@ class HealthWorkerStatusPage extends Component {
             </Box>
             <OnboardingNavigation
               back={
-                <Button
-                  variant="contained"
-                  className="back hide-mobile"
-                  onClick={() => this.routeChange('/background')}
-                >
+                <Button variant="contained" className="back hide-mobile" onClick={() => this.routeChange('/location')}>
                   Back
                 </Button>
               }
