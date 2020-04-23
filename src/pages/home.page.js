@@ -23,7 +23,14 @@ export default class HomePage extends Component {
 
   constructor(props) {
     super(props);
-    bindAll(this, ['componentDidMount', 'routeChange', 'onLocationSelected', 'onShareClicked']);
+    bindAll(this, [
+      'componentDidMount',
+      'setTestLocationsList',
+      'onLocationSelected',
+      'onViewMoreClicked',
+      'onShareClicked',
+      'updateUserProfile',
+    ]);
     this.peopleService = PeopleService.getInstance();
     this.state = {
       locationName: '',
@@ -38,29 +45,36 @@ export default class HomePage extends Component {
   componentDidMount() {
     const { appState } = this.context;
     this.locations = get(appState, 'map.locations');
-    const healthWorkerStatusId = get(appState, 'person.healthWorkerStatusId');
+    this.facilities = get(appState, 'person.facilities');
     const symptoms = get(appState, 'person.symptoms');
-    // todo: set already favorited location from  server
+    const healthWorkerStatusId = get(appState, 'person.healthWorkerStatusId');
+    const testLocations = this.setTestLocationsList();
 
-    this.setState({
-      testLocations: this.locations && this.locations.length ? this.locations.slice(0, 5) : [],
-      symptomatic: symptoms && symptoms[0].id !== 'no' ? true : false,
-      prioritized: healthWorkerStatusId === 'h' || symptoms.some((symptom) => symptom.id === 'fv') ? true : false,
-      locationName: get(appState, 'person.locationName'),
-    });
+    this.setState(
+      {
+        locationName: get(appState, 'person.locationName') || 'N/A',
+        pinnedLocations: this.facilities || [],
+        testLocations: testLocations && testLocations.length ? testLocations.slice(0, 5) : [],
+        symptomatic: symptoms && symptoms[0].id !== 'no' ? true : false,
+        prioritized: healthWorkerStatusId === 'h' || symptoms.some((symptom) => symptom.id === 'fv') ? true : false,
+      },
+      () => console.log('state:', this.state),
+    );
   }
 
-  routeChange(route) {
-    this.props.history.push(route);
+  setTestLocationsList() {
+    const facilities = this.facilities;
+    return facilities && facilities.length
+      ? facilities.concat(this.locations.filter((l) => !facilities.find((f) => f.id === l.id)))
+      : this.locations;
   }
 
   onLocationSelected(pinnedLocation) {
-    const { appState, setAppState } = this.context;
     // toggle pinned status for selected location
     pinnedLocation.favorite = !pinnedLocation.favorite;
     // making a copy of testLocations state
     const testLocations = [...this.state.testLocations];
-    // override selected location with new pinned (favorite) state
+    // update selected location with new pinned (favorite) state
     testLocations.map((location) => {
       if (location.id === pinnedLocation.id) {
         location = pinnedLocation;
@@ -70,24 +84,21 @@ export default class HomePage extends Component {
     this.setState(
       {
         testLocations,
-        // setting pinnedLocations to send to server for user profile update
+        // setting pinnedLocations to send to server + appState for user profile update
         pinnedLocations: pinnedLocation.favorite
           ? [...this.state.pinnedLocations, pinnedLocation]
           : this.state.pinnedLocations.filter((location) => location.id !== pinnedLocation.id),
       },
       () => {
-        // update user profile in server
         this.updateUserProfile();
       },
     );
-    // update app state
-    setAppState({ ...appState, map: { ...appState.map, locations: this.locations } });
   }
 
   onViewMoreClicked() {
     const expanded = !this.state.testLocationsExpanded;
     this.setState({
-      testLocations: expanded ? this.locations : this.locations.slice(0, 5),
+      testLocations: expanded ? this.setTestLocationsList() : this.setTestLocationsList().slice(0, 5),
       testLocationsExpanded: expanded,
     });
   }
@@ -95,14 +106,27 @@ export default class HomePage extends Component {
   onShareClicked() {}
 
   async updateUserProfile() {
-    const { appState } = this.context;
+    const { appState, setAppState } = this.context;
     const session = get(appState, 'sessionId');
     const profile = get(appState, 'person');
     const updatedProfile = {
       ...profile,
       facilities: this.state.pinnedLocations,
     };
+    // update user profile in server
     await this.peopleService.editProfile(updatedProfile, session);
+    // update app state
+    setAppState({
+      ...appState,
+      map: {
+        ...appState.map,
+        locations: this.locations,
+      },
+      person: {
+        ...appState.person,
+        facilities: this.state.pinnedLocations,
+      },
+    });
   }
 
   render() {
@@ -144,7 +168,7 @@ export default class HomePage extends Component {
               )}
               <span>
                 Your profile is
-                {this.state.prioritized ? 'prioritized' : 'not prioritized'}
+                {this.state.prioritized ? ' prioritized ' : ' not prioritized '}
                 for testing per CDC Criteria. <a href="/">Learn More</a>
               </span>
             </p>
