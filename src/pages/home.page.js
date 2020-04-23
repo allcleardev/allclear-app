@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { bindAll, get } from 'lodash';
 
 import PeopleService from '@services/people.service';
@@ -7,9 +6,9 @@ import PeopleService from '@services/people.service';
 import Header from '../components/general/headers/header';
 import BottomNav from '../components/general/navs/bottom-nav';
 import UserAvatar from '../assets/images/defaultProfile.svg';
-import SettingsIcon from '../assets/images/settings-icon.svg';
 import PersonShareIcon from '../assets/images/person-share-icon.svg';
 import { ReactComponent as PinIcon } from '../assets/images/pin.svg';
+import { ReactComponent as SettingsIcon } from '../assets/images/settings-icon.svg';
 import { AppContext } from '../contexts/app.context';
 
 import Container from '@material-ui/core/Container';
@@ -25,6 +24,7 @@ export default class HomePage extends Component {
     super(props);
     bindAll(this, [
       'componentDidMount',
+      'routeChange',
       'onLocationSelected',
       'onViewMoreClicked',
       'onShareClicked',
@@ -51,8 +51,13 @@ export default class HomePage extends Component {
       locationName: get(appState, 'person.locationName') || 'N/A',
       testLocations: testLocations && testLocations.length ? testLocations.slice(0, 5) : [],
       symptomatic: symptoms && symptoms[0].id !== 'no' ? true : false,
-      prioritized: healthWorkerStatusId === 'h' || symptoms.some((symptom) => symptom.id === 'fv') ? true : false,
+      prioritized:
+        healthWorkerStatusId === 'h' || (symptoms && symptoms.some((symptom) => symptom.id === 'fv')) ? true : false,
     });
+  }
+
+  routeChange(route) {
+    this.props.history.push(route);
   }
 
   onLocationSelected(pinnedLocation) {
@@ -108,9 +113,13 @@ export default class HomePage extends Component {
     const testLocations = this.state.testLocations;
     return (
       <section className="home-page">
-        <Link to="/settings" className="settings-option hide-desktop">
-          <img src={SettingsIcon} className="settings-option__icon" alt="Settings" />
-        </Link>
+        <IconButton
+          className="settings-option hide-desktop"
+          aria-label="settings"
+          onClick={() => this.routeChange('/profile-edit')}
+        >
+          <SettingsIcon className="settings-option__icon" />
+        </IconButton>
 
         <Header navItems={this.navItems}>
           <div className="header-content">
@@ -186,7 +195,7 @@ export default class HomePage extends Component {
               variant="outlined"
               onClick={() => this.onViewMoreClicked()}
               style={{ color: '#2A7DF4', border: '1px solid #2A7DF4' }}
-              className=""
+              className="home-page__button"
             >
               {this.state.testLocationsExpanded ? 'View Less' : 'View More'}
             </Button>
@@ -202,7 +211,12 @@ export default class HomePage extends Component {
                 <InfoOutlinedIcon className="info-icon"></InfoOutlinedIcon>
               </LightTooltip>
             </h2>
-            <Button fullWidth variant="contained" onClick={() => this.onShareClicked()} className="share__button">
+            <Button
+              fullWidth
+              variant="contained"
+              onClick={() => this.onShareClicked()}
+              className="home-page__button share__button"
+            >
               <img src={PersonShareIcon} className="share__icon" alt="Share" />
               <span>Share allclear</span>
             </Button>
