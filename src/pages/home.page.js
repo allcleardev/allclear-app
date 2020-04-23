@@ -154,7 +154,13 @@ export default class HomePage extends Component {
 
           <article className="share article">
             <h2 className="sub-heading">
-              Friends <InfoOutlinedIcon className="info-icon"></InfoOutlinedIcon>
+              Friends
+              <LightTooltip
+                title="None of your contacts are currently on allclear.
+                Invite your friends and family to keep track of their status."
+              >
+                <InfoOutlinedIcon className="info-icon"></InfoOutlinedIcon>
+              </LightTooltip>
             </h2>
             <Button fullWidth variant="contained" onClick={() => this.onShareClicked()} className="share__button">
               <img src={PersonShareIcon} className="share__icon" alt="Share" />
