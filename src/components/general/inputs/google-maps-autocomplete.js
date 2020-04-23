@@ -31,13 +31,14 @@ export default function GoogleMapsAutocomplete(props) {
   const [inputValue, setInputValue] = useState('');
   const [options, setOptions] = useState([]);
 
+  // only for clears
   function onInputChanged(evt, value, reason) {
     if (reason === 'clear') {
-      props.onClear();
+      props.onClear && props.onClear();
     }
   }
 
-  // only for text inputs
+  // normal text changes
   const handleTextChange = (event) => {
     setInputValue(event.target.value);
   };
@@ -116,7 +117,9 @@ export default function GoogleMapsAutocomplete(props) {
         filterOptions={(x) => x}
         options={options}
         onChange={handleSelectionChange}
-        onInputChange={onInputChanged}
+        onInputChange={(e, v, r) => {
+          props.onClear && onInputChanged(e,v,r);
+        }}
         disabled={props.useCurrentLocation}
         defaultValue={props.initialValue}
         renderInput={(params) => (

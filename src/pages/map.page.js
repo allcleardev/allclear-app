@@ -204,10 +204,10 @@ export default function MapPage() {
                     <Button
                       className={'view-full-results-btn'}
                       endIcon={drawerHeight === DRAWER_EXPANDED_HEIGHT ? VerticalCollapseIcon() : VerticalExpandIcon()}
-                      style={{width: '50%', color: '#666666', size: 'large', paddingRight: '0px', lineHeight: 1.2}}
+                      style={{width: '50%', color: '#666666', size: 'large', paddingRight: '0px'}}
                       onClick={onDrawerSwipe}
                     >
-                      {drawerHeight === DRAWER_EXPANDED_HEIGHT ? 'Map View' : 'Full Results View'}
+                      {drawerHeight === DRAWER_EXPANDED_HEIGHT ? 'Map View' : 'Full List View'}
                     </Button>
                   )}
                 </Box>
