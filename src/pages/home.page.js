@@ -121,7 +121,7 @@ export default class HomePage extends Component {
                     <dl className="card__content">
                       <dt className="card__term">{location.name}</dt>
                       <dd className="card__description">{location.address}</dd>
-                      <dd className="card__description">Lorem ipsum dolor sit amet, consectetur.</dd>
+                      <dd className="card__description">{location.phone.substring(2)}</dd>
                     </dl>
                     <IconButton
                       className="pin-button"
