@@ -25,8 +25,8 @@ import Button from '@material-ui/core/Button';
 import ModalService from '@services/modal.service';
 import {AppContext} from '@contexts/app.context';
 import {useWindowResize} from '@hooks/general.hooks';
-import {getNumActiveFilters} from '@util/general.helpers';
-import GAService from '@services/ga.service';
+import { getNumActiveFilters, getActiveFilters } from '@util/general.helpers';
+import GAService, { MAP_PAGE_GA_EVENTS, GA_EVENT_MAP } from '@services/ga.service';
 import GoogleMapsAutocomplete from '@general/inputs/google-maps-autocomplete';
 
 export default function MapPage() {
@@ -36,7 +36,7 @@ export default function MapPage() {
   // constants
   const classes = useStyles();
   const badgeRef = React.createRef();
-  const DRAWER_EXPANDED_HEIGHT = '100vh';
+  const DRAWER_EXPANDED_HEIGHT = '95vh';
   const DRAWER_COLLAPSED_HEIGHT = 350;
 
   // state & global state
@@ -105,6 +105,23 @@ export default function MapPage() {
     modalService.toggleModal('criteria', true);
   }
 
+  // analytics handlers
+  function onActionClick(action, itemId, itemIndex, itemName) {
+    handleGAEvent(action, itemId, itemIndex, itemName);
+  }
+
+  function onTestingLocationExpand(itemId, itemIndex, itemName, isExpanded) {
+    const eventKey = isExpanded ? 'expand' : 'contract';
+    handleGAEvent(eventKey, itemId, itemIndex, itemName);
+  }
+
+  function handleGAEvent(eventKey, itemId, itemIndex, itemName) {
+    const eventName = GA_EVENT_MAP[eventKey];
+    const enabledFilters = getActiveFilters(get(appState, ['searchCriteria'], {}));
+    const additionalParams = MAP_PAGE_GA_EVENTS(itemId, itemName, itemIndex, enabledFilters);
+    gaService.sendEvent(eventName, additionalParams);
+  }
+
   const {isOpen, anchor} = mapState;
 
   // get modal service so we can toggle it open
@@ -121,7 +138,7 @@ export default function MapPage() {
               [classes.appBarShift]: isOpen,
             })
           }
-          style={{zIndex: '2'}}
+          style={{ zIndex: '2' }}
         >
           {/* <IconButton
             disableRipple
@@ -161,20 +178,22 @@ export default function MapPage() {
                   {numActiveFilters > 0 ? (
                     <Badge
                       ref={badgeRef}
-                      badgeContent={`${numActiveFilters} Active`}
+                      badgeContent={numActiveFilters}
                       overlap={'rectangle'}
-                      style={{width: anchor === 'bottom' ? '40%' : '100%'}}
+                      style={{ width: anchor === 'bottom' ? '48%' : '100%' }}
                     >
                       <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick}/>
                     </Badge>
                   ) : (
-                     <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick}/>
-                   )}
+                    <span className="edit-filters-btn-container">
+                      <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} style/>
+                    </span>
+                  )}
                   {anchor === 'bottom' && (
                     <Button
                       className={'view-full-results-btn'}
                       endIcon={drawerHeight === DRAWER_EXPANDED_HEIGHT ? VerticalCollapseIcon() : VerticalExpandIcon()}
-                      style={{width: '50%', color: '#666666', size: 'large', paddingRight: '0px', lineHeight: 1.2}}
+                      style={{ width: '50%', color: '#666666', size: 'large', paddingRight: '0px', lineHeight: 1.2 }}
                       onClick={onDrawerSwipe}
                     >
                       {drawerHeight === DRAWER_EXPANDED_HEIGHT ? 'Map View' : 'Full Results View'}
@@ -194,29 +213,32 @@ export default function MapPage() {
                   }}
                   className="mt-4 mt-md-0 vh100-lg"
                 >
-                  <CircularProgress color="primary" size={70}/>
+                  <CircularProgress color="primary" size={70} />
                   <p className="mt-3">Loading Results</p>
                 </div>
               )}
 
               {locations &&
-              locations.map((result, index) => (
-                <TestingLocationListItem
-                  key={index}
-                  index={index}
-                  title={result.name}
-                  description={result.address}
-                  city_state={result.city + ', ' + result.state}
-                  service_time={result.hours}
-                  driveThru={result.driveThru}
-                  phone={result.phone}
-                  website={result.url}
-                  {...result}
-                ></TestingLocationListItem>
-              ))}
+                locations.map((result, index) => (
+                  <TestingLocationListItem
+                    id={result.id}
+                    key={index}
+                    index={index}
+                    title={result.name}
+                    description={result.address}
+                    city_state={result.city + ', ' + result.state}
+                    service_time={result.hours}
+                    driveThru={result.driveThru}
+                    phone={result.phone}
+                    website={result.url}
+                    {...result}
+                    onActionClick={onActionClick}
+                    onTestingLocationExpand={onTestingLocationExpand}
+                  ></TestingLocationListItem>
+                ))}
 
               {locations.length === 0 && appState.isListLoading === false && (
-                <h2 style={{display: 'flex', justifyContent: 'center'}}>No Results Found </h2>
+                <h2 style={{ display: 'flex', justifyContent: 'center' }}>No Results Found </h2>
               )}
             </div>
           </AnimateHeight>
@@ -227,8 +249,7 @@ export default function MapPage() {
           })}
         >
           <div className="map-fullscreen">
-            <GoogleMap
-            ></GoogleMap>
+            <GoogleMap></GoogleMap>
           </div>
         </main>
         <BottomNav active={1}></BottomNav>

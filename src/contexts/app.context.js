@@ -45,6 +45,9 @@ export const INITIAL_APP_STATE = {
       exposures: undefined,
     }
   },
+  signUpPayload: undefined,
+
+  // this is to re-trigger a render on modal (
   forceRefresh: false,
   modalSubmitCount: 0,
 

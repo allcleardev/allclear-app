@@ -23,3 +23,15 @@ export function getNumActiveFilters(searchCriteria) {
     0,
   );
 }
+
+export function getActiveFilters(searchCriteria) {
+  return reduce(
+    searchCriteria,
+    (acc, val, key) => {
+      const isInactive = isNullOrUndefined(val) || lowerCase(val) === 'any';
+      if (!isInactive) acc = [...acc, { key, value: val }];
+      return acc;
+    },
+    [],
+  );
+}
