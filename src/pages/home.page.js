@@ -24,21 +24,22 @@ export default class HomePage extends Component {
     super(props);
     bindAll(this, ['componentDidMount', 'routeChange', 'onLocationSelected', 'onShareClicked']);
     this.state = {
+      locationName: '',
       testLocations: [],
+      testLocationsExpanded: false,
       symptomatic: false,
       prioritized: false,
-      locationName: '',
     };
   }
 
   componentDidMount() {
     const { appState } = this.context;
-    const locations = get(appState, 'map.locations');
+    this.locations = get(appState, 'map.locations');
     const healthWorkerStatusId = get(appState, 'person.healthWorkerStatusId');
     const symptoms = get(appState, 'person.symptoms');
 
     this.setState({
-      testLocations: locations && locations.length ? locations.slice(0, 5) : [],
+      testLocations: this.locations && this.locations.length ? this.locations.slice(0, 5) : [],
       symptomatic: symptoms && symptoms[0].id !== 'no' ? true : false,
       prioritized: healthWorkerStatusId === 'h' || symptoms.some((symptom) => symptom.id === 'fv') ? true : false,
       locationName: get(appState, 'person.locationName'),
@@ -62,6 +63,14 @@ export default class HomePage extends Component {
     });
     this.setState({ testLocations });
     // TODO: Update App State w/new favorited location status
+  }
+
+  onViewMoreClicked() {
+    const expanded = !this.state.testLocationsExpanded;
+    this.setState({
+      testLocations: expanded ? this.locations : this.locations.slice(0, 5),
+      testLocationsExpanded: expanded,
+    });
   }
 
   onShareClicked() {}
@@ -105,7 +114,7 @@ export default class HomePage extends Component {
               )}
               <span>
                 Your profile is
-                {this.state.prioritized ? <Fragment> prioritized </Fragment> : <Fragment> not prioritized </Fragment>}
+                {this.state.prioritized ? 'prioritized' : 'not prioritized'}
                 for testing per CDC Criteria. <a href="/">Learn More</a>
               </span>
             </p>
@@ -144,11 +153,11 @@ export default class HomePage extends Component {
             <Button
               fullWidth
               variant="outlined"
-              onClick={() => this.routeChange('/profile')}
+              onClick={() => this.onViewMoreClicked()}
               style={{ color: '#2A7DF4', border: '1px solid #2A7DF4' }}
               className=""
             >
-              View More
+              {this.state.testLocationsExpanded ? 'View Less' : 'View More'}
             </Button>
           </article>
 
