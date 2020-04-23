@@ -26,19 +26,21 @@ export default class HomePage extends Component {
       testLocations: [],
       symptomatic: false,
       prioritized: false,
+      locationName: '',
     };
   }
 
   componentDidMount() {
     const { appState } = this.context;
-    const locations = get(appState, 'map.locations') || [];
+    const locations = get(appState, 'map.locations');
     const healthWorkerStatusId = get(appState, 'person.healthWorkerStatusId');
     const symptoms = get(appState, 'person.symptoms');
 
     this.setState({
-      testLocations: locations.slice(0, 5),
-      symptomatic: get(appState, 'person.symptoms') && get(appState, 'person.symptoms')[0].id !== 'no' ? true : false,
+      testLocations: locations && locations.length ? locations.slice(0, 5) : [],
+      symptomatic: symptoms && symptoms[0].id !== 'no' ? true : false,
       prioritized: healthWorkerStatusId === 'h' || symptoms.some((symptom) => symptom.id === 'fv') ? true : false,
+      locationName: get(appState, 'person.locationName'),
     });
   }
 
@@ -82,7 +84,7 @@ export default class HomePage extends Component {
             <dl className="header-content__highlights">
               <div className="header-content__highlight">
                 <dt>Location</dt>
-                <dd>New York, NY</dd>
+                {this.state.locationName ? <dd>{this.state.locationName}</dd> : <dd>Using Current Location</dd>}
               </div>
               <div className="header-content__highlight">
                 <dt>Health</dt>
