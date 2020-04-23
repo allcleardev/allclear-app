@@ -162,8 +162,8 @@ export default function MapPage() {
                       <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} />
                     </Badge>
                   ) : (
-                    <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} />
-                  )}
+                      <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} />
+                    )}
                   {anchor === 'bottom' && (
                     <Button
                       className={'view-full-results-btn'}
@@ -321,7 +321,6 @@ function EditFiltersBtn(props) {
 //   const currFormValues = Object.values(appState.searchCriteria).filter(Boolean);
 //   // if any selections have anything but 'any' selected, search is active
 //   // console.log('filterss', currFormValues);
-//   // console.log(appState.searchCriteria)
 //
 //   const searchFilterActive = !currFormValues.every((e) => e === 'Any');
 //

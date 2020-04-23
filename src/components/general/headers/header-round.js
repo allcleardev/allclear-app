@@ -38,8 +38,8 @@ export default function RoundHeader({ navigate = '', children }) {
           <img src={Logo} alt="Logo" className="logo" />
         </Link>
         <nav className="menu">
-          <a href="https://about.allclear.app/" className="menu__item">
-            About Us
+          <a href="https://home.allclear.app/" className="menu__item">
+            Home
           </a>
           <a href="https://about.allclear.app/" className="menu__item">
             Help
