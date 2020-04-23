@@ -155,7 +155,7 @@ export default function MapPage() {
                   {numActiveFilters > 0 ? (
                     <Badge
                       ref={badgeRef}
-                      badgeContent={`${numActiveFilters} Active`}
+                      badgeContent={numActiveFilters}
                       overlap={'rectangle'}
                       style={{ width: anchor === 'bottom' ? '48%' : '100%' }}
                     >
