@@ -169,36 +169,45 @@ export default class HomePage extends Component {
               </LightTooltip>
             </h2>
 
-            {testLocations && testLocations.length
-              ? testLocations.map((location) => (
-                  <article className="card" key={location.id}>
-                    <dl className="card__content">
-                      <dt className="card__term">{location.name}</dt>
-                      <dd className="card__description">{location.address}</dd>
-                      <dd className="card__description">
-                        {location.phone ? location.phone.substring(2) : 'Phone number unavailable'}
-                      </dd>
-                    </dl>
-                    <IconButton
-                      className="pin-button"
-                      aria-label="pin"
-                      onClick={this.onLocationSelected.bind(this, location)}
-                    >
-                      <PinIcon className={location.favorite ? 'pin active' : 'pin'} key={location.id} />
-                    </IconButton>
-                  </article>
-                ))
-              : 'No Results Found'}
+            {testLocations && testLocations.length ? (
+              testLocations.map((location) => (
+                <section className="card" key={location.id}>
+                  <dl className="card__content">
+                    <dt className="card__term">{location.name}</dt>
+                    <dd className="card__description">{location.address}</dd>
+                    <dd className="card__description">
+                      {location.phone ? location.phone.substring(2) : 'Phone number unavailable'}
+                    </dd>
+                  </dl>
+                  <IconButton
+                    className="pin-button"
+                    aria-label="pin"
+                    onClick={this.onLocationSelected.bind(this, location)}
+                  >
+                    <PinIcon className={location.favorite ? 'pin active' : 'pin'} key={location.id} />
+                  </IconButton>
+                </section>
+              ))
+            ) : (
+              <section className="card card--no-results">
+                <p>No exact match locations found. </p>
+                <p>You may not be eligible for testing at locations listed below.</p>
+              </section>
+            )}
 
-            <Button
-              fullWidth
-              variant="outlined"
-              onClick={() => this.onViewMoreClicked()}
-              style={{ color: '#2A7DF4', border: '1px solid #2A7DF4' }}
-              className="home-page__button"
-            >
-              {this.state.testLocationsExpanded ? 'View Less' : 'View More'}
-            </Button>
+            {testLocations && testLocations.length ? (
+              <Button
+                fullWidth
+                variant="outlined"
+                onClick={() => this.onViewMoreClicked()}
+                style={{ color: '#2A7DF4', border: '1px solid #2A7DF4' }}
+                className="home-page__button"
+              >
+                {this.state.testLocationsExpanded ? 'View Less' : 'View More'}
+              </Button>
+            ) : (
+              ''
+            )}
           </article>
 
           <article className="share article">

@@ -157,6 +157,22 @@
       margin: 0;
     }
 
+    &--no-results {
+      flex-direction: column;
+      align-items: center;
+      line-height: 20px;
+      margin-bottom: 34px;
+      padding: 25px 16px;
+      text-align: center;
+      font-size: 15px;
+      font-weight: 500;
+      color: #929292;
+
+      p:last-child {
+        margin: 0;
+      }
+    }
+
     &__content {
       font-size: 15px;
       line-height: 1.2;
