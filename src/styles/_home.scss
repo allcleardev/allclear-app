@@ -217,8 +217,7 @@
       }
 
       /* animation stuff (can remove if no one likes) */
-      animation-duration: 2s;
-      transform-origin: bottom;
+      animation-duration: 1s;
       animation-name: bounce;
       animation-timing-function: cubic-bezier(0.28, 0.84, 0.42, 1);
     }
