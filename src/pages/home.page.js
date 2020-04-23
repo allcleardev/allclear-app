@@ -31,6 +31,11 @@ export default class HomePage extends Component {
       'updateUserProfile',
     ]);
     this.peopleService = PeopleService.getInstance();
+    this.navItems = [
+      { route: '/map', name: 'Find Tests' },
+      { route: '/contact-tracing', name: 'Tracing' },
+      { route: '/profile', name: 'Profile' },
+    ];
     this.state = {
       locationName: '',
       testLocations: [],
@@ -121,7 +126,7 @@ export default class HomePage extends Component {
           <SettingsIcon className="settings-option__icon" />
         </IconButton>
 
-        <Header navItems={this.navItems}>
+        <Header navItems={this.navItems} enableBackBtn={true}>
           <div className="header-content">
             <h1 className="header-content__heading">allclear</h1>
 
