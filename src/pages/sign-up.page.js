@@ -291,11 +291,11 @@ export default class SignUpPage extends Component {
               <div className="review-container">
                 <p>
                   Please review and agree to the
-                  <a href="https://about.allclear.app/terms-of-service/" target="_blank" rel="noopener noreferrer">
+                  <a href="https://home.allclear.app/terms-of-service" target="_blank" rel="noopener noreferrer">
                     {''} Terms & Conditions {''}
                   </a>
                   and
-                  <a href="https://about.allclear.app/privacy-policy-2/" target="_blank" rel="noopener noreferrer">
+                  <a href="https://home.allclear.app/privacy-policy" target="_blank" rel="noopener noreferrer">
                     {''} Privacy Policy {''}
                   </a>
                   before continuing.
@@ -365,21 +365,21 @@ export default class SignUpPage extends Component {
                     ${!this.state.phoneVerified ? 'enter your phone number' : ''}
                     ${!this.state.termsAndConditions && !this.state.phoneVerified ? 'and' : ''}
                     ${
-                      !this.state.termsAndConditions
-                        ? 'review and agree to the Terms & Conditions and Privacy Policy'
-                        : ''
-                    }
+                  !this.state.termsAndConditions
+                    ? 'review and agree to the Terms & Conditions and Privacy Policy'
+                    : ''
+                  }
                   `}
                 triggerTooltip={this.state.termsAndConditions && this.state.phoneVerified ? false : true}
               ></OnboardingNavigation>
             </Container>
           ) : (
-            <Grid container justify="center">
-              <Grid item xs={12} sm={6}>
-                <LinearProgress color="primary" value={60} variant="indeterminate" />
+              <Grid container justify="center">
+                <Grid item xs={12} sm={6}>
+                  <LinearProgress color="primary" value={60} variant="indeterminate" />
+                </Grid>
               </Grid>
-            </Grid>
-          )}
+            )}
           {this.state.loading === false ? <ProgressBottom progress="60%"></ProgressBottom> : null}
         </div>
       </div>
