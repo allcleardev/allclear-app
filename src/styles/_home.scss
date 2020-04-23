@@ -89,12 +89,21 @@
 
     &__icon {
       margin-right: 16px;
-      color: #e8d000;
+
+      &--pass {
+        color: #22af3a;
+      }
+
+      &--warn {
+        color: #e8d000;
+      }
     }
 
-    &__text {
+    &__content {
+      display: flex;
+      align-items: center;
       margin: 0;
-      line-height: 1;
+      line-height: 16px;
       font-weight: 500;
       font-size: 13px;
       color: #333333;
@@ -186,7 +195,7 @@
 
     &.active {
       transform: rotate(-15deg);
-      transition: all ease .3s;
+      transition: all ease 0.3s;
       transition-delay: 8ms;
       fill: $navy;
 

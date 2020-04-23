@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { bindAll, get } from 'lodash';
 
@@ -12,6 +12,7 @@ import { AppContext } from '../contexts/app.context';
 
 import Container from '@material-ui/core/Container';
 import WarningRoundedIcon from '@material-ui/icons/WarningRounded';
+import CheckRoundedIcon from '@material-ui/icons/CheckRounded';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'; // TODO: Ask Ashley for uncorrupted svg version from her mock
 import { Button, IconButton } from '@material-ui/core';
 
@@ -23,15 +24,21 @@ export default class HomePage extends Component {
     bindAll(this, ['componentDidMount', 'routeChange', 'onLocationSelected', 'onShareClicked']);
     this.state = {
       testLocations: [],
+      symptomatic: false,
+      prioritized: false,
     };
   }
 
   componentDidMount() {
     const { appState } = this.context;
-    this.locations = get(appState, 'map.locations') || [];
+    const locations = get(appState, 'map.locations') || [];
+    const healthWorkerStatusId = get(appState, 'person.healthWorkerStatusId');
+    const symptoms = get(appState, 'person.symptoms');
 
-    this.setState({ testLocations: this.locations.slice(0, 5) }, () => {
-      console.log('LOCATIONS:', this.state.testLocations);
+    this.setState({
+      testLocations: locations.slice(0, 5),
+      symptomatic: get(appState, 'person.symptoms') && get(appState, 'person.symptoms')[0].id !== 'no' ? true : false,
+      prioritized: healthWorkerStatusId === 'h' || symptoms.some((symptom) => symptom.id === 'fv') ? true : false,
     });
   }
 
@@ -79,21 +86,25 @@ export default class HomePage extends Component {
               </div>
               <div className="header-content__highlight">
                 <dt>Health</dt>
-                <dd>Symptomatic</dd>
+                {this.state.symptomatic ? <dd>Symptomatic</dd> : <dd>No Symptoms</dd>}
               </div>
             </dl>
           </div>
         </Header>
 
         <Container className="cards-container">
-          <Link to="/settings" className="settings-option hide-desktop">
-            <img src={SettingsIcon} className="settings-option__icon" alt="Settings" />
-          </Link>
-
           <article className="banner article">
-            <WarningRoundedIcon className="banner__icon"></WarningRoundedIcon>
-            <p className="banner__text">
-              Your profile is not prioritized for testing per CDC Criteria. <a href="/">Learn More</a>
+            <p className="banner__content">
+              {this.state.prioritized ? (
+                <CheckRoundedIcon className="banner__icon banner__icon--pass" />
+              ) : (
+                <WarningRoundedIcon className="banner__icon banner__icon--warn" />
+              )}
+              <span>
+                Your profile is
+                {this.state.prioritized ? <Fragment> prioritized </Fragment> : <Fragment> not prioritized </Fragment>}
+                for testing per CDC Criteria. <a href="/">Learn More</a>
+              </span>
             </p>
           </article>
 
