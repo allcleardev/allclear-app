@@ -1,7 +1,8 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { bindAll, get } from 'lodash';
-import { Tooltip, withStyles } from '@material-ui/core';
+
+import PeopleService from '@services/people.service';
 
 import Header from '../components/general/headers/header';
 import BottomNav from '../components/general/navs/bottom-nav';
@@ -15,7 +16,7 @@ import Container from '@material-ui/core/Container';
 import WarningRoundedIcon from '@material-ui/icons/WarningRounded';
 import CheckRoundedIcon from '@material-ui/icons/CheckRounded';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'; // TODO: Ask Ashley for uncorrupted svg version from her mock
-import { Button, IconButton } from '@material-ui/core';
+import { Button, IconButton, Tooltip, withStyles } from '@material-ui/core';
 
 export default class HomePage extends Component {
   static contextType = AppContext;
@@ -23,8 +24,10 @@ export default class HomePage extends Component {
   constructor(props) {
     super(props);
     bindAll(this, ['componentDidMount', 'routeChange', 'onLocationSelected', 'onShareClicked']);
+    this.peopleService = PeopleService.getInstance();
     this.state = {
       locationName: '',
+      pinnedLocations: [],
       testLocations: [],
       testLocationsExpanded: false,
       symptomatic: false,
@@ -37,6 +40,7 @@ export default class HomePage extends Component {
     this.locations = get(appState, 'map.locations');
     const healthWorkerStatusId = get(appState, 'person.healthWorkerStatusId');
     const symptoms = get(appState, 'person.symptoms');
+    // todo: set already favorited location from  server
 
     this.setState({
       testLocations: this.locations && this.locations.length ? this.locations.slice(0, 5) : [],
@@ -51,6 +55,7 @@ export default class HomePage extends Component {
   }
 
   onLocationSelected(pinnedLocation) {
+    const { appState, setAppState } = this.context;
     // toggle pinned status for selected location
     pinnedLocation.favorite = !pinnedLocation.favorite;
     // making a copy of testLocations state
@@ -61,8 +66,22 @@ export default class HomePage extends Component {
         location = pinnedLocation;
       }
     });
-    this.setState({ testLocations });
-    // TODO: Update App State w/new favorited location status
+    // update local state
+    this.setState(
+      {
+        testLocations,
+        // setting pinnedLocations to send to server for user profile update
+        pinnedLocations: pinnedLocation.favorite
+          ? [...this.state.pinnedLocations, pinnedLocation]
+          : this.state.pinnedLocations.filter((location) => location.id !== pinnedLocation.id),
+      },
+      () => {
+        // update user profile in server
+        this.updateUserProfile();
+      },
+    );
+    // update app state
+    setAppState({ ...appState, map: { ...appState.map, locations: this.locations } });
   }
 
   onViewMoreClicked() {
@@ -74,6 +93,17 @@ export default class HomePage extends Component {
   }
 
   onShareClicked() {}
+
+  async updateUserProfile() {
+    const { appState } = this.context;
+    const session = get(appState, 'sessionId');
+    const profile = get(appState, 'person');
+    const updatedProfile = {
+      ...profile,
+      facilities: this.state.pinnedLocations,
+    };
+    await this.peopleService.editProfile(updatedProfile, session);
+  }
 
   render() {
     const testLocations = this.state.testLocations;
