@@ -25,8 +25,8 @@ import Button from '@material-ui/core/Button';
 import ModalService from '@services/modal.service';
 import {AppContext} from '@contexts/app.context';
 import {useWindowResize} from '@hooks/general.hooks';
-import { getNumActiveFilters, getActiveFilters } from '@util/general.helpers';
-import GAService, { MAP_PAGE_GA_EVENTS, GA_EVENT_MAP } from '@services/ga.service';
+import {getNumActiveFilters, getActiveFilters} from '@util/general.helpers';
+import GAService, {MAP_PAGE_GA_EVENTS, GA_EVENT_MAP} from '@services/ga.service';
 import GoogleMapsAutocomplete from '@general/inputs/google-maps-autocomplete';
 
 export default function MapPage() {
@@ -96,6 +96,16 @@ export default function MapPage() {
     }
   }
 
+  async function onLocationCleared() {
+    const latitude = get(appState, 'person.latitude');
+    const longitude = get(appState, 'person.longitude');
+    (latitude && longitude) && appState.effects.map.onLocationAccepted({
+      coords: {
+        latitude, longitude
+      }
+    });
+  }
+
   function onEditFiltersBtnClick() {
     // app context needs one more refresh before its ready to populate modal
     setAppState({
@@ -138,7 +148,7 @@ export default function MapPage() {
               [classes.appBarShift]: isOpen,
             })
           }
-          style={{ zIndex: '2' }}
+          style={{zIndex: '2'}}
         >
           {/* <IconButton
             disableRipple
@@ -169,6 +179,7 @@ export default function MapPage() {
 
               <GoogleMapsAutocomplete
                 locationSelected={onLocationSelected}
+                onClear={onLocationCleared}
               ></GoogleMapsAutocomplete>
 
               {appState.isListLoading === false && (
@@ -180,20 +191,20 @@ export default function MapPage() {
                       ref={badgeRef}
                       badgeContent={numActiveFilters}
                       overlap={'rectangle'}
-                      style={{ width: anchor === 'bottom' ? '48%' : '100%' }}
+                      style={{width: anchor === 'bottom' ? '48%' : '100%'}}
                     >
                       <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick}/>
                     </Badge>
                   ) : (
-                    <span className="edit-filters-btn-container">
+                     <span className="edit-filters-btn-container">
                       <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} style/>
                     </span>
-                  )}
+                   )}
                   {anchor === 'bottom' && (
                     <Button
                       className={'view-full-results-btn'}
                       endIcon={drawerHeight === DRAWER_EXPANDED_HEIGHT ? VerticalCollapseIcon() : VerticalExpandIcon()}
-                      style={{ width: '50%', color: '#666666', size: 'large', paddingRight: '0px', lineHeight: 1.2 }}
+                      style={{width: '50%', color: '#666666', size: 'large', paddingRight: '0px', lineHeight: 1.2}}
                       onClick={onDrawerSwipe}
                     >
                       {drawerHeight === DRAWER_EXPANDED_HEIGHT ? 'Map View' : 'Full Results View'}
@@ -213,32 +224,32 @@ export default function MapPage() {
                   }}
                   className="mt-4 mt-md-0 vh100-lg"
                 >
-                  <CircularProgress color="primary" size={70} />
+                  <CircularProgress color="primary" size={70}/>
                   <p className="mt-3">Loading Results</p>
                 </div>
               )}
 
               {locations &&
-                locations.map((result, index) => (
-                  <TestingLocationListItem
-                    id={result.id}
-                    key={index}
-                    index={index}
-                    title={result.name}
-                    description={result.address}
-                    city_state={result.city + ', ' + result.state}
-                    service_time={result.hours}
-                    driveThru={result.driveThru}
-                    phone={result.phone}
-                    website={result.url}
-                    {...result}
-                    onActionClick={onActionClick}
-                    onTestingLocationExpand={onTestingLocationExpand}
-                  ></TestingLocationListItem>
-                ))}
+              locations.map((result, index) => (
+                <TestingLocationListItem
+                  id={result.id}
+                  key={index}
+                  index={index}
+                  title={result.name}
+                  description={result.address}
+                  city_state={result.city + ', ' + result.state}
+                  service_time={result.hours}
+                  driveThru={result.driveThru}
+                  phone={result.phone}
+                  website={result.url}
+                  {...result}
+                  onActionClick={onActionClick}
+                  onTestingLocationExpand={onTestingLocationExpand}
+                ></TestingLocationListItem>
+              ))}
 
               {locations.length === 0 && appState.isListLoading === false && (
-                <h2 style={{ display: 'flex', justifyContent: 'center' }}>No Results Found </h2>
+                <h2 style={{display: 'flex', justifyContent: 'center'}}>No Results Found </h2>
               )}
             </div>
           </AnimateHeight>
