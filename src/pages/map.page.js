@@ -155,23 +155,25 @@ export default function MapPage() {
                   {numActiveFilters > 0 ? (
                     <Badge
                       ref={badgeRef}
-                      badgeContent={`${numActiveFilters}`}
+                      badgeContent={numActiveFilters}
                       overlap={'rectangle'}
-                      style={{ width: anchor === 'bottom' ? '40%' : '100%' }}
+                      style={{ width: anchor === 'bottom' ? '48%' : '100%' }}
                     >
                       <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} />
                     </Badge>
                   ) : (
-                      <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} />
-                    )}
+                    <span className="edit-filters-btn-container">
+                      <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} style/>
+                    </span>
+                  )}
                   {anchor === 'bottom' && (
                     <Button
                       className={'view-full-results-btn'}
                       endIcon={drawerHeight === DRAWER_EXPANDED_HEIGHT ? VerticalCollapseIcon() : VerticalExpandIcon()}
-                      style={{ width: '50%', color: '#666666', size: 'large', paddingRight: '0px', lineHeight: 1.2 }}
+                      style={{ width: '50%', color: '#666666', size: 'large', paddingRight: '0px' }}
                       onClick={onDrawerSwipe}
                     >
-                      {drawerHeight === DRAWER_EXPANDED_HEIGHT ? 'Map View' : 'Full Results View'}
+                      {drawerHeight === DRAWER_EXPANDED_HEIGHT ? 'Map View' : 'Full List View'}
                     </Button>
                   )}
                 </Box>
