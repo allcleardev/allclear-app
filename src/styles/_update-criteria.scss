@@ -1,13 +1,34 @@
-.update-criteria {
-  .btn-back-fab {
-    margin-top: -25px;
-    justify-content: flex-start;
-    display: block;
-    background-color: transparent !important;
-    box-shadow: none;
-
-    @media (min-width: $md) {
-      display: none;
-    }
+.update-criteria-modal {
+  @media (min-width: $md) {
+    min-width: 600px;
+    width: 40%;
+    padding-top: 0px;
+    margin-top: -10px;
   }
+
+  &__title{
+
+    h2{
+      font-size: 22px;
+      margin-left: 22px;
+    }
+
+  }
+
 }
+
+// This file was not being imported before so I wasn't sure if we still needed the code below. I just commented it out instead of removing it
+
+// .update-criteria {
+//   .btn-back-fab {
+//     margin-top: -25px;
+//     justify-content: flex-start;
+//     display: block;
+//     background-color: transparent !important;
+//     box-shadow: none;
+//
+//     @media (min-width: $md) {
+//       display: none;
+//     }
+//   }
+// }
