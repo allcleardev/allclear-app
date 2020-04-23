@@ -9,7 +9,7 @@
     padding-bottom: 30px;
   }
 
-  button {
+  button.home-page__button {
     padding: 9px;
     border-radius: 10px;
     font-weight: 600;
@@ -196,10 +196,39 @@
       transition: all ease 0.3s;
       transition-delay: 8ms;
       fill: $navy;
-
       path {
         stroke: $navy;
       }
+
+      /* animation stuff (can remove if no one likes) */
+      animation-duration: 2s;
+      transform-origin: bottom;
+      animation-name: bounce;
+      animation-timing-function: cubic-bezier(0.28, 0.84, 0.42, 1);
+    }
+  }
+
+  @keyframes bounce {
+    0% {
+      transform: scale(1, 1) rotate(0) translateY(0);
+    }
+    10% {
+      transform: scale(1.1, 0.9) rotate(-2.5deg) translateY(0);
+    }
+    30% {
+      transform: scale(0.9, 1.1) rotate(-5deg) translateY(-3px);
+    }
+    50% {
+      transform: scale(1, 1) rotate(-15deg) translateY(3px);
+    }
+    57% {
+      transform: scale(1, 1) rotate(-15deg) translateY(0);
+    }
+    64% {
+      transform: scale(1, 1) rotate(-15deg) translateY(0);
+    }
+    100% {
+      transform: scale(1, 1) rotate(-15deg) translateY(0);
     }
   }
 
