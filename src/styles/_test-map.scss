@@ -4,7 +4,14 @@
   .edit-filters-btn {
     margin: 20px 0px;
     max-height: 40px;
+  }
 
+  .edit-filters-btn-container {
+    width: 100%;
+    
+    @media (max-width: $md - 1){
+      width: 50%;
+    }
   }
 
   .view-full-results-btn {
