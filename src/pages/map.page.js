@@ -26,8 +26,7 @@ import ModalService from '@services/modal.service';
 import { AppContext } from '@contexts/app.context';
 import { useWindowResize } from '@hooks/general.hooks';
 import { getNumActiveFilters, getActiveFilters } from '@util/general.helpers';
-import GAService from '@services/ga.service';
-import { MAP_PAGE_GA_EVENTS, GA_EVENT_MAP } from '../services/ga.service';
+import GAService, { MAP_PAGE_GA_EVENTS, GA_EVENT_MAP } from '@services/ga.service';
 
 export default function MapPage() {
   const gaService = GAService.getInstance();

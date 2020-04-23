@@ -22,7 +22,6 @@ export default class GAService {
   }
 
   sendEvent(name, params) {
-    console.log('==', name, params);
     if (!this.isLocalDevBuild) {
       ReactGA.ga('event', name, params);
     }
