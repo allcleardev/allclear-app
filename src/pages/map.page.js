@@ -25,8 +25,8 @@ import Button from '@material-ui/core/Button';
 import ModalService from '@services/modal.service';
 import { AppContext } from '@contexts/app.context';
 import { useWindowResize } from '@hooks/general.hooks';
-import { getNumActiveFilters } from '@util/general.helpers';
-import GAService from '@services/ga.service';
+import { getNumActiveFilters, getActiveFilters } from '@util/general.helpers';
+import GAService, { MAP_PAGE_GA_EVENTS, GA_EVENT_MAP } from '@services/ga.service';
 
 export default function MapPage() {
   const gaService = GAService.getInstance();
@@ -88,6 +88,23 @@ export default function MapPage() {
       forceRefresh: !appState.forceRefresh,
     });
     modalService.toggleModal('criteria', true);
+  }
+
+  // analytics handlers
+  function onActionClick(action, itemId, itemIndex, itemName) {
+    handleGAEvent(action, itemId, itemIndex, itemName);
+  }
+
+  function onTestingLocationExpand(itemId, itemIndex, itemName, isExpanded) {
+    const eventKey = isExpanded ? 'expand' : 'contract';
+    handleGAEvent(eventKey, itemId, itemIndex, itemName);
+  }
+
+  function handleGAEvent(eventKey, itemId, itemIndex, itemName) {
+    const eventName = GA_EVENT_MAP[eventKey];
+    const enabledFilters = getActiveFilters(get(appState, ['searchCriteria'], {}));
+    const additionalParams = MAP_PAGE_GA_EVENTS(itemId, itemName, itemIndex, enabledFilters);
+    gaService.sendEvent(eventName, additionalParams);
   }
 
   const { isOpen, anchor } = mapState;
@@ -198,6 +215,7 @@ export default function MapPage() {
               {locations &&
                 locations.map((result, index) => (
                   <TestingLocationListItem
+                    id={result.id}
                     key={index}
                     index={index}
                     title={result.name}
@@ -208,6 +226,8 @@ export default function MapPage() {
                     phone={result.phone}
                     website={result.url}
                     {...result}
+                    onActionClick={onActionClick}
+                    onTestingLocationExpand={onTestingLocationExpand}
                   ></TestingLocationListItem>
                 ))}
 

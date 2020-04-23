@@ -1,15 +1,25 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { boolToEng, isNullOrUndefined } from '../../util/general.helpers';
-import Button from '@material-ui/core/Button';
-import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
-import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { withStyles } from '@material-ui/core/styles';
+import { boolToEng, isNullOrUndefined } from '../../util/general.helpers';
+import ExternalItemLinks from './external-item-links';
+import CustomizedExpansionPanel, { ExpansionPanelSummary, ExpansionPanelDetails } from './expansion-panel';
+
 
 export default function TestingLocationListItem(props) {
-  const { index, title, description, service_time, driveThru, phone, website } = props;
+  const { id, index, title, description, service_time, driveThru, phone, website } = props; // values
+  const { onActionClick, onTestingLocationExpand } = props; // events
+
+  const onClick = (evt, buttonName) => {
+    evt.stopPropagation();
+    onActionClick(buttonName, id, index, title);
+  };
+
+  // corresponds to the expanded state change of a single testing location in the expansion panel list
+  const onExpandedChange = (itemIndex, isExpanded) => {
+    // itemIndex is same as props.index, but keeping for readability with child component
+    onTestingLocationExpand(id, itemIndex, title, isExpanded);
+  };
 
   const summary = (
     <ExpansionPanelSummary
@@ -36,16 +46,17 @@ export default function TestingLocationListItem(props) {
 
         <ExternalItemLinks
           display={'d-none d-md-block'}
-          margin={{marginTop: '15px', marginBottom: '20px'}}
+          margin={{ marginTop: '15px', marginBottom: '20px' }}
           description={description}
           phone={phone}
           website={website}
+          onClick={onClick}
         />
       </div>
     </ExpansionPanelSummary>
   );
 
-  const body = (
+  const details = (
     <ExpansionPanelDetails>
       <section className="testing-location-list-item__details">
         <dl className="summary d-md-none">
@@ -54,7 +65,7 @@ export default function TestingLocationListItem(props) {
         </dl>
         <ExternalItemLinks
           display={'d-md-none'}
-          margin={{marginBottom: '15px'}}
+          margin={{ marginBottom: '15px' }}
           description={description}
           phone={phone}
           website={website}
@@ -132,101 +143,13 @@ export default function TestingLocationListItem(props) {
     </ExpansionPanelDetails>
   );
 
-  return <CustomizedExpansionPanel index={index} summary={summary} body={body}></CustomizedExpansionPanel>;
-}
-
-const ExpansionPanel = withStyles({
-  root: {
-    border: '1px solid rgba(0, 0, 0, .125)',
-    borderLeft: 0,
-    borderRight: 0,
-    boxShadow: 'none',
-    marginBottom: '5px',
-    transition: 'all 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
-    '&:not(:last-child)': {
-      borderBottom: 0,
-    },
-    '&:before': {
-      display: 'none',
-    },
-    '&$expanded': {
-      margin: 'auto',
-      boxShadow: '0px 18px 8px 20px rgba(0,0,0,.15)',
-    },
-  },
-  expanded: {},
-})(MuiExpansionPanel);
-
-const ExpansionPanelSummary = withStyles({
-  root: {
-    backgroundColor: '#fff',
-    borderTop: '.2px solid rgba(0, 0, 0, .125)',
-    marginBottom: -1,
-    minHeight: 56,
-    '&$expanded': {
-      minHeight: 56,
-    },
-  },
-  content: {
-    marginBottom: -1,
-    '&$expanded': {
-      marginBottom: -1
-    },
-  },
-  expanded: {},
-})(MuiExpansionPanelSummary);
-
-const ExpansionPanelDetails = withStyles((theme) => ({
-  root: {
-    backgroundColor: '#fff',
-    paddingTop: 0,
-    paddingBottom: 3,
-    boxShadow: 'inset 0px -11px 8px -10px rgba(0,0,0,.15)',
-  },
-}))(MuiExpansionPanelDetails);
-
-function CustomizedExpansionPanel(props) {
-  const [expanded, setExpanded] = React.useState('');
-
-  const handleChange = (index) => (event, newExpanded) => {
-    setExpanded(newExpanded ? index : false);
-  };
-
   return (
-    <ExpansionPanel square expanded={expanded === props.index} onChange={handleChange(props.index)}>
-      {props.summary}
-      {props.body}
-    </ExpansionPanel>
-  );
-}
-
-function ExternalItemLinks(props) {
-  return (
-    <div className={`buttons ${props.display}`} style={props.margin}>
-      <a
-        href={'https://www.google.com/maps/dir/?api=1&destination=' + props.description}
-        onClick={(evt) => evt.stopPropagation()}
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        <Button className="btn primary-color primary-outline">Directions</Button>
-      </a>
-
-      {props.phone && (
-        <a href={'tel:' + props.phone} onClick={(evt) => evt.stopPropagation()} rel="noopener noreferrer" target="_blank">
-          <Button className="btn primary-color primary-outline d-lg-none" style={{ marginLeft: '10px' }}>
-            Call
-          </Button>
-        </a>
-      )}
-
-      {props.website && (
-        <a href={props.website} onClick={(evt) => evt.stopPropagation()} rel="noopener noreferrer" target="_blank">
-          <Button className="btn primary-color primary-outline website-btn">
-            Website
-          </Button>
-        </a>
-      )}
-    </div>
+    <CustomizedExpansionPanel
+      index={index}
+      summary={summary}
+      details={details}
+      onExpandedChange={onExpandedChange}
+    >
+    </CustomizedExpansionPanel>
   );
 }
