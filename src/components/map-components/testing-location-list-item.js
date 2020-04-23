@@ -96,7 +96,7 @@ export default function TestingLocationListItem(props) {
               <dd>{boolToEng(props.driveThru)}</dd>
             </Fragment>
           )}
-          {!isNullOrUndefined(props.telescreeningAvailable) && (
+          {props.telescreeningAvailable && (
             <Fragment>
               <dt>Telescreening Available:</dt>
               <dd>{boolToEng(props.telescreeningAvailable)}</dd>
@@ -108,7 +108,7 @@ export default function TestingLocationListItem(props) {
               <dd>{boolToEng(props.acceptsThirdParty)}</dd>
             </Fragment>
           )}
-          {!isNullOrUndefined(props.referralRequired) && (
+          {!isNullOrUndefined(props.referralRequired) && props.referralRequired && (
             <Fragment>
               <dt>Doctor Referral Required:</dt>
               <dd>{boolToEng(props.referralRequired)}</dd>
@@ -120,13 +120,13 @@ export default function TestingLocationListItem(props) {
               <dd>{props.doctorReferralCriteria ? props.doctorReferralCriteria : 'None'}</dd>
             </Fragment>
           )}
-          {!isNullOrUndefined(props.acceptsInsurance) && (
+          {!isNullOrUndefined(props.acceptsInsurance) && props.acceptsInsurance && (
             <Fragment>
               <dt>Accepts Insurance:</dt>
               <dd>{boolToEng(props.acceptsInsurance)}</dd>
             </Fragment>
           )}
-          {!isNullOrUndefined(props.freeOrLowCost) && (
+          {!isNullOrUndefined(props.freeOrLowCost) && props.freeOrLowCost && (
             <Fragment>
               <dt>Free or Very Low Cost:</dt>
               <dd>{boolToEng(props.freeOrLowCost)}</dd>
