@@ -256,7 +256,7 @@ describe('Testing individual pages', () => {
 describe('Stepping through from get-started to sign-up', () => {
   test('Can get to sign-up page', async () => {
     let browser = await puppeteer.launch({
-      headless: false
+      headless: true
     });
     let page = await browser.newPage();
 
@@ -325,4 +325,117 @@ describe('Stepping through from get-started to sign-up', () => {
     expect(text).toBe('Phone Number Registration');
 
   }, 25000);
+});
+
+const setDomainLocalStorage = async (browser, url, values) => {
+  const page = await browser.newPage();
+  await page.setRequestInterception(true);
+  page.on('request', r => {
+    r.respond({
+      status: 200,
+      contentType: 'text/plain',
+      body: 'tweak me.',
+    });
+  });
+  await page.goto(url);
+  await page.evaluate(values => {
+    localStorage.setItem("appState", JSON.stringify(values));
+  }, values);
+
+  await page.close();
+  return;
+};
+
+describe('Start on sign-up page', () => {
+  test('Land on signup page', async () => {
+    let browser = await puppeteer.launch({
+      headless: true
+    });
+
+    const localStorage = require('./fixtures/app_state.json');
+
+    await setDomainLocalStorage(
+      browser, 'http://localhost:3000/get-started', localStorage
+    );
+
+    let page = await browser.newPage();
+
+    page.emulate({
+      viewport: {
+        width: 500,
+        height: 2400
+      },
+      userAgent: ''
+    });
+
+    await page.goto('http://localhost:3000/sign-up');
+
+    let url = new URL(page.url());
+    expect(url.pathname).toBe('/sign-up');
+  }, 20000);
+
+  test('Can click send verification code', async () => {
+    let browser = await puppeteer.launch({
+      headless: true
+    });
+
+    const localStorage = require('./fixtures/app_state.json');
+
+    await setDomainLocalStorage(
+      browser, 'http://localhost:3000/get-started', localStorage
+    );
+
+    let page = await browser.newPage();
+
+    page.emulate({
+      viewport: {
+        width: 500,
+        height: 2400
+      },
+      userAgent: ''
+    });
+
+    await page.goto('http://localhost:3000/sign-up');
+
+    await page.type('input[name=phone]', '5555555555')
+
+    const is_disabled = (await page.$x('//button[@disabled]')).length !== 0;
+    expect(is_disabled).toBe(true);
+
+    let terms = await page.$x('.//input[@name="termsAndConditions"]');
+    terms[0].click();
+
+    // wait for the button to be enabled
+    await page.waitFor(4000);
+    const is_not_disabled = (await page.$x('//button[@disabled]')).length === 0;
+    expect(is_not_disabled).toBe(true);
+  }, 20000);
+
+  // TODO: can land on map
+  // test('Land on map', async () => {
+  //   let browser = await puppeteer.launch({
+  //     headless: false
+  //   });
+
+  //   const localStorage = require('./fixtures/app_state.json');
+
+  //   await setDomainLocalStorage(
+  //     browser, 'http://localhost:3000/get-started', localStorage
+  //   );
+
+  //   let page = await browser.newPage();
+
+  //   page.emulate({
+  //     viewport: {
+  //       width: 500,
+  //       height: 2400
+  //     },
+  //     userAgent: ''
+  //   });
+
+  //   await page.goto('http://localhost:3000/map');
+
+  //   let url = new URL(page.url());
+  //   expect(url.pathname).toBe('/map');
+  // }, 20000);
 });
