@@ -51,8 +51,8 @@ export default function UserProfileCard({ children }) {
 
   return (
     <div className="user-profile-card">
-      <Grid container style={{ justifyContent: 'center' }}>
-        <Grid item xs={12} sm={11}>
+      <Grid container style={{ justifyContent: 'left' }}>
+        <Grid item xs={12}>
           {children}
         </Grid>
       </Grid>
