@@ -75,6 +75,7 @@ class BackgroundPage extends Component {
   }
 
   async _onLocationAccepted(pos) {
+    this.gaService.sendEvent('current_location_enabled', {});
     if (pos && pos.coords && pos.coords.latitude) {
       this.setState({ location: true });
       const { appState, setAppState } = this.context;
