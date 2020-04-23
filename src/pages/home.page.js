@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { bindAll, get } from 'lodash';
+import { Tooltip, withStyles } from '@material-ui/core';
 
 import Header from '../components/general/headers/header';
 import BottomNav from '../components/general/navs/bottom-nav';
@@ -112,7 +113,13 @@ export default class HomePage extends Component {
 
           <article className="locations article">
             <h2 className="sub-heading">
-              Test Locations Near You <InfoOutlinedIcon className="info-icon"></InfoOutlinedIcon>
+              Test Locations Near You
+              <LightTooltip
+                title="Below are test locations that you qualify for followed by test locations that you
+                currently don’t qualify for based on your profile. Contact the test locations for more details."
+              >
+                <InfoOutlinedIcon className="info-icon"></InfoOutlinedIcon>
+              </LightTooltip>
             </h2>
 
             {testLocations && testLocations.length
@@ -161,3 +168,15 @@ export default class HomePage extends Component {
     );
   }
 }
+
+const LightTooltip = withStyles((theme) => ({
+  tooltip: {
+    boxShadow: theme.shadows[4],
+    padding: 20,
+    borderRadius: 8,
+    fontSize: 15,
+    lineHeight: '20px',
+    color: '#999',
+    backgroundColor: '#fff',
+  },
+}))(Tooltip);
