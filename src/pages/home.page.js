@@ -72,7 +72,7 @@ export default class HomePage extends Component {
     // update selected location with new pinned location state
     testLocations.map((location) => {
       if (location.id === pinnedLocation.id) {
-        location = pinnedLocation;
+        return location = pinnedLocation;
       }
     });
     // update local state
