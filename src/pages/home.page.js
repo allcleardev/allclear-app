@@ -95,7 +95,7 @@ export default class HomePage extends Component {
   async updateUserProfile(pinnedLocation) {
     const { appState, setAppState } = this.context;
     const postData = [pinnedLocation.id];
-    const locations = this.locations.map((x) => (x.id === pinnedLocation.id ? pinnedLocation : x));
+    const locations = this.locations.map((location) => (location.id === pinnedLocation.id ? pinnedLocation : location));
 
     // update facility in server
     if (pinnedLocation.favorite) {
