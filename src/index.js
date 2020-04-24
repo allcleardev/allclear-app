@@ -14,17 +14,17 @@ import theme from './theme';
 import * as serviceWorker from './service-worker';
 import { bootstrapAxios } from '@util/bootstrap.helpers';
 
-const isLocalDevBuild = process.env.NODE_ENV === 'development';
+//const isLocalDevBuild = process.env.NODE_ENV === 'development';
 
 // run GA and logrocket on deployed versions of the app
-if (!isLocalDevBuild) {
+//if (!isLocalDevBuild) {
   //Initialize GA
   ReactGA.initialize('G-W6BW925QD6');
 
   //Initiate LogRocket
   LogRocket.init('jeskuj/allclear');
   setupLogRocketReact(LogRocket);
-}
+//}
 
 bootstrapAxios();
 
