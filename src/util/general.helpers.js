@@ -23,3 +23,15 @@ export function getNumActiveFilters(searchCriteria) {
     0,
   );
 }
+
+
+export function loadScript(file) {
+  var script = document.createElement("script");
+  script.type = "text/javascript";
+  script.async = true;
+  script.src = file;
+  script.onload = function(){
+    console.log('Script is ready!');
+  };
+  document.head.appendChild(script);
+}
