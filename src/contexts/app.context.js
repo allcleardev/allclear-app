@@ -26,7 +26,6 @@ export const INITIAL_APP_STATE = {
     name: undefined,
     latitude: undefined,
     longitude: undefined,
-    healthWorkerStatusId: undefined,
   },
   map: {
     locations: [],
