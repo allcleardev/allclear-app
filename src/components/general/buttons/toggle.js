@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { withStyles } from '@material-ui/core/styles';
+import { Tooltip, withStyles } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
@@ -52,6 +52,7 @@ const IOSSwitch = withStyles((theme) => ({
         thumb: classes.thumb,
         track: classes.track,
         checked: classes.checked,
+        disabled: classes.disabled,
       }}
       {...props}
     />
@@ -60,7 +61,7 @@ const IOSSwitch = withStyles((theme) => ({
 
 export default function Toggle(props) {
   const [toggleState, setToggleState] = React.useState({
-    checked: props.isChecked,
+    checked: props.defaultValue,
   });
 
   const handleUseMyLocationChange = (event) => {
@@ -72,12 +73,32 @@ export default function Toggle(props) {
     props.onToggled(toggleState);
   };
 
+  const LightTooltip = withStyles((theme) => ({
+    tooltip: {
+      backgroundColor: '#fff',
+      color: '#999',
+      boxShadow: theme.shadows[4],
+      fontSize: 13,
+      padding: 20,
+      borderRadius: 8,
+    },
+  }))(Tooltip);
+
   return (
-    <FormControl>
-      <FormControlLabel
-        className={props.className}
-        control={<IOSSwitch checked={toggleState.checked} onChange={handleUseMyLocationChange} name="checked" />}
-      />
-    </FormControl>
+    <LightTooltip title={props.disableToggle && props.disabledToggleMessage ? props.disabledToggleMessage : ''}>
+      <FormControl>
+        <FormControlLabel
+          className={props.className}
+          control={
+            <IOSSwitch
+              checked={toggleState.checked && !props.disableToggle}
+              disabled={props.disableToggle}
+              onChange={handleUseMyLocationChange}
+              name="checked"
+            />
+          }
+        />
+      </FormControl>
+    </LightTooltip>
   );
 }
