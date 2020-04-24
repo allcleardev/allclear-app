@@ -18,7 +18,7 @@ const IOSSwitch = withStyles((theme) => ({
       transform: 'translateX(16px)',
       color: theme.palette.common.white,
       '& + $track': {
-        backgroundColor: '#52d869',
+        backgroundColor: '#35C759',
         opacity: 1,
         border: 'none',
       },
@@ -58,10 +58,9 @@ const IOSSwitch = withStyles((theme) => ({
   );
 });
 
-export default function Toggle() {
+export default function Toggle(props) {
   const [toggleState, setToggleState] = React.useState({
-    checkedA: true,
-    checkedB: true,
+    checked: props.isChecked,
   });
 
   const handleUseMyLocationChange = (event) => {
@@ -69,12 +68,15 @@ export default function Toggle() {
       ...toggleState,
       [event.target.name]: event.target.checked,
     });
+
+    props.onToggled(toggleState);
   };
 
   return (
     <FormControl>
       <FormControlLabel
-        control={<IOSSwitch checked={toggleState.checkedB} onChange={handleUseMyLocationChange} name="checkedB" />}
+        className={props.className}
+        control={<IOSSwitch checked={toggleState.checked} onChange={handleUseMyLocationChange} name="checked" />}
       />
     </FormControl>
   );
