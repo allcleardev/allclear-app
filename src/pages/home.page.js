@@ -53,7 +53,7 @@ export default class HomePage extends Component {
     const testLocations = this.locations.sort((a, b) => b.favorite - a.favorite || a.meters - b.meters);
 
     this.setState({
-      locationName: get(appState, 'person.locationName') || 'N/A',
+      locationName: get(appState, 'person.locationName') || 'Using Current Location',
       testLocations: testLocations && testLocations.length ? testLocations.slice(0, 5) : [],
       symptomatic: symptoms && symptoms[0].id !== 'no' ? true : false,
       prioritized:
