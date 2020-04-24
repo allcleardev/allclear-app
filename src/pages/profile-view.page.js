@@ -4,7 +4,7 @@ import { bindAll } from 'lodash';
 
 import HomescreenHeader from '../components/general/headers/header-homescreen';
 import BottomNav from '../components/general/navs/bottom-nav';
-import userAvatar from '../assets/images/defaultProfile.svg';
+import userAvatar from '@assets/images/defaultProfile.svg';
 import PeopleService from '../services/people.service.js';
 import { AppContext, INITIAL_APP_STATE } from '../contexts/app.context';
 
@@ -32,7 +32,7 @@ export default class ProfileViewPage extends Component {
 
   async fetchProfile(session) {
     const currSession = this.context.appState.sessionId;
-    const {id} = this.context.appState.person;
+    const { id } = this.context.appState.person;
 
     const response = await this.peopleService.getById(id, currSession);
     const profile = response.data;
@@ -41,13 +41,14 @@ export default class ProfileViewPage extends Component {
   }
 
   async executeLogout() {
-    await this.peopleService.logout();
-    localStorage.removeItem('sessid');
+    const currSession = this.context.appState.sessionId;
+    await this.peopleService.logout(currSession);
+    localStorage.removeItem('sessionId');
     localStorage.removeItem('appState');
     localStorage.removeItem('session');
     const { setAppState } = this.context;
     setAppState(INITIAL_APP_STATE);
-    return this.props.history.push('/get-started');
+    return this.props.history.push('/get-started?logout=You%20have%20been%20successfully%20logged%20out.');
   }
 
   setProfile(session) {

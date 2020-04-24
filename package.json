@@ -1,6 +1,6 @@
 {
   "name": "allclear-pwa-2",
-  "version": "1.3.7",
+  "version": "1.4.2",
   "private": true,
   "scripts": {
     "start": "node stampBuild.js && react-app-rewired start",
@@ -74,6 +74,7 @@
     "@services": "./src/services",
     "@styles": "./src/styles",
     "@util": "./src/util",
-    "@hooks": "./src/hooks"
+    "@hooks": "./src/hooks",
+    "@assets": "./src/assets"
   }
 }

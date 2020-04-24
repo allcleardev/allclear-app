@@ -12,6 +12,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import PeopleService from '@services/people.service';
 import {AppContext} from '@contexts/app.context';
 import {bindAll} from 'lodash';
+import GAService from '@services/ga.service';
 
 export default class SignUpVerificationPage extends Component {
   static contextType = AppContext;
@@ -19,20 +20,50 @@ export default class SignUpVerificationPage extends Component {
   constructor(props) {
     super(props);
 
+    this.gaService = GAService.getInstance();
+    this.gaService.setScreenName('sign-up-verification');
+
     this.peopleService = PeopleService.getInstance();
 
     //eslint-disable-next-line
     this.state = {
       checkedB: true,
       loading: false,
+      code: undefined,
+      smsTimeoutEnabled: false
     };
 
     bindAll(this, [
       'sanitizePhone',
       'verifyPhoneNumber',
+      'resendCode',
+      'setSMSTimeout',
+      'validateState',
       'handleCodeChange',
       'onKeyPress'
     ]);
+  }
+
+  componentDidMount() {
+    this.validateState();
+    this.setSMSTimeout();
+  }
+
+  setSMSTimeout() {
+    this.setState({smsTimeoutEnabled: false});
+
+    setTimeout(() => {
+      this.setState({smsTimeoutEnabled: true});
+    }, 20000);
+  }
+
+  validateState() {
+    const { appState } = this.context;
+    const phone = appState.person.phone;
+
+    if (!phone) {
+      return this.routeChange('/sign-up');
+    }
   }
 
   sanitizePhone = (phone) => {
@@ -72,6 +103,47 @@ export default class SignUpVerificationPage extends Component {
       //TODO Error Message
     }
   };
+
+  async resendCode() {
+    const { appState } = this.context;
+    const signUpPayload = appState.signUpPayload;
+
+    //reset sms text timeout
+    this.setSMSTimeout();
+
+    this.setState({ loading: true });
+
+    if (!signUpPayload) {
+      this.setState({ loading: false });
+      return this.props.history.push('/sign-up');
+    }
+
+
+    const response = await this.peopleService.authStart(signUpPayload);
+
+    this.setState({ loading: false });
+
+    if (response.err) {
+      this.setState({smsTimeoutEnabled: true});
+      const error = response;
+
+      if (error && error.response) {
+        if (error.response.data && error.response.data.message) {
+          this.setState({
+            error: true,
+            message: error.response.data.message,
+            loading: false,
+          });
+        } else {
+          this.setState({
+            error: true,
+            message: 'An error occurred. Please try again later.',
+            loading: false,
+          });
+        }
+      }
+    }
+  }
 
   onKeyPress(e) {
     if (e.key === 'Enter') {
@@ -114,6 +186,16 @@ export default class SignUpVerificationPage extends Component {
                     onKeyPress={(e) => this.onKeyPress(e)}
                   />
                 </FormControl>
+              </div>
+
+              <div className="alert-messages">
+                {this.state.error === true ? <p className="error">{this.state.message}</p> : ''}
+                {this.state.smsTimeoutEnabled === true ? <p className="no-code-message">Didnt receive a code?</p> : ''}
+                {this.state.smsTimeoutEnabled === true ?
+                  <Button onClick={() => this.resendCode()} variant="contained" className="back">
+                    Resend Code
+                  </Button>
+                  : ''}
               </div>
 
               <div className="button-container">

@@ -7,15 +7,6 @@ button {
   outline: none !important;
 }
 
-.error {
-  margin: 5px 0;
-  opacity: 0.8;
-  text-align: center;
-  font-weight: 500;
-  font-size: 13px;
-  color: #bd0025;
-}
-
 .background-responsive {
   width: 100%;
 
@@ -50,6 +41,10 @@ button {
 
     @media (min-width: $md) {
       flex-direction: row;
+      margin: 20px 0 50px;
+    }
+
+    @media (min-width: $xl) {
       margin: 40px 0 70px;
     }
 
@@ -309,6 +304,10 @@ a {
 
 .white {
   color: $white-color !important;
+}
+
+.text-small {
+  font-size: 12px;
 }
 
 .list::before {

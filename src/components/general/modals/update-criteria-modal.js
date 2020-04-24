@@ -17,7 +17,6 @@ import ModalService from '@services/modal.service';
 import FacilityService from '@services/facility.service';
 
 export default function UpdateCriteriaModal() {
-
   // todo: this will probably have to move into App.js because it will be needed by all different parts of the app
   const modalService = ModalService.getInstance();
   modalService.registerModal('criteria', toggleModal);
@@ -67,9 +66,8 @@ export default function UpdateCriteriaModal() {
         aria-describedby="scroll-dialog-description"
         style={{ zIndex: '5' }}
       >
-        <DialogTitle id="scroll-dialog-title">Update Search Criteria</DialogTitle>
-        <DialogContent dividers={scroll === 'paper'}>
-
+        <DialogTitle id="scroll-dialog-title" style={{padding: '15px 46px 8px'}}>Update Search Criteria</DialogTitle>
+        <DialogContent dividers={scroll === 'paper'} classes={{root: 'update-criteria-modal'}} style={{padding: '8px 46px'}}>
           {/*<Button*/}
           {/*  onClick={_onResetClicked}*/}
           {/*  className="btn-big bg-primary color-white fontsize-16"*/}
@@ -122,11 +120,11 @@ function UpdateCriteria({ onClose, onSubmit }) {
   }
 
   async function _onSubmitClicked() {
-    let {latitude, longitude} = appState.person;
+    let { latitude, longitude } = appState.person;
 
     // default to last submitted search
-    latitude = (latitude) ? latitude : appState.map.latitude;
-    longitude = (longitude) ? longitude : appState.map.longitude;
+    latitude = latitude ? latitude : appState.map.latitude;
+    longitude = longitude ? longitude : appState.map.longitude;
 
     // call API
     const result = await facilityService.search({
@@ -148,7 +146,7 @@ function UpdateCriteria({ onClose, onSubmit }) {
       searchCriteria: formValues,
       isListLoading: false,
       modalSubmitCount: appState.modalSubmitCount + 1,
-      forceRefresh: !appState.forceRefresh
+      forceRefresh: !appState.forceRefresh,
     });
 
     // call parent submit function
@@ -157,25 +155,23 @@ function UpdateCriteria({ onClose, onSubmit }) {
 
   function _generateFormItems() {
     return CRITERIA_FORM_DATA.map((formItem, i) => {
-      let {title, options, key, inputType} = formItem;
+      let { title, options, key, inputType } = formItem;
 
       // account for options that come from an endpoint
-      options = (options) ? options : appState.profile.options[key];
+      options = options ? options : appState.profile.options[key];
       options = options || [];
 
       return (
         <div key={i} className="sub-card">
-
           {/*REGULAR SELECT*/}
-          {(inputType === 'select') && singleSelect({title, options, key})}
-
+          {inputType === 'select' && singleSelect({ title, options, key })}
         </div>
       );
     });
   }
 
   // Form Options
-  function singleSelect({title, options, key}) {
+  function singleSelect({ title, options, key }) {
     return (
       <>
         <h5 className="body-sub-title">{title}</h5>
@@ -187,14 +183,15 @@ function UpdateCriteria({ onClose, onSubmit }) {
             value={formValues[key]}
             onChange={_onSelectChanged}
           >
-            {options && options.map((optionItem, i2) => {
-              const {id, name} = optionItem;
-              return (
-                <MenuItem key={i2} value={id} name={name} data-name={name} data-key={key}>
-                  {name}
-                </MenuItem>
-              );
-            })}
+            {options &&
+              options.map((optionItem, i2) => {
+                const { id, name } = optionItem;
+                return (
+                  <MenuItem key={i2} value={id} name={name} data-name={name} data-key={key}>
+                    {name}
+                  </MenuItem>
+                );
+              })}
           </Select>
         </FormControl>
       </>
@@ -204,15 +201,6 @@ function UpdateCriteria({ onClose, onSubmit }) {
   return (
     <>
       <CardBlank>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}
-        ></div>
-
         {formItems}
       </CardBlank>
 
@@ -220,18 +208,17 @@ function UpdateCriteria({ onClose, onSubmit }) {
         container
         style={{
           display: 'flex',
-          justifyContent: 'space-around',
-          padding: '5px 0',
+          padding: '19px 0px 18px',
         }}
         className="btn-group"
       >
-        <Grid item xs={12} sm={5}>
-          <Button onClick={_onSubmitClicked} className="btn-big bg-primary color-white fontsize-16">
+        <Grid item xs={12} sm={6}>
+          <Button onClick={_onSubmitClicked} className="btn-big bg-primary color-white fontsize-16" style={{width: '90%'}}>
             Search
           </Button>
         </Grid>
-        <Grid item xs={12} sm={5}>
-          <Button onClick={onClose} className="btn-big bg-grey2 fontsize-16">
+        <Grid item xs={12} sm={6} className="text-md-right">
+          <Button onClick={onClose} className="btn-big bg-grey2 fontsize-16" style={{width: '90%'}}>
             Cancel
           </Button>
         </Grid>

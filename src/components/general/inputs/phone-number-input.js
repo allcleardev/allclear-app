@@ -56,9 +56,9 @@ class PhoneNumberInput extends Component {
   }
 
   onKeyDown(evt) {
-    // todo: for enter key
+    // todo: for enter key, investigate
     if(evt.key === 'Enter'){
-      this.props.onSubmit(this.state.phone);
+      //this.props.onSubmit(this.state.phone);
     }
   }
   render() {

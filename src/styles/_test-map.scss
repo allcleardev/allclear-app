@@ -2,20 +2,44 @@
   width: 100%;
 
   .edit-filters-btn {
-    margin: 20px 0px 20px 0px;
+    margin: 20px 0px;
+    max-height: 40px;
+  }
 
-    @media (max-width: $md) {
-      margin: 0px 0px 20px 0px;
+  .edit-filters-btn-container {
+    width: 100%;
+    
+    @media (max-width: $md - 1){
+      width: 50%;
     }
   }
 
+  .view-full-results-btn {
+    margin-left: 15px;
+
+    svg {
+      font-size: 32px;
+      height: 25px;
+    }
+
+    .MuiButton-endIcon{
+      margin-right: 0px;
+    }
+  }
+
+  .side-drawer{
+  }
+
   .MuiBadge-badge {
-    background-color: #ed1c23;
+    background-color: white;
+    color: $primary-color;
+    font-weight: bold;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
   }
 
   .MuiBadge-anchorOriginTopRightRectangle {
     right: 2%;
-    top: 12%;
+    top: 30%;
 
     @media (min-width: $md + 1) {
       top: 35%;
