@@ -7,6 +7,7 @@ import { bindAll, get } from 'lodash';
 import { AppContext } from '@contexts/app.context';
 import MyLocationMapMarker from './my-location-map-marker.js';
 import SnackbarMessage from '@general/alerts/snackbar-message';
+import GAService from '@services/ga.service';
 
 export default class GoogleMap extends Component {
   static contextType = AppContext;
@@ -34,6 +35,8 @@ export default class GoogleMap extends Component {
     ]);
     this.gMap = React.createRef();
     this.facilityService = FacilityService.getInstance();
+    this.gaService = GAService.getInstance();
+    this.gaService.setScreenName('map');
   }
 
   async componentDidMount() {
@@ -110,7 +113,7 @@ export default class GoogleMap extends Component {
   }
 
   async _onLocationAccepted(pos) {
-    // console.warn('location ACCEPTED');
+    this.gaService.sendEvent('current_location_enabled', {});
     const latitude = pos.coords.latitude;
     const longitude = pos.coords.longitude;
     this._panTo(latitude, longitude);
@@ -123,9 +126,8 @@ export default class GoogleMap extends Component {
   }
 
   _onLocationDeclined() {
-    console.warn('location DECLINED');
     const { appState } = this.context;
-    const {longitude, latitude} = appState.map;
+    const { longitude, latitude } = appState.map;
     this._panTo(latitude, longitude);
     this._search(latitude, longitude);
     this.setState({

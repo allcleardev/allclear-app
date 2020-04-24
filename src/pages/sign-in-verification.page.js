@@ -30,12 +30,14 @@ export default class SignInVerificationPage extends Component {
     this.state = {
       checkedB: true,
       loading: false,
-      code: undefined
+      code: undefined,
+      smsTimeoutEnabled: false
     };
 
     bindAll(this, [
       'sanitizePhone',
       'verifyPhoneNumber',
+      'resendCode',
       'handleCodeChange',
       'onKeyPress',
       'validateState'
@@ -44,10 +46,19 @@ export default class SignInVerificationPage extends Component {
 
   componentDidMount() {
     this.validateState();
+    this.setSMSTimeout();
+  }
+
+  setSMSTimeout() {
+    this.setState({smsTimeoutEnabled: false});
+
+    setTimeout(() => {
+      this.setState({smsTimeoutEnabled: true});
+    }, 20000);
   }
 
   validateState() {
-    const { appState } = this.context;
+    const {appState} = this.context;
     const phone = appState.person.phone;
 
     if (!phone) {
@@ -68,7 +79,7 @@ export default class SignInVerificationPage extends Component {
 
   // Function to make call backend service to confirm the magic link
   async verifyPhoneNumber() {
-    const { appState, setAppState } = this.context;
+    const {appState, setAppState} = this.context;
 
     let phone = appState.person.phone;
     const token = this.state.code;
@@ -81,7 +92,7 @@ export default class SignInVerificationPage extends Component {
       setAppState({
         ...appState,
         sessionId: response.data.id,
-        person:response.data.person
+        person: response.data.person
       });
 
       localStorage.setItem('sessionId', response.data.id);
@@ -108,6 +119,46 @@ export default class SignInVerificationPage extends Component {
       }
     }
   };
+
+  async resendCode() {
+    const {appState} = this.context;
+    const phone = appState.person.phone;
+
+    //reset sms text timeout
+    this.setSMSTimeout();
+
+    this.setState({loading: true});
+
+    if (!phone) {
+      this.setState({loading: false});
+      return this.props.history.push('/sign-in');
+    }
+
+    const response = await this.peopleService.login({phone});
+
+    this.setState({loading: false});
+
+    if (response.err) {
+      this.setState({smsTimeoutEnabled: true});
+      const error = response;
+
+      if (error && error.response) {
+        if (error.response.data && error.response.data.message) {
+          this.setState({
+            error: true,
+            message: error.response.data.message,
+            loading: false,
+          });
+        } else {
+          this.setState({
+            error: true,
+            message: 'An error occurred. Please try again later.',
+            loading: false,
+          });
+        }
+      }
+    }
+  }
 
   onKeyPress(e) {
     if (e.key === 'Enter') {
@@ -154,7 +205,16 @@ export default class SignInVerificationPage extends Component {
                       You've entered an incorrect code. Please try again.
                     </FormLabel>
                   )}
+                  {this.state.smsTimeoutEnabled === true ? <p className="no-code-message">Didnt receive a code?</p> : ''}
+                  {this.state.smsTimeoutEnabled === true ?
+                   <Button onClick={() => this.resendCode()} variant="contained" className="back">
+                     Resend Code
+                   </Button> : ''}
+
+
                 </FormControl>
+
+                {this.state.error === true ? <p className="error">{this.state.message}</p> : ''}
               </div>
 
               <div className="button-container">
@@ -169,12 +229,12 @@ export default class SignInVerificationPage extends Component {
               </div>
             </Form>
           ) : (
-            <Grid container justify="center">
-              <Grid item xs={12} sm={6}>
-                <LinearProgress color="primary" value={50} variant="indeterminate"/>
-              </Grid>
-            </Grid>
-          )}
+             <Grid container justify="center">
+               <Grid item xs={12} sm={6}>
+                 <LinearProgress color="primary" value={50} variant="indeterminate"/>
+               </Grid>
+             </Grid>
+           )}
           {this.state.loading === false ? <ProgressBottom progress="75%"></ProgressBottom> : null}
         </div>
       </div>
