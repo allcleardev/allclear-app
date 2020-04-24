@@ -1,27 +1,44 @@
-import React from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 
 import throttle from 'lodash/throttle';
 import parse from 'autosuggest-highlight/parse';
-import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+import {geocodeByAddress, getLatLng} from 'react-places-autocomplete';
 
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
-import { TextField, Grid, Typography, makeStyles } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
+import {TextField, Grid, Typography, makeStyles} from '@material-ui/core';
+import clsx from 'clsx';
 
-const autocompleteService = { current: null };
+const autocompleteService = {current: null};
 
 const useStyles = makeStyles((theme) => ({
   icon: {
     color: theme.palette.text.secondary,
     marginRight: theme.spacing(2),
   },
+  hidden: {
+    display: 'none'
+  },
+  show: {
+    display: 'initial'
+  }
+
 }));
 
 export default function GoogleMapsAutocomplete(props) {
   const classes = useStyles();
-  const [inputValue, setInputValue] = React.useState('');
-  const [options, setOptions] = React.useState([]);
+  const [inputValue, setInputValue] = useState('');
+  const [options, setOptions] = useState([]);
 
+  // only for clears
+  function onInputChanged(evt, value, reason) {
+    if (reason === 'clear') {
+      props.onClear && props.onClear();
+    }
+  }
+
+  // normal text changes
   const handleTextChange = (event) => {
     setInputValue(event.target.value);
   };
@@ -47,7 +64,7 @@ export default function GoogleMapsAutocomplete(props) {
     }
   };
 
-  const fetch = React.useMemo(
+  const fetch = useMemo(
     () =>
       throttle((request, callback) => {
         autocompleteService.current.getPlacePredictions(request, callback);
@@ -55,7 +72,7 @@ export default function GoogleMapsAutocomplete(props) {
     [],
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     let active = true;
 
     if (!autocompleteService.current && window.google) {
@@ -70,7 +87,7 @@ export default function GoogleMapsAutocomplete(props) {
       return undefined;
     }
 
-    fetch({ input: inputValue }, (results) => {
+    fetch({input: inputValue}, (results) => {
       if (active) {
         setOptions(results || []);
       }
@@ -81,16 +98,28 @@ export default function GoogleMapsAutocomplete(props) {
     };
   }, [inputValue, fetch]);
 
+
   if (!props.useCurrentLocation) {
     return (
       <Autocomplete
         id="google-maps-autocomplete"
+        autoComplete
+        includeInputInList
+        clearOnEscape
+        closeIcon={<CloseIcon fontSize="small"/>}
+        noOptionsText={'Please Enter a Search Term to View Results'}
+        classes={{
+          endAdornment: clsx(classes.hidden, {
+            [classes.show]: (options.length > 0),
+          })
+        }}
         getOptionLabel={(option) => (typeof option === 'string' ? option : option.description)}
         filterOptions={(x) => x}
         options={options}
-        autoComplete
-        includeInputInList
         onChange={handleSelectionChange}
+        onInputChange={(e, v, r) => {
+          props.onClear && onInputChanged(e,v,r);
+        }}
         disabled={props.useCurrentLocation}
         defaultValue={props.initialValue}
         renderInput={(params) => (
@@ -113,11 +142,11 @@ export default function GoogleMapsAutocomplete(props) {
           return (
             <Grid container alignItems="center">
               <Grid item>
-                <LocationOnIcon className={classes.icon} />
+                <LocationOnIcon className={classes.icon}/>
               </Grid>
               <Grid item xs>
                 {parts.map((part, index) => (
-                  <span key={index} style={{ fontWeight: part.highlight ? 700 : 400 }}>
+                  <span key={index} style={{fontWeight: part.highlight ? 700 : 400}}>
                     {part.text}
                   </span>
                 ))}

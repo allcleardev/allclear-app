@@ -17,6 +17,8 @@ forEach(CRITERIA_FORM_DATA, (e, i) => {
 });
 
 export const INITIAL_APP_STATE = {
+
+  // data objects read within different components
   sessionId: undefined,
   person: {
     dob: undefined,
@@ -48,6 +50,13 @@ export const INITIAL_APP_STATE = {
   // this is to re-trigger a render on modal (
   forceRefresh: false,
   modalSubmitCount: 0,
+
+  // functions within child components that are needed globally
+  effects: {
+    map: {
+      onLocationAccepted: undefined
+    }
+  }
 };
 
 // Context state
