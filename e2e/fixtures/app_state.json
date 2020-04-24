@@ -1,0 +1,94 @@
+{
+  "sessionId": "4c033380-af45-46a8-aa46-68507e187660",
+  "person": {
+    "locationName": "Brooklyn, NY 11211, USA",
+    "latitude": 40.7093358,
+    "longitude": -73.9565551
+  },
+  "map": {
+    "locations": [],
+    "expandedItems": [],
+    "isListLoading": true,
+    "searchFilterActive": false
+  },
+  "searchCriteria": {
+    "driveThru": "Any",
+    "appointmentRequired": "Any",
+    "exposures": "lw",
+    "healthWorkerStatus": "h"
+  },
+  "profile": {
+    "options": {
+      "healthWorkerStatus": {
+        "id": "h",
+        "name": "I am a Health Worker or First Responder",
+        "staff": true,
+        "isActive": true
+      },
+      "symptoms": [
+        {
+          "id": "fv",
+          "name": "Fever",
+          "isActive": true
+        },
+        {
+          "id": "sb",
+          "name": "Shortness of Breath"
+        },
+        {
+          "id": "dc",
+          "name": "Dry Cough"
+        },
+        {
+          "id": "fg",
+          "name": "Fatigue"
+        },
+        {
+          "id": "rn",
+          "name": "Runny Nose/Nasal Congestion"
+        },
+        {
+          "id": "st",
+          "name": "Sore Throat"
+        },
+        {
+          "id": "nv",
+          "name": "Nausea and/or Vomiting"
+        },
+        {
+          "id": "ma",
+          "name": "Muscle ache"
+        },
+        {
+          "id": "dh",
+          "name": "Diarrhea"
+        },
+        {
+          "id": "no",
+          "name": "None",
+          "isActive": false
+        }
+      ],
+      "exposures": [
+        {
+          "id": "lw",
+          "name": "Live with someone"
+        },
+        {
+          "id": "cc",
+          "name": "Close contact with someone"
+        },
+        {
+          "id": "us",
+          "name": "Unsure"
+        },
+        {
+          "id": "ne",
+          "name": "No Exposure"
+        }
+      ]
+    }
+  },
+  "forceRefresh": false,
+  "modalSubmitCount": 0
+}

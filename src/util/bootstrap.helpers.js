@@ -8,6 +8,8 @@ export function bootstrapAxios() {
     'facilities/search',
     '/peoples/register',
     'peoples/register',
+    '/peoples/facilities',
+    'peoples/facilities',
     '/peoples',
     'peoples',
   ];
