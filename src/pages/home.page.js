@@ -72,7 +72,7 @@ export default class HomePage extends Component {
     // update selected location with new pinned location state
     testLocations.map((location) => {
       if (location.id === pinnedLocation.id) {
-        return location = pinnedLocation;
+        return (location = pinnedLocation);
       }
     });
     // update local state
@@ -200,7 +200,7 @@ export default class HomePage extends Component {
               </section>
             )}
 
-            {testLocations && testLocations.length ? (
+            {testLocations && testLocations.length && this.locations && this.state.locations.length > 5 ? (
               <Button
                 fullWidth
                 variant="outlined"
