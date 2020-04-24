@@ -7,7 +7,7 @@ import Header from '../components/general/headers/header';
 import BottomNav from '../components/general/navs/bottom-nav';
 import UserAvatar from '../assets/images/defaultProfile.svg';
 import PersonShareIcon from '../assets/images/person-share-icon.svg';
-import { ReactComponent as PinIcon } from '../assets/images/pin.svg';
+import { ReactComponent as PinIcon } from '../assets/images/pin-icon.svg';
 import { ReactComponent as SettingsIcon } from '../assets/images/settings-icon.svg';
 import { AppContext } from '../contexts/app.context';
 
