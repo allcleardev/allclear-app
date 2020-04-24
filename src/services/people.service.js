@@ -29,11 +29,13 @@ export default class PeopleService {
   }
 
   getById(id, currSession) {
-    currSession = (currSession) ? {
-      'X-AllClear-SessionID': currSession,
-    } : {
-      ...this.headers.headers
-    };
+    currSession = currSession
+      ? {
+          'X-AllClear-SessionID': currSession,
+        }
+      : {
+          ...this.headers.headers,
+        };
     return Axios({
       method: 'GET',
       url: `${this.baseURL}/${id}`,
@@ -42,11 +44,13 @@ export default class PeopleService {
   }
 
   logout(currSession) {
-    const headers = (currSession) ? {
-      'X-AllClear-SessionID': currSession,
-    } : {
-      ...this.headers.headers
-    };
+    const headers = currSession
+      ? {
+          'X-AllClear-SessionID': currSession,
+        }
+      : {
+          ...this.headers.headers,
+        };
     return Axios({
       method: 'DELETE',
       url: this.logoutURL,
@@ -55,12 +59,34 @@ export default class PeopleService {
   }
 
   async editProfile(postData, currSession) {
-    currSession = (currSession) ? {
-      'X-AllClear-SessionID': currSession,
-    } : {
-      ...this.headers.headers
-    };
+    currSession = currSession
+      ? {
+          'X-AllClear-SessionID': currSession,
+        }
+      : {
+          ...this.headers.headers,
+        };
     return Axios.put(`${this.baseURL}`, postData, currSession)
+      .then((response) => {
+        return response;
+      })
+      .catch((error) => {
+        return error;
+      });
+  }
+
+  async addFacility(postData) {
+    return Axios.post(`${this.baseURL}/facilities`, postData)
+      .then((response) => {
+        return response;
+      })
+      .catch((error) => {
+        return error;
+      });
+  }
+
+  async removeFacility(postData) {
+    return Axios.delete(`${this.baseURL}/facilities`, { data: postData })
       .then((response) => {
         return response;
       })

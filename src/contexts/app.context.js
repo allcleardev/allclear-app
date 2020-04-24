@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
-import {forEach, get} from 'lodash';
-import {CRITERIA_FORM_DATA} from '@general/modals/update-criteria-modal.constants';
+import React, { useState } from 'react';
+import { forEach, get } from 'lodash';
+import { CRITERIA_FORM_DATA } from '@general/modals/update-criteria-modal.constants';
 // import TypesService from '@services/types.service';
 
 // Set Up The Initial Context
@@ -25,7 +25,7 @@ export const INITIAL_APP_STATE = {
     phone: undefined,
     name: undefined,
     latitude: undefined,
-    longitude: undefined
+    longitude: undefined,
   },
   map: {
     locations: [],
@@ -33,7 +33,7 @@ export const INITIAL_APP_STATE = {
     isListLoading: true,
     searchFilterActive: false,
     latitude: undefined,
-    longitude: undefined
+    longitude: undefined,
   },
   searchCriteria,
   profile: {
@@ -41,7 +41,7 @@ export const INITIAL_APP_STATE = {
       healthWorkerStatus: undefined,
       symptoms: undefined,
       exposures: undefined,
-    }
+    },
   },
   signUpPayload: undefined,
 
@@ -108,7 +108,6 @@ export function AppProvider(props) {
   //   ();
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, []);
-
 
   // todo: put this back when dynamic options come back into modal
   // check user profile for saved option values before modal actually opens

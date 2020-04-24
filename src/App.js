@@ -19,6 +19,7 @@ import HealthWorkerStatusPage from '@pages/health-worker-status.page';
 // import LaunchPage from '@pages/launch.page';
 import SignInPage from '@pages/sign-in.page';
 import LoginMagicLinkPage from '@pages/login-magic-link.page';
+import HomePage from '@pages/home.page';
 import MapPage from '@pages/map.page';
 import ProfileEditPage from '@pages/profile-edit.page';
 import ProfileViewPage from '@pages/profile-view.page';
@@ -31,7 +32,7 @@ import TracingPage from '@pages/tracing.page';
 import UpdateTestingCenterCriteria from '@pages/update-testing-center-criteria.page';
 import VerifyMagicLinkPage from '@pages/verify-magic-link.page';
 import NotFoundPage from '@pages/not-found.page';
-import {Redirect} from 'react-router';
+import { Redirect } from 'react-router';
 import SignUpPage from '@pages/sign-up.page';
 
 export const history = createBrowserHistory();
@@ -70,6 +71,9 @@ export default function App() {
           <Route path="/share" component={SharePage} />
           <Route path="/settings" component={SettingsPage} />
           <Route path="/contact-tracing" component={TracingPage} />
+
+          {/* Home Pages */}
+          <Route path="/home" component={HomePage} />
 
           {/* Map */}
           <Route path="/map" component={MapPage} />
