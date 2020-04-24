@@ -28,6 +28,7 @@ if (!isLocalDevBuild) {
   //eslint-disable-next-line
   window.dataLayer = window.dataLayer || [];
   function gtag(){
+    //eslint-disable-next-line
     dataLayer.push(arguments);
   }
   gtag('js', new Date());
