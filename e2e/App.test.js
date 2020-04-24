@@ -1,10 +1,10 @@
-const config = require('dotenv').config();
 const puppeteer = require('puppeteer');
-const client = require('twilio')(
-  config.parsed.TWILIO_E2E_SID, config.parsed.TWILIO_E2E_SECRET
-);
-const e2ePhoneNumber = '6466030984';
-var verificationCode = "";
+// const config = require('dotenv').config();
+// const client = require('twilio')(
+//   config.parsed.TWILIO_E2E_SID, config.parsed.TWILIO_E2E_SECRET
+// );
+// const e2ePhoneNumber = '6466030984';
+// var verificationCode = "";
 
 // I pulled these args from a SO post, puppeteer seems eat up a lot
 // of resources on my machine, this is intended to reduce some of that
