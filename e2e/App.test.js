@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer');
-// const config = require('dotenv').config();
+const config = require('dotenv').config();
 // const client = require('twilio')(
 //   config.parsed.TWILIO_E2E_SID, config.parsed.TWILIO_E2E_SECRET
 // );
@@ -71,7 +71,7 @@ describe('Testing individual pages', () => {
 
     let header = await page.$x('.//h1[contains(@class, "heading")]');
     var text = await (await header[0].getProperty('textContent')).jsonValue();
-    expect(text).toBe('Background');
+    expect(text).toBe('Your Location');
 
     await browser.close();
   }, 7000);
@@ -91,7 +91,7 @@ describe('Testing individual pages', () => {
       userAgent: ''
     });
 
-    await page.goto('http://localhost:3000/background');
+    await page.goto('http://localhost:3000/location');
     await page.waitForXPath('.//input[@id="google-maps-autocomplete"]');
     await page.type('#google-maps-autocomplete', '11211')
 
@@ -352,10 +352,10 @@ describe('Start on sign-up page', () => {
       headless: true
     });
 
-    const localStorage = require('./fixtures/app_state.json');
-
+    let appState = require('./fixtures/app_state.json');
+    appState.sessionId = config.parsed.SESSION_ID;
     await setDomainLocalStorage(
-      browser, 'http://localhost:3000/get-started', localStorage
+      browser, 'http://localhost:3000/get-started', appState
     );
 
     let page = await browser.newPage();
@@ -372,6 +372,10 @@ describe('Start on sign-up page', () => {
 
     let url = new URL(page.url());
     expect(url.pathname).toBe('/sign-up');
+
+    await setDomainLocalStorage(
+      browser, 'http://localhost:3000/get-started', {}
+    );
   }, 20000);
 
   test('Can click send verification code', async () => {
@@ -379,10 +383,10 @@ describe('Start on sign-up page', () => {
       headless: true
     });
 
-    const localStorage = require('./fixtures/app_state.json');
-
+    let appState = require('./fixtures/app_state.json');
+    appState.sessionId = config.parsed.SESSION_ID;
     await setDomainLocalStorage(
-      browser, 'http://localhost:3000/get-started', localStorage
+      browser, 'http://localhost:3000/get-started', appState
     );
 
     let page = await browser.newPage();
@@ -409,6 +413,10 @@ describe('Start on sign-up page', () => {
     await page.waitFor(4000);
     const is_not_disabled = (await page.$x('//button[@disabled]')).length === 0;
     expect(is_not_disabled).toBe(true);
+
+    await setDomainLocalStorage(
+      browser, 'http://localhost:3000/get-started', {}
+    );
   }, 20000);
 
   // TODO: can land on map
@@ -417,11 +425,11 @@ describe('Start on sign-up page', () => {
   //     headless: false
   //   });
 
-  //   const localStorage = require('./fixtures/app_state.json');
-
-  //   await setDomainLocalStorage(
-  //     browser, 'http://localhost:3000/get-started', localStorage
-  //   );
+  // let appState = require('./fixtures/app_state.json');
+  // appState.sessionId = config.parsed.SESSION_ID;
+  // await setDomainLocalStorage(
+  //   browser, 'http://localhost:3000/get-started', appState
+  // );
 
   //   let page = await browser.newPage();
 
