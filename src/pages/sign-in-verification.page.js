@@ -96,7 +96,7 @@ export default class SignInVerificationPage extends Component {
       });
 
       localStorage.setItem('sessionId', response.data.id);
-      localStorage.setItem('session', response.data);
+      localStorage.setItem('session', JSON.stringify(response.data));
 
       this.props.history.push('/map');
     } else {

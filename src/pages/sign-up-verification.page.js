@@ -95,7 +95,7 @@ export default class SignUpVerificationPage extends Component {
         person:response.data.person
       });
       localStorage.setItem('sessionId', response.data.id);
-      localStorage.setItem('session', response.data);
+      localStorage.setItem('session', JSON.stringify(response.data));
 
       this.props.history.push('/map');
 

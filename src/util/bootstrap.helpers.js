@@ -55,6 +55,7 @@ export function bootstrapAxios() {
     },
     (error) => {
       if (get(error, 'response.status') === 403) {
+        localStorage.removeItem('session');
         localStorage.removeItem('sessionId');
         localStorage.removeItem('appState');
         history.push('/get-started?logout=true');
