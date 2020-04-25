@@ -70,8 +70,8 @@ export default class ProfileEditPage extends Component {
     // NOTE* This feature is only supported by Chrome and Edge atm
     // (https://developer.mozilla.org/en-US/docs/Web/API/Permissions_API)
     if (navigator && navigator.permissions) {
-      navigator.permissions.query({ name: 'geolocation' }).then((PermissionStatus) => {
-        if (PermissionStatus.state === 'denied') {
+      navigator.permissions.query({ name: 'geolocation' }).then((permissionStatus) => {
+        if (permissionStatus.state === 'denied') {
           this.setState({ disableLocationToggle: true });
         }
       });
