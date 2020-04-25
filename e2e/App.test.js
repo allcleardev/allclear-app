@@ -62,7 +62,9 @@ describe('Testing individual pages', () => {
     });
 
     await page.goto('http://localhost:3000/get-started');
-    await page.waitForXPath('.//button[contains(@class, "signup")]');
+
+    let url = new URL(page.url());
+    expect(url.pathname).toBe('/get-started');
 
     await browser.close();
   }, 7000);
