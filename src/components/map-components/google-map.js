@@ -109,9 +109,9 @@ export default class GoogleMap extends Component {
         locations,
       },
       isListLoading: false,
-      effects:{
+      effects: {
         ...appState.effects,
-        map:{
+        map: {
           ...appState.effects.map,
           onLocationAccepted: this._onLocationAccepted,
         }

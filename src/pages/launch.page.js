@@ -26,15 +26,10 @@ const LaunchPage = ({ props }) => {
   gaService.setScreenName('launch');
 
   const history = useHistory();
-  const sessid = localStorage.getItem('sessionId');
 
   useEffect(() => {
     setTimeout(() => {
-      if (sessid) {
-        history.push('/map');
-      } else {
-        history.push('/get-started');
-      }
+      history.push('/map');
     }, 3000);
   });
 
