@@ -26,6 +26,25 @@ const takeScreenshot = async (page, name) => {
   page.screenshot({path: `./e2e/screenshots/${name}.png`});
 }
 
+const setDomainLocalStorage = async (browser, url, values) => {
+  const page = await browser.newPage();
+  await page.setRequestInterception(true);
+  page.on('request', r => {
+    r.respond({
+      status: 200,
+      contentType: 'text/plain',
+      body: 'tweak me.',
+    });
+  });
+  await page.goto(url);
+  await page.evaluate(values => {
+    localStorage.setItem("appState", JSON.stringify(values));
+  }, values);
+
+  await page.close();
+  return;
+};
+
 describe('Testing individual pages', () => {
   test('App splash page loads correctly', async () => {
 
@@ -44,6 +63,36 @@ describe('Testing individual pages', () => {
 
     await page.goto('http://localhost:3000/get-started');
     await page.waitForXPath('.//button[contains(@class, "signup")]');
+
+    await browser.close();
+  }, 7000);
+
+  test('Can skip to sign-in page', async () => {
+
+    let browser = await puppeteer.launch({
+      headless: true
+    });
+    let page = await browser.newPage();
+
+    page.emulate({
+      viewport: {
+        width: 500,
+        height: 2400
+      },
+      userAgent: ''
+    });
+
+    await page.goto('http://localhost:3000/get-started');
+    await page.waitForXPath('.//button[contains(@class, "signup")]');
+
+    await page.waitFor(4000);
+    let button = await page.$x('.//button[contains(@class, "signin")]');
+    button[0].click();
+
+    await page.waitForNavigation();
+
+    let url = new URL(page.url());
+    expect(url.pathname).toBe('/sign-in');
 
     await browser.close();
   }, 7000);
@@ -327,25 +376,6 @@ describe('Stepping through from get-started to sign-up', () => {
   }, 25000);
 });
 
-const setDomainLocalStorage = async (browser, url, values) => {
-  const page = await browser.newPage();
-  await page.setRequestInterception(true);
-  page.on('request', r => {
-    r.respond({
-      status: 200,
-      contentType: 'text/plain',
-      body: 'tweak me.',
-    });
-  });
-  await page.goto(url);
-  await page.evaluate(values => {
-    localStorage.setItem("appState", JSON.stringify(values));
-  }, values);
-
-  await page.close();
-  return;
-};
-
 describe('Start on sign-up page', () => {
   test('Land on signup page', async () => {
     let browser = await puppeteer.launch({
@@ -372,6 +402,42 @@ describe('Start on sign-up page', () => {
 
     let url = new URL(page.url());
     expect(url.pathname).toBe('/sign-up');
+
+    await setDomainLocalStorage(
+      browser, 'http://localhost:3000/get-started', {}
+    );
+  }, 20000);
+
+  test('Can navigate from signup page to signin', async () => {
+    let browser = await puppeteer.launch({
+      headless: true
+    });
+
+    let appState = require('./fixtures/app_state.json');
+    appState.sessionId = config.parsed.SESSION_ID;
+    await setDomainLocalStorage(
+      browser, 'http://localhost:3000/get-started', appState
+    );
+
+    let page = await browser.newPage();
+
+    page.emulate({
+      viewport: {
+        width: 500,
+        height: 2400
+      },
+      userAgent: ''
+    });
+
+    await page.goto('http://localhost:3000/sign-up');
+
+    let signIn = await page.$x('.//a[@class="sign-in"]');
+    signIn[0].click();
+
+    await page.waitForNavigation();
+
+    let url = new URL(page.url());
+    expect(url.pathname).toBe('/sign-in');
 
     await setDomainLocalStorage(
       browser, 'http://localhost:3000/get-started', {}
@@ -419,31 +485,95 @@ describe('Start on sign-up page', () => {
     );
   }, 20000);
 
-  // TODO: can land on map
-  // test('Land on map', async () => {
-  //   let browser = await puppeteer.launch({
-  //     headless: false
-  //   });
+  test('Land on signin page', async () => {
+    let browser = await puppeteer.launch({
+      headless: true
+    });
 
-  // let appState = require('./fixtures/app_state.json');
-  // appState.sessionId = config.parsed.SESSION_ID;
-  // await setDomainLocalStorage(
-  //   browser, 'http://localhost:3000/get-started', appState
-  // );
+    let appState = require('./fixtures/app_state.json');
+    appState.sessionId = config.parsed.SESSION_ID;
+    await setDomainLocalStorage(
+      browser, 'http://localhost:3000/get-started', appState
+    );
 
-  //   let page = await browser.newPage();
+    let page = await browser.newPage();
 
-  //   page.emulate({
-  //     viewport: {
-  //       width: 500,
-  //       height: 2400
-  //     },
-  //     userAgent: ''
-  //   });
+    page.emulate({
+      viewport: {
+        width: 500,
+        height: 2400
+      },
+      userAgent: ''
+    });
 
-  //   await page.goto('http://localhost:3000/map');
+    await page.goto('http://localhost:3000/sign-in');
 
-  //   let url = new URL(page.url());
-  //   expect(url.pathname).toBe('/map');
-  // }, 20000);
+    let url = new URL(page.url());
+    expect(url.pathname).toBe('/sign-in');
+
+    await setDomainLocalStorage(
+      browser, 'http://localhost:3000/get-started', {}
+    );
+  }, 20000);
+
+  test('Land on map', async () => {
+    let browser = await puppeteer.launch({
+      headless: true
+    });
+
+    let appState = require('./fixtures/app_state.json');
+    appState.sessionId = config.parsed.SESSION_ID;
+    await setDomainLocalStorage(
+      browser, 'http://localhost:3000/get-started', appState
+    );
+
+    let page = await browser.newPage();
+
+    page.emulate({
+      viewport: {
+        width: 500,
+        height: 2400
+      },
+      userAgent: ''
+    });
+
+    await page.goto('http://localhost:3000/map');
+    let url = new URL(page.url());
+    expect(url.pathname).toBe('/map');
+
+    await setDomainLocalStorage(
+      browser, 'http://localhost:3000/get-started', {}
+    );
+  }, 20000);
+
+  test('Can land on profile page', async () => {
+    let browser = await puppeteer.launch({
+      headless: true
+    });
+
+    let appState = require('./fixtures/app_state.json');
+    appState.sessionId = config.parsed.SESSION_ID;
+    await setDomainLocalStorage(
+      browser, 'http://localhost:3000/get-started', appState
+    );
+
+    let page = await browser.newPage();
+
+    page.emulate({
+      viewport: {
+        width: 500,
+        height: 2400
+      },
+      userAgent: ''
+    });
+
+    await page.goto('http://localhost:3000/profile');
+
+    let url = new URL(page.url());
+    expect(url.pathname).toBe('/profile');
+
+    await setDomainLocalStorage(
+      browser, 'http://localhost:3000/get-started', {}
+    );
+  }, 20000);
 });
