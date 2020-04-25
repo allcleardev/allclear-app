@@ -1,7 +1,8 @@
 import React from 'react';
-import ReactGA from 'react-ga';
+// todo: init w library instead
+// import ReactGA from 'react-ga';
 import ReactDOM from 'react-dom';
-import { colorLog } from './util/general.helpers';
+import {colorLog, loadScript} from './util/general.helpers';
 import LogRocket from 'logrocket';
 import setupLogRocketReact from 'logrocket-react';
 
@@ -14,17 +15,30 @@ import theme from './theme';
 import * as serviceWorker from './service-worker';
 import { bootstrapAxios } from '@util/bootstrap.helpers';
 
-//const isLocalDevBuild = process.env.NODE_ENV === 'development';
+const isLocalDevBuild = process.env.NODE_ENV === 'development';
 
 // run GA and logrocket on deployed versions of the app
-//if (!isLocalDevBuild) {
+if (!isLocalDevBuild) {
+
   //Initialize GA
-  ReactGA.initialize('G-W6BW925QD6');
+
+  // ReactGA.initialize('G-W6BW925QD6');
+  loadScript('https://www.googletagmanager.com/gtag/js?id=G-W6BW925QD6');
+
+  //eslint-disable-next-line
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){
+    //eslint-disable-next-line
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+  gtag('config', 'G-W6BW925QD6');
+
 
   //Initiate LogRocket
   LogRocket.init('jeskuj/allclear');
   setupLogRocketReact(LogRocket);
-//}
+}
 
 bootstrapAxios();
 
