@@ -1,3 +1,12 @@
+/*
+  TODO:
+  -- probably makes sense to move 'shared' styles currently in _global.scss to here
+  -- should we look into utilizing scss functions more? or remove?
+
+  NOTE:
+  -- marking classes w/filenames that are utilizing them to help organize/figure out plan of action
+*/
+
 $colors: (
   'primary': $primary-color,
   'white': $white-color,
@@ -9,58 +18,40 @@ $colors: (
 
 @each $name, $color in $colors {
   .bg-#{$name} {
+    /*
+      update-criteria-modal.js
+      not-found.page.js
+      update-testing-center-criteria.page.js
+    */
     background-color: $color !important;
   }
 
   .color-#{$name} {
+    /*
+      update-criteria-modal.js
+      update-testing-center-criteria.page.js
+    */
     color: $color !important;
   }
 }
 
 @for $num from 12 to 100 {
   .fontsize-#{$num} {
+    /*
+      update-criteria-modal.js
+      testing-location-list-item.js
+      profile-view.page.js
+      update-testing-center-criteria.page.js
+    */
     font-size: $num + px !important;
   }
 
   .height-#{$num} {
+    /*
+      NOTE: not being used.. Should we? Or remove?
+    */
     height: $num + px !important;
   }
-}
-
-.flex-container {
-  display: flex;
-}
-
-.flex-direction-row {
-  flex-direction: row;
-}
-
-.flex-direction-col {
-  flex-direction: column;
-}
-
-.flex-just-center {
-  justify-content: center;
-}
-
-.flex-align-center {
-  align-items: center;
-}
-
-.flex-just-between {
-  justify-content: space-between;
-}
-
-.flex-align-start {
-  align-items: flex-start;
-}
-
-.flex-wrap-on {
-  flex-wrap: wrap;
-}
-
-.flex-wrap-off {
-  flex-wrap: nowrap;
 }
 
 .snackbar {
@@ -75,11 +66,10 @@ $colors: (
     .MuiAlert-standardError {
       background-color: white;
     }
-    .MuiAlert-icon{
+    .MuiAlert-icon {
       display: flex;
       flex-direction: column;
       justify-content: center;
     }
-
   }
 }
