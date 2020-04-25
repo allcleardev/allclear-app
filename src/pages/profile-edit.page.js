@@ -191,8 +191,6 @@ export default class ProfileEditPage extends Component {
         : this.state.profile.locationName,
     };
 
-    console.log('updated profile-', updatedProfile);
-
     await this.peopleService.editProfile(updatedProfile, session);
     setAppState({
       ...appState,
@@ -201,7 +199,7 @@ export default class ProfileEditPage extends Component {
         ...updatedProfile,
       },
     });
-    // this.routeChange('/profile');
+    this.routeChange('/profile');
   }
 
   render() {
