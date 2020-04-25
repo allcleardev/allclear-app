@@ -4,12 +4,12 @@ import { bindAll } from 'lodash';
 
 import HomescreenHeader from '../components/general/headers/header-homescreen';
 import BottomNav from '../components/general/navs/bottom-nav';
-import userAvatar from '@assets/images/defaultProfile.svg';
 import PeopleService from '../services/people.service.js';
+import userAvatar from '@assets/images/defaultProfile.svg';
+import { ReactComponent as SettingsIcon } from '@assets/images/settings-icon.svg';
 import { AppContext, INITIAL_APP_STATE } from '../contexts/app.context';
 
 import Container from '@material-ui/core/Container';
-import SettingsIcon from '@material-ui/icons/Settings';
 import { Button, IconButton, Chip } from '@material-ui/core';
 
 export default class ProfileViewPage extends Component {
@@ -22,6 +22,10 @@ export default class ProfileViewPage extends Component {
     this.state = {
       profile: {},
     };
+  }
+
+  routeChange(route) {
+    this.props.history.push(route);
   }
 
   async componentDidMount() {
@@ -61,10 +65,13 @@ export default class ProfileViewPage extends Component {
     const profile = this.state.profile;
     return (
       <section className="profile-view">
-        <Link to="/settings" className="settings-option hide-desktop">
-          <SettingsIcon className="settings-option__icon"></SettingsIcon>
-          <span className="settings-option__text">Settings</span>
-        </Link>
+        <IconButton
+          className="settings-option hide-desktop"
+          aria-label="settings"
+          onClick={() => this.routeChange('/settings')}
+        >
+          <SettingsIcon className="settings-option__icon" />
+        </IconButton>
 
         <HomescreenHeader>
           <div className="avatar-edit">
@@ -79,10 +86,13 @@ export default class ProfileViewPage extends Component {
         </HomescreenHeader>
 
         <Container className="cards-container">
-          <Link to="/settings" className="settings-option hide-mobile">
-            <SettingsIcon className="settings-option__icon"></SettingsIcon>
-            <span className="settings-option__text">Settings</span>
-          </Link>
+          <IconButton
+            className="settings-option hide-mobile"
+            aria-label="settings"
+            onClick={() => this.routeChange('/settings')}
+          >
+            <SettingsIcon className="settings-option__icon" />
+          </IconButton>
 
           <article className="card">
             <dl className="card__content">
