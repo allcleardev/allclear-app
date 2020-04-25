@@ -5,7 +5,47 @@
     "longitude": -73.9565551
   },
   "map": {
-    "locations": [],
+    "locations": [
+      {
+        "id": 21023,
+        "name": "CityMD - Williamsburg Urgent Care",
+        "address": "154 N 7th St, Brooklyn, NY 11249, USA",
+        "city": "Brooklyn",
+        "state": "New York",
+        "latitude": 40.7179558,
+        "longitude": -73.9583239,
+        "phone": "+1 (718) 414-2013",
+        "url": "https://www.citymd.com/urgent-care-locations/ny/brooklyn/williamsburg/023",
+        "hours": "mon-fri 8am-8pm sat-sun -9am-6pm",
+        "typeId": "uc",
+        "type": {
+          "id": "uc",
+          "name": "Urgent Care"
+        },
+        "driveThru": false,
+        "appointmentRequired": true,
+        "acceptsThirdParty": false,
+        "referralRequired": false,
+        "testCriteriaId": "cc",
+        "testCriteria": {
+          "id": "cc",
+          "name": "CDC Criteria",
+          "restricted": true
+        },
+        "governmentIdRequired": true,
+        "minimumAge": 0,
+        "firstResponderFriendly": false,
+        "telescreeningAvailable": false,
+        "acceptsInsurance": false,
+        "freeOrLowCost": false,
+        "active": true,
+        "createdAt": "2020-04-22T04:15:43+0000",
+        "updatedAt": "2020-04-22T04:15:43+0000",
+        "meters": 970,
+        "restricted": false,
+        "favorite": false
+      }
+    ],
     "expandedItems": [],
     "isListLoading": true,
     "searchFilterActive": false
@@ -89,5 +129,8 @@
     }
   },
   "forceRefresh": false,
-  "modalSubmitCount": 0
+  "modalSubmitCount": 0,
+  "effects": {
+    "map": {}
+  }
 }
