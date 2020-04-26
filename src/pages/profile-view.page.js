@@ -111,8 +111,8 @@ export default class ProfileViewPage extends Component {
               {profile.locationName ? (
                 <dd className="card__description">{profile.locationName}</dd>
               ) : (
-                <dd className="card__description">My Current Location</dd>
-              )}
+                  <dd className="card__description">My Current Location</dd>
+                )}
             </dl>
 
             {profile.exposures && profile.exposures.length ? (
@@ -127,8 +127,8 @@ export default class ProfileViewPage extends Component {
                 })}
               </dl>
             ) : (
-              ''
-            )}
+                ''
+              )}
 
             {profile.healthWorkerStatus ? (
               <dl className="card__content">
@@ -136,8 +136,8 @@ export default class ProfileViewPage extends Component {
                 <dd className="card__description">{profile.healthWorkerStatus.name}</dd>
               </dl>
             ) : (
-              ''
-            )}
+                ''
+              )}
 
             {profile.conditions && profile.conditions.length ? (
               <dl className="card__content">
@@ -149,8 +149,8 @@ export default class ProfileViewPage extends Component {
                 </dd>
               </dl>
             ) : (
-              ''
-            )}
+                ''
+              )}
 
             {profile.symptoms && profile.symptoms.length ? (
               <dl className="card__content">
@@ -162,8 +162,8 @@ export default class ProfileViewPage extends Component {
                 </dd>
               </dl>
             ) : (
-              ''
-            )}
+                ''
+              )}
           </article>
 
           <Button

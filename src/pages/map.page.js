@@ -6,7 +6,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { get } from 'lodash';
 
 // components / icons
-import BottomNav from '@general/navs/bottom-nav';
 import ClearHeader from '@general/headers/header-clear';
 import UpdateCriteriaModal from '@general/modals/update-criteria-modal';
 import GoogleMap from '@components/map-components/google-map';
@@ -54,7 +53,7 @@ export default function MapPage() {
   const [drawerHeight, setDrawerHeight] = useState(DRAWER_COLLAPSED_HEIGHT);
   const locations = get(appState, 'map.locations') || [];
   const numActiveFilters = getNumActiveFilters(get(appState, 'searchCriteria'));
-  const isLoggedIn = get(appState, 'sessionId', false);
+  const isLoggedIn = appState.sessionId ? true : false;
 
   // callback handlers
   function onWindowResize({ width, height }) {
@@ -266,7 +265,6 @@ export default function MapPage() {
             <GoogleMap></GoogleMap>
           </div>
         </main>
-        <BottomNav active={1}></BottomNav>
         <UpdateCriteriaModal></UpdateCriteriaModal>
       </Box>
     </div>

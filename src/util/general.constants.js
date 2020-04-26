@@ -3,7 +3,7 @@ export const isLoggedInHeaderLinks = [
   { name: 'Map', to: '/map' },
   { name: 'Tracing', to: '/contact-tracing' },
   { name: 'Profile', to: '/profile' },
-  { name: 'Logout', to: '' }
+  { name: 'Logout', to: '/logout' }
 ];
 
 export const isLoggedOutHeaderLinks = [

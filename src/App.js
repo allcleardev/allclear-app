@@ -34,6 +34,7 @@ import VerifyMagicLinkPage from '@pages/verify-magic-link.page';
 import NotFoundPage from '@pages/not-found.page';
 import { Redirect } from 'react-router';
 import SignUpPage from '@pages/sign-up.page';
+import LogoutPage from '@pages/logout.page';
 
 export const history = createBrowserHistory();
 
@@ -61,6 +62,7 @@ export default function App() {
 
           {/* Login Pages */}
           <Route path="/sign-in" component={SignInPage} />
+          <Route path="/logout" component={LogoutPage} />
           <Route path="/sign-in-verification" component={SignInVerificationPage} />
 
           {/* Profile Pages / SettingsPage */}
