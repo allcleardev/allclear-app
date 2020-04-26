@@ -8,8 +8,6 @@
 [![Build Status](https://badgen.net/github/open-prs/allcleardev/allclear-app)](https://github.com/allcleardev/allclear-app/pulls?q=is%3Aopen+is%3Apr)
 [![Closed PRs](https://badgen.net/github/closed-prs/allcleardev/allclear-app)](https://github.com/allcleardev/allclear-app/pulls?q=is%3Apr+is%3Aclosed)
 
-
-  
 # AllClear Front End Application
 
 - [General Info](#general-info)
