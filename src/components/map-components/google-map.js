@@ -205,8 +205,10 @@ export default class GoogleMap extends Component {
     const homeIndex = locations.length;
 
     return (
-      <div style={{height: '100%', width: '100%'}}>
-
+      <div
+        style={{ height: '100%', width: '100%' }}
+        onClick={this.props.onMapClick}
+      >
         <SnackbarMessage
           snackbarClass={'snackbar--map'}
           isOpen={this.state.isSnackbarOpen}
