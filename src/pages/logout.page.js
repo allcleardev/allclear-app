@@ -1,36 +1,34 @@
-import React, { Component } from 'react';
+import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import { AppContext, INITIAL_APP_STATE } from '../contexts/app.context';
+import { CircularProgress } from '@material-ui/core';
 import PeopleService from '@services/people.service.js';
-import { bindAll } from 'lodash';
 
-export default class Logout extends Component {
-  static contextType = AppContext;
+export default function Logout() {
+  const peopleService = PeopleService.getInstance();
+  const { setAppState, appState } = useContext(AppContext);
+  const history = useHistory();
 
-  constructor(props) {
-    super(props);
-    bindAll(this, ['componentDidMount', 'executeLogout']);
-    this.peopleService = PeopleService.getInstance();
-    this.executeLogout();
-  }
+  executeLogout();
 
-  componentDidMount() {
-    this.executeLogout();
-  }
-
-  async executeLogout() {
-    const currSession = this.context.appState.sessionId;
-    await this.peopleService.logout(currSession);
+  async function executeLogout() {
+    const currSession = appState.sessionId;
+    await peopleService.logout(currSession);
     localStorage.removeItem('sessionId');
     localStorage.removeItem('appState');
     localStorage.removeItem('session');
-    const { setAppState } = this.context;
     setAppState(INITIAL_APP_STATE);
-    return this.props.history.push('/get-started?logout=You%20have%20been%20successfully%20logged%20out.');
+    return routeChange('/get-started?logout=You%20have%20been%20successfully%20logged%20out.');
   }
 
-  render() {
-    return (
-      <div>sup nerdz</div>
-    );
-  }
+  function routeChange(route) {
+    history.push(route);
+  };
+
+  return (
+    <div className="logout">
+      <CircularProgress style={{ color: 'white' }} size={70} />
+      <p>Logging Out...</p>
+    </div>
+  );
 }

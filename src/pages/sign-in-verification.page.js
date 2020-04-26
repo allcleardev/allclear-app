@@ -1,18 +1,18 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Form from '@material-ui/core/Container';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import TextField from '@material-ui/core/TextField';
-import {Button, Grid} from '@material-ui/core';
+import { Button, Grid } from '@material-ui/core';
 
 import RoundHeader from '@general/headers/header-round';
 import ProgressBottom from '@general/navs/progress-bottom';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 import PeopleService from '@services/people.service';
-import {AppContext} from '@contexts/app.context';
-import {bindAll} from 'lodash';
+import { AppContext } from '@contexts/app.context';
+import { bindAll } from 'lodash';
 import GAService from '@services/ga.service';
 
 export default class SignInVerificationPage extends Component {
@@ -39,6 +39,7 @@ export default class SignInVerificationPage extends Component {
       'verifyPhoneNumber',
       'resendCode',
       'handleCodeChange',
+      'routeChange',
       'onKeyPress',
       'validateState'
     ]);
@@ -50,15 +51,15 @@ export default class SignInVerificationPage extends Component {
   }
 
   setSMSTimeout() {
-    this.setState({smsTimeoutEnabled: false});
+    this.setState({ smsTimeoutEnabled: false });
 
     setTimeout(() => {
-      this.setState({smsTimeoutEnabled: true});
+      this.setState({ smsTimeoutEnabled: true });
     }, 20000);
   }
 
   validateState() {
-    const {appState} = this.context;
+    const { appState } = this.context;
     const phone = appState.person.phone;
 
     if (!phone) {
@@ -79,14 +80,14 @@ export default class SignInVerificationPage extends Component {
 
   // Function to make call backend service to confirm the magic link
   async verifyPhoneNumber() {
-    const {appState, setAppState} = this.context;
+    const { appState, setAppState } = this.context;
 
     let phone = appState.person.phone;
     const token = this.state.code;
 
     phone = this.sanitizePhone(phone);
 
-    const response = await this.peopleService.verifyAuthRequest({phone, token});
+    const response = await this.peopleService.verifyAuthRequest({ phone, token });
 
     if (!response.err) {
       setAppState({
@@ -121,25 +122,25 @@ export default class SignInVerificationPage extends Component {
   };
 
   async resendCode() {
-    const {appState} = this.context;
+    const { appState } = this.context;
     const phone = appState.person.phone;
 
     //reset sms text timeout
     this.setSMSTimeout();
 
-    this.setState({loading: true});
+    this.setState({ loading: true });
 
     if (!phone) {
-      this.setState({loading: false});
+      this.setState({ loading: false });
       return this.props.history.push('/sign-in');
     }
 
-    const response = await this.peopleService.login({phone});
+    const response = await this.peopleService.login({ phone });
 
-    this.setState({loading: false});
+    this.setState({ loading: false });
 
     if (response.err) {
-      this.setState({smsTimeoutEnabled: true});
+      this.setState({ smsTimeoutEnabled: true });
       const error = response;
 
       if (error && error.response) {
@@ -168,8 +169,12 @@ export default class SignInVerificationPage extends Component {
   };
 
   handleCodeChange(event) {
-    this.setState({code: event.target.value});
+    this.setState({ code: event.target.value });
   };
+
+  routeChange(route) {
+    this.props.history.push(route);
+  }
 
   render() {
     return (
@@ -194,21 +199,21 @@ export default class SignInVerificationPage extends Component {
                     variant="outlined"
                     defaultValue=""
                     autoComplete="one-time-code"
-                    inputProps={{maxLength: 6, autoComplete: 'one-time-code', inputMode: 'numeric', pattern: '[0-9]*'}}
-                    InputLabelProps={{shrink: false}}
+                    inputProps={{ maxLength: 6, autoComplete: 'one-time-code', inputMode: 'numeric', pattern: '[0-9]*' }}
+                    InputLabelProps={{ shrink: false }}
                     onChange={this.handleCodeChange}
                     style={{}}
                     onKeyPress={(e) => this.onKeyPress(e)}
                   />
                   {this.state.error && (
-                    <FormLabel error={this.state.error} classes={{error: 'error-message'}}>
+                    <FormLabel error={this.state.error} classes={{ error: 'error-message' }}>
                       You've entered an incorrect code. Please try again.
                     </FormLabel>
                   )}
                   {this.state.smsTimeoutEnabled === true ? <p className="no-code-message">Didnt receive a code?</p> : ''}
                   {this.state.smsTimeoutEnabled === true ?
-                   <Button onClick={() => this.resendCode()} variant="contained" className="back">
-                     Resend Code
+                    <Button onClick={() => this.resendCode()} variant="contained" className="back">
+                      Resend Code
                    </Button> : ''}
 
 
@@ -229,12 +234,12 @@ export default class SignInVerificationPage extends Component {
               </div>
             </Form>
           ) : (
-             <Grid container justify="center">
-               <Grid item xs={12} sm={6}>
-                 <LinearProgress color="primary" value={50} variant="indeterminate"/>
-               </Grid>
-             </Grid>
-           )}
+              <Grid container justify="center">
+                <Grid item xs={12} sm={6}>
+                  <LinearProgress color="primary" value={50} variant="indeterminate" />
+                </Grid>
+              </Grid>
+            )}
           {this.state.loading === false ? <ProgressBottom progress="75%"></ProgressBottom> : null}
         </div>
       </div>
