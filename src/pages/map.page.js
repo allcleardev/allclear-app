@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { get } from 'lodash';
 
 // components / icons
-import ClearHeader from '@general/headers/header-clear';
+import SolidHeader from '@general/headers/header-solid';
 import UpdateCriteriaModal from '@general/modals/update-criteria-modal';
 import GoogleMap from '@components/map-components/google-map';
 import TestingLocationListItem from '@components/map-components/testing-location-list-item';
@@ -141,7 +141,7 @@ export default function MapPage() {
   return (
     <div className="map-page">
       <MobileMenu isLoggedIn={isLoggedIn}></MobileMenu>
-      <ClearHeader isLoggedIn={isLoggedIn} isOpen={isOpen}></ClearHeader>
+      <SolidHeader isLoggedIn={isLoggedIn} isOpen={isOpen}></SolidHeader>
       <Box p={3}>
         <AppBar
           className={
