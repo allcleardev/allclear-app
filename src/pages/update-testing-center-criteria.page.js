@@ -118,7 +118,7 @@ export default function UpdateTestingCenterCriteriaPage() {
                   id="demo-simple-select-outlined"
                   value={drive_through}
                   displayEmpty
-                  onChange={(event) => handleDriveThroughChange(event, 'drive_through')}
+                  onChange={(event) => handleDriveThroughChange(event)}
                   className="select-white-back"
                 >
                   <MenuItem value="">Any</MenuItem>
@@ -136,7 +136,7 @@ export default function UpdateTestingCenterCriteriaPage() {
                   id="demo-simple-select-outlined"
                   value={appoinment_only}
                   displayEmpty
-                  onChange={(event) => handleAppointmentOnlyChange(event, 'appoinment_only')}
+                  onChange={(event) => handleAppointmentOnlyChange(event)}
                   className="select-white-back"
                 >
                   <MenuItem value="">Any</MenuItem>
@@ -157,7 +157,7 @@ export default function UpdateTestingCenterCriteriaPage() {
                   id="demo-simple-select-outlined"
                   value={exposure}
                   displayEmpty
-                  onChange={(event) => handleExposureChange(event, 'exposure')}
+                  onChange={(event) => handleExposureChange(event)}
                   className="select-white-back"
                 >
                   <MenuItem value="">Not Sure</MenuItem>
@@ -189,7 +189,7 @@ export default function UpdateTestingCenterCriteriaPage() {
                   id="demo-simple-select-outlined"
                   value={conditions}
                   displayEmpty
-                  onChange={(event) => handleConditionsChange(event, 'conditions')}
+                  onChange={(event) => handleConditionsChange(event)}
                   className="select-white-back"
                 >
                   <MenuItem value="">Weakened Immune System</MenuItem>
@@ -208,7 +208,7 @@ export default function UpdateTestingCenterCriteriaPage() {
                   id="demo-simple-select-outlined"
                   value={symptoms}
                   displayEmpty
-                  onChange={(event) => handleSymptomsChange(event, 'symptoms')}
+                  onChange={(event) => handleSymptomsChange(event)}
                   className="select-white-back"
                 >
                   <MenuItem value="">Fever, Shortness of Breath</MenuItem>
