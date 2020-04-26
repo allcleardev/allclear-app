@@ -75,7 +75,7 @@ export default class SignInVerificationPage extends Component {
     }
 
     return phone;
-  };
+  }
 
   // Function to make call backend service to confirm the magic link
   async verifyPhoneNumber() {
@@ -118,7 +118,7 @@ export default class SignInVerificationPage extends Component {
         }
       }
     }
-  };
+  }
 
   async resendCode() {
     const {appState} = this.context;
@@ -165,11 +165,11 @@ export default class SignInVerificationPage extends Component {
       e.preventDefault();
       this.verifyPhoneNumber();
     }
-  };
+  }
 
   handleCodeChange(event) {
     this.setState({code: event.target.value});
-  };
+  }
 
   render() {
     return (
