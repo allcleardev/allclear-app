@@ -141,7 +141,7 @@ export default function MapPage() {
 
   return (
     <div className="map-page">
-      <MobileMenu></MobileMenu>
+      <MobileMenu isLoggedIn={isLoggedIn}></MobileMenu>
       <ClearHeader isLoggedIn={isLoggedIn} isOpen={isOpen}></ClearHeader>
       <Box p={3}>
         <AppBar
