@@ -116,9 +116,11 @@ export default function MapPage() {
   }
 
   function onMapClick(evt) {
-    evt.stopPropagation();
-    const nextHeight = drawerHeight === DRAWER_COLLAPSED_HEIGHT ? DRAWER_EXPANDED_HEIGHT : DRAWER_COLLAPSED_HEIGHT;
-    if (nextHeight === DRAWER_COLLAPSED_HEIGHT) setDrawerHeight(nextHeight);
+    if (anchor === 'bottom') {
+      evt.stopPropagation();
+      const nextHeight = drawerHeight === DRAWER_COLLAPSED_HEIGHT ? DRAWER_EXPANDED_HEIGHT : DRAWER_COLLAPSED_HEIGHT;
+      if (nextHeight === DRAWER_COLLAPSED_HEIGHT) setDrawerHeight(nextHeight);
+    }
   }
 
   // analytics handlers
