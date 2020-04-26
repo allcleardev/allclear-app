@@ -14,9 +14,11 @@ export default function ColoredHeader(props) {
         <img className={isOpen ? 'logo logo--open' : 'logo'} src={Logo} alt="Logo" />
         <div className="header-menu">
           {links.map((link) =>
-            <Link className="header-menu__item" key={link.name} to={link.to} >
-              {link.name}
-            </Link>
+            link.href
+              ? <a key={link.name} href={link.href} className="header-menu__item">{link.name}</a>
+              : <Link key={link.name} to={link.to} className="header-menu__item">
+                {link.name}
+              </Link>
           )}
         </div>
       </div>
