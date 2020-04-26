@@ -44,7 +44,13 @@ export default function App() {
         <Switch>
           {/* Loader Page */}
           {/*<Route exact path="/" component={LaunchPage} />*/}
-          <Route exact path="/" component={GetStartedPage} />
+
+          {/* Onboarding flow start page */}
+          {/*<Route exact path="/" component={GetStartedPage} />*/}
+
+          <Route exact path="/">
+            <Redirect to="/map" />
+          </Route>
 
           {/* Onboarding Pages */}
           <Route path="/get-started" component={GetStartedPage} />

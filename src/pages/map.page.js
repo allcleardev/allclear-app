@@ -159,6 +159,7 @@ export default function MapPage() {
             {isOpen === true ? <ArrowLeft /> : <ArrowRight />}
           </IconButton> */}
         </AppBar>
+
         <Drawer
           className={classes.drawer + ' nav-left-location'}
           variant="persistent"
