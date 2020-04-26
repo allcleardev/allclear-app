@@ -11,6 +11,8 @@ import { ReactComponent as PinIcon } from '../assets/images/pin-icon.svg';
 import { ReactComponent as SettingsIcon } from '../assets/images/settings-icon.svg';
 import { AppContext } from '../contexts/app.context';
 
+import SnackbarMessage from '@general/alerts/snackbar-message';
+
 import Container from '@material-ui/core/Container';
 import WarningRoundedIcon from '@material-ui/icons/WarningRounded';
 import CheckRoundedIcon from '@material-ui/icons/CheckRounded';
@@ -28,6 +30,7 @@ export default class HomePage extends Component {
       'onLocationSelected',
       'onViewMoreClicked',
       'onShareClicked',
+      'handleSnackbarClose',
       'updateUserProfile',
     ]);
     this.peopleService = PeopleService.getInstance();
@@ -42,6 +45,7 @@ export default class HomePage extends Component {
       testLocationsExpanded: false,
       symptomatic: false,
       prioritized: false,
+      isSnackbarOpen: false,
     };
   }
 
@@ -72,7 +76,7 @@ export default class HomePage extends Component {
     // update selected location with new pinned location state
     testLocations.map((location) => {
       if (location.id === pinnedLocation.id) {
-        return location = pinnedLocation;
+        return (location = pinnedLocation);
       }
     });
     // update local state
@@ -90,7 +94,16 @@ export default class HomePage extends Component {
     });
   }
 
-  onShareClicked() {}
+  onShareClicked() {
+    if (navigator && navigator.clipboard) {
+      navigator.clipboard.writeText('https://go.allclear.app');
+      this.setState({ isSnackbarOpen: true });
+    }
+  }
+
+  handleSnackbarClose() {
+    this.setState({ isSnackbarOpen: false });
+  }
 
   async updateUserProfile(pinnedLocation) {
     const { appState, setAppState } = this.context;
@@ -236,6 +249,13 @@ export default class HomePage extends Component {
             </Button>
           </article>
         </Container>
+
+        <SnackbarMessage
+          severity="success"
+          isOpen={this.state.isSnackbarOpen}
+          onClose={this.handleSnackbarClose}
+          message={'Link Copied!'}
+        />
 
         <BottomNav active={0}></BottomNav>
       </section>
