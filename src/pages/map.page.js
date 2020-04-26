@@ -1,9 +1,9 @@
 // external
-import React, {useState, useContext} from 'react';
+import React, { useState, useContext } from 'react';
 import clsx from 'clsx';
 import AnimateHeight from 'react-animate-height';
-import {makeStyles} from '@material-ui/core/styles';
-import {get} from 'lodash';
+import { makeStyles } from '@material-ui/core/styles';
+import { get } from 'lodash';
 
 // components / icons
 import BottomNav from '@general/navs/bottom-nav';
@@ -15,18 +15,19 @@ import VerticalCollapseIcon from '@svg/vert-collapse';
 import VerticalExpandIcon from '@svg/vert-expand';
 import SettingsSVG from '@svg/svg-settings';
 import Box from '@material-ui/core/Container';
-import {CircularProgress} from '@material-ui/core';
+import { CircularProgress } from '@material-ui/core';
 import Badge from '@material-ui/core/Badge';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
+import MobileMenu from '@general/headers/mobile-menu';
 
 // other
 import ModalService from '@services/modal.service';
-import {AppContext} from '@contexts/app.context';
-import {useWindowResize} from '@hooks/general.hooks';
-import {getNumActiveFilters, getActiveFilters} from '@util/general.helpers';
-import GAService, {MAP_PAGE_GA_EVENTS, GA_EVENT_MAP} from '@services/ga.service';
+import { AppContext } from '@contexts/app.context';
+import { useWindowResize } from '@hooks/general.hooks';
+import { getNumActiveFilters, getActiveFilters } from '@util/general.helpers';
+import GAService, { MAP_PAGE_GA_EVENTS, GA_EVENT_MAP } from '@services/ga.service';
 import GoogleMapsAutocomplete from '@general/inputs/google-maps-autocomplete';
 
 export default function MapPage() {
@@ -40,7 +41,7 @@ export default function MapPage() {
   const DRAWER_COLLAPSED_HEIGHT = 350;
 
   // state & global state
-  const {setAppState, appState} = useContext(AppContext);
+  const { setAppState, appState } = useContext(AppContext);
   const [width, height] = useWindowResize(onWindowResize);
   const initialState = {
     isOpen: true,
@@ -53,9 +54,10 @@ export default function MapPage() {
   const [drawerHeight, setDrawerHeight] = useState(DRAWER_COLLAPSED_HEIGHT);
   const locations = get(appState, 'map.locations') || [];
   const numActiveFilters = getNumActiveFilters(get(appState, 'searchCriteria'));
+  const isLoggedIn = get(appState, 'sessionId', false);
 
   // callback handlers
-  function onWindowResize({width, height}) {
+  function onWindowResize({ width, height }) {
     if (width <= 768) {
       setMapState({
         ...mapState,
@@ -85,7 +87,7 @@ export default function MapPage() {
   async function onLocationSelected(bool, newLocation) {
 
     if (get(newLocation, 'description')) {
-      const {latitude, longitude} = newLocation;
+      const { latitude, longitude } = newLocation;
       // const locationName = newLocation.description;
 
       appState.effects.map.onLocationAccepted({
@@ -132,14 +134,15 @@ export default function MapPage() {
     gaService.sendEvent(eventName, additionalParams);
   }
 
-  const {isOpen, anchor} = mapState;
+  const { isOpen, anchor } = mapState;
 
   // get modal service so we can toggle it open
   let modalService = ModalService.getInstance();
 
   return (
     <div className="map-page">
-      <ClearHeader isOpen={isOpen}></ClearHeader>
+      <MobileMenu></MobileMenu>
+      <ClearHeader isLoggedIn={isLoggedIn} isOpen={isOpen}></ClearHeader>
       <Box p={3}>
         <AppBar
           className={
@@ -148,7 +151,7 @@ export default function MapPage() {
               [classes.appBarShift]: isOpen,
             })
           }
-          style={{zIndex: '2'}}
+          style={{ zIndex: '2' }}
         >
           {/* <IconButton
             disableRipple
@@ -164,7 +167,7 @@ export default function MapPage() {
           variant="persistent"
           anchor={anchor}
           open={isOpen}
-          style={{height: drawerHeight, zIndex: 4}}
+          style={{ height: drawerHeight, zIndex: 4 }}
         >
           <AnimateHeight duration={500} height={drawerHeight === DRAWER_EXPANDED_HEIGHT ? '100%' : drawerHeight}>
             <div
@@ -185,26 +188,26 @@ export default function MapPage() {
               {appState.isListLoading === false && (
                 <Box
                   className={'button-box'}
-                  style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                  style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   {numActiveFilters > 0 ? (
                     <Badge
                       ref={badgeRef}
                       badgeContent={numActiveFilters}
                       overlap={'rectangle'}
-                      style={{width: anchor === 'bottom' ? '48%' : '100%'}}
+                      style={{ width: anchor === 'bottom' ? '48%' : '100%' }}
                     >
-                      <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick}/>
+                      <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} />
                     </Badge>
                   ) : (
-                     <span className="edit-filters-btn-container">
-                      <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} style/>
-                    </span>
-                   )}
+                      <span className="edit-filters-btn-container">
+                        <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} style />
+                      </span>
+                    )}
                   {anchor === 'bottom' && (
                     <Button
                       className={'view-full-results-btn'}
                       endIcon={drawerHeight === DRAWER_EXPANDED_HEIGHT ? VerticalCollapseIcon() : VerticalExpandIcon()}
-                      style={{width: '50%', color: '#666666', size: 'large', paddingRight: '0px'}}
+                      style={{ width: '50%', color: '#666666', size: 'large', paddingRight: '0px' }}
                       onClick={onDrawerSwipe}
                     >
                       {drawerHeight === DRAWER_EXPANDED_HEIGHT ? 'Map View' : 'Full List View'}
@@ -224,32 +227,32 @@ export default function MapPage() {
                   }}
                   className="mt-4 mt-md-0 vh100-lg"
                 >
-                  <CircularProgress color="primary" size={70}/>
+                  <CircularProgress color="primary" size={70} />
                   <p className="mt-3">Loading Results</p>
                 </div>
               )}
 
               {locations &&
-              locations.map((result, index) => (
-                <TestingLocationListItem
-                  id={result.id}
-                  key={index}
-                  index={index}
-                  title={result.name}
-                  description={result.address}
-                  city_state={result.city + ', ' + result.state}
-                  service_time={result.hours}
-                  driveThru={result.driveThru}
-                  phone={result.phone}
-                  website={result.url}
-                  {...result}
-                  onActionClick={onActionClick}
-                  onTestingLocationExpand={onTestingLocationExpand}
-                ></TestingLocationListItem>
-              ))}
+                locations.map((result, index) => (
+                  <TestingLocationListItem
+                    id={result.id}
+                    key={index}
+                    index={index}
+                    title={result.name}
+                    description={result.address}
+                    city_state={result.city + ', ' + result.state}
+                    service_time={result.hours}
+                    driveThru={result.driveThru}
+                    phone={result.phone}
+                    website={result.url}
+                    {...result}
+                    onActionClick={onActionClick}
+                    onTestingLocationExpand={onTestingLocationExpand}
+                  ></TestingLocationListItem>
+                ))}
 
               {locations.length === 0 && appState.isListLoading === false && (
-                <h2 style={{display: 'flex', justifyContent: 'center'}}>No Results Found </h2>
+                <h2 style={{ display: 'flex', justifyContent: 'center' }}>No Results Found </h2>
               )}
             </div>
           </AnimateHeight>
