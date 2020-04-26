@@ -32,4 +32,12 @@ export default class FacilityService {
       data: body,
     });
   }
+
+  ipCheck() {
+    return Axios({
+      method: 'GET',
+      url: `http://ip-api.com/json`,
+    });
+  }
+
 }

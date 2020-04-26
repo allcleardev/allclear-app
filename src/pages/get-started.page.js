@@ -64,6 +64,7 @@ export default class GetStartedPage extends Component {
           isOpen={this.state.isSnackbarOpen}
           onClose={this.handleSnackbarClose}
           message={this.state.snackbarMessage}
+          severity={'info'}
           duration={4000}
         />
 

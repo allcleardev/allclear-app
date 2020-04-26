@@ -30,8 +30,6 @@ export default class GoogleMap extends Component {
       'onMyLocationClicked',
       '_panTo',
       '_setLocations',
-      '_onLocationAccepted',
-      '_onLocationDeclined',
       '_createSearchPayload',
       '_search',
       'handleSnackbarClose',
@@ -47,22 +45,56 @@ export default class GoogleMap extends Component {
     let latitude = get(appState, 'person.latitude');
     let longitude = get(appState, 'person.longitude');
 
-    if (!latitude || !longitude) {
-      this.setState({
-        isSnackbarOpen: true,
-        snackbarMessage: 'Enter your location to see results near you.',
-        snackbarSeverity: 'info'
+    // user accepts browser location tracking
+    const _onLocationAccepted = async (pos) => {
+
+      this.gaService.sendEvent('current_location_enabled', {});
+      const latitude = pos.coords.latitude;
+      const longitude = pos.coords.longitude;
+      const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude}));
+      this._setLocations(result.data.records, {
+        latitude,
+        longitude,
       });
-      latitude = G_MAP_DEFAULTS.center.lat;
-      longitude = G_MAP_DEFAULTS.center.lng;
+      this._panTo(latitude, longitude);
+
+    };
+
+    // user declines browser location tracking
+    const _onLocationDeclined = async () => {
+      // not logged in
+      if (!latitude || !longitude) {
+
+        // if IP check succeeded, use that
+        let ipData = await this.facilityService.ipCheck();
+        latitude = get(ipData, 'data.lat');
+        longitude = get(ipData, 'data.lon');
+
+        // if IP check failed too, just use defaults (NYC)
+        if (!latitude || !longitude) {
+
+          this.setState({
+            isSnackbarOpen: true,
+            snackbarMessage: 'Enter your location to see results near you.',
+            snackbarSeverity: 'info'
+          });
+          latitude = G_MAP_DEFAULTS.center.lat;
+          longitude = G_MAP_DEFAULTS.center.lng;
+        }
+
+        const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude}));
+        this._setLocations(result.data.records, {latitude, longitude});
+        latitude && longitude && this._panTo(latitude, longitude);
+
+      }
+
+    };
+
+    // check user's browser location preference
+    if (navigator && navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(_onLocationAccepted, _onLocationDeclined);
     }
 
-    const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude}));
-    if (navigator && navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(this._onLocationAccepted, this._onLocationDeclined);
-    }
-    this._setLocations(result.data.records, {latitude, longitude});
-    latitude && longitude && this._panTo(latitude, longitude);
   }
 
   handleSnackbarClose() {
@@ -134,35 +166,6 @@ export default class GoogleMap extends Component {
     });
   }
 
-  async _onLocationAccepted(pos) {
-    this.gaService.sendEvent('current_location_enabled', {});
-    const latitude = pos.coords.latitude;
-    const longitude = pos.coords.longitude;
-    this._panTo(latitude, longitude);
-    const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude}));
-
-    this.setState({
-      ...this.state,
-      zoom: 12,
-    })
-
-    this._setLocations(result.data.records, {
-      latitude,
-      longitude,
-    });
-  }
-
-  _onLocationDeclined() {
-    const {appState} = this.context;
-    const {longitude, latitude} = appState.map;
-    this._panTo(latitude, longitude);
-    this._search(latitude, longitude);
-    this.setState({
-      isSnackbarOpen: true,
-    });
-    console.warn('User declined to use browser location');
-  }
-
   /******************************************************************
    * SEARCH
    ******************************************************************/
@@ -206,7 +209,7 @@ export default class GoogleMap extends Component {
 
     return (
       <div
-        style={{ height: '100%', width: '100%' }}
+        style={{height: '100%', width: '100%'}}
         onClick={this.props.onMapClick}
       >
         <SnackbarMessage
