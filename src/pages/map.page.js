@@ -179,6 +179,7 @@ export default function MapPage() {
             >
 
               <GoogleMapsAutocomplete
+                focusOnRender={true}
                 locationSelected={onLocationSelected}
                 onClear={onLocationCleared}
               ></GoogleMapsAutocomplete>

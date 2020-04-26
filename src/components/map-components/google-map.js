@@ -18,6 +18,7 @@ export default class GoogleMap extends Component {
     this.state = {
       isSnackbarOpen: false,
       snackbarMessage: 'Browser location declined. Using location from your profile instead.',
+      snackbarSeverity: 'warning',
       zoom: G_MAP_DEFAULTS.zoom
     };
 
@@ -43,18 +44,18 @@ export default class GoogleMap extends Component {
 
   async componentDidMount() {
     const {appState} = this.context;
-    const latitude = get(appState, 'person.latitude');
-    const longitude = get(appState, 'person.longitude');
+    let latitude = get(appState, 'person.latitude');
+    let longitude = get(appState, 'person.longitude');
 
     if (!latitude || !longitude) {
       this.setState({
         isSnackbarOpen: true,
-        snackbarMessage: 'Enter a Search Term or Move the Map to See Testing Locations'
+        snackbarMessage: 'Enter your location to see results near you.',
+        snackbarSeverity: 'info'
       });
-      this._setLocations([], {})
-      return;
+      latitude = G_MAP_DEFAULTS.center.lat;
+      longitude = G_MAP_DEFAULTS.center.lng;
     }
-
 
     const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude}));
     if (navigator && navigator.geolocation) {
@@ -210,7 +211,8 @@ export default class GoogleMap extends Component {
           snackbarClass={'snackbar--map'}
           isOpen={this.state.isSnackbarOpen}
           onClose={this.handleSnackbarClose}
-          duration={10000000}
+          severity={this.state.snackbarSeverity}
+          duration={15000}
           message={this.state.snackbarMessage}
         />
         <GoogleMapReact
@@ -322,8 +324,8 @@ const G_MAP_OPTIONS = {
 
 const G_MAP_DEFAULTS = {
   center: {
-    lat: 39.8097343,
-    lng: -98.5556199,
+    lat: 40.7575139,
+    lng: -73.9861322,
   },
-  zoom: 3,
+  zoom: 12,
 };

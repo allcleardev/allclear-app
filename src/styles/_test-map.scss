@@ -8,7 +8,7 @@
 
   .edit-filters-btn-container {
     width: 100%;
-    
+
     @media (max-width: $md - 1){
       width: 50%;
     }
@@ -28,6 +28,11 @@
   }
 
   .side-drawer{
+
+    .MuiInputBase-root{
+      height: 70px;
+    }
+
   }
 
   .MuiBadge-badge {
