@@ -19,16 +19,6 @@ const useStyles = makeStyles((theme) => ({
 export default function AlertToggleCard({ title, description }) {
   const classes = useStyles();
 
-  const [state, setState] = React.useState({
-    checkedA: true,
-    checkedB: true,
-  });
-
-  //eslint-disable-next-line
-  const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
-  };
-
   return (
     <Card className={classes.root}>
       <CardContent className={classes.content}>
