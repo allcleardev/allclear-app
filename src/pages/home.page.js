@@ -4,13 +4,15 @@ import { bindAll, get } from 'lodash';
 import PeopleService from '@services/people.service';
 import FacilityService from '@services/facility.service.js';
 
-import Header from '../components/general/headers/header';
-import BottomNav from '../components/general/navs/bottom-nav';
-import UserAvatar from '../assets/images/defaultProfile.svg';
-import PersonShareIcon from '../assets/images/person-share-icon.svg';
-import { ReactComponent as PinIcon } from '../assets/images/pin-icon.svg';
-import { ReactComponent as SettingsIcon } from '../assets/images/settings-icon.svg';
-import { AppContext } from '../contexts/app.context';
+import UserAvatar from '@assets/images/defaultProfile.svg';
+import PersonShareIcon from '@assets/images/person-share-icon.svg';
+import { ReactComponent as PinIcon } from '@assets/images/pin-icon.svg';
+import { ReactComponent as SettingsIcon } from '@assets/images/settings-icon.svg';
+import { AppContext } from '@contexts/app.context';
+
+import Header from '@components/general/headers/header';
+import BottomNav from '@components/general/navs/bottom-nav';
+import { DEFAULT_NAV_ITEMS } from '@components/general/headers/header.constants';
 
 import SnackbarMessage from '@general/alerts/snackbar-message';
 
@@ -22,6 +24,14 @@ import { Button, IconButton, Tooltip, withStyles } from '@material-ui/core';
 
 export default class HomePage extends Component {
   static contextType = AppContext;
+  state = {
+    locationName: '',
+    testLocations: [],
+    testLocationsExpanded: false,
+    symptomatic: false,
+    prioritized: false,
+    isSnackbarOpen: false,
+  };
 
   constructor(props) {
     super(props);
@@ -37,19 +47,6 @@ export default class HomePage extends Component {
     ]);
     this.peopleService = PeopleService.getInstance();
     this.facilityService = FacilityService.getInstance();
-    this.navItems = [
-      { route: '/map', name: 'Find Tests' },
-      { route: '/contact-tracing', name: 'Tracing' },
-      { route: '/profile', name: 'Profile' },
-    ];
-    this.state = {
-      locationName: '',
-      testLocations: [],
-      testLocationsExpanded: false,
-      symptomatic: false,
-      prioritized: false,
-      isSnackbarOpen: false,
-    };
   }
 
   async componentDidMount() {
@@ -162,7 +159,7 @@ export default class HomePage extends Component {
           <SettingsIcon className="settings-option__icon" />
         </IconButton>
 
-        <Header navItems={this.navItems} enableBackBtn={true}>
+        <Header navItems={DEFAULT_NAV_ITEMS} enableBackBtn={true}>
           <div className="header-content">
             <h1 className="header-content__heading">allclear</h1>
 
@@ -184,6 +181,14 @@ export default class HomePage extends Component {
         </Header>
 
         <Container className="cards-container">
+          <IconButton
+            className="settings-option hide-mobile"
+            aria-label="settings"
+            onClick={() => this.routeChange('/profile-edit')}
+          >
+            <SettingsIcon className="settings-option__icon" />
+          </IconButton>
+
           <article className="banner article">
             <p className="banner__content">
               {this.state.prioritized ? (

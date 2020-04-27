@@ -45,7 +45,7 @@ export default class VerifyMagicLinkPage extends Component {
     searchParams = searchParams.replace('?', '');
     searchParams = qs.parse(searchParams, []);
     return searchParams;
-  };
+  }
 
   // Function to make call backend service to confirm the magic link
   async verifyMagicLink() {
@@ -74,12 +74,12 @@ export default class VerifyMagicLinkPage extends Component {
         loading: false,
       });
     }
-  };
+  }
 
   // ALLCLEAR-274
   parseError() {
     return this.state.error === true ? <p className="error">{this.state.message}</p> : '';
-  };
+  }
 
   render() {
     return (

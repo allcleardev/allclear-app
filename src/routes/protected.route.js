@@ -12,7 +12,7 @@ class ProtectedRoute extends React.Component {
       localStorage.removeItem('appState');
     }
 
-    return isAuthenticated ? <Component {...props} /> : <Redirect to={{ pathname: '/get-started' }} />;
+    return isAuthenticated ? <Component {...props} /> : <Redirect to={{ pathname: '/map' }} />;
   }
 }
 

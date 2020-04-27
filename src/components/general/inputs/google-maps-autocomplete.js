@@ -30,6 +30,16 @@ export default function GoogleMapsAutocomplete(props) {
   const classes = useStyles();
   const [inputValue, setInputValue] = useState('');
   const [options, setOptions] = useState([]);
+  const inputRef = React.createRef();
+
+  // focus on mount if so configured
+  useEffect(() => {
+    if (props.focusOnRender) {
+      inputRef.current.querySelectorAll('input')[0].focus();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
 
   // only for clears
   function onInputChanged(evt, value, reason) {
@@ -102,6 +112,7 @@ export default function GoogleMapsAutocomplete(props) {
   if (!props.useCurrentLocation) {
     return (
       <Autocomplete
+        ref={inputRef}
         id="google-maps-autocomplete"
         autoComplete
         includeInputInList
@@ -118,7 +129,7 @@ export default function GoogleMapsAutocomplete(props) {
         options={options}
         onChange={handleSelectionChange}
         onInputChange={(e, v, r) => {
-          props.onClear && onInputChanged(e,v,r);
+          props.onClear && onInputChanged(e, v, r);
         }}
         disabled={props.useCurrentLocation}
         defaultValue={props.initialValue}

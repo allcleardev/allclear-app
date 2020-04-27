@@ -23,8 +23,11 @@ General Info
 This is the web version of <http://allclear.app>, a COVID-19 tracing
 application.
 
-Running the Project
--------------------
+This is the web version of http://allclear.app, a COVID-19 tracing
+application. 
+
+
+### Running the Project
 
 In the project directory, run:
 
@@ -73,4 +76,10 @@ Your app is ready to be deployed!
 Further Reading
 ---------------
 
--   [Naming Conventions](./docs/naming-conventions.md)
+- [Naming Conventions](./docs/naming-conventions.md)
+
+## Contact
+
+General inquiries: <info@allclear.app>
+
+Report a security issue: <security@allclear.app>
