@@ -10,6 +10,7 @@ import SnackbarMessage from '@general/alerts/snackbar-message';
 import GAService from '@services/ga.service';
 import MapService from '@services/map.service';
 
+
 export default class GoogleMap extends Component {
   static contextType = AppContext;
 
@@ -43,72 +44,21 @@ export default class GoogleMap extends Component {
   }
 
   async componentDidMount() {
-    const {appState} = this.context;
-    let latitude = get(appState, 'person.latitude');
-    let longitude = get(appState, 'person.longitude');
 
-    // user accepts browser location tracking
-    const _onLocationAccepted = async (pos, shouldSkipLocationEnabled) => {
-
-      !shouldSkipLocationEnabled && this.gaService.sendEvent('current_location_enabled', {});
-      const latitude = pos.coords.latitude;
-      const longitude = pos.coords.longitude;
-      const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude}));
-      this._setLocations(result.data.records, {
-        latitude,
-        longitude,
-      });
-      this._panTo(latitude, longitude);
-
-    };
-
-    this.onLocationAccepted = _onLocationAccepted;
-
-    // user declines browser location tracking
-    const _onLocationDeclined = async () => {
-      // not logged in
-      if (!latitude || !longitude) {
-
-        // if IP check succeeded, use that
-        let ipData = await this.mapService.ipCheck()
-          .catch(() => {
-            this.setState({
-              isSnackbarOpen: true,
-              snackbarMessage: 'Enter your location to see results near you.',
-              snackbarSeverity: 'info'
+      let ipData = await this.mapService.ipCheck()
+            .catch(() => {
+              this.setState({
+                isSnackbarOpen: true,
+                snackbarMessage: 'Enter your location to see results near you.',
+                snackbarSeverity: 'info'
+              });
+              latitude = G_MAP_DEFAULTS.center.lat;
+              longitude = G_MAP_DEFAULTS.center.lng;
             });
-            latitude = G_MAP_DEFAULTS.center.lat;
-            longitude = G_MAP_DEFAULTS.center.lng;
-          });
-
-        latitude = get(ipData, 'data.lat');
-        longitude = get(ipData, 'data.lon');
-
-        // if IP check failed too, just use defaults (NYC)
-        if (!latitude || !longitude) {
-
-          this.setState({
-            isSnackbarOpen: true,
-            snackbarMessage: 'Enter your location to see results near you.',
-            snackbarSeverity: 'info'
-          });
-          latitude = G_MAP_DEFAULTS.center.lat;
-          longitude = G_MAP_DEFAULTS.center.lng;
-
-        }
-
-        const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude}));
-        this._setLocations(result.data.records, {latitude, longitude});
-        latitude && longitude && this._panTo(latitude, longitude);
-
-      }
-
-    };
-
-    // check user's browser location preference
-    if (navigator && navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(_onLocationAccepted, _onLocationDeclined);
-    }
+      let latitude = get(ipData, 'data.lat');
+      let longitude = get(ipData, 'data.lon');
+      this._panTo(latitude, longitude);
+      this._search(latitude, longitude);
 
   }
 
@@ -154,6 +104,7 @@ export default class GoogleMap extends Component {
   _panTo(latitude, longitude) {
     //eslint-disable-next-line
     const currBrowserLocation = new google.maps.LatLng(latitude, longitude);
+
     if (get(this, 'gMapRef.current.map_.panTo')) {
       this.gMapRef.current.map_.panTo(currBrowserLocation);
     }
