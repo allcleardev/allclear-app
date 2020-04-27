@@ -105,6 +105,7 @@
       display: flex;
       align-items: center;
       margin: 0;
+      letter-spacing: .07em;
       line-height: 16px;
       font-weight: 500;
       font-size: 13px;
@@ -181,7 +182,7 @@
 
     &__term {
       margin-bottom: 6px;
-      font-weight: 600;
+      font-weight: 500;
       font-size: 15px;
     }
 
