@@ -59,7 +59,7 @@ export default function MapPage() {
 
   // callback handlers
   function onWindowResize({ width, height }) {
-    if (width <= 768) {
+    if (width <= 960) {
       setMapState({
         ...mapState,
         anchor: 'bottom',
@@ -77,7 +77,7 @@ export default function MapPage() {
   }
 
   function onDrawerSwipe(e) {
-    if (initialState.windowWidth <= 768) {
+    if (initialState.windowWidth <= 960) {
       const nextHeight = drawerHeight === DRAWER_COLLAPSED_HEIGHT ? DRAWER_EXPANDED_HEIGHT : DRAWER_COLLAPSED_HEIGHT;
       if (e.pointerType === 'touch' || e.type === 'click') {
         setDrawerHeight(nextHeight);
