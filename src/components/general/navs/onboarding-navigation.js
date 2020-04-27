@@ -46,13 +46,11 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column-reverse',
     justifyContent: 'space-between',
     width: '100%',
-    margin: '40px 0 40px',
+    margin: '20px 0 40px',
     textAlign: 'center',
-
-    [theme.breakpoints.up('sm')]: {
+    '@media (min-width: 600px) and (min-height: 800px)': {
       margin: '40px 0 70px',
     },
-
     [theme.breakpoints.up('md')]: {
       flexDirection: 'row',
     },

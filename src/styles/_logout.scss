@@ -1,11 +1,11 @@
 .logout {
   width: 100%;
-  background: $gradient-background;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   color: white;
+  @include responsive-gradient;
 
   p {
     margin-top: 10px;

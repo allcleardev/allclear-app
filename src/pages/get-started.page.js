@@ -20,12 +20,14 @@ const DefaultButton = withStyles((theme) => ({
     fontSize: '17px',
     borderRadius: '10px',
     minWidth: '100%',
-    color: theme.palette.primary.main,
-    backgroundColor: '#fff',
-    boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.15)',
     [theme.breakpoints.up('md')]: {
       minWidth: '248px',
     },
+  },
+  contained: {
+    backgroundColor: '#fff',
+    boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.15)',
+    color: theme.palette.primary.main,
     '&:hover': {
       backgroundColor: '#e1efff',
     },
@@ -95,10 +97,10 @@ export default class GetStartedPage extends Component {
             <DefaultButton className="signup" variant="contained" onClick={() => this.routeChange('/location')}>
               Get Started
             </DefaultButton>
-            <Button className="signin" onClick={() => this.routeChange('/sign-in')}>
+            <DefaultButton className="signin" onClick={() => this.routeChange('/sign-in')}>
               Already Have an Account?
               <span className="cta">Log In</span>
-            </Button>
+            </DefaultButton>
           </div>
         </Container>
       </div>

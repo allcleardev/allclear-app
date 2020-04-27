@@ -340,7 +340,7 @@ export default class SignUpPage extends Component {
           </Container>
         ) : (
           <Container className="onboarding-body">
-            <CircularProgress color="primary" value={60} variant="indeterminate" style={{ width: 108, height: 108 }} />
+            <CircularProgress color="primary" size={108} />
           </Container>
         )}
         {this.state.loading === false ? <ProgressBottom progress="60%"></ProgressBottom> : null}

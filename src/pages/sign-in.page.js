@@ -117,7 +117,7 @@ export default class SignInPage extends Component {
           </Container>
         ) : (
           <Container className="onboarding-body">
-            <CircularProgress color="primary" value={60} variant="indeterminate" style={{ width: 108, height: 108 }} />
+            <CircularProgress color="primary" size={108} />
           </Container>
         )}
       </div>
