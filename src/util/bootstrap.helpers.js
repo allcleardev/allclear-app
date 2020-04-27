@@ -8,6 +8,8 @@ export function bootstrapAxios() {
     'facilities/search',
     '/peoples/register',
     'peoples/register',
+    '/peoples/facilities',
+    'peoples/facilities',
     '/peoples',
     'peoples',
   ];
@@ -53,9 +55,10 @@ export function bootstrapAxios() {
     },
     (error) => {
       if (get(error, 'response.status') === 403) {
+        localStorage.removeItem('session');
         localStorage.removeItem('sessionId');
         localStorage.removeItem('appState');
-        history.push('/get-started?logout=true');
+        history.push('/map?logout=true');
       }
 
       console.warn('response error:', error.response);

@@ -8,10 +8,13 @@
 /* "'Component" styles below */
 @import 'header';
 @import 'header-clear';
+@import 'header-solid';
 @import 'header-homescreen';
+@import 'mobile-menu';
 
 @import 'login-verification';
 @import 'login';
+@import 'logout';
 
 @import 'phone-number';
 @import 'phone-verify';
@@ -24,15 +27,19 @@
 @import 'health-worker';
 @import 'symptoms';
 
+@import 'home';
 @import 'profile-view';
 @import 'profile-edit';
 @import 'settings';
-@import 'user-profile-card';
+@import 'profile-card';
 
 @import 'test-map';
 @import 'testing-location-list-item';
 
 @import 'trace';
+
+@import 'update-criteria';
+
 
 @import 'bottom-navigation';
 
@@ -41,3 +48,4 @@
 /* Abandoned Temporarily*/
 // @import 'result';
 // @import 'conditions';
+//@import 'maps-autocomplete';

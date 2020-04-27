@@ -27,3 +27,19 @@ export default class GAService {
     }
   }
 }
+
+export const GA_EVENT_MAP = {
+  directions: 'directions_button_click',
+  call: 'call_button_clicked',
+  expand: 'list_item_expand',
+  contract: 'list_item_contract'
+};
+
+export function MAP_PAGE_GA_EVENTS(testingSiteId, testingSiteName, buttonIndex, enabledFilters) {
+  return {
+    testingSiteName: `${testingSiteName}`,
+    testingSiteId,
+    listIndex: `${buttonIndex}`,
+    enabledFilters
+  };
+}

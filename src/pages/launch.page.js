@@ -15,7 +15,7 @@ const LogoStyle = {
 const ContainerStyle = {
   height: '100vh',
   width: '100%',
-  background: 'linear-gradient(to right, #28baff, #1195ff)',
+  background: 'linear-gradient(135deg, #36d1bc, #36d1bc 20%, #007aff)',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -26,15 +26,10 @@ const LaunchPage = ({ props }) => {
   gaService.setScreenName('launch');
 
   const history = useHistory();
-  const sessid = localStorage.getItem('sessionId');
 
   useEffect(() => {
     setTimeout(() => {
-      if (sessid) {
-        history.push('/map');
-      } else {
-        history.push('/get-started');
-      }
+      history.push('/map');
     }, 3000);
   });
 
