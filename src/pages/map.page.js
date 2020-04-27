@@ -189,7 +189,7 @@ export default function MapPage() {
                 onClear={onLocationCleared}
               ></GoogleMapsAutocomplete>
 
-              {appState.isListLoading === false && (
+              {appState.map.isListLoading === false && (
                 <Box
                   className={'button-box'}
                   style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
@@ -221,14 +221,15 @@ export default function MapPage() {
                 </Box>
               )}
 
-              {appState.isListLoading === true && (
+              {appState.map.isListLoading === true && (
                 <div
                   style={{
-                    height: 'auto',
+                    paddingTop: '100px',
+                    height: '80vh !important',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    justifyContent: 'center',
+                    justifyContent: 'top',
                   }}
                   className="mt-4 mt-md-0 vh100-lg"
                 >
@@ -238,25 +239,26 @@ export default function MapPage() {
               )}
 
               {locations &&
-                locations.map((result, index) => (
-                  <TestingLocationListItem
-                    id={result.id}
-                    key={index}
-                    index={index}
-                    title={result.name}
-                    description={result.address}
-                    city_state={result.city + ', ' + result.state}
-                    service_time={result.hours}
-                    driveThru={result.driveThru}
-                    phone={result.phone}
-                    website={result.url}
-                    {...result}
-                    onActionClick={onActionClick}
-                    onTestingLocationExpand={onTestingLocationExpand}
-                  ></TestingLocationListItem>
-                ))}
+              locations.map((result, index) => (
+                <TestingLocationListItem
+                  id={result.id}
+                  key={index}
+                  index={index}
+                  title={result.name}
+                  description={result.address}
+                  city_state={result.city + ', ' + result.state}
+                  service_time={result.hours}
+                  driveThru={result.driveThru}
+                  phone={result.phone}
+                  website={result.url}
+                  {...result}
+                  onActionClick={onActionClick}
+                  onTestingLocationExpand={onTestingLocationExpand}
+                ></TestingLocationListItem>
+              ))}
 
-              {locations.length === 0 && appState.isListLoading === false && (
+
+              {locations.length === 0 && appState.map.isListLoading === false && (
                 <h2 style={{ display: 'flex', justifyContent: 'center' }}>No Results Found </h2>
               )}
             </div>

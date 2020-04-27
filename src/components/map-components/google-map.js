@@ -148,9 +148,9 @@ export default class GoogleMap extends Component {
       ...appState,
       map: {
         ...appState.map,
+        isListLoading: false,
         locations,
       },
-      isListLoading: false,
     });
   }
 
@@ -179,6 +179,7 @@ export default class GoogleMap extends Component {
       ...appState,
       map: {
         ...appState.map,
+        isListLoading: true,
         latitude,
         longitude
       }
