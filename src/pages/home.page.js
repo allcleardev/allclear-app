@@ -14,6 +14,8 @@ import Header from '@components/general/headers/header';
 import BottomNav from '@components/general/navs/bottom-nav';
 import { DEFAULT_NAV_ITEMS } from '@components/general/headers/header.constants';
 
+import SnackbarMessage from '@general/alerts/snackbar-message';
+
 import Container from '@material-ui/core/Container';
 import WarningRoundedIcon from '@material-ui/icons/WarningRounded';
 import CheckRoundedIcon from '@material-ui/icons/CheckRounded';
@@ -28,6 +30,7 @@ export default class HomePage extends Component {
     testLocationsExpanded: false,
     symptomatic: false,
     prioritized: false,
+    isSnackbarOpen: false,
   };
 
   constructor(props) {
@@ -39,6 +42,7 @@ export default class HomePage extends Component {
       'onLocationSelected',
       'onViewMoreClicked',
       'onShareClicked',
+      'handleSnackbarClose',
       'updateUserProfile',
     ]);
     this.peopleService = PeopleService.getInstance();
@@ -110,7 +114,16 @@ export default class HomePage extends Component {
     });
   }
 
-  onShareClicked() {}
+  onShareClicked() {
+    if (navigator && navigator.clipboard) {
+      navigator.clipboard.writeText('https://go.allclear.app');
+      this.setState({ isSnackbarOpen: true });
+    }
+  }
+
+  handleSnackbarClose() {
+    this.setState({ isSnackbarOpen: false });
+  }
 
   async updateUserProfile(pinnedLocation) {
     const { appState, setAppState } = this.context;
@@ -264,6 +277,13 @@ export default class HomePage extends Component {
             </Button>
           </article>
         </Container>
+
+        <SnackbarMessage
+          severity="success"
+          isOpen={this.state.isSnackbarOpen}
+          onClose={this.handleSnackbarClose}
+          message={'Link Copied!'}
+        />
 
         <BottomNav active={0}></BottomNav>
       </section>

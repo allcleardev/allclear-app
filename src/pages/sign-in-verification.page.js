@@ -3,13 +3,15 @@ import { bindAll } from 'lodash';
 
 import PeopleService from '@services/people.service';
 import GAService from '@services/ga.service';
-
-import Header from '@components/general/headers/header';
-import OnboardingNavigation from '@general/navs/onboarding-navigation';
 import { AppContext } from '@contexts/app.context';
 
-import { ONBOARDING_NAV_ITEMS } from '@components/general/headers/header.constants';
-import { Button, Container, CircularProgress, TextField, FormControl } from '@material-ui/core';
+import RoundHeader from '@general/headers/header-round';
+import Header from '@general/headers/header';
+import ProgressBottom from '@general/navs/progress-bottom';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import OnboardingNavigation from '@general/navs/onboarding-navigation';
+import { ONBOARDING_NAV_ITEMS } from '@general/headers/header.constants';
+import { Button, Grid, Container, CircularProgress, TextField, FormControl, FormLabel,Form  } from '@material-ui/core';
 
 export default class SignInVerificationPage extends Component {
   static contextType = AppContext;
@@ -27,6 +29,7 @@ export default class SignInVerificationPage extends Component {
       'verifyPhoneNumber',
       'resendCode',
       'handleCodeChange',
+      'routeChange',
       'onKeyPress',
       'validateState',
     ]);
@@ -66,7 +69,7 @@ export default class SignInVerificationPage extends Component {
     }
 
     return phone;
-  };
+  }
 
   // Function to make call backend service to confirm the magic link
   async verifyPhoneNumber() {
@@ -162,6 +165,10 @@ export default class SignInVerificationPage extends Component {
 
   handleCodeChange(event) {
     this.setState({ code: event.target.value });
+  }
+
+  routeChange(route) {
+    this.props.history.push(route);
   }
 
   render() {
