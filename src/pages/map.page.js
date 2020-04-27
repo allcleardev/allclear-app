@@ -6,7 +6,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { get } from 'lodash';
 
 // components / icons
-import BottomNav from '@general/navs/bottom-nav';
 import SolidHeader from '@general/headers/header-solid';
 import UpdateCriteriaModal from '@general/modals/update-criteria-modal';
 import GoogleMap from '@components/map-components/google-map';
@@ -20,6 +19,7 @@ import Badge from '@material-ui/core/Badge';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
+import MobileMenu from '@general/headers/mobile-menu';
 
 // other
 import ModalService from '@services/modal.service';
@@ -39,7 +39,7 @@ export default function MapPage() {
   const classes = useStyles();
   const badgeRef = React.createRef();
   const DRAWER_EXPANDED_HEIGHT = '95vh';
-  const DRAWER_COLLAPSED_HEIGHT = 350;
+  const DRAWER_COLLAPSED_HEIGHT = '40vh';
 
   // state & global state
   const { setAppState, appState } = useContext(AppContext);
@@ -55,6 +55,7 @@ export default function MapPage() {
   const [drawerHeight, setDrawerHeight] = useState(DRAWER_COLLAPSED_HEIGHT);
   const locations = get(appState, 'map.locations') || [];
   const numActiveFilters = getNumActiveFilters(get(appState, 'searchCriteria'));
+  const isLoggedIn = appState.sessionId ? true : false;
 
   // callback handlers
   function onWindowResize({ width, height }) {
@@ -149,7 +150,8 @@ export default function MapPage() {
 
   return (
     <div className="map-page">
-      <SolidHeader isOpen={isOpen}></SolidHeader>
+      <MobileMenu isLoggedIn={isLoggedIn}></MobileMenu>
+      <SolidHeader isLoggedIn={isLoggedIn} isOpen={isOpen}></SolidHeader>
       <Box p={3}>
         <AppBar
           className={
@@ -160,14 +162,6 @@ export default function MapPage() {
           }
           style={{ zIndex: '2' }}
         >
-          {/* <IconButton
-            disableRipple
-            aria-label="open drawer"
-            onClick={isOpen === false ? () => onDrawerToggle(true) : () => onDrawerToggle(false)}
-            className={clsx(classes.menuButton, isOpen)}
-          >
-            {isOpen === true ? <ArrowLeft /> : <ArrowRight />}
-          </IconButton> */}
         </AppBar>
 
         <Drawer
@@ -181,7 +175,7 @@ export default function MapPage() {
             <div
               id="side-drawer"
               style={{
-                width: `${drawerWidth}px`,
+                width: anchor === 'left' ? `${drawerWidth}px` : '100%',
                 overflowY: 'scroll',
                 height: drawerHeight,
               }}
@@ -275,7 +269,6 @@ export default function MapPage() {
             <GoogleMap onMapClick={onMapClick}></GoogleMap>
           </div>
         </main>
-        <BottomNav active={1}></BottomNav>
         <UpdateCriteriaModal></UpdateCriteriaModal>
       </Box>
     </div>

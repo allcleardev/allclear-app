@@ -41,6 +41,9 @@ export default function RoundHeader({ navigate = '', children }) {
           <a href="https://home.allclear.app/" className="menu__item">
             Home
           </a>
+          <a href="/map" className="menu__item">
+            Map
+          </a>
           <a href="https://about.allclear.app/" className="menu__item">
             Help
           </a>

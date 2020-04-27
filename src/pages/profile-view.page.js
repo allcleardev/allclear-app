@@ -7,7 +7,7 @@ import BottomNav from '../components/general/navs/bottom-nav';
 import PeopleService from '../services/people.service.js';
 import userAvatar from '@assets/images/defaultProfile.svg';
 import { ReactComponent as SettingsIcon } from '@assets/images/settings-icon.svg';
-import { AppContext, INITIAL_APP_STATE } from '../contexts/app.context';
+import { AppContext } from '../contexts/app.context';
 
 import Container from '@material-ui/core/Container';
 import { Button, IconButton, Chip } from '@material-ui/core';
@@ -17,7 +17,7 @@ export default class ProfileViewPage extends Component {
 
   constructor(props) {
     super(props);
-    bindAll(this, ['componentDidMount', 'fetchProfile', 'executeLogout', 'setProfile']);
+    bindAll(this, ['routeChange', 'componentDidMount', 'fetchProfile', 'setProfile']);
     this.peopleService = PeopleService.getInstance();
     this.state = {
       profile: {},
@@ -42,17 +42,6 @@ export default class ProfileViewPage extends Component {
     const profile = response.data;
 
     this.setState({ profile });
-  }
-
-  async executeLogout() {
-    const currSession = this.context.appState.sessionId;
-    await this.peopleService.logout(currSession);
-    localStorage.removeItem('sessionId');
-    localStorage.removeItem('appState');
-    localStorage.removeItem('session');
-    const { setAppState } = this.context;
-    setAppState(INITIAL_APP_STATE);
-    return this.props.history.push('/get-started?logout=You%20have%20been%20successfully%20logged%20out.');
   }
 
   setProfile(session) {
@@ -111,8 +100,8 @@ export default class ProfileViewPage extends Component {
               {profile.locationName ? (
                 <dd className="card__description">{profile.locationName}</dd>
               ) : (
-                <dd className="card__description">My Current Location</dd>
-              )}
+                  <dd className="card__description">My Current Location</dd>
+                )}
             </dl>
 
             {profile.exposures && profile.exposures.length ? (
@@ -127,8 +116,8 @@ export default class ProfileViewPage extends Component {
                 })}
               </dl>
             ) : (
-              ''
-            )}
+                ''
+              )}
 
             {profile.healthWorkerStatus ? (
               <dl className="card__content">
@@ -136,8 +125,8 @@ export default class ProfileViewPage extends Component {
                 <dd className="card__description">{profile.healthWorkerStatus.name}</dd>
               </dl>
             ) : (
-              ''
-            )}
+                ''
+              )}
 
             {profile.conditions && profile.conditions.length ? (
               <dl className="card__content">
@@ -149,8 +138,8 @@ export default class ProfileViewPage extends Component {
                 </dd>
               </dl>
             ) : (
-              ''
-            )}
+                ''
+              )}
 
             {profile.symptoms && profile.symptoms.length ? (
               <dl className="card__content">
@@ -162,12 +151,12 @@ export default class ProfileViewPage extends Component {
                 </dd>
               </dl>
             ) : (
-              ''
-            )}
+                ''
+              )}
           </article>
 
           <Button
-            onClick={() => this.executeLogout()}
+            onClick={() => this.routeChange('/logout')}
             style={{ color: '#2A7DF4', border: '1px solid #2A7DF4' }}
             className="btn-big  fontsize-16"
           >
