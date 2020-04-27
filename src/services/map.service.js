@@ -22,7 +22,7 @@ export default class MapService {
   ipCheck() {
     return Axios({
       method: 'GET',
-      url: `http://ip-api.com/json`,
+      url: 'https://pro.ip-api.com/json?key=ZLOoH0pb8bNnQax',
     });
   }
 
