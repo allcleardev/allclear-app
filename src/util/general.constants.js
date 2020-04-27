@@ -1,5 +1,5 @@
 export const isLoggedInHeaderLinks = [
-  { name: 'Home', to: '/home' },
+  // { name: 'Home', to: '/home' },
   { name: 'Map', to: '/map' },
   { name: 'Tracing', to: '/contact-tracing' },
   { name: 'About Us', to: 'https://home.allclear.app/', isExternalLink: true },
