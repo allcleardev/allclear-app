@@ -58,7 +58,7 @@ export function bootstrapAxios() {
         localStorage.removeItem('session');
         localStorage.removeItem('sessionId');
         localStorage.removeItem('appState');
-        history.push('/get-started?logout=true');
+        history.push('/map?logout=true');
       }
 
       console.warn('response error:', error.response);
