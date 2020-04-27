@@ -1,17 +1,36 @@
 import React, { Component } from 'react';
 import { bindAll } from 'lodash';
-
-import { AppContext } from '@contexts/app.context';
-import Logo from '@assets/images/logo-white.svg';
-
-import Header from '@general/headers/header';
-
-import { Button } from '@material-ui/core';
-import Container from '@material-ui/core/Container';
 import * as queryString from 'query-string';
+
+import Logo from '@assets/images/logo-white.svg';
+import Header from '@general/headers/header';
+import { AppContext } from '@contexts/app.context';
+
 import SnackbarMessage from '@general/alerts/snackbar-message';
+import { Button, Container, withStyles } from '@material-ui/core';
 
 import GAService from '@services/ga.service';
+
+const DefaultButton = withStyles((theme) => ({
+  root: {
+    padding: '12px 16px',
+    lineHeight: '22px',
+    letterSpacing: '-0.41px',
+    fontWeight: '600',
+    fontSize: '17px',
+    borderRadius: '10px',
+    minWidth: '100%',
+    color: theme.palette.primary.main,
+    backgroundColor: '#fff',
+    boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.15)',
+    [theme.breakpoints.up('md')]: {
+      minWidth: '248px',
+    },
+    '&:hover': {
+      backgroundColor: '#e1efff',
+    },
+  },
+}))(Button);
 
 export default class GetStartedPage extends Component {
   static contextType = AppContext;
@@ -39,7 +58,7 @@ export default class GetStartedPage extends Component {
     const queryParams = queryString.parse(this.props.location.search);
 
     if (queryParams.logout) {
-      const snackbarMessage = (queryParams.logout === 'true') ? this.state.snackbarMessage : queryParams.logout;
+      const snackbarMessage = queryParams.logout === 'true' ? this.state.snackbarMessage : queryParams.logout;
       this.setState({
         snackbarMessage,
         isSnackbarOpen: true,
@@ -71,9 +90,9 @@ export default class GetStartedPage extends Component {
         <Container className="content" maxWidth="md">
           <img src={Logo} alt="Logo" className="logo" />
           <div className="button-container">
-            <Button className="signup" variant="contained" onClick={() => this.routeChange('/location')}>
+            <DefaultButton className="signup" variant="contained" onClick={() => this.routeChange('/location')}>
               Get Started
-            </Button>
+            </DefaultButton>
             <Button className="signin" onClick={() => this.routeChange('/sign-in')}>
               Already Have an Account?
               <span className="cta">Log In</span>

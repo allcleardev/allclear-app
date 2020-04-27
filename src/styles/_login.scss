@@ -1,46 +1,22 @@
 .login {
-  form {
-    flex: 1;
-    display: flex;
-    align-items: center;
-
-    @media (min-width: $md) {
-      align-items: flex-start;
-    }
-  }
-
-  a.login {
-    font-weight: 600;
-    font-size: 15px;
-  }
-
   .content-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: auto 0;
-    transform: translateY(-50%);
+    text-align: center;
 
     a {
       display: block;
       margin: 15px 0;
+      font-weight: 600;
       font-size: 13px;
-    }
-
-    @media (max-width: $md - 1) {
-      padding-top: 9rem;
     }
   }
 
-  .button-container {
-    > a.hide-desktop {
-      margin-top: 15px;
-    }
+  .error {
+    margin: 15px 0;
+  }
 
-    @media (min-width: $md) {
-      > button {
-        margin: 0 auto;
-      }
+  .onboarding-navigation {
+    @media (max-width: $md - 1) {
+      margin-bottom: 20px;
     }
   }
 }

@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import { bindAll } from 'lodash';
 
-import RoundHeader from '../components/general/headers/header-round';
-import ProgressBottom from '@general/navs/progress-bottom';
-import GoogleMapsAutocomplete from '../components/general/inputs/google-maps-autocomplete';
-import OnboardingNavigation from '../components/general/navs/onboarding-navigation';
-
-import Form from '@material-ui/core/Container';
-import Box from '@material-ui/core/Container';
-import { Button } from '@material-ui/core';
-import { AppContext } from '../contexts/app.context';
 import GAService from '@services/ga.service';
+import ProgressBottom from '@general/navs/progress-bottom';
+import { AppContext } from '@contexts/app.context';
+
+import Header from '@components/general/headers/header';
+import GoogleMapsAutocomplete from '@components/general/inputs/google-maps-autocomplete';
+import OnboardingNavigation from '@components/general/navs/onboarding-navigation';
+import { ONBOARDING_NAV_ITEMS } from '@components/general/headers/header.constants';
+import { Container } from '@material-ui/core';
 
 class BackgroundPage extends Component {
   static contextType = AppContext;
@@ -22,21 +21,13 @@ class BackgroundPage extends Component {
 
   constructor() {
     super();
-
+    bindAll(this, ['handleLocationChange', 'handleSwitchChange', '_onLocationAccepted', '_onLocationDeclined']);
     this.gaService = GAService.getInstance();
     this.gaService.setScreenName('background');
-
-    bindAll(this, [
-      'routeChange',
-      'handleLocationChange',
-      'handleSwitchChange',
-      '_onLocationAccepted',
-      '_onLocationDeclined',
-    ]);
-  }
-
-  routeChange(route) {
-    this.props.history.push(route);
+    this.navItems = [
+      { route: 'home.allclear.app', name: 'Home', absolutePath: true },
+      { route: 'about.allclear.app/#comitment', name: 'Help', absolutePath: true },
+    ];
   }
 
   async handleLocationChange(bool, value) {
@@ -53,7 +44,7 @@ class BackgroundPage extends Component {
           locationName,
           latitude,
           longitude,
-        }
+        },
       });
     }
   }
@@ -103,72 +94,40 @@ class BackgroundPage extends Component {
 
   render() {
     return (
-      <div className="background-responsive">
-        <div className="background onboarding-page">
-          <RoundHeader navigate={'/get-started'}>
-            <h1 className="heading">Your Location</h1>
-            <h2 className="sub-heading">
-              Please provide your location information to help us recommend nearby test locations for you.
-            </h2>
-          </RoundHeader>
-          <Form noValidate autoComplete="off" className="onboarding-body">
-            <Box maxWidth="md">
-              <section className="section">
-                <article className="article">
-                  <label htmlFor="location" className="label">
-                    <strong>Select one</strong>
-                    <span className="text-small"> (Required)</span> <br />
-                    <span className="description">
-                      We can give localized test center recommendations with your location.
-                    </span>
-                  </label>
-                  <GoogleMapsAutocomplete
-                    useCurrentLocation={this.state.useCurrentLocation}
-                    locationSelected={this.handleLocationChange}
-                  ></GoogleMapsAutocomplete>
+      <div className="background onboarding-page">
+        <Header navItems={ONBOARDING_NAV_ITEMS} enableBackBtn={true}>
+          <h1>Location</h1>
+          <h2>Please provide your location information to help us recommend nearby test locations for you.</h2>
+        </Header>
+        <Container className="onboarding-body">
+          <Container maxWidth="md" className="section">
+            <article className="article">
+              <label htmlFor="location" className="label">
+                Select one <span>(Required)</span>
+              </label>
+              <GoogleMapsAutocomplete
+                useCurrentLocation={this.state.useCurrentLocation}
+                locationSelected={this.handleLocationChange}
+              ></GoogleMapsAutocomplete>
 
-                  <div className="switchContainer" onClick={this.handleSwitchChange}>
-                    <div className="switch">
-                      <input
-                        type="checkbox"
-                        onChange={this.handleSwitchChange}
-                        checked={this.state.useCurrentLocation}
-                      />
-                      <span className="slider round"></span>
-                    </div>
+              <div className="switchContainer" onClick={this.handleSwitchChange}>
+                <div className="switch">
+                  <input type="checkbox" onChange={this.handleSwitchChange} checked={this.state.useCurrentLocation} />
+                  <span className="slider round"></span>
+                </div>
 
-                    <p className="currentLocation">Use Current Location</p>
-                  </div>
-                </article>
-              </section>
-            </Box>
-            <OnboardingNavigation
-              back={
-                <Button
-                  variant="contained"
-                  className="back hide-mobile"
-                  onClick={() => this.routeChange('/get-started')}
-                >
-                  Back
-                </Button>
-              }
-              forward={
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className="next"
-                  onClick={() => this.routeChange('/health-worker')}
-                  disabled={!this.state.location}
-                >
-                  Next
-                </Button>
-              }
-              tooltipMessage={'Please provide your location'}
-              triggerTooltip={!this.state.location}
-            ></OnboardingNavigation>
-          </Form>
-          <ProgressBottom progress="0%"></ProgressBottom>
-        </div>
+                <p className="currentLocation">Use Current Location</p>
+              </div>
+            </article>
+          </Container>
+          <OnboardingNavigation
+            forwardRoute={'/health-worker'}
+            forwardDisabled={!this.state.location}
+            triggerTooltip={!this.state.location}
+            tooltipMessage={'Please provide your location'}
+          ></OnboardingNavigation>
+        </Container>
+        <ProgressBottom progress="0%"></ProgressBottom>
       </div>
     );
   }
