@@ -7,7 +7,7 @@ import BottomNav from '../components/general/navs/bottom-nav';
 import PeopleService from '../services/people.service.js';
 import userAvatar from '@assets/images/defaultProfile.svg';
 import { ReactComponent as SettingsIcon } from '@assets/images/settings-icon.svg';
-import { AppContext } from '../contexts/app.context';
+import { AppContext, INITIAL_APP_STATE } from '../contexts/app.context';
 
 import Container from '@material-ui/core/Container';
 import { Button, IconButton, Chip } from '@material-ui/core';
@@ -48,6 +48,17 @@ export default class ProfileViewPage extends Component {
     if (session.person) {
       this.setState({ profile: session.person });
     }
+  }
+
+  async executeLogout() {
+    const currSession = this.context.appState.sessionId;
+    await this.peopleService.logout(currSession);
+    localStorage.removeItem('sessionId');
+    localStorage.removeItem('appState');
+    localStorage.removeItem('session');
+    const { setAppState } = this.context;
+    setAppState(INITIAL_APP_STATE);
+    return this.props.history.push('/get-started?logout=You%20have%20been%20successfully%20logged%20out.');
   }
 
   render() {
@@ -156,7 +167,7 @@ export default class ProfileViewPage extends Component {
           </article>
 
           <Button
-            onClick={() => this.routeChange('/logout')}
+            onClick={() => this.executeLogout()}
             style={{ color: '#2A7DF4', border: '1px solid #2A7DF4' }}
             className="btn-big  fontsize-16"
           >
