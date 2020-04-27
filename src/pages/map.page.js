@@ -106,7 +106,7 @@ export default function MapPage() {
       coords: {
         latitude, longitude
       }
-    }, true);
+    });
   }
 
   function onEditFiltersBtnClick() {
