@@ -8,6 +8,7 @@ import {AppContext} from '@contexts/app.context';
 import MyLocationMapMarker from './my-location-map-marker.js';
 import SnackbarMessage from '@general/alerts/snackbar-message';
 import GAService from '@services/ga.service';
+import MapService from '@services/map.service';
 
 export default class GoogleMap extends Component {
   static contextType = AppContext;
@@ -36,6 +37,7 @@ export default class GoogleMap extends Component {
     ]);
     this.gMapRef = React.createRef();
     this.facilityService = FacilityService.getInstance();
+    this.mapService = MapService.getInstance();
     this.gaService = GAService.getInstance();
     this.gaService.setScreenName('map');
   }
@@ -46,9 +48,9 @@ export default class GoogleMap extends Component {
     let longitude = get(appState, 'person.longitude');
 
     // user accepts browser location tracking
-    const _onLocationAccepted = async (pos) => {
+    const _onLocationAccepted = async (pos, shouldSkipLocationEnabled) => {
 
-      this.gaService.sendEvent('current_location_enabled', {});
+      !shouldSkipLocationEnabled && this.gaService.sendEvent('current_location_enabled', {});
       const latitude = pos.coords.latitude;
       const longitude = pos.coords.longitude;
       const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude}));
@@ -60,13 +62,15 @@ export default class GoogleMap extends Component {
 
     };
 
+    this.onLocationAccepted = _onLocationAccepted;
+
     // user declines browser location tracking
     const _onLocationDeclined = async () => {
       // not logged in
       if (!latitude || !longitude) {
 
         // if IP check succeeded, use that
-        let ipData = await this.facilityService.ipCheck();
+        let ipData = await this.mapService.ipCheck();
         latitude = get(ipData, 'data.lat');
         longitude = get(ipData, 'data.lon');
 
@@ -147,6 +151,10 @@ export default class GoogleMap extends Component {
   _setLocations(locations) {
     // update context state (for other components in map page)
     const {setAppState, appState} = this.context;
+
+    this.mapService.mapRef = this.gMapRef;
+    this.mapService.onLocationAccepted = this.onLocationAccepted;
+
     setAppState({
       ...appState,
       map: {
@@ -154,15 +162,6 @@ export default class GoogleMap extends Component {
         locations,
       },
       isListLoading: false,
-
-      // todo: move this to service
-      effects: {
-        ...appState.effects,
-        map: {
-          ...appState.effects.map,
-          onLocationAccepted: this._onLocationAccepted,
-        }
-      }
     });
   }
 

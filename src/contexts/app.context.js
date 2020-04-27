@@ -51,12 +51,6 @@ export const INITIAL_APP_STATE = {
   forceRefresh: false,
   modalSubmitCount: 0,
 
-  // functions within child components that are needed globally
-  effects: {
-    map: {
-      onLocationAccepted: undefined
-    }
-  }
 };
 
 // Context state

@@ -34,10 +34,10 @@ export default function GoogleMapsAutocomplete(props) {
 
   // focus on mount if so configured
   useEffect(() => {
-    if(props.focusOnRender){
+    if (props.focusOnRender) {
       inputRef.current.querySelectorAll('input')[0].focus();
     }
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 
@@ -129,7 +129,7 @@ export default function GoogleMapsAutocomplete(props) {
         options={options}
         onChange={handleSelectionChange}
         onInputChange={(e, v, r) => {
-          props.onClear && onInputChanged(e,v,r);
+          props.onClear && onInputChanged(e, v, r);
         }}
         disabled={props.useCurrentLocation}
         defaultValue={props.initialValue}
