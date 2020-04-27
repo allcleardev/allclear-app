@@ -156,7 +156,7 @@ export default class ProfileViewPage extends Component {
           </article>
 
           <Button
-            onClick={() => this.routeChange('/logout')}
+            onClick={() => this.routeChange('/map')}
             style={{ color: '#2A7DF4', border: '1px solid #2A7DF4' }}
             className="btn-big  fontsize-16"
           >
