@@ -17,6 +17,7 @@ export const CRITERIA_FORM_DATA = [
         name: 'No Drive Throughs',
       },
     ],
+    placeholder: false
   },
   {
     title: 'Show Appointment Only Test Centers',
@@ -36,6 +37,7 @@ export const CRITERIA_FORM_DATA = [
         name: 'No Appointment',
       },
     ],
+    placeholder: false
   },
   // {
   //   title: 'Symptoms',

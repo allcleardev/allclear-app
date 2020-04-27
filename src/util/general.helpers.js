@@ -24,6 +24,18 @@ export function getNumActiveFilters(searchCriteria) {
   );
 }
 
+export function getActiveFilters(searchCriteria) {
+  return reduce(
+    searchCriteria,
+    (acc, val, key) => {
+      const isInactive = isNullOrUndefined(val) || lowerCase(val) === 'any';
+      if (!isInactive) acc = [...acc, { key, value: val }];
+      return acc;
+    },
+    [],
+  );
+}
+
 
 export function loadScript(file) {
   var script = document.createElement('script');

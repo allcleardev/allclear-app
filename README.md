@@ -22,6 +22,7 @@
 
 This is the web version of http://allclear.app, a COVID-19 tracing application.
 
+
 ### Running the Project
 
 In the project directory, run:
@@ -43,6 +44,15 @@ In the project directory, run:
 Launches the e2e test runner in the interactive watch mode.
 You can install [nim](https://chrome.google.com/webstore/detail/nodejs-v8-inspector-manag/gnhhdgbaldcilmgcpfddgdbkhjohddkj?hl=en) to automatically open the chrome debugger so you can inspect variables within the scope of your tests. Trigger a breakpoint by placing `debugger` statements in your test.
 
+#### env variables for testing
+
+You'll need to pull a session token from the admin app, and supply an env
+variable for some of the tests to run:
+
+```
+SESSION_ID='GOD-SESSION-TOKEN'
+```
+
 ### Building the Project
 
 In the project directory, run:
@@ -58,3 +68,11 @@ Your app is ready to be deployed!
 ## Further Reading
 
 - [Naming Conventions](./docs/naming-conventions.md)
+
+## Contact
+
+General inquiries: <info@allclear.app>
+
+Report a security issue: <security@allclear.app>
+
+

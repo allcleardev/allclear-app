@@ -211,9 +211,14 @@ export default class SignUpPage extends Component {
       });
     }
 
-    const { appState } = this.context;
+    const { setAppState, appState } = this.context;
     let phone = appState.person.phone;
     const payload = this.buildPayload();
+
+    setAppState({
+      ...appState,
+      signUpPayload: payload
+    });
 
     const response = await this.peopleService.authStart(payload);
 

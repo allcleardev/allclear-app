@@ -1,13 +1,14 @@
-.header-white-fullscreen {
+.header-solid-fullscreen {
   z-index: 1;
   position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100vw;
-  background: linear-gradient(180deg, #fff 5%, rgba(255, 255, 255, 0) 100%);
+  background: linear-gradient(90deg, #002C83 0%, #007CFF 100%);
+  box-shadow: 0px 1px 10px #999;
 
-  @media (max-width: $md - 1) {
+  @media (max-width: $md) {
     display: none;
   }
 
@@ -17,7 +18,7 @@
     align-items: flex-start; // safari fix
     flex-direction: row;
     width: 90%;
-    margin: 18px 0;
+    margin: 11px 0;
 
     @media (max-width: $md - 1) {
       display: none;
@@ -35,16 +36,29 @@
     .header-menu {
       display: flex;
       align-items: center;
+      min-height: 48px;
 
       &__item {
-        padding: 0 25px;
+        text-align: center;
+        padding: 3px 15px;
+        margin: 0px 8px;
         line-height: 20px;
         font-weight: 500;
         font-size: 14px;
-        color: #999999;
+        color: #fff;
 
-        &.selected {
-          border-bottom: 2px solid #999;
+        &:hover {
+          border-bottom: 2px solid #fff;
+        }
+
+        &--inverted {
+          background: white;
+          color: $primary-color;
+
+          &:hover {
+            border-bottom: none;
+            opacity: 0.9
+          }
         }
       }
     }

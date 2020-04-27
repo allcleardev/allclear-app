@@ -6,8 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { get } from 'lodash';
 
 // components / icons
-import BottomNav from '@general/navs/bottom-nav';
-import ClearHeader from '@general/headers/header-clear';
+import SolidHeader from '@general/headers/header-solid';
 import UpdateCriteriaModal from '@general/modals/update-criteria-modal';
 import GoogleMap from '@components/map-components/google-map';
 import TestingLocationListItem from '@components/map-components/testing-location-list-item';
@@ -20,23 +19,27 @@ import Badge from '@material-ui/core/Badge';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
+import MobileMenu from '@general/headers/mobile-menu';
 
 // other
 import ModalService from '@services/modal.service';
 import { AppContext } from '@contexts/app.context';
 import { useWindowResize } from '@hooks/general.hooks';
-import { getNumActiveFilters } from '@util/general.helpers';
-import GAService from '@services/ga.service';
+import { getNumActiveFilters, getActiveFilters } from '@util/general.helpers';
+import GAService, { MAP_PAGE_GA_EVENTS, GA_EVENT_MAP } from '@services/ga.service';
+import GoogleMapsAutocomplete from '@general/inputs/google-maps-autocomplete';
+import MapService from '@services/map.service';
 
 export default function MapPage() {
+  const mapService = MapService.getInstance();
   const gaService = GAService.getInstance();
   gaService.setScreenName('map');
 
   // constants
   const classes = useStyles();
   const badgeRef = React.createRef();
-  const DRAWER_EXPANDED_HEIGHT = '100vh';
-  const DRAWER_COLLAPSED_HEIGHT = 350;
+  const DRAWER_EXPANDED_HEIGHT = '95vh';
+  const DRAWER_COLLAPSED_HEIGHT = '40vh';
 
   // state & global state
   const { setAppState, appState } = useContext(AppContext);
@@ -52,6 +55,7 @@ export default function MapPage() {
   const [drawerHeight, setDrawerHeight] = useState(DRAWER_COLLAPSED_HEIGHT);
   const locations = get(appState, 'map.locations') || [];
   const numActiveFilters = getNumActiveFilters(get(appState, 'searchCriteria'));
+  const isLoggedIn = appState.sessionId ? true : false;
 
   // callback handlers
   function onWindowResize({ width, height }) {
@@ -81,6 +85,30 @@ export default function MapPage() {
     }
   }
 
+  async function onLocationSelected(bool, newLocation) {
+
+    if (get(newLocation, 'description')) {
+      const { latitude, longitude } = newLocation;
+
+      mapService.onLocationAccepted({
+        coords: {
+          latitude, longitude
+        }
+      }, true);
+
+    }
+  }
+
+  async function onLocationCleared() {
+    const latitude = get(appState, 'person.latitude');
+    const longitude = get(appState, 'person.longitude');
+    (latitude && longitude) && mapService.onLocationAccepted({
+      coords: {
+        latitude, longitude
+      }
+    }, true);
+  }
+
   function onEditFiltersBtnClick() {
     // app context needs one more refresh before its ready to populate modal
     setAppState({
@@ -90,6 +118,31 @@ export default function MapPage() {
     modalService.toggleModal('criteria', true);
   }
 
+  function onMapClick(evt) {
+    if (anchor === 'bottom') {
+      evt.stopPropagation();
+      const nextHeight = drawerHeight === DRAWER_COLLAPSED_HEIGHT ? DRAWER_EXPANDED_HEIGHT : DRAWER_COLLAPSED_HEIGHT;
+      if (nextHeight === DRAWER_COLLAPSED_HEIGHT) setDrawerHeight(nextHeight);
+    }
+  }
+
+  // analytics handlers
+  function onActionClick(action, itemId, itemIndex, itemName) {
+    handleGAEvent(action, itemId, itemIndex, itemName);
+  }
+
+  function onTestingLocationExpand(itemId, itemIndex, itemName, isExpanded) {
+    const eventKey = isExpanded ? 'expand' : 'contract';
+    handleGAEvent(eventKey, itemId, itemIndex, itemName);
+  }
+
+  function handleGAEvent(eventKey, itemId, itemIndex, itemName) {
+    const eventName = GA_EVENT_MAP[eventKey];
+    const enabledFilters = getActiveFilters(get(appState, ['searchCriteria'], {}));
+    const additionalParams = MAP_PAGE_GA_EVENTS(itemId, itemName, itemIndex, enabledFilters);
+    gaService.sendEvent(eventName, additionalParams);
+  }
+
   const { isOpen, anchor } = mapState;
 
   // get modal service so we can toggle it open
@@ -97,7 +150,8 @@ export default function MapPage() {
 
   return (
     <div className="map-page">
-      <ClearHeader isOpen={isOpen}></ClearHeader>
+      <MobileMenu isLoggedIn={isLoggedIn}></MobileMenu>
+      <SolidHeader isLoggedIn={isLoggedIn} isOpen={isOpen}></SolidHeader>
       <Box p={3}>
         <AppBar
           className={
@@ -108,15 +162,8 @@ export default function MapPage() {
           }
           style={{ zIndex: '2' }}
         >
-          {/* <IconButton
-            disableRipple
-            aria-label="open drawer"
-            onClick={isOpen === false ? () => onDrawerToggle(true) : () => onDrawerToggle(false)}
-            className={clsx(classes.menuButton, isOpen)}
-          >
-            {isOpen === true ? <ArrowLeft /> : <ArrowRight />}
-          </IconButton> */}
         </AppBar>
+
         <Drawer
           className={classes.drawer + ' nav-left-location'}
           variant="persistent"
@@ -124,29 +171,25 @@ export default function MapPage() {
           open={isOpen}
           style={{ height: drawerHeight, zIndex: 4 }}
         >
-          <AnimateHeight duration={500} height={drawerHeight === DRAWER_EXPANDED_HEIGHT ? '100%' : drawerHeight}>
+          <AnimateHeight
+            duration={500}
+            height={anchor === 'left' || drawerHeight === DRAWER_EXPANDED_HEIGHT ? '100%' : '40%'}
+          >
             <div
               id="side-drawer"
               style={{
-                width: `${drawerWidth}px`,
+                width: anchor === 'left' ? `${drawerWidth}px` : '100%',
                 overflowY: 'scroll',
                 height: drawerHeight,
               }}
               className="side-drawer hide-scrollbar wid100-sm"
             >
-              {/* <Hammer onSwipe={onDrawerSwipe} options={touchOptions} direction="DIRECTION_VERTICAL">
-                <div style={{height: '60px'}} className="geolist-resizer" onClick={onDrawerSwipe}>
-                  <svg width="37" height="6" viewBox="0 0 37 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M2.75977 5.18164C1.37905 5.18164 0.259766 4.06235 0.259766 2.68164C0.259766
-                      1.30093 1.37905 0.181641 2.75977 0.181641H33.7598C35.1405 0.181641 36.2598 1.30093
-                      36.2598 2.68164C36.2598 4.06235 35.1405 5.18164 33.7598 5.18164H2.75977Z"
-                      fill="#aaadb3"
-                    />
-                  </svg>
-                </div>
-              </Hammer> */}
-              {/*<GoogleMapInput style={{ marginTop: '50px' }}></GoogleMapInput>*/}
+
+              <GoogleMapsAutocomplete
+                focusOnRender={true}
+                locationSelected={onLocationSelected}
+                onClear={onLocationCleared}
+              ></GoogleMapsAutocomplete>
 
               {appState.isListLoading === false && (
                 <Box
@@ -155,14 +198,16 @@ export default function MapPage() {
                   {numActiveFilters > 0 ? (
                     <Badge
                       ref={badgeRef}
-                      badgeContent={`${numActiveFilters} Active`}
+                      badgeContent={numActiveFilters}
                       overlap={'rectangle'}
-                      style={{ width: anchor === 'bottom' ? '40%' : '100%' }}
+                      style={{ width: anchor === 'bottom' ? '48%' : '100%' }}
                     >
                       <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} />
                     </Badge>
                   ) : (
-                      <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} />
+                      <span className="edit-filters-btn-container">
+                        <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} style />
+                      </span>
                     )}
                   {anchor === 'bottom' && (
                     <Button
@@ -171,7 +216,7 @@ export default function MapPage() {
                       style={{ width: '50%', color: '#666666', size: 'large', paddingRight: '0px' }}
                       onClick={onDrawerSwipe}
                     >
-                      {drawerHeight === DRAWER_EXPANDED_HEIGHT ? 'Map View' : 'Full Results View'}
+                      {drawerHeight === DRAWER_EXPANDED_HEIGHT ? 'Map View' : 'Full List View'}
                     </Button>
                   )}
                 </Box>
@@ -196,6 +241,7 @@ export default function MapPage() {
               {locations &&
                 locations.map((result, index) => (
                   <TestingLocationListItem
+                    id={result.id}
                     key={index}
                     index={index}
                     title={result.name}
@@ -206,6 +252,8 @@ export default function MapPage() {
                     phone={result.phone}
                     website={result.url}
                     {...result}
+                    onActionClick={onActionClick}
+                    onTestingLocationExpand={onTestingLocationExpand}
                   ></TestingLocationListItem>
                 ))}
 
@@ -221,10 +269,9 @@ export default function MapPage() {
           })}
         >
           <div className="map-fullscreen">
-            <GoogleMap></GoogleMap>
+            <GoogleMap onMapClick={onMapClick}></GoogleMap>
           </div>
         </main>
-        <BottomNav active={1}></BottomNav>
         <UpdateCriteriaModal></UpdateCriteriaModal>
       </Box>
     </div>
@@ -321,6 +368,7 @@ function EditFiltersBtn(props) {
 //   const currFormValues = Object.values(appState.searchCriteria).filter(Boolean);
 //   // if any selections have anything but 'any' selected, search is active
 //   // console.log('filterss', currFormValues);
+//   // console.log(appState.searchCriteria)
 //
 //   const searchFilterActive = !currFormValues.every((e) => e === 'Any');
 //

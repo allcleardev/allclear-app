@@ -66,8 +66,8 @@ export default function UpdateCriteriaModal() {
         aria-describedby="scroll-dialog-description"
         style={{ zIndex: '5' }}
       >
-        <DialogTitle id="scroll-dialog-title">Update Search Criteria</DialogTitle>
-        <DialogContent dividers={scroll === 'paper'}>
+        <DialogTitle id="scroll-dialog-title" style={{padding: '15px 46px 8px'}}>Update Search Criteria</DialogTitle>
+        <DialogContent dividers={scroll === 'paper'} classes={{root: 'update-criteria-modal'}} style={{padding: '8px 46px'}}>
           {/*<Button*/}
           {/*  onClick={_onResetClicked}*/}
           {/*  className="btn-big bg-primary color-white fontsize-16"*/}
@@ -142,6 +142,8 @@ function UpdateCriteria({ onClose, onSubmit }) {
       map: {
         ...appState.map,
         locations: result.data.records || [],
+        latitude,
+        longitude,
       },
       searchCriteria: formValues,
       isListLoading: false,
@@ -200,23 +202,7 @@ function UpdateCriteria({ onClose, onSubmit }) {
 
   return (
     <>
-      <CardBlank
-        style={{
-          boxShadow: 'none',
-          borderRadius: 0,
-          padding: '0px 15px 25px 15px',
-          marginTop: 'none',
-        }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}
-        ></div>
-
+      <CardBlank>
         {formItems}
       </CardBlank>
 
@@ -224,18 +210,17 @@ function UpdateCriteria({ onClose, onSubmit }) {
         container
         style={{
           display: 'flex',
-          justifyContent: 'space-around',
-          padding: '5px 0',
+          padding: '19px 0px 18px',
         }}
         className="btn-group"
       >
-        <Grid item xs={12} sm={5}>
-          <Button onClick={_onSubmitClicked} className="btn-big bg-primary color-white fontsize-16">
+        <Grid item xs={12} sm={6}>
+          <Button onClick={_onSubmitClicked} className="btn-big bg-primary color-white fontsize-16" style={{width: '90%'}}>
             Search
           </Button>
         </Grid>
-        <Grid item xs={12} sm={5}>
-          <Button onClick={onClose} className="btn-big bg-grey2 fontsize-16">
+        <Grid item xs={12} sm={6} className="text-md-right">
+          <Button onClick={onClose} className="btn-big bg-grey2 fontsize-16" style={{width: '90%'}}>
             Cancel
           </Button>
         </Grid>
