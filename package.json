@@ -1,6 +1,6 @@
 {
   "name": "allclear-pwa-2",
-  "version": "1.4.6",
+  "version": "1.4.8",
   "private": true,
   "scripts": {
     "start": "node stampBuild.js && react-app-rewired start",
