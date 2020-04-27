@@ -1,21 +1,20 @@
-import { Button } from '@material-ui/core';
-import Container from '@material-ui/core/Container';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { bindAll } from 'lodash';
+import { Link } from 'react-router-dom';
 
+import PeopleService from '@services/people.service.js';
+import GAService from '@services/ga.service';
+import { AppContext } from '@contexts/app.context';
+
+import Header from '@general/headers/header';
 import BottomNav from '@general/navs/bottom-nav';
 import AlertSwitch from '@general/buttons/toggle';
-import { AppContext } from '@contexts/app.context';
-import PeopleService from '@services/people.service.js';
-import HomescreenHeader from '@general/headers/header-homescreen';
-import GAService from '@services/ga.service';
+import { DEFAULT_NAV_ITEMS } from '@general/headers/header.constants';
 
-class SettingsPage extends Component {
+import ArrowBackIosRounded from '@material-ui/icons/ArrowBackIosRounded';
+import { Button, Container, Dialog, DialogTitle, DialogContent, withStyles } from '@material-ui/core';
+
+export default class SettingsPage extends Component {
   state = {
     open: false,
   };
@@ -53,13 +52,13 @@ class SettingsPage extends Component {
   render() {
     return (
       <section className="settings">
-        <HomescreenHeader navigate={'/profile'}>
+        <Header navItems={DEFAULT_NAV_ITEMS} enableBackBtn={true}>
           <h1 className="heading">Settings</h1>
-        </HomescreenHeader>
+        </Header>
 
         <Container className="cards-container">
           <Link to="/profile" className="desktop-back-btn hide-mobile">
-            <ArrowBackIosIcon className=""></ArrowBackIosIcon>
+            <ArrowBackIosRounded className=""></ArrowBackIosRounded>
             Back
           </Link>
 
@@ -76,9 +75,9 @@ class SettingsPage extends Component {
           </article>
 
           <div className="button-container">
-            <Button variant="contained" className="delete" fullWidth onClick={this.onDeleteProfileClicked}>
+            <DefaultButton variant="contained" fullWidth onClick={this.onDeleteProfileClicked}>
               Delete Profile
-            </Button>
+            </DefaultButton>
           </div>
         </Container>
         <BottomNav active={3}></BottomNav>
@@ -107,17 +106,17 @@ class SettingsPage extends Component {
               className="button-container"
               style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}
             >
-              <Button
+              <DefaultButton
                 variant="contained"
+                fullWidth
                 onClick={() => this.onDeleteConfirmedClicked()}
-                className="delete"
                 style={{ margin: 5 }}
               >
                 Permanently Delete Account
-              </Button>
-              <Button variant="contained" onClick={() => this.handleClose()} style={{ margin: 5 }}>
+              </DefaultButton>
+              <DefaultButton fullWidth onClick={() => this.handleClose()} style={{ margin: 5 }}>
                 Cancel
-              </Button>
+              </DefaultButton>
             </div>
           </DialogContent>
         </Dialog>
@@ -126,4 +125,21 @@ class SettingsPage extends Component {
   }
 }
 
-export default SettingsPage;
+// TODO: Move to own general component
+const DefaultButton = withStyles((theme) => ({
+  root: {
+    padding: '12px 16px',
+    lineHeight: '22px',
+    letterSpacing: '-0.41px',
+    fontWeight: '600',
+    fontSize: '17px',
+    borderRadius: '10px',
+  },
+  contained: {
+    backgroundColor: theme.palette.error.main,
+    color: '#fff',
+    '&:hover': {
+      backgroundColor: theme.palette.error.main,
+    },
+  },
+}))(Button);

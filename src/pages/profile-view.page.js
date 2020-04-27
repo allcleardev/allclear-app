@@ -2,26 +2,26 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { bindAll } from 'lodash';
 
-import HomescreenHeader from '../components/general/headers/header-homescreen';
-import BottomNav from '../components/general/navs/bottom-nav';
-import PeopleService from '../services/people.service.js';
-import userAvatar from '@assets/images/defaultProfile.svg';
+import PeopleService from '@services/people.service.js';
+import UserAvatar from '@assets/images/defaultProfile.svg';
 import { ReactComponent as SettingsIcon } from '@assets/images/settings-icon.svg';
-import { AppContext } from '../contexts/app.context';
+import { AppContext } from '@contexts/app.context';
 
-import Container from '@material-ui/core/Container';
-import { Button, IconButton, Chip } from '@material-ui/core';
+import Header from '@components/general/headers/header';
+import BottomNav from '@components/general/navs/bottom-nav';
+import { DEFAULT_NAV_ITEMS } from '@components/general/headers/header.constants';
+import { Button, IconButton, Chip, Container, withStyles } from '@material-ui/core';
 
 export default class ProfileViewPage extends Component {
   static contextType = AppContext;
+  state = {
+    profile: {},
+  };
 
   constructor(props) {
     super(props);
     bindAll(this, ['routeChange', 'componentDidMount', 'fetchProfile', 'setProfile']);
     this.peopleService = PeopleService.getInstance();
-    this.state = {
-      profile: {},
-    };
   }
 
   routeChange(route) {
@@ -62,17 +62,15 @@ export default class ProfileViewPage extends Component {
           <SettingsIcon className="settings-option__icon" />
         </IconButton>
 
-        <HomescreenHeader>
-          <div className="avatar-edit">
-            <div className="avatar">
-              <img
-                src={userAvatar}
-                alt="avatar"
-                style={{ borderRadius: '50%', backgroundColor: 'white', border: '1px solid white' }}
-              />
+        <Header navItems={DEFAULT_NAV_ITEMS} enableBackBtn={true}>
+          <div className="header-content">
+            <h1 className="header-content__heading">Your Profile</h1>
+
+            <div className="avatar-container">
+              <img src={UserAvatar} className="avatar-container__img" alt="Avatar" />
             </div>
           </div>
-        </HomescreenHeader>
+        </Header>
 
         <Container className="cards-container">
           <IconButton
@@ -100,8 +98,8 @@ export default class ProfileViewPage extends Component {
               {profile.locationName ? (
                 <dd className="card__description">{profile.locationName}</dd>
               ) : (
-                  <dd className="card__description">My Current Location</dd>
-                )}
+                <dd className="card__description">My Current Location</dd>
+              )}
             </dl>
 
             {profile.exposures && profile.exposures.length ? (
@@ -116,8 +114,8 @@ export default class ProfileViewPage extends Component {
                 })}
               </dl>
             ) : (
-                ''
-              )}
+              ''
+            )}
 
             {profile.healthWorkerStatus ? (
               <dl className="card__content">
@@ -125,8 +123,8 @@ export default class ProfileViewPage extends Component {
                 <dd className="card__description">{profile.healthWorkerStatus.name}</dd>
               </dl>
             ) : (
-                ''
-              )}
+              ''
+            )}
 
             {profile.conditions && profile.conditions.length ? (
               <dl className="card__content">
@@ -138,8 +136,8 @@ export default class ProfileViewPage extends Component {
                 </dd>
               </dl>
             ) : (
-                ''
-              )}
+              ''
+            )}
 
             {profile.symptoms && profile.symptoms.length ? (
               <dl className="card__content">
@@ -151,17 +149,19 @@ export default class ProfileViewPage extends Component {
                 </dd>
               </dl>
             ) : (
-                ''
-              )}
+              ''
+            )}
           </article>
 
-          <Button
+          <DefaultButton
+            fullWidth
+            color="primary"
+            variant="outlined"
             onClick={() => this.routeChange('/map')}
-            style={{ color: '#2A7DF4', border: '1px solid #2A7DF4' }}
-            className="btn-big  fontsize-16"
+            className="default-button"
           >
             Logout
-          </Button>
+          </DefaultButton>
         </Container>
 
         <BottomNav active={3}></BottomNav>
@@ -184,3 +184,17 @@ const EditIconButton = () => {
     </IconButton>
   );
 };
+
+// TODO: Move to own general component
+const DefaultButton = withStyles((theme) => ({
+  root: {
+    padding: '12px 16px',
+    fontWeight: '600',
+    fontSize: '17px',
+    borderRadius: '10px',
+  },
+  outlined: {
+    borderColor: theme.palette.primary.main,
+    borderWidth: 1,
+  },
+}))(Button);

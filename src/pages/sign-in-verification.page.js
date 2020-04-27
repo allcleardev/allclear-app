@@ -1,39 +1,26 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import Form from '@material-ui/core/Container';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
-import TextField from '@material-ui/core/TextField';
-import { Button, Grid } from '@material-ui/core';
-
-import RoundHeader from '@general/headers/header-round';
-import ProgressBottom from '@general/navs/progress-bottom';
-import LinearProgress from '@material-ui/core/LinearProgress';
+import { bindAll } from 'lodash';
 
 import PeopleService from '@services/people.service';
-import { AppContext } from '@contexts/app.context';
-import { bindAll } from 'lodash';
 import GAService from '@services/ga.service';
+import { AppContext } from '@contexts/app.context';
+
+import Header from '@general/headers/header';
+import OnboardingNavigation from '@general/navs/onboarding-navigation';
+import { ONBOARDING_NAV_ITEMS } from '@general/headers/header.constants';
+import { Button, Container, CircularProgress, TextField, FormControl } from '@material-ui/core';
 
 export default class SignInVerificationPage extends Component {
   static contextType = AppContext;
+  state = {
+    checkedB: true,
+    loading: false,
+    code: undefined,
+    smsTimeoutEnabled: false,
+  };
 
   constructor(props) {
     super(props);
-
-    this.gaService = GAService.getInstance();
-    this.gaService.setScreenName('sign-in-verification');
-
-    this.peopleService = PeopleService.getInstance();
-
-    //eslint-disable-next-line
-    this.state = {
-      checkedB: true,
-      loading: false,
-      code: undefined,
-      smsTimeoutEnabled: false
-    };
-
     bindAll(this, [
       'sanitizePhone',
       'verifyPhoneNumber',
@@ -41,8 +28,11 @@ export default class SignInVerificationPage extends Component {
       'handleCodeChange',
       'routeChange',
       'onKeyPress',
-      'validateState'
+      'validateState',
     ]);
+    this.peopleService = PeopleService.getInstance();
+    this.gaService = GAService.getInstance();
+    this.gaService.setScreenName('sign-in-verification');
   }
 
   componentDidMount() {
@@ -76,10 +66,12 @@ export default class SignInVerificationPage extends Component {
     }
 
     return phone;
-  }
+  };
 
   // Function to make call backend service to confirm the magic link
   async verifyPhoneNumber() {
+    this.setState({ loading: true });
+
     const { appState, setAppState } = this.context;
 
     let phone = appState.person.phone;
@@ -93,7 +85,7 @@ export default class SignInVerificationPage extends Component {
       setAppState({
         ...appState,
         sessionId: response.data.id,
-        person: response.data.person
+        person: response.data.person,
       });
 
       localStorage.setItem('sessionId', response.data.id);
@@ -170,7 +162,7 @@ export default class SignInVerificationPage extends Component {
 
   handleCodeChange(event) {
     this.setState({ code: event.target.value });
-  };
+  }
 
   routeChange(route) {
     this.props.history.push(route);
@@ -178,70 +170,57 @@ export default class SignInVerificationPage extends Component {
 
   render() {
     return (
-      <div className="background-responsive">
-        <div className="verification onboarding-page">
-          <RoundHeader navigate={'/get-started'}>
-            <h1 className="heading">Phone Number</h1>
-            <h2 className="sub-heading">
-              We texted a verification code to your phone. Please enter the code to continue.
-            </h2>
-          </RoundHeader>
+      <div className="verification onboarding-page">
+        <Header navItems={ONBOARDING_NAV_ITEMS} enableBackBtn={true}>
+          <h1>Verification Code</h1>
+          <h2>We texted a verification code to your phone. Please enter the code to continue.</h2>
+        </Header>
 
-          {this.state.loading === false ? (
-            <Form noValidate autoComplete="off" className="onboarding-body">
-              <div className="content-container">
-                <FormControl className="control">
-                  <TextField
-                    id="token"
-                    name="token"
-                    className="input code-input"
-                    placeholder="Enter Code"
-                    variant="outlined"
-                    defaultValue=""
-                    autoComplete="one-time-code"
-                    inputProps={{ maxLength: 6, autoComplete: 'one-time-code', inputMode: 'numeric', pattern: '[0-9]*' }}
-                    InputLabelProps={{ shrink: false }}
-                    onChange={this.handleCodeChange}
-                    style={{}}
-                    onKeyPress={(e) => this.onKeyPress(e)}
-                  />
-                  {this.state.error && (
-                    <FormLabel error={this.state.error} classes={{ error: 'error-message' }}>
-                      You've entered an incorrect code. Please try again.
-                    </FormLabel>
-                  )}
-                  {this.state.smsTimeoutEnabled === true ? <p className="no-code-message">Didnt receive a code?</p> : ''}
-                  {this.state.smsTimeoutEnabled === true ?
-                    <Button onClick={() => this.resendCode()} variant="contained" className="back">
-                      Resend Code
-                   </Button> : ''}
+        {this.state.loading === false ? (
+          <Container className="onboarding-body">
+            <div className="content-container">
+              <FormControl className="control">
+                <TextField
+                  id="token"
+                  name="token"
+                  className="input code-input"
+                  placeholder="Enter Code"
+                  variant="outlined"
+                  defaultValue=""
+                  autoComplete="one-time-code"
+                  inputProps={{
+                    maxLength: 6,
+                    autoComplete: 'one-time-code',
+                    inputMode: 'numeric',
+                    pattern: '[0-9]*',
+                  }}
+                  InputLabelProps={{ shrink: false }}
+                  onChange={this.handleCodeChange}
+                  style={{}}
+                  onKeyPress={(e) => this.onKeyPress(e)}
+                />
+              </FormControl>
 
-
-                </FormControl>
-
+              <div className="alert-messages">
                 {this.state.error === true ? <p className="error">{this.state.message}</p> : ''}
-              </div>
-
-              <div className="button-container">
-                <Link to="/sign-in">
-                  <Button variant="contained" className="back hide-mobile">
-                    Restart
+                {this.state.smsTimeoutEnabled === true ? <p className="no-code-message">Didnt receive a code?</p> : ''}
+                {this.state.smsTimeoutEnabled === true ? (
+                  <Button onClick={() => this.resendCode()} variant="contained" className="back">
+                    Resend Code
                   </Button>
-                </Link>
-                <Button onClick={() => this.verifyPhoneNumber()} variant="contained" color="primary" className="next">
-                  Verify
-                </Button>
+                ) : (
+                  ''
+                )}
               </div>
-            </Form>
-          ) : (
-              <Grid container justify="center">
-                <Grid item xs={12} sm={6}>
-                  <LinearProgress color="primary" value={50} variant="indeterminate" />
-                </Grid>
-              </Grid>
-            )}
-          {this.state.loading === false ? <ProgressBottom progress="75%"></ProgressBottom> : null}
-        </div>
+            </div>
+
+            <OnboardingNavigation forwardOnClick={this.verifyPhoneNumber} forwardText={'Verify'}></OnboardingNavigation>
+          </Container>
+        ) : (
+          <Container className="onboarding-body">
+            <CircularProgress color="primary" size={108} />
+          </Container>
+        )}
       </div>
     );
   }

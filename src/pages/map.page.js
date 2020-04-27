@@ -161,8 +161,7 @@ export default function MapPage() {
             })
           }
           style={{ zIndex: '2' }}
-        >
-        </AppBar>
+        ></AppBar>
 
         <Drawer
           className={classes.drawer + ' nav-left-location'}
@@ -184,7 +183,6 @@ export default function MapPage() {
               }}
               className="side-drawer hide-scrollbar wid100-sm"
             >
-
               <GoogleMapsAutocomplete
                 focusOnRender={true}
                 locationSelected={onLocationSelected}
@@ -194,7 +192,8 @@ export default function MapPage() {
               {appState.isListLoading === false && (
                 <Box
                   className={'button-box'}
-                  style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                >
                   {numActiveFilters > 0 ? (
                     <Badge
                       ref={badgeRef}
@@ -205,10 +204,10 @@ export default function MapPage() {
                       <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} />
                     </Badge>
                   ) : (
-                      <span className="edit-filters-btn-container">
-                        <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} style />
-                      </span>
-                    )}
+                    <span className="edit-filters-btn-container">
+                      <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} style />
+                    </span>
+                  )}
                   {anchor === 'bottom' && (
                     <Button
                       className={'view-full-results-btn'}
@@ -233,7 +232,7 @@ export default function MapPage() {
                   }}
                   className="mt-4 mt-md-0 vh100-lg"
                 >
-                  <CircularProgress color="primary" size={70} />
+                  <CircularProgress color="primary" size={108} />
                   <p className="mt-3">Loading Results</p>
                 </div>
               )}

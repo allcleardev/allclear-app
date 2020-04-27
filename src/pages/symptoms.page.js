@@ -1,46 +1,34 @@
 import React, { Component } from 'react';
 import { bindAll } from 'lodash';
-import Form from '@material-ui/core/Container';
-import Box from '@material-ui/core/Container';
-import { Button, Chip } from '@material-ui/core';
 
-import RoundHeader from '@general/headers/header-round';
-import ProgressBottom from '@general/navs/progress-bottom';
-import OnboardingNavigation from '@general/navs/onboarding-navigation';
-import { AppContext } from '@contexts/app.context';
 import TypesService from '@services/types.service';
 import GAService from '@services/ga.service';
 
+import ProgressBottom from '@general/navs/progress-bottom';
+import OnboardingNavigation from '@general/navs/onboarding-navigation';
+import { AppContext } from '@contexts/app.context';
+
+import Header from '@components/general/headers/header';
+import { ONBOARDING_NAV_ITEMS } from '@components/general/headers/header.constants';
+import { Chip, Container } from '@material-ui/core';
+
 class SymptomsPage extends Component {
+  static contextType = AppContext;
   state = {
     symptomObj: {},
     symptoms: [],
   };
-  static contextType = AppContext;
 
   constructor() {
     super();
-
+    bindAll(this, ['componentDidMount', 'getSymptoms', 'handleChange', 'deselectAll', 'checkForSelection']);
+    this.typesService = TypesService.getInstance();
     this.gaService = GAService.getInstance();
     this.gaService.setScreenName('symptoms');
-
-    bindAll(this, [
-      'componentDidMount',
-      'routeChange',
-      'getSymptoms',
-      'handleChange',
-      'deselectAll',
-      'checkForSelection',
-    ]);
-    this.typesService = TypesService.getInstance();
   }
 
   componentDidMount() {
     this.getSymptoms();
-  }
-
-  routeChange(route) {
-    this.props.history.push(route);
   }
 
   async getSymptoms() {
@@ -67,7 +55,7 @@ class SymptomsPage extends Component {
 
   handleChange(event) {
     const { appState, setAppState } = this.context;
-    let { symptoms } = this.state;
+    const { symptoms } = this.state;
     // If "none" is selected, deselect the other chips
     if (event.id === 'no') {
       this.deselectAll();
@@ -94,14 +82,14 @@ class SymptomsPage extends Component {
         ...appState.profile,
         options: {
           ...appState.profile.options,
-          symptoms
-        }
-      }
+          symptoms,
+        },
+      },
     });
   }
 
   deselectAll() {
-    let { symptoms } = this.state;
+    const { symptoms } = this.state;
     symptoms.map((symptom) => {
       if (symptom.id !== 'no') {
         symptom.isActive = false;
@@ -126,59 +114,39 @@ class SymptomsPage extends Component {
 
   render() {
     return (
-      <div className="background-responsive">
-        <div className="symptoms onboarding-page">
-          <RoundHeader navigate={'/health-worker'}>
-            <h1 className="heading">Symptoms</h1>
-            <h2 className="sub-heading">Per the CDC, certain symptoms impact test location availability.</h2>
-          </RoundHeader>
-          <Form noValidate autoComplete="off" className="onboarding-body">
-            <Box maxWidth="md">
-              <label className="label">
-                <strong>Select all that apply</strong><span className="text-small"> (Required)</span>
-              </label>
-              <div className="chips-group">
-                {this.state.symptoms &&
-                  this.state.symptoms.map((res) => {
-                    return (
-                      <Chip
-                        key={res.id}
-                        className={'chip' + (res.isActive ? ' Active' : '')}
-                        label={res.name}
-                        variant="outlined"
-                        onClick={() => this.handleChange(res)}
-                      ></Chip>
-                    );
-                  })}
-              </div>
-            </Box>
-            <OnboardingNavigation
-              back={
-                <Button
-                  variant="contained"
-                  className="back hide-mobile"
-                  onClick={() => this.routeChange('/health-worker')}
-                >
-                  Back
-                </Button>
-              }
-              forward={
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className="next"
-                  onClick={() => this.routeChange('/sign-up')}
-                  disabled={!this.state.isSelected}
-                >
-                  Next
-                </Button>
-              }
-              tooltipMessage={'Please make a selection'}
-              triggerTooltip={!this.state.isSelected}
-            ></OnboardingNavigation>
-          </Form>
-          <ProgressBottom progress="40%"></ProgressBottom>
-        </div>
+      <div className="symptoms onboarding-page">
+        <Header navItems={ONBOARDING_NAV_ITEMS} enableBackBtn={true}>
+          <h1>Symptoms</h1>
+          <h2>Per the CDC, certain symptoms impact test location availability.</h2>
+        </Header>
+        <Container className="onboarding-body">
+          <Container maxWidth="md">
+            <label className="label">
+              Select one <span>(Required)</span>
+            </label>
+            <div className="chips-group">
+              {this.state.symptoms &&
+                this.state.symptoms.map((res) => {
+                  return (
+                    <Chip
+                      key={res.id}
+                      className={'chip' + (res.isActive ? ' Active' : '')}
+                      label={res.name}
+                      variant="outlined"
+                      onClick={() => this.handleChange(res)}
+                    ></Chip>
+                  );
+                })}
+            </div>
+          </Container>
+          <OnboardingNavigation
+            forwardRoute={'/sign-up'}
+            forwardDisabled={!this.state.isSelected}
+            triggerTooltip={!this.state.isSelected}
+            tooltipMessage={'Please make a selection'}
+          ></OnboardingNavigation>
+        </Container>
+        <ProgressBottom progress="40%"></ProgressBottom>
       </div>
     );
   }
