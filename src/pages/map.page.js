@@ -171,7 +171,7 @@ export default function MapPage() {
           open={isOpen}
           style={{ height: drawerHeight, zIndex: 4 }}
         >
-          <AnimateHeight duration={500} height={drawerHeight === DRAWER_EXPANDED_HEIGHT ? '100%' : drawerHeight}>
+          <AnimateHeight duration={500} height={drawerHeight === DRAWER_EXPANDED_HEIGHT ? '100%' : 350}>
             <div
               id="side-drawer"
               style={{

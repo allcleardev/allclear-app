@@ -50,6 +50,16 @@
         &:hover {
           border-bottom: 2px solid #fff;
         }
+
+        &--inverted {
+          background: white;
+          color: $primary-color;
+
+          &:hover {
+            border-bottom: none;
+            opacity: 0.9
+          }
+        }
       }
     }
   }
