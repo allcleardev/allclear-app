@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { boolToEng, isNullOrUndefined } from '../../util/general.helpers';
 import ExternalItemLinks from './external-item-links';
@@ -133,7 +132,9 @@ export default function TestingLocationListItem(props) {
             </Fragment>
           )}
           <div className="mt-3">
-            <Link to={'https://airtable.com/shrVJrPQs4qQkcW4o'}>Suggest Change To Test Center Information</Link>
+            <a href={'https://airtable.com/shrVJrPQs4qQkcW4o?prefill_Name=' + props.title} 
+              target='_blank'
+              rel='noopener noreferrer'>Suggest Change To Test Center Information</a>
             <p className="fontsize-12">
               <i>Last update: username 4/10/2020 12:38:00 PM</i>
             </p>
