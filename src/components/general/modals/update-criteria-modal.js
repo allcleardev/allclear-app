@@ -142,11 +142,11 @@ function UpdateCriteria({ onClose, onSubmit }) {
       map: {
         ...appState.map,
         locations: result.data.records || [],
+        isListLoading: false,
         latitude,
         longitude,
       },
       searchCriteria: formValues,
-      isListLoading: false,
       modalSubmitCount: appState.modalSubmitCount + 1,
       forceRefresh: !appState.forceRefresh,
     });

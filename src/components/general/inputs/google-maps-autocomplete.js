@@ -77,7 +77,13 @@ export default function GoogleMapsAutocomplete(props) {
   const fetch = useMemo(
     () =>
       throttle((request, callback) => {
-        autocompleteService.current.getPlacePredictions(request, callback);
+        autocompleteService.current.getPlacePredictions({
+          ...request,
+          // only send back location results that are in US
+          componentRestrictions: {
+            country: 'us'
+          }
+        }, callback);
       }, 200),
     [],
   );
