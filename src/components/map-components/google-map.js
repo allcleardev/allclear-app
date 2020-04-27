@@ -70,7 +70,17 @@ export default class GoogleMap extends Component {
       if (!latitude || !longitude) {
 
         // if IP check succeeded, use that
-        let ipData = await this.mapService.ipCheck();
+        let ipData = await this.mapService.ipCheck()
+          .catch(() => {
+            this.setState({
+              isSnackbarOpen: true,
+              snackbarMessage: 'Enter your location to see results near you.',
+              snackbarSeverity: 'info'
+            });
+            latitude = G_MAP_DEFAULTS.center.lat;
+            longitude = G_MAP_DEFAULTS.center.lng;
+          });
+
         latitude = get(ipData, 'data.lat');
         longitude = get(ipData, 'data.lon');
 
@@ -84,6 +94,7 @@ export default class GoogleMap extends Component {
           });
           latitude = G_MAP_DEFAULTS.center.lat;
           longitude = G_MAP_DEFAULTS.center.lng;
+
         }
 
         const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude}));
