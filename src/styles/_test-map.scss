@@ -144,3 +144,15 @@
     display: flex;
   }
 }
+
+.gradient {
+  position: absolute;
+  z-index:5;
+  top: 0; right:0; left:0;
+  height:15px;
+  background: linear-gradient(to top,  rgba(255,255,0,0) 0%,rgba(255,255,255,1) 80%);
+
+  @media (min-width: $md) {
+    display: none;
+  }
+}

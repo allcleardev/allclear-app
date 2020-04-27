@@ -170,6 +170,7 @@ export default function MapPage() {
           open={isOpen}
           style={{ height: drawerHeight, zIndex: 4 }}
         >
+        <div className="gradient"></div>
           <AnimateHeight
             duration={500}
             height={anchor === 'left' || drawerHeight === DRAWER_EXPANDED_HEIGHT ? '100%' : '40%'}
@@ -179,7 +180,7 @@ export default function MapPage() {
               style={{
                 width: anchor === 'left' ? `${drawerWidth}px` : '100%',
                 overflowY: 'scroll',
-                height: drawerHeight,
+                height: drawerHeight
               }}
               className="side-drawer hide-scrollbar wid100-sm"
             >
