@@ -28,8 +28,10 @@ import { useWindowResize } from '@hooks/general.hooks';
 import { getNumActiveFilters, getActiveFilters } from '@util/general.helpers';
 import GAService, { MAP_PAGE_GA_EVENTS, GA_EVENT_MAP } from '@services/ga.service';
 import GoogleMapsAutocomplete from '@general/inputs/google-maps-autocomplete';
+import MapService from '@services/map.service';
 
 export default function MapPage() {
+  const mapService = MapService.getInstance();
   const gaService = GAService.getInstance();
   gaService.setScreenName('map');
 
@@ -87,24 +89,24 @@ export default function MapPage() {
 
     if (get(newLocation, 'description')) {
       const { latitude, longitude } = newLocation;
-      // const locationName = newLocation.description;
 
-      appState.effects.map.onLocationAccepted({
+      mapService.onLocationAccepted({
         coords: {
           latitude, longitude
         }
-      });
+      }, true);
+
     }
   }
 
   async function onLocationCleared() {
     const latitude = get(appState, 'person.latitude');
     const longitude = get(appState, 'person.longitude');
-    (latitude && longitude) && appState.effects.map.onLocationAccepted({
+    (latitude && longitude) && mapService.onLocationAccepted({
       coords: {
         latitude, longitude
       }
-    });
+    }, true);
   }
 
   function onEditFiltersBtnClick() {
@@ -114,6 +116,14 @@ export default function MapPage() {
       forceRefresh: !appState.forceRefresh,
     });
     modalService.toggleModal('criteria', true);
+  }
+
+  function onMapClick(evt) {
+    if (anchor === 'bottom') {
+      evt.stopPropagation();
+      const nextHeight = drawerHeight === DRAWER_COLLAPSED_HEIGHT ? DRAWER_EXPANDED_HEIGHT : DRAWER_COLLAPSED_HEIGHT;
+      if (nextHeight === DRAWER_COLLAPSED_HEIGHT) setDrawerHeight(nextHeight);
+    }
   }
 
   // analytics handlers
@@ -161,6 +171,7 @@ export default function MapPage() {
             {isOpen === true ? <ArrowLeft /> : <ArrowRight />}
           </IconButton> */}
         </AppBar>
+
         <Drawer
           className={classes.drawer + ' nav-left-location'}
           variant="persistent"
@@ -180,6 +191,7 @@ export default function MapPage() {
             >
 
               <GoogleMapsAutocomplete
+                focusOnRender={true}
                 locationSelected={onLocationSelected}
                 onClear={onLocationCleared}
               ></GoogleMapsAutocomplete>
@@ -262,7 +274,7 @@ export default function MapPage() {
           })}
         >
           <div className="map-fullscreen">
-            <GoogleMap></GoogleMap>
+            <GoogleMap onMapClick={onMapClick}></GoogleMap>
           </div>
         </main>
         <UpdateCriteriaModal></UpdateCriteriaModal>
