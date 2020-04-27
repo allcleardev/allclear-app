@@ -62,7 +62,7 @@
     z-index: 3 !important;
   }
 
-  @media (max-width: $md - 1) {
+  @media (max-width: $md) {
     position: fixed;
 
     .height-300-sm {
@@ -109,12 +109,12 @@
   height: 100vh;
   overflow-x: hidden;
 
-  @media (min-width: $md) {
+  @media (min-width: $md + 1) {
     width: calc(100vw - 400px);
     left: 400px;
   }
 
-  @media (max-width: $md - 1) {
+  @media (max-width: $md) {
     width: 100vw;
     height: calc(100vh - 350px);
   }
@@ -131,7 +131,7 @@
   font-size: 14px;
   color: #fff;
 
-  @media (max-width: $md - 1) {
+  @media (max-width: $md) {
     bottom: 312px;
   }
 }
@@ -140,7 +140,7 @@
   justify-content: center;
   align-items: center;
 
-  @media (max-width: $md - 1) {
+  @media (max-width: $md) {
     display: flex;
   }
 }

@@ -162,14 +162,6 @@ export default function MapPage() {
           }
           style={{ zIndex: '2' }}
         >
-          {/* <IconButton
-            disableRipple
-            aria-label="open drawer"
-            onClick={isOpen === false ? () => onDrawerToggle(true) : () => onDrawerToggle(false)}
-            className={clsx(classes.menuButton, isOpen)}
-          >
-            {isOpen === true ? <ArrowLeft /> : <ArrowRight />}
-          </IconButton> */}
         </AppBar>
 
         <Drawer
@@ -183,7 +175,7 @@ export default function MapPage() {
             <div
               id="side-drawer"
               style={{
-                width: `${drawerWidth}px`,
+                width: anchor === 'left' ? `${drawerWidth}px` : '100%',
                 overflowY: 'scroll',
                 height: drawerHeight,
               }}

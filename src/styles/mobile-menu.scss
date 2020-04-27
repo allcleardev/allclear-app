@@ -3,7 +3,7 @@
   z-index: 1;
   display: 'flex';
 
-  @media (min-width: $md) {
+  @media (min-width: $md + 1) {
     display: none;
   }
 
