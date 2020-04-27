@@ -99,7 +99,7 @@ export default class SignInPage extends Component {
           <Container className="onboarding-body">
             <div className="content-container">
               <PhoneNumberInput></PhoneNumberInput>
-              <Link to="/get-started" className="hide-mobile">
+              <Link to="/location" className="hide-mobile">
                 Create Account
               </Link>
               {this.state.error === true ? <p className="error">{this.state.message}</p> : ''}

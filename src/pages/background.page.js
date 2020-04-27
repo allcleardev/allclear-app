@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { bindAll } from 'lodash';
 
 import GAService from '@services/ga.service';
-import ProgressBottom from '@general/navs/progress-bottom';
 import { AppContext } from '@contexts/app.context';
 
-import Header from '@components/general/headers/header';
-import GoogleMapsAutocomplete from '@components/general/inputs/google-maps-autocomplete';
-import OnboardingNavigation from '@components/general/navs/onboarding-navigation';
-import { ONBOARDING_NAV_ITEMS } from '@components/general/headers/header.constants';
+import Header from '@general/headers/header';
+import GoogleMapsAutocomplete from '@general/inputs/google-maps-autocomplete';
+import OnboardingNavigation from '@general/navs/onboarding-navigation';
+import ProgressBottom from '@general/navs/progress-bottom';
+import { ONBOARDING_NAV_ITEMS } from '@general/headers/header.constants';
 import { Container } from '@material-ui/core';
 
 class BackgroundPage extends Component {

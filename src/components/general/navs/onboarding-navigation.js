@@ -75,6 +75,7 @@ export default function OnboardingNavigation(props) {
       <DefaultButton variant="outlined" className="back hide-mobile" onClick={() => history.goBack()}>
         {props.backText || 'Back'}
       </DefaultButton>
+      {props.children}
       <LightTooltip title={props.triggerTooltip ? props.tooltipMessage : ''}>
         <span className="tooltip-button">
           <DefaultButton variant="contained" onClick={() => onNextButtonClicked()} disabled={props.forwardDisabled}>
