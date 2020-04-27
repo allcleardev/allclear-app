@@ -1,5 +1,4 @@
-$font-primary: 'SF Pro Text', sans-serif;
-$font-secondary: 'SF Pro Display', sans-serif;
+$font-primary: 'Heebo', sans-serif;
 $primary-color: #007aff;
 $secondary-color: #002c83;
 $accent-color: #00c2ff;
@@ -49,47 +48,4 @@ $gradient-background-desktop: linear-gradient(159.42deg, #007cff 1.48%, #002c83 
       background-position: 0% 50%;
     }
   }
-}
-
-// fonts
-@font-face {
-  font-family: 'SF Pro Display';
-  src: url(./fonts/SF-Pro-Display-Regular.otf) format('opentype');
-  font-weight: 400;
-}
-
-@font-face {
-  font-family: 'SF Pro Display';
-  src: url(./fonts/SF-Pro-Display-Medium.otf) format('opentype');
-  font-weight: 500;
-}
-
-@font-face {
-  font-family: 'SF Pro Display';
-  src: url(./fonts/SF-Pro-Display-Bold.otf) format('opentype');
-  font-weight: 600;
-}
-
-@font-face {
-  font-family: 'SF Pro Text';
-  src: url(./fonts/SF-Pro-Text-Regular.otf) format('opentype');
-  font-weight: 400;
-}
-
-@font-face {
-  font-family: 'SF Pro Text';
-  src: url(./fonts/SF-Pro-Text-Medium.otf) format('opentype');
-  font-weight: 500;
-}
-
-@font-face {
-  font-family: 'SF Pro Text';
-  src: url(./fonts/SF-Pro-Text-Semibold.otf) format('opentype');
-  font-weight: 550;
-}
-
-@font-face {
-  font-family: 'SF Pro Text';
-  src: url(./fonts/SF-Pro-Text-Bold.otf) format('opentype');
-  font-weight: 600;
 }
