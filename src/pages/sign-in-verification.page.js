@@ -5,13 +5,10 @@ import PeopleService from '@services/people.service';
 import GAService from '@services/ga.service';
 import { AppContext } from '@contexts/app.context';
 
-import RoundHeader from '@general/headers/header-round';
 import Header from '@general/headers/header';
-import ProgressBottom from '@general/navs/progress-bottom';
-import LinearProgress from '@material-ui/core/LinearProgress';
 import OnboardingNavigation from '@general/navs/onboarding-navigation';
 import { ONBOARDING_NAV_ITEMS } from '@general/headers/header.constants';
-import { Button, Grid, Container, CircularProgress, TextField, FormControl, FormLabel,Form  } from '@material-ui/core';
+import { Button, Container, CircularProgress, TextField, FormControl } from '@material-ui/core';
 
 export default class SignInVerificationPage extends Component {
   static contextType = AppContext;
@@ -69,7 +66,7 @@ export default class SignInVerificationPage extends Component {
     }
 
     return phone;
-  }
+  };
 
   // Function to make call backend service to confirm the magic link
   async verifyPhoneNumber() {
