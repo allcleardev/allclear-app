@@ -83,11 +83,11 @@ export default class GoogleMap extends Component {
 
       }
 
-      const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude}));
-      this._setLocations(result.data.records, {latitude, longitude});
-      latitude && longitude && this._panTo(latitude, longitude);
-
     }
+
+    const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude}));
+    this._setLocations(result.data.records, {latitude, longitude});
+    latitude && longitude && this._panTo(latitude, longitude);
 
   }
 
