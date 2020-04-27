@@ -11,5 +11,5 @@ export const isLoggedOutHeaderLinks = [
   { name: 'Map', to: '/map', hideOnTabletSize: true },
   { name: 'About Us', to: 'https://home.allclear.app/', isExternalURL: true },
   { name: 'Login', to: '/sign-in' },
-  // { name: 'Get Alerts', to: '/get-started' }
+  { name: 'Get Alerts', to: '/get-started' }
 ];
