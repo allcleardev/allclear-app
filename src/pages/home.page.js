@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { bindAll, get } from 'lodash';
 
 import PeopleService from '@services/people.service';
+import FacilityService from '@services/facility.service.js';
 
 import Header from '../components/general/headers/header';
 import BottomNav from '../components/general/navs/bottom-nav';
@@ -10,6 +11,8 @@ import PersonShareIcon from '../assets/images/person-share-icon.svg';
 import { ReactComponent as PinIcon } from '../assets/images/pin-icon.svg';
 import { ReactComponent as SettingsIcon } from '../assets/images/settings-icon.svg';
 import { AppContext } from '../contexts/app.context';
+
+import SnackbarMessage from '@general/alerts/snackbar-message';
 
 import Container from '@material-ui/core/Container';
 import WarningRoundedIcon from '@material-ui/icons/WarningRounded';
@@ -24,13 +27,16 @@ export default class HomePage extends Component {
     super(props);
     bindAll(this, [
       'componentDidMount',
+      'fetchTestLocations',
       'routeChange',
       'onLocationSelected',
       'onViewMoreClicked',
       'onShareClicked',
+      'handleSnackbarClose',
       'updateUserProfile',
     ]);
     this.peopleService = PeopleService.getInstance();
+    this.facilityService = FacilityService.getInstance();
     this.navItems = [
       { route: '/map', name: 'Find Tests' },
       { route: '/contact-tracing', name: 'Tracing' },
@@ -42,15 +48,23 @@ export default class HomePage extends Component {
       testLocationsExpanded: false,
       symptomatic: false,
       prioritized: false,
+      isSnackbarOpen: false,
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const { appState } = this.context;
-    this.locations = get(appState, 'map.locations');
     const symptoms = get(appState, 'person.symptoms');
+    const latitude = get(appState, 'person.latitude');
+    const longitude = get(appState, 'person.longitude');
     const healthWorkerStatusId = get(appState, 'person.healthWorkerStatusId');
-    const testLocations = this.locations.sort((a, b) => b.favorite - a.favorite || a.meters - b.meters);
+
+    // retrieving locations based on the user profile (instead of grabbing map locations which change when user explores places)
+    this.locations = await this.fetchTestLocations(latitude, longitude);
+    const testLocations =
+      this.locations && this.locations.length
+        ? this.locations.sort((a, b) => b.favorite - a.favorite || a.meters - b.meters)
+        : [];
 
     this.setState({
       locationName: get(appState, 'person.locationName') || 'Using Current Location',
@@ -59,6 +73,19 @@ export default class HomePage extends Component {
       prioritized:
         healthWorkerStatusId === 'h' || (symptoms && symptoms.some((symptom) => symptom.id === 'fv')) ? true : false,
     });
+  }
+
+  async fetchTestLocations(latitude, longitude) {
+    return this.facilityService
+      .search({
+        from: {
+          latitude,
+          longitude,
+          miles: 100,
+        },
+      })
+      .then((response) => response.data.records)
+      .catch((error) => console.log(error));
   }
 
   routeChange(route) {
@@ -72,7 +99,7 @@ export default class HomePage extends Component {
     // update selected location with new pinned location state
     testLocations.map((location) => {
       if (location.id === pinnedLocation.id) {
-        return location = pinnedLocation;
+        return (location = pinnedLocation);
       }
     });
     // update local state
@@ -90,7 +117,16 @@ export default class HomePage extends Component {
     });
   }
 
-  onShareClicked() {}
+  onShareClicked() {
+    if (navigator && navigator.clipboard) {
+      navigator.clipboard.writeText('https://go.allclear.app');
+      this.setState({ isSnackbarOpen: true });
+    }
+  }
+
+  handleSnackbarClose() {
+    this.setState({ isSnackbarOpen: false });
+  }
 
   async updateUserProfile(pinnedLocation) {
     const { appState, setAppState } = this.context;
@@ -236,6 +272,13 @@ export default class HomePage extends Component {
             </Button>
           </article>
         </Container>
+
+        <SnackbarMessage
+          severity="success"
+          isOpen={this.state.isSnackbarOpen}
+          onClose={this.handleSnackbarClose}
+          message={'Link Copied!'}
+        />
 
         <BottomNav active={0}></BottomNav>
       </section>

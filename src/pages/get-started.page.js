@@ -28,7 +28,7 @@ export default class GetStartedPage extends Component {
       snackbarMessage: 'You must be logged in to use this feature.',
     };
     this.navItems = [
-      { route: 'about.allclear.app', name: 'About Us', absolutePath: true },
+      { route: 'home.allclear.app', name: 'Home', absolutePath: true },
       { route: 'about.allclear.app', name: 'Help', absolutePath: true },
     ];
 
@@ -64,6 +64,7 @@ export default class GetStartedPage extends Component {
           isOpen={this.state.isSnackbarOpen}
           onClose={this.handleSnackbarClose}
           message={this.state.snackbarMessage}
+          severity={'info'}
           duration={4000}
         />
 

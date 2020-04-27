@@ -105,7 +105,7 @@ class BackgroundPage extends Component {
     return (
       <div className="background-responsive">
         <div className="background onboarding-page">
-          <RoundHeader navigate={'/sign-up'}>
+          <RoundHeader navigate={'/get-started'}>
             <h1 className="heading">Your Location</h1>
             <h2 className="sub-heading">
               Please provide your location information to help us recommend nearby test locations for you.
@@ -116,7 +116,8 @@ class BackgroundPage extends Component {
               <section className="section">
                 <article className="article">
                   <label htmlFor="location" className="label">
-                    <strong>Select one</strong><span className="text-small"> (Required)</span> <br />
+                    <strong>Select one</strong>
+                    <span className="text-small"> (Required)</span> <br />
                     <span className="description">
                       We can give localized test center recommendations with your location.
                     </span>

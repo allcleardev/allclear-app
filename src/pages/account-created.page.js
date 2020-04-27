@@ -18,7 +18,7 @@ export default class AccountCreated extends Component {
     super();
     bindAll(this, []);
     this.navItems = [
-      { route: 'about.allclear.app', name: 'About Us', absolutePath: true },
+      { route: 'home.allclear.app', name: 'Home', absolutePath: true },
       { route: 'about.allclear.app/#comitment', name: 'Help', absolutePath: true },
     ];
   }

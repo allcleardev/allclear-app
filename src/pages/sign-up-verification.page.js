@@ -75,7 +75,7 @@ export default class SignUpVerificationPage extends Component {
     }
 
     return phone;
-  };
+  }
 
   // Function to make call backend service to confirm the magic link
   async verifyPhoneNumber() {
@@ -95,14 +95,14 @@ export default class SignUpVerificationPage extends Component {
         person:response.data.person
       });
       localStorage.setItem('sessionId', response.data.id);
-      localStorage.setItem('session', response.data);
+      localStorage.setItem('session', JSON.stringify(response.data));
 
       this.props.history.push('/map');
 
     } else {
       //TODO Error Message
     }
-  };
+  }
 
   async resendCode() {
     const { appState } = this.context;
@@ -150,11 +150,11 @@ export default class SignUpVerificationPage extends Component {
       e.preventDefault();
       this.verifyPhoneNumber();
     }
-  };
+  }
 
   handleCodeChange(event) {
     this.setState({code: event.target.value});
-  };
+  }
 
   render() {
     return (

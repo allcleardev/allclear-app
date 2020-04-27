@@ -29,7 +29,6 @@ import SharePage from '@pages/share.page';
 import SignUpVerificationPage from '@pages/sign-up-verification.page';
 import Symptoms from '@pages/symptoms.page';
 import TracingPage from '@pages/tracing.page';
-import UpdateTestingCenterCriteria from '@pages/update-testing-center-criteria.page';
 import VerifyMagicLinkPage from '@pages/verify-magic-link.page';
 import NotFoundPage from '@pages/not-found.page';
 import { Redirect } from 'react-router';
@@ -44,7 +43,13 @@ export default function App() {
         <Switch>
           {/* Loader Page */}
           {/*<Route exact path="/" component={LaunchPage} />*/}
-          <Route exact path="/" component={MapPage} />
+
+          {/* Onboarding flow start page */}
+          {/*<Route exact path="/" component={GetStartedPage} />*/}
+
+          <Route exact path="/">
+            <Redirect to="/map" />
+          </Route>
 
           {/* Onboarding Pages */}
           <Route path="/get-started" component={GetStartedPage} />
@@ -67,7 +72,6 @@ export default function App() {
           <ProtectedRoute path="/profile" component={ProfileViewPage} />
           <ProtectedRoute path="/profile-edit" component={ProfileEditPage} />
           <ProtectedRoute path="/add-test" component={AddTestPage} />
-          <ProtectedRoute path="/update-criteria" component={UpdateTestingCenterCriteria} />
           <Route path="/share" component={SharePage} />
           <ProtectedRoute path="/settings" component={SettingsPage} />
           <Route path="/contact-tracing" component={TracingPage} />
