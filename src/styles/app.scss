@@ -1,8 +1,8 @@
 /* Note: Must keep in this order */
 /* Todo: Clean up shared files */
 @import 'variable';
-@import 'shared';
 @import 'global';
+@import 'shared';
 /**********************************************/
 
 /* "'Component" styles below */
@@ -23,6 +23,7 @@
 @import 'account-created';
 
 @import 'get-started';
+@import 'splash-page';
 @import 'background';
 @import 'health-worker';
 @import 'symptoms';

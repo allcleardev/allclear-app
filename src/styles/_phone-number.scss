@@ -14,18 +14,26 @@
     margin: 0;
   }
 
-  // Trick to override input autofill styles
-  input:-webkit-autofill {
-    box-shadow: 0 0 0 50px #fff inset;
-    -webkit-box-shadow: 0 0 0 50px #fff inset;
-    -webkit-text-fill-color: #999;
-  }
-  input:-webkit-autofill:focus {
-    box-shadow: 0 0 0 50px #fff inset;
-    -webkit-box-shadow: 0 0 0 50px #fff inset;
-    -webkit-text-fill-color: #999;
-  }
+  // Trick to override input autofill styles + apply transparent background
   input:-webkit-autofill::first-line {
     font-size: 25px;
+  }
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-animation-delay: 1s; /* Safari support - any positive time runs instantly */
+    -webkit-animation-name: autofill;
+    -webkit-animation-fill-mode: both;
+    animation-delay: 1s; /* Safari support - any positive time runs instantly */
+    animation-name: autofill;
+    animation-fill-mode: both;
+  }
+  @keyframes autofill {
+    0%,
+    100% {
+      color: #fff;
+      background: transparent;
+    }
   }
 }

@@ -32,11 +32,6 @@
     line-height: 1;
   }
 
-  .description {
-    font-weight: normal;
-    font-size: 13px;
-  }
-
   .input {
     width: 100%;
 
@@ -56,11 +51,12 @@
   .switchContainer {
     display: flex;
     flex-direction: row;
-    margin-top: 10px;
+    margin-top: 23px;
 
     .currentLocation {
+      margin-left: 15px;
       font-weight: normal;
-      font-size: 13px;
+      font-size: 16px;
       padding: 5px;
       cursor: pointer;
     }

@@ -1,5 +1,8 @@
-$font-normal: 'SF Pro', sans-serif;
+$font-primary: 'SF Pro Text', sans-serif;
+$font-secondary: 'SF Pro Display', sans-serif;
 $primary-color: #007aff;
+$secondary-color: #002c83;
+$accent-color: #00c2ff;
 $error-color: #e82727;
 $white-color: #fff;
 $black-color: #000;
@@ -8,14 +11,45 @@ $grey-text: #929292;
 $grey2: #e5e5ea;
 $navy: #002c83;
 
-$gradient-background: linear-gradient(135deg, #36d1bc, #36d1bc 20%, #007aff);
-
 // screen breakpoints
-$xl: 1441px;
-$lg: 992px;
-$md: 768px;
-$sm: 576px;
-$xs: 332px;
+$xl: 1920px;
+$lg: 1280px;
+$md: 960px;
+$sm: 600px;
+$xs: 0px;
+
+// background gradients
+$gradient-background: linear-gradient(157.73deg, #007cff 0%, #002c83 117.55%);
+$gradient-background-mobile: linear-gradient(157.73deg, #007cff 0%, #002c83 117.55%);
+$gradient-background-desktop: linear-gradient(159.42deg, #007cff 1.48%, #002c83 172.68%);
+
+// TODO: Move mixins to own file
+@mixin responsive-gradient {
+  @media (max-width: $md - 1) {
+    background: $gradient-background-mobile;
+  }
+  @media (min-width: $md) {
+    background: $gradient-background-desktop;
+  }
+}
+
+@mixin gradient-animation {
+  background: linear-gradient(-45deg, #007aff, #002c83);
+  background-size: 400% 400% !important;
+  animation: gradient 15s ease infinite;
+
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+}
 
 // fonts
 @font-face {
@@ -37,25 +71,25 @@ $xs: 332px;
 }
 
 @font-face {
-  font-family: 'SF Pro';
+  font-family: 'SF Pro Text';
   src: url(./fonts/SF-Pro-Text-Regular.otf) format('opentype');
   font-weight: 400;
 }
 
 @font-face {
-  font-family: 'SF Pro';
+  font-family: 'SF Pro Text';
   src: url(./fonts/SF-Pro-Text-Medium.otf) format('opentype');
   font-weight: 500;
 }
 
 @font-face {
-  font-family: 'SF Pro';
+  font-family: 'SF Pro Text';
   src: url(./fonts/SF-Pro-Text-Semibold.otf) format('opentype');
   font-weight: 550;
 }
 
 @font-face {
-  font-family: 'SF Pro';
+  font-family: 'SF Pro Text';
   src: url(./fonts/SF-Pro-Text-Bold.otf) format('opentype');
   font-weight: 600;
 }

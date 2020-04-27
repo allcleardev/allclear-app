@@ -136,7 +136,7 @@ export default function GoogleMapsAutocomplete(props) {
         renderInput={(params) => (
           <TextField
             {...params}
-            placeholder=" 🔍   New York, NY or 11211"
+            placeholder="New York, NY or 11211"
             variant="outlined"
             className="input"
             onChange={handleTextChange}
