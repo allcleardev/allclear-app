@@ -26,7 +26,6 @@ application.
 This is the web version of <http://allclear.app>, a COVID-19 tracing
 application.
 
-
 Running the Project
 -------------------
 
@@ -60,6 +59,7 @@ env variable for some of the tests to run:
 ```
   SESSION_ID='GOD-SESSION-TOKEN'
 ```
+
 Building the Project
 --------------------
 
