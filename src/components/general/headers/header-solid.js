@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Button } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import Logo from '@assets/images/logo-white.svg';
 import { isLoggedInHeaderLinks, isLoggedOutHeaderLinks } from '@util/general.constants';
@@ -16,13 +16,16 @@ export default function ColoredHeader(props) {
         </a>
         <div className="header-menu">
           {links.map((link) =>
-            link.isExternalLink
-              ? <a key={link.name} href={link.to} className="header-menu__item">
-                {link.name}
-              </a>
-              : <Link key={link.name} to={link.to} className="header-menu__item">
-                {link.name}
-              </Link>
+            <a key={link.name} href={link.to} className="header-menu__item">
+              {link.name}
+            </a>
+          )}
+          {!isLoggedIn && (
+            <a href="/get-started">
+              <Button className="header-menu__item header-menu__item--inverted">
+                Get Alerts
+              </Button>
+            </a>
           )}
         </div>
       </div>
