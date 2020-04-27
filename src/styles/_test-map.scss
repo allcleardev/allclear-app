@@ -66,7 +66,7 @@
     position: fixed;
 
     .height-300-sm {
-      height: 350px;
+      height: 40vh;
     }
   }
 
@@ -116,7 +116,7 @@
 
   @media (max-width: $md) {
     width: 100vw;
-    height: calc(100vh - 350px);
+    height: 60vh; // page height - 40vh of list
   }
 
   img {

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Logo from '@assets/images/logo-white.svg';
 import { isLoggedInHeaderLinks, isLoggedOutHeaderLinks } from '@util/general.constants';
-import classNames from 'classnames';
 
 export default function ColoredHeader(props) {
   const { isOpen, isLoggedIn } = props;

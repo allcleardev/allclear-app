@@ -39,7 +39,7 @@ export default function MapPage() {
   const classes = useStyles();
   const badgeRef = React.createRef();
   const DRAWER_EXPANDED_HEIGHT = '95vh';
-  const DRAWER_COLLAPSED_HEIGHT = 350;
+  const DRAWER_COLLAPSED_HEIGHT = '40vh';
 
   // state & global state
   const { setAppState, appState } = useContext(AppContext);
