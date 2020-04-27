@@ -140,7 +140,17 @@ export default function MapPage() {
 
   return (
     <div className="map-page">
-      <MobileMenu isLoggedIn={isLoggedIn}></MobileMenu>
+      {anchor === 'bottom' && (
+        <div className="mobile-top-bar">
+          <MobileMenu isLoggedIn={isLoggedIn}></MobileMenu>
+          <div className="location-search">
+            <GoogleMapsAutocomplete
+              locationSelected={onLocationSelected}
+              onClear={onLocationCleared}
+            ></GoogleMapsAutocomplete>
+          </div>
+        </div>
+      )}
       <SolidHeader isLoggedIn={isLoggedIn} isOpen={isOpen}></SolidHeader>
       <Box p={3}>
         <AppBar

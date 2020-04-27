@@ -1,18 +1,21 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import throttle from 'lodash/throttle';
 import parse from 'autosuggest-highlight/parse';
-import {geocodeByAddress, getLatLng} from 'react-places-autocomplete';
+import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import CloseIcon from '@material-ui/icons/Close';
-import {TextField, Grid, Typography, makeStyles} from '@material-ui/core';
+import { TextField, Grid, Typography, makeStyles } from '@material-ui/core';
 import clsx from 'clsx';
 
-const autocompleteService = {current: null};
+const autocompleteService = { current: null };
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    // background: 'red'
+  },
   icon: {
     color: theme.palette.text.secondary,
     marginRight: theme.spacing(2),
@@ -87,7 +90,7 @@ export default function GoogleMapsAutocomplete(props) {
       return undefined;
     }
 
-    fetch({input: inputValue}, (results) => {
+    fetch({ input: inputValue }, (results) => {
       if (active) {
         setOptions(results || []);
       }
@@ -106,7 +109,7 @@ export default function GoogleMapsAutocomplete(props) {
         autoComplete
         includeInputInList
         clearOnEscape
-        closeIcon={<CloseIcon fontSize="small"/>}
+        closeIcon={<CloseIcon fontSize="small" />}
         noOptionsText={'Please Enter a Search Term to View Results'}
         classes={{
           endAdornment: clsx(classes.hidden, {
@@ -118,7 +121,7 @@ export default function GoogleMapsAutocomplete(props) {
         options={options}
         onChange={handleSelectionChange}
         onInputChange={(e, v, r) => {
-          props.onClear && onInputChanged(e,v,r);
+          props.onClear && onInputChanged(e, v, r);
         }}
         disabled={props.useCurrentLocation}
         defaultValue={props.initialValue}
@@ -142,11 +145,11 @@ export default function GoogleMapsAutocomplete(props) {
           return (
             <Grid container alignItems="center">
               <Grid item>
-                <LocationOnIcon className={classes.icon}/>
+                <LocationOnIcon className={classes.icon} />
               </Grid>
               <Grid item xs>
                 {parts.map((part, index) => (
-                  <span key={index} style={{fontWeight: part.highlight ? 700 : 400}}>
+                  <span key={index} style={{ fontWeight: part.highlight ? 700 : 400 }}>
                     {part.text}
                   </span>
                 ))}

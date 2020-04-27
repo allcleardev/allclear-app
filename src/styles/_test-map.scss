@@ -1,6 +1,32 @@
 .map-page {
   width: 100%;
 
+  .mobile-top-bar {
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 10px 0 10px;
+
+    .location-search {
+      width: 100%;
+      margin-left: 10px;
+
+      .MuiInputBase-root {
+        background-color: white;
+        padding: 3px;
+        padding-left: 10px;
+        border-radius: 40px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+      }
+
+      .MuiOutlinedInput-notchedOutline {
+        display: none;
+      }
+    }
+  }
+
   .edit-filters-btn {
     margin: 20px 0px;
     max-height: 40px;
