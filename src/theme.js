@@ -19,6 +19,17 @@ const theme = createMuiTheme({
       default: '#fff',
     },
   },
+  typography: {
+    fontFamily: ['Heebo', 'sans-serif'].join(','),
+    body2: {
+      letterSpacing: '.032em',
+    },
+    button: {
+      textTransform: 'none',
+      lineHeight: '1.47em',
+      letterSpacing: '.032em',
+    },
+  },
 });
 
 export default theme;

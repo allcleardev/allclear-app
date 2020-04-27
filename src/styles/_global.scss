@@ -7,11 +7,6 @@
   -- marking classes w/filenames that are utilizing them to help organize/figure out plan of action
 */
 
-* {
-  font-family: $font-primary;
-  text-transform: none;
-}
-
 a {
   text-decoration: none !important;
 }
@@ -51,10 +46,8 @@ button {
   }
 
   .label {
-    letter-spacing: 0.374px;
     font-weight: 600;
     font-size: 15px;
-    font-family: $font-secondary;
     * {
       font-weight: normal;
       font-family: inherit;
@@ -83,7 +76,6 @@ button {
     height: auto;
     margin: 7px 0 7px;
     padding: 13px;
-    font-family: $font-secondary;
     font-weight: 600;
     font-size: 14px;
     color: #fff;
