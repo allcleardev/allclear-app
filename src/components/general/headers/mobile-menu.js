@@ -50,13 +50,11 @@ export default function MobileMenu(props) {
               <ClickAwayListener onClickAway={onMenuClosed}>
                 <MenuList autoFocusItem={open} id="menu-list-grow" style={{ padding: 0 }}>
                   {links.map((link) =>
-                    <MenuItem
-                      component={Link}
-                      to={link.to}
-                      key={link.name}
-                    >
-                      {link.name}
-                    </MenuItem>
+                    <a style={{ color: 'black' }} href={link.to} key={link.name}>
+                      <MenuItem>
+                        {link.name}
+                      </MenuItem>
+                    </a>
                   )}
                 </MenuList>
               </ClickAwayListener>
