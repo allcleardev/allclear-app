@@ -90,7 +90,7 @@ export default function MapPage() {
     if (get(newLocation, 'description')) {
       const { latitude, longitude } = newLocation;
 
-      mapService.onLocationAccepted({
+      await mapService.onLocationAccepted({
         coords: {
           latitude, longitude
         }
@@ -102,7 +102,7 @@ export default function MapPage() {
   async function onLocationCleared() {
     const latitude = get(appState, 'person.latitude');
     const longitude = get(appState, 'person.longitude');
-    (latitude && longitude) && mapService.onLocationAccepted({
+    (latitude && longitude) && await mapService.onLocationAccepted({
       coords: {
         latitude, longitude
       }

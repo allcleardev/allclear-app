@@ -63,6 +63,7 @@ export default class GoogleMap extends Component {
     };
 
     this.onLocationAccepted = _onLocationAccepted;
+    this.mapService.onLocationAccepted = this.onLocationAccepted;
 
     // user declines browser location tracking
     const _onLocationDeclined = async () => {
@@ -164,7 +165,6 @@ export default class GoogleMap extends Component {
     const {setAppState, appState} = this.context;
 
     this.mapService.mapRef = this.gMapRef;
-    this.mapService.onLocationAccepted = this.onLocationAccepted;
 
     setAppState({
       ...appState,
