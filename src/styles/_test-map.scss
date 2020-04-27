@@ -27,6 +27,14 @@
     }
   }
 
+  .side-drawer{
+
+    .MuiInputBase-root{
+      height: 70px;
+    }
+
+  }
+
   .MuiBadge-badge {
     background-color: white;
     color: $primary-color;

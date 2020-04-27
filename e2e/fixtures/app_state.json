@@ -129,8 +129,5 @@
     }
   },
   "forceRefresh": false,
-  "modalSubmitCount": 0,
-  "effects": {
-    "map": {}
-  }
+  "modalSubmitCount": 0
 }
