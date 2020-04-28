@@ -56,11 +56,11 @@ export default function MapPage() {
   const locations = get(appState, 'map.locations') || [];
   const numActiveFilters = getNumActiveFilters(get(appState, 'searchCriteria'));
   const isLoggedIn = appState.sessionId ? true : false;
-  const [displayGradient, setDisplayGradient] = useState(false);
+  const [inputZIndex, setinputZIndex] = useState(2);
 
   // callback handlers
   function onDrawerScroll(e) {
-    e.target.scrollTop > 0 ? setDisplayGradient(true) : setDisplayGradient(false);
+    e.target.scrollTop > 0 ? setinputZIndex(0) : setinputZIndex(2);
   }
 
   function onWindowResize({ width, height }) {
@@ -177,10 +177,8 @@ export default function MapPage() {
           onScroll={onDrawerScroll}
         >
 
-          {displayGradient && (
-            <div className="test-list-gradient"></div>
-          )}
-
+          <div className="test-list-gradient"></div>
+          
           <AnimateHeight
             duration={500}
             height={anchor === 'left' || drawerHeight === DRAWER_EXPANDED_HEIGHT ? '100%' : '40%'}
@@ -198,6 +196,7 @@ export default function MapPage() {
                 focusOnRender={true}
                 locationSelected={onLocationSelected}
                 onClear={onLocationCleared}
+                zIndex={inputZIndex}
               ></GoogleMapsAutocomplete>
 
               {appState.map.isListLoading === false && (

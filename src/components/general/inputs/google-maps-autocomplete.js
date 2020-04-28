@@ -147,6 +147,7 @@ export default function GoogleMapsAutocomplete(props) {
             className="input"
             onChange={handleTextChange}
             disabled={props.useCurrentLocation}
+            style={{zIndex: props.zIndex}}
           />
         )}
         renderOption={(option) => {
