@@ -59,7 +59,7 @@ export default function MapPage() {
   const [displayGradient, setDisplayGradient] = useState(false);
 
   // callback handlers
-  function onScrollDrawer(e) {
+  function onDrawerScroll(e) {
     e.target.scrollTop > 0 ? setDisplayGradient(true) : setDisplayGradient(false);
   }
 
@@ -174,7 +174,7 @@ export default function MapPage() {
           anchor={anchor}
           open={isOpen}
           style={{ height: drawerHeight, zIndex: 4 }}
-          onScroll={onScrollDrawer}
+          onScroll={onDrawerScroll}
         >
 
           {displayGradient && (
