@@ -177,8 +177,8 @@ export default function MapPage() {
           onScroll={onDrawerScroll}
         >
 
-          <div className="test-list-gradient"></div>
-          
+          <div className="list-gradient"></div>
+
           <AnimateHeight
             duration={500}
             height={anchor === 'left' || drawerHeight === DRAWER_EXPANDED_HEIGHT ? '100%' : '40%'}
