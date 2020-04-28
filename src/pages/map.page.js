@@ -57,7 +57,14 @@ export default function MapPage() {
   const numActiveFilters = getNumActiveFilters(get(appState, 'searchCriteria'));
   const isLoggedIn = appState.sessionId ? true : false;
 
+  const [displayGradient, setDisplayGradient] = useState(false)
+
   // callback handlers
+
+  function onScrollDrawer(e) {
+    e.target.scrollTop > 0 ? setDisplayGradient(true) : setDisplayGradient(false)
+  }
+
   function onWindowResize({ width, height }) {
     if (width <= 960) {
       setMapState({
@@ -169,8 +176,13 @@ export default function MapPage() {
           anchor={anchor}
           open={isOpen}
           style={{ height: drawerHeight, zIndex: 4 }}
+          onScroll={onScrollDrawer}
         >
-        <div className="gradient"></div>
+
+          {displayGradient && (
+            <div className="test-list-gradient"></div>
+          )}
+
           <AnimateHeight
             duration={500}
             height={anchor === 'left' || drawerHeight === DRAWER_EXPANDED_HEIGHT ? '100%' : '40%'}
@@ -180,7 +192,8 @@ export default function MapPage() {
               style={{
                 width: anchor === 'left' ? `${drawerWidth}px` : '100%',
                 overflowY: 'scroll',
-                height: drawerHeight
+                height: drawerHeight,
+                marginTop: '0.2%'
               }}
               className="side-drawer hide-scrollbar wid100-sm"
             >
