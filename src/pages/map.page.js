@@ -60,7 +60,6 @@ export default function MapPage() {
   const [displayGradient, setDisplayGradient] = useState(false)
 
   // callback handlers
-
   function onScrollDrawer(e) {
     e.target.scrollTop > 0 ? setDisplayGradient(true) : setDisplayGradient(false)
   }
@@ -192,8 +191,7 @@ export default function MapPage() {
               style={{
                 width: anchor === 'left' ? `${drawerWidth}px` : '100%',
                 overflowY: 'scroll',
-                height: drawerHeight,
-                marginTop: '0.2%'
+                height: drawerHeight
               }}
               className="side-drawer hide-scrollbar wid100-sm"
             >
