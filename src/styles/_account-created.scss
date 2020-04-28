@@ -13,11 +13,9 @@
   h1 {
     margin: 50px 0;
     line-height: 41px;
-    letter-spacing: 0.374px;
     text-align: center;
     font-weight: bold;
     font-size: 34px;
-    font-family: $font-secondary;
 
     @media (min-width: $md) {
       margin: 70px 0;

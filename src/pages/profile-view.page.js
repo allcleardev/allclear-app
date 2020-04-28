@@ -98,8 +98,8 @@ export default class ProfileViewPage extends Component {
               {profile.locationName ? (
                 <dd className="card__description">{profile.locationName}</dd>
               ) : (
-                  <dd className="card__description">My Current Location</dd>
-                )}
+                <dd className="card__description">My Current Location</dd>
+              )}
             </dl>
 
             {profile.exposures && profile.exposures.length ? (
@@ -114,8 +114,8 @@ export default class ProfileViewPage extends Component {
                 })}
               </dl>
             ) : (
-                ''
-              )}
+              ''
+            )}
 
             {profile.healthWorkerStatus ? (
               <dl className="card__content">
@@ -123,8 +123,8 @@ export default class ProfileViewPage extends Component {
                 <dd className="card__description">{profile.healthWorkerStatus.name}</dd>
               </dl>
             ) : (
-                ''
-              )}
+              ''
+            )}
 
             {profile.conditions && profile.conditions.length ? (
               <dl className="card__content">
@@ -136,8 +136,8 @@ export default class ProfileViewPage extends Component {
                 </dd>
               </dl>
             ) : (
-                ''
-              )}
+              ''
+            )}
 
             {profile.symptoms && profile.symptoms.length ? (
               <dl className="card__content">
@@ -149,15 +149,15 @@ export default class ProfileViewPage extends Component {
                 </dd>
               </dl>
             ) : (
-                ''
-              )}
+              ''
+            )}
           </article>
 
           <DefaultButton
             fullWidth
             color="primary"
             variant="outlined"
-            onClick={() => this.routeChange('/logout')}
+            onClick={() => this.routeChange('/map')}
             className="default-button"
           >
             Logout
@@ -189,8 +189,6 @@ const EditIconButton = () => {
 const DefaultButton = withStyles((theme) => ({
   root: {
     padding: '12px 16px',
-    lineHeight: '22px',
-    letterSpacing: '-0.41px',
     fontWeight: '600',
     fontSize: '17px',
     borderRadius: '10px',

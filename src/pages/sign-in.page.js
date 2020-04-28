@@ -17,12 +17,10 @@ const DefaultButton = withStyles((theme) => ({
   root: {
     minWidth: '100%',
     padding: '12px 16px',
-    lineHeight: '22px',
     fontWeight: '600',
     color: '#fff',
     marginBottom: 40,
     borderRadius: 10,
-    letterSpacing: -0.41,
     fontSize: 17,
     [theme.breakpoints.up('md')]: {
       minWidth: 248,

@@ -16,8 +16,6 @@ const LightTooltip = withStyles((theme) => ({
 const DefaultButton = withStyles((theme) => ({
   root: {
     padding: '12px 16px',
-    lineHeight: '22px',
-    letterSpacing: '-0.41px',
     fontWeight: '600',
     fontSize: '17px',
     borderRadius: '10px',
