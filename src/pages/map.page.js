@@ -56,12 +56,11 @@ export default function MapPage() {
   const locations = get(appState, 'map.locations') || [];
   const numActiveFilters = getNumActiveFilters(get(appState, 'searchCriteria'));
   const isLoggedIn = appState.sessionId ? true : false;
-
-  const [displayGradient, setDisplayGradient] = useState(false)
+  const [displayGradient, setDisplayGradient] = useState(false);
 
   // callback handlers
   function onScrollDrawer(e) {
-    e.target.scrollTop > 0 ? setDisplayGradient(true) : setDisplayGradient(false)
+    e.target.scrollTop > 0 ? setDisplayGradient(true) : setDisplayGradient(false);
   }
 
   function onWindowResize({ width, height }) {
