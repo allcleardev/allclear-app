@@ -29,7 +29,7 @@ const defaultArgs = [
 const setDomainLocalStorage = async (browser, url, values) => {
   const page = await browser.newPage();
   await page.setRequestInterception(true);
-  page.on(('request', r) => {
+  page.on('request', (r) => {
     r.respond({
       status: 200,
       contentType: 'text/plain',
