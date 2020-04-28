@@ -14,7 +14,7 @@ export default function NotFoundPage() {
           <span>But don't worry, he's a good boy.</span>
           <Link to="/map" className="wrapBtnS">
             <Button variant="contained" size="large" style={{ background: '#fff' }}>
-              Find Test
+              Find Tests
             </Button>
           </Link>
         </div>

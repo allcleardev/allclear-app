@@ -34,7 +34,7 @@
 
   .edit-filters-btn-container {
     width: 100%;
-    
+
     @media (max-width: $md - 1){
       width: 50%;
     }
@@ -54,6 +54,11 @@
   }
 
   .side-drawer{
+
+    .MuiInputBase-root{
+      height: 70px;
+    }
+
   }
 
   .MuiBadge-badge {
@@ -83,11 +88,11 @@
     z-index: 3 !important;
   }
 
-  @media (max-width: $md - 1) {
+  @media (max-width: $md) {
     position: fixed;
 
     .height-300-sm {
-      height: 350px;
+      height: 40vh;
     }
   }
 
@@ -130,14 +135,14 @@
   height: 100vh;
   overflow-x: hidden;
 
-  @media (min-width: $md) {
+  @media (min-width: $md + 1) {
     width: calc(100vw - 400px);
     left: 400px;
   }
 
-  @media (max-width: $md - 1) {
+  @media (max-width: $md) {
     width: 100vw;
-    height: calc(100vh - 350px);
+    height: 60vh; // page height - 40vh of list
   }
 
   img {
@@ -152,7 +157,7 @@
   font-size: 14px;
   color: #fff;
 
-  @media (max-width: $md - 1) {
+  @media (max-width: $md) {
     bottom: 312px;
   }
 }
@@ -161,7 +166,7 @@
   justify-content: center;
   align-items: center;
 
-  @media (max-width: $md - 1) {
+  @media (max-width: $md) {
     display: flex;
   }
 }

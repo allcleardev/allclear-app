@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { bindAll } from 'lodash';
-
-import { AppContext } from '../contexts/app.context';
-import Success from '@assets/images/success-check.svg';
-import Header from '../components/general/headers/header';
-import OnboardingNavigation from '../components/general/navs/onboarding-navigation';
-
-import { Button } from '@material-ui/core';
-import Container from '@material-ui/core/Container';
 import * as queryString from 'query-string';
+
+import { ReactComponent as Success } from '@assets/images/success-check.svg';
+import { AppContext } from '@contexts/app.context';
+
+import Header from '@components/general/headers/header';
+import OnboardingNavigation from '@components/general/navs/onboarding-navigation';
+import { ONBOARDING_NAV_ITEMS } from '@components/general/headers/header.constants';
+import { Container } from '@material-ui/core';
 
 export default class AccountCreated extends Component {
   static contextType = AppContext;
@@ -17,10 +17,6 @@ export default class AccountCreated extends Component {
   constructor() {
     super();
     bindAll(this, []);
-    this.navItems = [
-      { route: 'home.allclear.app', name: 'Home', absolutePath: true },
-      { route: 'about.allclear.app/#comitment', name: 'Help', absolutePath: true },
-    ];
   }
 
   componentDidMount() {
@@ -39,25 +35,16 @@ export default class AccountCreated extends Component {
 
   render() {
     return (
-      <div className="account-created-page">
-        <Header navItems={this.navItems} enableBackBtn={true}></Header>
-        <Container className="content onboarding-page" maxWidth="md">
-          <div className="onboarding-body">
-            <img src={Success} alt="Success" className="success" />
-            <h1>Account Created</h1>
-          </div>
-          <OnboardingNavigation
-            back={
-              <Button variant="outlined" className="back hide-mobile" onClick={() => this.routeChange('/get-started')}>
-                Start Over
-              </Button>
-            }
-            forward={
-              <Button variant="contained" className="next" onClick={() => this.routeChange('/map')}>
-                Continue to Profile
-              </Button>
-            }
-          ></OnboardingNavigation>
+      <div className="account-created-page onboarding-page">
+        <Header navItems={ONBOARDING_NAV_ITEMS} enableBackBtn={true}></Header>
+        <Container className="onboarding-body">
+          <Container maxWidth="md">
+            <div className="onboarding-body">
+              <Success className="success"></Success>
+              <h1>Account Created</h1>
+            </div>
+          </Container>
+          <OnboardingNavigation forwardRoute={'/map'} forwardText={'Continue to Home'}></OnboardingNavigation>
         </Container>
       </div>
     );

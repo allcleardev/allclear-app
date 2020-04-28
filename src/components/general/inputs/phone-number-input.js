@@ -79,7 +79,7 @@ class PhoneNumberInput extends Component {
             <MuiPhoneNumber
               className="input phone-input"
               name="phone"
-              placeholder="(555) 123-4567"
+              placeholder="Phone Number"
               type="tel"
               variant="outlined"
               autoComplete="tel"
