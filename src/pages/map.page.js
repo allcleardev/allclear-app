@@ -10,16 +10,15 @@ import SolidHeader from '@general/headers/header-solid';
 import UpdateCriteriaModal from '@general/modals/update-criteria-modal';
 import GoogleMap from '@components/map-components/google-map';
 import TestingLocationListItem from '@components/map-components/testing-location-list-item';
+import MobileTopBar from '@components/map-components/mobile-top-bar';
 import VerticalCollapseIcon from '@svg/vert-collapse';
 import VerticalExpandIcon from '@svg/vert-expand';
 import SettingsSVG from '@svg/svg-settings';
 import Box from '@material-ui/core/Container';
-import { CircularProgress } from '@material-ui/core';
 import Badge from '@material-ui/core/Badge';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
-import MobileMenu from '@general/headers/mobile-menu';
 
 // other
 import ModalService from '@services/modal.service';
@@ -29,6 +28,7 @@ import { getNumActiveFilters, getActiveFilters } from '@util/general.helpers';
 import GAService, { MAP_PAGE_GA_EVENTS, GA_EVENT_MAP } from '@services/ga.service';
 import GoogleMapsAutocomplete from '@general/inputs/google-maps-autocomplete';
 import MapService from '@services/map.service';
+import ListLoadingSpinner from '../components/map-components/list-loading-spinner';
 
 export default function MapPage() {
   const mapService = MapService.getInstance();
@@ -38,7 +38,7 @@ export default function MapPage() {
   // constants
   const classes = useStyles();
   const badgeRef = React.createRef();
-  const DRAWER_EXPANDED_HEIGHT = '95vh';
+  const DRAWER_EXPANDED_HEIGHT = '85vh';
   const DRAWER_COLLAPSED_HEIGHT = '40vh';
 
   // state & global state
@@ -56,6 +56,7 @@ export default function MapPage() {
   const locations = get(appState, 'map.locations') || [];
   const numActiveFilters = getNumActiveFilters(get(appState, 'searchCriteria'));
   const isLoggedIn = appState.sessionId ? true : false;
+  const isDrawerExpanded = drawerHeight === DRAWER_EXPANDED_HEIGHT;
 
   // callback handlers
   function onWindowResize({ width, height }) {
@@ -151,15 +152,13 @@ export default function MapPage() {
   return (
     <div className="map-page">
       {anchor === 'bottom' && (
-        <div className="mobile-top-bar">
-          <MobileMenu isLoggedIn={isLoggedIn}></MobileMenu>
-          <div className="location-search">
-            <GoogleMapsAutocomplete
-              locationSelected={onLocationSelected}
-              onClear={onLocationCleared}
-            ></GoogleMapsAutocomplete>
-          </div>
-        </div>
+        <MobileTopBar
+          isLoggedIn={isLoggedIn}
+          onLocationSelected={onLocationSelected}
+          onLocationCleared={onLocationCleared}
+          onFilterClick={onEditFiltersBtnClick}
+        >
+        </MobileTopBar>
       )}
       <SolidHeader isLoggedIn={isLoggedIn} isOpen={isOpen}></SolidHeader>
       <Box p={3}>
@@ -193,13 +192,15 @@ export default function MapPage() {
               }}
               className="side-drawer hide-scrollbar wid100-sm"
             >
-              <GoogleMapsAutocomplete
-                focusOnRender={true}
-                locationSelected={onLocationSelected}
-                onClear={onLocationCleared}
-              ></GoogleMapsAutocomplete>
+              {anchor === 'left' &&
+                <GoogleMapsAutocomplete
+                  focusOnRender={true}
+                  locationSelected={onLocationSelected}
+                  onClear={onLocationCleared}
+                ></GoogleMapsAutocomplete>
+              }
 
-              {appState.map.isListLoading === false && (
+              {anchor === 'left' && appState.map.isListLoading === false && (
                 <Box
                   className={'button-box'}
                   style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
@@ -214,10 +215,10 @@ export default function MapPage() {
                       <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} />
                     </Badge>
                   ) : (
-                    <span className="edit-filters-btn-container">
-                      <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} style />
-                    </span>
-                  )}
+                      <span className="edit-filters-btn-container">
+                        <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} style />
+                      </span>
+                    )}
                   {anchor === 'bottom' && (
                     <Button
                       className={'view-full-results-btn'}
@@ -231,41 +232,26 @@ export default function MapPage() {
                 </Box>
               )}
 
-              {appState.map.isListLoading === true && (
-                <div
-                  style={{
-                    paddingTop: '100px',
-                    height: '80vh !important',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'top',
-                  }}
-                  className="mt-4 mt-md-0 vh100-lg"
-                >
-                  <CircularProgress color="primary" size={108} />
-                  <p className="mt-3">Loading Results</p>
-                </div>
-              )}
+              {appState.map.isListLoading === true && (<ListLoadingSpinner />)}
 
               {locations &&
-              locations.map((result, index) => (
-                <TestingLocationListItem
-                  id={result.id}
-                  key={index}
-                  index={index}
-                  title={result.name}
-                  description={result.address}
-                  city_state={result.city + ', ' + result.state}
-                  service_time={result.hours}
-                  driveThru={result.driveThru}
-                  phone={result.phone}
-                  website={result.url}
-                  {...result}
-                  onActionClick={onActionClick}
-                  onTestingLocationExpand={onTestingLocationExpand}
-                ></TestingLocationListItem>
-              ))}
+                locations.map((result, index) => (
+                  <TestingLocationListItem
+                    id={result.id}
+                    key={index}
+                    index={index}
+                    title={result.name}
+                    description={result.address}
+                    city_state={result.city + ', ' + result.state}
+                    service_time={result.hours}
+                    driveThru={result.driveThru}
+                    phone={result.phone}
+                    website={result.url}
+                    {...result}
+                    onActionClick={onActionClick}
+                    onTestingLocationExpand={onTestingLocationExpand}
+                  ></TestingLocationListItem>
+                ))}
 
 
               {locations.length === 0 && appState.map.isListLoading === false && (
@@ -279,8 +265,13 @@ export default function MapPage() {
             [classes.contentShift]: isOpen,
           })}
         >
-          <div className="map-fullscreen">
+          <div className="map-fullscreen" style={{ height: anchor === 'bottom' && isDrawerExpanded ? '15vh' : null }}>
             <GoogleMap onMapClick={onMapClick}></GoogleMap>
+            {anchor === 'bottom' &&
+              <Button className="view-type-button" onClick={onDrawerSwipe}>
+                {isDrawerExpanded ? 'Map' : 'List'}
+              </Button>
+            }
           </div>
         </main>
         <UpdateCriteriaModal></UpdateCriteriaModal>
