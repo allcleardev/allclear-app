@@ -12,12 +12,8 @@
   .chip {
     @media (min-width: $md) {
       flex: 1 0 30%;
-      margin: 10px;
-    }
-
-    @media (min-width: 816px) {
-      // this custom breakpoint is needed to help w/pills layout across screen sizes
       max-width: 31%;
+      margin: 10px;
     }
 
     span {

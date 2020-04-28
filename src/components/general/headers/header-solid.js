@@ -26,7 +26,7 @@ export default function ColoredHeader(props) {
               </Link>
           )}
           {!isLoggedIn && (
-            <a href="/get-started">
+            <a href="/create-account">
               <Button className="header-menu__item header-menu__item--inverted">
                 Get Alerts
               </Button>

@@ -59,7 +59,7 @@ export default function MapPage() {
 
   // callback handlers
   function onWindowResize({ width, height }) {
-    if (width <= 768) {
+    if (width <= 960) {
       setMapState({
         ...mapState,
         anchor: 'bottom',
@@ -77,7 +77,7 @@ export default function MapPage() {
   }
 
   function onDrawerSwipe(e) {
-    if (initialState.windowWidth <= 768) {
+    if (initialState.windowWidth <= 960) {
       const nextHeight = drawerHeight === DRAWER_COLLAPSED_HEIGHT ? DRAWER_EXPANDED_HEIGHT : DRAWER_COLLAPSED_HEIGHT;
       if (e.pointerType === 'touch' || e.type === 'click') {
         setDrawerHeight(nextHeight);
@@ -90,7 +90,7 @@ export default function MapPage() {
     if (get(newLocation, 'description')) {
       const { latitude, longitude } = newLocation;
 
-      mapService.onLocationAccepted({
+      await mapService.onLocationAccepted({
         coords: {
           latitude, longitude
         }
@@ -102,11 +102,11 @@ export default function MapPage() {
   async function onLocationCleared() {
     const latitude = get(appState, 'person.latitude');
     const longitude = get(appState, 'person.longitude');
-    (latitude && longitude) && mapService.onLocationAccepted({
+    (latitude && longitude) && await mapService.onLocationAccepted({
       coords: {
         latitude, longitude
       }
-    }, true);
+    });
   }
 
   function onEditFiltersBtnClick() {
@@ -161,8 +161,7 @@ export default function MapPage() {
             })
           }
           style={{ zIndex: '2' }}
-        >
-        </AppBar>
+        ></AppBar>
 
         <Drawer
           className={classes.drawer + ' nav-left-location'}
@@ -184,17 +183,17 @@ export default function MapPage() {
               }}
               className="side-drawer hide-scrollbar wid100-sm"
             >
-
               <GoogleMapsAutocomplete
                 focusOnRender={true}
                 locationSelected={onLocationSelected}
                 onClear={onLocationCleared}
               ></GoogleMapsAutocomplete>
 
-              {appState.isListLoading === false && (
+              {appState.map.isListLoading === false && (
                 <Box
                   className={'button-box'}
-                  style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                >
                   {numActiveFilters > 0 ? (
                     <Badge
                       ref={badgeRef}
@@ -205,10 +204,10 @@ export default function MapPage() {
                       <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} />
                     </Badge>
                   ) : (
-                      <span className="edit-filters-btn-container">
-                        <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} style />
-                      </span>
-                    )}
+                    <span className="edit-filters-btn-container">
+                      <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} style />
+                    </span>
+                  )}
                   {anchor === 'bottom' && (
                     <Button
                       className={'view-full-results-btn'}
@@ -222,42 +221,44 @@ export default function MapPage() {
                 </Box>
               )}
 
-              {appState.isListLoading === true && (
+              {appState.map.isListLoading === true && (
                 <div
                   style={{
-                    height: 'auto',
+                    paddingTop: '100px',
+                    height: '80vh !important',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    justifyContent: 'center',
+                    justifyContent: 'top',
                   }}
                   className="mt-4 mt-md-0 vh100-lg"
                 >
-                  <CircularProgress color="primary" size={70} />
+                  <CircularProgress color="primary" size={108} />
                   <p className="mt-3">Loading Results</p>
                 </div>
               )}
 
               {locations &&
-                locations.map((result, index) => (
-                  <TestingLocationListItem
-                    id={result.id}
-                    key={index}
-                    index={index}
-                    title={result.name}
-                    description={result.address}
-                    city_state={result.city + ', ' + result.state}
-                    service_time={result.hours}
-                    driveThru={result.driveThru}
-                    phone={result.phone}
-                    website={result.url}
-                    {...result}
-                    onActionClick={onActionClick}
-                    onTestingLocationExpand={onTestingLocationExpand}
-                  ></TestingLocationListItem>
-                ))}
+              locations.map((result, index) => (
+                <TestingLocationListItem
+                  id={result.id}
+                  key={index}
+                  index={index}
+                  title={result.name}
+                  description={result.address}
+                  city_state={result.city + ', ' + result.state}
+                  service_time={result.hours}
+                  driveThru={result.driveThru}
+                  phone={result.phone}
+                  website={result.url}
+                  {...result}
+                  onActionClick={onActionClick}
+                  onTestingLocationExpand={onTestingLocationExpand}
+                ></TestingLocationListItem>
+              ))}
 
-              {locations.length === 0 && appState.isListLoading === false && (
+
+              {locations.length === 0 && appState.map.isListLoading === false && (
                 <h2 style={{ display: 'flex', justifyContent: 'center' }}>No Results Found </h2>
               )}
             </div>

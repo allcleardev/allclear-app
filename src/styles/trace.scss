@@ -3,14 +3,13 @@
   flex-direction: column;
   width: 100%;
   color: #fff;
-  background: $gradient-background;
+  @include responsive-gradient;
 
   h1 {
     margin-bottom: 56px;
     line-height: 41px;
     font-weight: bold;
     font-size: 34px;
-    letter-spacing: 0.374px;
   }
 
   h2 {

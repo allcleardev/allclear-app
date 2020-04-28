@@ -1,7 +1,8 @@
 .phone-verifying {
-  background: $gradient-background;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   flex-direction: column;
+
+  @include responsive-gradient;
 }

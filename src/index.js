@@ -9,11 +9,13 @@ import setupLogRocketReact from 'logrocket-react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
 
-import App from './App';
 import theme from './theme';
+import App from './App';
 
 import * as serviceWorker from './service-worker';
 import { bootstrapAxios } from '@util/bootstrap.helpers';
+
+import 'typeface-heebo';
 
 const isLocalDevBuild = process.env.NODE_ENV === 'development';
 
