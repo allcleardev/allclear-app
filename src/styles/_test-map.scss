@@ -28,12 +28,13 @@
   }
 
   .side-drawer{
-    margin-top: .2%;
-    
+    @media (max-width: $md - 1) {
+      margin-top: .2%;
+    }
+
     .MuiInputBase-root{
       height: 70px;
     }
-
   }
 
   .MuiBadge-badge {
