@@ -153,17 +153,17 @@ export default class ProfileViewPage extends Component {
             )}
           </article>
 
-          <DefaultButton
-            fullWidth
-            color="primary"
-            variant="outlined"
-            onClick={() => this.routeChange('/map')}
-            className="default-button"
-          >
-            Logout
-          </DefaultButton>
+          <Link to="/logout">
+            <DefaultButton
+              fullWidth
+              color="primary"
+              variant="outlined"
+              className="default-button"
+            >
+              Logout
+            </DefaultButton>
+          </Link>
         </Container>
-
         <BottomNav active={3}></BottomNav>
       </section>
     );
