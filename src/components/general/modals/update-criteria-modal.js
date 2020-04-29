@@ -215,7 +215,7 @@ function UpdateCriteria({onClose, onSubmit}) {
         className="btn-group"
       >
         <div
-          style={{display: 'flex', 'justifyContent': 'space-between', width: '100%'}}
+          style={{display: 'flex', justifyContent: 'space-between', width: '100%'}}
         >
           <Grid item xs={12} sm={6}>
             <Button onClick={_onSubmitClicked} className="btn-big bg-primary color-white fontsize-16" style={{width: '95%'}}>
