@@ -157,7 +157,7 @@ export default class ProfileViewPage extends Component {
             fullWidth
             color="primary"
             variant="outlined"
-            onClick={() => this.routeChange('/map')}
+            href="/logout"
             className="default-button"
           >
             Logout
