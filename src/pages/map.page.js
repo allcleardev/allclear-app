@@ -38,7 +38,7 @@ export default function MapPage() {
   // constants
   const classes = useStyles();
   const badgeRef = React.createRef();
-  const DRAWER_EXPANDED_HEIGHT = '85vh';
+  const DRAWER_EXPANDED_HEIGHT = '70vh';
   const DRAWER_COLLAPSED_HEIGHT = '40vh';
 
   // state & global state
@@ -267,7 +267,7 @@ export default function MapPage() {
             [classes.contentShift]: isOpen,
           })}
         >
-          <div className="map-fullscreen" style={{ height: anchor === 'bottom' && isDrawerExpanded ? '15vh' : null }}>
+          <div className="map-fullscreen" style={{ height: anchor === 'bottom' && isDrawerExpanded ? '30vh' : null }}>
             <GoogleMap onMapClick={onMapClick}></GoogleMap>
             {anchor === 'bottom' &&
               <Button className="view-type-button" onClick={onDrawerSwipe}>
