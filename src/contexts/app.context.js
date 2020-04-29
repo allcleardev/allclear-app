@@ -44,6 +44,7 @@ export const INITIAL_APP_STATE = {
       symptoms: undefined,
       exposures: undefined,
     },
+    showUpdateConfirmation: false
   },
   signUpPayload: undefined,
 

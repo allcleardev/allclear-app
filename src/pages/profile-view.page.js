@@ -11,16 +11,18 @@ import Header from '@components/general/headers/header';
 import BottomNav from '@components/general/navs/bottom-nav';
 import { DEFAULT_NAV_ITEMS } from '@components/general/headers/header.constants';
 import { Button, IconButton, Chip, Container, withStyles } from '@material-ui/core';
+import SnackbarMessage from '@general/alerts/snackbar-message';
 
 export default class ProfileViewPage extends Component {
   static contextType = AppContext;
   state = {
     profile: {},
+    showSnackbar: false
   };
 
   constructor(props) {
     super(props);
-    bindAll(this, ['routeChange', 'componentDidMount', 'fetchProfile', 'setProfile']);
+    bindAll(this, ['routeChange', 'componentDidMount', 'fetchProfile', 'setProfile', 'handleSnackbarClose']);
     this.peopleService = PeopleService.getInstance();
   }
 
@@ -31,16 +33,15 @@ export default class ProfileViewPage extends Component {
   async componentDidMount() {
     const currState = this.context.appState;
     this.setProfile(currState);
+    this.setState({showSnackbar: currState.profile.showUpdateConfirmation});
     await this.fetchProfile(currState);
   }
 
   async fetchProfile(session) {
     const currSession = this.context.appState.sessionId;
     const { id } = this.context.appState.person;
-
     const response = await this.peopleService.getById(id, currSession);
     const profile = response.data;
-
     this.setState({ profile });
   }
 
@@ -48,6 +49,20 @@ export default class ProfileViewPage extends Component {
     if (session.person) {
       this.setState({ profile: session.person });
     }
+  }
+
+  handleSnackbarClose() {
+    const { appState, setAppState } = this.context;
+    setAppState({
+      ...appState,
+      profile: {
+        ...appState.profile,
+        showUpdateConfirmation: false
+      }
+    });
+    this.setState({
+      showSnackbar: false
+    });
   }
 
   render() {
@@ -165,6 +180,13 @@ export default class ProfileViewPage extends Component {
           </Link>
         </Container>
         <BottomNav active={3}></BottomNav>
+        <SnackbarMessage
+          isOpen={this.state.showSnackbar}
+          onClose={this.handleSnackbarClose}
+          message="Profile successfully updated"
+          severity="success"
+        >
+        </SnackbarMessage>
       </section>
     );
   }

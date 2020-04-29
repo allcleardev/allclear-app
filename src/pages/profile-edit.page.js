@@ -192,6 +192,10 @@ export default class ProfileEditPage extends Component {
         ...appState.person,
         ...updatedProfile,
       },
+      profile: {
+        ...appState.profile,
+        showUpdateConfirmation: true
+      }
     });
     this.props.history.goBack();
     // TODO: Add success snack bar
