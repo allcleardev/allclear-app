@@ -1,6 +1,6 @@
 export const ONBOARDING_NAV_ITEMS = [
   { route: '/map', name: 'Home' },
-  { route: 'about.allclear.app/#comitment', name: 'Help', absolutePath: true },
+  { route: 'home.allclear.app/#commitment', name: 'Help', absolutePath: true },
 ];
 
 export const DEFAULT_NAV_ITEMS = [
