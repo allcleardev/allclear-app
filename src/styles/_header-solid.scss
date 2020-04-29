@@ -17,7 +17,7 @@
     justify-content: space-between;
     align-items: flex-start; // safari fix
     flex-direction: row;
-    width: 90%;
+    width: 100%;
     margin: 11px 0;
 
     @media (max-width: $md - 1) {
@@ -29,7 +29,7 @@
 
       &--open {
         transition: margin 0.15s linear;
-        margin-left: 370px;
+        margin-left: 22px;
       }
     }
 
@@ -37,6 +37,7 @@
       display: flex;
       align-items: center;
       min-height: 48px;
+      margin-right: 28px;
 
       &__item {
         text-align: center;

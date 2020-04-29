@@ -82,6 +82,6 @@ Further Reading
 Contact
 -------
 
-General inquiries: [info@allclear.app]([mailto:info@allclear.app)
+General inquiries: [info@allclear.app](mailto:info@allclear.app)
 
 Report a security issue: [security@allclear.app](mailto:security@allclear.app)
