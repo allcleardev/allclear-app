@@ -145,9 +145,15 @@ export default function GoogleMapsAutocomplete(props) {
             {...params}
             placeholder="New York, NY or 11211"
             variant="outlined"
-            className="input"
+            className="input autocomplete-input"
             onChange={handleTextChange}
             disabled={props.useCurrentLocation}
+            InputProps={{
+              ...params.InputProps,
+              startAdornment: (
+                <SearchIcon name="search" style={{ position: 'absolute', color: props.searchIconColor || 'white' }} />
+              ),
+            }}
           />
         )}
         renderOption={(option) => {
