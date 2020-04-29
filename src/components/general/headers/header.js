@@ -32,7 +32,9 @@ export default function Header({
       )}
 
       <Container className="desktop-only-content" maxWidth="xl">
-        <img src={Logo} alt="Logo" className="logo" />
+        <Link to="/map">
+          <img src={Logo} alt="Logo" className="logo" />
+        </Link>
         <nav className="menu">
           {navItems.map((item) => {
             if (item.absolutePath) {

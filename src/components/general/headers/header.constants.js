@@ -1,5 +1,5 @@
 export const ONBOARDING_NAV_ITEMS = [
-  { route: 'home.allclear.app', name: 'Home', absolutePath: true },
+  { route: '/map', name: 'Home' },
   { route: 'about.allclear.app/#comitment', name: 'Help', absolutePath: true },
 ];
 
