@@ -1,5 +1,6 @@
 [![allclear](public/android-chrome-192x192.png)](https://allclear.app)
 
+[![Version](https://badgen.net/github/tag/allcleardev/allclear-app)](https://github.com/allcleardev/allclear-app/tags)
 [![Release](https://badgen.net/github/release/allcleardev/allclear-app)](https://github.com/allcleardev/allclear-app/releases)
 [![Commits](https://badgen.net/github/commits/allcleardev/allclear-app)](https://github.com/allcleardev/allclear-app/commits/master)
 
@@ -82,6 +83,6 @@ Further Reading
 Contact
 -------
 
-General inquiries: [info@allclear.app]([mailto:info@allclear.app)
+General inquiries: [info@allclear.app](mailto:info@allclear.app)
 
 Report a security issue: [security@allclear.app](mailto:security@allclear.app)

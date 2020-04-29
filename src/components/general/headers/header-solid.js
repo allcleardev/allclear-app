@@ -26,11 +26,11 @@ export default function ColoredHeader(props) {
               </Link>
           )}
           {!isLoggedIn && (
-            <a href="/create-account">
+            <Link to="/create-account">
               <Button className="header-menu__item header-menu__item--inverted">
                 Get Alerts
               </Button>
-            </a>
+            </Link>
           )}
         </div>
       </div>

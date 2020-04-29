@@ -8,12 +8,16 @@ import MenuList from '@material-ui/core/MenuList';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { isLoggedInHeaderLinks, isLoggedOutHeaderLinks } from '@util/general.constants';
+import {cloneDeep} from 'lodash';
 
 export default function MobileMenu(props) {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
 
-  const links = props.isLoggedIn ? isLoggedInHeaderLinks : isLoggedOutHeaderLinks;
+  let loggedOutLinks = cloneDeep(isLoggedOutHeaderLinks);
+  loggedOutLinks.push({name: 'Get Alerts', to: '/get-started'});
+  const links = props.isLoggedIn ? isLoggedInHeaderLinks : loggedOutLinks;
+
   function onMenuToggle() {
     setOpen((prevOpen) => !prevOpen);
   }
@@ -33,7 +37,8 @@ export default function MobileMenu(props) {
         aria-label="menu"
         aria-haspopup="true"
         className="icon-button"
-        style={{ backgroundColor: 'white' }}
+        size="small"
+        style={{ backgroundColor: 'white', padding: '10px' }}
         onClick={onMenuToggle}
       >
         <MenuIcon style={{ color: 'black' }} />

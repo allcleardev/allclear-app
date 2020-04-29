@@ -44,6 +44,13 @@ if (!isLocalDevBuild) {
 
 bootstrapAxios();
 
+// remove loader, make root visible
+const el = document.getElementById('loader__container');
+el && el.parentNode.removeChild(el);
+
+const appRoot = document.getElementById('root');
+appRoot.style.display = 'flex';
+
 ReactDOM.render(
   <ThemeProvider theme={theme}>
     {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
