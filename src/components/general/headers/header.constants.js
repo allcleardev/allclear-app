@@ -1,6 +1,6 @@
 export const ONBOARDING_NAV_ITEMS = [
-  { route: 'home.allclear.app', name: 'Home', absolutePath: true },
-  { route: 'about.allclear.app/#comitment', name: 'Help', absolutePath: true },
+  { route: '/map', name: 'Home' },
+  { route: 'home.allclear.app/#commitment', name: 'Help', absolutePath: true },
 ];
 
 export const DEFAULT_NAV_ITEMS = [
@@ -8,5 +8,6 @@ export const DEFAULT_NAV_ITEMS = [
   { route: '/contact-tracing', name: 'Tracing' },
   { route: 'home.allclear.app', name: 'About Us', absolutePath: true },
   { route: '/profile', name: 'Profile' },
+  { route: '/logout', name: 'Logout' },
   // { onClick: 'logout', name: 'Logout' }, // TODO
 ];

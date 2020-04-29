@@ -26,7 +26,7 @@ class BackgroundPage extends Component {
     this.gaService.setScreenName('background');
     this.navItems = [
       { route: 'home.allclear.app', name: 'Home', absolutePath: true },
-      { route: 'about.allclear.app/#comitment', name: 'Help', absolutePath: true },
+      { route: 'home.allclear.app/#comitment', name: 'Help', absolutePath: true },
     ];
   }
 
@@ -108,6 +108,7 @@ class BackgroundPage extends Component {
               <GoogleMapsAutocomplete
                 useCurrentLocation={this.state.useCurrentLocation}
                 locationSelected={this.handleLocationChange}
+                noOptionsText={'Please Enter a Location'}
               ></GoogleMapsAutocomplete>
 
               <div className="switchContainer" onClick={this.handleSwitchChange}>

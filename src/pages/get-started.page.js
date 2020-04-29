@@ -48,8 +48,8 @@ export default class GetStartedPage extends Component {
     };
     this.navItems = [
       { route: 'home.allclear.app', name: 'Home', absolutePath: true },
-      { route: '/map', name: 'Map', absolutePath: false },
-      { route: 'about.allclear.app', name: 'Help', absolutePath: true },
+      { route: '/map', name: 'Find Tests', absolutePath: false },
+      { route: 'home.allclear.app', name: 'Help', absolutePath: true },
     ];
 
     bindAll(this, ['routeChange', 'handleSnackbarClose']);

@@ -12,27 +12,27 @@ export default function ColoredHeader(props) {
   return (
     <div className="header-solid-fullscreen">
       <div className={isOpen ? 'header-logo header-logo--open' : 'header-logo'}>
-        <a href="https://home.allclear.app">
+        <Link to="/map">
           <img className={isOpen ? 'logo logo--open' : 'logo'} src={Logo} alt="Logo" />
-        </a>
-        <div className="header-menu">
+        </Link>
+        <nav className="header-menu">
           {links.map((link) =>
-            link.isExternalURL
-              ? <a key={link.name} href={link.to} className="header-menu__item">
+            link.isExternalURL ? (
+              <a key={link.name} href={link.to} rel="noopener noreferrer" target="_blank" className="header-menu__item">
                 {link.name}
               </a>
-              : <Link className="header-menu__item" to={link.to} key={link.name}>
+            ) : (
+              <Link className="header-menu__item" to={link.to} key={link.name}>
                 {link.name}
               </Link>
+            ),
           )}
           {!isLoggedIn && (
             <Link to="/create-account">
-              <Button className="header-menu__item header-menu__item--inverted">
-                Get Alerts
-              </Button>
+              <Button className="header-menu__item header-menu__item--inverted">Get Alerts</Button>
             </Link>
           )}
-        </div>
+        </nav>
       </div>
       {props.children}
     </div>

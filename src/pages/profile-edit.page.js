@@ -234,6 +234,7 @@ export default class ProfileEditPage extends Component {
                   initialValue={profile.locationName}
                   locationSelected={this.handleLocationSelection}
                   useCurrentLocation={this.state.useCurrentLocation}
+                  noOptionsText={'Please Enter a Location'}
                 ></GoogleMapsAutocomplete>
               )}
             </div>
