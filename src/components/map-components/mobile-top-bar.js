@@ -12,6 +12,7 @@ export default function MobileTopBar(props) {
         <GoogleMapsAutocomplete
           locationSelected={props.onLocationSelected}
           onClear={props.onLocationCleared}
+          searchIconColor={'lightgray'}
         ></GoogleMapsAutocomplete>
         <IconButton
           aria-label="edit filters"
