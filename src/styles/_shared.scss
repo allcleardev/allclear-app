@@ -63,7 +63,9 @@ $colors: (
 
   &--map {
     position: absolute;
-    left: calc(50vw + 200px) !important;
+    @media (min-width: $md) {
+      transform: translateX(0) !important;
+    }
     .MuiAlert-standardError {
       background-color: white;
     }

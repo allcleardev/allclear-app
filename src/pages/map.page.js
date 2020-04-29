@@ -87,27 +87,32 @@ export default function MapPage() {
   }
 
   async function onLocationSelected(bool, newLocation) {
-
     if (get(newLocation, 'description')) {
       const { latitude, longitude } = newLocation;
 
-      await mapService.onLocationAccepted({
-        coords: {
-          latitude, longitude
-        }
-      }, true);
-
+      await mapService.onLocationAccepted(
+        {
+          coords: {
+            latitude,
+            longitude,
+          },
+        },
+        true,
+      );
     }
   }
 
   async function onLocationCleared() {
     const latitude = get(appState, 'person.latitude');
     const longitude = get(appState, 'person.longitude');
-    (latitude && longitude) && await mapService.onLocationAccepted({
-      coords: {
-        latitude, longitude
-      }
-    });
+    latitude &&
+      longitude &&
+      (await mapService.onLocationAccepted({
+        coords: {
+          latitude,
+          longitude,
+        },
+      }));
   }
 
   function onEditFiltersBtnClick() {
@@ -157,8 +162,7 @@ export default function MapPage() {
           onLocationSelected={onLocationSelected}
           onLocationCleared={onLocationCleared}
           onFilterClick={onEditFiltersBtnClick}
-        >
-        </MobileTopBar>
+        ></MobileTopBar>
       )}
       <SolidHeader isLoggedIn={isLoggedIn} isOpen={isOpen}></SolidHeader>
       <Box p={3}>
@@ -177,7 +181,7 @@ export default function MapPage() {
           variant="persistent"
           anchor={anchor}
           open={isOpen}
-          style={{ height: drawerHeight, zIndex: 4 }}
+          style={{ height: drawerHeight }}
         >
           <AnimateHeight
             duration={500}
@@ -192,7 +196,7 @@ export default function MapPage() {
               }}
               className="side-drawer hide-scrollbar wid100-sm"
             >
-              {anchor === 'left' &&
+              {anchor === 'left' && (
                 <GoogleMapsAutocomplete
                   searchIconColor={'lightgray'}
                   focusOnRender={true}
@@ -200,7 +204,7 @@ export default function MapPage() {
                   onClear={onLocationCleared}
                   noOptionsText={'Please Enter a Search Term to View Results'}
                 ></GoogleMapsAutocomplete>
-              }
+              )}
 
               {anchor === 'left' && appState.map.isListLoading === false && (
                 <Box
@@ -217,10 +221,10 @@ export default function MapPage() {
                       <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} />
                     </Badge>
                   ) : (
-                      <span className="edit-filters-btn-container">
-                        <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} style />
-                      </span>
-                    )}
+                    <span className="edit-filters-btn-container">
+                      <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} style />
+                    </span>
+                  )}
                   {anchor === 'bottom' && (
                     <Button
                       className={'view-full-results-btn'}
@@ -234,7 +238,7 @@ export default function MapPage() {
                 </Box>
               )}
 
-              {appState.map.isListLoading === true && (<ListLoadingSpinner />)}
+              {appState.map.isListLoading === true && <ListLoadingSpinner />}
 
               {locations &&
                 locations.map((result, index) => (
@@ -255,7 +259,6 @@ export default function MapPage() {
                   ></TestingLocationListItem>
                 ))}
 
-
               {locations.length === 0 && appState.map.isListLoading === false && (
                 <h2 style={{ display: 'flex', justifyContent: 'center' }}>No Results Found </h2>
               )}
@@ -269,11 +272,11 @@ export default function MapPage() {
         >
           <div className="map-fullscreen" style={{ height: anchor === 'bottom' && isDrawerExpanded ? '15vh' : null }}>
             <GoogleMap onMapClick={onMapClick}></GoogleMap>
-            {anchor === 'bottom' &&
+            {anchor === 'bottom' && (
               <Button className="view-type-button" onClick={onDrawerSwipe}>
                 {isDrawerExpanded ? 'Map' : 'List'}
               </Button>
-            }
+            )}
           </div>
         </main>
         <UpdateCriteriaModal></UpdateCriteriaModal>
@@ -334,7 +337,6 @@ function EditFiltersBtn(props) {
   );
 }
 
-
 // todo: might still be useful at some point just not now
 // function TabPanel(props) {
 //   const {children, value, index} = props;
@@ -356,7 +358,6 @@ function EditFiltersBtn(props) {
 //   index: PropTypes.any.isRequired,
 //   value: PropTypes.any.isRequired,
 // };
-
 
 // on mount, check if filter is active
 // useEffect(
