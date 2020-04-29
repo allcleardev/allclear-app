@@ -194,6 +194,7 @@ export default function MapPage() {
             >
               {anchor === 'left' &&
                 <GoogleMapsAutocomplete
+                  searchIconColor={'lightgray'}
                   focusOnRender={true}
                   locationSelected={onLocationSelected}
                   onClear={onLocationCleared}
