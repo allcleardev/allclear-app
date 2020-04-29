@@ -7,7 +7,7 @@
 
   @media (min-width: $md) {
     align-items: center;
-    padding: 25px 0 18px;
+    padding: 11px 0 18px;
   }
 
   h1 {
@@ -93,6 +93,7 @@
     .menu {
       display: flex;
       align-items: center;
+      min-height: 48px;
 
       &__item {
         padding: 7px 20px;

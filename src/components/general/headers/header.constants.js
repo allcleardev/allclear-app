@@ -8,5 +8,6 @@ export const DEFAULT_NAV_ITEMS = [
   { route: '/contact-tracing', name: 'Tracing' },
   { route: 'home.allclear.app', name: 'About Us', absolutePath: true },
   { route: '/profile', name: 'Profile' },
+  { route: '/logout', name: 'Logout' },
   // { onClick: 'logout', name: 'Logout' }, // TODO
 ];

@@ -15,7 +15,7 @@ export default function ColoredHeader(props) {
         <a href="https://home.allclear.app">
           <img className={isOpen ? 'logo logo--open' : 'logo'} src={Logo} alt="Logo" />
         </a>
-        <div className="header-menu">
+        <nav className="header-menu">
           {links.map((link) =>
             link.isExternalURL
               ? <a key={link.name} href={link.to} className="header-menu__item">
@@ -32,7 +32,7 @@ export default function ColoredHeader(props) {
               </Button>
             </Link>
           )}
-        </div>
+        </nav>
       </div>
       {props.children}
     </div>

@@ -18,7 +18,7 @@
     align-items: flex-start; // safari fix
     flex-direction: row;
     width: 100%;
-    margin: 11px 0;
+    padding: 11px 0;
 
     @media (max-width: $md - 1) {
       display: none;
@@ -29,7 +29,7 @@
 
       &--open {
         transition: margin 0.15s linear;
-        margin-left: 22px;
+        margin-left: 24px;
       }
     }
 
@@ -37,16 +37,18 @@
       display: flex;
       align-items: center;
       min-height: 48px;
-      margin-right: 28px;
+      margin-right: 24px;
 
       &__item {
-        text-align: center;
-        padding: 3px 15px;
-        margin: 0px 8px;
-        line-height: 20px;
-        font-weight: 500;
+        padding: 7px 20px;
+        margin: 0 10px;
         font-size: 14px;
+        font-weight: 500;
         color: #fff;
+
+        &:last-child {
+          margin-right: 0;
+        }
 
         &--inverted {
           background: white;
