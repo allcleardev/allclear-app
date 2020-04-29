@@ -304,9 +304,6 @@ const useStyles = makeStyles((theme) => ({
   hide: {
     display: 'none',
   },
-  drawer: {
-    flexShrink: 0,
-  },
   content: {
     marginLeft: -drawerWidth,
   },

@@ -56,10 +56,19 @@
   .MuiDrawer-paperAnchorDockedLeft {
     border: 0;
     box-shadow: 5px 0px 20px rgba(0, 0, 0, 0.1);
+    top: 70px;
   }
 
   .MuiDrawer-paper {
     z-index: 3 !important;
+
+    @media (min-width: $md) {
+      position: fixed;
+      border-radius: 4px;
+      background-color: transparent;
+    }
+
+
   }
 
   @media (max-width: $md) {
