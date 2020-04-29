@@ -198,6 +198,7 @@ export default function MapPage() {
                   focusOnRender={true}
                   locationSelected={onLocationSelected}
                   onClear={onLocationCleared}
+                  noOptionsText={'Please Enter a Search Term to View Results'}
                 ></GoogleMapsAutocomplete>
               }
 

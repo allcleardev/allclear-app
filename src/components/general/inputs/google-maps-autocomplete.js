@@ -125,7 +125,7 @@ export default function GoogleMapsAutocomplete(props) {
         includeInputInList
         clearOnEscape
         closeIcon={<CloseIcon fontSize="small" />}
-        noOptionsText={'Please Enter a Search Term to View Results'}
+        noOptionsText={props.noOptionsText}
         classes={{
           endAdornment: clsx(classes.hidden, {
             [classes.show]: options.length > 0,

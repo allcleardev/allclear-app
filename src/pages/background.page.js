@@ -108,6 +108,7 @@ class BackgroundPage extends Component {
               <GoogleMapsAutocomplete
                 useCurrentLocation={this.state.useCurrentLocation}
                 locationSelected={this.handleLocationChange}
+                noOptionsText={'Please Enter a Location'}
               ></GoogleMapsAutocomplete>
 
               <div className="switchContainer" onClick={this.handleSwitchChange}>
