@@ -148,9 +148,6 @@ export default function GoogleMapsAutocomplete(props) {
             className="input"
             onChange={handleTextChange}
             disabled={props.useCurrentLocation}
-            InputProps={{
-              startAdornment: <SearchIcon name="search" style={{ marginRight: 10, color: '#fff' }} />,
-            }}
           />
         )}
         renderOption={(option) => {
