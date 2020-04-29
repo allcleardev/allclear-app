@@ -5,8 +5,8 @@
   flex-direction: column;
   align-items: center;
   width: 100vw;
-  background: linear-gradient(90deg, #002C83 0%, #007CFF 100%);
   box-shadow: 0px 1px 10px #999;
+  @include responsive-gradient;
 
   @media (max-width: $md) {
     display: none;
@@ -17,8 +17,8 @@
     justify-content: space-between;
     align-items: flex-start; // safari fix
     flex-direction: row;
-    width: 90%;
-    margin: 11px 0;
+    width: 100%;
+    padding: 11px 0;
 
     @media (max-width: $md - 1) {
       display: none;
@@ -29,7 +29,7 @@
 
       &--open {
         transition: margin 0.15s linear;
-        margin-left: 370px;
+        margin-left: 24px;
       }
     }
 
@@ -37,18 +37,17 @@
       display: flex;
       align-items: center;
       min-height: 48px;
+      margin-right: 24px;
 
       &__item {
-        text-align: center;
-        padding: 3px 15px;
-        margin: 0px 8px;
-        line-height: 20px;
-        font-weight: 500;
+        padding: 7px 20px;
+        margin: 0 10px;
         font-size: 14px;
+        font-weight: 500;
         color: #fff;
 
-        &:hover {
-          border-bottom: 2px solid #fff;
+        &:last-child {
+          margin-right: 0;
         }
 
         &--inverted {
@@ -57,7 +56,7 @@
 
           &:hover {
             border-bottom: none;
-            opacity: 0.9
+            opacity: 0.9;
           }
         }
       }

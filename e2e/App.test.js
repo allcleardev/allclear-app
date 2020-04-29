@@ -22,14 +22,14 @@ const defaultArgs = [
 
 // FYI: Use this sparingly, the screenshots are useful but
 // seem to cause issues when running all the tests together
-const takeScreenshot = async (page, name) => {
-  page.screenshot({path: `./e2e/screenshots/${name}.png`});
-}
+// const takeScreenshot = async (page, name) => {
+//   page.screenshot({path: `./e2e/screenshots/${name}.png`});
+// }
 
 const setDomainLocalStorage = async (browser, url, values) => {
   const page = await browser.newPage();
   await page.setRequestInterception(true);
-  page.on('request', r => {
+  page.on('request', (r) => {
     r.respond({
       status: 200,
       contentType: 'text/plain',
@@ -37,7 +37,7 @@ const setDomainLocalStorage = async (browser, url, values) => {
     });
   });
   await page.goto(url);
-  await page.evaluate(values => {
+  await page.evaluate((values) => {
     localStorage.setItem("appState", JSON.stringify(values));
   }, values);
 
@@ -330,7 +330,7 @@ describe('Stepping through from get-started to sign-up', () => {
     await page.waitForNavigation();
 
     await page.waitForXPath('.//input[@id="google-maps-autocomplete"]');
-    await page.type('#google-maps-autocomplete', '11211')
+    await page.type('#google-maps-autocomplete', '11211');
 
     // wait for popup to show
     await page.waitForSelector('#google-maps-autocomplete-popup');

@@ -75,12 +75,13 @@ export default function Toggle(props) {
 
   const LightTooltip = withStyles((theme) => ({
     tooltip: {
-      backgroundColor: '#fff',
-      color: '#999',
       boxShadow: theme.shadows[4],
-      fontSize: 13,
       padding: 20,
       borderRadius: 8,
+      fontSize: 13,
+      fontWeight: 'normal',
+      color: '#999',
+      backgroundColor: '#fff',
     },
   }))(Tooltip);
 

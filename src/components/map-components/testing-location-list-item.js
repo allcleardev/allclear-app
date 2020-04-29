@@ -4,7 +4,6 @@ import { boolToEng, isNullOrUndefined } from '../../util/general.helpers';
 import ExternalItemLinks from './external-item-links';
 import CustomizedExpansionPanel, { ExpansionPanelSummary, ExpansionPanelDetails } from './expansion-panel';
 
-
 export default function TestingLocationListItem(props) {
   const { id, index, title, description, service_time, driveThru, phone, website } = props; // values
   const { onActionClick, onTestingLocationExpand } = props; // events
@@ -132,7 +131,7 @@ export default function TestingLocationListItem(props) {
             </Fragment>
           )}
           <div className="mt-3">
-            <a href={'https://airtable.com/shrVJrPQs4qQkcW4o?prefill_Name=' + props.title} 
+            <a href={'https://airtable.com/shrVJrPQs4qQkcW4o?prefill_Name=' + props.title}
               target='_blank'
               rel='noopener noreferrer'>Suggest Change To Test Center Information</a>
             <p className="fontsize-12">
@@ -150,7 +149,6 @@ export default function TestingLocationListItem(props) {
       summary={summary}
       details={details}
       onExpandedChange={onExpandedChange}
-    >
-    </CustomizedExpansionPanel>
+    ></CustomizedExpansionPanel>
   );
 }

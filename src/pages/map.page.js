@@ -10,16 +10,15 @@ import SolidHeader from '@general/headers/header-solid';
 import UpdateCriteriaModal from '@general/modals/update-criteria-modal';
 import GoogleMap from '@components/map-components/google-map';
 import TestingLocationListItem from '@components/map-components/testing-location-list-item';
+import MobileTopBar from '@components/map-components/mobile-top-bar';
 import VerticalCollapseIcon from '@svg/vert-collapse';
 import VerticalExpandIcon from '@svg/vert-expand';
 import SettingsSVG from '@svg/svg-settings';
 import Box from '@material-ui/core/Container';
-import { CircularProgress } from '@material-ui/core';
 import Badge from '@material-ui/core/Badge';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
-import MobileMenu from '@general/headers/mobile-menu';
 
 // other
 import ModalService from '@services/modal.service';
@@ -29,6 +28,7 @@ import { getNumActiveFilters, getActiveFilters } from '@util/general.helpers';
 import GAService, { MAP_PAGE_GA_EVENTS, GA_EVENT_MAP } from '@services/ga.service';
 import GoogleMapsAutocomplete from '@general/inputs/google-maps-autocomplete';
 import MapService from '@services/map.service';
+import ListLoadingSpinner from '../components/map-components/list-loading-spinner';
 
 export default function MapPage() {
   const mapService = MapService.getInstance();
@@ -38,7 +38,7 @@ export default function MapPage() {
   // constants
   const classes = useStyles();
   const badgeRef = React.createRef();
-  const DRAWER_EXPANDED_HEIGHT = '95vh';
+  const DRAWER_EXPANDED_HEIGHT = '85vh';
   const DRAWER_COLLAPSED_HEIGHT = '40vh';
 
   // state & global state
@@ -56,10 +56,11 @@ export default function MapPage() {
   const locations = get(appState, 'map.locations') || [];
   const numActiveFilters = getNumActiveFilters(get(appState, 'searchCriteria'));
   const isLoggedIn = appState.sessionId ? true : false;
+  const isDrawerExpanded = drawerHeight === DRAWER_EXPANDED_HEIGHT;
 
   // callback handlers
   function onWindowResize({ width, height }) {
-    if (width <= 768) {
+    if (width <= 960) {
       setMapState({
         ...mapState,
         anchor: 'bottom',
@@ -77,7 +78,7 @@ export default function MapPage() {
   }
 
   function onDrawerSwipe(e) {
-    if (initialState.windowWidth <= 768) {
+    if (initialState.windowWidth <= 960) {
       const nextHeight = drawerHeight === DRAWER_COLLAPSED_HEIGHT ? DRAWER_EXPANDED_HEIGHT : DRAWER_COLLAPSED_HEIGHT;
       if (e.pointerType === 'touch' || e.type === 'click') {
         setDrawerHeight(nextHeight);
@@ -90,7 +91,7 @@ export default function MapPage() {
     if (get(newLocation, 'description')) {
       const { latitude, longitude } = newLocation;
 
-      mapService.onLocationAccepted({
+      await mapService.onLocationAccepted({
         coords: {
           latitude, longitude
         }
@@ -102,11 +103,11 @@ export default function MapPage() {
   async function onLocationCleared() {
     const latitude = get(appState, 'person.latitude');
     const longitude = get(appState, 'person.longitude');
-    (latitude && longitude) && mapService.onLocationAccepted({
+    (latitude && longitude) && await mapService.onLocationAccepted({
       coords: {
         latitude, longitude
       }
-    }, true);
+    });
   }
 
   function onEditFiltersBtnClick() {
@@ -150,7 +151,15 @@ export default function MapPage() {
 
   return (
     <div className="map-page">
-      <MobileMenu isLoggedIn={isLoggedIn}></MobileMenu>
+      {anchor === 'bottom' && (
+        <MobileTopBar
+          isLoggedIn={isLoggedIn}
+          onLocationSelected={onLocationSelected}
+          onLocationCleared={onLocationCleared}
+          onFilterClick={onEditFiltersBtnClick}
+        >
+        </MobileTopBar>
+      )}
       <SolidHeader isLoggedIn={isLoggedIn} isOpen={isOpen}></SolidHeader>
       <Box p={3}>
         <AppBar
@@ -161,8 +170,7 @@ export default function MapPage() {
             })
           }
           style={{ zIndex: '2' }}
-        >
-        </AppBar>
+        ></AppBar>
 
         <Drawer
           className={classes.drawer + ' nav-left-location'}
@@ -184,17 +192,21 @@ export default function MapPage() {
               }}
               className="side-drawer hide-scrollbar wid100-sm"
             >
+              {anchor === 'left' &&
+                <GoogleMapsAutocomplete
+                  searchIconColor={'lightgray'}
+                  focusOnRender={true}
+                  locationSelected={onLocationSelected}
+                  onClear={onLocationCleared}
+                  noOptionsText={'Please Enter a Search Term to View Results'}
+                ></GoogleMapsAutocomplete>
+              }
 
-              <GoogleMapsAutocomplete
-                focusOnRender={true}
-                locationSelected={onLocationSelected}
-                onClear={onLocationCleared}
-              ></GoogleMapsAutocomplete>
-
-              {appState.isListLoading === false && (
+              {anchor === 'left' && appState.map.isListLoading === false && (
                 <Box
                   className={'button-box'}
-                  style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                >
                   {numActiveFilters > 0 ? (
                     <Badge
                       ref={badgeRef}
@@ -222,21 +234,7 @@ export default function MapPage() {
                 </Box>
               )}
 
-              {appState.isListLoading === true && (
-                <div
-                  style={{
-                    height: 'auto',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                  className="mt-4 mt-md-0 vh100-lg"
-                >
-                  <CircularProgress color="primary" size={70} />
-                  <p className="mt-3">Loading Results</p>
-                </div>
-              )}
+              {appState.map.isListLoading === true && (<ListLoadingSpinner />)}
 
               {locations &&
                 locations.map((result, index) => (
@@ -257,7 +255,8 @@ export default function MapPage() {
                   ></TestingLocationListItem>
                 ))}
 
-              {locations.length === 0 && appState.isListLoading === false && (
+
+              {locations.length === 0 && appState.map.isListLoading === false && (
                 <h2 style={{ display: 'flex', justifyContent: 'center' }}>No Results Found </h2>
               )}
             </div>
@@ -268,8 +267,13 @@ export default function MapPage() {
             [classes.contentShift]: isOpen,
           })}
         >
-          <div className="map-fullscreen">
+          <div className="map-fullscreen" style={{ height: anchor === 'bottom' && isDrawerExpanded ? '15vh' : null }}>
             <GoogleMap onMapClick={onMapClick}></GoogleMap>
+            {anchor === 'bottom' &&
+              <Button className="view-type-button" onClick={onDrawerSwipe}>
+                {isDrawerExpanded ? 'Map' : 'List'}
+              </Button>
+            }
           </div>
         </main>
         <UpdateCriteriaModal></UpdateCriteriaModal>
@@ -302,9 +306,6 @@ const useStyles = makeStyles((theme) => ({
   },
   hide: {
     display: 'none',
-  },
-  drawer: {
-    flexShrink: 0,
   },
   content: {
     marginLeft: -drawerWidth,

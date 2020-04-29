@@ -1,27 +1,36 @@
 import React, { Component } from 'react';
 import { bindAll } from 'lodash';
 
-import HomescreenHeader from '../components/general/headers/header-homescreen';
-import BottomNav from '../components/general/navs/bottom-nav';
-import GoogleMapsAutocomplete from '../components/general/inputs/google-maps-autocomplete';
-import Toggle from '../components/general/buttons/toggle';
-
 import PeopleService from '@services/people.service.js';
 import TypesService from '@services/types.service.js';
 import GAService from '@services/ga.service';
-
-import Container from '@material-ui/core/Container';
-import { Button, FormControl, Select, MenuItem } from '@material-ui/core';
 import { AppContext } from '@contexts/app.context';
+
 import MultiSelectInput from '@general/inputs/multi-select-input';
+import Header from '@general/headers/header';
+import BottomNav from '@general/navs/bottom-nav';
+import GoogleMapsAutocomplete from '@general/inputs/google-maps-autocomplete';
+import Toggle from '@general/buttons/toggle';
+import { DEFAULT_NAV_ITEMS } from '@general/headers/header.constants';
+import { Button, FormControl, Select, MenuItem, Container, withStyles } from '@material-ui/core';
 
 export default class ProfileEditPage extends Component {
   static contextType = AppContext;
+  state = {
+    profile: {},
+    newProfile: {},
+    healthWorkerStatusList: [],
+    userSelectedSymptoms: [],
+    symptomsList: [],
+    useCurrentLocation: false,
+    disableLocationToggle: false,
+    loading: true,
+    error: false,
+  };
 
   constructor(props) {
     super(props);
     bindAll(this, [
-      'routeChange',
       'componentDidMount',
       'fetchLocationPermissions',
       'fetchHealthWorkerStatuses',
@@ -39,21 +48,6 @@ export default class ProfileEditPage extends Component {
     this.gaService.setScreenName('profile-edit');
     this.peopleService = PeopleService.getInstance();
     this.typesService = TypesService.getInstance();
-    this.state = {
-      profile: {},
-      newProfile: {},
-      healthWorkerStatusList: [],
-      userSelectedSymptoms: [],
-      symptomsList: [],
-      useCurrentLocation: false,
-      disableLocationToggle: false,
-      loading: true,
-      error: false,
-    };
-  }
-
-  routeChange(route) {
-    this.props.history.push(route);
   }
 
   async componentDidMount() {
@@ -199,16 +193,17 @@ export default class ProfileEditPage extends Component {
         ...updatedProfile,
       },
     });
-    this.routeChange('/profile');
+    this.props.history.goBack();
+    // TODO: Add success snack bar
   }
 
   render() {
     const profile = this.state.profile;
     return (
       <section className="profile-edit">
-        <HomescreenHeader navigate={'/profile'}>
+        <Header navItems={DEFAULT_NAV_ITEMS} enableBackBtn={true}>
           <h1 className="heading">Edit Profile</h1>
-        </HomescreenHeader>
+        </Header>
 
         <Container className="cards-container">
           <article className="card">
@@ -239,6 +234,7 @@ export default class ProfileEditPage extends Component {
                   initialValue={profile.locationName}
                   locationSelected={this.handleLocationSelection}
                   useCurrentLocation={this.state.useCurrentLocation}
+                  noOptionsText={'Please Enter a Location'}
                 ></GoogleMapsAutocomplete>
               )}
             </div>
@@ -277,12 +273,12 @@ export default class ProfileEditPage extends Component {
           </article>
 
           <div className="button-container">
-            <Button variant="contained" color="primary" fullWidth onClick={this.onUpdateProfileClicked}>
+            <DefaultButton variant="contained" color="primary" fullWidth onClick={this.onUpdateProfileClicked}>
               Update Profile
-            </Button>
-            <Button variant="contained" fullWidth onClick={() => this.routeChange('/profile')}>
+            </DefaultButton>
+            <DefaultButton variant="outlined" fullWidth onClick={() => this.props.history.goBack()}>
               Cancel
-            </Button>
+            </DefaultButton>
           </div>
         </Container>
         <BottomNav active={3}></BottomNav>
@@ -290,3 +286,18 @@ export default class ProfileEditPage extends Component {
     );
   }
 }
+
+// TODO: Move to own general component
+const DefaultButton = withStyles((theme) => ({
+  root: {
+    padding: '12px 16px',
+    fontWeight: '600',
+    fontSize: '17px',
+    borderRadius: '10px',
+  },
+  outlined: {
+    borderColor: theme.palette.primary.main,
+    color: theme.palette.primary.main,
+    borderWidth: 1,
+  },
+}))(Button);

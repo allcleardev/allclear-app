@@ -2,70 +2,46 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
   margin-bottom: 34px;
-  padding: 25px 0 18px;
-  text-align: center;
-  font-family: $font-normal;
   color: #fff;
 
   @media (min-width: $md) {
-    min-height: 206px;
+    align-items: center;
+    padding: 11px 0 18px;
   }
 
-  .heading {
-    letter-spacing: 0.374px;
+  h1 {
+    margin: 0 15px 35px;
+    line-height: 41px;
     font-weight: bold;
-    font-size: 34px;
-    margin: 0 15px 16px;
+    font-size: 32px;
 
     @media (min-width: $md) {
-      font-size: 50px;
-    }
-
-    @media (min-width: $xl) {
       font-size: 56px;
     }
   }
 
-  .sub-heading {
-    max-width: 950px;
-    margin: 0 15px;
-    letter-spacing: -0.408px;
-    font-weight: 500;
+  h2 {
+    margin: 0 15px 30px;
+    line-height: 22px;
+    font-weight: normal;
     font-size: 17px;
 
-    @media (min-width: $md) {
-      font-size: 18px;
+    @media (max-width: $md - 1) {
+      &:after {
+        content: '';
+        display: block;
+        width: 34px;
+        margin-top: 30px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+      }
     }
 
-    @media (min-width: $xl) {
+    @media (min-width: $md) {
+      max-width: 760px;
+      margin: 0 15px;
+      text-align: center;
       font-size: 21px;
-    }
-  }
-
-  .mobile-content {
-    display: flex;
-    flex-direction: column;
-    align-self: flex-start;
-
-    @media (min-width: $md) {
-      display: none;
-    }
-  }
-
-  .btn-back-fab {
-    background-color: transparent; // overriding default fab btn styles
-    box-shadow: none; // overriding default fab btn styles
-
-    &:hover {
-      background-color: inherit;
-    }
-  }
-
-  &.main .btn-back-fab {
-    &--hidden {
-      visibility: hidden; // hidden to preserve layout (instead of display: none)
     }
   }
 
@@ -79,10 +55,20 @@
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    background: $gradient-background;
+    @include responsive-gradient;
   }
 
-  .desktop-content {
+  .icon-button {
+    align-self: flex-start;
+    margin: 5px 5px 20px 5px;
+    color: #fff;
+
+    svg {
+      font-size: 1rem;
+    }
+  }
+
+  .desktop-only-content {
     display: none;
 
     @media (min-width: $md) {
@@ -92,14 +78,22 @@
       margin-bottom: 20px;
     }
 
+    @media (min-width: $md) and (min-height: 800px) {
+      margin-bottom: 40px;
+    }
+
+    @media (min-width: $md) and (min-height: 900px) {
+      margin-bottom: 60px;
+    }
+
     .logo {
-      width: 55px;
-      margin-left: 5px;
+      height: 42px;
     }
 
     .menu {
       display: flex;
       align-items: center;
+      min-height: 48px;
 
       &__item {
         padding: 7px 20px;

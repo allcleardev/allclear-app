@@ -27,6 +27,7 @@ import ProtectedRoute from './routes/protected.route';
 import SettingsPage from '@pages/settings.page';
 import SharePage from '@pages/share.page';
 import SignUpVerificationPage from '@pages/sign-up-verification.page';
+import SplashPage from '@pages/splash.page';
 import Symptoms from '@pages/symptoms.page';
 import TracingPage from '@pages/tracing.page';
 import VerifyMagicLinkPage from '@pages/verify-magic-link.page';
@@ -54,6 +55,7 @@ export default function App() {
 
           {/* Onboarding Pages */}
           <Route path="/get-started" component={GetStartedPage} />
+          <Route path="/create-account" component={SplashPage} />
           <Route path="/sign-up" component={SignUpPage} />
           <Route path="/sign-up-verification" component={SignUpVerificationPage} />
           <ProtectedRoute path="/success" component={AccountCreated} />

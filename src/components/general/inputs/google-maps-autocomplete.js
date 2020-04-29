@@ -1,16 +1,17 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import throttle from 'lodash/throttle';
 import parse from 'autosuggest-highlight/parse';
-import {geocodeByAddress, getLatLng} from 'react-places-autocomplete';
+import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import CloseIcon from '@material-ui/icons/Close';
-import {TextField, Grid, Typography, makeStyles} from '@material-ui/core';
+import { TextField, Grid, Typography, makeStyles } from '@material-ui/core';
+import SearchIcon from '@material-ui/icons/Search';
 import clsx from 'clsx';
 
-const autocompleteService = {current: null};
+const autocompleteService = { current: null };
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -18,12 +19,11 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   hidden: {
-    display: 'none'
+    display: 'none',
   },
   show: {
-    display: 'initial'
-  }
-
+    display: 'initial',
+  },
 }));
 
 export default function GoogleMapsAutocomplete(props) {
@@ -39,7 +39,6 @@ export default function GoogleMapsAutocomplete(props) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
 
   // only for clears
   function onInputChanged(evt, value, reason) {
@@ -77,7 +76,16 @@ export default function GoogleMapsAutocomplete(props) {
   const fetch = useMemo(
     () =>
       throttle((request, callback) => {
-        autocompleteService.current.getPlacePredictions(request, callback);
+        autocompleteService.current.getPlacePredictions(
+          {
+            ...request,
+            // only send back location results that are in US
+            componentRestrictions: {
+              country: 'us',
+            },
+          },
+          callback,
+        );
       }, 200),
     [],
   );
@@ -97,7 +105,7 @@ export default function GoogleMapsAutocomplete(props) {
       return undefined;
     }
 
-    fetch({input: inputValue}, (results) => {
+    fetch({ input: inputValue }, (results) => {
       if (active) {
         setOptions(results || []);
       }
@@ -108,7 +116,6 @@ export default function GoogleMapsAutocomplete(props) {
     };
   }, [inputValue, fetch]);
 
-
   if (!props.useCurrentLocation) {
     return (
       <Autocomplete
@@ -117,12 +124,12 @@ export default function GoogleMapsAutocomplete(props) {
         autoComplete
         includeInputInList
         clearOnEscape
-        closeIcon={<CloseIcon fontSize="small"/>}
-        noOptionsText={'Please Enter a Search Term to View Results'}
+        closeIcon={<CloseIcon fontSize="small" />}
+        noOptionsText={props.noOptionsText}
         classes={{
           endAdornment: clsx(classes.hidden, {
-            [classes.show]: (options.length > 0),
-          })
+            [classes.show]: options.length > 0,
+          }),
         }}
         getOptionLabel={(option) => (typeof option === 'string' ? option : option.description)}
         filterOptions={(x) => x}
@@ -136,11 +143,17 @@ export default function GoogleMapsAutocomplete(props) {
         renderInput={(params) => (
           <TextField
             {...params}
-            placeholder=" 🔍   New York, NY or 11211"
+            placeholder="New York, NY or 11211"
             variant="outlined"
-            className="input"
+            className="input autocomplete-input"
             onChange={handleTextChange}
             disabled={props.useCurrentLocation}
+            InputProps={{
+              ...params.InputProps,
+              startAdornment: (
+                <SearchIcon name="search" style={{ position: 'absolute', color: props.searchIconColor || 'white' }} />
+              ),
+            }}
           />
         )}
         renderOption={(option) => {
@@ -153,11 +166,11 @@ export default function GoogleMapsAutocomplete(props) {
           return (
             <Grid container alignItems="center">
               <Grid item>
-                <LocationOnIcon className={classes.icon}/>
+                <LocationOnIcon className={classes.icon} />
               </Grid>
               <Grid item xs>
                 {parts.map((part, index) => (
-                  <span key={index} style={{fontWeight: part.highlight ? 700 : 400}}>
+                  <span key={index} style={{ fontWeight: part.highlight ? 700 : 400 }}>
                     {part.text}
                   </span>
                 ))}

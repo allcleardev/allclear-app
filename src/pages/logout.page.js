@@ -31,7 +31,7 @@ export default class Logout extends Component {
   render() {
     return (
       <div className="logout">
-        <CircularProgress style={{ color: 'white' }} size={70} />
+        <CircularProgress color="primary" size={108} />
         <p>Logging Out...</p>
       </div>
     );

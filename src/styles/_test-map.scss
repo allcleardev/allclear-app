@@ -1,6 +1,45 @@
 .map-page {
   width: 100%;
 
+  .mobile-top-bar {
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 10px 0 10px;
+
+    .location-search {
+      width: 100%;
+      margin-left: 10px;
+      position: relative;
+
+      .edit-filters-icon-button {
+        position: absolute;
+        top: 0;
+        right: 5px;
+      }
+
+      .MuiInputBase-root {
+        background-color: white;
+        padding: 3px;
+        padding-left: 10px;
+        border-radius: 40px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+      }
+
+      .MuiAutocomplete-endAdornment {
+        @media (max-width: $sm) {
+          display: none;
+        }
+
+        @media (min-width: $sm + 1) {
+          margin-right: 40px; // show on large mobile sizes and tablet
+        }
+      }
+    }
+  }
+
   .edit-filters-btn {
     margin: 20px 0px;
     max-height: 40px;
@@ -50,16 +89,37 @@
       top: 35%;
     }
   }
+
+  .MuiInputBase-root {
+    border-radius: 0px;
+
+    @media (min-width: $md + 1) {
+      border-bottom: solid 1px #ddd;
+    }
+  }
+
+  .MuiOutlinedInput-notchedOutline {
+    display: none;
+  }
 }
 
 .nav-left-location {
   .MuiDrawer-paperAnchorDockedLeft {
     border: 0;
     box-shadow: 5px 0px 20px rgba(0, 0, 0, 0.1);
+    top: 70px;
   }
 
   .MuiDrawer-paper {
     z-index: 3 !important;
+
+    @media (min-width: $md) {
+      position: fixed;
+      border-radius: 4px;
+      background-color: transparent;
+    }
+
+
   }
 
   @media (max-width: $md) {
@@ -122,7 +182,19 @@
   img {
     height: 100%;
   }
+
+  .view-type-button {
+    position: absolute;
+    bottom: 0;
+    margin: 0 0 5px 5px;
+    background-color: white;
+    border-radius: 50px;
+    &:hover {
+      background-color: white;
+    }
+  }
 }
+
 .btn-blue-bottom {
   position: fixed !important;
   bottom: 30px;
