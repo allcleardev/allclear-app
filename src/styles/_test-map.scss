@@ -27,6 +27,16 @@
         border-radius: 40px;
         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
       }
+
+      .MuiAutocomplete-endAdornment {
+        @media (max-width: $sm) {
+          display: none;
+        }
+
+        @media (min-width: $sm + 1) {
+          margin-right: 40px; // show on large mobile sizes and tablet
+        }
+      }
     }
   }
 

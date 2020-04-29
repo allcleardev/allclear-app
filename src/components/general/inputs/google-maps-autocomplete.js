@@ -13,9 +13,6 @@ import clsx from 'clsx';
 const autocompleteService = { current: null };
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    // background: 'red'
-  },
   icon: {
     color: theme.palette.text.secondary,
     marginRight: theme.spacing(2),
