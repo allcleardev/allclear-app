@@ -179,6 +179,7 @@ export default function MapPage() {
           open={isOpen}
           style={{ height: drawerHeight, zIndex: 4 }}
         >
+          <div className="list-gradient"></div>
           <AnimateHeight
             duration={500}
             height={anchor === 'left' || drawerHeight === DRAWER_EXPANDED_HEIGHT ? '100%' : '40%'}
