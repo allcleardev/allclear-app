@@ -37,7 +37,8 @@ export default function MobileMenu(props) {
         aria-label="menu"
         aria-haspopup="true"
         className="icon-button"
-        style={{ backgroundColor: 'white' }}
+        size="small"
+        style={{ backgroundColor: 'white', padding: '10px' }}
         onClick={onMenuToggle}
       >
         <MenuIcon style={{ color: 'black' }} />
