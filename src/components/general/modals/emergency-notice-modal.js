@@ -1,9 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import ModalService from '@services/modal.service';
-import CardBlank from '../cards-unused/user-profile-card';
+import Button from '@material-ui/core/Button';
 
 export default function EmergencyNoticeModal() {
   // todo: this will probably have to move into App.js because it will be needed by all different parts of the app
@@ -23,42 +23,27 @@ export default function EmergencyNoticeModal() {
   return (
     <Dialog
       open={open}
-      onClose={() => {
-        toggleModal(false);
-      }}
+      onClose={() => toggleModal(false)}
       scroll={scroll}
       aria-labelledby="scroll-dialog-title"
       aria-describedby="scroll-dialog-description"
       style={{ zIndex: '5' }}
     >
-      <DialogTitle id="scroll-dialog-title">If this is a medical emergency, stop and dial 911.</DialogTitle>
-      <DialogContent dividers={scroll === 'paper'}>
-        {/*<Button*/}
-        {/*  onClick={_onResetClicked}*/}
-        {/*  className="btn-big bg-primary color-white fontsize-16"*/}
-        {/*>*/}
-        {/*  Reset Search Criteria*/}
-        {/*</Button>*/}
-
-        <div>here</div>
-      </DialogContent>
-    </Dialog>
-  );
-}
-
-function EmergencyNotice() {
-  return (
-    <CardBlank>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}
-      >
-        HELLO WORLD
+      <div style={{ padding: '20px' }}>
+        <DialogTitle id="scroll-dialog-title">If this is a medical emergency, stop and dial 911.</DialogTitle>
+        <DialogContent
+          dividers={scroll === 'paper'}
+          style={{ display: 'flex', justifyContent: 'center' }}
+        >
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => toggleModal(false)}
+          >
+            This Is Not An Emergency
+          </Button>
+        </DialogContent>
       </div>
-    </CardBlank>
+    </Dialog>
   );
 }
