@@ -1,7 +1,7 @@
 import React from 'react';
 import Tooltip from '@material-ui/core/Tooltip';
 import MyLocationIcon from '@material-ui/icons/MyLocation';
-import { bindAll, get } from 'lodash';
+import { bindAll } from 'lodash';
 import { AppContext } from '@contexts/app.context';
 
 export default class MyLocationBtn extends React.Component {
