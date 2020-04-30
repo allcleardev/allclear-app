@@ -9,6 +9,7 @@ import MyLocationMapMarker from './my-location-map-marker.js';
 import SnackbarMessage from '@general/alerts/snackbar-message';
 import GAService from '@services/ga.service';
 import MapService from '@services/map.service';
+import { G_MAP_OPTIONS, G_MAP_DEFAULTS } from '@util/map.constants';
 
 export default class GoogleMap extends Component {
   static contextType = AppContext;
@@ -50,6 +51,7 @@ export default class GoogleMap extends Component {
     const { appState } = this.context;
     let latitude = get(appState, 'person.latitude');
     let longitude = get(appState, 'person.longitude');
+    this.isLoggedIn = get(appState, 'person.id');
 
     // not logged in
     if (!latitude || !longitude) {
@@ -234,92 +236,10 @@ export default class GoogleMap extends Component {
           ))}
           <MyLocationMapMarker key={homeIndex} lat={homeLat} lng={homeLng} />
         </GoogleMapReact>
-        <MyLocationBtn aria-label="Go to Profile Location" onClick={() => this.onMyLocationClicked()} />
+        {this.isLoggedIn && (
+          <MyLocationBtn aria-label="Go to Profile Location" onClick={() => this.onMyLocationClicked()} />
+        )}
       </div>
     );
   }
 }
-
-const G_MAP_OPTIONS = {
-  styles: [
-    {
-      featureType: 'administrative',
-      elementType: 'geometry',
-      stylers: [
-        {
-          visibility: 'off',
-        },
-      ],
-    },
-    {
-      featureType: 'administrative.land_parcel',
-      elementType: 'labels',
-      stylers: [
-        {
-          visibility: 'off',
-        },
-      ],
-    },
-    {
-      featureType: 'administrative.neighborhood',
-      elementType: 'labels.text',
-      stylers: [
-        {
-          visibility: 'off',
-        },
-      ],
-    },
-    {
-      featureType: 'poi',
-      stylers: [
-        {
-          visibility: 'off',
-        },
-      ],
-    },
-    {
-      featureType: 'poi',
-      elementType: 'labels.text',
-      stylers: [
-        {
-          visibility: 'off',
-        },
-      ],
-    },
-    {
-      featureType: 'road',
-      elementType: 'labels.icon',
-      stylers: [
-        {
-          visibility: 'off',
-        },
-      ],
-    },
-    {
-      featureType: 'road.local',
-      elementType: 'labels',
-      stylers: [
-        {
-          visibility: 'off',
-        },
-      ],
-    },
-    {
-      featureType: 'transit',
-      stylers: [
-        {
-          visibility: 'off',
-        },
-      ],
-    },
-  ],
-  fullscreenControl: false,
-};
-
-const G_MAP_DEFAULTS = {
-  center: {
-    lat: 40.7575139,
-    lng: -73.9861322,
-  },
-  zoom: 12,
-};

@@ -10,9 +10,8 @@ import UpdateCriteriaModal from '@general/modals/update-criteria-modal';
 import GoogleMap from '@components/map-components/google-map';
 import TestingLocationListItem from '@components/map-components/testing-location-list-item';
 import MobileTopBar from '@components/map-components/mobile-top-bar';
-import SettingsSVG from '@svg/svg-settings';
 import Container from '@material-ui/core/Container';
-import Badge from '@material-ui/core/Badge';
+import EditFiltersBtn from '@components/map-components/edit-filters-btn';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 
@@ -33,7 +32,7 @@ export default function MapPage() {
 
   // constants
   const classes = useStyles();
-  const badgeRef = React.createRef();
+  const modalService = ModalService.getInstance();
 
   // state & global state
   const { setAppState, appState } = useContext(AppContext);
@@ -130,9 +129,6 @@ export default function MapPage() {
     gaService.sendEvent(eventName, additionalParams);
   }
 
-  // get modal service so we can toggle it open
-  let modalService = ModalService.getInstance();
-
   const { mobileView } = mapState;
 
   return (
@@ -177,25 +173,11 @@ export default function MapPage() {
                 noOptionsText={'Please Enter a Search Term to View Results'}
               ></GoogleMapsAutocomplete>
 
-              {appState.map.isListLoading === false && (
-                <Container>
-                  {numActiveFilters > 0 ? (
-                    <Badge
-                      ref={badgeRef}
-                      badgeContent={numActiveFilters}
-                      overlap={'rectangle'}
-                      style={{ width: '100%' }}
-                    >
-                      <EditFiltersBtn onClick={onEditFiltersBtnClick} />
-                    </Badge>
-                  ) : (
-                    <EditFiltersBtn onClick={onEditFiltersBtnClick} />
-                  )}
-                </Container>
-              )}
+              <Container>
+                <EditFiltersBtn numActiveFilters={numActiveFilters} onClick={onEditFiltersBtnClick} />
+              </Container>
             </Fragment>
           )}
-
           {locations &&
             locations.map((result, index) => (
               <TestingLocationListItem
@@ -281,22 +263,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function EditFiltersBtn(props) {
-  return (
-    <Button
-      className={'edit-filters-btn'}
-      style={{ margin: '20px 0px' }}
-      variant="contained"
-      color="primary"
-      fullWidth
-      startIcon={SettingsSVG()}
-      onClick={props.onClick}
-    >
-      {props.anchor === 'bottom' ? 'Edit Filters' : 'Edit Search Filters'}
-    </Button>
-  );
-}
-
 // todo: might still be useful at some point just not now
 // function TabPanel(props) {
 //   const {children, value, index} = props;
@@ -342,8 +308,3 @@ function EditFiltersBtn(props) {
 //     },
 //   });
 //
-//   // hide badge when filters are inactive
-//   if (get(badgeRef, 'current.children[1]')) {
-//     badgeRef.current.children[1].hidden = !searchFilterActive;
-//   }
-// }
