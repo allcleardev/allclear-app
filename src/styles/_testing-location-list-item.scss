@@ -8,8 +8,8 @@
       font-weight: 600;
       font-size: 16px;
       color: $black;
-      max-width: 310px;
       display: inline-block;
+      max-width: 267px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -19,9 +19,8 @@
     .new-test-center-display {
       color: #FF771A;
       font-size: 14px;
-      margin-left: 5px;
-      position: absolute;
-      top: 16px;
+      margin-left: 10px;
+      position: relative;
       font-weight: 500;
 
       .MuiSvgIcon-root {
@@ -86,5 +85,21 @@
   @media (max-width: 359px) {
     margin-top: 8px;
     display: block;
+  }
+}
+
+.MuiExpansionPanelSummary-content.Mui-expanded {
+  .card-title {
+    .title-text {
+      line-height: 22px;
+      font-weight: 600;
+      font-size: 16px;
+      color: #151522;
+      display: inline-block;
+      vertical-align: middle;
+      white-space: normal;
+      overflow: auto;
+      text-overflow: inherit;
+    }
   }
 }

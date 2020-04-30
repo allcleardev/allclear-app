@@ -42,7 +42,13 @@ export const ExpansionPanelSummary = withStyles({
       marginBottom: -1
     },
   },
-  expanded: {},
+  expanded: {
+    '&$my-auto': {
+      '&$card-title': {
+        backgroundColor: 'red'
+      }
+    }
+  },
 })(MuiExpansionPanelSummary);
 
 export const ExpansionPanelDetails = withStyles((theme) => ({
