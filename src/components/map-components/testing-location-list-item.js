@@ -47,7 +47,7 @@ export default function TestingLocationListItem(props) {
             </span>
           )}
         </div>
-        
+
         <dl className="summary d-none d-md-block">
           <dd className="summary__item summary__item--semibold">{description}</dd>
           <dd className="summary__item summary__item--grey">{service_time}</dd>
