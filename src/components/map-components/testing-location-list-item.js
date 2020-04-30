@@ -1,11 +1,12 @@
 import React, { Fragment } from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import { boolToEng, isNullOrUndefined } from '../../util/general.helpers';
 import ExternalItemLinks from './external-item-links';
 import CustomizedExpansionPanel, { ExpansionPanelSummary, ExpansionPanelDetails } from './expansion-panel';
 
 export default function TestingLocationListItem(props) {
-  const { id, index, title, description, service_time, driveThru, phone, website } = props; // values
+  const { id, index, title, description, service_time, driveThru, phone, website, createdAt } = props; // values
   const { onActionClick, onTestingLocationExpand } = props; // events
 
   const onClick = (evt, buttonName) => {
@@ -19,6 +20,14 @@ export default function TestingLocationListItem(props) {
     onTestingLocationExpand(id, itemIndex, title, isExpanded);
   };
 
+  const checkDate = (date) => {
+    const oneHour = 60 * 60 * 1000; /* milliseconds */
+    const createdAt = new Date(date);
+    const currentDate = new Date();
+
+    return (currentDate - createdAt) < (oneHour * 72);
+  };
+
   const summary = (
     <ExpansionPanelSummary
       aria-controls={`panel${index}-content`}
@@ -27,10 +36,18 @@ export default function TestingLocationListItem(props) {
       expandIcon={<ExpandMoreIcon />}
     >
       <div className="my-auto">
-        <h3 className="card-title">
-          <span>{index + 1}.</span> {title}
-        </h3>
-
+        <div className="card-title">
+          <span className="title-text">
+            {index + 1}. {title}
+          </span>
+          {checkDate(createdAt) && (
+            <span className="new-test-center-display">
+              <FiberManualRecordIcon />
+              <span>New</span>
+            </span>
+          )}
+        </div>
+        
         <dl className="summary d-none d-md-block">
           <dd className="summary__item summary__item--semibold">{description}</dd>
           <dd className="summary__item summary__item--grey">{service_time}</dd>

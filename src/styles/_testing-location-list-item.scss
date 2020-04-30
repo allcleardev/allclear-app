@@ -2,14 +2,31 @@
   $black: #151522;
   $grey: #999;
 
-  h3 {
-    line-height: 22px;
-    font-weight: 600;
-    font-size: 16px;
-    color: $black;
+  .card-title {
+    .title-text {
+      line-height: 22px;
+      font-weight: 600;
+      font-size: 16px;
+      color: $black;
+      max-width: 275px;
+      display: inline-block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      vertical-align: middle;
+    }
 
-    span {
-      color: $grey;
+    .new-test-center-display {
+      color: #FF771A;
+      font-size: 14px;
+      margin-left: 5px;
+      position: absolute;
+      top: 16px;
+      font-weight: 500;
+
+      .MuiSvgIcon-root {
+        margin-bottom: 3px;
+      }
     }
   }
 
