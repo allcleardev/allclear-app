@@ -47,7 +47,7 @@
     }
   }
 
-  @media (max-width: $md) {
+  @media (max-width: $md -1) {
     .mobile-grey {
       background-color: $grey2 !important;
       color: $black-color;

@@ -19,7 +19,7 @@ const ExpansionPanel = withStyles({
       display: 'none',
     },
     '&$expanded': {
-      margin: 'auto',
+      margin: 0,
       boxShadow: '0px 18px 8px 20px rgba(0,0,0,.15)',
     },
   },

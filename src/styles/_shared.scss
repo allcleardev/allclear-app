@@ -63,7 +63,7 @@ $colors: (
 
   &--map {
     position: absolute;
-    @media (min-width: $md) {
+    @media (min-width: $lg) {
       transform: translateX(0) !important;
     }
     .MuiAlert-standardError {

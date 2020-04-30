@@ -280,22 +280,3 @@ button {
   background: transparent !important;
   // The component has this class, should have the style overflow-y: scroll
 }
-
-// responsive classses
-@media (max-width: $md - 1) {
-  .wid100-sm {
-    /*
-      map.page.js
-    */
-    width: 100% !important;
-  }
-}
-
-@media (min-width: $md + 1) {
-  .vh100-lg {
-    /*
-      map.page.js
-    */
-    height: 100vh !important;
-  }
-}

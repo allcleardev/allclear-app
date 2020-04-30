@@ -12,7 +12,6 @@ export default function ListLoadingSpinner() {
         alignItems: 'center',
         justifyContent: 'top',
       }}
-      className="mt-4 mt-md-0 vh100-lg"
     >
       <CircularProgress color="primary" size={108} />
       <p className="mt-3">Loading Results</p>
