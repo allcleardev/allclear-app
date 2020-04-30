@@ -56,9 +56,9 @@ class PhoneNumberInput extends Component {
   }
 
   onKeyDown(evt) {
-    // todo: for enter key
+    // todo: for enter key, investigate
     if(evt.key === 'Enter'){
-      this.props.onSubmit(this.state.phone);
+      //this.props.onSubmit(this.state.phone);
     }
   }
   render() {
@@ -79,7 +79,7 @@ class PhoneNumberInput extends Component {
             <MuiPhoneNumber
               className="input phone-input"
               name="phone"
-              placeholder="(555) 123-4567"
+              placeholder="Phone Number"
               type="tel"
               variant="outlined"
               autoComplete="tel"

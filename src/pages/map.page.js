@@ -1,44 +1,48 @@
-import React, {useState, useContext, useEffect} from 'react';
-import AnimateHeight from 'react-animate-height';
+// external
+import React, { useState, useContext } from 'react';
 import clsx from 'clsx';
-import Hammer from 'react-hammerjs';
+import AnimateHeight from 'react-animate-height';
+import { makeStyles } from '@material-ui/core/styles';
+import { get } from 'lodash';
+
+// components / icons
+import SolidHeader from '@general/headers/header-solid';
+import UpdateCriteriaModal from '@general/modals/update-criteria-modal';
+import GoogleMap from '@components/map-components/google-map';
+import TestingLocationListItem from '@components/map-components/testing-location-list-item';
+import MobileTopBar from '@components/map-components/mobile-top-bar';
+import VerticalCollapseIcon from '@svg/vert-collapse';
+import VerticalExpandIcon from '@svg/vert-expand';
+import SettingsSVG from '@svg/svg-settings';
 import Box from '@material-ui/core/Container';
-import {makeStyles} from '@material-ui/core/styles';
-import {CircularProgress} from '@material-ui/core';
 import Badge from '@material-ui/core/Badge';
-import { get} from 'lodash';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 
-import BottomNav from '@general/navs/bottom-nav';
-import ClearHeader from '@general/headers/header-clear';
-import UpdateCriteriaModal from '@general/modals/update-criteria-modal';
-import GoogleMap from '@components/map-components/google-map';
-import TestingLocationListItem from '@components/map-components/testing-location-list-item';
-
-import SettingsSVG from '@svg/svg-settings';
+// other
 import ModalService from '@services/modal.service';
-import {AppContext} from '@contexts/app.context';
-import {useWindowResize} from '@hooks/general.hooks';
+import { AppContext } from '@contexts/app.context';
+import { useWindowResize } from '@hooks/general.hooks';
+import { getNumActiveFilters, getActiveFilters } from '@util/general.helpers';
+import GAService, { MAP_PAGE_GA_EVENTS, GA_EVENT_MAP } from '@services/ga.service';
+import GoogleMapsAutocomplete from '@general/inputs/google-maps-autocomplete';
+import MapService from '@services/map.service';
+import ListLoadingSpinner from '../components/map-components/list-loading-spinner';
 
 export default function MapPage() {
+  const mapService = MapService.getInstance();
+  const gaService = GAService.getInstance();
+  gaService.setScreenName('map');
+
   // constants
-  const touchOptions = {
-    touchAction: 'compute',
-    recognizers: {
-      swipe: {
-        time: 600,
-        threshold: 100,
-      },
-    },
-  };
   const classes = useStyles();
   const badgeRef = React.createRef();
-
+  const DRAWER_EXPANDED_HEIGHT = '70vh';
+  const DRAWER_COLLAPSED_HEIGHT = '40vh';
 
   // state & global state
-  const {setAppState, appState} = useContext(AppContext);
+  const { setAppState, appState } = useContext(AppContext);
   const [width, height] = useWindowResize(onWindowResize);
   const initialState = {
     isOpen: true,
@@ -48,48 +52,21 @@ export default function MapPage() {
     searchFilterActive: false,
   };
   const [mapState, setMapState] = useState(initialState);
-  const [drawerHeight, setDrawerHeight] = useState(350);
+  const [drawerHeight, setDrawerHeight] = useState(DRAWER_COLLAPSED_HEIGHT);
   const locations = get(appState, 'map.locations') || [];
-
-  // on mount, check if filter is active
-  useEffect(checkFilterActive,
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [appState.forceRefresh]);
-
-  function checkFilterActive() {
-    const currFormValues = Object.values(appState.searchCriteria).filter(Boolean);
-    // if any selections have anything but 'any' selected, search is active
-    // console.log('filterss', currFormValues);
-    // console.log(appState.searchCriteria)
-
-    const searchFilterActive = !currFormValues.every((e) => e === 'Any');
-
-    setAppState({
-      ...appState,
-      map: {
-        ...appState.map,
-        searchFilterActive,
-      }
-    });
-
-    // console.log('zzz', searchFilterActive);
-
-    // hide badge when filters are inactive
-    if(get(badgeRef,'current.children[1]')) {
-      badgeRef.current.children[1].hidden = !searchFilterActive;
-    }
-
-  }
+  const numActiveFilters = getNumActiveFilters(get(appState, 'searchCriteria'));
+  const isLoggedIn = appState.sessionId ? true : false;
+  const isDrawerExpanded = drawerHeight === DRAWER_EXPANDED_HEIGHT;
 
   // callback handlers
-  function onWindowResize({width, height}) {
-    if (width <= 768) {
+  function onWindowResize({ width, height }) {
+    if (width <= 960) {
       setMapState({
         ...mapState,
         anchor: 'bottom',
         isOpen: true,
       });
-      setDrawerHeight(350);
+      setDrawerHeight(DRAWER_COLLAPSED_HEIGHT);
     } else {
       setMapState({
         ...mapState,
@@ -101,29 +78,89 @@ export default function MapPage() {
   }
 
   function onDrawerSwipe(e) {
-    if (initialState.windowWidth <= 768) {
-      const nextHeight = drawerHeight === 350 ? 750 : 350;
+    if (initialState.windowWidth <= 960) {
+      const nextHeight = drawerHeight === DRAWER_COLLAPSED_HEIGHT ? DRAWER_EXPANDED_HEIGHT : DRAWER_COLLAPSED_HEIGHT;
       if (e.pointerType === 'touch' || e.type === 'click') {
         setDrawerHeight(nextHeight);
       }
     }
   }
 
-  // function onDrawerToggle(isOpen) {
-  //   setMapState({
-  //     ...mapState,
-  //     isOpen,
-  //   });
-  // }
+  async function onLocationSelected(bool, newLocation) {
 
-  const {isOpen, anchor} = mapState;
+    if (get(newLocation, 'description')) {
+      const { latitude, longitude } = newLocation;
+
+      await mapService.onLocationAccepted({
+        coords: {
+          latitude, longitude
+        }
+      }, true);
+
+    }
+  }
+
+  async function onLocationCleared() {
+    const latitude = get(appState, 'person.latitude');
+    const longitude = get(appState, 'person.longitude');
+    (latitude && longitude) && await mapService.onLocationAccepted({
+      coords: {
+        latitude, longitude
+      }
+    });
+  }
+
+  function onEditFiltersBtnClick() {
+    // app context needs one more refresh before its ready to populate modal
+    setAppState({
+      ...appState,
+      forceRefresh: !appState.forceRefresh,
+    });
+    modalService.toggleModal('criteria', true);
+  }
+
+  function onMapClick(evt) {
+    if (anchor === 'bottom') {
+      evt.stopPropagation();
+      const nextHeight = drawerHeight === DRAWER_COLLAPSED_HEIGHT ? DRAWER_EXPANDED_HEIGHT : DRAWER_COLLAPSED_HEIGHT;
+      if (nextHeight === DRAWER_COLLAPSED_HEIGHT) setDrawerHeight(nextHeight);
+    }
+  }
+
+  // analytics handlers
+  function onActionClick(action, itemId, itemIndex, itemName) {
+    handleGAEvent(action, itemId, itemIndex, itemName);
+  }
+
+  function onTestingLocationExpand(itemId, itemIndex, itemName, isExpanded) {
+    const eventKey = isExpanded ? 'expand' : 'contract';
+    handleGAEvent(eventKey, itemId, itemIndex, itemName);
+  }
+
+  function handleGAEvent(eventKey, itemId, itemIndex, itemName) {
+    const eventName = GA_EVENT_MAP[eventKey];
+    const enabledFilters = getActiveFilters(get(appState, ['searchCriteria'], {}));
+    const additionalParams = MAP_PAGE_GA_EVENTS(itemId, itemName, itemIndex, enabledFilters);
+    gaService.sendEvent(eventName, additionalParams);
+  }
+
+  const { isOpen, anchor } = mapState;
 
   // get modal service so we can toggle it open
   let modalService = ModalService.getInstance();
 
   return (
     <div className="map-page">
-      <ClearHeader isOpen={isOpen}></ClearHeader>
+      {anchor === 'bottom' && (
+        <MobileTopBar
+          isLoggedIn={isLoggedIn}
+          onLocationSelected={onLocationSelected}
+          onLocationCleared={onLocationCleared}
+          onFilterClick={onEditFiltersBtnClick}
+        >
+        </MobileTopBar>
+      )}
+      <SolidHeader isLoggedIn={isLoggedIn} isOpen={isOpen}></SolidHeader>
       <Box p={3}>
         <AppBar
           className={
@@ -132,111 +169,96 @@ export default function MapPage() {
               [classes.appBarShift]: isOpen,
             })
           }
-          style={{zIndex: '2'}}
-        >
-          {/* <IconButton
-            disableRipple
-            aria-label="open drawer"
-            onClick={isOpen === false ? () => onDrawerToggle(true) : () => onDrawerToggle(false)}
-            className={clsx(classes.menuButton, isOpen)}
-          >
-            {isOpen === true ? <ArrowLeft /> : <ArrowRight />}
-          </IconButton> */}
-        </AppBar>
+          style={{ zIndex: '2' }}
+        ></AppBar>
+
         <Drawer
           className={classes.drawer + ' nav-left-location'}
           variant="persistent"
           anchor={anchor}
           open={isOpen}
-          style={{height: drawerHeight, zIndex: 4}}
+          style={{ height: drawerHeight, zIndex: 4 }}
         >
-          <AnimateHeight duration={500} height={drawerHeight}>
+          <div className="list-gradient"></div>
+          <AnimateHeight
+            duration={500}
+            height={anchor === 'left' || drawerHeight === DRAWER_EXPANDED_HEIGHT ? '100%' : '40%'}
+          >
             <div
               id="side-drawer"
               style={{
-                width: `${drawerWidth}px`,
+                width: anchor === 'left' ? `${drawerWidth}px` : '100%',
                 overflowY: 'scroll',
                 height: drawerHeight,
               }}
               className="side-drawer hide-scrollbar wid100-sm"
             >
-              <Hammer onSwipe={onDrawerSwipe} options={touchOptions} direction="DIRECTION_VERTICAL">
-                <div style={{height: '60px'}} className="geolist-resizer" onClick={onDrawerSwipe}>
-                  <svg width="37" height="6" viewBox="0 0 37 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M2.75977 5.18164C1.37905 5.18164 0.259766 4.06235 0.259766 2.68164C0.259766
-                      1.30093 1.37905 0.181641 2.75977 0.181641H33.7598C35.1405 0.181641 36.2598 1.30093
-                      36.2598 2.68164C36.2598 4.06235 35.1405 5.18164 33.7598 5.18164H2.75977Z"
-                      fill="#aaadb3"
-                    />
-                  </svg>
-                </div>
-              </Hammer>
-              {/*<GoogleMapInput style={{ marginTop: '50px' }}></GoogleMapInput>*/}
+              {anchor === 'left' &&
+                <GoogleMapsAutocomplete
+                  searchIconColor={'lightgray'}
+                  focusOnRender={true}
+                  locationSelected={onLocationSelected}
+                  onClear={onLocationCleared}
+                  noOptionsText={'Please Enter a Search Term to View Results'}
+                ></GoogleMapsAutocomplete>
+              }
 
-              {appState.isListLoading === false && (
-                <Box>
-                  <Badge
-                    ref={badgeRef}
-                    badgeContent={''}
-                    overlap={'rectangle'}
-                    style={{width: '100%'}}
-                  >
-                    <Button
-                      className={'edit-filters-btn'}
-                      variant="contained"
-                      color="primary"
-                      fullWidth
-                      startIcon={SettingsSVG()}
-                      onClick={() => {
-                        // app context needs one more refresh before its ready to populate modal
-                        setAppState({
-                          ...appState,
-                          forceRefresh: !appState.forceRefresh
-                        });
-                        modalService.toggleModal('criteria', true);
-                      }}
+              {anchor === 'left' && appState.map.isListLoading === false && (
+                <Box
+                  className={'button-box'}
+                  style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                >
+                  {numActiveFilters > 0 ? (
+                    <Badge
+                      ref={badgeRef}
+                      badgeContent={numActiveFilters}
+                      overlap={'rectangle'}
+                      style={{ width: anchor === 'bottom' ? '48%' : '100%' }}
                     >
-                      Edit Search Filters
+                      <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} />
+                    </Badge>
+                  ) : (
+                      <span className="edit-filters-btn-container">
+                        <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} style />
+                      </span>
+                    )}
+                  {anchor === 'bottom' && (
+                    <Button
+                      className={'view-full-results-btn'}
+                      endIcon={drawerHeight === DRAWER_EXPANDED_HEIGHT ? VerticalCollapseIcon() : VerticalExpandIcon()}
+                      style={{ width: '50%', color: '#666666', size: 'large', paddingRight: '0px' }}
+                      onClick={onDrawerSwipe}
+                    >
+                      {drawerHeight === DRAWER_EXPANDED_HEIGHT ? 'Map View' : 'Full List View'}
                     </Button>
-                  </Badge>
+                  )}
                 </Box>
               )}
 
-              {appState.isListLoading === true && (
-                <div
-                  style={{
-                    height: 'auto',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                  className="mt-4 mt-md-0 vh100-lg"
-                >
-                  <CircularProgress color="primary" size={70}/>
-                  <p className="mt-3">Loading Results</p>
-                </div>
-              )}
+              {appState.map.isListLoading === true && (<ListLoadingSpinner />)}
 
               {locations &&
-              locations.map((result, index) => (
-                <TestingLocationListItem
-                  key={index}
-                  index={index}
-                  title={result.name}
-                  description={result.address}
-                  city_state={result.city + ', ' + result.state}
-                  service_time={result.hours}
-                  driveThru={result.driveThru}
-                  phone={result.phone}
-                  website={result.url}
-                  {...result}
-                ></TestingLocationListItem>
-              ))}
+                locations.map((result, index) => (
+                  <TestingLocationListItem
+                    id={result.id}
+                    key={index}
+                    index={index}
+                    title={result.name}
+                    description={result.address}
+                    city_state={result.city + ', ' + result.state}
+                    service_time={result.hours}
+                    driveThru={result.driveThru}
+                    phone={result.phone}
+                    website={result.url}
+                    {...result}
+                    onActionClick={onActionClick}
+                    onTestingLocationExpand={onTestingLocationExpand}
+                  ></TestingLocationListItem>
+                ))}
 
-              {locations.length === 0 && appState.isListLoading === false && (
-                <h2 style={{display: 'flex', justifyContent: 'center'}}>No Results Found </h2>
+
+              {locations.length === 0 && appState.map.isListLoading === false && (
+                <h2 style={{ display: 'flex', justifyContent: 'center' }}>No Results Found </h2>
               )}
             </div>
           </AnimateHeight>
@@ -246,11 +268,15 @@ export default function MapPage() {
             [classes.contentShift]: isOpen,
           })}
         >
-          <div className="map-fullscreen">
-            <GoogleMap></GoogleMap>
+          <div className="map-fullscreen" style={{ height: anchor === 'bottom' && isDrawerExpanded ? '30vh' : null }}>
+            <GoogleMap onMapClick={onMapClick}></GoogleMap>
+            {anchor === 'bottom' &&
+              <Button className="view-type-button" onClick={onDrawerSwipe}>
+                {isDrawerExpanded ? 'Map' : 'List'}
+              </Button>
+            }
           </div>
         </main>
-        <BottomNav active={1}></BottomNav>
         <UpdateCriteriaModal></UpdateCriteriaModal>
       </Box>
     </div>
@@ -282,9 +308,6 @@ const useStyles = makeStyles((theme) => ({
   hide: {
     display: 'none',
   },
-  drawer: {
-    flexShrink: 0,
-  },
   content: {
     marginLeft: -drawerWidth,
   },
@@ -297,12 +320,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// .MuiBadge-anchorOriginTopRightCircle {
-//     top: 35%;
-//     right: 2%;
-//     transform: scale(1) translate(50%, -50%);
-//     transform-origin: 100% 0%;
-// }
+function EditFiltersBtn(props) {
+  return (
+    <Button
+      className={'edit-filters-btn'}
+      variant="contained"
+      color="primary"
+      fullWidth
+      startIcon={SettingsSVG()}
+      onClick={props.onClick}
+    >
+      {props.anchor === 'bottom' ? 'Edit Filters' : 'Edit Search Filters'}
+    </Button>
+  );
+}
+
 
 // todo: might still be useful at some point just not now
 // function TabPanel(props) {
@@ -325,3 +357,33 @@ const useStyles = makeStyles((theme) => ({
 //   index: PropTypes.any.isRequired,
 //   value: PropTypes.any.isRequired,
 // };
+
+
+// on mount, check if filter is active
+// useEffect(
+//   checkFilterActive,
+//   // eslint-disable-next-line react-hooks/exhaustive-deps
+//   [appState.forceRefresh],
+// );
+//
+// function checkFilterActive() {
+//   const currFormValues = Object.values(appState.searchCriteria).filter(Boolean);
+//   // if any selections have anything but 'any' selected, search is active
+//   // console.log('filterss', currFormValues);
+//   // console.log(appState.searchCriteria)
+//
+//   const searchFilterActive = !currFormValues.every((e) => e === 'Any');
+//
+//   setAppState({
+//     ...appState,
+//     map: {
+//       ...appState.map,
+//       searchFilterActive,
+//     },
+//   });
+//
+//   // hide badge when filters are inactive
+//   if (get(badgeRef, 'current.children[1]')) {
+//     badgeRef.current.children[1].hidden = !searchFilterActive;
+//   }
+// }

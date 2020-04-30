@@ -1,25 +1,105 @@
 .map-page {
   width: 100%;
 
-  .edit-filters-btn {
-    margin: 20px 0px 20px 0px;
+  .mobile-top-bar {
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 10px 0 10px;
 
-    @media (max-width: $md) {
-      margin: 0px 0px 20px 0px;
+    .location-search {
+      width: 100%;
+      margin-left: 10px;
+      position: relative;
+
+      .edit-filters-icon-button {
+        position: absolute;
+        top: 0;
+        right: 5px;
+      }
+
+      .MuiInputBase-root {
+        background-color: white;
+        padding: 3px;
+        padding-left: 10px;
+        border-radius: 40px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+      }
+
+      .MuiAutocomplete-endAdornment {
+        @media (max-width: $sm) {
+          display: none;
+        }
+
+        @media (min-width: $sm + 1) {
+          margin-right: 40px; // show on large mobile sizes and tablet
+        }
+      }
     }
   }
 
+  .edit-filters-btn {
+    margin: 20px 0px;
+    max-height: 40px;
+  }
+
+  .edit-filters-btn-container {
+    width: 100%;
+
+    @media (max-width: $md - 1){
+      width: 50%;
+    }
+  }
+
+  .view-full-results-btn {
+    margin-left: 15px;
+
+    svg {
+      font-size: 32px;
+      height: 25px;
+    }
+
+    .MuiButton-endIcon{
+      margin-right: 0px;
+    }
+  }
+
+  .side-drawer{
+
+    .MuiInputBase-root{
+      height: 70px;
+    }
+
+  }
+
   .MuiBadge-badge {
-    background-color: #ed1c23;
+    background-color: white;
+    color: $primary-color;
+    font-weight: bold;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
   }
 
   .MuiBadge-anchorOriginTopRightRectangle {
     right: 2%;
-    top: 12%;
+    top: 30%;
 
     @media (min-width: $md + 1) {
       top: 35%;
     }
+  }
+
+  .MuiInputBase-root {
+    border-radius: 0px;
+
+    @media (min-width: $md + 1) {
+      border-bottom: solid 1px #ddd;
+    }
+  }
+
+  .MuiOutlinedInput-notchedOutline {
+    display: none;
   }
 }
 
@@ -27,17 +107,26 @@
   .MuiDrawer-paperAnchorDockedLeft {
     border: 0;
     box-shadow: 5px 0px 20px rgba(0, 0, 0, 0.1);
+    top: 70px;
   }
 
   .MuiDrawer-paper {
     z-index: 3 !important;
+
+    @media (min-width: $md) {
+      position: fixed;
+      border-radius: 4px;
+      background-color: transparent;
+    }
+
+
   }
 
-  @media (max-width: $md - 1) {
+  @media (max-width: $md) {
     position: fixed;
 
     .height-300-sm {
-      height: 350px;
+      height: 40vh;
     }
   }
 
@@ -80,20 +169,32 @@
   height: 100vh;
   overflow-x: hidden;
 
-  @media (min-width: $md) {
+  @media (min-width: $md + 1) {
     width: calc(100vw - 400px);
     left: 400px;
   }
 
-  @media (max-width: $md - 1) {
+  @media (max-width: $md) {
     width: 100vw;
-    height: calc(100vh - 350px);
+    height: 60vh; // page height - 40vh of list
   }
 
   img {
     height: 100%;
   }
+
+  .view-type-button {
+    position: absolute;
+    bottom: 0;
+    margin: 0 0 5px 5px;
+    background-color: white;
+    border-radius: 50px;
+    &:hover {
+      background-color: white;
+    }
+  }
 }
+
 .btn-blue-bottom {
   position: fixed !important;
   bottom: 30px;
@@ -102,7 +203,7 @@
   font-size: 14px;
   color: #fff;
 
-  @media (max-width: $md - 1) {
+  @media (max-width: $md) {
     bottom: 312px;
   }
 }
@@ -111,7 +212,19 @@
   justify-content: center;
   align-items: center;
 
-  @media (max-width: $md - 1) {
+  @media (max-width: $md) {
     display: flex;
+  }
+}
+
+.list-gradient {
+  @media (max-width: $md) {
+    height: 15px;
+    background: linear-gradient(to bottom, rgba(251, 251, 251, 1) 0%, rgba(251, 251, 251, 0) 100%);
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
   }
 }

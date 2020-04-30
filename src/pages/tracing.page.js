@@ -2,21 +2,23 @@ import React, { Component } from 'react';
 import Header from '../components/general/headers/header';
 import BottomNav from '../components/general/navs/bottom-nav';
 import Container from '@material-ui/core/Container';
+import GAService from '@services/ga.service';
+import { DEFAULT_NAV_ITEMS } from '@components/general/headers/header.constants';
+
 class TracingPage extends Component {
   constructor() {
     super();
+
+    this.gaService = GAService.getInstance();
+    this.gaService.setScreenName('tracing');
+
     this.state = {};
-    this.navItems = [
-      { route: '/map', name: 'Find Tests' },
-      { route: '/contact-tracing', name: 'Tracing' },
-      { route: '/profile', name: 'Profile' },
-    ];
   }
 
   render() {
     return (
       <div className="tracing">
-        <Header navItems={this.navItems} enableBackBtn={true}></Header>
+        <Header navItems={DEFAULT_NAV_ITEMS} enableBackBtn={true}></Header>
         <Container className="content">
           <h1>
             Trace with us. <br /> Beat the virus.

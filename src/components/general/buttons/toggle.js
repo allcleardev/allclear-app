@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { withStyles } from '@material-ui/core/styles';
+import { Tooltip, withStyles } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
@@ -18,7 +18,7 @@ const IOSSwitch = withStyles((theme) => ({
       transform: 'translateX(16px)',
       color: theme.palette.common.white,
       '& + $track': {
-        backgroundColor: '#52d869',
+        backgroundColor: '#35C759',
         opacity: 1,
         border: 'none',
       },
@@ -52,16 +52,16 @@ const IOSSwitch = withStyles((theme) => ({
         thumb: classes.thumb,
         track: classes.track,
         checked: classes.checked,
+        disabled: classes.disabled,
       }}
       {...props}
     />
   );
 });
 
-export default function Toggle() {
+export default function Toggle(props) {
   const [toggleState, setToggleState] = React.useState({
-    checkedA: true,
-    checkedB: true,
+    checked: props.defaultValue,
   });
 
   const handleUseMyLocationChange = (event) => {
@@ -69,13 +69,37 @@ export default function Toggle() {
       ...toggleState,
       [event.target.name]: event.target.checked,
     });
+
+    props.onToggled(toggleState);
   };
 
+  const LightTooltip = withStyles((theme) => ({
+    tooltip: {
+      boxShadow: theme.shadows[4],
+      padding: 20,
+      borderRadius: 8,
+      fontSize: 13,
+      fontWeight: 'normal',
+      color: '#999',
+      backgroundColor: '#fff',
+    },
+  }))(Tooltip);
+
   return (
-    <FormControl>
-      <FormControlLabel
-        control={<IOSSwitch checked={toggleState.checkedB} onChange={handleUseMyLocationChange} name="checkedB" />}
-      />
-    </FormControl>
+    <LightTooltip title={props.disableToggle && props.disabledToggleMessage ? props.disabledToggleMessage : ''}>
+      <FormControl>
+        <FormControlLabel
+          className={props.className}
+          control={
+            <IOSSwitch
+              checked={toggleState.checked && !props.disableToggle}
+              disabled={props.disableToggle}
+              onChange={handleUseMyLocationChange}
+              name="checked"
+            />
+          }
+        />
+      </FormControl>
+    </LightTooltip>
   );
 }

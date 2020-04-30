@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import logo from '../assets/images/Union.png';
+import logo from '@assets/images/logo-blue.svg';
 import UnderDevelopmentBanner from '../components/general/alerts/under-development-banner';
 
 class AddTestPage extends React.Component {

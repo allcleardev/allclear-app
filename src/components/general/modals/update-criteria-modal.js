@@ -1,23 +1,22 @@
-import React, { useContext, useState } from 'react';
+import React, {useContext, useState} from 'react';
 import BottomFab from '../buttons/bottom-fab';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import CardBlank from '../cards-unused/user-profile-card';
-import { Button, Grid } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import {Button, Grid} from '@material-ui/core';
+import {makeStyles} from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 
 import Select from '@material-ui/core/Select';
 import SettingsSVG from '@svg/svg-settings';
-import { CRITERIA_FORM_DATA } from './update-criteria-modal.constants';
-import { AppContext } from '@contexts/app.context';
+import {CRITERIA_FORM_DATA} from './update-criteria-modal.constants';
+import {AppContext} from '@contexts/app.context';
 import ModalService from '@services/modal.service';
 import FacilityService from '@services/facility.service';
 
 export default function UpdateCriteriaModal() {
-
   // todo: this will probably have to move into App.js because it will be needed by all different parts of the app
   const modalService = ModalService.getInstance();
   modalService.registerModal('criteria', toggleModal);
@@ -65,11 +64,10 @@ export default function UpdateCriteriaModal() {
         scroll={scroll}
         aria-labelledby="scroll-dialog-title"
         aria-describedby="scroll-dialog-description"
-        style={{ zIndex: '5' }}
+        style={{zIndex: '5'}}
       >
-        <DialogTitle id="scroll-dialog-title">Update Search Criteria</DialogTitle>
-        <DialogContent dividers={scroll === 'paper'}>
-
+        <DialogTitle id="scroll-dialog-title" style={{padding: '15px 20px 8px'}}>Update Search Criteria</DialogTitle>
+        <DialogContent dividers={scroll === 'paper'} classes={{root: 'update-criteria-modal'}} style={{padding: '8px 20px'}}>
           {/*<Button*/}
           {/*  onClick={_onResetClicked}*/}
           {/*  className="btn-big bg-primary color-white fontsize-16"*/}
@@ -102,9 +100,9 @@ const useStyles = makeStyles((theme) => ({
   track: {},
 }));
 
-function UpdateCriteria({ onClose, onSubmit }) {
+function UpdateCriteria({onClose, onSubmit}) {
   useStyles();
-  const { setAppState, appState } = useContext(AppContext);
+  const {setAppState, appState} = useContext(AppContext);
 
   const [formValues, setFormValues] = React.useState(appState.searchCriteria);
   const formItems = _generateFormItems();
@@ -125,8 +123,8 @@ function UpdateCriteria({ onClose, onSubmit }) {
     let {latitude, longitude} = appState.person;
 
     // default to last submitted search
-    latitude = (latitude) ? latitude : appState.map.latitude;
-    longitude = (longitude) ? longitude : appState.map.longitude;
+    latitude = latitude ? latitude : appState.map.latitude;
+    longitude = longitude ? longitude : appState.map.longitude;
 
     // call API
     const result = await facilityService.search({
@@ -144,11 +142,13 @@ function UpdateCriteria({ onClose, onSubmit }) {
       map: {
         ...appState.map,
         locations: result.data.records || [],
+        isListLoading: false,
+        latitude,
+        longitude,
       },
       searchCriteria: formValues,
-      isListLoading: false,
       modalSubmitCount: appState.modalSubmitCount + 1,
-      forceRefresh: !appState.forceRefresh
+      forceRefresh: !appState.forceRefresh,
     });
 
     // call parent submit function
@@ -160,15 +160,13 @@ function UpdateCriteria({ onClose, onSubmit }) {
       let {title, options, key, inputType} = formItem;
 
       // account for options that come from an endpoint
-      options = (options) ? options : appState.profile.options[key];
+      options = options ? options : appState.profile.options[key];
       options = options || [];
 
       return (
         <div key={i} className="sub-card">
-
           {/*REGULAR SELECT*/}
-          {(inputType === 'select') && singleSelect({title, options, key})}
-
+          {inputType === 'select' && singleSelect({title, options, key})}
         </div>
       );
     });
@@ -187,7 +185,8 @@ function UpdateCriteria({ onClose, onSubmit }) {
             value={formValues[key]}
             onChange={_onSelectChanged}
           >
-            {options && options.map((optionItem, i2) => {
+            {options &&
+            options.map((optionItem, i2) => {
               const {id, name} = optionItem;
               return (
                 <MenuItem key={i2} value={id} name={name} data-name={name} data-key={key}>
@@ -204,15 +203,6 @@ function UpdateCriteria({ onClose, onSubmit }) {
   return (
     <>
       <CardBlank>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}
-        ></div>
-
         {formItems}
       </CardBlank>
 
@@ -220,21 +210,25 @@ function UpdateCriteria({ onClose, onSubmit }) {
         container
         style={{
           display: 'flex',
-          justifyContent: 'space-around',
-          padding: '5px 0',
+          padding: '19px 0px',
         }}
         className="btn-group"
       >
-        <Grid item xs={12} sm={5}>
-          <Button onClick={_onSubmitClicked} className="btn-big bg-primary color-white fontsize-16">
-            Search
-          </Button>
-        </Grid>
-        <Grid item xs={12} sm={5}>
-          <Button onClick={onClose} className="btn-big bg-grey2 fontsize-16">
-            Cancel
-          </Button>
-        </Grid>
+        <div
+          style={{display: 'flex', justifyContent: 'space-between', width: '100%'}}
+        >
+          <Grid item xs={12} sm={6}>
+            <Button onClick={_onSubmitClicked} className="btn-big bg-primary color-white fontsize-16" style={{width: '95%'}}>
+              Search
+            </Button>
+          </Grid>
+          <Grid item xs={12} sm={6} className="text-md-right">
+            <Button onClick={onClose} className="btn-big bg-grey2 fontsize-16" style={{width: '95'}}>
+              Cancel
+            </Button>
+          </Grid>
+        </div>
+
       </Grid>
     </>
   );

@@ -1,12 +1,10 @@
 .user-profile-card {
   background: #ffffff;
-  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: none;
   border-radius: 6px;
-  padding: 13px;
-  margin-top: 12px;
 
   @media (max-width: $md - 1) {
-    margin-top: -60px;
+    margin-top: -15px;
   }
 
   .sub-card {
@@ -18,14 +16,12 @@
       font-weight: 600;
       font-size: 15px;
       line-height: 18px;
-      letter-spacing: 0.374px;
       margin: 5px 0;
     }
 
     .body-sub-description {
       font-size: 13px;
       line-height: 16px;
-      letter-spacing: -0.408px;
       color: #999999;
       margin: 10px 0;
     }

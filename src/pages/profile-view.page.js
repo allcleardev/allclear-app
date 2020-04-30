@@ -2,26 +2,30 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { bindAll } from 'lodash';
 
-import HomescreenHeader from '../components/general/headers/header-homescreen';
-import BottomNav from '../components/general/navs/bottom-nav';
-import userAvatar from '../assets/images/defaultProfile.svg';
-import PeopleService from '../services/people.service.js';
-import { AppContext, INITIAL_APP_STATE } from '../contexts/app.context';
+import PeopleService from '@services/people.service.js';
+import UserAvatar from '@assets/images/defaultProfile.svg';
+import { ReactComponent as SettingsIcon } from '@assets/images/settings-icon.svg';
+import { AppContext } from '@contexts/app.context';
 
-import Container from '@material-ui/core/Container';
-import SettingsIcon from '@material-ui/icons/Settings';
-import { Button, IconButton, Chip } from '@material-ui/core';
+import Header from '@components/general/headers/header';
+import BottomNav from '@components/general/navs/bottom-nav';
+import { DEFAULT_NAV_ITEMS } from '@components/general/headers/header.constants';
+import { Button, IconButton, Chip, Container, withStyles } from '@material-ui/core';
 
 export default class ProfileViewPage extends Component {
   static contextType = AppContext;
+  state = {
+    profile: {},
+  };
 
   constructor(props) {
     super(props);
-    bindAll(this, ['componentDidMount', 'fetchProfile', 'executeLogout', 'setProfile']);
+    bindAll(this, ['routeChange', 'componentDidMount', 'fetchProfile', 'setProfile']);
     this.peopleService = PeopleService.getInstance();
-    this.state = {
-      profile: {},
-    };
+  }
+
+  routeChange(route) {
+    this.props.history.push(route);
   }
 
   async componentDidMount() {
@@ -32,22 +36,12 @@ export default class ProfileViewPage extends Component {
 
   async fetchProfile(session) {
     const currSession = this.context.appState.sessionId;
-    const {id} = this.context.appState.person;
+    const { id } = this.context.appState.person;
 
     const response = await this.peopleService.getById(id, currSession);
     const profile = response.data;
 
     this.setState({ profile });
-  }
-
-  async executeLogout() {
-    await this.peopleService.logout();
-    localStorage.removeItem('sessid');
-    localStorage.removeItem('appState');
-    localStorage.removeItem('session');
-    const { setAppState } = this.context;
-    setAppState(INITIAL_APP_STATE);
-    return this.props.history.push('/get-started');
   }
 
   setProfile(session) {
@@ -60,28 +54,32 @@ export default class ProfileViewPage extends Component {
     const profile = this.state.profile;
     return (
       <section className="profile-view">
-        <Link to="/settings" className="settings-option hide-desktop">
-          <SettingsIcon className="settings-option__icon"></SettingsIcon>
-          <span className="settings-option__text">Settings</span>
-        </Link>
+        <IconButton
+          className="settings-option hide-desktop"
+          aria-label="settings"
+          onClick={() => this.routeChange('/settings')}
+        >
+          <SettingsIcon className="settings-option__icon" />
+        </IconButton>
 
-        <HomescreenHeader>
-          <div className="avatar-edit">
-            <div className="avatar">
-              <img
-                src={userAvatar}
-                alt="avatar"
-                style={{ borderRadius: '50%', backgroundColor: 'white', border: '1px solid white' }}
-              />
+        <Header navItems={DEFAULT_NAV_ITEMS} enableBackBtn={true}>
+          <div className="header-content">
+            <h1 className="header-content__heading">Your Profile</h1>
+
+            <div className="avatar-container">
+              <img src={UserAvatar} className="avatar-container__img" alt="Avatar" />
             </div>
           </div>
-        </HomescreenHeader>
+        </Header>
 
         <Container className="cards-container">
-          <Link to="/settings" className="settings-option hide-mobile">
-            <SettingsIcon className="settings-option__icon"></SettingsIcon>
-            <span className="settings-option__text">Settings</span>
-          </Link>
+          <IconButton
+            className="settings-option hide-mobile"
+            aria-label="settings"
+            onClick={() => this.routeChange('/settings')}
+          >
+            <SettingsIcon className="settings-option__icon" />
+          </IconButton>
 
           <article className="card">
             <dl className="card__content">
@@ -155,15 +153,17 @@ export default class ProfileViewPage extends Component {
             )}
           </article>
 
-          <Button
-            onClick={() => this.executeLogout()}
-            style={{ color: '#2A7DF4', border: '1px solid #2A7DF4' }}
-            className="btn-big  fontsize-16"
-          >
-            Logout
-          </Button>
+          <Link to="/logout">
+            <DefaultButton
+              fullWidth
+              color="primary"
+              variant="outlined"
+              className="default-button"
+            >
+              Logout
+            </DefaultButton>
+          </Link>
         </Container>
-
         <BottomNav active={3}></BottomNav>
       </section>
     );
@@ -184,3 +184,17 @@ const EditIconButton = () => {
     </IconButton>
   );
 };
+
+// TODO: Move to own general component
+const DefaultButton = withStyles((theme) => ({
+  root: {
+    padding: '12px 16px',
+    fontWeight: '600',
+    fontSize: '17px',
+    borderRadius: '10px',
+  },
+  outlined: {
+    borderColor: theme.palette.primary.main,
+    borderWidth: 1,
+  },
+}))(Button);

@@ -1,10 +1,10 @@
 import React from 'react';
-import {Link, useHistory} from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import Fab from '@material-ui/core/Fab';
 import Container from '@material-ui/core/Container';
-import Logo from '../../../assets/images/logo-green-back.svg';
+import Logo from '@assets/images/logo-white.svg';
 
-export default function RoundHeader({navigate = '', children}) {
+export default function RoundHeader({ navigate = '', children }) {
   const history = useHistory();
 
   const routeChange = (route) => {
@@ -35,11 +35,14 @@ export default function RoundHeader({navigate = '', children}) {
       </div>
       <Container className="desktop-content" maxWidth="xl">
         <Link to="/">
-          <img src={Logo} alt="Logo" className="logo"/>
+          <img src={Logo} alt="Logo" className="logo" />
         </Link>
         <nav className="menu">
-          <a href="https://about.allclear.app/" className="menu__item">
-            About Us
+          <a href="https://home.allclear.app/" className="menu__item">
+            Home
+          </a>
+          <a href="/map" className="menu__item">
+            Map
           </a>
           <a href="https://about.allclear.app/" className="menu__item">
             Help

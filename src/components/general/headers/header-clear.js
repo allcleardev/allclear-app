@@ -1,25 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Logo from '../../../assets/images/logo-white-back.svg';
+import Logo from '@assets/images/logo-blue.svg';
+import { isLoggedInHeaderLinks, isLoggedOutHeaderLinks } from '@util/general.constants';
 
 export default function ClearHeader(props) {
-  const { isOpen } = props;
+  // hidden on map page in full view through media query styling
+  const { isOpen, isLoggedIn } = props;
+
+  const links = isLoggedIn ? isLoggedInHeaderLinks : isLoggedOutHeaderLinks;
 
   return (
     <div className="header-white-fullscreen">
       <div className={isOpen ? 'header-logo header-logo--open' : 'header-logo'}>
         <img className={isOpen ? 'logo logo--open' : 'logo'} src={Logo} alt="Logo" />
         <div className="header-menu">
-          <Link className="header-menu__item" to="/map">
-            Find Tests
-          </Link>
-          <Link className="header-menu__item" to="/contact-tracing">
-            Tracing
-          </Link>
-          <Link className="header-menu__item" to="/profile">
-            Profile
-          </Link>
+          {links.map((link) =>
+            <Link className="header-menu__item" to={link.to} key={link.name}>
+              {link.name}
+            </Link>)
+          }
         </div>
       </div>
       {props.children}
@@ -28,4 +28,5 @@ export default function ClearHeader(props) {
 }
 ClearHeader.propTypes = {
   isOpen: PropTypes.bool,
+  isLoggedIn: PropTypes.bool
 };

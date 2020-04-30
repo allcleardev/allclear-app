@@ -1,12 +1,14 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import GoogleMapReact from 'google-map-react';
 import MapMarker from './map-marker.js';
 import MyLocationBtn from './my-location-btn';
 import FacilityService from '../../services/facility.service.js';
-import { bindAll, get } from 'lodash';
-import { AppContext } from '@contexts/app.context';
+import {bindAll, get} from 'lodash';
+import {AppContext} from '@contexts/app.context';
 import MyLocationMapMarker from './my-location-map-marker.js';
 import SnackbarMessage from '@general/alerts/snackbar-message';
+import GAService from '@services/ga.service';
+import MapService from '@services/map.service';
 
 export default class GoogleMap extends Component {
   static contextType = AppContext;
@@ -16,6 +18,9 @@ export default class GoogleMap extends Component {
 
     this.state = {
       isSnackbarOpen: false,
+      snackbarMessage: 'Browser location declined. Using location from your profile instead.',
+      snackbarSeverity: 'warning',
+      zoom: G_MAP_DEFAULTS.zoom
     };
 
     bindAll(this, [
@@ -24,29 +29,66 @@ export default class GoogleMap extends Component {
       'onMarkerZoomChanged',
       'onZoomChanged',
       'onMyLocationClicked',
+      'onLocationAccepted',
       '_panTo',
       '_setLocations',
-      '_onLocationAccepted',
-      '_onLocationDeclined',
       '_createSearchPayload',
       '_search',
       'handleSnackbarClose',
     ]);
-    this.gMap = React.createRef();
+    this.gMapRef = React.createRef();
     this.facilityService = FacilityService.getInstance();
+
+    this.gaService = GAService.getInstance();
+    this.gaService.setScreenName('map');
+
+    this.mapService = MapService.getInstance();
+    this.mapService.onLocationAccepted = this.onLocationAccepted;
   }
 
   async componentDidMount() {
-    const { appState } = this.context;
-    const latitude = get(appState, 'person.latitude');
-    const longitude = get(appState, 'person.longitude');
+    const {appState} = this.context;
+    let latitude = get(appState, 'person.latitude');
+    let longitude = get(appState, 'person.longitude');
 
-    const result = await this.facilityService.search(this._createSearchPayload({ latitude, longitude }));
-    if (navigator && navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(this._onLocationAccepted, this._onLocationDeclined);
+
+    // not logged in
+    if (!latitude || !longitude) {
+
+      // if IP check succeeded, use that
+      let ipData = await this.mapService.ipCheck()
+        .catch(() => {
+          this.setState({
+            isSnackbarOpen: true,
+            snackbarMessage: 'Enter your location to see results near you.',
+            snackbarSeverity: 'info'
+          });
+          latitude = G_MAP_DEFAULTS.center.lat;
+          longitude = G_MAP_DEFAULTS.center.lng;
+        });
+
+      latitude = get(ipData, 'data.lat');
+      longitude = get(ipData, 'data.lon');
+
+      // if IP check failed too, just use defaults (NYC)
+      if (!latitude || !longitude) {
+
+        this.setState({
+          isSnackbarOpen: true,
+          snackbarMessage: 'Enter your location to see results near you.',
+          snackbarSeverity: 'info'
+        });
+        latitude = G_MAP_DEFAULTS.center.lat;
+        longitude = G_MAP_DEFAULTS.center.lng;
+
+      }
+
     }
-    this._setLocations(result.data.records, { latitude, longitude });
+
+    const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude}));
+    this._setLocations(result.data.records, {latitude, longitude});
     latitude && longitude && this._panTo(latitude, longitude);
+
   }
 
   handleSnackbarClose() {
@@ -77,7 +119,7 @@ export default class GoogleMap extends Component {
   }
 
   onMyLocationClicked() {
-    const { appState } = this.context;
+    const {appState} = this.context;
     const latitude = get(appState, 'person.latitude');
     const longitude = get(appState, 'person.longitude');
     this._panTo(latitude, longitude);
@@ -91,61 +133,53 @@ export default class GoogleMap extends Component {
   _panTo(latitude, longitude) {
     //eslint-disable-next-line
     const currBrowserLocation = new google.maps.LatLng(latitude, longitude);
-    if (get(this, 'gMap.current.map_.panTo')) {
-      this.gMap.current.map_.panTo(currBrowserLocation);
+    if (get(this, 'gMapRef.current.map_.panTo')) {
+      this.gMapRef.current.map_.panTo(currBrowserLocation);
     }
   }
 
   _setLocations(locations) {
     // update context state (for other components in map page)
-    const { setAppState, appState } = this.context;
+    const {setAppState, appState} = this.context;
+
+    this.mapService.mapRef = this.gMapRef;
+
     setAppState({
       ...appState,
       map: {
         ...appState.map,
+        isListLoading: false,
         locations,
       },
-      isListLoading: false,
     });
-  }
-
-  async _onLocationAccepted(pos) {
-    // console.warn('location ACCEPTED');
-    const latitude = pos.coords.latitude;
-    const longitude = pos.coords.longitude;
-    this._panTo(latitude, longitude);
-    const result = await this.facilityService.search(this._createSearchPayload({ latitude, longitude }));
-
-    this._setLocations(result.data.records, {
-      latitude,
-      longitude,
-    });
-  }
-
-  _onLocationDeclined() {
-    console.warn('location DECLINED');
-    const { appState } = this.context;
-    const {longitude, latitude} = appState.map;
-    this._panTo(latitude, longitude);
-    this._search(latitude, longitude);
-    this.setState({
-      isSnackbarOpen: true,
-    });
-    console.warn('User declined to use browser location');
   }
 
   /******************************************************************
    * SEARCH
    ******************************************************************/
 
-  _createSearchPayload({ latitude, longitude, shouldIgnoreFilters = false }) {
-    const { appState, setAppState } = this.context;
+  async onLocationAccepted(pos) {
+
+    const latitude = pos.coords.latitude;
+    const longitude = pos.coords.longitude;
+    const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude}));
+    this._setLocations(result.data.records, {
+      latitude,
+      longitude,
+    });
+    this._panTo(latitude, longitude);
+
+  };
+
+  _createSearchPayload({latitude, longitude, shouldIgnoreFilters = false}) {
+    const {appState, setAppState} = this.context;
     const searchCriteria = shouldIgnoreFilters ? {} : appState.searchCriteria;
 
     setAppState({
       ...appState,
       map: {
         ...appState.map,
+        isListLoading: true,
         latitude,
         longitude
       }
@@ -162,7 +196,7 @@ export default class GoogleMap extends Component {
   }
 
   async _search(latitude, longitude) {
-    const result = await this.facilityService.search(this._createSearchPayload({ latitude, longitude }));
+    const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude}));
     this._setLocations(result.data.records, {
       latitude,
       longitude,
@@ -176,19 +210,26 @@ export default class GoogleMap extends Component {
     const homeIndex = locations.length;
 
     return (
-      <div style={{ height: '100%', width: '100%' }}>
+      <div
+        style={{height: '100%', width: '100%'}}
+        onClick={this.props.onMapClick}
+      >
         <SnackbarMessage
           snackbarClass={'snackbar--map'}
           isOpen={this.state.isSnackbarOpen}
           onClose={this.handleSnackbarClose}
-          message={'Browser location declined. Using location from your profile instead.'}
+          severity={this.state.snackbarSeverity}
+          duration={15000}
+          message={this.state.snackbarMessage}
         />
         <GoogleMapReact
-          ref={this.gMap}
+          ref={this.gMapRef}
           options={G_MAP_OPTIONS}
-          bootstrapURLKeys={{ key: 'AIzaSyAPB7ER1lGxDSZICjq9lmqgxvnlSJCIuYw' }}
+          bootstrapURLKeys={{key: 'AIzaSyAPB7ER1lGxDSZICjq9lmqgxvnlSJCIuYw'}}
           defaultCenter={G_MAP_DEFAULTS.center}
           defaultZoom={G_MAP_DEFAULTS.zoom}
+          zoom={this.state.zoom}
+          yesIWantToUseGoogleMapApiInternals
           onDragEnd={(evt) => this.onMarkerDragEnd(evt)}
           onZoomChanged={(evt) => this.onMarkerDragEnd(evt)}
           onZoomAnimationEnd={(evt) => this.onZoomChanged(evt)}
@@ -203,9 +244,10 @@ export default class GoogleMap extends Component {
               text={index + 1}
             />
           ))}
-          <MyLocationMapMarker key={homeIndex} lat={homeLat} lng={homeLng} />
+          <MyLocationMapMarker key={homeIndex} lat={homeLat} lng={homeLng}/>
         </GoogleMapReact>
-        <MyLocationBtn aria-label="Go to Profile Location" onClick={() => this.onMyLocationClicked()} />
+        <MyLocationBtn aria-label="Go to Profile Location" onClick={() => this.onMyLocationClicked()}/>
+
       </div>
     );
   }
@@ -289,8 +331,8 @@ const G_MAP_OPTIONS = {
 
 const G_MAP_DEFAULTS = {
   center: {
-    lat: 2,
-    lng: 2,
+    lat: 40.7575139,
+    lng: -73.9861322,
   },
   zoom: 12,
 };

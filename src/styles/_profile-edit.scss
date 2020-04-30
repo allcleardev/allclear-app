@@ -21,7 +21,7 @@
   }
 
   .cards-container {
-    margin-top: -80px;
+    margin-top: -40px;
 
     @media (min-width: $md) {
       max-width: 80%;
@@ -55,7 +55,7 @@
     }
 
     &__term {
-      font-weight: 600;
+      font-weight: 500;
     }
   }
 
@@ -77,7 +77,7 @@
 
   .shape {
     // Adjusting the Gradient bg from header-homescreen
-    height: 208px;
+    height: 313px;
   }
 
   .button-container {
@@ -88,5 +88,9 @@
     button:first-child {
       margin-bottom: 14px;
     }
+  }
+
+  .location-toggle {
+    margin: 0;
   }
 }

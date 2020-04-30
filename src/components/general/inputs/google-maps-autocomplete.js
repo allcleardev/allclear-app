@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import throttle from 'lodash/throttle';
 import parse from 'autosuggest-highlight/parse';
@@ -6,7 +6,10 @@ import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
+import CloseIcon from '@material-ui/icons/Close';
 import { TextField, Grid, Typography, makeStyles } from '@material-ui/core';
+import SearchIcon from '@material-ui/icons/Search';
+import clsx from 'clsx';
 
 const autocompleteService = { current: null };
 
@@ -15,13 +18,36 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
     marginRight: theme.spacing(2),
   },
+  hidden: {
+    display: 'none',
+  },
+  show: {
+    display: 'initial',
+  },
 }));
 
 export default function GoogleMapsAutocomplete(props) {
   const classes = useStyles();
-  const [inputValue, setInputValue] = React.useState('');
-  const [options, setOptions] = React.useState([]);
+  const [inputValue, setInputValue] = useState('');
+  const [options, setOptions] = useState([]);
+  const inputRef = React.createRef();
 
+  // focus on mount if so configured
+  useEffect(() => {
+    if (props.focusOnRender) {
+      inputRef.current.querySelectorAll('input')[0].focus();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // only for clears
+  function onInputChanged(evt, value, reason) {
+    if (reason === 'clear') {
+      props.onClear && props.onClear();
+    }
+  }
+
+  // normal text changes
   const handleTextChange = (event) => {
     setInputValue(event.target.value);
   };
@@ -47,15 +73,24 @@ export default function GoogleMapsAutocomplete(props) {
     }
   };
 
-  const fetch = React.useMemo(
+  const fetch = useMemo(
     () =>
       throttle((request, callback) => {
-        autocompleteService.current.getPlacePredictions(request, callback);
+        autocompleteService.current.getPlacePredictions(
+          {
+            ...request,
+            // only send back location results that are in US
+            componentRestrictions: {
+              country: 'us',
+            },
+          },
+          callback,
+        );
       }, 200),
     [],
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     let active = true;
 
     if (!autocompleteService.current && window.google) {
@@ -84,13 +119,25 @@ export default function GoogleMapsAutocomplete(props) {
   if (!props.useCurrentLocation) {
     return (
       <Autocomplete
+        ref={inputRef}
         id="google-maps-autocomplete"
+        autoComplete
+        includeInputInList
+        clearOnEscape
+        closeIcon={<CloseIcon fontSize="small" />}
+        noOptionsText={props.noOptionsText}
+        classes={{
+          endAdornment: clsx(classes.hidden, {
+            [classes.show]: options.length > 0,
+          }),
+        }}
         getOptionLabel={(option) => (typeof option === 'string' ? option : option.description)}
         filterOptions={(x) => x}
         options={options}
-        autoComplete
-        includeInputInList
         onChange={handleSelectionChange}
+        onInputChange={(e, v, r) => {
+          props.onClear && onInputChanged(e, v, r);
+        }}
         disabled={props.useCurrentLocation}
         defaultValue={props.initialValue}
         renderInput={(params) => (
@@ -98,9 +145,15 @@ export default function GoogleMapsAutocomplete(props) {
             {...params}
             placeholder="New York, NY or 11211"
             variant="outlined"
-            className="input"
+            className="input autocomplete-input"
             onChange={handleTextChange}
             disabled={props.useCurrentLocation}
+            InputProps={{
+              ...params.InputProps,
+              startAdornment: (
+                <SearchIcon name="search" style={{ position: 'absolute', color: props.searchIconColor || 'white' }} />
+              ),
+            }}
           />
         )}
         renderOption={(option) => {

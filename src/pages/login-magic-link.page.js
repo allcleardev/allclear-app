@@ -10,12 +10,16 @@ import {bindAll} from 'lodash';
 
 import PeopleService from '@services/people.service';
 import {AppContext} from '@contexts/app.context';
+import GAService from '@services/ga.service';
 
 export default class LoginMagicLinkPage extends Component {
   static contextType = AppContext;
 
   constructor(props) {
     super(props);
+
+    this.gaService = GAService.getInstance();
+    this.gaService.setScreenName('login-magic-link');
 
     this.peopleService = PeopleService.getInstance();
 
@@ -40,7 +44,7 @@ export default class LoginMagicLinkPage extends Component {
     searchParams = searchParams.replace('?', '');
     searchParams = qs.parse(searchParams, []);
     return searchParams;
-  };
+  }
 
   // Function to make call backend service to confirm the magic link
   async verifyMagicLink() {
@@ -57,7 +61,7 @@ export default class LoginMagicLinkPage extends Component {
       });
 
       localStorage.setItem('sessionId', response.data.id);
-      localStorage.setItem('session', response.data);
+      localStorage.setItem('session', JSON.stringify(response.data));
 
       this.props.history.push('/map');
     } else {
@@ -69,12 +73,12 @@ export default class LoginMagicLinkPage extends Component {
         loading: false,
       });
     }
-  };
+  }
 
   // ALLCLEAR-274
   parseError() {
     return this.state.error === true ? <p className="error">{this.state.message}</p> : '';
-  };
+  }
 
   render() {
     return (

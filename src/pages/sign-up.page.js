@@ -1,49 +1,37 @@
 import React, { Component } from 'react';
+import { bindAll } from 'lodash';
 import { Link } from 'react-router-dom';
 import * as queryString from 'query-string';
 
-import RoundHeader from '@general/headers/header-round';
-import ProgressBottom from '@general/navs/progress-bottom';
-import PhoneNumberInput from '@general/inputs/phone-number-input';
-
-import OnboardingNavigation from '@general/navs/onboarding-navigation';
-
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import { Button, Grid, Container } from '@material-ui/core';
-import Slide from '@material-ui/core/Slide';
-import Snackbar from '@material-ui/core/Snackbar';
-import Alert from '@material-ui/lab/Alert';
-
-import { AppContext } from '@contexts/app.context';
 import PeopleService from '@services/people.service';
-import { bindAll } from 'lodash';
+import GAService from '@services/ga.service';
 
-function SlideTransition(props) {
-  return <Slide {...props} direction="up" />;
-}
+import Header from '@general/headers/header';
+import ProgressBottom from '@general/navs/progress-bottom';
+import OnboardingNavigation from '@general/navs/onboarding-navigation';
+import PhoneNumberInput from '@general/inputs/phone-number-input';
+import { AppContext } from '@contexts/app.context';
+import { ONBOARDING_NAV_ITEMS } from '@components/general/headers/header.constants';
+
+import Alert from '@material-ui/lab/Alert';
+import { Checkbox, Container, Snackbar, FormControlLabel, CircularProgress } from '@material-ui/core';
 
 export default class SignUpPage extends Component {
   static contextType = AppContext;
+  state = {
+    termsAndConditions: false,
+    ageVerification: false,
+    alertable: false,
+    phoneVerified: false,
+    loading: false,
+    error: false,
+    message: undefined,
+    accountExists: true,
+    isSnackbarOpen: false,
+  };
 
   constructor(props) {
     super(props);
-
-    this.state = {
-      termsAndConditions: false,
-      ageVerification: false,
-      alertable: false,
-      phoneVerified: false,
-      loading: false,
-      error: false,
-      message: undefined,
-      accountExists: true,
-      isSnackbarOpen: false,
-    };
-
-    this.peopleService = PeopleService.getInstance();
-
     bindAll(this, [
       'validateState',
       'handleChange',
@@ -51,6 +39,9 @@ export default class SignUpPage extends Component {
       'checkPhoneValidation',
       'onSendVerificationClicked',
     ]);
+    this.peopleService = PeopleService.getInstance();
+    this.gaService = GAService.getInstance();
+    this.gaService.setScreenName('sign-up');
   }
 
   async componentDidMount() {
@@ -123,7 +114,7 @@ export default class SignUpPage extends Component {
     const longitude = appState.person.longitude;
     const locationName = appState.person.locationName;
     const dob = appState.person.dob;
-    const alertable = appState.person.alertable || true;
+    const alertable = appState.person.alertable;
     const healthWorkerStatus = appState.profile.options.healthWorkerStatus;
     let exposures = appState.profile.options.exposures;
     let conditions = appState.profile.options.conditions;
@@ -202,14 +193,19 @@ export default class SignUpPage extends Component {
     if (!this.state.ageVerification) {
       return this.setState({
         error: true,
-        message: 'You are ineligible for registering for an account at this time.',
+        message: 'You are ineligible to register for an account at this time',
         loading: false,
       });
     }
 
-    const { appState } = this.context;
+    const { setAppState, appState } = this.context;
     let phone = appState.person.phone;
     const payload = this.buildPayload();
+
+    setAppState({
+      ...appState,
+      signUpPayload: payload,
+    });
 
     const response = await this.peopleService.authStart(payload);
 
@@ -250,113 +246,83 @@ export default class SignUpPage extends Component {
 
   // ALLCLEAR-274
   parseError() {
-    return this.state.error === true ? <p className="error">{this.state.message}</p> : '';
+    return this.state.error === true ? <span className="error">{this.state.message}</span> : '';
   }
 
   render() {
     return (
-      <div className="background-responsive">
-        <Snackbar
-          open={this.state.isSnackbarOpen}
-          TransitionComponent={SlideTransition}
-          autoHideDuration={4000}
-          onClose={this.handleSnackbarClose}
-          className={'snackbar__error'}
-        >
-          <Alert onClose={this.handleSnackbarClose} severity="error">
-            You must be logged in to use this feature.
-          </Alert>
-        </Snackbar>
-        <div className="sign-up onboarding-page">
-          <RoundHeader navigate={'/symptoms'}>
-            <h1 className="heading">Phone Number Registration</h1>
-            <h2 className="sub-heading">Enter your phone number to register your account.</h2>
-          </RoundHeader>
-          {this.state.loading === false ? (
-            <Container className="onboarding-body">
-              <div className="content-container">
-                <PhoneNumberInput
-                  className="hide-mobile"
-                  phoneValidation={this.checkPhoneValidation}
-                ></PhoneNumberInput>
-                <Link to="/sign-in" className="sign-in">
-                  Sign into Existing Account
-                </Link>
-                {this.parseError()}
+      <div className="sign-up onboarding-page">
+        <Header navItems={ONBOARDING_NAV_ITEMS} enableBackBtn={true}>
+          <h1>Phone Number Registration</h1>
+          <h2>Enter your phone number to register your account.</h2>
+        </Header>
+        {this.state.loading === false ? (
+          <Container className="onboarding-body">
+            <div className="content-container">
+              <PhoneNumberInput phoneValidation={this.checkPhoneValidation}></PhoneNumberInput>
+              <Link to="/sign-in" className="sign-in">
+                Sign into Existing Account
+              </Link>
+              {this.parseError()}
+            </div>
+            <Container className="review-container" maxWidth="sm">
+              <p>
+                Please review and agree to the <br />
+                <a href="https://home.allclear.app/terms-of-service" target="_blank" rel="noopener noreferrer">
+                  {''} Terms & Conditions {''}
+                </a>
+                and
+                <a href="https://home.allclear.app/privacy-policy" target="_blank" rel="noopener noreferrer">
+                  {''} Privacy Policy {''}
+                </a>
+                before continuing.
+              </p>
+
+              <div className="checkbox-container">
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={this.state.termsAndConditions}
+                      onChange={this.handleChange}
+                      name="termsAndConditions"
+                      color="secondary"
+                    />
+                  }
+                  label="I have reviewed and agree to the Terms & Conditions and Privacy Policy."
+                />
+
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={this.state.ageVerification}
+                      onChange={this.handleChange}
+                      name="ageVerification"
+                      color="secondary"
+                    />
+                  }
+                  label="I am at least 13 years of age or older."
+                />
+
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={this.state.alertable}
+                      onChange={this.handleChange}
+                      name="alertable"
+                      color="secondary"
+                    />
+                  }
+                  label="I agree to receive text message alerts when eligible tests and locations become available.
+                    Text messages may be sent using an automatic telephone dialing system and standard message and data rates apply."
+                />
               </div>
-              <div className="review-container">
-                <p>
-                  Please review and agree to the
-                  <a href="https://about.allclear.app/terms-of-service/" target="_blank" rel="noopener noreferrer">
-                    {''} Terms & Conditions {''}
-                  </a>
-                  and
-                  <a href="https://about.allclear.app/privacy-policy-2/" target="_blank" rel="noopener noreferrer">
-                    {''} Privacy Policy {''}
-                  </a>
-                  before continuing.
-                </p>
-
-                <div className="checkbox-container">
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={this.state.termsAndConditions}
-                        onChange={this.handleChange}
-                        name="termsAndConditions"
-                        color="secondary"
-                      />
-                    }
-                    label="I have reviewed and agree to the Terms & Conditions and Privacy Policy."
-                  />
-
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={this.state.ageVerification}
-                        onChange={this.handleChange}
-                        name="ageVerification"
-                        color="secondary"
-                      />
-                    }
-                    label="I am at least 13 years of age or older."
-                  />
-
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={this.state.alertable}
-                        onChange={this.handleChange}
-                        name="alertable"
-                        color="secondary"
-                      />
-                    }
-                    label="Receive text alerts when eligible test locations become available."
-                  />
-                </div>
-              </div>
-              <OnboardingNavigation
-                back={
-                  <Button
-                    variant="contained"
-                    className="back hide-mobile"
-                    onClick={() => this.routeChange('/symptoms')}
-                  >
-                    Back
-                  </Button>
-                }
-                forward={
-                  <Button
-                    className="next"
-                    color="primary"
-                    variant="contained"
-                    onClick={() => this.onSendVerificationClicked()}
-                    disabled={this.state.termsAndConditions && this.state.phoneVerified ? false : true}
-                  >
-                    Send Verification Code
-                  </Button>
-                }
-                tooltipMessage={`To proceed, please
+            </Container>
+            <OnboardingNavigation
+              forwardOnClick={this.onSendVerificationClicked}
+              forwardText={'Send Verification Code'}
+              forwardDisabled={this.state.termsAndConditions && this.state.phoneVerified ? false : true}
+              triggerTooltip={this.state.termsAndConditions && this.state.phoneVerified ? false : true}
+              tooltipMessage={`To proceed, please
                     ${!this.state.phoneVerified ? 'enter your phone number' : ''}
                     ${!this.state.termsAndConditions && !this.state.phoneVerified ? 'and' : ''}
                     ${
@@ -365,18 +331,19 @@ export default class SignUpPage extends Component {
                         : ''
                     }
                   `}
-                triggerTooltip={this.state.termsAndConditions && this.state.phoneVerified ? false : true}
-              ></OnboardingNavigation>
-            </Container>
-          ) : (
-            <Grid container justify="center">
-              <Grid item xs={12} sm={6}>
-                <LinearProgress color="primary" value={60} variant="indeterminate" />
-              </Grid>
-            </Grid>
-          )}
-          {this.state.loading === false ? <ProgressBottom progress="60%"></ProgressBottom> : null}
-        </div>
+            ></OnboardingNavigation>
+            <Snackbar open={this.state.isSnackbarOpen} onClose={this.handleSnackbarClose} className={'snackbar__error'}>
+              <Alert onClose={this.handleSnackbarClose} severity="error">
+                You must be logged in to use this feature.
+              </Alert>
+            </Snackbar>
+          </Container>
+        ) : (
+          <Container className="onboarding-body">
+            <CircularProgress color="primary" size={108} />
+          </Container>
+        )}
+        {this.state.loading === false ? <ProgressBottom progress="60%"></ProgressBottom> : null}
       </div>
     );
   }

@@ -1,0 +1,44 @@
+.splash-page {
+  h1 {
+    margin-bottom: 14px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 34px;
+
+    @media (min-width: $md) {
+      font-size: 56px;
+    }
+  }
+
+  h2 {
+    max-width: 820px;
+    line-height: 22px;
+    text-align: center;
+    font-size: 17px;
+    font-weight: normal;
+  }
+
+  a {
+    align-self: center;
+    line-height: 20px;
+    font-weight: normal;
+    font-size: 15px;
+  }
+
+  .header {
+    margin-bottom: 0;
+  }
+
+  .onboarding-body {
+    flex: 10;
+  }
+
+  .marker {
+    margin-bottom: 15px;
+    max-width: 200px;
+    @media (min-width: $md) and (min-height: 800px) {
+      max-width: none;
+      margin-bottom: 70px;
+    }
+  }
+}

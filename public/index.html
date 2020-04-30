@@ -1,65 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Find a COVID-19 test location near you."
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <link rel="stylesheet" href="%PUBLIC_URL%/shared.css">
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&display=swap" rel="stylesheet">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"  />-->
-    <!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />-->
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
-
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-      crossorigin=""
-    />
-    <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet-geosearch@latest/assets/css/leaflet.css"
+<head>
+  <meta charset="utf-8"/>
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="theme-color" content="#000000"/>
+  <meta
+    name="description"
+    content="Find a COVID-19 test location near you."
   />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.71.0/dist/L.Control.Locate.min.css" />
-  <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.71.0/dist/L.Control.Locate.min.js" charset="utf-8"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDj68jf5D8CcABjdOkgGqxNES89IK6l4Hk&libraries=places"></script>
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png"/>
+  <link rel="stylesheet" href="%PUBLIC_URL%/shared.css">
+  <!--
+    manifest.json provides metadata used when your web app is installed on a
+    user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+  -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&display=swap" rel="stylesheet">
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json"/>
+  <!--
+    Notice the use of %PUBLIC_URL% in the tags above.
+    It will be replaced with the URL of the `public` folder during the build.
+    Only files inside the `public` folder can be referenced from the HTML.
 
-    <title>AllClear | Beat COVID-19</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root" style="overflow-x: hidden; display: flex; min-height:100vh"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+    Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+    work correctly both with client-side routing and a non-root public URL.
+    Learn how to configure a non-root public URL by running `npm run build`.
+  -->
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"/>
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDj68jf5D8CcABjdOkgGqxNES89IK6l4Hk&libraries=places"></script>
+
+  <style type="text/css">
+    @keyframes loader__inner {
+      0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+      }
+      100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+      }
+    }
+
+    .loader__title {
+      color: #002c83;
+      font-family: 'Heebo', sans-serif;
+      font-weight: 300;
+    }
+
+    .loader__container {
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .loader__inner div {
+      position: absolute;
+      width: 85px;
+      height: 85px;
+      border: 10px solid #007aff;
+      border-top-color: transparent;
+      border-radius: 50%;
+    }
+
+    .loader__inner div {
+      animation: loader__inner 0.7407407407407407s linear infinite;
+      top: 100px;
+      left: 100px
+    }
+
+    .loader__outer {
+      margin: 0 auto;
+      margin-top: -40px;
+      width: 200px;
+      height: 200px;
+      display: inline-block;
+      overflow: hidden;
+      background: none;
+    }
+
+    .loader__inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform: translateZ(0) scale(1);
+      backface-visibility: hidden;
+      transform-origin: 0 0; /* see note above */
+    }
+
+    .loader__inner div {
+      box-sizing: content-box;
+    }
+  </style>
+
+  <title>AllClear | Beat COVID-19</title>
+</head>
+<body>
+<noscript>You need to enable JavaScript to run this app.</noscript>
+
+<div
+  id="loader__container"
+  class="loader__container">
+
+  <h1 class="loader__title">
+    AllClear is Loading...
+  </h1>
+
+  <div class="loader__outer">
+    <div class="loader__inner">
+      <div></div>
+    </div>
+  </div>
+</div>
+
+
+<div id="root" style="overflow-x: hidden; display: none; min-height:100vh"></div>
+
+
+<!--
+  This HTML file is a template.
+  If you open it directly in the browser, you will see an empty page.
+
+  You can add webfonts, meta tags, or analytics to this file.
+  The build step will place the bundled scripts into the <body> tag.
+
+  To begin the development, run `npm start` or `yarn start`.
+  To create a production bundle, use `npm run build` or `yarn build`.
+-->
+</body>
 </html>

@@ -1,17 +1,20 @@
 /* Note: Must keep in this order */
 /* Todo: Clean up shared files */
 @import 'variable';
-@import 'shared';
 @import 'global';
+@import 'shared';
 /**********************************************/
 
 /* "'Component" styles below */
 @import 'header';
 @import 'header-clear';
+@import 'header-solid';
 @import 'header-homescreen';
+@import 'mobile-menu';
 
 @import 'login-verification';
 @import 'login';
+@import 'logout';
 
 @import 'phone-number';
 @import 'phone-verify';
@@ -20,19 +23,24 @@
 @import 'account-created';
 
 @import 'get-started';
+@import 'splash-page';
 @import 'background';
 @import 'health-worker';
 @import 'symptoms';
 
+@import 'home';
 @import 'profile-view';
 @import 'profile-edit';
 @import 'settings';
-@import 'user-profile-card';
+@import 'profile-card';
 
 @import 'test-map';
 @import 'testing-location-list-item';
 
 @import 'trace';
+
+@import 'update-criteria';
+
 
 @import 'bottom-navigation';
 
@@ -41,3 +49,4 @@
 /* Abandoned Temporarily*/
 // @import 'result';
 // @import 'conditions';
+//@import 'maps-autocomplete';

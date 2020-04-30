@@ -1,16 +1,38 @@
 import React, { Component } from 'react';
 import { bindAll } from 'lodash';
-
-import { AppContext } from '@contexts/app.context';
-import Logo from '../assets/images/logo-green-back.svg';
-import Header from '@general/headers/header';
-
-import { Button } from '@material-ui/core';
-import Container from '@material-ui/core/Container';
 import * as queryString from 'query-string';
-import SnackbarMessage from '@general/alerts/snackbar-message';
-import ModalService from '@services/modal.service';
+
+import Logo from '@assets/images/logo-white.svg';
+import Header from '@general/headers/header';
 import EmergencyNoticeModal from '@general/modals/emergency-notice-modal';
+import { AppContext } from '@contexts/app.context';
+
+import SnackbarMessage from '@general/alerts/snackbar-message';
+import { Button, Container, withStyles } from '@material-ui/core';
+
+import ModalService from '@services/modal.service';
+import GAService from '@services/ga.service';
+
+const DefaultButton = withStyles((theme) => ({
+  root: {
+    padding: '12px 16px',
+    fontWeight: '600',
+    fontSize: '17px',
+    borderRadius: '10px',
+    minWidth: '100%',
+    [theme.breakpoints.up('md')]: {
+      minWidth: '248px',
+    },
+  },
+  contained: {
+    backgroundColor: '#fff',
+    boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.15)',
+    color: theme.palette.primary.main,
+    '&:hover': {
+      backgroundColor: '#e1efff',
+    },
+  },
+}))(Button);
 
 export default class GetStartedPage extends Component {
   static contextType = AppContext;
@@ -19,12 +41,18 @@ export default class GetStartedPage extends Component {
   constructor() {
     super();
     this.modalService = ModalService.getInstance();
+
+    this.gaService = GAService.getInstance();
+    this.gaService.setScreenName('get-started');
+
     this.state = {
       isSnackbarOpen: false,
+      snackbarMessage: 'You must be logged in to use this feature.',
     };
     this.navItems = [
-      { route: 'about.allclear.app', name: 'About Us', absolutePath: true },
-      { route: 'about.allclear.app', name: 'Help', absolutePath: true },
+      { route: 'home.allclear.app', name: 'Home', absolutePath: true },
+      { route: '/map', name: 'Find Tests', absolutePath: false },
+      { route: 'home.allclear.app', name: 'Help', absolutePath: true },
     ];
 
     bindAll(this, ['routeChange', 'handleSnackbarClose']);
@@ -34,7 +62,9 @@ export default class GetStartedPage extends Component {
     const queryParams = queryString.parse(this.props.location.search);
 
     if (queryParams.logout) {
+      const snackbarMessage = queryParams.logout === 'true' ? this.state.snackbarMessage : queryParams.logout;
       this.setState({
+        snackbarMessage,
         isSnackbarOpen: true,
       });
     }
@@ -59,7 +89,8 @@ export default class GetStartedPage extends Component {
         <SnackbarMessage
           isOpen={this.state.isSnackbarOpen}
           onClose={this.handleSnackbarClose}
-          message={'You must be logged in to use this feature.'}
+          message={this.state.snackbarMessage}
+          severity={'info'}
           duration={4000}
         />
 
@@ -67,13 +98,13 @@ export default class GetStartedPage extends Component {
         <Container className="content" maxWidth="md">
           <img src={Logo} alt="Logo" className="logo" />
           <div className="button-container">
-            <Button className="signup" variant="contained" onClick={() => this.routeChange('/location')}>
+            <DefaultButton className="signup" variant="contained" onClick={() => this.routeChange('/location')}>
               Get Started
-            </Button>
-            <Button className="signin" onClick={() => this.routeChange('/sign-in')}>
+            </DefaultButton>
+            <DefaultButton className="signin" onClick={() => this.routeChange('/sign-in')}>
               Already Have an Account?
               <span className="cta">Log In</span>
-            </Button>
+            </DefaultButton>
           </div>
         </Container>
         <EmergencyNoticeModal />

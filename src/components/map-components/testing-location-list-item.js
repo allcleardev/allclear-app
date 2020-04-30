@@ -1,16 +1,23 @@
 import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
-import { boolToEng, isNullOrUndefined } from '../../util/general.helpers';
-
-import Button from '@material-ui/core/Button';
-import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
-import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { withStyles } from '@material-ui/core/styles';
+import { boolToEng, isNullOrUndefined } from '../../util/general.helpers';
+import ExternalItemLinks from './external-item-links';
+import CustomizedExpansionPanel, { ExpansionPanelSummary, ExpansionPanelDetails } from './expansion-panel';
 
 export default function TestingLocationListItem(props) {
-  const { index, title, description, city_state, service_time, driveThru, phone, website } = props;
+  const { id, index, title, description, service_time, driveThru, phone, website } = props; // values
+  const { onActionClick, onTestingLocationExpand } = props; // events
+
+  const onClick = (evt, buttonName) => {
+    evt.stopPropagation();
+    onActionClick(buttonName, id, index, title);
+  };
+
+  // corresponds to the expanded state change of a single testing location in the expansion panel list
+  const onExpandedChange = (itemIndex, isExpanded) => {
+    // itemIndex is same as props.index, but keeping for readability with child component
+    onTestingLocationExpand(id, itemIndex, title, isExpanded);
+  };
 
   const summary = (
     <ExpansionPanelSummary
@@ -19,52 +26,48 @@ export default function TestingLocationListItem(props) {
       className="testing-location-list-item"
       expandIcon={<ExpandMoreIcon />}
     >
-      <div>
+      <div className="my-auto">
         <h3 className="card-title">
           <span>{index + 1}.</span> {title}
         </h3>
 
-        <dl className="summary">
-          <dd className="summary__item">{city_state}</dd>
+        <dl className="summary d-none d-md-block">
+          <dd className="summary__item summary__item--semibold">{description}</dd>
           <dd className="summary__item summary__item--grey">{service_time}</dd>
           <dd className="detsummaryails__item">{driveThru.toString() === 'true' ? 'Drive Through' : ''}</dd>
-          <dd className="summary__item summary__item--semibold">{description}</dd>
           <dd className="summary__item summary__item--semibold">{phone}</dd>
         </dl>
+        <dl className="summary d-md-none mb-0">
+          <dd className="summary__item summary__item--semibold">{description}</dd>
+          <dd className="summary__item summary__item--grey">{service_time}</dd>
+        </dl>
 
-        <div className="buttons" style={{ display: 'flex', marginTop: '15px' }}>
-          <a
-            href={'https://www.google.com/maps/dir/?api=1&destination=' + description}
-            onClick={(evt) => evt.stopPropagation()}
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <Button className="btn primary-color primary-outline">Directions</Button>
-          </a>
-
-          {phone && (
-            <a href={'tel:' + phone} onClick={(evt) => evt.stopPropagation()} rel="noopener noreferrer" target="_blank">
-              <Button className="btn primary-color primary-outline d-lg-none" style={{ marginLeft: '10px' }}>
-                Call
-              </Button>
-            </a>
-          )}
-
-          {website && (
-            <a href={website} onClick={(evt) => evt.stopPropagation()} rel="noopener noreferrer" target="_blank">
-              <Button className="btn primary-color primary-outline" style={{ marginLeft: '10px' }}>
-                Website
-              </Button>
-            </a>
-          )}
-        </div>
+        <ExternalItemLinks
+          display={'d-none d-md-block'}
+          margin={{ marginTop: '15px', marginBottom: '20px' }}
+          description={description}
+          phone={phone}
+          website={website}
+          onClick={onClick}
+        />
       </div>
     </ExpansionPanelSummary>
   );
 
-  const body = (
+  const details = (
     <ExpansionPanelDetails>
       <section className="testing-location-list-item__details">
+        <dl className="summary d-md-none">
+          <dd className="detsummaryails__item">{driveThru.toString() === 'true' ? 'Drive Through' : ''}</dd>
+          <dd className="summary__item summary__item--semibold">{phone}</dd>
+        </dl>
+        <ExternalItemLinks
+          display={'d-md-none'}
+          margin={{ marginBottom: '15px' }}
+          description={description}
+          phone={phone}
+          website={website}
+        />
         <h4>Test Center Details:</h4>
         <dl className="details">
           {!isNullOrUndefined(props.testCriteria) && (
@@ -91,7 +94,7 @@ export default function TestingLocationListItem(props) {
               <dd>{boolToEng(props.driveThru)}</dd>
             </Fragment>
           )}
-          {!isNullOrUndefined(props.telescreeningAvailable) && (
+          {props.telescreeningAvailable && (
             <Fragment>
               <dt>Telescreening Available:</dt>
               <dd>{boolToEng(props.telescreeningAvailable)}</dd>
@@ -103,7 +106,7 @@ export default function TestingLocationListItem(props) {
               <dd>{boolToEng(props.acceptsThirdParty)}</dd>
             </Fragment>
           )}
-          {!isNullOrUndefined(props.referralRequired) && (
+          {!isNullOrUndefined(props.referralRequired) && props.referralRequired && (
             <Fragment>
               <dt>Doctor Referral Required:</dt>
               <dd>{boolToEng(props.referralRequired)}</dd>
@@ -115,20 +118,22 @@ export default function TestingLocationListItem(props) {
               <dd>{props.doctorReferralCriteria ? props.doctorReferralCriteria : 'None'}</dd>
             </Fragment>
           )}
-          {!isNullOrUndefined(props.acceptsInsurance) && (
+          {!isNullOrUndefined(props.acceptsInsurance) && props.acceptsInsurance && (
             <Fragment>
               <dt>Accepts Insurance:</dt>
               <dd>{boolToEng(props.acceptsInsurance)}</dd>
             </Fragment>
           )}
-          {!isNullOrUndefined(props.freeOrLowCost) && (
+          {!isNullOrUndefined(props.freeOrLowCost) && props.freeOrLowCost && (
             <Fragment>
               <dt>Free or Very Low Cost:</dt>
               <dd>{boolToEng(props.freeOrLowCost)}</dd>
             </Fragment>
           )}
           <div className="mt-3">
-            <Link to={'http://www.google.com'}>Suggest Change To Test Center Information</Link>
+            <a href={'https://airtable.com/shrVJrPQs4qQkcW4o?prefill_Name=' + props.title}
+              target='_blank'
+              rel='noopener noreferrer'>Suggest Change To Test Center Information</a>
             <p className="fontsize-12">
               <i>Last update: username 4/10/2020 12:38:00 PM</i>
             </p>
@@ -138,67 +143,12 @@ export default function TestingLocationListItem(props) {
     </ExpansionPanelDetails>
   );
 
-  return <CustomizedExpansionPanel index={index} summary={summary} body={body}></CustomizedExpansionPanel>;
-}
-
-const ExpansionPanel = withStyles({
-  root: {
-    border: '1px solid rgba(0, 0, 0, .125)',
-    borderLeft: 0,
-    borderRight: 0,
-    boxShadow: 'none',
-    transition: 'all 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
-    '&:not(:last-child)': {
-      borderBottom: 0,
-    },
-    '&:before': {
-      display: 'none',
-    },
-    '&$expanded': {
-      margin: 'auto',
-      boxShadow: '0px 18px 8px 20px rgba(0,0,0,.15)',
-    },
-  },
-  expanded: {},
-})(MuiExpansionPanel);
-
-const ExpansionPanelSummary = withStyles({
-  root: {
-    backgroundColor: '#fff',
-    borderTop: '.2px solid rgba(0, 0, 0, .125)',
-    marginBottom: -1,
-    minHeight: 56,
-    '&$expanded': {
-      minHeight: 56,
-    },
-  },
-  content: {
-    margin: '20px 0',
-    '&$expanded': {},
-  },
-  expanded: {},
-})(MuiExpansionPanelSummary);
-
-const ExpansionPanelDetails = withStyles((theme) => ({
-  root: {
-    backgroundColor: '#fff',
-    paddingTop: 0,
-    paddingBottom: 3,
-    boxShadow: 'inset 0px -11px 8px -10px rgba(0,0,0,.15)',
-  },
-}))(MuiExpansionPanelDetails);
-
-function CustomizedExpansionPanel(props) {
-  const [expanded, setExpanded] = React.useState('');
-
-  const handleChange = (index) => (event, newExpanded) => {
-    setExpanded(newExpanded ? index : false);
-  };
-
   return (
-    <ExpansionPanel square expanded={expanded === props.index} onChange={handleChange(props.index)}>
-      {props.summary}
-      {props.body}
-    </ExpansionPanel>
+    <CustomizedExpansionPanel
+      index={index}
+      summary={summary}
+      details={details}
+      onExpandedChange={onExpandedChange}
+    ></CustomizedExpansionPanel>
   );
 }

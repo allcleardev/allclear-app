@@ -1,46 +1,51 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import { bindAll } from 'lodash';
 import { Link } from 'react-router-dom';
 
-import Form from '@material-ui/core/Container';
-
-import { Button, Grid } from '@material-ui/core';
-
-import RoundHeader from '../components/general/headers/header-round';
-import PhoneNumberInput from '../components/general/inputs/phone-number-input';
-import LinearProgress from '@material-ui/core/LinearProgress';
-
-import { AppContext } from '@contexts/app.context';
 import PeopleService from '@services/people.service';
-import {bindAll} from 'lodash';
+import GAService from '@services/ga.service';
+
+import Header from '@general/headers/header';
+import OnboardingNavigation from '@general/navs/onboarding-navigation';
+import { AppContext } from '@contexts/app.context';
+
+import PhoneNumberInput from '@components/general/inputs/phone-number-input';
+import { ONBOARDING_NAV_ITEMS } from '@components/general/headers/header.constants';
+import { Button, Container, CircularProgress, withStyles } from '@material-ui/core';
+
+const DefaultButton = withStyles((theme) => ({
+  root: {
+    minWidth: '100%',
+    padding: '12px 16px',
+    fontWeight: '600',
+    color: '#fff',
+    marginBottom: 40,
+    borderRadius: 10,
+    fontSize: 17,
+    [theme.breakpoints.up('md')]: {
+      minWidth: 248,
+    },
+  },
+}))(Button);
 
 export default class SignInPage extends Component {
   static contextType = AppContext;
+  state = {
+    phone: undefined,
+    loading: false,
+    error: false,
+    message: undefined,
+    isSnackbarOpen: false,
+  };
 
   constructor(props) {
     super(props);
-
-    this.state = {
-      phone: undefined,
-      loading: false,
-      error: false,
-      message: undefined,
-      isSnackbarOpen: false,
-    };
-
+    bindAll(this, ['verifyLogin']);
     this.peopleService = PeopleService.getInstance();
-
-    bindAll(this, [
-      'verifyLogin',
-      'handleChange'
-    ]);
+    this.gaService = GAService.getInstance();
+    this.gaService.setScreenName('sign-in');
   }
 
-  //eslint-disable-next-line
-  handleChange (event) {
-    this.setState({ ...this.state, [event.target.name]: event.target.checked });
-  };
-
-  //eslint-disable-next-line
   async verifyLogin() {
     const { appState } = this.context;
     const phone = appState.person.phone;
@@ -48,11 +53,14 @@ export default class SignInPage extends Component {
     this.setState({ loading: true });
 
     if (!phone) {
-      this.setState({ loading: false });
-      return;
+      return this.setState({
+        error: true,
+        message: 'Please enter a valid phone number',
+        loading: false,
+      });
     }
 
-    const response = await this.peopleService.login({phone});
+    const response = await this.peopleService.login({ phone });
 
     if (!response.err) {
       this.props.history.push('/sign-in-verification');
@@ -79,39 +87,37 @@ export default class SignInPage extends Component {
 
   render() {
     return (
-      <div className="background-responsive">
-        <div className="login onboarding-page">
-          <RoundHeader>
-            <h1 className="heading">Phone Number</h1>
-            <h2 className="sub-heading">Enter your phone number to access your account.</h2>
-          </RoundHeader>
-          {this.state.loading === false ? (
-            <Form noValidate autoComplete="off" className="onboarding-body">
-              <div className="content-container phone-number-box">
-                <PhoneNumberInput onSubmit={() => this.verifyLogin()} className="hide-mobile"></PhoneNumberInput>
-                <Link to="/get-started" className="hide-mobile login">
-                  Create Account
-                </Link>
-                {this.state.error === true ? <p className="error">{this.state.message}</p> : ''}
-              </div>
+      <div className="login onboarding-page">
+        <Header navItems={ONBOARDING_NAV_ITEMS} enableBackBtn={true}>
+          <h1>Phone Number</h1>
+          <h2>Enter your phone number to access your account.</h2>
+        </Header>
 
-              <div className="button-container">
-                <Link to="/location" className="hide-desktop login">
-                  Create Account
-                </Link>
-                <Button onClick={() => this.verifyLogin()} variant="contained" color="primary" className="next">
-                  Send Verification Code
-                </Button>
-              </div>
-            </Form>
-          ) : (
-            <Grid container justify="center">
-              <Grid item xs={12} sm={6}>
-                <LinearProgress color="primary" value={50} variant="indeterminate" />
-              </Grid>
-            </Grid>
-          )}
-        </div>
+        {this.state.loading === false ? (
+          <Container className="onboarding-body">
+            <div className="content-container">
+              <PhoneNumberInput></PhoneNumberInput>
+              <Link to="/location" className="hide-mobile">
+                Create Account
+              </Link>
+              {this.state.error === true ? <p className="error">{this.state.message}</p> : ''}
+            </div>
+
+            <div style={{ width: '100%' }}>
+              <OnboardingNavigation
+                forwardOnClick={this.verifyLogin}
+                forwardText={'Send Verification Code'}
+              ></OnboardingNavigation>
+              <DefaultButton className="hide-desktop" onClick={() => this.props.history.push('/location')}>
+                Create Account
+              </DefaultButton>
+            </div>
+          </Container>
+        ) : (
+          <Container className="onboarding-body">
+            <CircularProgress color="primary" size={108} />
+          </Container>
+        )}
       </div>
     );
   }

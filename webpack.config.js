@@ -13,6 +13,7 @@ module.exports = {
       '@styles': path.resolve(__dirname, './src/styles'),
       '@util': path.resolve(__dirname, './src/util'),
       '@hooks': path.resolve(__dirname, './src/hooks'),
+      '@assets': path.resolve(__dirname, './src/assets'),
     },
-  }
+  },
 };

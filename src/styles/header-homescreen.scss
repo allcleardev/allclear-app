@@ -21,34 +21,11 @@
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    background: $gradient-background;
+    @include responsive-gradient;
 
     @media (min-width: $md) {
       border-radius: 0;
       height: 300px;
-    }
-  }
-
-  .mobile-content {
-    display: flex;
-    flex-direction: column;
-    align-self: flex-start;
-
-    @media (min-width: $md) {
-      display: none;
-    }
-
-    .btn-back-fab {
-      background-color: transparent; // overriding default fab btn styles
-      box-shadow: none; // overriding default fab btn styles
-
-      &:hover {
-        background-color: inherit;
-      }
-
-      &--hidden {
-        visibility: hidden; // hidden to preserve layout (instead of display: none)
-      }
     }
   }
 
