@@ -1,14 +1,15 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import MapMarker from './map-marker.js';
 import MyLocationBtn from './my-location-btn';
 import FacilityService from '../../services/facility.service.js';
-import {bindAll, get} from 'lodash';
-import {AppContext} from '@contexts/app.context';
+import { bindAll, get } from 'lodash';
+import { AppContext } from '@contexts/app.context';
 import MyLocationMapMarker from './my-location-map-marker.js';
 import SnackbarMessage from '@general/alerts/snackbar-message';
 import GAService from '@services/ga.service';
 import MapService from '@services/map.service';
+import { G_MAP_OPTIONS, G_MAP_DEFAULTS } from '@util/map.constants';
 
 export default class GoogleMap extends Component {
   static contextType = AppContext;
@@ -47,9 +48,10 @@ export default class GoogleMap extends Component {
   }
 
   async componentDidMount() {
-    const {appState} = this.context;
+    const { appState } = this.context;
     let latitude = get(appState, 'person.latitude');
     let longitude = get(appState, 'person.longitude');
+    this.isLoggedIn = get(appState, 'person.id');
 
 
     // not logged in
@@ -85,8 +87,8 @@ export default class GoogleMap extends Component {
 
     }
 
-    const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude}));
-    this._setLocations(result.data.records, {latitude, longitude});
+    const result = await this.facilityService.search(this._createSearchPayload({ latitude, longitude }));
+    this._setLocations(result.data.records, { latitude, longitude });
     latitude && longitude && this._panTo(latitude, longitude);
 
   }
@@ -119,7 +121,7 @@ export default class GoogleMap extends Component {
   }
 
   onMyLocationClicked() {
-    const {appState} = this.context;
+    const { appState } = this.context;
     const latitude = get(appState, 'person.latitude');
     const longitude = get(appState, 'person.longitude');
     this._panTo(latitude, longitude);
@@ -140,7 +142,7 @@ export default class GoogleMap extends Component {
 
   _setLocations(locations) {
     // update context state (for other components in map page)
-    const {setAppState, appState} = this.context;
+    const { setAppState, appState } = this.context;
 
     this.mapService.mapRef = this.gMapRef;
 
@@ -162,7 +164,7 @@ export default class GoogleMap extends Component {
 
     const latitude = pos.coords.latitude;
     const longitude = pos.coords.longitude;
-    const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude}));
+    const result = await this.facilityService.search(this._createSearchPayload({ latitude, longitude }));
     this._setLocations(result.data.records, {
       latitude,
       longitude,
@@ -171,8 +173,8 @@ export default class GoogleMap extends Component {
 
   };
 
-  _createSearchPayload({latitude, longitude, shouldIgnoreFilters = false}) {
-    const {appState, setAppState} = this.context;
+  _createSearchPayload({ latitude, longitude, shouldIgnoreFilters = false }) {
+    const { appState, setAppState } = this.context;
     const searchCriteria = shouldIgnoreFilters ? {} : appState.searchCriteria;
 
     setAppState({
@@ -196,7 +198,7 @@ export default class GoogleMap extends Component {
   }
 
   async _search(latitude, longitude) {
-    const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude}));
+    const result = await this.facilityService.search(this._createSearchPayload({ latitude, longitude }));
     this._setLocations(result.data.records, {
       latitude,
       longitude,
@@ -211,7 +213,7 @@ export default class GoogleMap extends Component {
 
     return (
       <div
-        style={{height: '100%', width: '100%'}}
+        style={{ height: '100%', width: '100%' }}
         onClick={this.props.onMapClick}
       >
         <SnackbarMessage
@@ -225,7 +227,7 @@ export default class GoogleMap extends Component {
         <GoogleMapReact
           ref={this.gMapRef}
           options={G_MAP_OPTIONS}
-          bootstrapURLKeys={{key: 'AIzaSyAPB7ER1lGxDSZICjq9lmqgxvnlSJCIuYw'}}
+          bootstrapURLKeys={{ key: 'AIzaSyAPB7ER1lGxDSZICjq9lmqgxvnlSJCIuYw' }}
           defaultCenter={G_MAP_DEFAULTS.center}
           defaultZoom={G_MAP_DEFAULTS.zoom}
           zoom={this.state.zoom}
@@ -244,95 +246,12 @@ export default class GoogleMap extends Component {
               text={index + 1}
             />
           ))}
-          <MyLocationMapMarker key={homeIndex} lat={homeLat} lng={homeLng}/>
+          <MyLocationMapMarker key={homeIndex} lat={homeLat} lng={homeLng} />
         </GoogleMapReact>
-        <MyLocationBtn aria-label="Go to Profile Location" onClick={() => this.onMyLocationClicked()}/>
-
+        {this.isLoggedIn && <MyLocationBtn aria-label="Go to Profile Location" onClick={() => this.onMyLocationClicked()} />}
       </div>
     );
   }
 }
 
-const G_MAP_OPTIONS = {
-  styles: [
-    {
-      featureType: 'administrative',
-      elementType: 'geometry',
-      stylers: [
-        {
-          visibility: 'off',
-        },
-      ],
-    },
-    {
-      featureType: 'administrative.land_parcel',
-      elementType: 'labels',
-      stylers: [
-        {
-          visibility: 'off',
-        },
-      ],
-    },
-    {
-      featureType: 'administrative.neighborhood',
-      elementType: 'labels.text',
-      stylers: [
-        {
-          visibility: 'off',
-        },
-      ],
-    },
-    {
-      featureType: 'poi',
-      stylers: [
-        {
-          visibility: 'off',
-        },
-      ],
-    },
-    {
-      featureType: 'poi',
-      elementType: 'labels.text',
-      stylers: [
-        {
-          visibility: 'off',
-        },
-      ],
-    },
-    {
-      featureType: 'road',
-      elementType: 'labels.icon',
-      stylers: [
-        {
-          visibility: 'off',
-        },
-      ],
-    },
-    {
-      featureType: 'road.local',
-      elementType: 'labels',
-      stylers: [
-        {
-          visibility: 'off',
-        },
-      ],
-    },
-    {
-      featureType: 'transit',
-      stylers: [
-        {
-          visibility: 'off',
-        },
-      ],
-    },
-  ],
-  fullscreenControl: false,
-};
 
-const G_MAP_DEFAULTS = {
-  center: {
-    lat: 40.7575139,
-    lng: -73.9861322,
-  },
-  zoom: 12,
-};
