@@ -256,10 +256,9 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'visible',
     height: `${collapseHeight}%`,
     [theme.breakpoints.up('md')]: {
-      height: '100%',
       width: expandWidth,
-      border: 0,
       boxShadow: '5px 0px 20px rgba(0, 0, 0, 0.1)',
+      height: 'calc(100% - 70px)',
     },
   },
   content: {
