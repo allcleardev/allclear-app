@@ -2,7 +2,7 @@
 import React, {useState, useContext, useEffect} from 'react';
 import clsx from 'clsx';
 import AnimateHeight from 'react-animate-height';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import {get, pick} from 'lodash';
 import qs from 'qs';
 
@@ -12,17 +12,15 @@ import UpdateCriteriaModal from '@general/modals/update-criteria-modal';
 import GoogleMap from '@components/map-components/google-map';
 import TestingLocationListItem from '@components/map-components/testing-location-list-item';
 import MobileTopBar from '@components/map-components/mobile-top-bar';
-import EditFiltersBtn from '@components/map-components/edit-filters-btn';
-import Box from '@material-ui/core/Container';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 
 // other
 import ModalService from '@services/modal.service';
-import { AppContext } from '@contexts/app.context';
-import { useWindowResize } from '@hooks/general.hooks';
-import { getNumActiveFilters, getActiveFilters } from '@util/general.helpers';
-import GAService, { MAP_PAGE_GA_EVENTS, GA_EVENT_MAP } from '@services/ga.service';
+import {AppContext} from '@contexts/app.context';
+import {useWindowResize} from '@hooks/general.hooks';
+import {getActiveFilters} from '@util/general.helpers';
+import GAService, {MAP_PAGE_GA_EVENTS, GA_EVENT_MAP} from '@services/ga.service';
 import GoogleMapsAutocomplete from '@general/inputs/google-maps-autocomplete';
 import MapService from '@services/map.service';
 import ListLoadingSpinner from '../components/map-components/list-loading-spinner';
@@ -39,7 +37,7 @@ export default function MapPage() {
   const DRAWER_COLLAPSED_HEIGHT = '40vh';
 
   // state & global state
-  const { setAppState, appState } = useContext(AppContext);
+  const {setAppState, appState} = useContext(AppContext);
   const history = useHistory();
   const [width, height] = useWindowResize(onWindowResize);
   const initialState = {
@@ -48,12 +46,12 @@ export default function MapPage() {
     windowWidth: width,
     windowHeight: height,
     searchFilterActive: false,
-    didInit: false
+    didInitSearch: false
   };
   const [mapState, setMapState] = useState(initialState);
   const [drawerHeight, setDrawerHeight] = useState(DRAWER_COLLAPSED_HEIGHT);
   const locations = get(appState, 'map.locations') || [];
-  const numActiveFilters = getNumActiveFilters(get(appState, 'searchCriteria'));
+  // const numActiveFilters = getNumActiveFilters(get(appState, 'searchCriteria'));
   const isLoggedIn = appState.sessionId ? true : false;
   const isDrawerExpanded = drawerHeight === DRAWER_EXPANDED_HEIGHT;
   let initialSearchVal;
@@ -62,13 +60,13 @@ export default function MapPage() {
   useEffect(() => {
     setMapState({
       ...mapState,
-      didInit: true,
+      didInitSearch: true,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // callback handlers
-  function onWindowResize({ width, height }) {
+  function onWindowResize({width, height}) {
     if (width <= 960) {
       setMapState({
         ...mapState,
@@ -97,7 +95,7 @@ export default function MapPage() {
 
   async function onLocationSelected(bool, newLocation) {
 
-    const search = pick(newLocation, ['description', 'latitude', 'longitude', 'id' ]);
+    const search = pick(newLocation, ['description', 'latitude', 'longitude', 'id']);
     history.push({
       pathname: '/map',
       search: qs.stringify({
@@ -107,7 +105,7 @@ export default function MapPage() {
     });
 
     if (get(newLocation, 'description')) {
-      const { latitude, longitude } = newLocation;
+      const {latitude, longitude} = newLocation;
 
       await mapService.onLocationAccepted({
         coords: {
@@ -162,14 +160,14 @@ export default function MapPage() {
     gaService.sendEvent(eventName, additionalParams);
   }
 
-  const { isOpen, anchor } = mapState;
+  const {isOpen, anchor} = mapState;
 
   // get modal service so we can toggle it open
   let modalService = ModalService.getInstance();
 
   initialSearchVal = qs.parse(history.location.search.substring(1));
   initialSearchVal = get(initialSearchVal, 'search.description');
-  initialSearchVal = (mapState.didInit) ? undefined : initialSearchVal;
+  initialSearchVal = (mapState.didInitSearch) ? undefined : initialSearchVal;
 
   return (
     <div className="map-page">
@@ -189,7 +187,7 @@ export default function MapPage() {
         variant="persistent"
         anchor={anchor}
         open={isOpen}
-        style={{ height: drawerHeight, zIndex: 4 }}
+        style={{height: drawerHeight, zIndex: 4}}
       >
         <div className="list-gradient"></div>
         <AnimateHeight
@@ -205,29 +203,19 @@ export default function MapPage() {
             }}
             className="side-drawer hide-scrollbar wid100-sm"
           >
+
             {anchor === 'left' &&
             <GoogleMapsAutocomplete
               searchIconColor={'lightgray'}
               focusOnRender={true}
               locationSelected={onLocationSelected}
+              initialValue={initialSearchVal}
               onClear={onLocationCleared}
               noOptionsText={'Please Enter a Search Term to View Results'}
             ></GoogleMapsAutocomplete>
             }
 
-            {anchor === 'left' && appState.map.isListLoading === false && (
-              <Box
-                className={'button-box'}
-                style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
-              >
-                <EditFiltersBtn
-                  numActiveFilters={numActiveFilters}
-                  onClick={onEditFiltersBtnClick}
-                />
-              </Box>
-            )}
-
-            {appState.map.isListLoading === true && (<ListLoadingSpinner />)}
+            {appState.map.isListLoading === true && (<ListLoadingSpinner/>)}
 
             {locations &&
             locations.map((result, index) => (
@@ -250,7 +238,7 @@ export default function MapPage() {
 
 
             {locations.length === 0 && appState.map.isListLoading === false && (
-              <h2 style={{ display: 'flex', justifyContent: 'center' }}>No Results Found </h2>
+              <h2 style={{display: 'flex', justifyContent: 'center'}}>No Results Found </h2>
             )}
           </div>
         </AnimateHeight>
@@ -260,7 +248,7 @@ export default function MapPage() {
           [classes.contentShift]: isOpen,
         })}
       >
-        <div className="map-fullscreen" style={{ height: anchor === 'bottom' && isDrawerExpanded ? '30vh' : null }}>
+        <div className="map-fullscreen" style={{height: anchor === 'bottom' && isDrawerExpanded ? '30vh' : null}}>
           <GoogleMap onMapClick={onMapClick}></GoogleMap>
           {anchor === 'bottom' &&
           <Button className="view-type-button" onClick={onDrawerSwipe}>
@@ -343,3 +331,25 @@ const useStyles = makeStyles((theme) => ({
 //     },
 //   });
 //
+
+// useEffect(() => {
+//
+//   const latitude = get(appState, 'route.params.search.latitude');
+//   const longitude = get(appState, 'route.params.search.longitude');
+//
+//   if (latitude && longitude && !mapState.didInitMap) {
+//     mapService.onLocationAccepted({
+//       coords: {
+//         latitude, longitude
+//       }
+//     }, true);
+//     setMapState({
+//       ...mapState,
+//       didInitMap: true,
+//     });
+//   }
+//
+//
+//   // eslint-disable-next-line react-hooks/exhaustive-deps
+// }, [appState]);
+

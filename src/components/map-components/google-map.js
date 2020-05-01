@@ -9,8 +9,10 @@ import MyLocationMapMarker from './my-location-map-marker.js';
 import SnackbarMessage from '@general/alerts/snackbar-message';
 import GAService from '@services/ga.service';
 import MapService from '@services/map.service';
+import { withRouter} from 'react-router';
+import {getRouteQueryParams} from '@util/general.helpers';
 
-export default class GoogleMap extends Component {
+class GoogleMap extends Component {
   static contextType = AppContext;
 
   constructor(props) {
@@ -51,9 +53,17 @@ export default class GoogleMap extends Component {
     let latitude = get(appState, 'person.latitude');
     let longitude = get(appState, 'person.longitude');
 
+    const params = getRouteQueryParams(this.props.location);
+    const urlLat = get(params, 'search.latitude');
+    const urlLong = get(params, 'search.longitude');
+    // console.log(appState, params, urlLat, urlLong)
 
     // not logged in
-    if (!latitude || !longitude) {
+
+    if(urlLat && urlLong){
+      latitude = urlLat;
+      longitude = urlLong;
+    }else if (!latitude || !longitude) {
 
       // if IP check succeeded, use that
       let ipData = await this.mapService.ipCheck()
@@ -82,7 +92,6 @@ export default class GoogleMap extends Component {
         longitude = G_MAP_DEFAULTS.center.lng;
 
       }
-
     }
 
     const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude}));
@@ -252,6 +261,8 @@ export default class GoogleMap extends Component {
     );
   }
 }
+
+export default withRouter(GoogleMap);
 
 const G_MAP_OPTIONS = {
   styles: [
