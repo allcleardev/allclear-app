@@ -178,28 +178,33 @@ export default function MapPage() {
               </Container>
             </Fragment>
           )}
-          {locations &&
-            locations.map((result, index) => (
-              <TestingLocationListItem
-                id={result.id}
-                key={index}
-                index={index}
-                title={result.name}
-                description={result.address}
-                city_state={result.city + ', ' + result.state}
-                service_time={result.hours}
-                driveThru={result.driveThru}
-                phone={result.phone}
-                website={result.url}
-                {...result}
-                onActionClick={onActionClick}
-                onTestingLocationExpand={onTestingLocationExpand}
-              ></TestingLocationListItem>
-            ))}
+          {appState.map.isListLoading === true ? (
+            <ListLoadingSpinner />
+          ) : (
+            <Fragment>
+              {locations &&
+                locations.map((result, index) => (
+                  <TestingLocationListItem
+                    id={result.id}
+                    key={index}
+                    index={index}
+                    title={result.name}
+                    description={result.address}
+                    city_state={result.city + ', ' + result.state}
+                    service_time={result.hours}
+                    driveThru={result.driveThru}
+                    phone={result.phone}
+                    website={result.url}
+                    {...result}
+                    onActionClick={onActionClick}
+                    onTestingLocationExpand={onTestingLocationExpand}
+                  ></TestingLocationListItem>
+                ))}
+            </Fragment>
+          )}
           {locations.length === 0 && appState.map.isListLoading === false && (
             <p style={{ margin: 20, textAlign: 'center', fontSize: '1.7em' }}>No Results Found</p>
           )}
-          {appState.map.isListLoading === true && <ListLoadingSpinner />}
         </div>
       </Drawer>
       <main className={classes.content}>

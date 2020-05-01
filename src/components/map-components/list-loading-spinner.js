@@ -5,12 +5,10 @@ export default function ListLoadingSpinner() {
   return (
     <div
       style={{
-        paddingTop: '100px',
-        height: '80vh !important',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'top',
+        padding: 40,
       }}
     >
       <CircularProgress color="primary" size={108} />
