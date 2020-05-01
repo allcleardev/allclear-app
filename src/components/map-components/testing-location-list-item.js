@@ -7,7 +7,7 @@ import CustomizedExpansionPanel, { ExpansionPanelSummary, ExpansionPanelDetails 
 export default function TestingLocationListItem(props) {
   const { id, index, title, description, service_time, driveThru, phone, website } = props; // values
   const { onActionClick, onTestingLocationExpand } = props; // events
-  const updatedAt = new Date(props.updatedAt)
+  const updatedAt = new Date(props.updatedAt);
 
   const onClick = (evt, buttonName) => {
     evt.stopPropagation();
@@ -54,7 +54,7 @@ export default function TestingLocationListItem(props) {
       </div>
     </ExpansionPanelSummary>
   );
-debugger
+
   const details = (
     <ExpansionPanelDetails>
       <section className="testing-location-list-item__details">
@@ -136,7 +136,7 @@ debugger
               target='_blank'
               rel='noopener noreferrer'>Suggest Change To Test Center Information</a>
             <p className="fontsize-12">
-              <i>Last update: {updatedAt.toString()}</i>
+              <i>Last update: {updatedAt.toLocaleString()}</i>
             </p>
           </div>
         </dl>
