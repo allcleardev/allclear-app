@@ -68,19 +68,19 @@ initialAppState = get(possSavedState, 'sessionId') ? possSavedState : initialApp
 
 export function AppProvider(props) {
   const location = useLocation();
-  const params = getRouteQueryParams(location);
   const [appState, setAppState] = useState(initialAppState);
 
   // as routes change, parse qs into an object
   useEffect(() => {
+    const params = getRouteQueryParams(location);
     setAppState({
-        ...appState,
-        route: {
-          ...appState.route,
-          params,
-        }
+      ...appState,
+      route: {
+        ...appState.route,
+        params,
       }
-    );
+    });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 

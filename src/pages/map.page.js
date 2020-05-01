@@ -3,7 +3,7 @@ import React, {useState, useContext, useEffect} from 'react';
 import clsx from 'clsx';
 import AnimateHeight from 'react-animate-height';
 import {makeStyles} from '@material-ui/core/styles';
-import {get, pick} from 'lodash';
+import { get, pick} from 'lodash';
 import qs from 'qs';
 
 // components / icons
@@ -46,17 +46,30 @@ export default function MapPage() {
     windowWidth: width,
     windowHeight: height,
     searchFilterActive: false,
-    didInitSearch: false
+    didInitSearch: false,
+    didClear: false,
   };
   const [mapState, setMapState] = useState(initialState);
   const [drawerHeight, setDrawerHeight] = useState(DRAWER_COLLAPSED_HEIGHT);
   const locations = get(appState, 'map.locations') || [];
-  // const numActiveFilters = getNumActiveFilters(get(appState, 'searchCriteria'));
   const isLoggedIn = appState.sessionId ? true : false;
   const isDrawerExpanded = drawerHeight === DRAWER_EXPANDED_HEIGHT;
+  const {isOpen, anchor} = mapState;
+  // const numActiveFilters = getNumActiveFilters(get(appState, 'searchCriteria'));
   let initialSearchVal;
 
-  // lifecycle hooks
+  // get modal service so we can toggle it open
+  let modalService = ModalService.getInstance();
+  let searchParams = getRouteQueryParams(history.location);
+
+  // for setting initial search in autocomplete
+  initialSearchVal = get(searchParams, 'search.description');
+  initialSearchVal = (mapState.didInitSearch) ? undefined : initialSearchVal;
+
+
+  /******************************************************************
+   * LIFECYCLE HOOKS
+   ******************************************************************/
   useEffect(() => {
     setMapState({
       ...mapState,
@@ -65,7 +78,28 @@ export default function MapPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // callback handlers
+  // to reset URL params after the waterfall of URL updates (this will be the final update in the chain)
+  useEffect(() => {
+    if(mapState.didClear){
+
+      history.replace({
+        pathname: '/map',
+        search: qs.stringify({})
+      });
+
+      setMapState({
+        ...mapState,
+        didClear: false,
+      });
+
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [appState]);
+
+  /******************************************************************
+   * HANDLERS
+   ******************************************************************/
   function onWindowResize({width, height}) {
     if (width <= 960) {
       setMapState({
@@ -119,11 +153,28 @@ export default function MapPage() {
   async function onLocationCleared() {
     const latitude = get(appState, 'person.latitude');
     const longitude = get(appState, 'person.longitude');
+
+    // set a temp flag for lifecycle hook to know a clear happened
+    setMapState({
+      ...mapState,
+      didClear: true,
+    });
+
+    // clear route app state
+    setAppState({
+      ...appState,
+      route: {
+        params: {}
+      }
+    });
+
+
     (latitude && longitude) && await mapService.onLocationAccepted({
       coords: {
         latitude, longitude
       }
     });
+
   }
 
   function onEditFiltersBtnClick() {
@@ -143,7 +194,10 @@ export default function MapPage() {
     }
   }
 
-  // analytics handlers
+  /******************************************************************
+   * ANALYTICS
+   ******************************************************************/
+
   function onActionClick(action, itemId, itemIndex, itemName) {
     handleGAEvent(action, itemId, itemIndex, itemName);
   }
@@ -167,15 +221,6 @@ export default function MapPage() {
     const additionalParams = MAP_PAGE_GA_EVENTS(itemId, itemName, itemIndex, enabledFilters);
     gaService.sendEvent(eventName, additionalParams);
   }
-
-  const {isOpen, anchor} = mapState;
-
-  // get modal service so we can toggle it open
-  let modalService = ModalService.getInstance();
-
-  let searchParams = getRouteQueryParams(history.location);
-  initialSearchVal = get(searchParams, 'search.description');
-  initialSearchVal = (mapState.didInitSearch) ? undefined : initialSearchVal;
 
   return (
     <div className="map-page">
