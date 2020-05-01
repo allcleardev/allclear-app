@@ -71,6 +71,7 @@
     "@general": "./src/components/general",
     "@svg": "./src/components/svg",
     "@pages": "./src/pages",
+    "@routes": "./src/routes",
     "@contexts": "./src/contexts",
     "@services": "./src/services",
     "@styles": "./src/styles",

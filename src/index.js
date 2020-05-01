@@ -2,7 +2,7 @@ import React from 'react';
 // todo: init w library instead
 // import ReactGA from 'react-ga';
 import ReactDOM from 'react-dom';
-import {colorLog, loadScript} from './util/general.helpers';
+import {colorLog, loadScript} from '@util/general.helpers';
 import LogRocket from 'logrocket';
 import setupLogRocketReact from 'logrocket-react';
 
@@ -10,7 +10,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
 
 import theme from './theme';
-import App from './App';
+import Router from './Router';
 
 import * as serviceWorker from './service-worker';
 import { bootstrapAxios } from '@util/bootstrap.helpers';
@@ -55,7 +55,7 @@ ReactDOM.render(
   <ThemeProvider theme={theme}>
     {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
     <CssBaseline />
-    <App />
+    <Router />
   </ThemeProvider>,
   document.getElementById('root'),
 );

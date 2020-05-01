@@ -17,7 +17,7 @@ import ModalService from '@services/modal.service';
 import FacilityService from '@services/facility.service';
 
 export default function UpdateCriteriaModal() {
-  // todo: this will probably have to move into App.js because it will be needed by all different parts of the app
+  // todo: this will probably have to move into Router.js because it will be needed by all different parts of the app
   const modalService = ModalService.getInstance();
   modalService.registerModal('criteria', toggleModal);
 

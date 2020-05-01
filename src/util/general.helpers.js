@@ -1,4 +1,5 @@
 import {isUndefined, isNull, reduce, lowerCase} from 'lodash';
+import qs from 'qs';
 
 export function colorLog(color, input) {
   console.log(`%c${input}`, `color:${color};`);
@@ -42,6 +43,13 @@ export function loadScript(file) {
   script.async = true;
   script.src = file;
   document.head.appendChild(script);
+}
+
+export function getRouteQueryParams(location) {
+  let searchParams = location.search;
+  searchParams = searchParams.replace('?', '');
+  searchParams = qs.parse(searchParams, []);
+  return searchParams;
 }
 
 export function metersToMiles(i) {
