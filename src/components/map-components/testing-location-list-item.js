@@ -41,10 +41,10 @@ export default function TestingLocationListItem(props) {
             {index + 1}. {title}
           </span>
           {isNewLocation(createdAt) && (
-            <span className="new-test-center-display">
-              <FiberManualRecordIcon />
-              <span>New</span>
-            </span>
+            <div className="new-test-center-display">
+              <span><FiberManualRecordIcon /></span>
+              <span style={{marginTop: '2px'}}>New</span>
+            </div>
           )}
         </div>
 

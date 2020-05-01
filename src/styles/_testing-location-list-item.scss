@@ -22,9 +22,10 @@
       margin-left: 10px;
       position: absolute;
       font-weight: 500;
+      display: inline-flex;
 
       .MuiSvgIcon-root {
-        margin-bottom: 3px;
+        font-size: 1.3rem;
       }
     }
   }
