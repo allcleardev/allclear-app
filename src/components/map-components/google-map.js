@@ -3,14 +3,14 @@ import GoogleMapReact from 'google-map-react';
 import MapMarker from './map-marker.js';
 import MyLocationBtn from './my-location-btn';
 import FacilityService from '../../services/facility.service.js';
-import {bindAll, get} from 'lodash';
+import {bindAll, findIndex, get} from 'lodash';
 import {AppContext} from '@contexts/app.context';
 import MyLocationMapMarker from './my-location-map-marker.js';
 import SnackbarMessage from '@general/alerts/snackbar-message';
 import GAService from '@services/ga.service';
 import MapService from '@services/map.service';
-import { withRouter} from 'react-router';
-import {getRouteQueryParams} from '@util/general.helpers';
+import {withRouter} from 'react-router';
+import {clickMapMarker, getRouteQueryParams} from '@util/general.helpers';
 
 class GoogleMap extends Component {
   static contextType = AppContext;
@@ -60,10 +60,10 @@ class GoogleMap extends Component {
 
     // not logged in
 
-    if(urlLat && urlLong){
+    if (urlLat && urlLong) {
       latitude = urlLat;
       longitude = urlLong;
-    }else if (!latitude || !longitude) {
+    } else if (!latitude || !longitude) {
 
       // if IP check succeeded, use that
       let ipData = await this.mapService.ipCheck()
@@ -95,8 +95,19 @@ class GoogleMap extends Component {
     }
 
     const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude}));
-    this._setLocations(result.data.records, {latitude, longitude});
+
+    // finally, select a pin if its in the url
+    const selection = get(params, 'selection');
+    const locations = get(result, 'data.records');
+    this._setLocations(locations, {latitude, longitude});
     latitude && longitude && this._panTo(latitude, longitude);
+
+    if (selection) {
+      const index = findIndex(locations, ['name', selection]);
+      if (index !== -1) {
+        clickMapMarker(appState, index, this.props.history, locations);
+      }
+    }
 
   }
 
@@ -247,7 +258,6 @@ class GoogleMap extends Component {
             <MapMarker
               key={index}
               index={index}
-              length={locations.length}
               lat={data.latitude}
               lng={data.longitude}
               text={index + 1}

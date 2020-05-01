@@ -19,7 +19,7 @@ import Button from '@material-ui/core/Button';
 import ModalService from '@services/modal.service';
 import {AppContext} from '@contexts/app.context';
 import {useWindowResize} from '@hooks/general.hooks';
-import {getActiveFilters} from '@util/general.helpers';
+import {getActiveFilters, getRouteQueryParams} from '@util/general.helpers';
 import GAService, {MAP_PAGE_GA_EVENTS, GA_EVENT_MAP} from '@services/ga.service';
 import GoogleMapsAutocomplete from '@general/inputs/google-maps-autocomplete';
 import MapService from '@services/map.service';
@@ -165,8 +165,8 @@ export default function MapPage() {
   // get modal service so we can toggle it open
   let modalService = ModalService.getInstance();
 
-  initialSearchVal = qs.parse(history.location.search.substring(1));
-  initialSearchVal = get(initialSearchVal, 'search.description');
+  let searchParams = getRouteQueryParams(history.location);
+  initialSearchVal = get(searchParams, 'search.description');
   initialSearchVal = (mapState.didInitSearch) ? undefined : initialSearchVal;
 
   return (
