@@ -21,7 +21,7 @@ export default class GoogleMap extends Component {
       isSnackbarOpen: false,
       snackbarMessage: 'Browser location declined. Using location from your profile instead.',
       snackbarSeverity: 'warning',
-      zoom: G_MAP_DEFAULTS.zoom
+      zoom: G_MAP_DEFAULTS.zoom,
     };
 
     bindAll(this, [
@@ -53,49 +53,42 @@ export default class GoogleMap extends Component {
     let longitude = get(appState, 'person.longitude');
     this.isLoggedIn = get(appState, 'person.id');
 
-
     // not logged in
     if (!latitude || !longitude) {
-
       // if IP check succeeded, use that
-      let ipData = await this.mapService.ipCheck()
-        .catch(() => {
-          this.setState({
-            isSnackbarOpen: true,
-            snackbarMessage: 'Enter your location to see results near you.',
-            snackbarSeverity: 'info'
-          });
-          latitude = G_MAP_DEFAULTS.center.lat;
-          longitude = G_MAP_DEFAULTS.center.lng;
+      let ipData = await this.mapService.ipCheck().catch(() => {
+        this.setState({
+          isSnackbarOpen: true,
+          snackbarMessage: 'Enter your location to see results near you.',
+          snackbarSeverity: 'info',
         });
+        latitude = G_MAP_DEFAULTS.center.lat;
+        longitude = G_MAP_DEFAULTS.center.lng;
+      });
 
       latitude = get(ipData, 'data.lat');
       longitude = get(ipData, 'data.lon');
 
       // if IP check failed too, just use defaults (NYC)
       if (!latitude || !longitude) {
-
         this.setState({
           isSnackbarOpen: true,
           snackbarMessage: 'Enter your location to see results near you.',
-          snackbarSeverity: 'info'
+          snackbarSeverity: 'info',
         });
         latitude = G_MAP_DEFAULTS.center.lat;
         longitude = G_MAP_DEFAULTS.center.lng;
-
       }
-
     }
 
     const result = await this.facilityService.search(this._createSearchPayload({ latitude, longitude }));
     this._setLocations(result.data.records, { latitude, longitude });
     latitude && longitude && this._panTo(latitude, longitude);
-
   }
 
   handleSnackbarClose() {
     this.setState({
-      isSnackbarOpen: false
+      isSnackbarOpen: false,
     });
   }
 
@@ -161,7 +154,6 @@ export default class GoogleMap extends Component {
    ******************************************************************/
 
   async onLocationAccepted(pos) {
-
     const latitude = pos.coords.latitude;
     const longitude = pos.coords.longitude;
     const result = await this.facilityService.search(this._createSearchPayload({ latitude, longitude }));
@@ -170,8 +162,7 @@ export default class GoogleMap extends Component {
       longitude,
     });
     this._panTo(latitude, longitude);
-
-  };
+  }
 
   _createSearchPayload({ latitude, longitude, shouldIgnoreFilters = false }) {
     const { appState, setAppState } = this.context;
@@ -183,8 +174,8 @@ export default class GoogleMap extends Component {
         ...appState.map,
         isListLoading: true,
         latitude,
-        longitude
-      }
+        longitude,
+      },
     });
 
     return {
@@ -212,10 +203,7 @@ export default class GoogleMap extends Component {
     const homeIndex = locations.length;
 
     return (
-      <div
-        style={{ height: '100%', width: '100%' }}
-        onClick={this.props.onMapClick}
-      >
+      <div className="google-map" style={{ height: '100%', width: '100%' }} onClick={this.props.onMapClick}>
         <SnackbarMessage
           snackbarClass={'snackbar--map'}
           isOpen={this.state.isSnackbarOpen}
@@ -248,10 +236,10 @@ export default class GoogleMap extends Component {
           ))}
           <MyLocationMapMarker key={homeIndex} lat={homeLat} lng={homeLng} />
         </GoogleMapReact>
-        {this.isLoggedIn && <MyLocationBtn aria-label="Go to Profile Location" onClick={() => this.onMyLocationClicked()} />}
+        {this.isLoggedIn && (
+          <MyLocationBtn aria-label="Go to Profile Location" onClick={() => this.onMyLocationClicked()} />
+        )}
       </div>
     );
   }
 }
-
-

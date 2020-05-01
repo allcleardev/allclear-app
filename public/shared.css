@@ -3,6 +3,11 @@
   -- move component specific styles into its respective scss file
 */
 
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
 body {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#31c9c4', endColorstr='#0f92ee', GradientType=0); /* IE6-9 */
   padding: 0px;

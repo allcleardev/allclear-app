@@ -1,5 +1,6 @@
 .mobile-menu {
-  @media (min-width: $md + 1) {
+  z-index: 1;
+  @media (min-width: $md) {
     display: none;
   }
 
