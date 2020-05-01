@@ -2,14 +2,31 @@
   $black: #151522;
   $grey: #999;
 
-  h3 {
-    line-height: 22px;
-    font-weight: 600;
-    font-size: 16px;
-    color: $black;
+  .card-title {
+    .title-text {
+      line-height: 22px;
+      font-weight: 600;
+      font-size: 16px;
+      color: $black;
+      display: inline-block;
+      max-width: 305px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      vertical-align: middle;
+    }
 
-    span {
-      color: $grey;
+    .new-test-center-display {
+      color: #ff771a;
+      font-size: 14px;
+      margin-left: 10px;
+      position: absolute;
+      font-weight: 500;
+      display: inline-flex;
+
+      .MuiSvgIcon-root {
+        font-size: 1.3rem;
+      }
     }
   }
 
@@ -69,5 +86,21 @@
   @media (max-width: 359px) {
     margin-top: 8px;
     display: block;
+  }
+}
+
+.MuiExpansionPanelSummary-content.Mui-expanded {
+  .card-title {
+    .title-text {
+      line-height: 22px;
+      font-weight: 600;
+      font-size: 16px;
+      color: #151522;
+      display: inline-block;
+      vertical-align: middle;
+      white-space: normal;
+      text-overflow: inherit;
+      overflow: hidden;
+    }
   }
 }
