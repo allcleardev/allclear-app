@@ -20,7 +20,7 @@ export default function TestingLocationListItem(props) {
     onTestingLocationExpand(id, itemIndex, title, isExpanded);
   };
 
-  const checkDate = (date) => {
+  const isNewLocation = (date) => {
     const oneHour = 60 * 60 * 1000; /* milliseconds */
     const createdAt = new Date(date);
     const currentDate = new Date();
@@ -40,7 +40,7 @@ export default function TestingLocationListItem(props) {
           <span className="title-text">
             {index + 1}. {title}
           </span>
-          {checkDate(createdAt) && (
+          {isNewLocation(createdAt) && (
             <span className="new-test-center-display">
               <FiberManualRecordIcon />
               <span>New</span>
