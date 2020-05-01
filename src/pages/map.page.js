@@ -151,6 +151,14 @@ export default function MapPage() {
   function onTestingLocationExpand(itemId, itemIndex, itemName, isExpanded) {
     const eventKey = isExpanded ? 'expand' : 'contract';
     handleGAEvent(eventKey, itemId, itemIndex, itemName);
+    const selection = itemName;
+    history.push({
+      pathname: '/map',
+      search: qs.stringify({
+        ...appState.route.params,
+        selection
+      }),
+    });
   }
 
   function handleGAEvent(eventKey, itemId, itemIndex, itemName) {
