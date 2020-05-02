@@ -3,13 +3,15 @@ import GoogleMapReact from 'google-map-react';
 import MapMarker from './map-marker.js';
 import MyLocationBtn from './my-location-btn';
 import FacilityService from '../../services/facility.service.js';
-import {bindAll, get} from 'lodash';
+import {bindAll, findIndex, get} from 'lodash';
 import {AppContext} from '@contexts/app.context';
 import MyLocationMapMarker from './my-location-map-marker.js';
 import SnackbarMessage from '@general/alerts/snackbar-message';
 import GAService from '@services/ga.service';
 import MapService from '@services/map.service';
 import {withRouter} from 'react-router';
+import {G_MAP_DEFAULTS, G_MAP_OPTIONS} from '@util/map.constants';
+import {clickMapMarker, getRouteQueryParams} from '@util/general.helpers';
 
 class GoogleMap extends Component {
   static contextType = AppContext;

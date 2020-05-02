@@ -1,7 +1,6 @@
 // external
 import React, {useState, useContext, useEffect,Fragment} from 'react';
 import clsx from 'clsx';
-import AnimateHeight from 'react-animate-height';
 import {makeStyles} from '@material-ui/core/styles';
 import { get, pick} from 'lodash';
 import qs from 'qs';
@@ -21,7 +20,7 @@ import Button from '@material-ui/core/Button';
 import ModalService from '@services/modal.service';
 import { AppContext } from '@contexts/app.context';
 import { useWindowResize } from '@hooks/general.hooks';
-import { getNumActiveFilters, getActiveFilters } from '@util/general.helpers';
+import {getNumActiveFilters, getActiveFilters, getRouteQueryParams} from '@util/general.helpers';
 import GAService, { MAP_PAGE_GA_EVENTS, GA_EVENT_MAP } from '@services/ga.service';
 import GoogleMapsAutocomplete from '@general/inputs/google-maps-autocomplete';
 import MapService from '@services/map.service';
