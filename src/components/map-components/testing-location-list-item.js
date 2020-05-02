@@ -149,7 +149,14 @@ export default function TestingLocationListItem(props) {
             </Fragment>
           )}
           <div className="mt-3">
-            <a href={'https://airtable.com/shrVJrPQs4qQkcW4o?prefill_Name=' + props.title}
+            <a href={'https://airtable.com/shrVJrPQs4qQkcW4o?prefill_Name=' + props.title
+            + '&prefill_Phone number=' + props.phone
+            + '&prefill_Hours=' + (props.service_time === undefined ? '' : props.service_time)
+            + '&prefill_This location was drive through=' + (props.driveThru.toString() === 'true' ? 'Drive Through' : '')
+            + '&prefill_This location required an appointment=' + boolToEng(props.appointmentRequired)
+            + '&prefill_Address=' + props.description}
+
+            
               target='_blank'
               rel='noopener noreferrer'>Suggest Change To Test Center Information</a>
             <p className="fontsize-12">
