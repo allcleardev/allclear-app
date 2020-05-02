@@ -45,8 +45,7 @@
     border-radius: 100%;
 
     transform: translate(-50%, -50%);
-    transition: all 2s ease;
-    transition-duration: 0.5s;
+    transition: all 0.5s ease;
 
     &--1 {
       z-index: 1;
@@ -55,7 +54,6 @@
 
     &--2 {
       z-index: -2;
-      transition-delay: 0.05ms;
       @include gradient-animation;
     }
 
@@ -65,18 +63,26 @@
       justify-content: center;
       align-items: flex-end;
       background: rgba(255, 255, 255, 0.9);
-      transition-delay: 0.07s;
-
     }
 
     &__close-button {
       margin: 20px;
-      display: none; // TODO: add back
     }
   }
 
   .menu--closed .circle {
+    &--1 {
+      transition-delay: 0s;
+    }
 
+    &--2 {
+      transition-delay: .2s;
+    }
+
+    &--3 {
+      transition-duration: .8s;
+      transition-delay: .05s;
+    }
   }
 
   .menu--opened .circle {
@@ -86,14 +92,13 @@
     &--1 {
       width: 200%;
       padding-top: 200%;
-      transition-delay: 0.07s;
+      transition-delay: 0.09s;
     }
 
     &--2 {
       width: 230%;
       padding-top: 200%;
       transition-delay: 0.05ms;
-      background: $accent-color;
     }
 
     &--3 {
