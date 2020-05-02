@@ -3,14 +3,13 @@ import GoogleMapReact from 'google-map-react';
 import MapMarker from './map-marker.js';
 import MyLocationBtn from './my-location-btn';
 import FacilityService from '../../services/facility.service.js';
-import {bindAll, findIndex, get} from 'lodash';
+import {bindAll, get} from 'lodash';
 import {AppContext} from '@contexts/app.context';
 import MyLocationMapMarker from './my-location-map-marker.js';
 import SnackbarMessage from '@general/alerts/snackbar-message';
 import GAService from '@services/ga.service';
 import MapService from '@services/map.service';
 import {withRouter} from 'react-router';
-import {clickMapMarker, getRouteQueryParams} from '@util/general.helpers';
 
 class GoogleMap extends Component {
   static contextType = AppContext;
@@ -57,6 +56,7 @@ class GoogleMap extends Component {
     const urlLat = get(params, 'search.latitude');
     const urlLong = get(params, 'search.longitude');
     // console.log(appState, params, urlLat, urlLong)
+    this.isLoggedIn = get(appState, 'person.id');
 
     // not logged in
 
@@ -82,15 +82,13 @@ class GoogleMap extends Component {
 
       // if IP check failed too, just use defaults (NYC)
       if (!latitude || !longitude) {
-
         this.setState({
           isSnackbarOpen: true,
           snackbarMessage: 'Enter your location to see results near you.',
-          snackbarSeverity: 'info'
+          snackbarSeverity: 'info',
         });
         latitude = G_MAP_DEFAULTS.center.lat;
         longitude = G_MAP_DEFAULTS.center.lng;
-
       }
     }
 
@@ -113,7 +111,7 @@ class GoogleMap extends Component {
 
   handleSnackbarClose() {
     this.setState({
-      isSnackbarOpen: false
+      isSnackbarOpen: false,
     });
   }
 
@@ -230,10 +228,7 @@ class GoogleMap extends Component {
     const homeIndex = locations.length;
 
     return (
-      <div
-        style={{height: '100%', width: '100%'}}
-        onClick={this.props.onMapClick}
-      >
+      <div className="google-map" style={{ height: '100%', width: '100%' }} onClick={this.props.onMapClick}>
         <SnackbarMessage
           snackbarClass={'snackbar--map'}
           isOpen={this.state.isSnackbarOpen}
@@ -245,7 +240,7 @@ class GoogleMap extends Component {
         <GoogleMapReact
           ref={this.gMapRef}
           options={G_MAP_OPTIONS}
-          bootstrapURLKeys={{key: 'AIzaSyAPB7ER1lGxDSZICjq9lmqgxvnlSJCIuYw'}}
+          bootstrapURLKeys={{ key: 'AIzaSyAPB7ER1lGxDSZICjq9lmqgxvnlSJCIuYw' }}
           defaultCenter={G_MAP_DEFAULTS.center}
           defaultZoom={G_MAP_DEFAULTS.zoom}
           zoom={this.state.zoom}
@@ -258,102 +253,20 @@ class GoogleMap extends Component {
             <MapMarker
               key={index}
               index={index}
+              length={locations.length}
               lat={data.latitude}
               lng={data.longitude}
               text={index + 1}
             />
           ))}
-          <MyLocationMapMarker key={homeIndex} lat={homeLat} lng={homeLng}/>
+          <MyLocationMapMarker key={homeIndex} lat={homeLat} lng={homeLng} />
         </GoogleMapReact>
-        <MyLocationBtn aria-label="Go to Profile Location" onClick={() => this.onMyLocationClicked()}/>
-
+        {this.isLoggedIn && (
+          <MyLocationBtn aria-label="Go to Profile Location" onClick={() => this.onMyLocationClicked()} />
+        )}
       </div>
     );
   }
 }
 
 export default withRouter(GoogleMap);
-
-const G_MAP_OPTIONS = {
-  styles: [
-    {
-      featureType: 'administrative',
-      elementType: 'geometry',
-      stylers: [
-        {
-          visibility: 'off',
-        },
-      ],
-    },
-    {
-      featureType: 'administrative.land_parcel',
-      elementType: 'labels',
-      stylers: [
-        {
-          visibility: 'off',
-        },
-      ],
-    },
-    {
-      featureType: 'administrative.neighborhood',
-      elementType: 'labels.text',
-      stylers: [
-        {
-          visibility: 'off',
-        },
-      ],
-    },
-    {
-      featureType: 'poi',
-      stylers: [
-        {
-          visibility: 'off',
-        },
-      ],
-    },
-    {
-      featureType: 'poi',
-      elementType: 'labels.text',
-      stylers: [
-        {
-          visibility: 'off',
-        },
-      ],
-    },
-    {
-      featureType: 'road',
-      elementType: 'labels.icon',
-      stylers: [
-        {
-          visibility: 'off',
-        },
-      ],
-    },
-    {
-      featureType: 'road.local',
-      elementType: 'labels',
-      stylers: [
-        {
-          visibility: 'off',
-        },
-      ],
-    },
-    {
-      featureType: 'transit',
-      stylers: [
-        {
-          visibility: 'off',
-        },
-      ],
-    },
-  ],
-  fullscreenControl: false,
-};
-
-const G_MAP_DEFAULTS = {
-  center: {
-    lat: 40.7575139,
-    lng: -73.9861322,
-  },
-  zoom: 12,
-};

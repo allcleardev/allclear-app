@@ -1,5 +1,5 @@
 // external
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState, useContext, useEffect,Fragment} from 'react';
 import clsx from 'clsx';
 import AnimateHeight from 'react-animate-height';
 import {makeStyles} from '@material-ui/core/styles';
@@ -12,15 +12,17 @@ import UpdateCriteriaModal from '@general/modals/update-criteria-modal';
 import GoogleMap from '@components/map-components/google-map';
 import TestingLocationListItem from '@components/map-components/testing-location-list-item';
 import MobileTopBar from '@components/map-components/mobile-top-bar';
+import Container from '@material-ui/core/Container';
+import EditFiltersBtn from '@components/map-components/edit-filters-btn';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 
 // other
 import ModalService from '@services/modal.service';
-import {AppContext} from '@contexts/app.context';
-import {useWindowResize} from '@hooks/general.hooks';
-import {getActiveFilters, getRouteQueryParams} from '@util/general.helpers';
-import GAService, {MAP_PAGE_GA_EVENTS, GA_EVENT_MAP} from '@services/ga.service';
+import { AppContext } from '@contexts/app.context';
+import { useWindowResize } from '@hooks/general.hooks';
+import { getNumActiveFilters, getActiveFilters } from '@util/general.helpers';
+import GAService, { MAP_PAGE_GA_EVENTS, GA_EVENT_MAP } from '@services/ga.service';
 import GoogleMapsAutocomplete from '@general/inputs/google-maps-autocomplete';
 import MapService from '@services/map.service';
 import ListLoadingSpinner from '../components/map-components/list-loading-spinner';
@@ -33,29 +35,24 @@ export default function MapPage() {
 
   // constants
   const classes = useStyles();
-  const DRAWER_EXPANDED_HEIGHT = '70vh';
-  const DRAWER_COLLAPSED_HEIGHT = '40vh';
 
   // state & global state
   const {setAppState, appState} = useContext(AppContext);
   const history = useHistory();
   const [width, height] = useWindowResize(onWindowResize);
   const initialState = {
-    isOpen: true,
-    anchor: 'left',
     windowWidth: width,
     windowHeight: height,
     searchFilterActive: false,
     didInitSearch: false,
     didClear: false,
+    mobileView: false,
   };
   const [mapState, setMapState] = useState(initialState);
-  const [drawerHeight, setDrawerHeight] = useState(DRAWER_COLLAPSED_HEIGHT);
+  const [drawerOpen, setDrawerOpenState] = useState(false);
   const locations = get(appState, 'map.locations') || [];
+  const numActiveFilters = getNumActiveFilters(get(appState, 'searchCriteria'));
   const isLoggedIn = appState.sessionId ? true : false;
-  const isDrawerExpanded = drawerHeight === DRAWER_EXPANDED_HEIGHT;
-  const {isOpen, anchor} = mapState;
-  // const numActiveFilters = getNumActiveFilters(get(appState, 'searchCriteria'));
   let initialSearchVal;
 
   // get modal service so we can toggle it open
@@ -97,33 +94,20 @@ export default function MapPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [appState]);
 
-  /******************************************************************
-   * HANDLERS
-   ******************************************************************/
-  function onWindowResize({width, height}) {
-    if (width <= 960) {
+
+
+  // callback handlers
+  function onWindowResize({ width, height }) {
+    if (width < 960) {
       setMapState({
         ...mapState,
-        anchor: 'bottom',
-        isOpen: true,
+        mobileView: true,
       });
-      setDrawerHeight(DRAWER_COLLAPSED_HEIGHT);
     } else {
       setMapState({
         ...mapState,
-        anchor: 'left',
-        isOpen: true,
+        mobileView: false,
       });
-      setDrawerHeight(height);
-    }
-  }
-
-  function onDrawerSwipe(e) {
-    if (initialState.windowWidth <= 960) {
-      const nextHeight = drawerHeight === DRAWER_COLLAPSED_HEIGHT ? DRAWER_EXPANDED_HEIGHT : DRAWER_COLLAPSED_HEIGHT;
-      if (e.pointerType === 'touch' || e.type === 'click') {
-        setDrawerHeight(nextHeight);
-      }
     }
   }
 
@@ -186,12 +170,14 @@ export default function MapPage() {
     modalService.toggleModal('criteria', true);
   }
 
-  function onMapClick(evt) {
-    if (anchor === 'bottom') {
-      evt.stopPropagation();
-      const nextHeight = drawerHeight === DRAWER_COLLAPSED_HEIGHT ? DRAWER_EXPANDED_HEIGHT : DRAWER_COLLAPSED_HEIGHT;
-      if (nextHeight === DRAWER_COLLAPSED_HEIGHT) setDrawerHeight(nextHeight);
+  function onMapClick() {
+    if (mobileView && drawerOpen) {
+      handleToggleView();
     }
+  }
+
+  function handleToggleView() {
+    setDrawerOpenState(!drawerOpen);
   }
 
   /******************************************************************
@@ -202,8 +188,8 @@ export default function MapPage() {
     handleGAEvent(action, itemId, itemIndex, itemName);
   }
 
-  function onTestingLocationExpand(itemId, itemIndex, itemName, isExpanded) {
-    const eventKey = isExpanded ? 'expand' : 'contract';
+  function onTestingLocationExpand(itemId, itemIndex, itemName, drawerOpen) {
+    const eventKey = drawerOpen ? 'expand' : 'contract';
     handleGAEvent(eventKey, itemId, itemIndex, itemName);
     const selection = itemName;
     history.push({
@@ -222,121 +208,145 @@ export default function MapPage() {
     gaService.sendEvent(eventName, additionalParams);
   }
 
+  const { mobileView } = mapState;
+
   return (
-    <div className="map-page">
-      {anchor === 'bottom' && (
+    <div className={clsx(classes.root, 'map-page')}>
+      {mobileView ? (
         <MobileTopBar
           isLoggedIn={isLoggedIn}
           onLocationSelected={onLocationSelected}
           onLocationCleared={onLocationCleared}
           onFilterClick={onEditFiltersBtnClick}
-        >
-        </MobileTopBar>
-      )}
-      <SolidHeader isLoggedIn={isLoggedIn} isOpen={isOpen}></SolidHeader>
-
+        ></MobileTopBar>
+      ) : (
+         <SolidHeader isLoggedIn={isLoggedIn}></SolidHeader>
+       )}
       <Drawer
-        className={classes.drawer + ' nav-left-location'}
-        variant="persistent"
-        anchor={anchor}
-        open={isOpen}
-        style={{height: drawerHeight, zIndex: 4}}
-      >
-        <div className="list-gradient"></div>
-        <AnimateHeight
-          duration={500}
-          height={anchor === 'left' || drawerHeight === DRAWER_EXPANDED_HEIGHT ? '100%' : '40%'}
-        >
-          <div
-            id="side-drawer"
-            style={{
-              width: anchor === 'left' ? `${drawerWidth}px` : '100%',
-              overflowY: 'scroll',
-              height: drawerHeight,
-            }}
-            className="side-drawer hide-scrollbar wid100-sm"
-          >
-
-            {anchor === 'left' &&
-            <GoogleMapsAutocomplete
-              searchIconColor={'lightgray'}
-              focusOnRender={true}
-              locationSelected={onLocationSelected}
-              initialValue={initialSearchVal}
-              onClear={onLocationCleared}
-              noOptionsText={'Please Enter a Search Term to View Results'}
-            ></GoogleMapsAutocomplete>
-            }
-
-            {appState.map.isListLoading === true && (<ListLoadingSpinner/>)}
-
-            {locations &&
-            locations.map((result, index) => (
-              <TestingLocationListItem
-                id={result.id}
-                key={index}
-                index={index}
-                title={result.name}
-                description={result.address}
-                city_state={result.city + ', ' + result.state}
-                service_time={result.hours}
-                driveThru={result.driveThru}
-                phone={result.phone}
-                website={result.url}
-                {...result}
-                onActionClick={onActionClick}
-                onTestingLocationExpand={onTestingLocationExpand}
-              ></TestingLocationListItem>
-            ))}
-
-
-            {locations.length === 0 && appState.map.isListLoading === false && (
-              <h2 style={{display: 'flex', justifyContent: 'center'}}>No Results Found </h2>
-            )}
-          </div>
-        </AnimateHeight>
-      </Drawer>
-      <main
-        className={clsx(classes.content, {
-          [classes.contentShift]: isOpen,
+        anchor={mobileView ? 'bottom' : 'left'}
+        variant="permanent"
+        className={clsx(classes.drawer, {
+          [classes.drawerOpen]: drawerOpen,
+          [classes.drawerClose]: !drawerOpen,
         })}
+        classes={{
+          paper: clsx({
+            [classes.drawerOpen]: drawerOpen,
+            [classes.drawerClose]: !drawerOpen,
+          }),
+        }}
       >
-        <div className="map-fullscreen" style={{height: anchor === 'bottom' && isDrawerExpanded ? '30vh' : null}}>
-          <GoogleMap onMapClick={onMapClick}></GoogleMap>
-          {anchor === 'bottom' &&
-          <Button className="view-type-button" onClick={onDrawerSwipe}>
-            {isDrawerExpanded ? 'Map' : 'List'}
+        {mobileView && (
+          <Button variant="contained" className="map-list-button" onClick={handleToggleView}>
+            {drawerOpen ? 'Map' : 'List'}
           </Button>
-          }
+        )}
+        <div className={clsx(classes.drawer, 'drawer-content', 'hide-scrollbar')}>
+          {!mobileView && (
+            <Fragment>
+              <GoogleMapsAutocomplete
+                searchIconColor={'lightgray'}
+                focusOnRender={true}
+                locationSelected={onLocationSelected}
+                initialValue={initialSearchVal}
+                onClear={onLocationCleared}
+                noOptionsText={'Please Enter a Search Term to View Results'}
+              ></GoogleMapsAutocomplete>
+
+              <Container>
+                <EditFiltersBtn numActiveFilters={numActiveFilters} onClick={onEditFiltersBtnClick} />
+              </Container>
+            </Fragment>
+          )}
+          {appState.map.isListLoading === true ? (
+            <ListLoadingSpinner />
+          ) : (
+             <Fragment>
+               {locations &&
+               locations.map((result, index) => (
+                 <TestingLocationListItem
+                   id={result.id}
+                   key={index}
+                   index={index}
+                   title={result.name}
+                   description={result.address}
+                   city_state={result.city + ', ' + result.state}
+                   service_time={result.hours}
+                   driveThru={result.driveThru}
+                   phone={result.phone}
+                   website={result.url}
+                   {...result}
+                   onActionClick={onActionClick}
+                   onTestingLocationExpand={onTestingLocationExpand}
+                 ></TestingLocationListItem>
+               ))}
+             </Fragment>
+           )}
+          {locations.length === 0 && appState.map.isListLoading === false && (
+            <p style={{ margin: 20, textAlign: 'center', fontSize: '1.7em' }}>No Results Found</p>
+          )}
         </div>
+      </Drawer>
+      <main className={classes.content}>
+        <GoogleMap onMapClick={onMapClick}></GoogleMap>
       </main>
       <UpdateCriteriaModal></UpdateCriteriaModal>
     </div>
   );
 }
 
-const drawerWidth = 400;
+const collapseHeight = 40;
+const expandHeight = 85;
+const expandWidth = 400;
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    flexDirection: 'column-reverse',
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      flexDirection: 'row',
+    },
   },
-  menuButton: {
-    marginRight: theme.spacing(2),
+  drawer: {
+    flexShrink: 0,
+    zIndex: 1,
+    height: ' 100%',
+    overflowY: 'auto',
+    [theme.breakpoints.up('md')]: {
+      marginTop: 70, // height of desktop header
+    },
   },
-  hide: {
-    display: 'none',
-  },
-  content: {
-    marginLeft: -drawerWidth,
-  },
-  contentShift: {
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
+  drawerOpen: {
+    transition: theme.transitions.create('height', {
+      easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    marginLeft: 0,
+    overflow: 'visible',
+    height: `${expandHeight}%`,
+    [theme.breakpoints.up('md')]: {
+      height: '100%',
+    },
+  },
+  drawerClose: {
+    transition: theme.transitions.create('height', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    overflow: 'visible',
+    height: `${collapseHeight}%`,
+    [theme.breakpoints.up('md')]: {
+      width: expandWidth,
+      boxShadow: '5px 0px 20px rgba(0, 0, 0, 0.1)',
+      height: 'calc(100% - 70px)',
+    },
+  },
+  content: {
+    flexGrow: 1,
+    height: '100%',
   },
 }));
+
 
 // todo: might still be useful at some point just not now
 // function TabPanel(props) {
@@ -384,6 +394,11 @@ const useStyles = makeStyles((theme) => ({
 //     },
 //   });
 //
+//   // hide badge when filters are inactive
+//   if (get(badgeRef, 'current.children[1]')) {
+//     badgeRef.current.children[1].hidden = !searchFilterActive;
+//   }
+// }
 
 // useEffect(() => {
 //
@@ -405,4 +420,3 @@ const useStyles = makeStyles((theme) => ({
 //
 //   // eslint-disable-next-line react-hooks/exhaustive-deps
 // }, [appState]);
-

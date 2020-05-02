@@ -1,9 +1,53 @@
 .map-page {
-  width: 100%;
+  // filters badge
+  .edit-filters-btn {
+    margin: 20px 0px;
+    max-height: 40px;
+  }
+  .MuiBadge-badge {
+    background-color: white;
+    color: $primary-color;
+    font-weight: bold;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  }
+  .MuiBadge-anchorOriginTopRightRectangle {
+    right: 2%;
+    top: 30%;
+    @media (min-width: $md) {
+      top: 35%;
+    }
+  }
 
+  // location search bar
+  .MuiInputBase-root {
+    border-radius: 0px;
+    @media (min-width: $md) {
+      height: 70px;
+      border-bottom: solid 1px #ddd;
+    }
+  }
+  .MuiOutlinedInput-notchedOutline {
+    display: none;
+  }
+
+  // filters fab
+  .btn-blue-bottom {
+    position: fixed !important;
+    bottom: 30px;
+    right: 55px;
+    box-shadow: 0px 3px 25px rgba(0, 0, 0, 0.3);
+    font-size: 14px;
+    color: #fff;
+    @media (max-width: $md - 1) {
+      bottom: 312px;
+    }
+  }
+
+  // mobile sear
   .mobile-top-bar {
-    position: absolute;
-    z-index: 1;
+    position: fixed;
+    top: 0;
+    z-index: 2;
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -33,187 +77,20 @@
           display: none;
         }
 
-        @media (min-width: $sm + 1) {
+        @media (min-width: $sm) {
           margin-right: 40px; // show on large mobile sizes and tablet
         }
       }
     }
   }
 
-  .edit-filters-btn {
-    margin: 20px 0px;
-    max-height: 40px;
-  }
-
-  .edit-filters-btn-container {
-    width: 100%;
-
-    @media (max-width: $md - 1){
-      width: 50%;
-    }
-  }
-
-  .view-full-results-btn {
-    margin-left: 15px;
-
-    svg {
-      font-size: 32px;
-      height: 25px;
-    }
-
-    .MuiButton-endIcon{
-      margin-right: 0px;
-    }
-  }
-
-  .side-drawer{
-
-    .MuiInputBase-root{
-      height: 70px;
-    }
-
-  }
-
-  .MuiBadge-badge {
-    background-color: white;
-    color: $primary-color;
-    font-weight: bold;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
-  }
-
-  .MuiBadge-anchorOriginTopRightRectangle {
-    right: 2%;
-    top: 30%;
-
-    @media (min-width: $md + 1) {
-      top: 35%;
-    }
-  }
-
-  .MuiInputBase-root {
-    border-radius: 0px;
-
-    @media (min-width: $md + 1) {
-      border-bottom: solid 1px #ddd;
-    }
-  }
-
-  .MuiOutlinedInput-notchedOutline {
-    display: none;
-  }
-}
-
-.nav-left-location {
-  .MuiDrawer-paperAnchorDockedLeft {
-    border: 0;
-    box-shadow: 5px 0px 20px rgba(0, 0, 0, 0.1);
-    top: 70px;
-  }
-
-  .MuiDrawer-paper {
-    z-index: 3 !important;
-
-    @media (min-width: $md) {
-      position: fixed;
-      border-radius: 4px;
-      background-color: transparent;
-    }
-
-
-  }
-
-  @media (max-width: $md) {
-    position: fixed;
-
-    .height-300-sm {
-      height: 40vh;
-    }
-  }
-
-  &::-webkit-scrollbar {
-    width: 0 !important;
-  }
-
-  .input-search-googlemap {
-    padding: 2px 14px;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    border: 1px solid #dadada;
-    box-sizing: border-box;
-    border-radius: 23px;
-    box-shadow: none;
-  }
-}
-
-.btn-hide-nav {
-  position: fixed !important;
-  left: -25px !important;
-  top: 30px !important;
-  right: auto !important;
-  background-color: transparent !important;
-  width: auto !important;
-  box-shadow: none !important;
-
-  @media (max-width: $md - 1) {
-    display: none !important;
-  }
-}
-
-.map-fullscreen {
-  position: absolute;
-  margin: 0;
-  top: 0;
-  left: 0;
-  z-index: 0;
-  height: 100vh;
-  overflow-x: hidden;
-
-  @media (min-width: $md + 1) {
-    width: calc(100vw - 400px);
-    left: 400px;
-  }
-
-  @media (max-width: $md) {
-    width: 100vw;
-    height: 60vh; // page height - 40vh of list
-  }
-
-  img {
-    height: 100%;
-  }
-
-  .view-type-button {
+  button.map-list-button {
     position: absolute;
-    bottom: 0;
-    margin: 0 0 5px 5px;
-    background-color: white;
+    top: 0;
+    transform: translateY(-135%);
+    margin: 5px;
     border-radius: 50px;
-    &:hover {
-      background-color: white;
-    }
-  }
-}
-
-.btn-blue-bottom {
-  position: fixed !important;
-  bottom: 30px;
-  right: 55px;
-  box-shadow: 0px 3px 25px rgba(0, 0, 0, 0.3);
-  font-size: 14px;
-  color: #fff;
-
-  @media (max-width: $md) {
-    bottom: 312px;
-  }
-}
-.geolist-resizer {
-  display: none;
-  justify-content: center;
-  align-items: center;
-
-  @media (max-width: $md) {
-    display: flex;
+    background-color: #fff;
   }
 }
 

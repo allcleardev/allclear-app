@@ -1,12 +1,14 @@
 import React, { Fragment } from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import { boolToEng, isNullOrUndefined } from '../../util/general.helpers';
 import ExternalItemLinks from './external-item-links';
 import CustomizedExpansionPanel, { ExpansionPanelSummary, ExpansionPanelDetails } from './expansion-panel';
 
 export default function TestingLocationListItem(props) {
-  const { id, index, title, description, service_time, driveThru, phone, website } = props; // values
+  const { id, index, title, description, service_time, driveThru, phone, website, createdAt } = props; // values
   const { onActionClick, onTestingLocationExpand } = props; // events
+  const updatedAt = new Date(props.updatedAt);
 
   const onClick = (evt, buttonName) => {
     evt.stopPropagation();
@@ -19,6 +21,14 @@ export default function TestingLocationListItem(props) {
     onTestingLocationExpand(id, itemIndex, title, isExpanded);
   };
 
+  const isNewLocation = (date) => {
+    const oneHour = 60 * 60 * 1000; /* milliseconds */
+    const createdAt = new Date(date);
+    const currentDate = new Date();
+
+    return (currentDate - createdAt) < (oneHour * 72);
+  };
+
   const summary = (
     <ExpansionPanelSummary
       aria-controls={`panel${index}-content`}
@@ -27,9 +37,17 @@ export default function TestingLocationListItem(props) {
       expandIcon={<ExpandMoreIcon />}
     >
       <div className="my-auto">
-        <h3 className="card-title">
-          <span>{index + 1}.</span> {title}
-        </h3>
+        <div className="card-title">
+          <span className="title-text">
+            {index + 1}. {title}
+          </span>
+          {isNewLocation(createdAt) && (
+            <div className="new-test-center-display">
+              <span><FiberManualRecordIcon /></span>
+              <span style={{marginTop: '2px'}}>New</span>
+            </div>
+          )}
+        </div>
 
         <dl className="summary d-none d-md-block">
           <dd className="summary__item summary__item--semibold">{description}</dd>
@@ -135,7 +153,7 @@ export default function TestingLocationListItem(props) {
               target='_blank'
               rel='noopener noreferrer'>Suggest Change To Test Center Information</a>
             <p className="fontsize-12">
-              <i>Last update: username 4/10/2020 12:38:00 PM</i>
+              <i>Last update: {updatedAt.toLocaleString()}</i>
             </p>
           </div>
         </dl>
