@@ -38,6 +38,7 @@ export default class SignUpPage extends Component {
       'handleSnackbarClose',
       'checkPhoneValidation',
       'onSendVerificationClicked',
+      'verifyLogin',
     ]);
     this.peopleService = PeopleService.getInstance();
     this.gaService = GAService.getInstance();
@@ -222,12 +223,47 @@ export default class SignUpPage extends Component {
           error.response.data.message.includes('already exists')
         ) {
           this.state.accountExists = true;
+          this.verifyLogin();
+        } else if (error.response.data && error.response.data.message) {
           this.setState({
             error: true,
             message: error.response.data.message,
             loading: false,
           });
-        } else if (error.response.data && error.response.data.message) {
+        } else {
+          this.setState({
+            error: true,
+            message: 'An error occurred. Please try again later.',
+            loading: false,
+          });
+        }
+      }
+    }
+  }
+
+  async verifyLogin() {
+    const { appState } = this.context;
+    const phone = appState.person.phone;
+
+    this.setState({ loading: true });
+
+    if (!phone) {
+      return this.setState({
+        error: true,
+        message: 'Please enter a valid phone number',
+        loading: false,
+      });
+    }
+
+    const response = await this.peopleService.login({ phone });
+
+    if (!response.err) {
+      this.props.history.push('/sign-in-verification');
+    } else {
+      const error = response;
+
+      if (error && error.response) {
+        if (error.response.data && error.response.data.message) {
           this.setState({
             error: true,
             message: error.response.data.message,

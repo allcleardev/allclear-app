@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, Router } from 'react-router-dom';
+import { Route, Switch, Router as ReactRouter } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 
 import '@styles/app.scss';
@@ -16,14 +16,13 @@ import SignInVerificationPage from '@pages/sign-in-verification.page';
 import BackgroundPage from '@pages/background.page';
 import GetStartedPage from '@pages/get-started.page';
 import HealthWorkerStatusPage from '@pages/health-worker-status.page';
-// import LaunchPage from '@pages/launch.page';
 import SignInPage from '@pages/sign-in.page';
 import LoginMagicLinkPage from '@pages/login-magic-link.page';
 import HomePage from '@pages/home.page';
 import MapPage from '@pages/map.page';
 import ProfileEditPage from '@pages/profile-edit.page';
 import ProfileViewPage from '@pages/profile-view.page';
-import ProtectedRoute from './routes/protected.route';
+import ProtectedRoute from '@routes/protected.route';
 import SettingsPage from '@pages/settings.page';
 import SharePage from '@pages/share.page';
 import SignUpVerificationPage from '@pages/sign-up-verification.page';
@@ -38,9 +37,9 @@ import LogoutPage from '@pages/logout.page';
 
 export const history = createBrowserHistory();
 
-export default function App() {
+export default function Router() {
   return (
-    <Router history={history}>
+    <ReactRouter history={history}>
       <AppProvider>
         <Switch>
           {/* Loader Page */}
@@ -95,6 +94,6 @@ export default function App() {
           {/* <ConfirmedRoute path="/results" component={result} /> */}
         </Switch>
       </AppProvider>
-    </Router>
+    </ReactRouter>
   );
 }

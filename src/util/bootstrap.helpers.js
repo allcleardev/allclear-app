@@ -1,6 +1,6 @@
 import * as axios from 'axios';
 import { get } from 'lodash';
-import { history } from '../App';
+import { history } from '../Router';
 
 export function bootstrapAxios() {
   const AUTH_ROUTES = [
