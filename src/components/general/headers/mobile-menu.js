@@ -18,7 +18,7 @@ export default function MobileMenu(props) {
   const anchorRef = React.useRef(null);
 
   let loggedOutLinks = cloneDeep(isLoggedOutHeaderLinks);
-  loggedOutLinks.push({ name: 'Get Alerts', to: '/get-started' });
+  loggedOutLinks.push({ name: 'Get Alerts', to: '/create-account' });
   const links = props.isLoggedIn ? isLoggedInHeaderLinks : loggedOutLinks;
 
   function onMenuToggle() {
