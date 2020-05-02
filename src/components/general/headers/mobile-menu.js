@@ -8,14 +8,14 @@ import MenuList from '@material-ui/core/MenuList';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { isLoggedInHeaderLinks, isLoggedOutHeaderLinks } from '@util/general.constants';
-import {cloneDeep} from 'lodash';
+import { cloneDeep } from 'lodash';
 
 export default function MobileMenu(props) {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
 
   let loggedOutLinks = cloneDeep(isLoggedOutHeaderLinks);
-  loggedOutLinks.push({name: 'Get Alerts', to: '/get-started'});
+  loggedOutLinks.push({ name: 'Get Alerts', to: '/create-account' });
   const links = props.isLoggedIn ? isLoggedInHeaderLinks : loggedOutLinks;
 
   function onMenuToggle() {
@@ -48,18 +48,18 @@ export default function MobileMenu(props) {
         {({ TransitionProps, placement }) => (
           <Grow
             {...TransitionProps}
-            style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+            style={{
+              transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom',
+            }}
           >
             <Paper className="menu-list">
               <ClickAwayListener onClickAway={onMenuClosed}>
                 <MenuList autoFocusItem={open} id="menu-list-grow" style={{ padding: 0 }}>
-                  {links.map((link) =>
+                  {links.map((link) => (
                     <a style={{ color: 'black' }} href={link.to} key={link.name}>
-                      <MenuItem>
-                        {link.name}
-                      </MenuItem>
+                      <MenuItem>{link.name}</MenuItem>
                     </a>
-                  )}
+                  ))}
                 </MenuList>
               </ClickAwayListener>
             </Paper>

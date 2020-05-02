@@ -25,13 +25,14 @@ button {
 
 .autocomplete-input input {
   margin-left: 30px;
+  line-height: normal; // safari fix
 }
 
 .onboarding-page {
   /*
     onboarding pages
   */
-  flex: 1;
+  flex: 1 0 auto; // safari fix
   display: flex;
   flex-direction: column;
   color: #fff;
