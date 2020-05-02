@@ -224,6 +224,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column-reverse',
     width: '100%',
+    height: '100%',
     [theme.breakpoints.up('md')]: {
       flexDirection: 'row',
     },
