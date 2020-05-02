@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
-import { forEach, get } from 'lodash';
-import { CRITERIA_FORM_DATA } from '@general/modals/update-criteria-modal.constants';
+import React, {useEffect, useState} from 'react';
+import {forEach, get} from 'lodash';
+import {CRITERIA_FORM_DATA} from '@general/modals/update-criteria-modal.constants';
+import {useLocation} from 'react-router';
+import {getRouteQueryParams} from '@util/general.helpers';
 // import TypesService from '@services/types.service';
 
 // Set Up The Initial Context
@@ -45,6 +47,9 @@ export const INITIAL_APP_STATE = {
       exposures: undefined,
     },
   },
+  route: {
+    params: undefined
+  },
   signUpPayload: undefined,
 
   // this is to re-trigger a render on modal (
@@ -62,7 +67,24 @@ const possSavedState = JSON.parse(localStorage.getItem('appState'));
 initialAppState = get(possSavedState, 'sessionId') ? possSavedState : initialAppState;
 
 export function AppProvider(props) {
+  const location = useLocation();
   const [appState, setAppState] = useState(initialAppState);
+
+  // as routes change, parse qs into an object
+  useEffect(() => {
+    const params = getRouteQueryParams(location);
+    setAppState({
+      ...appState,
+      route: {
+        ...appState.route,
+        params,
+      }
+    });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location]);
+
+
   // const typesService = TypesService.getInstance();
 
   // only make the ajax calls if the options dont already exist in app state

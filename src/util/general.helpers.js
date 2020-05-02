@@ -1,4 +1,5 @@
 import {isUndefined, isNull, reduce, lowerCase} from 'lodash';
+import qs from 'qs';
 
 export function colorLog(color, input) {
   console.log(`%c${input}`, `color:${color};`);
@@ -42,6 +43,41 @@ export function loadScript(file) {
   script.async = true;
   script.src = file;
   document.head.appendChild(script);
+}
+
+export function getRouteQueryParams(location) {
+  let searchParams = location.search;
+  searchParams = searchParams.replace('?', '');
+  searchParams = qs.parse(searchParams, []);
+  return searchParams;
+}
+
+export function clickMapMarker(appState, index, currHistory, inLocations) {
+  // todo: dont touch dom lol, do this with refs (much harder)
+
+  const locations = (inLocations) ? inLocations : appState.map.locations;
+  const elemToOpen = document.querySelectorAll('.MuiExpansionPanel-root')[index];
+  const isCurrentlyExpanded = [].slice.call(elemToOpen.classList).includes('Mui-expanded');
+  if (!isCurrentlyExpanded) elemToOpen.children[0].click();
+
+  const selection = locations[index].name;
+  !inLocations && currHistory.push({
+    pathname: '/map',
+    search: qs.stringify({
+      ...appState.route.params,
+      selection
+    }),
+  });
+
+  const isLastElement = index === locations.length - 1;
+  if (isLastElement) {
+    // wait for expansion panel animation to end before scrolling
+    setTimeout(() => {
+      elemToOpen.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }, 300);
+  } else {
+    elemToOpen.scrollIntoView({behavior: 'smooth'});
+  }
 }
 
 export function metersToMiles(i) {
