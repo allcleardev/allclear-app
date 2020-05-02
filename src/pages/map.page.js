@@ -67,7 +67,6 @@ export default function MapPage() {
    * LIFECYCLE HOOKS
    ******************************************************************/
   useEffect(() => {
-    console.log('mount', mapState.mobileView, window.innerWidth)
     const mobileView = (window.innerWidth < 960);
     setMapState({
       ...mapState,
@@ -79,7 +78,6 @@ export default function MapPage() {
 
   // to reset URL params after the waterfall of URL updates (this will be the final update in the chain)
   useEffect(() => {
-    console.log('appstate', mapState.mobileView)
     const mobileView = (window.innerWidth < 960);
     if(mapState.didClear){
 
