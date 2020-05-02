@@ -57,7 +57,6 @@ class GoogleMap extends Component {
     const params = getRouteQueryParams(this.props.location);
     const urlLat = get(params, 'search.latitude');
     const urlLong = get(params, 'search.longitude');
-    // console.log(appState, params, urlLat, urlLong)
     this.isLoggedIn = get(appState, 'person.id');
 
     // not logged in
