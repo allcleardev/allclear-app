@@ -120,6 +120,7 @@ class GoogleMap extends Component {
    ******************************************************************/
 
   onMapDragEnd(evt) {
+    // todo: this clear may need to change for deeplinking
     this.mapService.onLocationCleared(null,null,'clear');
     const latitude = evt.center.lat();
     const longitude = evt.center.lng();
