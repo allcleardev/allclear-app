@@ -48,11 +48,16 @@ export const INITIAL_APP_STATE = {
     },
   },
   route: {
-    params: undefined
+    params: {
+      search:{
+
+      },
+      selection: undefined
+    }
   },
   signUpPayload: undefined,
 
-  // this is to re-trigger a render on modal (
+  // this is to re-trigger a render on modal
   forceRefresh: false,
   modalSubmitCount: 0,
 

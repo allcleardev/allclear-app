@@ -10,6 +10,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import { TextField, Grid, Typography, makeStyles } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import clsx from 'clsx';
+import MapService from '@services/map.service';
 
 const autocompleteService = { current: null };
 
@@ -31,9 +32,13 @@ export default function GoogleMapsAutocomplete(props) {
   const [inputValue, setInputValue] = useState('');
   const [options, setOptions] = useState([]);
   const inputRef = React.createRef();
+  const mapService = MapService.getInstance();
 
   // focus on mount if so configured
   useEffect(() => {
+    mapService.autocompleteRef = inputRef;
+    mapService.onLocationCleared = onInputChanged;
+
     if (props.focusOnRender) {
       inputRef.current.querySelectorAll('input')[0].focus();
     }
@@ -43,6 +48,7 @@ export default function GoogleMapsAutocomplete(props) {
   // only for clears
   function onInputChanged(evt, value, reason) {
     if (reason === 'clear') {
+      setInputValue('');
       props.onClear && props.onClear();
     }
   }
@@ -55,6 +61,7 @@ export default function GoogleMapsAutocomplete(props) {
   const handleSelectionChange = async (e, value) => {
     if (value) {
       const address = value.description;
+      setInputValue(address);
       await geocodeByAddress(address)
         .then((results) => getLatLng(results[0]))
         .then((latLng) => {
@@ -66,7 +73,6 @@ export default function GoogleMapsAutocomplete(props) {
           };
         })
         .catch((error) => console.error('Error', error));
-
       props.locationSelected(true, value);
     } else {
       props.locationSelected(false, value);
@@ -138,6 +144,7 @@ export default function GoogleMapsAutocomplete(props) {
         onInputChange={(e, v, r) => {
           props.onClear && onInputChanged(e, v, r);
         }}
+        inputValue={inputValue}
         disabled={props.useCurrentLocation}
         defaultValue={props.initialValue}
         renderInput={(params) => (

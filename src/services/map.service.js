@@ -7,7 +7,9 @@ export default class MapService {
 
   // these get populated from different components once they init
   mapRef;
+  autoCompleteRef;
   onLocationAccepted;
+  onLocationCleared;
 
   // constructor() {}
 

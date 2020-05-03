@@ -28,8 +28,7 @@ class GoogleMap extends Component {
 
     bindAll(this, [
       'componentDidMount',
-      'onMarkerDragEnd',
-      'onMarkerZoomChanged',
+      'onMapDragEnd',
       'onZoomChanged',
       'onMyLocationClicked',
       'onLocationAccepted',
@@ -120,19 +119,15 @@ class GoogleMap extends Component {
    * MAP INTERACTION EVENT HANDLERS
    ******************************************************************/
 
-  async onMarkerDragEnd(evt) {
+  onMapDragEnd(evt) {
+    this.mapService.onLocationCleared(null,null,'clear');
     const latitude = evt.center.lat();
     const longitude = evt.center.lng();
     this._search(latitude, longitude);
   }
 
-  async onMarkerZoomChanged(evt) {
-    const latitude = evt.center.lat();
-    const longitude = evt.center.lng();
-    this._search(latitude, longitude);
-  }
-
-  onZoomChanged(miles) {
+  onZoomChanged(miles,z,t) {
+    // console.log('zoom changed', ...arguments)
     // todo: major work here bro
     // https://stackoverflow.com/questions/52411378/google-maps-api-calculate-zoom-based-of-miles
   }
@@ -246,8 +241,8 @@ class GoogleMap extends Component {
           defaultZoom={G_MAP_DEFAULTS.zoom}
           zoom={this.state.zoom}
           yesIWantToUseGoogleMapApiInternals
-          onDragEnd={(evt) => this.onMarkerDragEnd(evt)}
-          onZoomChanged={(evt) => this.onMarkerDragEnd(evt)}
+          onDragEnd={(evt) => this.onMapDragEnd(evt)}
+          onZoomChanged={(evt) => this.onMapDragEnd(evt)}
           onZoomAnimationEnd={(evt) => this.onZoomChanged(evt)}
         >
           {locations.map((data, index) => (
