@@ -33,4 +33,11 @@ export default class FacilityService {
     });
   }
 
+  getFacility(id) {
+    return Axios({
+      method: 'GET',
+      url: `${this.baseURL}/${id}`,
+    });
+  }
+
 }

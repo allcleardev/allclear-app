@@ -58,9 +58,17 @@ class GoogleMap extends Component {
     const urlLong = get(params, 'search.longitude');
     this.isLoggedIn = get(appState, 'person.id');
 
-    // not logged in
+    let selection;
+    const urlID = get(params, 'selection');
 
-    if (urlLat && urlLong) {
+    // deep link from facility
+    if(urlID){
+      const resp = await this.facilityService.getFacility(urlID);
+      latitude = get(resp, 'data.latitude');
+      longitude = get(resp, 'data.longitude');
+      selection = resp.data;
+    } else if (urlLat && urlLong) {
+      // deep link from search term
       latitude = urlLat;
       longitude = urlLong;
     } else if (!latitude || !longitude) {
@@ -90,18 +98,20 @@ class GoogleMap extends Component {
         latitude = G_MAP_DEFAULTS.center.lat;
         longitude = G_MAP_DEFAULTS.center.lng;
       }
+    }else{
+      // logged in profile stuff will go here
     }
 
     const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude}));
 
     // finally, select a pin if its in the url
-    const selection = get(params, 'selection');
+    //  selection = get(params, 'selection');
     const locations = get(result, 'data.records');
     this._setLocations(locations, {latitude, longitude});
     latitude && longitude && this._panTo(latitude, longitude);
 
-    if (selection) {
-      const index = findIndex(locations, ['name', selection]);
+    if (urlID) {
+      const index = findIndex(locations, ['id', Number(urlID)]);
       if (index !== -1) {
         clickMapMarker(appState, index, this.props.history, locations);
       }
