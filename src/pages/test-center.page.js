@@ -61,14 +61,13 @@ export default class TestCenterPage extends Component {
         <SolidHeader isLoggedIn={this.isLoggedIn}></SolidHeader>
         <div className="test-center-page__top-background"></div>
         <div className="test-center-page__content">
-
           {
             isMobile ?
               <div className="mobile-header">
-                <IconButton className="back-btn" onClick={this.onBackClick}>
+                <IconButton style={{ color: 'white' }} onClick={this.onBackClick}>
                   <KeyboardArrowLeftIcon />
                 </IconButton>
-                <span>Test Center Details</span>
+                <span className="title">Test Center Details</span>
               </div>
               : <Button
                 className="back-btn"
@@ -78,7 +77,6 @@ export default class TestCenterPage extends Component {
                 Back
                 </Button>
           }
-
           {facility &&
             <>
               {/* Overview Card */}
@@ -146,22 +144,3 @@ function DetailRow(props) {
     </div>
   );
 }
-
-/*
-
-                  // <a
-                  //   href={'tel:' + facility.phone}
-                  //   rel="noopener noreferrer"
-                  //   target="_blank"
-                  //   onClick={(evt) => evt.stopPropagation()}
-                  // >
-                  //   <IconButton
-                  //     aria-label="call"
-                  //     className="action-icon-btn primary-color primary-outline d-lg-none"
-                  //     color="primary"
-                  //   >
-                  //     <PhoneIcon />
-                  //   </IconButton>
-                  // </a>
-
-                  **/

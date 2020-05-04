@@ -21,7 +21,7 @@
     width: 90%;
     margin-left: auto;
     margin-right: auto;
-    margin-top: -250px;
+    margin-top: -280px;
 
     @media (min-width: $md) {
       width: 65%;
@@ -34,6 +34,19 @@
 
       &--mobile {
         font-size: 17px;
+      }
+    }
+
+    .mobile-header {
+      display: flex;
+      align-items: center;
+      color: white;
+      font-size: 17px;
+      margin: 0px -20px 40px -20px;
+
+      .title {
+        margin-right: 30%;
+        margin-left: auto;
       }
     }
 
@@ -111,5 +124,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-bottom: 50px;
   }
 }
