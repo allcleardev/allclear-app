@@ -89,7 +89,6 @@ export function milesToMeters(i) {
 }
 
 export function getFacilityDetailsMap(facility) {
-  const boolToEng = (val) => val ? 'Yes' : 'No';
   const details = [
     { field: 'Location Type', value: get(facility, ['type', 'name']) },
     { field: 'Appointment Needed', value: boolToEng(facility.appointmentRequired) },
@@ -127,5 +126,5 @@ export function getFeedbackButtonURL(facility) {
     &prefill_Hours=${facility.service_time === undefined ? '' : facility.service_time}
     &prefill_This location was drive through=${(facility.driveThru.toString() === 'true' ? 'Drive Through' : '')}
     &prefill_This location required an appointment=${boolToEng(facility.appointmentRequired) || ''}
-    &prefill_Address=${facility.address || facility.description} || ''`;
+    &prefill_Address=${facility.description || facility.address || ''}`;
 }

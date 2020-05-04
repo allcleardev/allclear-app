@@ -271,7 +271,7 @@ export default function MapPage() {
                       key={index}
                       index={index}
                       title={result.name}
-                      address={result.address}
+                      description={result.address}
                       city_state={result.city + ', ' + result.state}
                       service_time={result.hours}
                       driveThru={result.driveThru}

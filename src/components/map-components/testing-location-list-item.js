@@ -7,7 +7,7 @@ import CustomizedExpansionPanel, { ExpansionPanelSummary, ExpansionPanelDetails 
 import {Link} from 'react-router-dom';
 
 export default function TestingLocationListItem(props) {
-  const { id, index, title, address, service_time, driveThru, phone, website, createdAt } = props; // values
+  const { id, index, title, description, service_time, driveThru, phone, website, createdAt } = props; // values
   const { onActionClick, onTestingLocationExpand } = props; // events
   const updatedAt = new Date(props.updatedAt);
 
@@ -51,20 +51,20 @@ export default function TestingLocationListItem(props) {
         </h2>
 
         <dl className="summary d-none d-md-block">
-          <dd className="summary__item summary__item--semibold">{address}</dd>
+          <dd className="summary__item summary__item--semibold">{description}</dd>
           <dd className="summary__item summary__item--grey">{service_time}</dd>
           <dd className="detsummaryails__item">{driveThru.toString() === 'true' ? 'Drive Through' : ''}</dd>
           <dd className="summary__item summary__item--semibold">{phone}</dd>
         </dl>
         <dl className="summary d-md-none mb-0">
-          <dd className="summary__item summary__item--semibold">{address}</dd>
+          <dd className="summary__item summary__item--semibold">{description}</dd>
           <dd className="summary__item summary__item--grey">{service_time}</dd>
         </dl>
 
         <ExternalItemLinks
           display={'d-none d-md-block'}
           margin={{ marginTop: '15px', marginBottom: '20px' }}
-          description={address}
+          description={description}
           phone={phone}
           website={website}
           onClick={onClick}
@@ -85,7 +85,7 @@ export default function TestingLocationListItem(props) {
         <ExternalItemLinks
           display={'d-md-none'}
           margin={{ marginBottom: '15px' }}
-          address={address}
+          description={description}
           phone={phone}
           website={website}
         />
