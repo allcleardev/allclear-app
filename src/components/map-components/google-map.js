@@ -58,6 +58,7 @@ class GoogleMap extends Component {
     const urlLong = get(params, 'search.longitude');
     this.isLoggedIn = get(appState, 'person.id');
 
+    // eslint-disable-next-line
     let selection;
     const urlID = get(params, 'selection');
 
