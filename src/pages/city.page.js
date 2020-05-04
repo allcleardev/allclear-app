@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {AppContext} from '@contexts/app.context';
-import {bindAll, debounce} from 'lodash';
+import {bindAll, debounce, get, startCase} from 'lodash';
 import SolidHeader from '@general/headers/header-solid';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
@@ -31,7 +31,7 @@ class CityPage extends Component {
   }
 
   onBackClick() {
-    this.props.history.push(`/map?selection=${this.id}`);
+    this.props.history.push(`/map`);
   }
 
   componentWillUnmount() {
@@ -40,6 +40,8 @@ class CityPage extends Component {
 
   render() {
     const isMobile = this.state.mobileView;
+    const city = startCase(get(this, 'props.match.params.city'));
+    const state = startCase(get(this, 'props.match.params.state'));
 
     return (
       <div className="test-center-page">
@@ -65,15 +67,13 @@ class CityPage extends Component {
           <>
             {/* Overview Card */}
             <article className="card test-center-page__overview-card">
-              <h1 className="card__title">{'facility.name'}</h1>
+              <h1 className="card__title">{city}</h1>
               <div className="card__content">
-                <div className="info-line">{'facility'}</div>
-                <div className="info-line">{'facility.phone' || 'Phone Number Unavailable'}</div>
-                <div className="info-line">{'facility.hours'}</div>
+                <div className="info-line">{state}</div>
               </div>
-              <div className="card__actions">
-                <LinkButton href={'facility.url'} text="Website"/>
-              </div>
+              {/*<div className="card__actions">*/}
+              {/*  <LinkButton href={'facility.url'} text="Website"/>*/}
+              {/*</div>*/}
             </article>
 
 
