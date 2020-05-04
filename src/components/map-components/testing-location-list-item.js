@@ -1,13 +1,13 @@
-import React, {Fragment} from 'react';
+import React, { Fragment } from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
-import {boolToEng, isNullOrUndefined} from '../../util/general.helpers';
+import { boolToEng, isNullOrUndefined, getFeedbackButtonURL } from '../../util/general.helpers';
 import ExternalItemLinks from './external-item-links';
-import CustomizedExpansionPanel, {ExpansionPanelSummary, ExpansionPanelDetails} from './expansion-panel';
+import CustomizedExpansionPanel, { ExpansionPanelSummary, ExpansionPanelDetails } from './expansion-panel';
 
 export default function TestingLocationListItem(props) {
-  const {id, index, title, description, service_time, driveThru, phone, website, createdAt} = props; // values
-  const {onActionClick, onTestingLocationExpand} = props; // events
+  const { id, index, title, address, service_time, driveThru, phone, website, createdAt } = props; // values
+  const { onActionClick, onTestingLocationExpand } = props; // events
   const updatedAt = new Date(props.updatedAt);
 
   const onClick = (evt, buttonName) => {
@@ -34,7 +34,7 @@ export default function TestingLocationListItem(props) {
       aria-controls={`panel${index}-content`}
       id={`panel${index}-header`}
       className="testing-location-list-item"
-      expandIcon={<ExpandMoreIcon/>}
+      expandIcon={<ExpandMoreIcon />}
     >
       <div className="my-auto">
         <div className="card-title">
@@ -43,27 +43,27 @@ export default function TestingLocationListItem(props) {
           </span>
           {isNewLocation(createdAt) && (
             <div className="new-test-center-display">
-              <span><FiberManualRecordIcon/></span>
-              <span style={{marginTop: '2px'}}>New</span>
+              <span><FiberManualRecordIcon /></span>
+              <span style={{ marginTop: '2px' }}>New</span>
             </div>
           )}
         </div>
 
         <dl className="summary d-none d-md-block">
-          <dd className="summary__item summary__item--semibold">{description}</dd>
+          <dd className="summary__item summary__item--semibold">{address}</dd>
           <dd className="summary__item summary__item--grey">{service_time}</dd>
           <dd className="detsummaryails__item">{driveThru.toString() === 'true' ? 'Drive Through' : ''}</dd>
           <dd className="summary__item summary__item--semibold">{phone}</dd>
         </dl>
         <dl className="summary d-md-none mb-0">
-          <dd className="summary__item summary__item--semibold">{description}</dd>
+          <dd className="summary__item summary__item--semibold">{address}</dd>
           <dd className="summary__item summary__item--grey">{service_time}</dd>
         </dl>
 
         <ExternalItemLinks
           display={'d-none d-md-block'}
-          margin={{marginTop: '15px', marginBottom: '20px'}}
-          description={description}
+          margin={{ marginTop: '15px', marginBottom: '20px' }}
+          description={address}
           phone={phone}
           website={website}
           onClick={onClick}
@@ -72,13 +72,7 @@ export default function TestingLocationListItem(props) {
     </ExpansionPanelSummary>
   );
 
-  const changeURL = `
-  https://airtable.com/shrVJrPQs4qQkcW4o?prefill_Name=${props.title}
-  &prefill_Phone number=${props.phone}
-  &prefill_Hours=${props.service_time === undefined ? '' : props.service_time}
-  &prefill_This location was drive through=${(props.driveThru.toString() === 'true' ? 'Drive Through' : '')}
-  &prefill_This location required an appointment=${boolToEng(props.appointmentRequired)}
-  &prefill_Address=${props.description}`;
+  const changeURL = getFeedbackButtonURL(props);
 
   const details = (
     <ExpansionPanelDetails>
@@ -89,8 +83,8 @@ export default function TestingLocationListItem(props) {
         </dl>
         <ExternalItemLinks
           display={'d-md-none'}
-          margin={{marginBottom: '15px'}}
-          description={description}
+          margin={{ marginBottom: '15px' }}
+          address={address}
           phone={phone}
           website={website}
         />
@@ -158,8 +152,8 @@ export default function TestingLocationListItem(props) {
           )}
           <div className="mt-3">
             <a href={changeURL}
-               target='_blank'
-               rel='noopener noreferrer'>Suggest Change To Test Center Information</a>
+              target='_blank'
+              rel='noopener noreferrer'>Suggest Change To Test Center Information</a>
             <p className="fontsize-12">
               <i>Last update: {updatedAt.toLocaleString()}</i>
             </p>

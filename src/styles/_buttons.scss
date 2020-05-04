@@ -1,0 +1,27 @@
+.link-button {
+  &.MuiButton-root {
+    margin-bottom: 0px;
+    box-sizing: border-box !important;
+    border-radius: 14px !important;
+    padding: 3px 20px;
+    margin-right: 10px;
+    font-size: 13px;
+    
+    @media (min-width: $md) {
+      margin-right: 15px;
+      font-size: 14px;
+    }
+  }
+}
+
+.link-icon-button {
+  &.MuiIconButton-root {
+    padding: 5px 26px;
+    border-radius: 14px;
+    
+    .MuiSvgIcon-root {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}

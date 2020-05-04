@@ -1,8 +1,8 @@
 // external
-import React, {useState, useContext, useEffect,Fragment} from 'react';
+import React, { useState, useContext, useEffect, Fragment } from 'react';
 import clsx from 'clsx';
-import {makeStyles} from '@material-ui/core/styles';
-import { get, pick} from 'lodash';
+import { makeStyles } from '@material-ui/core/styles';
+import { get, pick } from 'lodash';
 import qs from 'qs';
 
 // components / icons
@@ -20,12 +20,12 @@ import Button from '@material-ui/core/Button';
 import ModalService from '@services/modal.service';
 import { AppContext } from '@contexts/app.context';
 import { useWindowResize } from '@hooks/general.hooks';
-import {getNumActiveFilters, getActiveFilters, getRouteQueryParams} from '@util/general.helpers';
+import { getNumActiveFilters, getActiveFilters, getRouteQueryParams } from '@util/general.helpers';
 import GAService, { MAP_PAGE_GA_EVENTS, GA_EVENT_MAP } from '@services/ga.service';
 import GoogleMapsAutocomplete from '@general/inputs/google-maps-autocomplete';
 import MapService from '@services/map.service';
 import ListLoadingSpinner from '../components/map-components/list-loading-spinner';
-import {useHistory} from 'react-router';
+import { useHistory } from 'react-router';
 
 export default function MapPage() {
   const mapService = MapService.getInstance();
@@ -36,7 +36,7 @@ export default function MapPage() {
   const classes = useStyles();
 
   // state & global state
-  const {setAppState, appState} = useContext(AppContext);
+  const { setAppState, appState } = useContext(AppContext);
   const history = useHistory();
   const [width, height] = useWindowResize(onWindowResize);
   const initialState = {
@@ -79,7 +79,7 @@ export default function MapPage() {
   // to reset URL params after the waterfall of URL updates (this will be the final update in the chain)
   useEffect(() => {
     const mobileView = (window.innerWidth < 960);
-    if(mapState.didClear){
+    if (mapState.didClear) {
 
       history.replace({
         pathname: '/map',
@@ -127,7 +127,7 @@ export default function MapPage() {
     });
 
     if (get(newLocation, 'description')) {
-      const {latitude, longitude} = newLocation;
+      const { latitude, longitude } = newLocation;
 
       await mapService.onLocationAccepted({
         coords: {
@@ -223,8 +223,8 @@ export default function MapPage() {
           onFilterClick={onEditFiltersBtnClick}
         ></MobileTopBar>
       ) : (
-         <SolidHeader isLoggedIn={isLoggedIn}></SolidHeader>
-       )}
+          <SolidHeader isLoggedIn={isLoggedIn}></SolidHeader>
+        )}
       <Drawer
         anchor={mobileView ? 'bottom' : 'left'}
         variant="permanent"
@@ -264,27 +264,27 @@ export default function MapPage() {
           {appState.map.isListLoading === true ? (
             <ListLoadingSpinner />
           ) : (
-             <Fragment>
-               {locations &&
-               locations.map((result, index) => (
-                 <TestingLocationListItem
-                   id={result.id}
-                   key={index}
-                   index={index}
-                   title={result.name}
-                   description={result.address}
-                   city_state={result.city + ', ' + result.state}
-                   service_time={result.hours}
-                   driveThru={result.driveThru}
-                   phone={result.phone}
-                   website={result.url}
-                   {...result}
-                   onActionClick={onActionClick}
-                   onTestingLocationExpand={onTestingLocationExpand}
-                 ></TestingLocationListItem>
-               ))}
-             </Fragment>
-           )}
+              <Fragment>
+                {locations &&
+                  locations.map((result, index) => (
+                    <TestingLocationListItem
+                      id={result.id}
+                      key={index}
+                      index={index}
+                      title={result.name}
+                      address={result.address}
+                      city_state={result.city + ', ' + result.state}
+                      service_time={result.hours}
+                      driveThru={result.driveThru}
+                      phone={result.phone}
+                      website={result.url}
+                      {...result}
+                      onActionClick={onActionClick}
+                      onTestingLocationExpand={onTestingLocationExpand}
+                    ></TestingLocationListItem>
+                  ))}
+              </Fragment>
+            )}
           {locations.length === 0 && appState.map.isListLoading === false && (
             <p style={{ margin: 20, textAlign: 'center', fontSize: '1.7em' }}>No Results Found</p>
           )}
