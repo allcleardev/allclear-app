@@ -111,7 +111,6 @@ export function convertToReadableDate(dateStr) {
 }
 
 export function getFeedbackButtonURL(facility) {
-  console.log('facility', facility);
   return `
     https://airtable.com/shrVJrPQs4qQkcW4o?prefill_Name=${facility.name || facility.title || ''}
     &prefill_Phone number=${facility.phone || ''}

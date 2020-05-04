@@ -37,7 +37,6 @@ export default class TestCenterPage extends Component {
       return facility;
     });
     this.setState({ facility });
-    console.log('mounting', this.state.facility);
   }
 
   onWindowResize() {
