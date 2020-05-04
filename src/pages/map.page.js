@@ -238,6 +238,7 @@ export default function MapPage() {
           }),
         }}
       >
+        <div className="list-gradient"></div>
         {mobileView && (
           <Button variant="contained" className="map-list-button" onClick={handleToggleView}>
             {drawerOpen ? 'Map' : 'List'}
