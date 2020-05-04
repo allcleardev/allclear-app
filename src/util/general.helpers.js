@@ -89,7 +89,6 @@ export function milesToMeters(i) {
 }
 
 export function getFacilityDetailsMap(facility) {
-  const boolToEng = (val) => val ? 'Yes' : 'No';
   const details = [
     { field: 'Location Type', value: get(facility, ['type', 'name']) },
     { field: 'Appointment Needed', value: boolToEng(facility.appointmentRequired) },
