@@ -18,12 +18,21 @@
     }
   }
 
+  .location-search {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: solid 1px #ddd;
+  }
+
   // location search bar
+  .MuiAutocomplete-root {
+    flex: 1;
+  }
   .MuiInputBase-root {
     border-radius: 0px;
     @media (min-width: $md) {
       height: 70px;
-      border-bottom: solid 1px #ddd;
     }
   }
   .MuiOutlinedInput-notchedOutline {
@@ -84,13 +93,16 @@
     }
   }
 
-  button.map-list-button {
+  .mobile-buttons {
     position: absolute;
     top: 0;
-    transform: translateY(-135%);
-    margin: 5px;
-    border-radius: 50px;
-    background-color: #fff;
+    transform: translateY(-100%);
+
+    button {
+      margin: 5px;
+      border-radius: 50px;
+      background-color: #fff;
+    }
   }
 }
 

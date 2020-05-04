@@ -15,6 +15,10 @@ import Container from '@material-ui/core/Container';
 import EditFiltersBtn from '@components/map-components/edit-filters-btn';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import SettingsSVG from '@svg/svg-settings';
+import SnackbarMessage from '@general/alerts/snackbar-message';
+import ShareIcon from '@material-ui/icons/Share';
 
 // other
 import ModalService from '@services/modal.service';
@@ -49,6 +53,7 @@ export default function MapPage() {
   };
   const [mapState, setMapState] = useState(initialState);
   const [drawerOpen, setDrawerOpenState] = useState(false);
+  const [snackBarOpen, setSnackBarOpenState] = useState(false);
   const locations = get(appState, 'map.locations') || [];
   const numActiveFilters = getNumActiveFilters(get(appState, 'searchCriteria'));
   const isLoggedIn = appState.sessionId ? true : false;
@@ -60,13 +65,13 @@ export default function MapPage() {
 
   // for setting initial search in autocomplete
   initialSearchVal = get(searchParams, 'search.description');
-  initialSearchVal = (mapState.didInitSearch) ? undefined : initialSearchVal;
+  initialSearchVal = mapState.didInitSearch ? undefined : initialSearchVal;
 
   /******************************************************************
    * LIFECYCLE HOOKS
    ******************************************************************/
   useEffect(() => {
-    const mobileView = (window.innerWidth < 960);
+    const mobileView = window.innerWidth < 960;
     setMapState({
       ...mapState,
       mobileView,
@@ -77,12 +82,11 @@ export default function MapPage() {
 
   // to reset URL params after the waterfall of URL updates (this will be the final update in the chain)
   useEffect(() => {
-    const mobileView = (window.innerWidth < 960);
+    const mobileView = window.innerWidth < 960;
     if (mapState.didClear) {
-
       history.replace({
         pathname: '/map',
-        search: qs.stringify({})
+        search: qs.stringify({}),
       });
 
       setMapState({
@@ -90,17 +94,13 @@ export default function MapPage() {
         mobileView,
         didClear: false,
       });
-
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [appState]);
 
-
-
   // callback handlers
   function onWindowResize({ width }) {
-
     if (width < 960) {
       setMapState({
         ...mapState,
@@ -115,25 +115,27 @@ export default function MapPage() {
   }
 
   async function onLocationSelected(bool, newLocation) {
-
     const search = pick(newLocation, ['description', 'latitude', 'longitude', 'id']);
     history.push({
       pathname: '/map',
       search: qs.stringify({
         ...appState.route.params,
-        search
+        search,
       }),
     });
 
     if (get(newLocation, 'description')) {
       const { latitude, longitude } = newLocation;
 
-      await mapService.onLocationAccepted({
-        coords: {
-          latitude, longitude
-        }
-      }, true);
-
+      await mapService.onLocationAccepted(
+        {
+          coords: {
+            latitude,
+            longitude,
+          },
+        },
+        true,
+      );
     }
   }
 
@@ -151,17 +153,18 @@ export default function MapPage() {
     setAppState({
       ...appState,
       route: {
-        params: {}
-      }
+        params: {},
+      },
     });
 
-
-    (latitude && longitude) && await mapService.onLocationAccepted({
-      coords: {
-        latitude, longitude
-      }
-    });
-
+    latitude &&
+      longitude &&
+      (await mapService.onLocationAccepted({
+        coords: {
+          latitude,
+          longitude,
+        },
+      }));
   }
 
   function onEditFiltersBtnClick() {
@@ -183,6 +186,17 @@ export default function MapPage() {
     setDrawerOpenState(!drawerOpen);
   }
 
+  function onShareClicked() {
+    if (navigator && navigator.clipboard) {
+      navigator.clipboard.writeText('https://go.allclear.app');
+      setSnackBarOpenState(true);
+    }
+  }
+
+  function handleSnackbarClose() {
+    setSnackBarOpenState(false);
+  }
+
   /******************************************************************
    * ANALYTICS
    ******************************************************************/
@@ -199,7 +213,7 @@ export default function MapPage() {
       pathname: '/map',
       search: qs.stringify({
         ...appState.route.params,
-        selection
+        selection,
       }),
     });
   }
@@ -212,6 +226,7 @@ export default function MapPage() {
   }
 
   const { mobileView } = mapState;
+
   return (
     <div className={clsx(classes.root, 'map-page')}>
       {mobileView ? (
@@ -222,8 +237,8 @@ export default function MapPage() {
           onFilterClick={onEditFiltersBtnClick}
         ></MobileTopBar>
       ) : (
-          <SolidHeader isLoggedIn={isLoggedIn}></SolidHeader>
-        )}
+        <SolidHeader isLoggedIn={isLoggedIn}></SolidHeader>
+      )}
       <Drawer
         anchor={mobileView ? 'bottom' : 'left'}
         variant="permanent"
@@ -239,55 +254,88 @@ export default function MapPage() {
         }}
       >
         {mobileView && (
-          <Button variant="contained" className="map-list-button" onClick={handleToggleView}>
-            {drawerOpen ? 'Map' : 'List'}
-          </Button>
+          <div className="mobile-buttons">
+            <Button variant="contained" onClick={handleToggleView}>
+              {drawerOpen ? 'Map' : 'List'}
+            </Button>
+            <Button variant="contained" onClick={onShareClicked}>
+              <ShareIcon style={{ marginRight: 5, fontSize: '1.2rem' }} /> <span>Share</span>
+            </Button>
+          </div>
         )}
         <div className={clsx(classes.drawer, 'drawer-content', 'hide-scrollbar')}>
           {!mobileView && (
             <Fragment>
-              <GoogleMapsAutocomplete
-                searchIconColor={'lightgray'}
-                focusOnRender={true}
-                locationSelected={onLocationSelected}
-                initialValue={initialSearchVal}
-                onClear={onLocationCleared}
-                noOptionsText={'Please Enter a Search Term to View Results'}
-              ></GoogleMapsAutocomplete>
+              <div className="location-search">
+                <GoogleMapsAutocomplete
+                  searchIconColor={'lightgray'}
+                  focusOnRender={true}
+                  locationSelected={onLocationSelected}
+                  initialValue={initialSearchVal}
+                  onClear={onLocationCleared}
+                  noOptionsText={'Please Enter a Search Term to View Results'}
+                ></GoogleMapsAutocomplete>
+                <IconButton
+                  aria-label="edit filters"
+                  aria-haspopup="true"
+                  className="edit-filters-icon-button"
+                  size="small"
+                  style={{ padding: '12px', margin: '5px' }}
+                  onClick={onEditFiltersBtnClick}
+                >
+                  {SettingsSVG({ color: '#666666' })}
+                </IconButton>
+              </div>
 
-              <Container>
-                <EditFiltersBtn numActiveFilters={numActiveFilters} onClick={onEditFiltersBtnClick} />
+              <Container style={{ padding: '20px 24px' }}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                  style={{ padding: '10px' }}
+                  startIcon={<ShareIcon />}
+                  onClick={() => onShareClicked()}
+                >
+                  Share AllClear
+                </Button>
               </Container>
             </Fragment>
           )}
           {appState.map.isListLoading === true ? (
             <ListLoadingSpinner />
           ) : (
-              <Fragment>
-                {locations &&
-                  locations.map((result, index) => (
-                    <TestingLocationListItem
-                      id={result.id}
-                      key={index}
-                      index={index}
-                      title={result.name}
-                      description={result.address}
-                      city_state={result.city + ', ' + result.state}
-                      service_time={result.hours}
-                      driveThru={result.driveThru}
-                      phone={result.phone}
-                      website={result.url}
-                      {...result}
-                      onActionClick={onActionClick}
-                      onTestingLocationExpand={onTestingLocationExpand}
-                    ></TestingLocationListItem>
-                  ))}
-              </Fragment>
-            )}
+            <Fragment>
+              {locations &&
+                locations.map((result, index) => (
+                  <TestingLocationListItem
+                    id={result.id}
+                    key={index}
+                    index={index}
+                    title={result.name}
+                    description={result.address}
+                    city_state={result.city + ', ' + result.state}
+                    service_time={result.hours}
+                    driveThru={result.driveThru}
+                    phone={result.phone}
+                    website={result.url}
+                    {...result}
+                    onActionClick={onActionClick}
+                    onTestingLocationExpand={onTestingLocationExpand}
+                  ></TestingLocationListItem>
+                ))}
+            </Fragment>
+          )}
           {locations.length === 0 && appState.map.isListLoading === false && (
             <p style={{ margin: 20, textAlign: 'center', fontSize: '1.7em' }}>No Results Found</p>
           )}
         </div>
+        <SnackbarMessage
+          snackbarClass={'snackbar--map'}
+          isOpen={snackBarOpen}
+          onClose={handleSnackbarClose}
+          severity={'success'}
+          message={`Link Copied to Clipboard!`}
+        />
       </Drawer>
       <main className={classes.content}>
         <GoogleMap onMapClick={onMapClick}></GoogleMap>
@@ -350,7 +398,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 // todo: might still be useful at some point just not now
 // function TabPanel(props) {
 //   const {children, value, index} = props;
@@ -372,7 +419,6 @@ const useStyles = makeStyles((theme) => ({
 //   index: PropTypes.any.isRequired,
 //   value: PropTypes.any.isRequired,
 // };
-
 
 // on mount, check if filter is active
 // useEffect(
