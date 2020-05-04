@@ -1,7 +1,8 @@
 .home-page {
-  position: relative;
+  flex: 1 0 auto; // safari fix
   display: flex;
   flex-direction: column;
+  position: relative;
   width: 100%;
   padding-bottom: 80px; // making space for bottom navigation bar
 
