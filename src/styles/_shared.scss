@@ -76,3 +76,14 @@ $colors: (
     }
   }
 }
+
+.seo-list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+
+  a {
+    color: white;
+    font-size: 16px;
+  }
+}

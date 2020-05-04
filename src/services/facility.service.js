@@ -55,4 +55,20 @@ export default class FacilityService {
       url: `${this.baseURL}/${id}`,
     });
   }
+
+  getStates() {
+    return Axios({
+      method: 'GET',
+      url: `${this.baseURL}/states`,
+    });
+  }
+
+  getCities(state) {
+    return Axios({
+      method: 'GET',
+      url: `${this.baseURL}/cities`,
+      params: {state}
+    });
+  }
+
 }
