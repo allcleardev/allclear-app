@@ -21,11 +21,9 @@ AllClear Front End Application
 General Info
 ------------
 
-This is the web version of <http://allclear.app>, a COVID-19 tracing
-application.
+This is the web version of [AllClear](http://go.allclear.app). 
 
-This is the web version of <http://allclear.app>, a COVID-19 tracing
-application.
+AllClear has the largest database of COVID-19 test centers in the country. Each listing is manually verified and regularly checked for updates and changes.
 
 Running the Project
 -------------------

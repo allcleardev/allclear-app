@@ -1,5 +1,5 @@
 // external
-import React, {useState, useContext, useEffect,Fragment} from 'react';
+import React, {useState, useContext, useEffect, Fragment} from 'react';
 import clsx from 'clsx';
 import {makeStyles} from '@material-ui/core/styles';
 import { get, pick} from 'lodash';
@@ -61,7 +61,6 @@ export default function MapPage() {
   // for setting initial search in autocomplete
   initialSearchVal = get(searchParams, 'search.description');
   initialSearchVal = (mapState.didInitSearch) ? undefined : initialSearchVal;
-
 
   /******************************************************************
    * LIFECYCLE HOOKS
@@ -195,7 +194,7 @@ export default function MapPage() {
   function onTestingLocationExpand(itemId, itemIndex, itemName, drawerOpen) {
     const eventKey = drawerOpen ? 'expand' : 'contract';
     handleGAEvent(eventKey, itemId, itemIndex, itemName);
-    const selection = itemName;
+    const selection = itemId;
     history.push({
       pathname: '/map',
       search: qs.stringify({
