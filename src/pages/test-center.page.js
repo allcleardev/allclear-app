@@ -29,7 +29,8 @@ export default class TestCenterPage extends Component {
     window.addEventListener('resize', debounce(this.onWindowResize, 400));
     const sessionId = get(this, ['context', 'appState', 'sessionId']);
     this.isLoggedIn = sessionId ? true : false;
-    const facility = await this.facilityService.get(this.id, sessionId).then((facility) => {
+    const facility = await this.facilityService.getFacility(this.id).then((res) => {
+      const facility = res.data;
       this.loading = false;
       this.facilityDetailsMap = getFacilityDetailsMap(facility);
       this.feedbackURL = getFeedbackButtonURL(facility);

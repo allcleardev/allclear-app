@@ -49,13 +49,10 @@ export default class FacilityService {
     });
   }
 
-  get(id, currSession) {
-    currSession = this._getCurrSession(currSession);
+  getFacility(id) {
     return Axios({
       method: 'GET',
       url: `${this.baseURL}/${id}`,
-      headers: currSession,
-    }).then((res) => res.data || {});
+    });
   }
-
 }

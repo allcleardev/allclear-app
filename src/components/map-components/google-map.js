@@ -28,8 +28,7 @@ class GoogleMap extends Component {
 
     bindAll(this, [
       'componentDidMount',
-      'onMarkerDragEnd',
-      'onMarkerZoomChanged',
+      'onMapDragEnd',
       'onZoomChanged',
       'onMyLocationClicked',
       'onLocationAccepted',
@@ -59,9 +58,18 @@ class GoogleMap extends Component {
     const urlLong = get(params, 'search.longitude');
     this.isLoggedIn = get(appState, 'person.id');
 
-    // not logged in
+    // eslint-disable-next-line
+    let selection;
+    const urlID = get(params, 'selection');
 
-    if (urlLat && urlLong) {
+    // deep link from facility
+    if(urlID){
+      const resp = await this.facilityService.getFacility(urlID);
+      latitude = get(resp, 'data.latitude');
+      longitude = get(resp, 'data.longitude');
+      selection = resp.data;
+    } else if (urlLat && urlLong) {
+      // deep link from search term
       latitude = urlLat;
       longitude = urlLong;
     } else if (!latitude || !longitude) {
@@ -91,18 +99,20 @@ class GoogleMap extends Component {
         latitude = G_MAP_DEFAULTS.center.lat;
         longitude = G_MAP_DEFAULTS.center.lng;
       }
+    }else{
+      // logged in profile stuff will go here
     }
 
     const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude}));
 
     // finally, select a pin if its in the url
-    const selection = get(params, 'selection');
+    //  selection = get(params, 'selection');
     const locations = get(result, 'data.records');
     this._setLocations(locations, {latitude, longitude});
     latitude && longitude && this._panTo(latitude, longitude);
 
-    if (selection) {
-      const index = findIndex(locations, ['name', selection]);
+    if (urlID) {
+      const index = findIndex(locations, ['id', Number(urlID)]);
       if (index !== -1) {
         clickMapMarker(appState, index, this.props.history, locations);
       }
@@ -120,19 +130,16 @@ class GoogleMap extends Component {
    * MAP INTERACTION EVENT HANDLERS
    ******************************************************************/
 
-  async onMarkerDragEnd(evt) {
+  onMapDragEnd(evt) {
+    // todo: this clear may need to change for deeplinking
+    this.mapService.onLocationCleared(null,null,'clear');
     const latitude = evt.center.lat();
     const longitude = evt.center.lng();
     this._search(latitude, longitude);
   }
 
-  async onMarkerZoomChanged(evt) {
-    const latitude = evt.center.lat();
-    const longitude = evt.center.lng();
-    this._search(latitude, longitude);
-  }
-
-  onZoomChanged(miles) {
+  onZoomChanged(miles,z,t) {
+    // console.log('zoom changed', ...arguments)
     // todo: major work here bro
     // https://stackoverflow.com/questions/52411378/google-maps-api-calculate-zoom-based-of-miles
   }
@@ -246,8 +253,8 @@ class GoogleMap extends Component {
           defaultZoom={G_MAP_DEFAULTS.zoom}
           zoom={this.state.zoom}
           yesIWantToUseGoogleMapApiInternals
-          onDragEnd={(evt) => this.onMarkerDragEnd(evt)}
-          onZoomChanged={(evt) => this.onMarkerDragEnd(evt)}
+          onDragEnd={(evt) => this.onMapDragEnd(evt)}
+          onZoomChanged={(evt) => this.onMapDragEnd(evt)}
           onZoomAnimationEnd={(evt) => this.onZoomChanged(evt)}
         >
           {locations.map((data, index) => (

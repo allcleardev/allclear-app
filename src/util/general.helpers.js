@@ -60,7 +60,7 @@ export function clickMapMarker(appState, index, currHistory, inLocations) {
   const isCurrentlyExpanded = [].slice.call(elemToOpen.classList).includes('Mui-expanded');
   if (!isCurrentlyExpanded) elemToOpen.children[0].click();
 
-  const selection = locations[index].name;
+  const selection = locations[index].id;
   !inLocations && currHistory.push({
     pathname: '/map',
     search: qs.stringify({

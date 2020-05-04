@@ -62,7 +62,6 @@ export default function MapPage() {
   initialSearchVal = get(searchParams, 'search.description');
   initialSearchVal = (mapState.didInitSearch) ? undefined : initialSearchVal;
 
-
   /******************************************************************
    * LIFECYCLE HOOKS
    ******************************************************************/
@@ -195,7 +194,7 @@ export default function MapPage() {
   function onTestingLocationExpand(itemId, itemIndex, itemName, drawerOpen) {
     const eventKey = drawerOpen ? 'expand' : 'contract';
     handleGAEvent(eventKey, itemId, itemIndex, itemName);
-    const selection = itemName;
+    const selection = itemId;
     history.push({
       pathname: '/map',
       search: qs.stringify({
