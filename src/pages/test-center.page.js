@@ -9,9 +9,11 @@ import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import PhoneIcon from '@material-ui/icons/Phone';
 import { getFacilityDetailsMap, convertToReadableDate, getFeedbackButtonURL } from '@util/general.helpers';
 import LinkButton from '@general/buttons/link-button';
+import {withRouter} from 'react-router';
 
-export default class TestCenterPage extends Component {
+class TestCenterPage extends Component {
   static contextType = AppContext;
+
   state = {
     facility: null
   };
@@ -46,7 +48,7 @@ export default class TestCenterPage extends Component {
   }
 
   onBackClick() {
-    this.props.history.goBack();
+    this.props.history.push(`/map?selection=${this.id}`);
   }
 
   componentWillUnmount() {
@@ -128,6 +130,8 @@ export default class TestCenterPage extends Component {
     );
   }
 }
+
+export default withRouter(TestCenterPage)
 
 function DetailRow(props) {
   return (
