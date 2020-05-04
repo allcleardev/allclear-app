@@ -126,5 +126,5 @@ export function getFeedbackButtonURL(facility) {
     &prefill_Hours=${facility.service_time === undefined ? '' : facility.service_time}
     &prefill_This location was drive through=${(facility.driveThru.toString() === 'true' ? 'Drive Through' : '')}
     &prefill_This location required an appointment=${boolToEng(facility.appointmentRequired) || ''}
-    &prefill_Address=${facility.address || facility.description} || ''`;
+    &prefill_Address=${facility.description || facility.address || ''}`;
 }
