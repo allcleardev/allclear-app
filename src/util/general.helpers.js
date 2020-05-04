@@ -89,20 +89,30 @@ export function milesToMeters(i) {
 }
 
 export function getFacilityDetailsMap(facility) {
-  const booleanToYesNo = (val) => val ? 'Yes' : 'No';
-  return [
+  const boolToEng = (val) => val ? 'Yes' : 'No';
+  const details = [
     { field: 'Location Type', value: get(facility, ['type', 'name']) },
-    { field: 'Appointment Needed', value: booleanToYesNo(facility.appointmentRequired) },
-    { field: 'Drive-Through', value: booleanToYesNo(facility.driveThru) },
-    { field: 'Telescreening Available', value: booleanToYesNo(facility.telescreeningAvailable) },
-    { field: 'Referral From Doctor Needed', value: booleanToYesNo(facility.referralRequired) },
+    { field: 'Appointment Needed', value: boolToEng(facility.appointmentRequired) },
+    { field: 'Drive-Through', value: boolToEng(facility.driveThru) },
+    { field: 'Telescreening Available', value: boolToEng(facility.telescreeningAvailable) },
+    { field: 'Referral From Doctor Needed', value: boolToEng(facility.referralRequired) },
     // { key: 'Doctor Referral Crtieria', value: get(facility, 'type', 'name' )}
-    { field: 'Accepts 3rd Party Test Orders', value: booleanToYesNo(facility.acceptsThirdParty) },
-    { field: 'Accepts Insurance', value: booleanToYesNo(facility.acceptsInsurance) },
+    { field: 'Accepts 3rd Party Test Orders', value: boolToEng(facility.acceptsThirdParty) },
+    { field: 'Accepts Insurance', value: boolToEng(facility.acceptsInsurance) },
     // { key: 'Insurance Providers', value: }
     // { key: 'Other Testing Criteria', value: }
     // { key: 'Notes', value: }
   ];
+
+  facility.testCriteria && details.push({ field: 'Known Test Criteria', value: facility.testCriteria.name });
+  if (!isNullOrUndefined(facility.referralRequired)) {
+    details.push({ field: 'Doctor Referral Required', value: boolToEng(facility.referralRequired) });
+    details.push({ field: 'Doctor Referral Criteria', value: facility.doctorReferralCriteria || 'None' });
+  }
+  details.push({ field: 'Free or Very Low Cost', value: boolToEng(facility.freeOrLowCost) });
+
+
+  return details;
 }
 
 export function convertToReadableDate(dateStr) {

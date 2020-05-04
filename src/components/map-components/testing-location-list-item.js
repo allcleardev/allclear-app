@@ -39,13 +39,7 @@ export default function TestingLocationListItem(props) {
       <div className="my-auto">
         <h2 className="card-title">
           <span className="title-text">
-            <a
-              href={`/test-centers/${props.id}`}
-            >
-
             {index + 1}. {title}
-            </a>
-
           </span>
           {isNewLocation(createdAt) && (
             <div className="new-test-center-display">
@@ -89,7 +83,7 @@ export default function TestingLocationListItem(props) {
         </dl>
         <ExternalItemLinks
           display={'d-md-none'}
-          margin={{marginBottom: '15px'}}
+          margin={{ marginBottom: '15px' }}
           address={address}
           phone={phone}
           website={website}
@@ -156,10 +150,13 @@ export default function TestingLocationListItem(props) {
               <dd>{boolToEng(props.freeOrLowCost)}</dd>
             </Fragment>
           )}
+          <a href={`/test-centers/${props.id}`}>
+            View Full Test Center Detail
+          </a>
           <div className="mt-3">
             <a href={changeURL}
-               target='_blank'
-               rel='noopener noreferrer'>Suggest Change To Test Center Information</a>
+              target='_blank'
+              rel='noopener noreferrer'>Suggest Change To Test Center Information</a>
             <p className="fontsize-12">
               <i>Last update: {updatedAt.toLocaleString()}</i>
             </p>
