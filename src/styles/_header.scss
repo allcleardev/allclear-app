@@ -47,15 +47,15 @@
 
   .shape {
     position: absolute;
-    width: 150%;
-    height: 100%;
-    border-bottom-left-radius: 50%;
-    border-bottom-right-radius: 50%;
+    width: 100%;
+    height: 179px;
     z-index: -1;
     top: 0;
-    left: 50%;
-    transform: translateX(-50%);
     @include responsive-gradient;
+
+    @media (min-width: $md) {
+      height: 224px;
+    }
   }
 
   .icon-button {

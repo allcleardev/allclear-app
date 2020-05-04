@@ -253,6 +253,7 @@ export default function MapPage() {
           }),
         }}
       >
+        <div className="list-gradient"></div>
         {mobileView && (
           <div className="mobile-buttons">
             <Button variant="contained" onClick={handleToggleView}>
