@@ -12,7 +12,6 @@ import GoogleMap from '@components/map-components/google-map';
 import TestingLocationListItem from '@components/map-components/testing-location-list-item';
 import MobileTopBar from '@components/map-components/mobile-top-bar';
 import Container from '@material-ui/core/Container';
-import EditFiltersBtn from '@components/map-components/edit-filters-btn';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
@@ -24,7 +23,7 @@ import ShareIcon from '@material-ui/icons/Share';
 import ModalService from '@services/modal.service';
 import { AppContext } from '@contexts/app.context';
 import { useWindowResize } from '@hooks/general.hooks';
-import { getNumActiveFilters, getActiveFilters, getRouteQueryParams } from '@util/general.helpers';
+import { getActiveFilters, getRouteQueryParams } from '@util/general.helpers';
 import GAService, { MAP_PAGE_GA_EVENTS, GA_EVENT_MAP } from '@services/ga.service';
 import GoogleMapsAutocomplete from '@general/inputs/google-maps-autocomplete';
 import MapService from '@services/map.service';
@@ -55,7 +54,8 @@ export default function MapPage() {
   const [drawerOpen, setDrawerOpenState] = useState(false);
   const [snackBarOpen, setSnackBarOpenState] = useState(false);
   const locations = get(appState, 'map.locations') || [];
-  const numActiveFilters = getNumActiveFilters(get(appState, 'searchCriteria'));
+  // NOTE: Removed `getNumActiveFilters` for ALLCLEAR-516 (TODO: add back in to work with new layout?)
+  // const numActiveFilters = getNumActiveFilters(get(appState, 'searchCriteria'));
   const isLoggedIn = appState.sessionId ? true : false;
   let initialSearchVal;
 
