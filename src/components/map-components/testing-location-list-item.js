@@ -4,6 +4,7 @@ import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import { boolToEng, isNullOrUndefined, getFeedbackButtonURL } from '../../util/general.helpers';
 import ExternalItemLinks from './external-item-links';
 import CustomizedExpansionPanel, { ExpansionPanelSummary, ExpansionPanelDetails } from './expansion-panel';
+import {Link} from 'react-router-dom';
 
 export default function TestingLocationListItem(props) {
   const { id, index, title, address, service_time, driveThru, phone, website, createdAt } = props; // values
@@ -150,9 +151,10 @@ export default function TestingLocationListItem(props) {
               <dd>{boolToEng(props.freeOrLowCost)}</dd>
             </Fragment>
           )}
-          <a href={`/test-centers/${props.id}`}>
+          <Link
+            to={`/test-centers/${props.id}`}>
             View Full Test Center Detail
-          </a>
+          </Link>
           <div className="mt-3">
             <a href={changeURL}
               target='_blank'
