@@ -7,6 +7,7 @@ import { DEFAULT_NAV_ITEMS } from '@components/general/headers/header.constants'
 import {AppContext} from '@contexts/app.context';
 import {bindAll} from 'lodash';
 import FacilityService from '@services/facility.service';
+import {Link} from 'react-router-dom';
 
 class StatePage extends Component {
   static contextType = AppContext;
@@ -66,7 +67,7 @@ class StatePage extends Component {
             {this.state.cityList &&
             this.state.cityList.map((res) => {
               return (
-                <a href={`/locations/${this.state.stateName}/${res.name}`}>{res.name} ({res.total})</a>
+                <Link to={`/locations/${this.state.stateName}/${res.name}`}>{res.name} ({res.total})</Link>
               );
             })}
           </div>
