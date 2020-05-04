@@ -9,7 +9,7 @@ import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import PhoneIcon from '@material-ui/icons/Phone';
 import { getFacilityDetailsMap, convertToReadableDate, getFeedbackButtonURL } from '@util/general.helpers';
 import LinkButton from '@general/buttons/link-button';
-import {withRouter} from 'react-router';
+import { withRouter } from 'react-router';
 
 class TestCenterPage extends Component {
   static contextType = AppContext;
@@ -44,7 +44,7 @@ class TestCenterPage extends Component {
   }
 
   onWindowResize() {
-    this.setState({ mobileView: window.innerWidth < 768 });
+    this.setState({ mobileView: window.innerWidth < 960 });
   }
 
   onBackClick() {
@@ -58,6 +58,7 @@ class TestCenterPage extends Component {
   render() {
     const facility = this.state.facility;
     const isMobile = this.state.mobileView;
+    console.log('isMObile', isMobile);
 
     return (
       <div className="test-center-page">
@@ -67,7 +68,7 @@ class TestCenterPage extends Component {
           {
             isMobile ?
               <div className="mobile-header">
-                <IconButton style={{ color: 'white' }} onClick={this.onBackClick}>
+                <IconButton className="mobile-back-btn" onClick={this.onBackClick}>
                   <KeyboardArrowLeftIcon />
                 </IconButton>
                 <span className="title">Test Center Details</span>
