@@ -60,7 +60,7 @@ async function build() {
           smStream.write({ url: '/locations/' + stateKey + '/' + cityKey});
 
           stateMap[stateKey].cities[cityKey].forEach((location) => {
-            smStream.write({ url: '/locations/' + stateKey + '/' + cityKey + '/' + location});
+            smStream.write({ url: '/test-centers/' + location});
           });
         }
       }
