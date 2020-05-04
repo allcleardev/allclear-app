@@ -1,19 +1,14 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import Logo from '@assets/images/logo-navy.svg';
 import { isLoggedInHeaderLinks, isLoggedOutHeaderLinks } from '@util/general.constants';
-import CloseIcon from '@material-ui/icons/Close';
-import { Fab } from '@material-ui/core';
 import { cloneDeep } from 'lodash';
 
 export default function MobileMenu(props) {
-  console.log('PROPS:', props);
-
-  const history = useHistory();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
 
@@ -35,37 +30,46 @@ export default function MobileMenu(props) {
   return (
     <div className="mobile-menu">
       <IconButton
+        disableRipple
         ref={anchorRef}
         aria-controls={open ? 'menu-list-grow' : undefined}
         aria-label="menu"
         aria-haspopup="true"
-        className="icon-button"
+        className={open ? 'icon-button icon-close' : 'icon-button icon-open'}
         size="small"
-        style={{ backgroundColor: 'white', padding: '10px' }}
         onClick={onMenuToggle}
       >
-        <MenuIcon style={{ color: 'black' }} />
+        <span className="icon"></span>
       </IconButton>
 
-      <div className={open ? 'menu menu--opened' : 'menu menu--closed'} id="menu-list-grow">
+      <div className={open ? 'menu menu--opened' : 'menu'} id="menu-list-grow">
         <ClickAwayListener onClickAway={onMenuClosed}>
           <MenuList autoFocusItem={open} className="menu__list">
-            {/* TODO: handle external links */}
-            {links.map((link) => (
-              <MenuItem className="menu__item" onClick={() => history.push(link.to)}>
-                {link.name}
-              </MenuItem>
-            ))}
+            {links.map((link) =>
+              link.isExternalURL ? (
+                <MenuItem
+                  className="menu__item"
+                  component={'a'}
+                  href={link.to}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  {link.name}
+                </MenuItem>
+              ) : (
+                <MenuItem className="menu__item" component={Link} to={link.to}>
+                  {link.name}
+                </MenuItem>
+              ),
+            )}
+            <a href="https://home.allclear.app" className="menu__list" rel="noopener noreferrer" target="_blank">
+              <img className="logo" src={Logo} alt="Logo" />
+            </a>
           </MenuList>
         </ClickAwayListener>
-        <div class="circle circle--1"></div>
-        <div class="circle circle--2"></div>
-        <div class="circle circle--3">
-          <Fab className="circle__close-button" color="secondary" aria-label="close">
-            <CloseIcon />
-          </Fab>
-        </div>
       </div>
+
+      <span className={open ? 'circle opened' : 'circle'}></span>
     </div>
   );
 }
