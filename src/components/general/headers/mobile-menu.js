@@ -1,9 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Grow from '@material-ui/core/Grow';
-import Paper from '@material-ui/core/Paper';
-import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import IconButton from '@material-ui/core/IconButton';
@@ -45,9 +42,9 @@ export default function MobileMenu(props) {
         <span className="icon"></span>
       </IconButton>
 
-      <div className={open ? 'menu menu--opened' : 'menu'} id="menu-list-grow">
+      <div className={open ? 'menu menu--opened' : 'menu'}>
         <ClickAwayListener onClickAway={onMenuClosed}>
-          <MenuList autoFocusItem={open} className="menu__list">
+          <MenuList autoFocusItem={open} className="menu__list" id="menu-list-grow">
             {links.map((link) =>
               link.isExternalURL ? (
                 <MenuItem
@@ -56,16 +53,23 @@ export default function MobileMenu(props) {
                   href={link.to}
                   rel="noopener noreferrer"
                   target="_blank"
+                  onClick={onMenuToggle}
                 >
                   {link.name}
                 </MenuItem>
               ) : (
-                <MenuItem className="menu__item" component={Link} to={link.to}>
+                <MenuItem className="menu__item" component={Link} to={link.to} onClick={onMenuToggle}>
                   {link.name}
                 </MenuItem>
               ),
             )}
-            <a href="https://home.allclear.app" className="menu__list" rel="noopener noreferrer" target="_blank">
+            <a
+              href="https://home.allclear.app"
+              className="menu__list"
+              rel="noopener noreferrer"
+              target="_blank"
+              onClick={onMenuToggle}
+            >
               <img className="logo" src={Logo} alt="Logo" />
             </a>
           </MenuList>
