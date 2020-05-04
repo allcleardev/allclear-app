@@ -37,9 +37,15 @@ export default function TestingLocationListItem(props) {
       expandIcon={<ExpandMoreIcon />}
     >
       <div className="my-auto">
-        <div className="card-title">
+        <h2 className="card-title">
           <span className="title-text">
+            <a
+              href={`/test-centers/${props.id}`}
+            >
+
             {index + 1}. {title}
+            </a>
+
           </span>
           {isNewLocation(createdAt) && (
             <div className="new-test-center-display">
@@ -47,7 +53,7 @@ export default function TestingLocationListItem(props) {
               <span style={{ marginTop: '2px' }}>New</span>
             </div>
           )}
-        </div>
+        </h2>
 
         <dl className="summary d-none d-md-block">
           <dd className="summary__item summary__item--semibold">{address}</dd>
@@ -83,7 +89,7 @@ export default function TestingLocationListItem(props) {
         </dl>
         <ExternalItemLinks
           display={'d-md-none'}
-          margin={{ marginBottom: '15px' }}
+          margin={{marginBottom: '15px'}}
           address={address}
           phone={phone}
           website={website}
@@ -152,8 +158,8 @@ export default function TestingLocationListItem(props) {
           )}
           <div className="mt-3">
             <a href={changeURL}
-              target='_blank'
-              rel='noopener noreferrer'>Suggest Change To Test Center Information</a>
+               target='_blank'
+               rel='noopener noreferrer'>Suggest Change To Test Center Information</a>
             <p className="fontsize-12">
               <i>Last update: {updatedAt.toLocaleString()}</i>
             </p>

@@ -131,7 +131,7 @@ class TestCenterPage extends Component {
   }
 }
 
-export default withRouter(TestCenterPage)
+export default withRouter(TestCenterPage);
 
 function DetailRow(props) {
   return (
