@@ -35,6 +35,9 @@ import { Redirect } from 'react-router';
 import SignUpPage from '@pages/sign-up.page';
 import LogoutPage from '@pages/logout.page';
 import TestCenterPage from '@pages/test-center.page';
+import StateListPage from '@pages/state-list.page';
+import StatePage from '@pages/state.page';
+import CityPage from '@pages/city.page';
 
 export const history = createBrowserHistory();
 
@@ -87,6 +90,11 @@ export default function Router() {
           {/* Test Center Page */}
           <Route path="/test-centers/:id" component={TestCenterPage} />
           {/* /:city/:test-center-name */}
+
+          {/* SEO */}
+          <Route path="/state-list" component={StateListPage} />
+          <Route exact path="/locations/:state" component={StatePage} />
+          <Route exact path="/locations/:state/:city" component={CityPage} />
 
           {/* Map */}
           <Route path="/map" component={MapPage} />

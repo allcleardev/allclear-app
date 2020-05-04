@@ -9,6 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { isLoggedInHeaderLinks, isLoggedOutHeaderLinks } from '@util/general.constants';
 import { cloneDeep } from 'lodash';
+import {Link} from 'react-router-dom';
 
 export default function MobileMenu(props) {
   const [open, setOpen] = React.useState(false);
@@ -56,9 +57,9 @@ export default function MobileMenu(props) {
               <ClickAwayListener onClickAway={onMenuClosed}>
                 <MenuList autoFocusItem={open} id="menu-list-grow" style={{ padding: 0 }}>
                   {links.map((link) => (
-                    <a style={{ color: 'black' }} href={link.to} key={link.name}>
+                    <Link style={{ color: 'black' }} to={link.to} key={link.name}>
                       <MenuItem>{link.name}</MenuItem>
-                    </a>
+                    </Link>
                   ))}
                 </MenuList>
               </ClickAwayListener>
