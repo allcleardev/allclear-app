@@ -1,8 +1,9 @@
 // external
-import React, { useState, useContext, Fragment } from 'react';
+import React, { useState, useContext, useEffect, Fragment } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import { get } from 'lodash';
+import { get, pick } from 'lodash';
+import qs from 'qs';
 
 // components / icons
 import SolidHeader from '@general/headers/header-solid';
@@ -19,11 +20,12 @@ import Button from '@material-ui/core/Button';
 import ModalService from '@services/modal.service';
 import { AppContext } from '@contexts/app.context';
 import { useWindowResize } from '@hooks/general.hooks';
-import { getNumActiveFilters, getActiveFilters } from '@util/general.helpers';
+import { getNumActiveFilters, getActiveFilters, getRouteQueryParams } from '@util/general.helpers';
 import GAService, { MAP_PAGE_GA_EVENTS, GA_EVENT_MAP } from '@services/ga.service';
 import GoogleMapsAutocomplete from '@general/inputs/google-maps-autocomplete';
 import MapService from '@services/map.service';
 import ListLoadingSpinner from '../components/map-components/list-loading-spinner';
+import { useHistory } from 'react-router';
 
 export default function MapPage() {
   const mapService = MapService.getInstance();
@@ -32,15 +34,17 @@ export default function MapPage() {
 
   // constants
   const classes = useStyles();
-  const modalService = ModalService.getInstance();
 
   // state & global state
   const { setAppState, appState } = useContext(AppContext);
+  const history = useHistory();
   const [width, height] = useWindowResize(onWindowResize);
   const initialState = {
     windowWidth: width,
     windowHeight: height,
     searchFilterActive: false,
+    didInitSearch: false,
+    didClear: false,
     mobileView: false,
   };
   const [mapState, setMapState] = useState(initialState);
@@ -48,9 +52,55 @@ export default function MapPage() {
   const locations = get(appState, 'map.locations') || [];
   const numActiveFilters = getNumActiveFilters(get(appState, 'searchCriteria'));
   const isLoggedIn = appState.sessionId ? true : false;
+  let initialSearchVal;
+
+  // get modal service so we can toggle it open
+  let modalService = ModalService.getInstance();
+  let searchParams = getRouteQueryParams(history.location);
+
+  // for setting initial search in autocomplete
+  initialSearchVal = get(searchParams, 'search.description');
+  initialSearchVal = (mapState.didInitSearch) ? undefined : initialSearchVal;
+
+  /******************************************************************
+   * LIFECYCLE HOOKS
+   ******************************************************************/
+  useEffect(() => {
+    const mobileView = (window.innerWidth < 960);
+    setMapState({
+      ...mapState,
+      mobileView,
+      didInitSearch: true,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // to reset URL params after the waterfall of URL updates (this will be the final update in the chain)
+  useEffect(() => {
+    const mobileView = (window.innerWidth < 960);
+    if (mapState.didClear) {
+
+      history.replace({
+        pathname: '/map',
+        search: qs.stringify({})
+      });
+
+      setMapState({
+        ...mapState,
+        mobileView,
+        didClear: false,
+      });
+
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [appState]);
+
+
 
   // callback handlers
-  function onWindowResize({ width, height }) {
+  function onWindowResize({ width }) {
+
     if (width < 960) {
       setMapState({
         ...mapState,
@@ -65,32 +115,53 @@ export default function MapPage() {
   }
 
   async function onLocationSelected(bool, newLocation) {
+
+    const search = pick(newLocation, ['description', 'latitude', 'longitude', 'id']);
+    history.push({
+      pathname: '/map',
+      search: qs.stringify({
+        ...appState.route.params,
+        search
+      }),
+    });
+
     if (get(newLocation, 'description')) {
       const { latitude, longitude } = newLocation;
 
-      await mapService.onLocationAccepted(
-        {
-          coords: {
-            latitude,
-            longitude,
-          },
-        },
-        true,
-      );
+      await mapService.onLocationAccepted({
+        coords: {
+          latitude, longitude
+        }
+      }, true);
+
     }
   }
 
   async function onLocationCleared() {
     const latitude = get(appState, 'person.latitude');
     const longitude = get(appState, 'person.longitude');
-    latitude &&
-      longitude &&
-      (await mapService.onLocationAccepted({
-        coords: {
-          latitude,
-          longitude,
-        },
-      }));
+
+    // set a temp flag for lifecycle hook to know a clear happened
+    setMapState({
+      ...mapState,
+      didClear: true,
+    });
+
+    // clear route app state
+    setAppState({
+      ...appState,
+      route: {
+        params: {}
+      }
+    });
+
+
+    (latitude && longitude) && await mapService.onLocationAccepted({
+      coords: {
+        latitude, longitude
+      }
+    });
+
   }
 
   function onEditFiltersBtnClick() {
@@ -112,7 +183,10 @@ export default function MapPage() {
     setDrawerOpenState(!drawerOpen);
   }
 
-  // analytics handlers
+  /******************************************************************
+   * ANALYTICS
+   ******************************************************************/
+
   function onActionClick(action, itemId, itemIndex, itemName) {
     handleGAEvent(action, itemId, itemIndex, itemName);
   }
@@ -120,6 +194,14 @@ export default function MapPage() {
   function onTestingLocationExpand(itemId, itemIndex, itemName, drawerOpen) {
     const eventKey = drawerOpen ? 'expand' : 'contract';
     handleGAEvent(eventKey, itemId, itemIndex, itemName);
+    const selection = itemId;
+    history.push({
+      pathname: '/map',
+      search: qs.stringify({
+        ...appState.route.params,
+        selection
+      }),
+    });
   }
 
   function handleGAEvent(eventKey, itemId, itemIndex, itemName) {
@@ -130,7 +212,6 @@ export default function MapPage() {
   }
 
   const { mobileView } = mapState;
-
   return (
     <div className={clsx(classes.root, 'map-page')}>
       {mobileView ? (
@@ -141,8 +222,8 @@ export default function MapPage() {
           onFilterClick={onEditFiltersBtnClick}
         ></MobileTopBar>
       ) : (
-        <SolidHeader isLoggedIn={isLoggedIn}></SolidHeader>
-      )}
+          <SolidHeader isLoggedIn={isLoggedIn}></SolidHeader>
+        )}
       <Drawer
         anchor={mobileView ? 'bottom' : 'left'}
         variant="permanent"
@@ -157,6 +238,7 @@ export default function MapPage() {
           }),
         }}
       >
+        <div className="list-gradient"></div>
         {mobileView && (
           <Button variant="contained" className="map-list-button" onClick={handleToggleView}>
             {drawerOpen ? 'Map' : 'List'}
@@ -169,6 +251,7 @@ export default function MapPage() {
                 searchIconColor={'lightgray'}
                 focusOnRender={true}
                 locationSelected={onLocationSelected}
+                initialValue={initialSearchVal}
                 onClear={onLocationCleared}
                 noOptionsText={'Please Enter a Search Term to View Results'}
               ></GoogleMapsAutocomplete>
@@ -181,27 +264,27 @@ export default function MapPage() {
           {appState.map.isListLoading === true ? (
             <ListLoadingSpinner />
           ) : (
-            <Fragment>
-              {locations &&
-                locations.map((result, index) => (
-                  <TestingLocationListItem
-                    id={result.id}
-                    key={index}
-                    index={index}
-                    title={result.name}
-                    description={result.address}
-                    city_state={result.city + ', ' + result.state}
-                    service_time={result.hours}
-                    driveThru={result.driveThru}
-                    phone={result.phone}
-                    website={result.url}
-                    {...result}
-                    onActionClick={onActionClick}
-                    onTestingLocationExpand={onTestingLocationExpand}
-                  ></TestingLocationListItem>
-                ))}
-            </Fragment>
-          )}
+              <Fragment>
+                {locations &&
+                  locations.map((result, index) => (
+                    <TestingLocationListItem
+                      id={result.id}
+                      key={index}
+                      index={index}
+                      title={result.name}
+                      description={result.address}
+                      city_state={result.city + ', ' + result.state}
+                      service_time={result.hours}
+                      driveThru={result.driveThru}
+                      phone={result.phone}
+                      website={result.url}
+                      {...result}
+                      onActionClick={onActionClick}
+                      onTestingLocationExpand={onTestingLocationExpand}
+                    ></TestingLocationListItem>
+                  ))}
+              </Fragment>
+            )}
           {locations.length === 0 && appState.map.isListLoading === false && (
             <p style={{ margin: 20, textAlign: 'center', fontSize: '1.7em' }}>No Results Found</p>
           )}
@@ -257,10 +340,9 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'visible',
     height: `${collapseHeight}%`,
     [theme.breakpoints.up('md')]: {
-      height: '100%',
       width: expandWidth,
-      border: 0,
       boxShadow: '5px 0px 20px rgba(0, 0, 0, 0.1)',
+      height: 'calc(100% - 70px)',
     },
   },
   content: {
@@ -268,6 +350,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
   },
 }));
+
 
 // todo: might still be useful at some point just not now
 // function TabPanel(props) {
@@ -290,6 +373,7 @@ const useStyles = makeStyles((theme) => ({
 //   index: PropTypes.any.isRequired,
 //   value: PropTypes.any.isRequired,
 // };
+
 
 // on mount, check if filter is active
 // useEffect(
@@ -314,3 +398,29 @@ const useStyles = makeStyles((theme) => ({
 //     },
 //   });
 //
+//   // hide badge when filters are inactive
+//   if (get(badgeRef, 'current.children[1]')) {
+//     badgeRef.current.children[1].hidden = !searchFilterActive;
+//   }
+// }
+
+// useEffect(() => {
+//
+//   const latitude = get(appState, 'route.params.search.latitude');
+//   const longitude = get(appState, 'route.params.search.longitude');
+//
+//   if (latitude && longitude && !mapState.didInitMap) {
+//     mapService.onLocationAccepted({
+//       coords: {
+//         latitude, longitude
+//       }
+//     }, true);
+//     setMapState({
+//       ...mapState,
+//       didInitMap: true,
+//     });
+//   }
+//
+//
+//   // eslint-disable-next-line react-hooks/exhaustive-deps
+// }, [appState]);

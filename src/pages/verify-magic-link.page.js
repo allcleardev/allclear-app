@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import qs from 'qs';
-
 import Box from '@material-ui/core/Container';
 
 import RoundHeader from '../components/general/headers/header-round';
@@ -12,6 +10,7 @@ import {bindAll} from 'lodash';
 import PeopleService from '@services/people.service';
 import {AppContext} from '@contexts/app.context';
 import GAService from '@services/ga.service';
+import {getRouteQueryParams} from '@util/general.helpers';
 
 export default class VerifyMagicLinkPage extends Component {
   static contextType = AppContext;
@@ -32,7 +31,6 @@ export default class VerifyMagicLinkPage extends Component {
     };
 
     bindAll(this, [
-      'santizeSearchParams',
       'verifyMagicLink'
     ]);
   }
@@ -41,16 +39,10 @@ export default class VerifyMagicLinkPage extends Component {
     this.verifyMagicLink();
   }
 
-  santizeSearchParams = (searchParams) => {
-    searchParams = searchParams.replace('?', '');
-    searchParams = qs.parse(searchParams, []);
-    return searchParams;
-  }
-
   // Function to make call backend service to confirm the magic link
   async verifyMagicLink() {
     const { appState, setAppState } = this.context;
-    let searchParams = this.santizeSearchParams(this.props.location.search);
+    let searchParams = getRouteQueryParams(this.props.location);
 
     const response = await this.peopleService.confirmAuthRequest({phone: searchParams.phone, code: searchParams.code});
 

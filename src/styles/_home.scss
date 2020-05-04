@@ -9,11 +9,20 @@
     padding-bottom: 30px;
   }
 
+  button {
+    min-height: 48px;
+  }
+
   button.home-page__button {
     padding: 9px;
     border-radius: 10px;
     font-weight: 600;
     font-size: 17px;
+
+    @media (min-width: $md) {
+      border: 0 !important;
+      margin-top: 15px;
+    }
   }
 
   .settings-option {
@@ -28,12 +37,20 @@
     color: #fff;
 
     @media (min-width: $md) {
-      top: -120px;
-      right: 10px;
+      top: -10px;
+      right: 20px;
     }
 
     &__text {
       font-size: 10px;
+    }
+
+    &__icon {
+      @media (min-width: $md) {
+        path {
+          stroke: #000;
+        }
+      }
     }
   }
 
@@ -42,22 +59,90 @@
     flex-direction: column;
     align-items: center;
 
+    @media (min-width: $md) {
+      position: relative;
+      margin-top: 40px;
+    }
+
     &__heading {
       line-height: 22px;
       font-weight: 600;
       font-size: 17px;
+
+      @media (min-width: $md) {
+        display: none;
+      }
+    }
+
+    &__card {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 22px 30px;
+      border-radius: 15px;
+      background: #fff;
+      color: #000;
+      box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.15);
+
+      @media (min-width: $md) {
+        border-radius: 30px;
+      }
     }
 
     &__highlights {
-      display: flex;
-      text-align: center;
-      line-height: 22px;
-      font-size: 15px;
+      margin: 0;
+      font-size: 16px;
+      dt {
+        font-weight: 500;
+      }
+      dd:last-of-type {
+        margin-bottom: 0;
+      }
+
+      @media (min-width: $md) {
+        display: flex;
+        font-size: 20px;
+      }
     }
 
     &__highlight {
-      position: relative;
-      margin: 0 20px;
+      display: flex;
+      line-height: 18px;
+
+      &:not(:last-child) {
+        margin: 0 0 10px;
+      }
+
+      @media (min-width: $md) {
+        line-height: 24px;
+
+        &:not(:last-child) {
+          margin: 0 43px 0 0;
+        }
+      }
+
+      .icon {
+        margin-right: 18px;
+
+        @media (min-width: $md) {
+          width: 48px;
+          height: auto;
+        }
+      }
+    }
+  }
+
+  .avatar {
+    width: 72px;
+    height: 72px;
+    margin-right: 30px;
+    border-radius: 100%;
+    border: 1px solid #efefef;
+
+    @media (min-width: $md) {
+      width: 90px;
+      height: 90px;
+      margin-right: 43px;
     }
   }
 
@@ -74,6 +159,10 @@
     line-height: 22px;
     font-weight: 600;
     font-size: 17px;
+
+    @media (min-width: $md) {
+      font-size: 20px;
+    }
   }
 
   .article {
@@ -83,33 +172,45 @@
   .banner {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     padding: 9px 12px;
-    border-radius: 6px;
-    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.15);
     background: #f7f7f7;
+
+    @media (min-width: $md) {
+      min-height: 54px;
+      border-radius: 15px;
+    }
+
+    &--pass {
+      background: #22af3a;
+      * {
+        color: #fff;
+      }
+    }
+
+    &--warn {
+      background: #e8d000;
+    }
 
     &__icon {
       margin-right: 16px;
-
-      &--pass {
-        color: #22af3a;
-      }
-
-      &--warn {
-        color: #e8d000;
-      }
     }
 
     &__content {
       display: flex;
       align-items: center;
       margin: 0;
-      letter-spacing: .07em;
+      letter-spacing: 0.07em;
       line-height: 16px;
       font-weight: 500;
       font-size: 13px;
       color: #333333;
+
+      @media (min-width: $md) {
+        font-size: 16px;
+      }
 
       a {
         color: inherit;
@@ -118,30 +219,12 @@
     }
   }
 
-  .avatar-container {
-    margin-bottom: 13px;
-    padding: 1px;
-    border-radius: 50%;
-    background-color: #fff;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08), 0 0px 10px rgba(0, 0, 0, 0.2);
-
-    &__img {
-      width: 56px;
-      height: 56px;
-    }
-  }
-
   .cards-container {
     position: relative;
-    margin-top: -10px;
+    margin-top: -18px;
 
     @media (min-width: $md) {
-      margin-top: 0;
-      max-width: 80%;
-    }
-
-    @media (min-width: $lg) {
-      max-width: 50%;
+      margin-top: -30px;
     }
   }
 
@@ -170,6 +253,11 @@
       font-weight: 500;
       color: #929292;
 
+      @media (min-width: $md) {
+        padding: 52px 44px;
+        font-size: 20px;
+      }
+
       p:last-child {
         margin: 0;
       }
@@ -184,6 +272,11 @@
       margin-bottom: 6px;
       font-weight: 500;
       font-size: 15px;
+
+      @media (min-width: $md) {
+        margin-bottom: 10px;
+        font-size: 18px;
+      }
     }
 
     &__description {
@@ -191,6 +284,11 @@
       line-height: 16px;
       font-size: 13px;
       color: #4f4f4f;
+
+      @media (min-width: $md) {
+        margin: 0 0 7px;
+        font-size: 16px;
+      }
 
       &:last-of-type {
         margin: 0;
@@ -253,7 +351,7 @@
     &__button {
       box-shadow: none;
       color: #fff;
-      background: linear-gradient(255.12deg, #007AFF -1.23%, #4DF4FF 117.52%);
+      background: linear-gradient(255.12deg, #007aff -1.23%, #4df4ff 117.52%);
     }
 
     &__icon {

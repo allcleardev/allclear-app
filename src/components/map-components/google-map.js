@@ -1,17 +1,19 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import GoogleMapReact from 'google-map-react';
 import MapMarker from './map-marker.js';
 import MyLocationBtn from './my-location-btn';
 import FacilityService from '../../services/facility.service.js';
-import { bindAll, get } from 'lodash';
-import { AppContext } from '@contexts/app.context';
+import {bindAll, findIndex, get} from 'lodash';
+import {AppContext} from '@contexts/app.context';
 import MyLocationMapMarker from './my-location-map-marker.js';
 import SnackbarMessage from '@general/alerts/snackbar-message';
 import GAService from '@services/ga.service';
 import MapService from '@services/map.service';
-import { G_MAP_OPTIONS, G_MAP_DEFAULTS } from '@util/map.constants';
+import {withRouter} from 'react-router';
+import {G_MAP_DEFAULTS, G_MAP_OPTIONS} from '@util/map.constants';
+import {clickMapMarker, getRouteQueryParams} from '@util/general.helpers';
 
-export default class GoogleMap extends Component {
+class GoogleMap extends Component {
   static contextType = AppContext;
 
   constructor(props) {
@@ -21,13 +23,12 @@ export default class GoogleMap extends Component {
       isSnackbarOpen: false,
       snackbarMessage: 'Browser location declined. Using location from your profile instead.',
       snackbarSeverity: 'warning',
-      zoom: G_MAP_DEFAULTS.zoom,
+      zoom: G_MAP_DEFAULTS.zoom
     };
 
     bindAll(this, [
       'componentDidMount',
-      'onMarkerDragEnd',
-      'onMarkerZoomChanged',
+      'onMapDragEnd',
       'onZoomChanged',
       'onMyLocationClicked',
       'onLocationAccepted',
@@ -48,23 +49,42 @@ export default class GoogleMap extends Component {
   }
 
   async componentDidMount() {
-    const { appState } = this.context;
+    const {appState} = this.context;
     let latitude = get(appState, 'person.latitude');
     let longitude = get(appState, 'person.longitude');
+
+    const params = getRouteQueryParams(this.props.location);
+    const urlLat = get(params, 'search.latitude');
+    const urlLong = get(params, 'search.longitude');
     this.isLoggedIn = get(appState, 'person.id');
 
-    // not logged in
-    if (!latitude || !longitude) {
+    // eslint-disable-next-line
+    let selection;
+    const urlID = get(params, 'selection');
+
+    // deep link from facility
+    if(urlID){
+      const resp = await this.facilityService.getFacility(urlID);
+      latitude = get(resp, 'data.latitude');
+      longitude = get(resp, 'data.longitude');
+      selection = resp.data;
+    } else if (urlLat && urlLong) {
+      // deep link from search term
+      latitude = urlLat;
+      longitude = urlLong;
+    } else if (!latitude || !longitude) {
+
       // if IP check succeeded, use that
-      let ipData = await this.mapService.ipCheck().catch(() => {
-        this.setState({
-          isSnackbarOpen: true,
-          snackbarMessage: 'Enter your location to see results near you.',
-          snackbarSeverity: 'info',
+      let ipData = await this.mapService.ipCheck()
+        .catch(() => {
+          this.setState({
+            isSnackbarOpen: true,
+            snackbarMessage: 'Enter your location to see results near you.',
+            snackbarSeverity: 'info'
+          });
+          latitude = G_MAP_DEFAULTS.center.lat;
+          longitude = G_MAP_DEFAULTS.center.lng;
         });
-        latitude = G_MAP_DEFAULTS.center.lat;
-        longitude = G_MAP_DEFAULTS.center.lng;
-      });
 
       latitude = get(ipData, 'data.lat');
       longitude = get(ipData, 'data.lon');
@@ -79,11 +99,25 @@ export default class GoogleMap extends Component {
         latitude = G_MAP_DEFAULTS.center.lat;
         longitude = G_MAP_DEFAULTS.center.lng;
       }
+    }else{
+      // logged in profile stuff will go here
     }
 
-    const result = await this.facilityService.search(this._createSearchPayload({ latitude, longitude }));
-    this._setLocations(result.data.records, { latitude, longitude });
+    const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude}));
+
+    // finally, select a pin if its in the url
+    //  selection = get(params, 'selection');
+    const locations = get(result, 'data.records');
+    this._setLocations(locations, {latitude, longitude});
     latitude && longitude && this._panTo(latitude, longitude);
+
+    if (urlID) {
+      const index = findIndex(locations, ['id', Number(urlID)]);
+      if (index !== -1) {
+        clickMapMarker(appState, index, this.props.history, locations);
+      }
+    }
+
   }
 
   handleSnackbarClose() {
@@ -96,25 +130,22 @@ export default class GoogleMap extends Component {
    * MAP INTERACTION EVENT HANDLERS
    ******************************************************************/
 
-  async onMarkerDragEnd(evt) {
+  onMapDragEnd(evt) {
+    // todo: this clear may need to change for deeplinking
+    this.mapService.onLocationCleared(null,null,'clear');
     const latitude = evt.center.lat();
     const longitude = evt.center.lng();
     this._search(latitude, longitude);
   }
 
-  async onMarkerZoomChanged(evt) {
-    const latitude = evt.center.lat();
-    const longitude = evt.center.lng();
-    this._search(latitude, longitude);
-  }
-
-  onZoomChanged(miles) {
+  onZoomChanged(miles,z,t) {
+    // console.log('zoom changed', ...arguments)
     // todo: major work here bro
     // https://stackoverflow.com/questions/52411378/google-maps-api-calculate-zoom-based-of-miles
   }
 
   onMyLocationClicked() {
-    const { appState } = this.context;
+    const {appState} = this.context;
     const latitude = get(appState, 'person.latitude');
     const longitude = get(appState, 'person.longitude');
     this._panTo(latitude, longitude);
@@ -135,7 +166,7 @@ export default class GoogleMap extends Component {
 
   _setLocations(locations) {
     // update context state (for other components in map page)
-    const { setAppState, appState } = this.context;
+    const {setAppState, appState} = this.context;
 
     this.mapService.mapRef = this.gMapRef;
 
@@ -154,18 +185,20 @@ export default class GoogleMap extends Component {
    ******************************************************************/
 
   async onLocationAccepted(pos) {
+
     const latitude = pos.coords.latitude;
     const longitude = pos.coords.longitude;
-    const result = await this.facilityService.search(this._createSearchPayload({ latitude, longitude }));
+    const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude}));
     this._setLocations(result.data.records, {
       latitude,
       longitude,
     });
     this._panTo(latitude, longitude);
-  }
 
-  _createSearchPayload({ latitude, longitude, shouldIgnoreFilters = false }) {
-    const { appState, setAppState } = this.context;
+  };
+
+  _createSearchPayload({latitude, longitude, shouldIgnoreFilters = false}) {
+    const {appState, setAppState} = this.context;
     const searchCriteria = shouldIgnoreFilters ? {} : appState.searchCriteria;
 
     setAppState({
@@ -174,8 +207,8 @@ export default class GoogleMap extends Component {
         ...appState.map,
         isListLoading: true,
         latitude,
-        longitude,
-      },
+        longitude
+      }
     });
 
     return {
@@ -189,7 +222,7 @@ export default class GoogleMap extends Component {
   }
 
   async _search(latitude, longitude) {
-    const result = await this.facilityService.search(this._createSearchPayload({ latitude, longitude }));
+    const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude}));
     this._setLocations(result.data.records, {
       latitude,
       longitude,
@@ -220,8 +253,8 @@ export default class GoogleMap extends Component {
           defaultZoom={G_MAP_DEFAULTS.zoom}
           zoom={this.state.zoom}
           yesIWantToUseGoogleMapApiInternals
-          onDragEnd={(evt) => this.onMarkerDragEnd(evt)}
-          onZoomChanged={(evt) => this.onMarkerDragEnd(evt)}
+          onDragEnd={(evt) => this.onMapDragEnd(evt)}
+          onZoomChanged={(evt) => this.onMapDragEnd(evt)}
           onZoomAnimationEnd={(evt) => this.onZoomChanged(evt)}
         >
           {locations.map((data, index) => (
@@ -243,3 +276,5 @@ export default class GoogleMap extends Component {
     );
   }
 }
+
+export default withRouter(GoogleMap);

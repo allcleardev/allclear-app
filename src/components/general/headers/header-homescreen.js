@@ -40,7 +40,9 @@ export default function HomescreenHeader({ navigate = '', children }) {
           <img src={Logo} alt="Logo" className="logo" />
         </Link>
         <nav className="menu">
-          <Link to="/map" className="menu__item">
+          <Link
+            to="/map"
+            className="menu__item">
             Find Tests
           </Link>
           <Link to="/contact-tracing" className="menu__item">

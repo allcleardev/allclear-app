@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, Router } from 'react-router-dom';
+import { Route, Switch, Router as ReactRouter } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 
 import '@styles/app.scss';
@@ -16,14 +16,13 @@ import SignInVerificationPage from '@pages/sign-in-verification.page';
 import BackgroundPage from '@pages/background.page';
 import GetStartedPage from '@pages/get-started.page';
 import HealthWorkerStatusPage from '@pages/health-worker-status.page';
-// import LaunchPage from '@pages/launch.page';
 import SignInPage from '@pages/sign-in.page';
 import LoginMagicLinkPage from '@pages/login-magic-link.page';
 import HomePage from '@pages/home.page';
 import MapPage from '@pages/map.page';
 import ProfileEditPage from '@pages/profile-edit.page';
 import ProfileViewPage from '@pages/profile-view.page';
-import ProtectedRoute from './routes/protected.route';
+import ProtectedRoute from '@routes/protected.route';
 import SettingsPage from '@pages/settings.page';
 import SharePage from '@pages/share.page';
 import SignUpVerificationPage from '@pages/sign-up-verification.page';
@@ -35,12 +34,16 @@ import NotFoundPage from '@pages/not-found.page';
 import { Redirect } from 'react-router';
 import SignUpPage from '@pages/sign-up.page';
 import LogoutPage from '@pages/logout.page';
+import TestCenterPage from '@pages/test-center.page';
+import StateListPage from '@pages/state-list.page';
+import StatePage from '@pages/state.page';
+import CityPage from '@pages/city.page';
 
 export const history = createBrowserHistory();
 
-export default function App() {
+export default function Router() {
   return (
-    <Router history={history}>
+    <ReactRouter history={history}>
       <AppProvider>
         <Switch>
           {/* Loader Page */}
@@ -60,17 +63,18 @@ export default function App() {
           <Route path="/sign-up-verification" component={SignUpVerificationPage} />
           <ProtectedRoute path="/success" component={AccountCreated} />
 
+          {/* Auth Pages */}
           <Route path="/register" component={VerifyMagicLinkPage} />
           <Route path="/auth" component={LoginMagicLinkPage} />
+          <Route path="/sign-in" component={SignInPage} />
+          <Route path="/logout" component={LogoutPage} />
+          <Route path="/sign-in-verification" component={SignInVerificationPage} />
 
+          {/* Profile Creation */}
           <Route path="/location" component={BackgroundPage} />
           <Route path="/health-worker" component={HealthWorkerStatusPage} />
           <Route path="/symptoms" component={Symptoms} />
 
-          {/* Login Pages */}
-          <Route path="/sign-in" component={SignInPage} />
-          <Route path="/logout" component={LogoutPage} />
-          <Route path="/sign-in-verification" component={SignInVerificationPage} />
 
           {/* Profile Pages / SettingsPage */}
           <ProtectedRoute path="/profile" component={ProfileViewPage} />
@@ -83,8 +87,18 @@ export default function App() {
           {/* Home Pages */}
           <ProtectedRoute path="/home" component={HomePage} />
 
+          {/* Test Center Page */}
+          <Route path="/test-centers/:id" component={TestCenterPage} />
+          {/* /:city/:test-center-name */}
+
+          {/* SEO */}
+          <Route path="/state-list" component={StateListPage} />
+          <Route exact path="/locations/:state" component={StatePage} />
+          <Route exact path="/locations/:state/:city" component={CityPage} />
+
           {/* Map */}
           <Route path="/map" component={MapPage} />
+
           {/* 404 */}
           <Route path="/404" component={NotFoundPage} />
           <Route path="*">
@@ -95,6 +109,6 @@ export default function App() {
           {/* <ConfirmedRoute path="/results" component={result} /> */}
         </Switch>
       </AppProvider>
-    </Router>
+    </ReactRouter>
   );
 }
