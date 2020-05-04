@@ -49,6 +49,7 @@ export default function MobileMenu(props) {
               link.isExternalURL ? (
                 <MenuItem
                   className="menu__item"
+                  key={link.name}
                   component={'a'}
                   href={link.to}
                   rel="noopener noreferrer"
@@ -58,7 +59,7 @@ export default function MobileMenu(props) {
                   {link.name}
                 </MenuItem>
               ) : (
-                <MenuItem className="menu__item" component={Link} to={link.to} onClick={onMenuToggle}>
+                <MenuItem className="menu__item" key={link.name} component={Link} to={link.to} onClick={onMenuToggle}>
                   {link.name}
                 </MenuItem>
               ),
