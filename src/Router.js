@@ -34,6 +34,7 @@ import NotFoundPage from '@pages/not-found.page';
 import { Redirect } from 'react-router';
 import SignUpPage from '@pages/sign-up.page';
 import LogoutPage from '@pages/logout.page';
+import TestCenterPage from '@pages/test-center.page';
 
 export const history = createBrowserHistory();
 
@@ -59,17 +60,18 @@ export default function Router() {
           <Route path="/sign-up-verification" component={SignUpVerificationPage} />
           <ProtectedRoute path="/success" component={AccountCreated} />
 
+          {/* Auth Pages */}
           <Route path="/register" component={VerifyMagicLinkPage} />
           <Route path="/auth" component={LoginMagicLinkPage} />
+          <Route path="/sign-in" component={SignInPage} />
+          <Route path="/logout" component={LogoutPage} />
+          <Route path="/sign-in-verification" component={SignInVerificationPage} />
 
+          {/* Profile Creation */}
           <Route path="/location" component={BackgroundPage} />
           <Route path="/health-worker" component={HealthWorkerStatusPage} />
           <Route path="/symptoms" component={Symptoms} />
 
-          {/* Login Pages */}
-          <Route path="/sign-in" component={SignInPage} />
-          <Route path="/logout" component={LogoutPage} />
-          <Route path="/sign-in-verification" component={SignInVerificationPage} />
 
           {/* Profile Pages / SettingsPage */}
           <ProtectedRoute path="/profile" component={ProfileViewPage} />
@@ -82,8 +84,13 @@ export default function Router() {
           {/* Home Pages */}
           <ProtectedRoute path="/home" component={HomePage} />
 
+          {/* Test Center Page */}
+          <Route path="/test-centers/:id" component={TestCenterPage} />
+          {/* /:city/:test-center-name */}
+
           {/* Map */}
           <Route path="/map" component={MapPage} />
+
           {/* 404 */}
           <Route path="/404" component={NotFoundPage} />
           <Route path="*">

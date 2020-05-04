@@ -5,7 +5,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  @include gradient-animation;
+  @include responsive-gradient;
 
   h1 {
     font-size: 50px;

@@ -1,4 +1,4 @@
-import {isUndefined, isNull, reduce, lowerCase} from 'lodash';
+import { isUndefined, isNull, reduce, lowerCase, get } from 'lodash';
 import qs from 'qs';
 
 export function colorLog(color, input) {
@@ -30,7 +30,7 @@ export function getActiveFilters(searchCriteria) {
     searchCriteria,
     (acc, val, key) => {
       const isInactive = isNullOrUndefined(val) || lowerCase(val) === 'any';
-      if (!isInactive) acc = [...acc, {key, value: val}];
+      if (!isInactive) acc = [...acc, { key, value: val }];
       return acc;
     },
     [],
@@ -76,7 +76,7 @@ export function clickMapMarker(appState, index, currHistory, inLocations) {
       elemToOpen.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }, 300);
   } else {
-    elemToOpen.scrollIntoView({behavior: 'smooth'});
+    elemToOpen.scrollIntoView({ behavior: 'smooth' });
   }
 }
 
@@ -86,4 +86,45 @@ export function metersToMiles(i) {
 
 export function milesToMeters(i) {
   return i * 1609.344;
+}
+
+export function getFacilityDetailsMap(facility) {
+  const details = [
+    { field: 'Location Type', value: get(facility, ['type', 'name']) },
+    { field: 'Appointment Needed', value: boolToEng(facility.appointmentRequired) },
+    { field: 'Drive-Through', value: boolToEng(facility.driveThru) },
+    { field: 'Telescreening Available', value: boolToEng(facility.telescreeningAvailable) },
+    { field: 'Referral From Doctor Needed', value: boolToEng(facility.referralRequired) },
+    // { key: 'Doctor Referral Crtieria', value: get(facility, 'type', 'name' )}
+    { field: 'Accepts 3rd Party Test Orders', value: boolToEng(facility.acceptsThirdParty) },
+    { field: 'Accepts Insurance', value: boolToEng(facility.acceptsInsurance) },
+    // { key: 'Insurance Providers', value: }
+    // { key: 'Other Testing Criteria', value: }
+    // { key: 'Notes', value: }
+  ];
+
+  facility.testCriteria && details.push({ field: 'Known Test Criteria', value: facility.testCriteria.name });
+  if (!isNullOrUndefined(facility.referralRequired)) {
+    details.push({ field: 'Doctor Referral Required', value: boolToEng(facility.referralRequired) });
+    details.push({ field: 'Doctor Referral Criteria', value: facility.doctorReferralCriteria || 'None' });
+  }
+  details.push({ field: 'Free or Very Low Cost', value: boolToEng(facility.freeOrLowCost) });
+
+
+  return details;
+}
+
+export function convertToReadableDate(dateStr) {
+  const date = new Date(dateStr);
+  return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
+}
+
+export function getFeedbackButtonURL(facility) {
+  return `
+    https://airtable.com/shrVJrPQs4qQkcW4o?prefill_Name=${facility.name || facility.title || ''}
+    &prefill_Phone number=${facility.phone || ''}
+    &prefill_Hours=${facility.service_time === undefined ? '' : facility.service_time}
+    &prefill_This location was drive through=${(facility.driveThru.toString() === 'true' ? 'Drive Through' : '')}
+    &prefill_This location required an appointment=${boolToEng(facility.appointmentRequired) || ''}
+    &prefill_Address=${facility.description || facility.address || ''}`;
 }

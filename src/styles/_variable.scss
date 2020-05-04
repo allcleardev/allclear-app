@@ -22,6 +22,9 @@ $gradient-background: linear-gradient(157.73deg, #007cff 0%, #002c83 117.55%);
 $gradient-background-mobile: linear-gradient(157.73deg, #007cff 0%, #002c83 117.55%);
 $gradient-background-desktop: linear-gradient(159.42deg, #007cff 1.48%, #002c83 172.68%);
 
+// shadows
+$header-shadow: 0px 1px 10px #999;
+
 // TODO: Move mixins to own file
 @mixin responsive-gradient {
   @media (max-width: $md - 1) {
