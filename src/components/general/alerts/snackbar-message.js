@@ -23,7 +23,7 @@ export default function SnackbarMessage(props) {
   const classes = useStyles();
 
   return (
-    <Paper elevation={16}>
+    <Paper>
       <Snackbar
         open={props.isOpen}
         TransitionComponent={SlideTransition}
