@@ -5,7 +5,7 @@ import IconButton from '@material-ui/core/IconButton';
 export default function LinkButton(props) {
   const onClick = (evt) => {
     evt.stopPropagation();
-    props.onClick(evt);
+    props.onClick && props.onClick(evt);
   };
 
   return (

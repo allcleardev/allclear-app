@@ -31,6 +31,7 @@ export default class TestCenterPage extends Component {
     this.isLoggedIn = sessionId ? true : false;
     const facility = await this.facilityService.getFacility(this.id).then((res) => {
       const facility = res.data;
+      console.log('facility', facility);
       this.loading = false;
       this.facilityDetailsMap = getFacilityDetailsMap(facility);
       this.feedbackURL = getFeedbackButtonURL(facility);
@@ -88,7 +89,7 @@ export default class TestCenterPage extends Component {
                   <div className="info-line">{facility.hours}</div>
                 </div>
                 <div className="card__actions">
-                  <LinkButton href={facility.website} text="Website" />
+                  <LinkButton href={facility.url} text="Website" />
                   <LinkButton href={'https://www.google.com/maps/dir/?api=1&destination=' + facility.address} text="Directions" />
                   <LinkButton href={'tel:' + facility.phone} hasIcon={true}>
                     <PhoneIcon />
