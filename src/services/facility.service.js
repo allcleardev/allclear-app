@@ -44,7 +44,6 @@ export default class FacilityService {
     return Axios({
       method: 'POST',
       url: `${this.baseURL}/search`,
-      // params: req.query,
       data: body,
     });
   }
