@@ -180,7 +180,7 @@ export default class HomePage extends Component {
 
         <Header navItems={DEFAULT_NAV_ITEMS} enableBackBtn={true}>
           <Container className="header-content" maxWidth="md">
-            <h1 className="header-content__heading">allclear</h1>
+            <h1 className="header-content__heading">Home</h1>
 
             <div className="header-content__card">
               <img src={UserAvatar} className="avatar" alt="Avatar" />
@@ -250,7 +250,7 @@ export default class HomePage extends Component {
             {testLocations && testLocations.length ? (
               testLocations.map((location) => (
                 <section className="card" key={location.id}>
-                  <dl className="card__content">
+                  <dl className="card__content" onClick={() => this.routeChange(`/map?selection=${location.id}`)}>
                     <dt className="card__term">{location.name}</dt>
                     <dd className="card__description">{location.address}</dd>
                     <dd className="card__description">
@@ -314,7 +314,7 @@ export default class HomePage extends Component {
           severity="success"
           isOpen={this.state.isSnackbarOpen}
           onClose={this.handleSnackbarClose}
-          message={'Link Copied!'}
+          message={'Link Copied to Clipboard!'}
         />
 
         <BottomNav active={0}></BottomNav>
