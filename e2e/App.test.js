@@ -45,6 +45,18 @@ const setDomainLocalStorage = async (browser, url, values) => {
   return;
 };
 
+const clickNext = async (page) => {
+  let button = await page.$x('.//span[contains(@class, "tooltip-button")]');
+  button[0].click();
+  return;
+}
+
+const headerText = async (page) => {
+  let header = await page.$('h1');
+  var text = await (await header.getProperty('textContent')).jsonValue();
+  return text;
+}
+
 describe('Testing individual pages', () => {
   test('App splash page loads correctly', async () => {
 
@@ -67,7 +79,7 @@ describe('Testing individual pages', () => {
     expect(url.pathname).toBe('/get-started');
 
     await browser.close();
-  }, 7000);
+  }, 10000);
 
   test('Can skip to sign-in page', async () => {
 
@@ -97,7 +109,7 @@ describe('Testing individual pages', () => {
     expect(url.pathname).toBe('/sign-in');
 
     await browser.close();
-  }, 7000);
+  }, 10000);
 
   test('Can navigate to next page', async () => {
     let browser = await puppeteer.launch({
@@ -120,12 +132,11 @@ describe('Testing individual pages', () => {
 
     await page.waitForNavigation();
 
-    let header = await page.$x('.//h1[contains(@class, "heading")]');
-    var text = await (await header[0].getProperty('textContent')).jsonValue();
-    expect(text).toBe('Your Location');
+    var text = await headerText(page);
+    expect(text).toBe('Location');
 
     await browser.close();
-  }, 7000);
+  }, 10000);
 
   test('Can input location on background page', async () => {
     let browser = await puppeteer.launch({
@@ -157,19 +168,17 @@ describe('Testing individual pages', () => {
 
     // wait for the button to be enabled
     await page.waitFor(4000);
-    let button = await page.$x('.//button[contains(@class, "next")]');
-    button[0].click();
+    await clickNext(page);
 
     await page.waitForNavigation();
 
     // await takeScreenshot(page, 'on-health-worker-page')
 
-    let header = await page.$x('.//h1[@class="heading"]');
-    var text = await (await header[0].getProperty('textContent')).jsonValue();
+    var text = await headerText(page);
     expect(text).toBe('Health Worker Status');
 
     await browser.close();
-  }, 7000);
+  }, 10000);
 
   test('Can select I am a Health Worker', async () => {
     let browser = await puppeteer.launch({
@@ -195,13 +204,11 @@ describe('Testing individual pages', () => {
 
     // wait for the button to be enabled
     await page.waitFor(4000);
-    let button = await page.$x('.//button[contains(@class, "next")]');
-    button[0].click();
+    await clickNext(page);
 
     await page.waitForNavigation();
 
-    let header = await page.$x('.//h1[@class="heading"]');
-    var text = await (await header[0].getProperty('textContent')).jsonValue();
+    var text = await headerText(page);
     expect(text).toBe('Symptoms');
 
     await browser.close();
@@ -231,13 +238,11 @@ describe('Testing individual pages', () => {
 
     // wait for the button to be enabled
     await page.waitFor(4000);
-    let button = await page.$x('.//button[contains(@class, "next")]');
-    button[0].click();
+    await clickNext(page);
 
     await page.waitForNavigation();
 
-    let header = await page.$x('.//h1[@class="heading"]');
-    var text = await (await header[0].getProperty('textContent')).jsonValue();
+    var text = await headerText(page);
     expect(text).toBe('Symptoms');
 
     await browser.close();
@@ -267,13 +272,11 @@ describe('Testing individual pages', () => {
 
     // wait for the button to be enabled
     await page.waitFor(4000);
-    let button = await page.$x('.//button[contains(@class, "next")]');
-    button[0].click();
+    await clickNext(page);
 
     await page.waitForNavigation();
 
-    let header = await page.$x('.//h1[@class="heading"]');
-    var text = await (await header[0].getProperty('textContent')).jsonValue();
+    var text = await headerText(page);
     expect(text).toBe('Symptoms');
 
     await browser.close();
@@ -296,13 +299,13 @@ describe('Testing individual pages', () => {
 
     await page.goto('http://localhost:3000/symptoms');
 
-    let header = await page.$x('.//h1[@class="heading"]');
-    var text = await (await header[0].getProperty('textContent')).jsonValue();
+    var text = await headerText(page);
     expect(text).toBe('Symptoms');
 
     await browser.close();
   }, 5000);
 });
+
 
 describe('Stepping through from get-started to sign-up', () => {
   test('Can get to sign-up page', async () => {
@@ -341,8 +344,7 @@ describe('Stepping through from get-started to sign-up', () => {
 
     // wait for the button to be enabled
     await page.waitFor(4000);
-    let nextButton = await page.$x('.//button[contains(@class, "next")]');
-    nextButton[0].click();
+    await clickNext(page);
 
     // navigate to HWS page
     await page.waitForNavigation();
@@ -353,8 +355,7 @@ describe('Stepping through from get-started to sign-up', () => {
 
     // wait for the button to be enabled
     await page.waitFor(4000);
-    let nextButtonHWS = await page.$x('.//button[contains(@class, "next")]');
-    nextButtonHWS[0].click();
+    await clickNext(page);
 
     // navigate to symptoms page
     await page.waitForNavigation();
@@ -365,14 +366,12 @@ describe('Stepping through from get-started to sign-up', () => {
 
     // wait for the button to be enabled
     await page.waitFor(4000);
-    let nextButtonSymptoms = await page.$x('.//button[contains(@class, "next")]');
-    nextButtonSymptoms[0].click();
+    await clickNext(page);
 
     // navigate to sign-up page
     await page.waitForNavigation();
 
-    let header = await page.$x('.//h1[@class="heading"]');
-    var text = await (await header[0].getProperty('textContent')).jsonValue();
+    var text = await headerText(page);
     expect(text).toBe('Phone Number Registration');
 
   }, 25000);
@@ -548,34 +547,34 @@ describe('Start on sign-up page', () => {
     );
   }, 20000);
 
-  test('Can land on profile page', async () => {
-    let browser = await puppeteer.launch({
-      headless: true
-    });
+  // test('Can land on profile page', async () => {
+  //   let browser = await puppeteer.launch({
+  //     headless: true
+  //   });
 
-    let appState = require('./fixtures/app_state.json');
-    appState.sessionId = config.parsed.SESSION_ID;
-    await setDomainLocalStorage(
-      browser, 'http://localhost:3000/get-started', appState
-    );
+  //   let appState = require('./fixtures/app_state.json');
+  //   appState.sessionId = config.parsed.SESSION_ID;
+  //   await setDomainLocalStorage(
+  //     browser, 'http://localhost:3000/get-started', appState
+  //   );
 
-    let page = await browser.newPage();
+  //   let page = await browser.newPage();
 
-    page.emulate({
-      viewport: {
-        width: 500,
-        height: 2400
-      },
-      userAgent: ''
-    });
+  //   page.emulate({
+  //     viewport: {
+  //       width: 500,
+  //       height: 2400
+  //     },
+  //     userAgent: ''
+  //   });
 
-    await page.goto('http://localhost:3000/profile');
+  //   await page.goto('http://localhost:3000/profile');
 
-    let url = new URL(page.url());
-    expect(url.pathname).toBe('/profile');
+  //   let url = new URL(page.url());
+  //   expect(url.pathname).toBe('/profile');
 
-    await setDomainLocalStorage(
-      browser, 'http://localhost:3000/get-started', {}
-    );
-  }, 20000);
+  //   await setDomainLocalStorage(
+  //     browser, 'http://localhost:3000/get-started', {}
+  //   );
+  // }, 20000);
 });
