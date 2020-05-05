@@ -95,6 +95,7 @@ export default function Router() {
           <Route path="/state-list" component={StateListPage} />
           <Route exact path="/locations/:state" component={StatePage} />
           <Route exact path="/locations/:state/:city" component={CityPage} />
+          <Route exact path="/locations/:state/:city/:id" component={TestCenterPage} />
 
           {/* Map */}
           <Route path="/map" component={MapPage} />
