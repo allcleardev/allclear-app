@@ -118,9 +118,25 @@ export default class HomePage extends Component {
   }
 
   onShareClicked() {
-    if (navigator && navigator.clipboard) {
-      navigator.clipboard.writeText('https://go.allclear.app');
-      this.setState({ isSnackbarOpen: true });
+    console.log('navigator', navigator);
+    console.log('navigator', navigator.share);
+    const canonicalElement = document.querySelector('link[rel=canonical]');
+    console.log('canonicalElement', canonicalElement);
+
+    if (navigator.share) {
+      navigator
+        .share({
+          title: 'AllClear',
+          url: 'https://go.allclear.app',
+        })
+        .then(() => console.log('Successful share'))
+        .catch((error) => console.log('Error sharing', error));
+    } else {
+      if (navigator && navigator.clipboard) {
+        navigator.clipboard.writeText('https://go.allclear.app');
+        this.setState({ isSnackbarOpen: true });
+      }
+      // find another fallback
     }
   }
 
@@ -170,14 +186,14 @@ export default class HomePage extends Component {
               <img src={UserAvatar} className="avatar" alt="Avatar" />
 
               <dl className="header-content__highlights">
-                <div class="header-content__highlight">
+                <div className="header-content__highlight">
                   <MapPin className="icon" />
                   <div>
                     <dt>Location</dt>
                     {this.state.locationName ? <dd>{this.state.locationName}</dd> : <dd>Using Current Location</dd>}
                   </div>
                 </div>
-                <div class="header-content__highlight">
+                <div className="header-content__highlight">
                   <HealthIcon className="icon" />
                   <div>
                     <dt>Health</dt>
