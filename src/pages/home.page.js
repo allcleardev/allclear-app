@@ -298,7 +298,7 @@ export default class HomePage extends Component {
           severity="success"
           isOpen={this.state.isSnackbarOpen}
           onClose={this.handleSnackbarClose}
-          message={'Link Copied!'}
+          message={'Link Copied to Clipboard!'}
         />
 
         <BottomNav active={0}></BottomNav>
