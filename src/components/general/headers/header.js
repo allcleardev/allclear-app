@@ -5,7 +5,7 @@
 // ____________________________________________________ //
 
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import {Link, NavLink, useHistory} from 'react-router-dom';
 
 import Logo from '@assets/images/logo-white.svg';
 
@@ -51,9 +51,11 @@ export default function Header({
               );
             } else {
               return (
-                <Link to={item.route} className="menu__item" key={item.name}>
+                <NavLink
+                  activeClassName="menu__item--active"
+                  to={item.route} className="menu__item" key={item.name}>
                   {item.name}
-                </Link>
+                </NavLink>
               );
             }
           })}
