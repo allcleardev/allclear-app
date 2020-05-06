@@ -63,8 +63,8 @@ export default function TestingLocationListItem(props) {
         </dl>
 
         <ExternalItemLinks
-          display={'d-none d-md-block'}
-          margin={{ marginTop: '15px', marginBottom: '20px' }}
+          display={'d-none d-md-flex'}
+          margin={{ marginTop: '15px'}}
           description={description}
           phone={phone}
           website={website}
@@ -84,8 +84,7 @@ export default function TestingLocationListItem(props) {
           <dd className="summary__item summary__item--semibold">{phone}</dd>
         </dl>
         <ExternalItemLinks
-          display={'d-md-none'}
-          margin={{ marginBottom: '15px' }}
+          display={'d-flex d-md-none'}
           description={description}
           phone={phone}
           website={website}
