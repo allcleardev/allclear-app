@@ -8,6 +8,7 @@ import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 import Logo from '@assets/images/logo-white.svg';
+import MobileMenu from '@general/headers/mobile-menu';
 
 import Container from '@material-ui/core/Container';
 import ArrowBackIosRounded from '@material-ui/icons/ArrowBackIosRounded';
@@ -28,7 +29,9 @@ export default function Header({
           <ArrowBackIosRounded></ArrowBackIosRounded>
         </IconButton>
       ) : (
-        ''
+        <div className="hide-desktop" style={{ zIndex: 10 }}>
+          <MobileMenu></MobileMenu>
+        </div>
       )}
 
       <Container className="desktop-only-content" maxWidth="none">
