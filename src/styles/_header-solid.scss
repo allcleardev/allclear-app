@@ -1,14 +1,15 @@
 .header-solid-fullscreen {
-  z-index: 1;
-  position: absolute;
+  z-index: 3;
+  position: fixed;
+  top: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100vw;
-  box-shadow: 0px 1px 10px #999;
+  box-shadow: $header-shadow;
   @include responsive-gradient;
 
-  @media (max-width: $md) {
+  @media (max-width: $md - 1) {
     display: none;
   }
 
@@ -26,11 +27,7 @@
 
     .logo {
       width: 45px;
-
-      &--open {
-        transition: margin 0.15s linear;
-        margin-left: 24px;
-      }
+      margin-left: 24px;
     }
 
     .header-menu {
@@ -40,11 +37,26 @@
       margin-right: 24px;
 
       &__item {
+
         padding: 7px 20px;
         margin: 0 10px;
         font-size: 14px;
         font-weight: 500;
         color: #fff;
+
+        &--active {
+
+          position: relative;
+          &:before {
+            content : "";
+            position: absolute;
+            left    : 20%;
+            bottom  : 0;
+            height  : 1px;
+            width   : 60%;
+            border-bottom:1px solid white;
+          }
+        }
 
         &:last-child {
           margin-right: 0;

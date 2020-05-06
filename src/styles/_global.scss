@@ -25,13 +25,14 @@ button {
 
 .autocomplete-input input {
   margin-left: 30px;
+  line-height: normal; // safari fix
 }
 
 .onboarding-page {
   /*
     onboarding pages
   */
-  flex: 1;
+  flex: 1 0 auto; // safari fix
   display: flex;
   flex-direction: column;
   color: #fff;
@@ -279,23 +280,4 @@ button {
   width: 0px !important;
   background: transparent !important;
   // The component has this class, should have the style overflow-y: scroll
-}
-
-// responsive classses
-@media (max-width: $md - 1) {
-  .wid100-sm {
-    /*
-      map.page.js
-    */
-    width: 100% !important;
-  }
-}
-
-@media (min-width: $md + 1) {
-  .vh100-lg {
-    /*
-      map.page.js
-    */
-    height: 100vh !important;
-  }
 }

@@ -3,14 +3,17 @@ import GoogleMapReact from 'google-map-react';
 import MapMarker from './map-marker.js';
 import MyLocationBtn from './my-location-btn';
 import FacilityService from '../../services/facility.service.js';
-import {bindAll, get} from 'lodash';
+import {bindAll, findIndex, get} from 'lodash';
 import {AppContext} from '@contexts/app.context';
 import MyLocationMapMarker from './my-location-map-marker.js';
 import SnackbarMessage from '@general/alerts/snackbar-message';
 import GAService from '@services/ga.service';
 import MapService from '@services/map.service';
+import {withRouter} from 'react-router';
+import {G_MAP_DEFAULTS, G_MAP_OPTIONS} from '@util/map.constants';
+import {clickMapMarker, getRouteQueryParams} from '@util/general.helpers';
 
-export default class GoogleMap extends Component {
+class GoogleMap extends Component {
   static contextType = AppContext;
 
   constructor(props) {
@@ -25,8 +28,7 @@ export default class GoogleMap extends Component {
 
     bindAll(this, [
       'componentDidMount',
-      'onMarkerDragEnd',
-      'onMarkerZoomChanged',
+      'onMapDragEnd',
       'onZoomChanged',
       'onMyLocationClicked',
       'onLocationAccepted',
@@ -51,9 +53,26 @@ export default class GoogleMap extends Component {
     let latitude = get(appState, 'person.latitude');
     let longitude = get(appState, 'person.longitude');
 
+    const params = getRouteQueryParams(this.props.location);
+    const urlLat = get(params, 'search.latitude');
+    const urlLong = get(params, 'search.longitude');
+    this.isLoggedIn = get(appState, 'person.id');
 
-    // not logged in
-    if (!latitude || !longitude) {
+    // eslint-disable-next-line
+    let selection;
+    const urlID = get(params, 'selection');
+
+    // deep link from facility
+    if(urlID){
+      const resp = await this.facilityService.getFacility(urlID);
+      latitude = get(resp, 'data.latitude');
+      longitude = get(resp, 'data.longitude');
+      selection = resp.data;
+    } else if (urlLat && urlLong) {
+      // deep link from search term
+      latitude = urlLat;
+      longitude = urlLong;
+    } else if (!latitude || !longitude) {
 
       // if IP check succeeded, use that
       let ipData = await this.mapService.ipCheck()
@@ -72,28 +91,38 @@ export default class GoogleMap extends Component {
 
       // if IP check failed too, just use defaults (NYC)
       if (!latitude || !longitude) {
-
         this.setState({
           isSnackbarOpen: true,
           snackbarMessage: 'Enter your location to see results near you.',
-          snackbarSeverity: 'info'
+          snackbarSeverity: 'info',
         });
         latitude = G_MAP_DEFAULTS.center.lat;
         longitude = G_MAP_DEFAULTS.center.lng;
-
       }
-
+    }else{
+      // logged in profile stuff will go here
     }
 
     const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude}));
-    this._setLocations(result.data.records, {latitude, longitude});
+
+    // finally, select a pin if its in the url
+    //  selection = get(params, 'selection');
+    const locations = get(result, 'data.records');
+    this._setLocations(locations, {latitude, longitude});
     latitude && longitude && this._panTo(latitude, longitude);
+
+    if (urlID) {
+      const index = findIndex(locations, ['id', Number(urlID)]);
+      if (index !== -1) {
+        clickMapMarker(appState, index, this.props.history, locations);
+      }
+    }
 
   }
 
   handleSnackbarClose() {
     this.setState({
-      isSnackbarOpen: false
+      isSnackbarOpen: false,
     });
   }
 
@@ -101,19 +130,16 @@ export default class GoogleMap extends Component {
    * MAP INTERACTION EVENT HANDLERS
    ******************************************************************/
 
-  async onMarkerDragEnd(evt) {
+  onMapDragEnd(evt) {
+    // todo: this clear may need to change for deeplinking
+    // this.mapService.onLocationCleared(null,null,'clear');
     const latitude = evt.center.lat();
     const longitude = evt.center.lng();
     this._search(latitude, longitude);
   }
 
-  async onMarkerZoomChanged(evt) {
-    const latitude = evt.center.lat();
-    const longitude = evt.center.lng();
-    this._search(latitude, longitude);
-  }
-
-  onZoomChanged(miles) {
+  onZoomChanged(miles,z,t) {
+    // console.log('zoom changed', ...arguments)
     // todo: major work here bro
     // https://stackoverflow.com/questions/52411378/google-maps-api-calculate-zoom-based-of-miles
   }
@@ -210,10 +236,7 @@ export default class GoogleMap extends Component {
     const homeIndex = locations.length;
 
     return (
-      <div
-        style={{height: '100%', width: '100%'}}
-        onClick={this.props.onMapClick}
-      >
+      <div className="google-map" style={{ height: '100%', width: '100%' }} onClick={this.props.onMapClick}>
         <SnackbarMessage
           snackbarClass={'snackbar--map'}
           isOpen={this.state.isSnackbarOpen}
@@ -225,13 +248,13 @@ export default class GoogleMap extends Component {
         <GoogleMapReact
           ref={this.gMapRef}
           options={G_MAP_OPTIONS}
-          bootstrapURLKeys={{key: 'AIzaSyAPB7ER1lGxDSZICjq9lmqgxvnlSJCIuYw'}}
+          bootstrapURLKeys={{ key: 'AIzaSyAPB7ER1lGxDSZICjq9lmqgxvnlSJCIuYw' }}
           defaultCenter={G_MAP_DEFAULTS.center}
           defaultZoom={G_MAP_DEFAULTS.zoom}
           zoom={this.state.zoom}
           yesIWantToUseGoogleMapApiInternals
-          onDragEnd={(evt) => this.onMarkerDragEnd(evt)}
-          onZoomChanged={(evt) => this.onMarkerDragEnd(evt)}
+          onDragEnd={(evt) => this.onMapDragEnd(evt)}
+          onZoomChanged={(evt) => this.onMapDragEnd(evt)}
           onZoomAnimationEnd={(evt) => this.onZoomChanged(evt)}
         >
           {locations.map((data, index) => (
@@ -244,95 +267,14 @@ export default class GoogleMap extends Component {
               text={index + 1}
             />
           ))}
-          <MyLocationMapMarker key={homeIndex} lat={homeLat} lng={homeLng}/>
+          <MyLocationMapMarker key={homeIndex} lat={homeLat} lng={homeLng} />
         </GoogleMapReact>
-        <MyLocationBtn aria-label="Go to Profile Location" onClick={() => this.onMyLocationClicked()}/>
-
+        {this.isLoggedIn && (
+          <MyLocationBtn aria-label="Go to Profile Location" onClick={() => this.onMyLocationClicked()} />
+        )}
       </div>
     );
   }
 }
 
-const G_MAP_OPTIONS = {
-  styles: [
-    {
-      featureType: 'administrative',
-      elementType: 'geometry',
-      stylers: [
-        {
-          visibility: 'off',
-        },
-      ],
-    },
-    {
-      featureType: 'administrative.land_parcel',
-      elementType: 'labels',
-      stylers: [
-        {
-          visibility: 'off',
-        },
-      ],
-    },
-    {
-      featureType: 'administrative.neighborhood',
-      elementType: 'labels.text',
-      stylers: [
-        {
-          visibility: 'off',
-        },
-      ],
-    },
-    {
-      featureType: 'poi',
-      stylers: [
-        {
-          visibility: 'off',
-        },
-      ],
-    },
-    {
-      featureType: 'poi',
-      elementType: 'labels.text',
-      stylers: [
-        {
-          visibility: 'off',
-        },
-      ],
-    },
-    {
-      featureType: 'road',
-      elementType: 'labels.icon',
-      stylers: [
-        {
-          visibility: 'off',
-        },
-      ],
-    },
-    {
-      featureType: 'road.local',
-      elementType: 'labels',
-      stylers: [
-        {
-          visibility: 'off',
-        },
-      ],
-    },
-    {
-      featureType: 'transit',
-      stylers: [
-        {
-          visibility: 'off',
-        },
-      ],
-    },
-  ],
-  fullscreenControl: false,
-};
-
-const G_MAP_DEFAULTS = {
-  center: {
-    lat: 40.7575139,
-    lng: -73.9861322,
-  },
-  zoom: 12,
-};
+export default withRouter(GoogleMap);

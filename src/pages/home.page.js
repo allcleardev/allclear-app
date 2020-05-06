@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import clsx from 'clsx';
 import { bindAll, get } from 'lodash';
 
 import PeopleService from '@services/people.service';
@@ -8,6 +9,8 @@ import UserAvatar from '@assets/images/defaultProfile.svg';
 import PersonShareIcon from '@assets/images/person-share-icon.svg';
 import { ReactComponent as PinIcon } from '@assets/images/pin-icon.svg';
 import { ReactComponent as SettingsIcon } from '@assets/images/settings-icon.svg';
+import { ReactComponent as MapPin } from '@assets/images/map-pin.svg';
+import { ReactComponent as HealthIcon } from '@assets/images/health-icon.svg';
 import { AppContext } from '@contexts/app.context';
 
 import Header from '@components/general/headers/header';
@@ -160,46 +163,59 @@ export default class HomePage extends Component {
         </IconButton>
 
         <Header navItems={DEFAULT_NAV_ITEMS} enableBackBtn={true}>
-          <div className="header-content">
-            <h1 className="header-content__heading">allclear</h1>
+          <Container className="header-content" maxWidth="md">
+            <h1 className="header-content__heading">Home</h1>
 
-            <div className="avatar-container">
-              <img src={UserAvatar} className="avatar-container__img" alt="Avatar" />
+            <div className="header-content__card">
+              <img src={UserAvatar} className="avatar" alt="Avatar" />
+
+              <dl className="header-content__highlights">
+                <div className="header-content__highlight">
+                  <MapPin className="icon" />
+                  <div>
+                    <dt>Location</dt>
+                    {this.state.locationName ? <dd>{this.state.locationName}</dd> : <dd>Using Current Location</dd>}
+                  </div>
+                </div>
+                <div className="header-content__highlight">
+                  <HealthIcon className="icon" />
+                  <div>
+                    <dt>Health</dt>
+                    {this.state.symptomatic ? <dd>Symptomatic</dd> : <dd>No Symptoms</dd>}
+                  </div>
+                </div>
+              </dl>
             </div>
 
-            <dl className="header-content__highlights">
-              <div className="header-content__highlight">
-                <dt>Location</dt>
-                {this.state.locationName ? <dd>{this.state.locationName}</dd> : <dd>Using Current Location</dd>}
-              </div>
-              <div className="header-content__highlight">
-                <dt>Health</dt>
-                {this.state.symptomatic ? <dd>Symptomatic</dd> : <dd>No Symptoms</dd>}
-              </div>
-            </dl>
-          </div>
+            <IconButton
+              className="settings-option hide-mobile"
+              aria-label="settings"
+              onClick={() => this.routeChange('/profile-edit')}
+            >
+              <SettingsIcon className="settings-option__icon" />
+            </IconButton>
+          </Container>
         </Header>
 
-        <Container className="cards-container">
-          <IconButton
-            className="settings-option hide-mobile"
-            aria-label="settings"
-            onClick={() => this.routeChange('/profile-edit')}
-          >
-            <SettingsIcon className="settings-option__icon" />
-          </IconButton>
-
-          <article className="banner article">
+        <Container className="cards-container" maxWidth="md">
+          <article className={clsx(this.state.prioritized ? 'banner--pass' : 'banner--warn', 'banner', 'article')}>
             <p className="banner__content">
               {this.state.prioritized ? (
-                <CheckRoundedIcon className="banner__icon banner__icon--pass" />
+                <CheckRoundedIcon className="banner__icon" />
               ) : (
-                <WarningRoundedIcon className="banner__icon banner__icon--warn" />
+                <WarningRoundedIcon className="banner__icon" />
               )}
               <span>
-                Your profile is
-                {this.state.prioritized ? ' prioritized ' : ' not prioritized '}
-                for testing per CDC Criteria. <a href="/">Learn More</a>
+                Your profile
+                {this.state.prioritized ? ' may be prioritized ' : ' may not be prioritized '}
+                for testing per CDC Criteria.{' '}
+                <a
+                  href="https://www.cdc.gov/coronavirus/2019-nCoV/hcp/clinical-criteria.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Learn More
+                </a>
               </span>
             </p>
           </article>
@@ -218,7 +234,7 @@ export default class HomePage extends Component {
             {testLocations && testLocations.length ? (
               testLocations.map((location) => (
                 <section className="card" key={location.id}>
-                  <dl className="card__content">
+                  <dl className="card__content" onClick={() => this.routeChange(`/map?selection=${location.id}`)}>
                     <dt className="card__term">{location.name}</dt>
                     <dd className="card__description">{location.address}</dd>
                     <dd className="card__description">
@@ -258,13 +274,14 @@ export default class HomePage extends Component {
 
           <article className="share article">
             <h2 className="sub-heading">
-              Friends
-              <LightTooltip
+              Sharing
+              {/* Hiding until we implement Friends */}
+              {/* <LightTooltip
                 title="None of your contacts are currently on allclear.
                 Invite your friends and family to keep track of their status."
               >
                 <InfoOutlinedIcon className="info-icon"></InfoOutlinedIcon>
-              </LightTooltip>
+              </LightTooltip> */}
             </h2>
             <Button
               fullWidth
@@ -282,7 +299,7 @@ export default class HomePage extends Component {
           severity="success"
           isOpen={this.state.isSnackbarOpen}
           onClose={this.handleSnackbarClose}
-          message={'Link Copied!'}
+          message={'Link Copied to Clipboard!'}
         />
 
         <BottomNav active={0}></BottomNav>

@@ -1,9 +1,9 @@
 // external
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect, Fragment } from 'react';
 import clsx from 'clsx';
-import AnimateHeight from 'react-animate-height';
 import { makeStyles } from '@material-ui/core/styles';
-import { get } from 'lodash';
+import { get, pick } from 'lodash';
+import qs from 'qs';
 
 // components / icons
 import SolidHeader from '@general/headers/header-solid';
@@ -11,24 +11,24 @@ import UpdateCriteriaModal from '@general/modals/update-criteria-modal';
 import GoogleMap from '@components/map-components/google-map';
 import TestingLocationListItem from '@components/map-components/testing-location-list-item';
 import MobileTopBar from '@components/map-components/mobile-top-bar';
-import VerticalCollapseIcon from '@svg/vert-collapse';
-import VerticalExpandIcon from '@svg/vert-expand';
-import SettingsSVG from '@svg/svg-settings';
-import Box from '@material-ui/core/Container';
-import Badge from '@material-ui/core/Badge';
+import Container from '@material-ui/core/Container';
 import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import SettingsSVG from '@svg/svg-settings';
+import SnackbarMessage from '@general/alerts/snackbar-message';
+import ShareIcon from '@material-ui/icons/Share';
 
 // other
 import ModalService from '@services/modal.service';
 import { AppContext } from '@contexts/app.context';
 import { useWindowResize } from '@hooks/general.hooks';
-import { getNumActiveFilters, getActiveFilters } from '@util/general.helpers';
+import { getActiveFilters, getRouteQueryParams } from '@util/general.helpers';
 import GAService, { MAP_PAGE_GA_EVENTS, GA_EVENT_MAP } from '@services/ga.service';
 import GoogleMapsAutocomplete from '@general/inputs/google-maps-autocomplete';
 import MapService from '@services/map.service';
 import ListLoadingSpinner from '../components/map-components/list-loading-spinner';
+import { useHistory } from 'react-router';
 
 export default function MapPage() {
   const mapService = MapService.getInstance();
@@ -37,77 +37,134 @@ export default function MapPage() {
 
   // constants
   const classes = useStyles();
-  const badgeRef = React.createRef();
-  const DRAWER_EXPANDED_HEIGHT = '70vh';
-  const DRAWER_COLLAPSED_HEIGHT = '40vh';
 
   // state & global state
   const { setAppState, appState } = useContext(AppContext);
+  const history = useHistory();
   const [width, height] = useWindowResize(onWindowResize);
   const initialState = {
-    isOpen: true,
-    anchor: 'left',
     windowWidth: width,
     windowHeight: height,
     searchFilterActive: false,
+    didInitSearch: false,
+    didClear: false,
+    mobileView: false,
   };
   const [mapState, setMapState] = useState(initialState);
-  const [drawerHeight, setDrawerHeight] = useState(DRAWER_COLLAPSED_HEIGHT);
+  const [drawerOpen, setDrawerOpenState] = useState(false);
+  const [snackBarOpen, setSnackBarOpenState] = useState(false);
   const locations = get(appState, 'map.locations') || [];
-  const numActiveFilters = getNumActiveFilters(get(appState, 'searchCriteria'));
+  // NOTE: Removed `getNumActiveFilters` for ALLCLEAR-516 (TODO: add back in to work with new layout?)
+  // const numActiveFilters = getNumActiveFilters(get(appState, 'searchCriteria'));
   const isLoggedIn = appState.sessionId ? true : false;
-  const isDrawerExpanded = drawerHeight === DRAWER_EXPANDED_HEIGHT;
+  let initialSearchVal;
 
-  // callback handlers
-  function onWindowResize({ width, height }) {
-    if (width <= 960) {
+  // get modal service so we can toggle it open
+  let modalService = ModalService.getInstance();
+  let searchParams = getRouteQueryParams(history.location);
+
+  // for setting initial search in autocomplete
+  initialSearchVal = get(searchParams, 'search.description');
+  initialSearchVal = mapState.didInitSearch ? undefined : initialSearchVal;
+
+  /******************************************************************
+   * LIFECYCLE HOOKS
+   ******************************************************************/
+  useEffect(() => {
+    const mobileView = window.innerWidth < 960;
+    setMapState({
+      ...mapState,
+      mobileView,
+      didInitSearch: true,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // to reset URL params after the waterfall of URL updates (this will be the final update in the chain)
+  useEffect(() => {
+    const mobileView = window.innerWidth < 960;
+    if (mapState.didClear) {
+      history.replace({
+        pathname: '/map',
+        search: qs.stringify({}),
+      });
+
       setMapState({
         ...mapState,
-        anchor: 'bottom',
-        isOpen: true,
+        mobileView,
+        didClear: false,
       });
-      setDrawerHeight(DRAWER_COLLAPSED_HEIGHT);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [appState]);
+
+  // callback handlers
+  function onWindowResize({ width }) {
+    if (width < 960) {
+      setMapState({
+        ...mapState,
+        mobileView: true,
+      });
     } else {
       setMapState({
         ...mapState,
-        anchor: 'left',
-        isOpen: true,
+        mobileView: false,
       });
-      setDrawerHeight(height);
-    }
-  }
-
-  function onDrawerSwipe(e) {
-    if (initialState.windowWidth <= 960) {
-      const nextHeight = drawerHeight === DRAWER_COLLAPSED_HEIGHT ? DRAWER_EXPANDED_HEIGHT : DRAWER_COLLAPSED_HEIGHT;
-      if (e.pointerType === 'touch' || e.type === 'click') {
-        setDrawerHeight(nextHeight);
-      }
     }
   }
 
   async function onLocationSelected(bool, newLocation) {
+    const search = pick(newLocation, ['description', 'latitude', 'longitude', 'id']);
+    history.push({
+      pathname: '/map',
+      search: qs.stringify({
+        ...appState.route.params,
+        search,
+      }),
+    });
 
     if (get(newLocation, 'description')) {
       const { latitude, longitude } = newLocation;
 
-      await mapService.onLocationAccepted({
-        coords: {
-          latitude, longitude
-        }
-      }, true);
-
+      await mapService.onLocationAccepted(
+        {
+          coords: {
+            latitude,
+            longitude,
+          },
+        },
+        true,
+      );
     }
   }
 
   async function onLocationCleared() {
     const latitude = get(appState, 'person.latitude');
     const longitude = get(appState, 'person.longitude');
-    (latitude && longitude) && await mapService.onLocationAccepted({
-      coords: {
-        latitude, longitude
-      }
+
+    // set a temp flag for lifecycle hook to know a clear happened
+    setMapState({
+      ...mapState,
+      didClear: true,
     });
+
+    // clear route app state
+    setAppState({
+      ...appState,
+      route: {
+        params: {},
+      },
+    });
+
+    latitude &&
+      longitude &&
+      (await mapService.onLocationAccepted({
+        coords: {
+          latitude,
+          longitude,
+        },
+      }));
   }
 
   function onEditFiltersBtnClick() {
@@ -119,22 +176,46 @@ export default function MapPage() {
     modalService.toggleModal('criteria', true);
   }
 
-  function onMapClick(evt) {
-    if (anchor === 'bottom') {
-      evt.stopPropagation();
-      const nextHeight = drawerHeight === DRAWER_COLLAPSED_HEIGHT ? DRAWER_EXPANDED_HEIGHT : DRAWER_COLLAPSED_HEIGHT;
-      if (nextHeight === DRAWER_COLLAPSED_HEIGHT) setDrawerHeight(nextHeight);
+  function onMapClick() {
+    if (mobileView && drawerOpen) {
+      handleToggleView();
     }
   }
 
-  // analytics handlers
+  function handleToggleView() {
+    setDrawerOpenState(!drawerOpen);
+  }
+
+  function onShareClicked() {
+    if (navigator && navigator.clipboard) {
+      navigator.clipboard.writeText('https://go.allclear.app');
+      setSnackBarOpenState(true);
+    }
+  }
+
+  function handleSnackbarClose() {
+    setSnackBarOpenState(false);
+  }
+
+  /******************************************************************
+   * ANALYTICS
+   ******************************************************************/
+
   function onActionClick(action, itemId, itemIndex, itemName) {
     handleGAEvent(action, itemId, itemIndex, itemName);
   }
 
-  function onTestingLocationExpand(itemId, itemIndex, itemName, isExpanded) {
-    const eventKey = isExpanded ? 'expand' : 'contract';
+  function onTestingLocationExpand(itemId, itemIndex, itemName, drawerOpen) {
+    const eventKey = drawerOpen ? 'expand' : 'contract';
     handleGAEvent(eventKey, itemId, itemIndex, itemName);
+    const selection = itemId;
+    history.push({
+      pathname: '/map',
+      search: qs.stringify({
+        ...appState.route.params,
+        selection,
+      }),
+    });
   }
 
   function handleGAEvent(eventKey, itemId, itemIndex, itemName) {
@@ -144,98 +225,87 @@ export default function MapPage() {
     gaService.sendEvent(eventName, additionalParams);
   }
 
-  const { isOpen, anchor } = mapState;
-
-  // get modal service so we can toggle it open
-  let modalService = ModalService.getInstance();
+  const { mobileView } = mapState;
 
   return (
-    <div className="map-page">
-      {anchor === 'bottom' && (
+    <div className={clsx(classes.root, 'map-page')}>
+      {mobileView ? (
         <MobileTopBar
           isLoggedIn={isLoggedIn}
           onLocationSelected={onLocationSelected}
           onLocationCleared={onLocationCleared}
           onFilterClick={onEditFiltersBtnClick}
-        >
-        </MobileTopBar>
+        ></MobileTopBar>
+      ) : (
+        <SolidHeader isLoggedIn={isLoggedIn}></SolidHeader>
       )}
-      <SolidHeader isLoggedIn={isLoggedIn} isOpen={isOpen}></SolidHeader>
-      <Box p={3}>
-        <AppBar
-          className={
-            'btn-hide-nav ' +
-            clsx(classes.appBar, {
-              [classes.appBarShift]: isOpen,
-            })
-          }
-          style={{ zIndex: '2' }}
-        ></AppBar>
-
-        <Drawer
-          className={classes.drawer + ' nav-left-location'}
-          variant="persistent"
-          anchor={anchor}
-          open={isOpen}
-          style={{ height: drawerHeight, zIndex: 4 }}
-        >
-          <AnimateHeight
-            duration={500}
-            height={anchor === 'left' || drawerHeight === DRAWER_EXPANDED_HEIGHT ? '100%' : '40%'}
-          >
-            <div
-              id="side-drawer"
-              style={{
-                width: anchor === 'left' ? `${drawerWidth}px` : '100%',
-                overflowY: 'scroll',
-                height: drawerHeight,
-              }}
-              className="side-drawer hide-scrollbar wid100-sm"
-            >
-              {anchor === 'left' &&
+      <Drawer
+        anchor={mobileView ? 'bottom' : 'left'}
+        variant="permanent"
+        className={clsx(classes.drawer, {
+          [classes.drawerOpen]: drawerOpen,
+          [classes.drawerClose]: !drawerOpen,
+        })}
+        classes={{
+          paper: clsx({
+            [classes.drawerOpen]: drawerOpen,
+            [classes.drawerClose]: !drawerOpen,
+          }),
+        }}
+      >
+        <div className="list-gradient"></div>
+        {mobileView && (
+          <div className="mobile-buttons">
+            <Button variant="contained" onClick={handleToggleView}>
+              {drawerOpen ? 'Map' : 'List'}
+            </Button>
+            <Button variant="contained" onClick={onShareClicked}>
+              <ShareIcon style={{ marginRight: 5, fontSize: '1.2rem' }} /> <span>Share</span>
+            </Button>
+          </div>
+        )}
+        <div className={clsx(classes.drawer, 'drawer-content', 'hide-scrollbar')}>
+          {!mobileView && (
+            <Fragment>
+              <div className="location-search">
                 <GoogleMapsAutocomplete
                   searchIconColor={'lightgray'}
                   focusOnRender={true}
                   locationSelected={onLocationSelected}
+                  initialValue={initialSearchVal}
                   onClear={onLocationCleared}
                   noOptionsText={'Please Enter a Search Term to View Results'}
                 ></GoogleMapsAutocomplete>
-              }
-
-              {anchor === 'left' && appState.map.isListLoading === false && (
-                <Box
-                  className={'button-box'}
-                  style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                <IconButton
+                  aria-label="edit filters"
+                  aria-haspopup="true"
+                  className="edit-filters-icon-button"
+                  size="small"
+                  style={{ padding: '12px', margin: '5px' }}
+                  onClick={onEditFiltersBtnClick}
                 >
-                  {numActiveFilters > 0 ? (
-                    <Badge
-                      ref={badgeRef}
-                      badgeContent={numActiveFilters}
-                      overlap={'rectangle'}
-                      style={{ width: anchor === 'bottom' ? '48%' : '100%' }}
-                    >
-                      <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} />
-                    </Badge>
-                  ) : (
-                      <span className="edit-filters-btn-container">
-                        <EditFiltersBtn anchor={anchor} onClick={onEditFiltersBtnClick} style />
-                      </span>
-                    )}
-                  {anchor === 'bottom' && (
-                    <Button
-                      className={'view-full-results-btn'}
-                      endIcon={drawerHeight === DRAWER_EXPANDED_HEIGHT ? VerticalCollapseIcon() : VerticalExpandIcon()}
-                      style={{ width: '50%', color: '#666666', size: 'large', paddingRight: '0px' }}
-                      onClick={onDrawerSwipe}
-                    >
-                      {drawerHeight === DRAWER_EXPANDED_HEIGHT ? 'Map View' : 'Full List View'}
-                    </Button>
-                  )}
-                </Box>
-              )}
+                  {SettingsSVG({ color: '#666666' })}
+                </IconButton>
+              </div>
 
-              {appState.map.isListLoading === true && (<ListLoadingSpinner />)}
-
+              <Container style={{ padding: '20px 24px' }}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                  style={{ padding: '10px' }}
+                  startIcon={<ShareIcon />}
+                  onClick={() => onShareClicked()}
+                >
+                  Share AllClear
+                </Button>
+              </Container>
+            </Fragment>
+          )}
+          {appState.map.isListLoading === true ? (
+            <ListLoadingSpinner />
+          ) : (
+            <Fragment>
               {locations &&
                 locations.map((result, index) => (
                   <TestingLocationListItem
@@ -254,86 +324,80 @@ export default function MapPage() {
                     onTestingLocationExpand={onTestingLocationExpand}
                   ></TestingLocationListItem>
                 ))}
-
-
-              {locations.length === 0 && appState.map.isListLoading === false && (
-                <h2 style={{ display: 'flex', justifyContent: 'center' }}>No Results Found </h2>
-              )}
-            </div>
-          </AnimateHeight>
-        </Drawer>
-        <main
-          className={clsx(classes.content, {
-            [classes.contentShift]: isOpen,
-          })}
-        >
-          <div className="map-fullscreen" style={{ height: anchor === 'bottom' && isDrawerExpanded ? '30vh' : null }}>
-            <GoogleMap onMapClick={onMapClick}></GoogleMap>
-            {anchor === 'bottom' &&
-              <Button className="view-type-button" onClick={onDrawerSwipe}>
-                {isDrawerExpanded ? 'Map' : 'List'}
-              </Button>
-            }
-          </div>
-        </main>
-        <UpdateCriteriaModal></UpdateCriteriaModal>
-      </Box>
+            </Fragment>
+          )}
+          {locations.length === 0 && appState.map.isListLoading === false && (
+            <p style={{ margin: 20, textAlign: 'center', fontSize: '1.7em' }}>No Results Found</p>
+          )}
+        </div>
+        <SnackbarMessage
+          snackbarClass={'snackbar--map'}
+          isOpen={snackBarOpen}
+          onClose={handleSnackbarClose}
+          severity={'success'}
+          message={`Link Copied to Clipboard!`}
+        />
+      </Drawer>
+      <main className={classes.content}>
+        <GoogleMap onMapClick={onMapClick}></GoogleMap>
+      </main>
+      <UpdateCriteriaModal></UpdateCriteriaModal>
     </div>
   );
 }
 
-const drawerWidth = 400;
+const collapseHeight = 40;
+const expandHeight = 85;
+const expandWidth = 400;
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    flexDirection: 'column-reverse',
+    width: '100%',
+    height: '100%',
+    [theme.breakpoints.up('md')]: {
+      flexDirection: 'row',
+    },
   },
-  appBar: {
-    transition: theme.transitions.create(['margin', 'width'], {
+  drawer: {
+    flexShrink: 0,
+    zIndex: 1,
+    height: ' 100%',
+    overflowY: 'auto',
+    [theme.breakpoints.up('md')]: {
+      marginTop: 70, // height of desktop header
+    },
+  },
+  drawerOpen: {
+    transition: theme.transitions.create('height', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    overflow: 'visible',
+    height: `${expandHeight}%`,
+    [theme.breakpoints.up('md')]: {
+      height: '100%',
+    },
+  },
+  drawerClose: {
+    transition: theme.transitions.create('height', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-  },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  hide: {
-    display: 'none',
+    overflow: 'visible',
+    height: `${collapseHeight}%`,
+    [theme.breakpoints.up('md')]: {
+      width: expandWidth,
+      boxShadow: '5px 0px 20px rgba(0, 0, 0, 0.1)',
+      height: 'calc(100% - 70px)',
+    },
   },
   content: {
-    marginLeft: -drawerWidth,
-  },
-  contentShift: {
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginLeft: 0,
+    flexGrow: 1,
+    height: '100%',
   },
 }));
-
-function EditFiltersBtn(props) {
-  return (
-    <Button
-      className={'edit-filters-btn'}
-      variant="contained"
-      color="primary"
-      fullWidth
-      startIcon={SettingsSVG()}
-      onClick={props.onClick}
-    >
-      {props.anchor === 'bottom' ? 'Edit Filters' : 'Edit Search Filters'}
-    </Button>
-  );
-}
-
 
 // todo: might still be useful at some point just not now
 // function TabPanel(props) {
@@ -356,7 +420,6 @@ function EditFiltersBtn(props) {
 //   index: PropTypes.any.isRequired,
 //   value: PropTypes.any.isRequired,
 // };
-
 
 // on mount, check if filter is active
 // useEffect(
@@ -386,3 +449,24 @@ function EditFiltersBtn(props) {
 //     badgeRef.current.children[1].hidden = !searchFilterActive;
 //   }
 // }
+
+// useEffect(() => {
+//
+//   const latitude = get(appState, 'route.params.search.latitude');
+//   const longitude = get(appState, 'route.params.search.longitude');
+//
+//   if (latitude && longitude && !mapState.didInitMap) {
+//     mapService.onLocationAccepted({
+//       coords: {
+//         latitude, longitude
+//       }
+//     }, true);
+//     setMapState({
+//       ...mapState,
+//       didInitMap: true,
+//     });
+//   }
+//
+//
+//   // eslint-disable-next-line react-hooks/exhaustive-deps
+// }, [appState]);

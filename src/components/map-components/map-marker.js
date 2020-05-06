@@ -1,28 +1,17 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import {AppContext} from '@contexts/app.context';
+import {useHistory} from 'react-router';
+import {clickMapMarker} from '@util/general.helpers';
 
 export default function MapMarker(props) {
-  const { index, length } = props;
-  // const {appState, setAppState} = useContext(AppContext);
+  const { index } = props;
+  const {appState} = useContext(AppContext);
+  const history = useHistory();
   return (
     <div
-      onClick={(e, i) => {
-        // todo: dont touch dom lol, do this with refs (much harder)
-        const elemToOpen = document.querySelectorAll('.MuiExpansionPanel-root')[index];
-        const isCurrentlyExpanded = [].slice.call(elemToOpen.classList).includes('Mui-expanded');
-        if (!isCurrentlyExpanded) elemToOpen.children[0].click();
-        const isLastElement = index === length - 1;
-        if (isLastElement) {
-          // wait for expansion panel animation to end before scrolling
-          setTimeout(() => {
-            elemToOpen.scrollIntoView({ behavior: 'smooth', block: 'end' });
-          }, 300);
-        } else elemToOpen.scrollIntoView({ behavior: 'smooth' });
-
+      onClick={() => {
+        clickMapMarker(appState, index, history);
         // todo: instead of touching dom, utilize previously set state and ref markers to accomplish this?
-        // setAppState({
-        //   ...appState,
-        //   // selectedPin: index
-        // });
       }}
       style={mapMarkerStyle}
     >

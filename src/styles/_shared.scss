@@ -63,7 +63,9 @@ $colors: (
 
   &--map {
     position: absolute;
-    left: calc(50vw + 200px) !important;
+    @media (min-width: $lg) {
+      transform: translateX(0) !important;
+    }
     .MuiAlert-standardError {
       background-color: white;
     }
@@ -72,5 +74,16 @@ $colors: (
       flex-direction: column;
       justify-content: center;
     }
+  }
+}
+
+.seo-list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+
+  a {
+    color: white;
+    font-size: 16px;
   }
 }

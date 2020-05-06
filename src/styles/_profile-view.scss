@@ -1,4 +1,5 @@
 .profile-view {
+  flex: 1 0 auto; // safari fix
   position: relative;
   display: flex;
   flex-direction: column;
