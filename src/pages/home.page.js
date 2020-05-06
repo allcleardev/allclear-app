@@ -18,6 +18,7 @@ import BottomNav from '@components/general/navs/bottom-nav';
 import { DEFAULT_NAV_ITEMS } from '@components/general/headers/header.constants';
 
 import SnackbarMessage from '@general/alerts/snackbar-message';
+import { triggerShareAction } from '@util/social.helpers';
 
 import Container from '@material-ui/core/Container';
 import WarningRoundedIcon from '@material-ui/icons/WarningRounded';
@@ -34,6 +35,8 @@ export default class HomePage extends Component {
     symptomatic: false,
     prioritized: false,
     isSnackbarOpen: false,
+    snackbarMessage: '',
+    snackbarSeverity: '',
   };
 
   constructor(props) {
@@ -118,26 +121,27 @@ export default class HomePage extends Component {
   }
 
   onShareClicked() {
-    console.log('navigator', navigator);
-    console.log('navigator', navigator.share);
-    const canonicalElement = document.querySelector('link[rel=canonical]');
-    console.log('canonicalElement', canonicalElement);
+    triggerShareAction().then((response) => {
+      let snackbarMessage;
+      let snackbarSeverity;
 
-    if (navigator.share) {
-      navigator
-        .share({
-          title: 'AllClear',
-          url: 'https://go.allclear.app',
-        })
-        .then(() => console.log('Successful share'))
-        .catch((error) => console.log('Error sharing', error));
-    } else {
-      if (navigator && navigator.clipboard) {
-        navigator.clipboard.writeText('https://go.allclear.app');
-        this.setState({ isSnackbarOpen: true });
+      if (response.success) {
+        snackbarMessage = response.message;
+        snackbarSeverity = 'success';
+      } else if (response.error) {
+        snackbarMessage = response.error;
+        snackbarSeverity = 'warning';
+      } else {
+        snackbarMessage = 'An error occured. Please try again later';
+        snackbarSeverity = 'error';
       }
-      // find another fallback
-    }
+
+      this.setState({
+        snackbarMessage,
+        snackbarSeverity,
+        isSnackbarOpen: true,
+      });
+    });
   }
 
   handleSnackbarClose() {
@@ -311,10 +315,10 @@ export default class HomePage extends Component {
         </Container>
 
         <SnackbarMessage
-          severity="success"
           isOpen={this.state.isSnackbarOpen}
+          severity={this.state.snackbarSeverity}
+          message={this.state.snackbarMessage}
           onClose={this.handleSnackbarClose}
-          message={'Link Copied to Clipboard!'}
         />
 
         <BottomNav active={0}></BottomNav>
