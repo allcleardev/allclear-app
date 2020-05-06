@@ -41,7 +41,7 @@ class SiteBuilder {
       'populateCities',
       'populateAllSitesInCity',
     ]);
-    if(currBranch === 'staging' || currBranch === 'master'){
+    if(currBranch === 'staging' || currBranch === 'master' || currBranch === 'dev'){
       console.log(`Building on branch: ${currBranch}`);
       this.build();
     }else{
@@ -87,12 +87,15 @@ class SiteBuilder {
       forEach(this.stateMap[state].cities, (e, city) => {
 
         // call a search for all facilities within a city
+
+        console.log(`getting locations for: ${city}, ${state}`)
         const currPromise = this.getLocations({city, state})
           .then(({data}) => {
             const {records} = data;
             const dashedCity = dashStr(city);
             const dashedState = dashStr(state);
             set(this, `stateMap.${state}.cities.${city}`, {...e, records});
+            console.log(`==SETTING locations for: ${city}, ${state}`)
 
             // finally, write out this facility route to the sitemap
             forEach(records, (facility) => {
