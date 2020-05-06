@@ -87,8 +87,6 @@ class SiteBuilder {
       forEach(this.stateMap[state].cities, (e, city) => {
 
         // call a search for all facilities within a city
-
-        console.log(`getting locations for: ${city}, ${state}`)
         const currPromise = this.getLocations({city, state})
           .then(({data}) => {
             const {records} = data;
