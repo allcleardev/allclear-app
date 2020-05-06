@@ -56,7 +56,7 @@ class SiteBuilder {
       url: `${this.baseURL}/facilities/search`,
       data: {
         ...body,
-        'pageSize': 500 // todo: maybe this is not enough in the future
+        pageSize: 500 // todo: maybe this is not enough in the future
       },
     });
   }
@@ -87,23 +87,21 @@ class SiteBuilder {
       forEach(this.stateMap[state].cities, (e, city) => {
 
         // call a search for all facilities within a city
-
-        console.log(`getting locations for: ${city}, ${state}`)
         const currPromise = this.getLocations({city, state})
           .then(({data}) => {
             const {records} = data;
-            const dashedCity = dashStr(city);
-            const dashedState = dashStr(state);
+            // const dashedCity = dashStr(city);
+            // const dashedState = dashStr(state);
             set(this, `stateMap.${state}.cities.${city}`, {...e, records});
             console.log(`==SETTING locations for: ${city}, ${state}`)
 
             // finally, write out this facility route to the sitemap
             forEach(records, (facility) => {
-              const dashedName = dashStr(facility.name);
+              // const dashedName = dashStr(facility.name);
               const {id} = facility;
               // todo: comment this in for both name and id
               // this.smStream.write({url: `/locations/${dashedState}/${dashedCity}/${dashedName}`});
-              this.smStream.write({url: `/locations/${dashedState}/${dashedCity}/${id}`});
+              this.smStream.write({url: `/locations/${state}/${city}/${id}`});
             });
 
           })
@@ -137,10 +135,10 @@ class SiteBuilder {
       const currPromise = this.getCities(state).then(({data}) => {
         forEach(data, (city) => {
           const cityName = city.name;
-          const dashedCity = dashStr(cityName);
-          const dashedState = dashStr(state);
+          // const dashedCity = dashStr(cityName);
+          // const dashedState = dashStr(state);
           set(this, `stateMap.${state}.cities.${cityName}`, {total: city.total});
-          this.smStream.write({url: `/locations/${dashedState}/${dashedCity}`});
+          this.smStream.write({url: `/locations/${state}/${cityName}`});
         });
       });
       allPromises.push(currPromise);
