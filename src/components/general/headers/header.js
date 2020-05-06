@@ -31,7 +31,7 @@ export default function Header({
         ''
       )}
 
-      <Container className="desktop-only-content" maxWidth="xl">
+      <Container className="desktop-only-content" maxWidth="none">
         <Link to="/map">
           <img src={Logo} alt="Logo" className="logo" />
         </Link>
