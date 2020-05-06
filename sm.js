@@ -4,12 +4,13 @@ const {resolve} = require('path');
 const axios = require('axios');
 const {set, keys, forEach, bindAll} = require('lodash');
 const rateLimit = require('axios-rate-limit');
+const { execSync } = require('child_process');
 
 class SiteBuilder {
 
   constructor() {
     this.api = rateLimit(axios.create(), {maxRequests: 75, perMilliseconds: 1000});
-    const currBranch = process.env.GIT_BRACH;
+    const currBranch = execSync(`git rev-parse --abbrev-ref HEAD`);
 
     if (currBranch === 'master') {
       this.baseURL = 'https://api.allclear.app';
@@ -38,7 +39,7 @@ class SiteBuilder {
       'populateCities',
       'populateAllSitesInCity',
     ]);
-    if(process.env.GIT_BRACH === 'staging' || process.env.GIT_BRACH === 'master' || process.env.GIT_BRACH === 'dev'){
+    if(process.env.GIT_BRACH === 'staging' || process.env.GIT_BRACH === 'master'){
       console.log(`Building on branch: ${currBranch}`);
       this.build();
     }else{
