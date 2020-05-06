@@ -34,7 +34,7 @@ export default class HomePage extends Component {
     testLocationsExpanded: false,
     symptomatic: false,
     prioritized: false,
-    isSnackbarOpen: false,
+    snackbarOpen: false,
     snackbarMessage: '',
     snackbarSeverity: '',
   };
@@ -139,13 +139,13 @@ export default class HomePage extends Component {
       this.setState({
         snackbarMessage,
         snackbarSeverity,
-        isSnackbarOpen: true,
+        snackbarOpen: true,
       });
     });
   }
 
   handleSnackbarClose() {
-    this.setState({ isSnackbarOpen: false });
+    this.setState({ snackbarOpen: false });
   }
 
   async updateUserProfile(pinnedLocation) {
@@ -316,7 +316,7 @@ export default class HomePage extends Component {
         </Container>
 
         <SnackbarMessage
-          isOpen={this.state.isSnackbarOpen}
+          isOpen={this.state.snackbarOpen}
           severity={this.state.snackbarSeverity}
           message={this.state.snackbarMessage}
           onClose={this.handleSnackbarClose}
