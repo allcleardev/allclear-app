@@ -11,6 +11,11 @@ class SiteBuilder {
   constructor() {
     this.api = rateLimit(axios.create(), {maxRequests: 75, perMilliseconds: 1000});
     const currBranch = execSync(`git rev-parse --abbrev-ref HEAD`);
+    const currBranch2 = execSync(`git symbolic-ref --short HEAD`);
+    const currBranch3 = execSync(`git name-rev --name-only HEAD`);
+
+    console.log('currBranch, currBranch2, currBranch3');
+    console.log(currBranch, currBranch2, currBranch3);
 
     if (currBranch === 'master') {
       this.baseURL = 'https://api.allclear.app';
