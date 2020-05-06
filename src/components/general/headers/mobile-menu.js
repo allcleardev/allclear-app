@@ -64,17 +64,17 @@ export default function MobileMenu(props) {
                 </MenuItem>
               ),
             )}
-            <a
-              href="https://home.allclear.app"
-              className="menu__list"
-              rel="noopener noreferrer"
-              target="_blank"
-              onClick={onMenuToggle}
-            >
-              <img className="logo" src={Logo} alt="Logo" />
-            </a>
           </MenuList>
         </ClickAwayListener>
+        <a
+          href="https://home.allclear.app"
+          className="menu__list"
+          rel="noopener noreferrer"
+          target="_blank"
+          onClick={onMenuToggle}
+        >
+          <img className="logo" src={Logo} alt="Logo" />
+        </a>
       </div>
 
       <span className={open ? 'circle opened' : 'circle'}></span>
