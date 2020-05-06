@@ -5,7 +5,7 @@
 // ____________________________________________________ //
 
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import {Link, NavLink, useHistory} from 'react-router-dom';
 
 import Logo from '@assets/images/logo-white.svg';
 
@@ -31,7 +31,7 @@ export default function Header({
         ''
       )}
 
-      <Container className="desktop-only-content" maxWidth="xl">
+      <Container className="desktop-only-content" maxWidth="none">
         <Link to="/map">
           <img src={Logo} alt="Logo" className="logo" />
         </Link>
@@ -51,9 +51,11 @@ export default function Header({
               );
             } else {
               return (
-                <Link to={item.route} className="menu__item" key={item.name}>
+                <NavLink
+                  activeClassName="menu__item--active"
+                  to={item.route} className="menu__item" key={item.name}>
                   {item.name}
-                </Link>
+                </NavLink>
               );
             }
           })}

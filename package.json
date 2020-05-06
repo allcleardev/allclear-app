@@ -1,7 +1,6 @@
 {
   "name": "allclear-pwa-2",
-  "version": "1.6.5",
-  "private": true,
+  "version": "1.7.0",
   "scripts": {
     "start": "node stampBuild.js && react-app-rewired start",
     "build": "node stampBuild.js && node sm.js && react-app-rewired build",
@@ -42,6 +41,7 @@
     "typeface-heebo": "0.0.72"
   },
   "devDependencies": {
+    "axios-rate-limit": "^1.2.1",
     "babel-jest": "^24.9.0",
     "customize-cra": "^0.9.1",
     "envfile": "^5.0.0",

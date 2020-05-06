@@ -54,6 +54,20 @@
         font-weight: 500;
         color: #fff;
 
+        &--active {
+
+          position: relative;
+          &:before {
+            content : "";
+            position: absolute;
+            left    : 20%;
+            bottom  : 0;
+            height  : 1px;
+            width   : 60%;
+            border-bottom:1px solid white;
+          }
+        }
+
         &:last-child {
           margin-right: 0;
         }
