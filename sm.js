@@ -40,12 +40,12 @@ class SiteBuilder {
       'populateCities',
       'populateAllSitesInCity',
     ]);
-    if(currBranch === 'staging' || currBranch === 'master' || currBranch === 'HEAD'){
-      console.log(`Building on branch: ${currBranch}`);
+    // if(currBranch === 'staging' || currBranch === 'master' || currBranch === 'HEAD'){
+    //   console.log(`Building on branch: ${currBranch}`);
       this.build();
-    }else{
-      console.log(`Skipping build on branch: ${currBranch}`);
-    }
+    // }else{
+    //   console.log(`Skipping build on branch: ${currBranch}`);
+    // }
   }
 
   async getLocations(body) {
