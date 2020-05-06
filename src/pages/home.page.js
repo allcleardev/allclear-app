@@ -18,6 +18,7 @@ import BottomNav from '@components/general/navs/bottom-nav';
 import { DEFAULT_NAV_ITEMS } from '@components/general/headers/header.constants';
 
 import SnackbarMessage from '@general/alerts/snackbar-message';
+import { triggerShareAction } from '@util/social.helpers';
 
 import Container from '@material-ui/core/Container';
 import WarningRoundedIcon from '@material-ui/icons/WarningRounded';
@@ -33,7 +34,9 @@ export default class HomePage extends Component {
     testLocationsExpanded: false,
     symptomatic: false,
     prioritized: false,
-    isSnackbarOpen: false,
+    snackbarOpen: false,
+    snackbarMessage: '',
+    snackbarSeverity: '',
   };
 
   constructor(props) {
@@ -118,14 +121,31 @@ export default class HomePage extends Component {
   }
 
   onShareClicked() {
-    if (navigator && navigator.clipboard) {
-      navigator.clipboard.writeText('https://go.allclear.app');
-      this.setState({ isSnackbarOpen: true });
-    }
+    triggerShareAction().then((response) => {
+      let snackbarMessage;
+      let snackbarSeverity;
+
+      if (response.success) {
+        snackbarMessage = response.message;
+        snackbarSeverity = 'success';
+      } else if (response.error) {
+        snackbarMessage = response.error;
+        snackbarSeverity = 'warning';
+      } else {
+        snackbarMessage = 'An error occured. Please try again later';
+        snackbarSeverity = 'error';
+      }
+
+      this.setState({
+        snackbarMessage,
+        snackbarSeverity,
+        snackbarOpen: true,
+      });
+    });
   }
 
   handleSnackbarClose() {
-    this.setState({ isSnackbarOpen: false });
+    this.setState({ snackbarOpen: false });
   }
 
   async updateUserProfile(pinnedLocation) {
@@ -296,10 +316,10 @@ export default class HomePage extends Component {
         </Container>
 
         <SnackbarMessage
-          severity="success"
-          isOpen={this.state.isSnackbarOpen}
+          isOpen={this.state.snackbarOpen}
+          severity={this.state.snackbarSeverity}
+          message={this.state.snackbarMessage}
           onClose={this.handleSnackbarClose}
-          message={'Link Copied to Clipboard!'}
         />
 
         <BottomNav active={0}></BottomNav>

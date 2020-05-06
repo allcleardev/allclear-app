@@ -1,9 +1,10 @@
 .tracing {
-  flex: 1;
+  flex: 1 0 auto; // safari fix
   display: flex;
   flex-direction: column;
   width: 100%;
   color: #fff;
+  padding-bottom: 150px; // room for bottom nav
   @include responsive-gradient;
 
   h1 {
