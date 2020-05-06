@@ -4,14 +4,15 @@ const {resolve} = require('path');
 const axios = require('axios');
 const {set, keys, forEach, bindAll} = require('lodash');
 const rateLimit = require('axios-rate-limit');
-const { execSync } = require('child_process');
+// const { execSync } = require('child_process');
 
 class SiteBuilder {
 
   constructor() {
     this.api = rateLimit(axios.create(), {maxRequests: 75, perMilliseconds: 1000});
-    const currBranch = execSync(`git rev-parse --abbrev-ref HEAD`);
-    // const currBranch = process.env.GIT_BRANCH;
+    // const currBranch = execSync(`git rev-parse --abbrev-ref HEAD`);
+    const currBranch = process.env.GIT_BRANCH;
+    console.log(`==== branch: ${currBranch} ====`);
 
     if (currBranch === 'master') {
       this.baseURL = 'https://api.allclear.app';
