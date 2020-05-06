@@ -227,7 +227,7 @@ export default class HomePage extends Component {
               )}
               <span>
                 Your profile
-                {this.state.prioritized ? ' is prioritized ' : ' may not be prioritized '}
+                {this.state.prioritized ? ' may be prioritized ' : ' may not be prioritized '}
                 for testing per CDC Criteria.{' '}
                 <a
                   href="https://www.cdc.gov/coronavirus/2019-nCoV/hcp/clinical-criteria.html"
@@ -295,7 +295,7 @@ export default class HomePage extends Component {
           <article className="share article">
             <h2 className="sub-heading">
               Sharing
-              {/* Hiding the tooltip for now */}
+              {/* Hiding until we implement Friends */}
               {/* <LightTooltip
                 title="None of your contacts are currently on allclear.
                 Invite your friends and family to keep track of their status."

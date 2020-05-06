@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import Logo from '@assets/images/logo-white.svg';
@@ -22,9 +22,11 @@ export default function ColoredHeader(props) {
                 {link.name}
               </a>
             ) : (
-              <Link className="header-menu__item" to={link.to} key={link.name}>
+              <NavLink
+                activeClassName="header-menu__item--active"
+                className="header-menu__item" to={link.to} key={link.name}>
                 {link.name}
-              </Link>
+              </NavLink>
             ),
           )}
           {!isLoggedIn && (

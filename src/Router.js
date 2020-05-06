@@ -24,7 +24,6 @@ import ProfileEditPage from '@pages/profile-edit.page';
 import ProfileViewPage from '@pages/profile-view.page';
 import ProtectedRoute from '@routes/protected.route';
 import SettingsPage from '@pages/settings.page';
-import SharePage from '@pages/share.page';
 import SignUpVerificationPage from '@pages/sign-up-verification.page';
 import SplashPage from '@pages/splash.page';
 import Symptoms from '@pages/symptoms.page';
@@ -80,7 +79,6 @@ export default function Router() {
           <ProtectedRoute path="/profile" component={ProfileViewPage} />
           <ProtectedRoute path="/profile-edit" component={ProfileEditPage} />
           <ProtectedRoute path="/add-test" component={AddTestPage} />
-          <Route path="/share" component={SharePage} />
           <ProtectedRoute path="/settings" component={SettingsPage} />
           <Route path="/contact-tracing" component={TracingPage} />
 
