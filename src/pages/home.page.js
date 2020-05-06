@@ -294,13 +294,14 @@ export default class HomePage extends Component {
 
           <article className="share article">
             <h2 className="sub-heading">
-              Friends
-              <LightTooltip
+              Sharing
+              {/* Hiding the tooltip for now */}
+              {/* <LightTooltip
                 title="None of your contacts are currently on allclear.
                 Invite your friends and family to keep track of their status."
               >
                 <InfoOutlinedIcon className="info-icon"></InfoOutlinedIcon>
-              </LightTooltip>
+              </LightTooltip> */}
             </h2>
             <Button
               fullWidth
