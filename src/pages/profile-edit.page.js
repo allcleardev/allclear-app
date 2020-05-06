@@ -8,7 +8,6 @@ import { AppContext } from '@contexts/app.context';
 
 import MultiSelectInput from '@general/inputs/multi-select-input';
 import Header from '@general/headers/header';
-import BottomNav from '@general/navs/bottom-nav';
 import GoogleMapsAutocomplete from '@general/inputs/google-maps-autocomplete';
 import Toggle from '@general/buttons/toggle';
 import { DEFAULT_NAV_ITEMS } from '@general/headers/header.constants';
@@ -281,7 +280,6 @@ export default class ProfileEditPage extends Component {
             </DefaultButton>
           </div>
         </Container>
-        <BottomNav active={3}></BottomNav>
       </section>
     );
   }

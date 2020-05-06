@@ -129,9 +129,3 @@ input:checked + .slider:before {
   border-radius: 6px !important;
 }
 
-.MuiBottomNavigationAction-root.Mui-selected {
-  /*
-    TODO: check where this is being applied
-  */
-  color: gray !important;
-}

@@ -8,7 +8,6 @@ import { ReactComponent as SettingsIcon } from '@assets/images/settings-icon.svg
 import { AppContext } from '@contexts/app.context';
 
 import Header from '@components/general/headers/header';
-import BottomNav from '@components/general/navs/bottom-nav';
 import { DEFAULT_NAV_ITEMS } from '@components/general/headers/header.constants';
 import { Button, IconButton, Chip, Container, withStyles } from '@material-ui/core';
 
@@ -164,7 +163,6 @@ export default class ProfileViewPage extends Component {
             </DefaultButton>
           </Link>
         </Container>
-        <BottomNav active={3}></BottomNav>
       </section>
     );
   }

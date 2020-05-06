@@ -1,3 +1,6 @@
+/*
+  TODO: Check if we can delete this file
+*/
 import React from 'react';
 import Box from '@material-ui/core/Container';
 import { Grid, Avatar, IconButton, Button } from '@material-ui/core';

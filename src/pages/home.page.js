@@ -14,7 +14,6 @@ import { ReactComponent as HealthIcon } from '@assets/images/health-icon.svg';
 import { AppContext } from '@contexts/app.context';
 
 import Header from '@components/general/headers/header';
-import BottomNav from '@components/general/navs/bottom-nav';
 import { DEFAULT_NAV_ITEMS } from '@components/general/headers/header.constants';
 
 import SnackbarMessage from '@general/alerts/snackbar-message';
@@ -162,7 +161,7 @@ export default class HomePage extends Component {
           <SettingsIcon className="settings-option__icon" />
         </IconButton>
 
-        <Header navItems={DEFAULT_NAV_ITEMS} enableBackBtn={true}>
+        <Header navItems={DEFAULT_NAV_ITEMS}>
           <Container className="header-content" maxWidth="md">
             <h1 className="header-content__heading">Home</h1>
 
@@ -301,8 +300,6 @@ export default class HomePage extends Component {
           onClose={this.handleSnackbarClose}
           message={'Link Copied to Clipboard!'}
         />
-
-        <BottomNav active={0}></BottomNav>
       </section>
     );
   }

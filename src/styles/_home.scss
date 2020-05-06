@@ -4,7 +4,6 @@
   flex-direction: column;
   position: relative;
   width: 100%;
-  padding-bottom: 80px; // making space for bottom navigation bar
 
   @media (min-width: $md) {
     padding-bottom: 30px;
