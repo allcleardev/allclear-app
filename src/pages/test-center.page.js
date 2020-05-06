@@ -33,7 +33,6 @@ class TestCenterPage extends Component {
     this.isLoggedIn = sessionId ? true : false;
     const facility = await this.facilityService.getFacility(this.id).then((res) => {
       const facility = res.data;
-      console.log('facility', facility);
       this.loading = false;
       this.facilityDetailsMap = getFacilityDetailsMap(facility);
       this.feedbackURL = getFeedbackButtonURL(facility);
@@ -58,7 +57,6 @@ class TestCenterPage extends Component {
   render() {
     const facility = this.state.facility;
     const isMobile = this.state.mobileView;
-    console.log('isMObile', isMobile);
 
     return (
       <div className="test-center-page">
