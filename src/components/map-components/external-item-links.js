@@ -6,53 +6,49 @@ import CallIcon from '@material-ui/icons/Call';
 import ShareIcon from '@material-ui/icons/Share';
 
 export default function ExternalItemLinks(props) {
+  const buttons = [
+    {
+      id: props.description,
+      href: `https://www.google.com/maps/dir/?api=1&destination=${props.description}`,
+      text: 'Directions',
+      icon: <DirectionsIcon />
+    },
+    {
+      id: props.phone,
+      href: 'tel:' + props.phone,
+      text: 'Call',
+      icon: <CallIcon />
+    },
+    {
+      id: props.website,
+      href: props.website,
+      text: 'Website',
+      icon: <WebIcon />
+    },
+    {
+      id: 'Share',
+      href: '/home',
+      text: 'Share',
+      icon: <ShareIcon />
+    },
+  ].filter((btn) => btn.id);
+
   return (
     <div className={`list-item-buttons ${props.display}`} style={props.margin}>
-      <div className="link-button">
-        <LinkButton
-          href={'https://www.google.com/maps/dir/?api=1&destination=' + props.description}
-          text="Directions"
-          theme="round-icon"
-          onClick={(evt) => props.onClick(evt, 'directions')}
-        >
-          <DirectionsIcon />
-        </LinkButton>
-      </div>
-
-      {props.phone && (
-        <div className="link-button">
-          <LinkButton
-            href={'tel:' + props.phone}
-            text="Call"
-            theme="round-icon"
-            onClick={(evt) => props.onClick(evt, 'call')}
-          >
-            <CallIcon />
-          </LinkButton>
-        </div>
-      )}
-
-      {props.website && (
-        <div className="link-button">
-          <LinkButton
-            href={props.website}
-            text="Website"
-            theme="round-icon"
-          >
-            <WebIcon />
-          </LinkButton>
-        </div>
-      )}
-
-      <div className="link-button">
-        <LinkButton
-          href="/home"
-          text="Share"
-          theme="round-icon"
-        >
-          <ShareIcon />
-        </LinkButton>
-      </div>
+      {
+        buttons.map((btn) =>
+          <div key={btn.text} className="link-button">
+            <LinkButton
+              href={btn.href}
+              text={btn.text}
+              theme="round-icon"
+              onClick={(evt) => props.onClick(evt, btn.text)}
+            >
+              {btn.icon}
+            </LinkButton>
+          </div>
+        )
+      }
     </div>
   );
 }
