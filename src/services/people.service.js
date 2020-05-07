@@ -50,8 +50,6 @@ export default class PeopleService {
       ...this.headers.headers
     };
 
-    debugger;
-
     return Axios({
       method: 'DELETE',
       url: this.logoutURL,
