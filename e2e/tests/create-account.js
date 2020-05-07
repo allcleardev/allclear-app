@@ -1,13 +1,12 @@
-const puppeteer = require("puppeteer");
+const puppeteer = require('puppeteer');
 
-const fs = require("fs");
 const config = require('dotenv').config({ path: 'C:\\dev_code\\allclear-app\\.env.test.local' });
 const phone = config.parsed.E2E_PHONE_NUMBER;
 const account = config.parsed.TWILIO_SID;
 const auth = config.parsed.TWILIO_AUTH;
 
 const client = require('twilio')(account, auth);
-var code = "";
+var code = '';
 
 async function getVerificationCode(){
     let messages = await client.messages.list({limit: 20, to: '+1' + phone});
@@ -17,54 +16,59 @@ async function getVerificationCode(){
 const test = async () => {
     //Initialize the puppeteer instance
     const browser = await puppeteer.launch({
-        headless: true,
-        //defaultViewport: null,
+        headless: false,
+        defaultViewport: null,
     });
     let page = await browser.newPage();
 
     //Navigate to the get-started page
-    await page.goto("https://app-staging.allclear.app/get-started");
+    await page.goto('https://app-staging.allclear.app/get-started');
     
     //Click the get-started button
-    var getStarted = await page.$x('//*[@id="root"]/div/div[2]/div/button[1]');
+    let getStarted = await page.$x('//*[@id="root"]/div/div[2]/div/button[1]');
     await getStarted[0].click();
 
     //On the location page
     //Put in location and click next 
-    await page.waitForSelector("#google-maps-autocomplete");
-    await page.type("#google-maps-autocomplete", "08050");
+    await page.waitForSelector('#google-maps-autocomplete');
+    await page.type('#google-maps-autocomplete', '08050');
     await page.waitFor(400);
     await page.keyboard.press('ArrowDown');
     await page.keyboard.press('Enter');
     
     await page.waitFor(600);
-    var locationNext = await page.$x('//*[@id="root"]/div/div[2]/div[2]/span/button');
+    let locationNext = await page.$x('//*[@id="root"]/div/div[2]/div[2]/span/button');
     await locationNext[0].click();
 
     //On the health-worker status page
     //Select health-worker status of niether
     await page.waitForXPath('//*[@id="root"]/div/div[2]/div[1]/div/div[3]');
-    var healthWorkerStatus = await page.$x('//*[@id="root"]/div/div[2]/div[1]/div/div[3]');
+    let healthWorkerStatus = await page.$x('//*[@id="root"]/div/div[2]/div[1]/div/div[3]');
     await healthWorkerStatus[0].click();
     
     await page.waitFor(500);
-    var healthNext = await page.$x('//*[@id="root"]/div/div[2]/div[2]/span/button');
+    let healthNext = await page.$x('//*[@id="root"]/div/div[2]/div[2]/span/button');
     await healthNext[0].click();
 
     //On the Symptoms page
     //Select the symptom fever
     await page.waitForXPath('//*[@id="root"]/div/div[2]/div[1]/div/div[1]');
-    var symptoms = await page.$x('//*[@id="root"]/div/div[2]/div[1]/div/div[1]');
+    let symptoms = await page.$x('//*[@id="root"]/div/div[2]/div[1]/div/div[1]');
     await symptoms[0].click();
     
     await page.waitFor(500);
-    var symptomsNext = await page.$x('//*[@id="root"]/div/div[2]/div[2]/span/button');
+    let symptomsNext = await page.$x('//*[@id="root"]/div/div[2]/div[2]/span/button');
     await symptomsNext[0].click();
 
     //On sign-up page
     //Input phone number and click ToS and PP check boxes to register number and get verification code.
-    await page.waitForSelector("#root > div > div.MuiContainer-root.onboarding-body.MuiContainer-maxWidthLg > div.content-container > form > div > div > input");
-    await page.type("#root > div > div.MuiContainer-root.onboarding-body.MuiContainer-maxWidthLg > div.content-container > form > div > div > input", phone);
+    await page.waitForSelector(
+        '#root > div > div.MuiContainer-root.onboarding-body.MuiContainer-maxWidthLg > div.content-container > form > div > div > input'
+        );
+    await page.type(
+        '#root > div > div.MuiContainer-root.onboarding-body.MuiContainer-maxWidthLg > div.content-container > form > div > div > input',
+        phone,
+    );
     
     await page.waitForXPath('//*[@id="root"]/div/div[2]/div[2]/div/label[1]/span[1]/span[1]/input');
     let checkbox = await page.$x('//*[@id="root"]/div/div[2]/div[2]/div/label[1]/span[1]/span[1]/input');
@@ -79,27 +83,27 @@ const test = async () => {
     await checkbox[0].click();
 
     await page.waitFor(500);
-    var sendVerificationCode = await page.$x('//*[@id="root"]/div/div[2]/div[3]/span/button');
+    let sendVerificationCode = await page.$x('//*[@id="root"]/div/div[2]/div[3]/span/button');
     await sendVerificationCode[0].click();
     
     //On sign-in-verification page
     //Capture code via twilio api in getVerificationCode() helper function
     //Enter verification code and verify the new account
-    await page.waitForSelector("#token");
+    await page.waitForSelector('#token');
     await page.waitFor(1000);
     getVerificationCode();
     await page.waitFor(1000);
-    await page.type("#token", code);
+    await page.type('#token', code);
 
-    var verify = await page.$x('//*[@id="root"]/div/div[2]/div[2]/span/button');
+    let verify = await page.$x('//*[@id="root"]/div/div[2]/div[2]/span/button');
     await verify[0].click();
 
     //At map page
     //Press logout button and close browser session
     await page.waitForXPath('//*[@id="root"]/div/div[1]/div/nav/a[6]');
-    var logout = await page.$x('//*[@id="root"]/div/div[1]/div/nav/a[6]');
+    let logout = await page.$x('//*[@id="root"]/div/div[1]/div/nav/a[6]');
     await logout[0].click();
     await browser.close();
-}
+};
 
 exports.test = test;
