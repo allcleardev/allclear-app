@@ -17,8 +17,8 @@ async function getVerificationCode(){
 const test = async () => {
     //Initialize the puppeteer instance
     const browser = await puppeteer.launch({
-        headless: false,
-        defaultViewport: null,
+        headless: true,
+        //defaultViewport: null,
     });
     let page = await browser.newPage();
 
