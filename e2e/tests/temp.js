@@ -1,4 +1,4 @@
-const puppeteer = require('puppeteer');
+/*const puppeteer = require('puppeteer');
 const config = require('dotenv').config();
 // const client = require('twilio')(
 //   config.parsed.TWILIO_E2E_SID, config.parsed.TWILIO_E2E_SECRET
@@ -577,4 +577,4 @@ describe('Start on sign-up page', () => {
   //     browser, 'http://localhost:3000/get-started', {}
   //   );
   // }, 20000);
-});
+});*/
