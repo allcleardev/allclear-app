@@ -1,4 +1,5 @@
 import React from 'react';
+import LinkButton from '@general/buttons/link-button';
 import DirectionsIcon from '@material-ui/icons/Directions';
 import WebIcon from '@material-ui/icons/Web';
 import CallIcon from '@material-ui/icons/Call';
@@ -8,55 +9,49 @@ export default function ExternalItemLinks(props) {
   return (
     <div className={`list-item-buttons ${props.display}`} style={props.margin}>
       <div className="link-button">
-        <a
+        <LinkButton
           href={'https://www.google.com/maps/dir/?api=1&destination=' + props.description}
-          rel="noopener noreferrer"
-          target="_blank"
+          text="Directions"
+          theme="round-icon"
           onClick={(evt) => props.onClick(evt, 'directions')}
         >
-          <DirectionsIcon classes={{root: 'link-button-icon'}} />
-          <p>Directions</p>
-        </a>
+          <DirectionsIcon />
+        </LinkButton>
       </div>
 
       {props.phone && (
         <div className="link-button">
-          <a
+          <LinkButton
             href={'tel:' + props.phone}
-            rel="noopener noreferrer"
-            target="_blank"
+            text="Call"
+            theme="round-icon"
             onClick={(evt) => props.onClick(evt, 'call')}
           >
-            <CallIcon classes={{root: 'link-button-icon'}} />
-            <p>Call</p>
-          </a>
+            <CallIcon />
+          </LinkButton>
         </div>
       )}
 
       {props.website && (
         <div className="link-button">
-          <a
+          <LinkButton
             href={props.website}
-            rel="noopener noreferrer"
-            target="_blank"
-            onClick={(evt) => evt.stopPropagation()}
+            text="Website"
+            theme="round-icon"
           >
-            <WebIcon classes={{root: 'link-button-icon'}} />
-            <p>Website</p>
-          </a>
+            <WebIcon />
+          </LinkButton>
         </div>
       )}
 
       <div className="link-button">
-        <a
+        <LinkButton
           href="/home"
-          rel="noopener noreferrer"
-          target="_self"
-          onClick={(evt) => evt.stopPropagation()}
+          text="Share"
+          theme="round-icon"
         >
-          <ShareIcon classes={{root: 'link-button-icon'}} />
-          <p>Share</p>
-        </a>
+          <ShareIcon />
+        </LinkButton>
       </div>
     </div>
   );
