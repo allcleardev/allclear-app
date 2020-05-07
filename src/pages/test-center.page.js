@@ -90,9 +90,13 @@ class TestCenterPage extends Component {
                   <div className="info-line">{facility.hours}</div>
                 </div>
                 <div className="card__actions">
-                  {facility.url && <LinkButton href={facility.url} text="Website" />}
-                  <LinkButton href={'https://www.google.com/maps/dir/?api=1&destination=' + facility.address} text="Directions" />
-                  <LinkButton href={'tel:' + facility.phone} theme={'round-icon'} text="Call">
+                  {facility.url && <LinkButton href={facility.url} theme="rectangle-text" text="Website" />}
+                  <LinkButton
+                    href={'https://www.google.com/maps/dir/?api=1&destination=' + facility.address}
+                    theme="rectangle-text"
+                    text="Directions"
+                  />
+                  <LinkButton href={'tel:' + facility.phone} theme="rectangle-icon" text="Call">
                     <PhoneIcon />
                   </LinkButton>
                 </div>
