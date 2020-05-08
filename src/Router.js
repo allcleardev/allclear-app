@@ -103,9 +103,6 @@ export default function Router() {
           <Route path="*">
             <Redirect to="/404" />
           </Route>
-          {/* Abandoned Temporarily*/}
-          {/* <ConfirmedRoute path="/conditions" component={conditions} /> */}
-          {/* <ConfirmedRoute path="/results" component={result} /> */}
         </Switch>
       </AppProvider>
     </ReactRouter>
