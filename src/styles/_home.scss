@@ -10,15 +10,13 @@
     padding-bottom: 30px;
   }
 
-  button {
-    min-height: 48px;
-  }
-
   button.home-page__button {
     padding: 9px;
     border-radius: 10px;
     font-weight: 600;
     font-size: 17px;
+    min-height: 48px;
+
 
     @media (min-width: $md) {
       border: 0 !important;
@@ -62,7 +60,7 @@
 
     @media (min-width: $md) {
       position: relative;
-      margin-top: 40px;
+      margin-top: 100px;
     }
 
     &__heading {
@@ -102,7 +100,6 @@
 
       @media (min-width: $md) {
         display: flex;
-        font-size: 20px;
       }
     }
 
@@ -160,10 +157,6 @@
     line-height: 22px;
     font-weight: 600;
     font-size: 17px;
-
-    @media (min-width: $md) {
-      font-size: 20px;
-    }
   }
 
   .article {
@@ -173,7 +166,7 @@
   .banner {
     display: flex;
     align-items: center;
-    margin-bottom: 30px;
+    margin: 12px 0 30px;
     padding: 9px 12px;
     border-radius: 10px;
     box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.15);
@@ -181,6 +174,7 @@
 
     @media (min-width: $md) {
       min-height: 54px;
+      margin: 11px 0 58px;
       border-radius: 15px;
     }
 
@@ -209,10 +203,6 @@
       font-size: 13px;
       color: #333333;
 
-      @media (min-width: $md) {
-        font-size: 16px;
-      }
-
       a {
         color: inherit;
         font-weight: 600;
@@ -222,11 +212,6 @@
 
   .cards-container {
     position: relative;
-    margin-top: -18px;
-
-    @media (min-width: $md) {
-      margin-top: -30px;
-    }
   }
 
   .card {
@@ -278,7 +263,6 @@
 
       @media (min-width: $md) {
         margin-bottom: 10px;
-        font-size: 18px;
       }
     }
 
@@ -290,7 +274,6 @@
 
       @media (min-width: $md) {
         margin: 0 0 7px;
-        font-size: 16px;
       }
 
       &:last-of-type {
