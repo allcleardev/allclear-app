@@ -16,7 +16,14 @@ export default class Logout extends Component {
 
   async executeLogout() {
     const currSession = this.context.appState.sessionId;
-    await this.peopleService.logout(currSession);
+    await this.peopleService.logout(currSession)
+      .catch((err) => {
+        this._finishLogout();
+      });
+    this._finishLogout();
+  }
+
+  _finishLogout(){
     localStorage.clear();
     this.context.setAppState(INITIAL_APP_STATE);
     return this.routeChange('/get-started?logout=You%20have%20been%20successfully%20logged%20out.');
