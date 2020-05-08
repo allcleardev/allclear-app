@@ -242,10 +242,7 @@ export default class HomePage extends Component {
           <article className="locations article">
             <h2 className="sub-heading">
               Test Locations Near You
-              <LightTooltip
-                title="Below are test locations that you qualify for followed by test locations that you
-                currently don’t qualify for based on your profile. Contact the test locations for more details."
-              >
+              <LightTooltip title="Below are test locations nearest to the location associated with your profile.">
                 <InfoOutlinedIcon className="info-icon"></InfoOutlinedIcon>
               </LightTooltip>
             </h2>
