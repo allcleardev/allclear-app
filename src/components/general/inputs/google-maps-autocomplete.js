@@ -95,7 +95,8 @@ export default function GoogleMapsAutocomplete(props) {
             ...request,
             // only send back location results that are in US
             componentRestrictions: {
-              country: 'us',
+              // allows up to 5 ISO-3166 codes. 
+              country: ['as','gu','pr','us','vi'],
             },
           },
           callback,
