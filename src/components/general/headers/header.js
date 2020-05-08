@@ -39,7 +39,7 @@ export default function Header({ enableBackBtn = false, enableColorBlock = true,
           {navLinks.map((link) =>
             link.isExternalURL ? (
               <a
-                href={`https://${link.to}`}
+                href={link.to}
                 className="menu__item"
                 key={link.name}
                 rel="noopener noreferrer"
