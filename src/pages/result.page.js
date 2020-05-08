@@ -2,7 +2,7 @@ import React from 'react';
 import Axios from 'axios';
 import { Link } from 'react-router-dom';
 
-import RoundHeader from '../components/general/headers/header-round';
+import Header from '@components/general/headers/header';
 import ProgressBottom from '../components/general/navs/progress-bottom';
 
 import Form from '@material-ui/core/Container';
@@ -224,7 +224,7 @@ class ResultPage extends React.Component {
     return (
       <div className="background-responsive">
         <div className="results onboarding-page">
-          <RoundHeader>
+          <Header>
             <h1 className="heading">Test Results</h1>
             <h2 className="sub-heading">
               If you've taken a COVID-19 test already, please submit test details and results. Refer to our
@@ -234,7 +234,7 @@ class ResultPage extends React.Component {
               </a>
               for more details.
             </h2>
-          </RoundHeader>
+          </Header>
           {this.state && this.state.loading === false ? (
             <Form noValidate autoComplete="off" className="onboarding-body">
               <Box maxWidth="md">

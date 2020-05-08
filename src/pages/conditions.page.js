@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import Axios from 'axios';
 import { bindAll } from 'lodash';
 
-import RoundHeader from '../components/general/headers/header-round';
-import ProgressBottom from '../components/general/navs/progress-bottom';
+import Header from '@components/general/headers/header';
+import ProgressBottom from '@components/general/navs/progress-bottom';
 
 import Form from '@material-ui/core/Container';
 import Box from '@material-ui/core/Container';
@@ -70,10 +70,10 @@ class ConditionsPage extends Component {
     return (
       <div className="background-responsive">
         <div className="conditions onboarding-page">
-          <RoundHeader>
+          <Header>
             <h1 className="heading">Conditions</h1>
             <h2 className="sub-heading">Some test centers are only seeing patients with certain health conditions.</h2>
-          </RoundHeader>
+          </Header>
           <Form noValidate autoComplete="off" className="onboarding-body">
             <Box maxWidth="md">
               <label className="label">
