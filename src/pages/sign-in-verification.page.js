@@ -1,16 +1,16 @@
+
 import React, { Component } from 'react';
-import { bindAll } from 'lodash';
 
+import { withVerification } from '@components/higher-order-components/verification';
 import PeopleService from '@services/people.service';
-import GAService from '@services/ga.service';
-import { AppContext } from '@contexts/app.context';
 
-import Header from '@general/headers/header';
-import OnboardingNavigation from '@general/navs/onboarding-navigation';
-import { ONBOARDING_NAV_ITEMS } from '@general/headers/header.constants';
-import { Button, Container, CircularProgress, TextField, FormControl } from '@material-ui/core';
+const peopleService = PeopleService.getInstance();
+const onVerification = (data) => peopleService.verifyAuthRequest(data);
 
-export default class SignInVerificationPage extends Component {
+export default withVerification('sign-in-verification', 'sign-in', onVerification, null, false);
+
+/*
+export class SignInVerificationPage extends Component {
   static contextType = AppContext;
   state = {
     checkedB: true,
@@ -36,6 +36,7 @@ export default class SignInVerificationPage extends Component {
   }
 
   componentDidMount() {
+    console.log('here');
     this.validateState();
     this.setSMSTimeout();
   }
@@ -115,7 +116,7 @@ export default class SignInVerificationPage extends Component {
 
   async resendCode() {
     const { appState } = this.context;
-    const phone = appState.person.phone;
+    const phone = appState.person.phone; // different
 
     //reset sms text timeout
     this.setSMSTimeout();
@@ -127,7 +128,7 @@ export default class SignInVerificationPage extends Component {
       return this.props.history.push('/sign-in');
     }
 
-    const response = await this.peopleService.login({ phone });
+    const response = await this.peopleService.login({ phone }); // different
 
     this.setState({ loading: false });
 
@@ -209,19 +210,20 @@ export default class SignInVerificationPage extends Component {
                     Resend Code
                   </Button>
                 ) : (
-                  ''
-                )}
+                    ''
+                  )}
               </div>
             </div>
 
             <OnboardingNavigation forwardOnClick={this.verifyPhoneNumber} forwardText={'Verify'}></OnboardingNavigation>
           </Container>
         ) : (
-          <Container className="onboarding-body">
-            <CircularProgress color="primary" size={108} />
-          </Container>
-        )}
+            <Container className="onboarding-body">
+              <CircularProgress color="primary" size={108} />
+            </Container>
+          )}
       </div>
     );
   }
 }
+*/

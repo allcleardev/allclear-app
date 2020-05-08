@@ -7,11 +7,19 @@ import GAService from '@services/ga.service';
 import ProgressBottom from '@general/navs/progress-bottom';
 import OnboardingNavigation from '@general/navs/onboarding-navigation';
 import { AppContext } from '@contexts/app.context';
+import { withVerification } from '@components/higher-order-components/verification';
 
 import Header from '@components/general/headers/header';
 import { ONBOARDING_NAV_ITEMS } from '@components/general/headers/header.constants';
 import { Button, Container, TextField, FormControl, CircularProgress } from '@material-ui/core';
 
+const peopleService = PeopleService.getInstance();
+const onVerification = (data) => peopleService.confirmAuthRequest(data);
+const onAuthentication = (authPayload) => peopleService.authStart(authPayload);
+
+export default withVerification('sign-up-verification', 'sign-up', onVerification, onAuthentication, false);
+
+/*
 export default class SignUpVerificationPage extends Component {
   static contextType = AppContext;
   state = {
@@ -116,7 +124,7 @@ export default class SignUpVerificationPage extends Component {
 
   async resendCode() {
     const { appState } = this.context;
-    const signUpPayload = appState.signUpPayload;
+    const signUpPayload = appState.signUpPayload; // different
 
     //reset sms text timeout
     this.setSMSTimeout();
@@ -128,7 +136,7 @@ export default class SignUpVerificationPage extends Component {
       return this.props.history.push('/sign-up');
     }
 
-    const response = await this.peopleService.authStart(signUpPayload);
+    const response = await this.peopleService.authStart(signUpPayload); // different
 
     this.setState({ loading: false });
 
@@ -206,20 +214,21 @@ export default class SignUpVerificationPage extends Component {
                     Resend Code
                   </Button>
                 ) : (
-                  ''
-                )}
+                    ''
+                  )}
               </div>
             </div>
 
             <OnboardingNavigation forwardOnClick={this.verifyPhoneNumber} forwardText={'Verify'}></OnboardingNavigation>
           </Container>
         ) : (
-          <Container className="onboarding-body">
-            <CircularProgress color="primary" size={108} />
-          </Container>
-        )}
+            <Container className="onboarding-body">
+              <CircularProgress color="primary" size={108} />
+            </Container>
+          )}
         {this.state.loading === false ? <ProgressBottom progress="75%"></ProgressBottom> : null}
       </div>
     );
   }
 }
+*/
