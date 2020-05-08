@@ -102,7 +102,6 @@ input:checked + .slider:before {
 
 .Active {
   /*
-    conditions.page.js
     health-worker-status.page.js
     symptoms.page.js
   */

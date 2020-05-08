@@ -46,6 +46,10 @@ button {
     flex: 1;
   }
 
+  .menu {
+    visibility: hidden; // hiding (not display:none) to preserve spacing
+  }
+
   .onboarding-body {
     flex: 2;
   }
@@ -73,7 +77,12 @@ button {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 40px;
   color: #fff;
+
+  @media (min-width: 600px) and (min-height: 800px) {
+    margin: 40px 0 70px;
+  }
 
   /* .onboarding-body chip*/
   .chip {

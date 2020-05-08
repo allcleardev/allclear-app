@@ -10,7 +10,6 @@ import OnboardingNavigation from '@general/navs/onboarding-navigation';
 import { AppContext } from '@contexts/app.context';
 
 import PhoneNumberInput from '@components/general/inputs/phone-number-input';
-import { ONBOARDING_NAV_ITEMS } from '@components/general/headers/header.constants';
 import { Button, Container, CircularProgress, withStyles } from '@material-ui/core';
 
 const DefaultButton = withStyles((theme) => ({
@@ -88,7 +87,7 @@ export default class SignInPage extends Component {
   render() {
     return (
       <div className="login onboarding-page">
-        <Header navItems={ONBOARDING_NAV_ITEMS} enableBackBtn={true}>
+        <Header enableBackBtn={true}>
           <h1>Phone Number</h1>
           <h2>Enter your phone number to access your account.</h2>
         </Header>

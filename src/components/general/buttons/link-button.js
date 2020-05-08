@@ -8,6 +8,11 @@ export default function LinkButton(props) {
     props.onClick && props.onClick(evt);
   };
 
+  // themes:
+  // rectangle-text
+  // rectangle-icon
+  // round-icon
+
   return (
     <a
       href={props.href}
@@ -16,17 +21,30 @@ export default function LinkButton(props) {
       onClick={onClick}
     >
       {
-        props.hasIcon
-          ? <IconButton
+        props.theme === 'rectangle-text' && (
+          <Button className="link-button primary-color primary-outline">
+            {props.text}
+          </Button>
+        )
+      }
+      {
+        props.theme === 'rectangle-icon' && (
+          <IconButton
             aria-label="call"
             className="link-icon-button primary-color primary-outline d-lg-none"
             color="primary"
           >
             {props.children}
           </IconButton>
-          : <Button className="link-button primary-color primary-outline">
-            {props.text}
-          </Button>
+        )
+      }
+      {
+        props.theme === 'round-icon' && (
+          <>
+            {React.cloneElement(props.children, { className: 'link-button-icon' })}
+            <p>{props.text}</p>
+          </>
+        )
       }
     </a>
   );
