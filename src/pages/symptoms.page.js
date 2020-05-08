@@ -9,7 +9,6 @@ import OnboardingNavigation from '@general/navs/onboarding-navigation';
 import { AppContext } from '@contexts/app.context';
 
 import Header from '@components/general/headers/header';
-import { ONBOARDING_NAV_ITEMS } from '@components/general/headers/header.constants';
 import { Chip, Container } from '@material-ui/core';
 
 class SymptomsPage extends Component {
@@ -115,7 +114,7 @@ class SymptomsPage extends Component {
   render() {
     return (
       <div className="symptoms onboarding-page">
-        <Header navItems={ONBOARDING_NAV_ITEMS} enableBackBtn={true}>
+        <Header enableBackBtn={true}>
           <h1>Symptoms</h1>
           <h2>Per the CDC, certain symptoms impact test location availability.</h2>
         </Header>
