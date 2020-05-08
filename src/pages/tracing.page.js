@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Header from '../components/general/headers/header';
 import Container from '@material-ui/core/Container';
 import GAService from '@services/ga.service';
-import { DEFAULT_NAV_ITEMS } from '@components/general/headers/header.constants';
 
 class TracingPage extends Component {
   constructor() {
@@ -17,7 +16,7 @@ class TracingPage extends Component {
   render() {
     return (
       <div className="tracing">
-        <Header navItems={DEFAULT_NAV_ITEMS} enableBackBtn={true}></Header>
+        <Header enableBackBtn={true}></Header>
         <Container className="content">
           <h1>
             Trace with us. <br /> Beat the virus.

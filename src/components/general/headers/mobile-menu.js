@@ -5,7 +5,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import IconButton from '@material-ui/core/IconButton';
 import Logo from '@assets/images/logo-navy.svg';
-import { isLoggedInHeaderLinks, isLoggedOutHeaderLinks } from '@util/general.constants';
+import { IS_LOGGED_IN_HEADER_LINKS, IS_LOGGED_OUT_HEADER_LINKS } from '@util/general.constants';
 import { cloneDeep, get } from 'lodash';
 
 export default function MobileMenu(props) {
@@ -17,9 +17,9 @@ export default function MobileMenu(props) {
   const isLoggedIn = get(this, ['context', 'appState', 'sessionId']);
   console.log('logged in?', isLoggedIn);
 
-  let loggedOutLinks = cloneDeep(isLoggedOutHeaderLinks);
+  let loggedOutLinks = cloneDeep(IS_LOGGED_OUT_HEADER_LINKS);
   loggedOutLinks.push({ name: 'Get Alerts', to: '/create-account' });
-  const links = isLoggedIn ? isLoggedInHeaderLinks : loggedOutLinks;
+  const links = props.isLoggedIn ? IS_LOGGED_IN_HEADER_LINKS : loggedOutLinks;
 
   function onMenuToggle() {
     setOpen((prevOpen) => !prevOpen);
@@ -69,17 +69,17 @@ export default function MobileMenu(props) {
                 </MenuItem>
               ),
             )}
-            <a
-              href="https://home.allclear.app"
-              className="menu__list"
-              rel="noopener noreferrer"
-              target="_blank"
-              onClick={onMenuToggle}
-            >
-              <img className="logo" src={Logo} alt="Logo" />
-            </a>
           </MenuList>
         </ClickAwayListener>
+        <a
+          href="https://home.allclear.app"
+          className="menu__list"
+          rel="noopener noreferrer"
+          target="_blank"
+          onClick={onMenuToggle}
+        >
+          <img className="logo" src={Logo} alt="Logo" />
+        </a>
       </div>
 
       <span className={open ? 'circle opened' : 'circle'}></span>

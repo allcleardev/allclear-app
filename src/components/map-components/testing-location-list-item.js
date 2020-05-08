@@ -4,7 +4,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { boolToEng, isNullOrUndefined, getFeedbackButtonURL } from '@util/general.helpers';
 import ExternalItemLinks from './external-item-links';
 import CustomizedExpansionPanel, { ExpansionPanelSummary, ExpansionPanelDetails } from './expansion-panel';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function TestingLocationListItem(props) {
   // const { id, index, title, description, service_time, driveThru, phone, website, createdAt } = props; // values
@@ -63,8 +63,8 @@ export default function TestingLocationListItem(props) {
         </dl>
 
         <ExternalItemLinks
-          display={'d-none d-md-block'}
-          margin={{ marginTop: '15px', marginBottom: '20px' }}
+          display={'d-none d-md-flex'}
+          margin={{ marginTop: '15px' }}
           description={description}
           phone={phone}
           website={website}
@@ -84,8 +84,7 @@ export default function TestingLocationListItem(props) {
           <dd className="summary__item summary__item--semibold">{phone}</dd>
         </dl>
         <ExternalItemLinks
-          display={'d-md-none'}
-          margin={{ marginBottom: '15px' }}
+          display={'d-flex d-md-none'}
           description={description}
           phone={phone}
           website={website}

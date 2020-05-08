@@ -9,7 +9,6 @@ import OnboardingNavigation from '@general/navs/onboarding-navigation';
 import { AppContext } from '@contexts/app.context';
 
 import Header from '@components/general/headers/header';
-import { ONBOARDING_NAV_ITEMS } from '@components/general/headers/header.constants';
 import { Container, Chip } from '@material-ui/core';
 
 class HealthWorkerStatusPage extends Component {
@@ -72,7 +71,7 @@ class HealthWorkerStatusPage extends Component {
   render() {
     return (
       <div className="health-worker onboarding-page">
-        <Header navItems={ONBOARDING_NAV_ITEMS} enableBackBtn={true}>
+        <Header enableBackBtn={true}>
           <h1>Health Worker Status</h1>
           <h2>Per the CDC, Health Worker and First Responder statuses impact test location availability.</h2>
         </Header>

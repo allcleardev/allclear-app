@@ -13,6 +13,10 @@
     }
   }
 
+  .header {
+    flex: 0;
+  }
+
   .content-container {
     display: flex;
     flex-direction: column;
