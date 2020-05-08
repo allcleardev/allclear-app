@@ -5,16 +5,16 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import IconButton from '@material-ui/core/IconButton';
 import Logo from '@assets/images/logo-navy.svg';
-import { isLoggedInHeaderLinks, isLoggedOutHeaderLinks } from '@util/general.constants';
+import { IS_LOGGED_IN_HEADER_LINKS, IS_LOGGED_OUT_HEADER_LINKS } from '@util/general.constants';
 import { cloneDeep } from 'lodash';
 
 export default function MobileMenu(props) {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
 
-  let loggedOutLinks = cloneDeep(isLoggedOutHeaderLinks);
+  let loggedOutLinks = cloneDeep(IS_LOGGED_OUT_HEADER_LINKS);
   loggedOutLinks.push({ name: 'Get Alerts', to: '/create-account' });
-  const links = props.isLoggedIn ? isLoggedInHeaderLinks : loggedOutLinks;
+  const links = props.isLoggedIn ? IS_LOGGED_IN_HEADER_LINKS : loggedOutLinks;
 
   function onMenuToggle() {
     setOpen((prevOpen) => !prevOpen);
