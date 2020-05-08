@@ -7,7 +7,7 @@ import GAService from '@services/ga.service';
 import ProgressBottom from '@general/navs/progress-bottom';
 import OnboardingNavigation from '@general/navs/onboarding-navigation';
 import { AppContext } from '@contexts/app.context';
-import { withVerification } from '@components/higher-order-components/verification';
+import { withVerification } from '@hocs/verification';
 
 import Header from '@components/general/headers/header';
 import { ONBOARDING_NAV_ITEMS } from '@components/general/headers/header.constants';

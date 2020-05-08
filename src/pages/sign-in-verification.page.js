@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 
-import { withVerification } from '@components/higher-order-components/verification';
+import { withVerification } from '@hocs/verification';
 import PeopleService from '@services/people.service';
 
 const peopleService = PeopleService.getInstance();
