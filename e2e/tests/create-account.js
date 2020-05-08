@@ -1,6 +1,6 @@
 const puppeteer = require('puppeteer');
 
-const config = require('dotenv').config({ path: 'C:\\dev_code\\allclear-app\\.env.test.local' });
+const config = require('dotenv').config({ path: '.env.test.local' });
 const phone = config.parsed.E2E_PHONE_NUMBER;
 const account = config.parsed.TWILIO_SID;
 const auth = config.parsed.TWILIO_AUTH;
@@ -32,7 +32,7 @@ const test = async () => {
     //Put in location and click next 
     await page.waitForSelector('#google-maps-autocomplete');
     await page.type('#google-maps-autocomplete', '08050');
-    await page.waitFor(400);
+    await page.waitFor(500);
     await page.keyboard.press('ArrowDown');
     await page.keyboard.press('Enter');
     
