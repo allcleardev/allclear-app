@@ -18,6 +18,7 @@ export default class Logout extends Component {
     const currSession = this.context.appState.sessionId;
     await this.peopleService.logout(currSession)
       .catch((err) => {
+        console.warn('Error logging out', err);
         this._finishLogout();
       });
     this._finishLogout();
