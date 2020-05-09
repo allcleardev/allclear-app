@@ -77,7 +77,12 @@ Further Reading
 ---------------
 
 -   [Naming Conventions](./docs/naming-conventions.md)
--   [Contributing](./docs/CONTRIBUTING.md)
+-   [Code of Conduct](./docs/code_of_conduct.md)
+-   [Contributing](./docs/contributing.md)
+-   [Bug Report Issue Templates](./.github/ISSUE_TEMPLATE/bug_report.md)
+-   [Feature Request Issue Template](./.github/ISSUE_TEMPLATE/feature_request.md)
+-   [Feature Request Issue Template](./.github/ISSUE_TEMPLATE/feature_request.md)
+-   [Pull Request Issue Template](./docs/pull_request_template.md)
 
 Contact
 -------
