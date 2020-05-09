@@ -8,7 +8,6 @@ import Header from '@general/headers/header';
 import GoogleMapsAutocomplete from '@general/inputs/google-maps-autocomplete';
 import OnboardingNavigation from '@general/navs/onboarding-navigation';
 import ProgressBottom from '@general/navs/progress-bottom';
-import { ONBOARDING_NAV_ITEMS } from '@general/headers/header.constants';
 import { Container } from '@material-ui/core';
 
 class BackgroundPage extends Component {
@@ -58,10 +57,13 @@ class BackgroundPage extends Component {
       useCurrentLocation: switchValue,
     });
 
+
     if (switchValue) {
       if (navigator && navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(this._onLocationAccepted, this._onLocationDeclined);
       }
+    } else {
+      this.setState({ location: false });
     }
   }
 
@@ -95,7 +97,7 @@ class BackgroundPage extends Component {
   render() {
     return (
       <div className="background onboarding-page">
-        <Header navItems={ONBOARDING_NAV_ITEMS} enableBackBtn={true}>
+        <Header enableBackBtn={true}>
           <h1>Location</h1>
           <h2>Please provide your location information to help us recommend nearby test locations for you.</h2>
         </Header>

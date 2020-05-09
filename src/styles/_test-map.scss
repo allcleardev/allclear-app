@@ -108,6 +108,19 @@
       background-color: #fff;
     }
   }
+
+  // header overrides (specific to maps)
+  .header {
+    position: fixed;
+    top: 0;
+    z-index: 10;
+    margin: 0;
+
+    .color-block {
+      height: 70px;
+      box-shadow: 0 1px 10px #999;
+    }
+  }
 }
 
 .list-gradient {

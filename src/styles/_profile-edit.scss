@@ -22,8 +22,6 @@
   }
 
   .cards-container {
-    margin-top: -40px;
-
     @media (min-width: $md) {
       max-width: 80%;
     }
@@ -69,15 +67,8 @@
     }
   }
 
-  // Child component edits below
-  .header-homescreen {
-    // Adjusting the Header Homescreen
-    justify-content: flex-start;
-    padding: 18px 0 0;
-  }
-
-  .shape {
-    // Adjusting the Gradient bg from header-homescreen
+  .color-block {
+    // Adjusting the Gradient bg from header
     height: 313px;
   }
 

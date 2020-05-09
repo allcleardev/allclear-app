@@ -1,16 +1,15 @@
-import React, {Component} from 'react';
-import Box from '@material-ui/core/Container';
+import React, { Component } from 'react';
 
-import RoundHeader from '../components/general/headers/header-round';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import { Grid } from '@material-ui/core';
+import Header from '@general/headers/header';
+import { CircularProgress } from '@material-ui/core';
+import { Container } from '@material-ui/core';
 
-import {bindAll} from 'lodash';
+import { bindAll } from 'lodash';
 
 import PeopleService from '@services/people.service';
-import {AppContext} from '@contexts/app.context';
+import { AppContext } from '@contexts/app.context';
 import GAService from '@services/ga.service';
-import {getRouteQueryParams} from '@util/general.helpers';
+import { getRouteQueryParams } from '@util/general.helpers';
 
 export default class LoginMagicLinkPage extends Component {
   static contextType = AppContext;
@@ -27,12 +26,10 @@ export default class LoginMagicLinkPage extends Component {
     this.state = {
       checkedB: true,
       loading: false,
-      error: false
+      error: false,
     };
 
-    bindAll(this, [
-      'verifyMagicLink'
-    ]);
+    bindAll(this, ['verifyMagicLink']);
   }
 
   componentDidMount() {
@@ -44,13 +41,16 @@ export default class LoginMagicLinkPage extends Component {
     const { appState, setAppState } = this.context;
     let searchParams = getRouteQueryParams(this.props.location);
 
-    const response = await this.peopleService.verifyAuthRequest({phone: searchParams.phone, token: searchParams.token});
+    const response = await this.peopleService.verifyAuthRequest({
+      phone: searchParams.phone,
+      token: searchParams.token,
+    });
 
     if (!response.err) {
       setAppState({
         ...appState,
         sessionId: response.data.id,
-        person:response.data.person
+        person: response.data.person,
       });
 
       localStorage.setItem('sessionId', response.data.id);
@@ -68,29 +68,25 @@ export default class LoginMagicLinkPage extends Component {
     }
   }
 
-  // ALLCLEAR-274
-  parseError() {
-    return this.state.error === true ? <p className="error">{this.state.message}</p> : '';
-  }
-
   render() {
     return (
-      <div className="background-responsive">
-        <Box className="sign-up">
-          <RoundHeader>
-            <h1 style={{justifyContent: 'center', margin: '0'}}>Verifying Phone Number</h1>
-            <p>We are verifying your phone number.</p>
-            <p>After verifying it, you will advance to complete your profile.</p>
-          </RoundHeader>
+      <div className="sign-up onboarding-page">
+        <Header enableBackBtn={true}>
+          <h1>Verifying Phone Number</h1>
+          <h2>
+            We are verifying your phone number.
+            <br />
+            After verifying it, you will advance to complete your profile.
+          </h2>
+        </Header>
 
-          {this.parseError()}
-
-          <Grid container justify="center">
-            <Grid item xs={12} sm={6}>
-              <LinearProgress color="primary" value={50} variant="indeterminate"/>
-            </Grid>
-          </Grid>
-        </Box>
+        <Container className="onboarding-body">
+          {this.state.error ? (
+            <p className="error">{this.state.message}</p>
+          ) : (
+            <CircularProgress color="primary" size={108} />
+          )}
+        </Container>
       </div>
     );
   }
