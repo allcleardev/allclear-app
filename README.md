@@ -77,6 +77,7 @@ Further Reading
 ---------------
 
 -   [Naming Conventions](./docs/naming-conventions.md)
+-   [Contributing](./docs/CONTRIBUTING.md)
 
 Contact
 -------
