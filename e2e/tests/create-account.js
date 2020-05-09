@@ -1,6 +1,8 @@
 const puppeteer = require('puppeteer');
 
-var phone, account, auth = '';
+let phone = '';
+let account = '';
+let auth = '';
 
 try {
     const config = require('dotenv').config({ path: '.env.test.local' });

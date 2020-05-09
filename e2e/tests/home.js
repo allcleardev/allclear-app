@@ -2,7 +2,9 @@ const puppeteer = require('puppeteer');
 
 const clipboardy = require('clipboardy');
 
-var phone, account, auth = '';
+let phone = '';
+let account = '';
+let auth = '';
 
 try {
     const config = require('dotenv').config({ path: '.env.test.local' });
@@ -16,7 +18,7 @@ try {
 }
 
 const client = require('twilio')(account, auth);
-var code = '';
+let code = '';
 
 async function getVerificationCode(){ 
     let messages = await client.messages.list({limit: 20, to: '+1' + phone});
@@ -78,8 +80,7 @@ const test = async () => {
 
     let link = clipboardy.readSync();
 
-    if(link === 'https://go.allclear.app'){
-    } else {
+    if(link !== 'https://go.allclear.app'){
         process.exit(1);
     }
 
@@ -88,31 +89,30 @@ const test = async () => {
     //1
     await page.waitFor(1000);
     let firstPin = await page.evaluate(() => document.querySelector(
-        '#root > section > div.MuiContainer-root.cards-container.MuiContainer-maxWidthMd > article.locations.article > section:nth-child(2) > dl'
+        '#root>section>div.MuiContainer-root.cards-container.MuiContainer-maxWidthMd>article.locations.article>section:nth-child(2)>dl'
         ).innerText);
     //2
     let secondPin = await page.evaluate(() => document.querySelector(
-        '#root > section > div.MuiContainer-root.cards-container.MuiContainer-maxWidthMd > article.locations.article > section:nth-child(3) > dl'
+        '#root>section>div.MuiContainer-root.cards-container.MuiContainer-maxWidthMd>article.locations.article>section:nth-child(3)>dl'
         ).innerText);
     //3
     let thirdPin = await page.evaluate(() => document.querySelector(
-        '#root > section > div.MuiContainer-root.cards-container.MuiContainer-maxWidthMd > article.locations.article > section:nth-child(4) > dl'
+        '#root>section>div.MuiContainer-root.cards-container.MuiContainer-maxWidthMd>article.locations.article>section:nth-child(4)>dl'
         ).innerText);
     //4
     let fourthPin = await page.evaluate(() => document.querySelector(
-        '#root > section > div.MuiContainer-root.cards-container.MuiContainer-maxWidthMd > article.locations.article > section:nth-child(5) > dl'
+        '#root>section>div.MuiContainer-root.cards-container.MuiContainer-maxWidthMd>article.locations.article>section:nth-child(5)>dl'
         ).innerText);
     //5
     let fifthPin = await page.evaluate(() => document.querySelector(
-        '#root > section > div.MuiContainer-root.cards-container.MuiContainer-maxWidthMd > article.locations.article > section:nth-child(6) > dl'
+        '#root>section>div.MuiContainer-root.cards-container.MuiContainer-maxWidthMd>article.locations.article>section:nth-child(6)>dl'
         ).innerText);
 
-    if(firstPin.includes('AtlantiCare Urgent Care Manahawkin') &&
-        secondPin.includes('Southern Ocean Medical Center') &&
-        thirdPin.includes('SEARCH - Community Family Services') &&
-        fourthPin.includes('Hackensack Meridian Urgent Care-Long Beach Island') &&
-        fifthPin.includes('Hackensack Meridian Urgent Care-Forked River')){
-    } else {
+    if(!firstPin.includes('AtlantiCare Urgent Care Manahawkin') &&
+        !secondPin.includes('Southern Ocean Medical Center') &&
+        !thirdPin.includes('SEARCH - Community Family Services') &&
+        !fourthPin.includes('Hackensack Meridian Urgent Care-Long Beach Island') &&
+        !fifthPin.includes('Hackensack Meridian Urgent Care-Forked River')){
             process.exit(1);
     }
 
@@ -123,11 +123,11 @@ const test = async () => {
     let initialBanner = '';
     try{
         initialBanner = await page.evaluate(() => document.querySelector(
-            '#root > section > div.MuiContainer-root.cards-container.MuiContainer-maxWidthMd > article.banner--warn.banner.article > p > span'
+            '#root>section>div.MuiContainer-root.cards-container.MuiContainer-maxWidthMd>article.banner--warn.banner.article>p>span'
             ).innerText);
     } catch (e) {
         initialBanner = await page.evaluate(() => document.querySelector(
-            '#root > section > div.MuiContainer-root.cards-container.MuiContainer-maxWidthMd > article.banner--pass.banner.article > p > span'
+            '#root>section>div.MuiContainer-root.cards-container.MuiContainer-maxWidthMd>article.banner--pass.banner.article>p>span'
             ).innerText);
     }
     
@@ -135,9 +135,9 @@ const test = async () => {
     let gear = await page.$x('//*[@id="root"]/section/div[1]/div[3]/button/span[1]');
     await gear[0].click();
 
-    await page.waitFor(500)
+    await page.waitFor(500);
     let healthWorkerStatus = await page.evaluate(() => document.querySelector(
-        '#root > section > div.MuiContainer-root.cards-container.MuiContainer-maxWidthLg > article > div:nth-child(3) > div > div > div'
+        '#root>section>div.MuiContainer-root.cards-container.MuiContainer-maxWidthLg>article>div:nth-child(3)>div>div>div'
         ).innerText);
     
     if(healthWorkerStatus.includes('Neither')){
@@ -159,24 +159,21 @@ const test = async () => {
     await update[0].click();
 
     await page.waitForSelector(
-        '#root > section > div.MuiContainer-root.cards-container.MuiContainer-maxWidthMd > article.banner--warn.banner.article > p > span'
+        '#root>section>div.MuiContainer-root.cards-container.MuiContainer-maxWidthMd>article.banner--warn.banner.article>p>span'
     );
     await page.waitFor(1000);
     let updatedBanner = '';
     try{
         updatedBanner = await page.evaluate(() => document.querySelector(
-            '#root > section > div.MuiContainer-root.cards-container.MuiContainer-maxWidthMd > article.banner--pass.banner.article > p > span'
+            '#root>section>div.MuiContainer-root.cards-container.MuiContainer-maxWidthMd>article.banner--pass.banner.article>p>span'
             ).innerText);
     } catch (e) {
         updatedBanner = await page.evaluate(() => document.querySelector(
-            '#root > section > div.MuiContainer-root.cards-container.MuiContainer-maxWidthMd > article.banner--warn.banner.article > p > span'
+            '#root>section>div.MuiContainer-root.cards-container.MuiContainer-maxWidthMd>article.banner--warn.banner.article>p>span'
             ).innerText);
     }
 
-    console.log(initialBanner);
-    console.log(updatedBanner);
-    if(initialBanner !== updatedBanner){
-    } else {
+    if(initialBanner === updatedBanner){
         process.exit(1);
     }
 
@@ -188,8 +185,7 @@ const test = async () => {
 
     let url = await page.url();
 
-    if(url.includes('15218')){
-    } else {
+    if(!url.includes('15218')){
         process.exit(1);
     }
 
@@ -199,6 +195,6 @@ const test = async () => {
     let logout = await page.$x('//*[@id="root"]/div/div[1]/div/nav/a[6]');
     await logout[0].click();
     await browser.close();
-}
+};
 
 exports.test = test;
