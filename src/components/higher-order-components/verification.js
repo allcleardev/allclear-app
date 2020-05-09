@@ -4,16 +4,14 @@ import { bindAll, get } from 'lodash';
 import ProgressBottom from '@general/navs/progress-bottom';
 
 // internal
-import PeopleService from '@services/people.service';
 import GAService from '@services/ga.service';
 import { AppContext } from '@contexts/app.context';
 import OnboardingNavigation from '@general/navs/onboarding-navigation';
-import Header from '@components/general/headers/header';
-import { ONBOARDING_NAV_ITEMS } from '@components/general/headers/header.constants';
+import Header from '@general/headers/header';
 import { Button, Container, TextField, FormControl, CircularProgress } from '@material-ui/core';
 
 
-export function withVerification(screenName, routeName, onVerification, onAuthentication, displayProgressBar) {
+export function withVerification(authType, onVerification, onCodeResent, displayProgressBar) {
   return class extends Component {
     static contextType = AppContext;
     state = {
@@ -35,13 +33,11 @@ export function withVerification(screenName, routeName, onVerification, onAuthen
         'onKeyPress',
         'validateState',
       ]);
-      this.peopleService = PeopleService.getInstance();
       this.gaService = GAService.getInstance();
-      this.gaService.setScreenName(screenName);
+      this.gaService.setScreenName(`${authType}-verification`);
     }
 
     componentDidMount() {
-      console.log('HEYYYYY');
       this.validateState();
       this.setSMSTimeout();
     }
@@ -59,7 +55,7 @@ export function withVerification(screenName, routeName, onVerification, onAuthen
       const phone = appState.person.phone;
 
       if (!phone) {
-        return this.routeChange(routeName);
+        return this.routeChange(authType);
       }
     }
 
@@ -120,9 +116,9 @@ export function withVerification(screenName, routeName, onVerification, onAuthen
 
     async resendCode() {
       const { appState } = this.context;
-      console.log('1', appState);
-      const authPayload = get(appState, ['person', 'phone']) || appState.signUpPayload; // different
-      console.log('2', authPayload);
+      const authPayload = authType === 'sign-in'
+        ? get(appState, ['person', 'phone'])
+        : appState.signUpPayload;
 
       //reset sms text timeout
       this.setSMSTimeout();
@@ -134,7 +130,9 @@ export function withVerification(screenName, routeName, onVerification, onAuthen
         return this.props.history.push('/sign-in');
       }
 
-      const response = await onAuthentication(authPayload); // different => onAuthentication
+      debugger;
+
+      const response = await onCodeResent(authPayload);
 
       this.setState({ loading: false });
 
@@ -179,7 +177,7 @@ export function withVerification(screenName, routeName, onVerification, onAuthen
     render() {
       return (
         <div className="verification onboarding-page">
-          <Header navItems={ONBOARDING_NAV_ITEMS} enableBackBtn={true}>
+          <Header enableBackBtn={true}>
             <h1>Verification Code</h1>
             <h2>We texted a verification code to your phone. Please enter the code to continue.</h2>
           </Header>

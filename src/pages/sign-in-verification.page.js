@@ -1,13 +1,14 @@
 
-import React, { Component } from 'react';
-
 import { withVerification } from '@hocs/verification';
 import PeopleService from '@services/people.service';
 
 const peopleService = PeopleService.getInstance();
 const onVerification = (data) => peopleService.verifyAuthRequest(data);
+const onCodeResent = (phone) => peopleService.login({ phone });
 
-export default withVerification('sign-in-verification', 'sign-in', onVerification, null, false);
+export default withVerification('sign-in', onVerification, onCodeResent, false);
+
+// peopleService.login => { phone: "+14048050203", token: 399730 }
 
 /*
 export class SignInVerificationPage extends Component {

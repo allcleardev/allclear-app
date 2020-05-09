@@ -1,22 +1,16 @@
-import React, { Component } from 'react';
-import { bindAll } from 'lodash';
-
 import PeopleService from '@services/people.service';
-import GAService from '@services/ga.service';
-
-import ProgressBottom from '@general/navs/progress-bottom';
-import OnboardingNavigation from '@general/navs/onboarding-navigation';
-import { AppContext } from '@contexts/app.context';
 import { withVerification } from '@hocs/verification';
 
-import Header from '@components/general/headers/header';
-import { Button, Container, TextField, FormControl, CircularProgress } from '@material-ui/core';
-
 const peopleService = PeopleService.getInstance();
-const onVerification = (data) => peopleService.confirmAuthRequest(data);
-const onAuthentication = (authPayload) => peopleService.authStart(authPayload);
+const onVerification = ({ phone, token: code }) => peopleService.confirmAuthRequest({ phone, code });
+const onCodeResent = (authPayload) => peopleService.authStart(authPayload);
 
-export default withVerification('sign-up-verification', 'sign-up', onVerification, onAuthentication, false);
+export default withVerification('sign-up', onVerification, onCodeResent, true);
+
+
+// click "verify phone number" => peoples/start => see body in screenshot
+// click "resend code" => peoples/start => same body
+// click "sign up" with code => peoples/confirm => see body in screenshot
 
 /*
 export default class SignUpVerificationPage extends Component {
