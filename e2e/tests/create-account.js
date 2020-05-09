@@ -1,9 +1,17 @@
 const puppeteer = require('puppeteer');
 
-const config = require('dotenv').config({ path: '.env.test.local' });
-const phone = config.parsed.E2E_PHONE_NUMBER;
-const account = config.parsed.TWILIO_SID;
-const auth = config.parsed.TWILIO_AUTH;
+var phone, account, auth = '';
+
+try {
+    const config = require('dotenv').config({ path: '.env.test.local' });
+    phone = config.parsed.E2E_PHONE_NUMBER;
+    account = config.parsed.TWILIO_SID;
+    auth = config.parsed.TWILIO_AUTH;
+} catch(e){
+    phone = '6466030984';
+    account = process.env.TWILIO_SID;
+    auth = process.env.TWILIO_AUTH;
+}
 
 const client = require('twilio')(account, auth);
 var code = '';
@@ -36,7 +44,7 @@ const test = async () => {
     await page.keyboard.press('ArrowDown');
     await page.keyboard.press('Enter');
     
-    await page.waitFor(600);
+    await page.waitFor(1000);
     let locationNext = await page.$x('//*[@id="root"]/div/div[2]/div[2]/span/button');
     await locationNext[0].click();
 

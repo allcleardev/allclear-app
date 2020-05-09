@@ -2,10 +2,18 @@ const puppeteer = require('puppeteer');
 
 const clipboardy = require('clipboardy');
 
-const config = require('dotenv').config({ path: '.env.test.local' });
-const phone = config.parsed.E2E_PHONE_NUMBER;
-const account = config.parsed.TWILIO_SID;
-const auth = config.parsed.TWILIO_AUTH;
+var phone, account, auth = '';
+
+try {
+    const config = require('dotenv').config({ path: '.env.test.local' });
+    phone = config.parsed.E2E_PHONE_NUMBER;
+    account = config.parsed.TWILIO_SID;
+    auth = config.parsed.TWILIO_AUTH;
+} catch(e){
+    phone = '6466030984';
+    account = process.env.TWILIO_SID;
+    auth = process.env.TWILIO_AUTH;
+}
 
 const client = require('twilio')(account, auth);
 var code = '';
@@ -62,29 +70,127 @@ const test = async () => {
 
     //On the home page
     //Click the share link and make sure it is copied and matches 'https://go.allclear.app'
-    //Click location to be taken to map screen and make sure the location id is 15218
     await page.waitForXPath('//*[@id="root"]/section/div[2]/article[3]/button');
     let share = await page.$x('//*[@id="root"]/section/div[2]/article[3]/button');
     await share[0].click();
 
-    await page.waitForXPath('//*[@id="root"]/section/div[3]');
+    //await page.waitForXPath('//*[@id="root"]/section/div[3]');
 
-   let link = clipboardy.readSync();
+    let link = clipboardy.readSync();
 
-   if(link === 'https://go.allclear.app'){
-   } else {
-       await page.click('');
-   }
+    if(link === 'https://go.allclear.app'){
+    } else {
+        process.exit(1);
+    }
 
+    //On the home page
+    //Check to see if the first five saved/pinned locations are there and correct
+    //1
+    await page.waitFor(1000);
+    let firstPin = await page.evaluate(() => document.querySelector(
+        '#root > section > div.MuiContainer-root.cards-container.MuiContainer-maxWidthMd > article.locations.article > section:nth-child(2) > dl'
+        ).innerText);
+    //2
+    let secondPin = await page.evaluate(() => document.querySelector(
+        '#root > section > div.MuiContainer-root.cards-container.MuiContainer-maxWidthMd > article.locations.article > section:nth-child(3) > dl'
+        ).innerText);
+    //3
+    let thirdPin = await page.evaluate(() => document.querySelector(
+        '#root > section > div.MuiContainer-root.cards-container.MuiContainer-maxWidthMd > article.locations.article > section:nth-child(4) > dl'
+        ).innerText);
+    //4
+    let fourthPin = await page.evaluate(() => document.querySelector(
+        '#root > section > div.MuiContainer-root.cards-container.MuiContainer-maxWidthMd > article.locations.article > section:nth-child(5) > dl'
+        ).innerText);
+    //5
+    let fifthPin = await page.evaluate(() => document.querySelector(
+        '#root > section > div.MuiContainer-root.cards-container.MuiContainer-maxWidthMd > article.locations.article > section:nth-child(6) > dl'
+        ).innerText);
+
+    if(firstPin.includes('AtlantiCare Urgent Care Manahawkin') &&
+        secondPin.includes('Southern Ocean Medical Center') &&
+        thirdPin.includes('SEARCH - Community Family Services') &&
+        fourthPin.includes('Hackensack Meridian Urgent Care-Long Beach Island') &&
+        fifthPin.includes('Hackensack Meridian Urgent Care-Forked River')){
+    } else {
+            process.exit(1);
+    }
+
+    //At home page
+    //Get initial banner to compare to after change
+    //Click gear icon and edit health worker status
+    //Save the new satus and check if the CDC priority banner at the top has changed
+    let initialBanner = '';
+    try{
+        initialBanner = await page.evaluate(() => document.querySelector(
+            '#root > section > div.MuiContainer-root.cards-container.MuiContainer-maxWidthMd > article.banner--warn.banner.article > p > span'
+            ).innerText);
+    } catch (e) {
+        initialBanner = await page.evaluate(() => document.querySelector(
+            '#root > section > div.MuiContainer-root.cards-container.MuiContainer-maxWidthMd > article.banner--pass.banner.article > p > span'
+            ).innerText);
+    }
+    
+    await page.waitForXPath('//*[@id="root"]/section/div[1]/div[3]/button/span[1]');
+    let gear = await page.$x('//*[@id="root"]/section/div[1]/div[3]/button/span[1]');
+    await gear[0].click();
+
+    await page.waitFor(500)
+    let healthWorkerStatus = await page.evaluate(() => document.querySelector(
+        '#root > section > div.MuiContainer-root.cards-container.MuiContainer-maxWidthLg > article > div:nth-child(3) > div > div > div'
+        ).innerText);
+    
+    if(healthWorkerStatus.includes('Neither')){
+        let statusDropDown = await page.$x('//*[@id="root"]/section/div[2]/article/div[3]/div/div/div');
+        await statusDropDown[0].click();
+        await page.waitFor(700);
+        let selection = await page.$x('//*[@id="menu-"]/div[3]/ul/li[1]');
+        await selection[0].click();
+    } else {
+        let statusDropDown = await page.$x('//*[@id="root"]/section/div[2]/article/div[3]/div/div/div');
+        await statusDropDown[0].click();
+        await page.waitFor(700);
+        let selection = await page.$x('//*[@id="menu-"]/div[3]/ul/li[3]');
+        await selection[0].click();
+    }
+
+    await page.waitFor(500);
+    let update = await page.$x('/html/body/div/section/div[2]/div/button[1]');
+    await update[0].click();
+
+    await page.waitForSelector(
+        '#root > section > div.MuiContainer-root.cards-container.MuiContainer-maxWidthMd > article.banner--warn.banner.article > p > span'
+    );
+    await page.waitFor(1000);
+    let updatedBanner = '';
+    try{
+        updatedBanner = await page.evaluate(() => document.querySelector(
+            '#root > section > div.MuiContainer-root.cards-container.MuiContainer-maxWidthMd > article.banner--pass.banner.article > p > span'
+            ).innerText);
+    } catch (e) {
+        updatedBanner = await page.evaluate(() => document.querySelector(
+            '#root > section > div.MuiContainer-root.cards-container.MuiContainer-maxWidthMd > article.banner--warn.banner.article > p > span'
+            ).innerText);
+    }
+
+    console.log(initialBanner);
+    console.log(updatedBanner);
+    if(initialBanner !== updatedBanner){
+    } else {
+        process.exit(1);
+    }
+
+    //On the home page
+    //Click location to be taken to map screen and make sure the location id is 15218
     await page.click(
-        '#root > section > div.MuiContainer-root.cards-container.MuiContainer-maxWidthMd > article.locations.article > section:nth-child(4) > dl > dt'
+        '#root > section > div.MuiContainer-root.cards-container.MuiContainer-maxWidthMd > article.locations.article > section:nth-child(3) > dl > dt'
         );
 
     let url = await page.url();
 
     if(url.includes('15218')){
     } else {
-        await page.click('');
+        process.exit(1);
     }
 
     //At map page
