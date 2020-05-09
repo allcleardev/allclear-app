@@ -180,7 +180,7 @@ const test = async () => {
     //On the home page
     //Click location to be taken to map screen and make sure the location id is 15218
     await page.click(
-        '#root > section > div.MuiContainer-root.cards-container.MuiContainer-maxWidthMd > article.locations.article > section:nth-child(3) > dl > dt'
+        '#root>section>div.MuiContainer-root.cards-container.MuiContainer-maxWidthMd>article.locations.article>section:nth-child(3)>dl>dt'
         );
 
     let url = await page.url();
