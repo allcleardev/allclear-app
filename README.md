@@ -9,24 +9,21 @@ PRs](https://badgen.net/github/prs/allcleardev/allclear-app)](https://github.com
 [![Closed
 PRs](https://badgen.net/github/closed-prs/allcleardev/allclear-app)](https://github.com/allcleardev/allclear-app/pulls?q=is%3Apr+is%3Aclosed)
 
-AllClear Front End Application
-==============================
+# AllClear Front End Application
 
--   [General Info](#general-info)
--   [Running the Project](#running-the-project)
--   [Testing the Project](#testing-the-project)
--   [Building the Project](#building-the-project)
--   [Further Reading](#further-reading)
+- [General Info](#general-info)
+- [Running the Project](#running-the-project)
+- [Testing the Project](#testing-the-project)
+- [Building the Project](#building-the-project)
+- [Further Reading](#further-reading)
 
-General Info
-------------
+## General Info
 
-This is the web version of [AllClear](http://go.allclear.app). 
+This is the web version of [AllClear](http://go.allclear.app).
 
 AllClear has the largest database of COVID-19 test centers in the country. Each listing is manually verified and regularly checked for updates and changes.
 
-Running the Project
--------------------
+## Running the Project
 
 In the project directory, run:
 
@@ -39,8 +36,7 @@ browser.
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
 
-Testing the Project
--------------------
+## Testing the Project
 
 In the project directory, run:
 
@@ -59,8 +55,7 @@ env variable for some of the tests to run:
   SESSION_ID='GOD-SESSION-TOKEN'
 ```
 
-Building the Project
---------------------
+## Building the Project
 
 In the project directory, run:
 
@@ -73,19 +68,17 @@ for the best performance.
 The build is minified and the filenames include the hashes.<br />
 Your app is ready to be deployed!
 
-Further Reading
----------------
+## Further Reading
 
--   [Naming Conventions](./docs/naming-conventions.md)
--   [Code of Conduct](./docs/code_of_conduct.md)
--   [Contributing](./docs/contributing.md)
--   [Bug Report Issue Templates](./.github/ISSUE_TEMPLATE/bug_report.md)
--   [Feature Request Issue Template](./.github/ISSUE_TEMPLATE/feature_request.md)
--   [Feature Request Issue Template](./.github/ISSUE_TEMPLATE/feature_request.md)
--   [Pull Request Issue Template](./docs/pull_request_template.md)
+- [Naming Conventions](./docs/naming-conventions.md)
+- [Code of Conduct](./docs/code_of_conduct.md)
+- [Contributing](./docs/contributing.md)
+- [Bug Report Issue Templates](./.github/ISSUE_TEMPLATE/bug_report.md)
+- [Feature Request Issue Template](./.github/ISSUE_TEMPLATE/feature_request.md)
+- [Feature Request Issue Template](./.github/ISSUE_TEMPLATE/feature_request.md)
+- [Pull Request Issue Template](./docs/pull_request_template.md)
 
-Contact
--------
+## Contact
 
 General inquiries: [info@allclear.app](mailto:info@allclear.app)
 

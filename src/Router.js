@@ -74,7 +74,6 @@ export default function Router() {
           <Route path="/health-worker" component={HealthWorkerStatusPage} />
           <Route path="/symptoms" component={Symptoms} />
 
-
           {/* Profile Pages / SettingsPage */}
           <ProtectedRoute path="/profile" component={ProfileViewPage} />
           <ProtectedRoute path="/profile-edit" component={ProfileEditPage} />

@@ -27,7 +27,7 @@ export default function TestingLocationListItem(props) {
     const createdAt = new Date(date);
     const currentDate = new Date();
 
-    return (currentDate - createdAt) < (oneHour * 72);
+    return currentDate - createdAt < oneHour * 72;
   };
 
   const summary = (
@@ -44,7 +44,9 @@ export default function TestingLocationListItem(props) {
           </span>
           {isNewLocation(createdAt) && (
             <div className="new-test-center-display">
-              <span><FiberManualRecordIcon /></span>
+              <span>
+                <FiberManualRecordIcon />
+              </span>
               <span style={{ marginTop: '2px' }}>New</span>
             </div>
           )}
@@ -82,12 +84,7 @@ export default function TestingLocationListItem(props) {
           <dd className="detsummaryails__item">{driveThru.toString() === 'true' ? 'Drive Through' : ''}</dd>
           <dd className="summary__item summary__item--semibold">{phone}</dd>
         </dl>
-        <ExternalItemLinks
-          display={'d-flex d-md-none'}
-          description={description}
-          phone={phone}
-          website={website}
-        />
+        <ExternalItemLinks display={'d-flex d-md-none'} description={description} phone={phone} website={website} />
         <h4>Test Center Details:</h4>
         <dl className="details">
           {!isNullOrUndefined(props.testCriteria) && (
@@ -150,14 +147,11 @@ export default function TestingLocationListItem(props) {
               <dd>{boolToEng(props.freeOrLowCost)}</dd>
             </Fragment>
           )}
-          <Link
-            to={`/test-centers/${props.id}`}>
-            View Full Test Center Detail
-          </Link>
+          <Link to={`/test-centers/${props.id}`}>View Full Test Center Detail</Link>
           <div className="mt-3">
-            <a href={changeURL}
-              target='_blank'
-              rel='noopener noreferrer'>Suggest Change To Test Center Information</a>
+            <a href={changeURL} target="_blank" rel="noopener noreferrer">
+              Suggest Change To Test Center Information
+            </a>
             <p className="fontsize-12">
               <i>Last update: {updatedAt.toLocaleString()}</i>
             </p>

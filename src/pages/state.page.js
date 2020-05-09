@@ -3,17 +3,17 @@ import Header from '../components/general/headers/header';
 import BottomNav from '../components/general/navs/bottom-nav';
 import Container from '@material-ui/core/Container';
 import GAService from '@services/ga.service';
-import {AppContext} from '@contexts/app.context';
-import {bindAll} from 'lodash';
+import { AppContext } from '@contexts/app.context';
+import { bindAll } from 'lodash';
 import FacilityService from '@services/facility.service';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class StatePage extends Component {
   static contextType = AppContext;
 
   state = {
     stateName: '',
-    cityList: []
+    cityList: [],
   };
 
   constructor() {
@@ -38,7 +38,7 @@ class StatePage extends Component {
     if (!response.err) {
       this.setState({
         stateName: stateParam,
-        cityList: response.data
+        cityList: response.data,
       });
     } else {
       this.setState({
@@ -54,21 +54,21 @@ class StatePage extends Component {
       <div className="tracing">
         <Header enableBackBtn={true}></Header>
         <Container className="content">
-          <h1>
-            {this.state.stateName} COVID-19 Testing Centers | AllClear
-          </h1>
+          <h1>{this.state.stateName} COVID-19 Testing Centers | AllClear</h1>
           <h2>
-            Find a COVID-19 testing center in {this.state.stateName} by selecting your city. AllClear is your guide
-            to find where to get tested, quickly. Please contact your nearest center with any questions.
+            Find a COVID-19 testing center in {this.state.stateName} by selecting your city. AllClear is your guide to
+            find where to get tested, quickly. Please contact your nearest center with any questions.
           </h2>
 
           <div className="seo-list">
             {this.state.cityList &&
-            this.state.cityList.map((res) => {
-              return (
-                <Link to={`/locations/${this.state.stateName}/${res.name}`}>{res.name} ({res.total})</Link>
-              );
-            })}
+              this.state.cityList.map((res) => {
+                return (
+                  <Link to={`/locations/${this.state.stateName}/${res.name}`}>
+                    {res.name} ({res.total})
+                  </Link>
+                );
+              })}
           </div>
         </Container>
         <BottomNav active={2}></BottomNav>
