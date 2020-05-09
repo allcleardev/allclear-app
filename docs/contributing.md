@@ -23,7 +23,7 @@ In the main README you will find a section on [Running the Project](#../README.m
 1. Grab a ticket from the top of the backlog. See Default (Unassigned) tickets [here](https://ilico.aha.io/bookmarks/feature_boards/6809100612504060589/6823896129923516857)
 2. Off of the `dev` branch, create a new branch with the ticket number e.g.
 
-```
+```sh
 git checkout dev
 git pull
 git checkout -b AC-152
@@ -32,7 +32,7 @@ git checkout -b AC-152
 3. Do the work
    When your work is complete, merge dev back into your branch, push up your local branch and create a pull request on Github to merge the branch into dev branch. e.g.
 
-```
+```sh
 # add your changes
 git add someFile.js
 # commit with the ticket number
