@@ -41,6 +41,13 @@ class StatePage extends Component {
     });
   }
 
+  componentWillUnmount() {
+    this.metadataService.setPageHead({
+      title: 'RESET',
+      description: 'RESET',
+    });
+  }
+
   async getCities() {
     const stateParam = this.props.match.params.state;
     const response = await this.facilityService.getCities(stateParam);
@@ -64,7 +71,7 @@ class StatePage extends Component {
       <div className="tracing">
         <Header enableBackBtn={true}></Header>
         <Container className="content">
-          <h1>{this.state.stateName} COVID-19 Testing Centers | AllClear</h1>
+          <h1>{startCase(this.state.stateName)} COVID-19 Testing Centers | AllClear</h1>
           <h2>
             Find a COVID-19 testing center in {this.state.stateName} by selecting your city. AllClear is your guide to
             find where to get tested, quickly. Please contact your nearest center with any questions.
@@ -72,9 +79,11 @@ class StatePage extends Component {
 
           <div className="seo-list">
             {this.state.cityList &&
-              this.state.cityList.map((res) => {
+              this.state.cityList.map((res,i) => {
                 return (
-                  <Link to={`/locations/${this.state.stateName}/${res.name}`}>
+                  <Link
+                    key={i}
+                    to={`/locations/${this.state.stateName}/${res.name}`}>
                     {res.name} ({res.total})
                   </Link>
                 );

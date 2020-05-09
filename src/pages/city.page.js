@@ -33,12 +33,17 @@ class CityPage extends Component {
   async componentDidMount() {
     await this.getCenters();
     let {stateName, cityName} = this.state;
-    stateName = startCase(stateName);
-    cityName = startCase(cityName);
     this.metadataService.setPageHead({
       title: `${cityName}, ${stateName} COVID-19 Testing Centers | AllClear`,
       description: `View all COVID-19 testing centers in ${cityName}, ${stateName}. AllClear is your guide to find where to get tested,
       quickly. Please contact your nearest center with any questions.`,
+    });
+  }
+
+  componentWillUnmount() {
+    this.metadataService.setPageHead({
+      title: 'RESET',
+      description: 'RESET',
     });
   }
 
@@ -53,8 +58,8 @@ class CityPage extends Component {
 
     if (!response.err) {
       this.setState({
-        stateName: stateParam,
-        cityName: cityParam,
+        stateName: startCase(stateParam),
+        cityName: startCase(cityParam),
         centerList: response.data.records,
       });
     } else {

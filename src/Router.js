@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState} from 'react';
 import {Route, Switch, Router as ReactRouter} from 'react-router-dom';
 import {createBrowserHistory} from 'history';
 import {Helmet} from 'react-helmet';
@@ -48,6 +48,11 @@ export default function Router() {
   metadataService.setPageHead = setPageHead;
 
   function setPageHead({title, description}){
+
+    // reset if its an unmount
+    title = (title === 'RESET') ? initialPageState.title : title;
+    description = (title === 'RESET') ? initialPageState.description : description;
+
     setPageState({
       title,
       description
@@ -55,7 +60,9 @@ export default function Router() {
   }
 
   return (
-    <ReactRouter history={history}>
+    <ReactRouter
+      history={history}
+    >
       <Helmet>
         <meta charSet='utf-8'/>
         <meta charSet='utf-8'/>

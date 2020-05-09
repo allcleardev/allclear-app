@@ -10,8 +10,6 @@ import { AppContext } from '@contexts/app.context';
 import FacilityService from '@services/facility.service';
 import MetadataService from '@services/metadata.service';
 
-
-
 class StateListPage extends Component {
   static contextType = AppContext;
 
@@ -24,7 +22,7 @@ class StateListPage extends Component {
 
     this.gaService = GAService.getInstance();
     this.metadataService = MetadataService.getInstance();
-    this.gaService.setScreenName('tracing');
+    this.gaService.setScreenName('state list');
 
     bindAll(this, ['getStates']);
 
@@ -38,6 +36,13 @@ class StateListPage extends Component {
       tested, quickly. Please contact your nearest center with any questions.`,
     });
     await this.getStates();
+  }
+
+  componentWillUnmount() {
+    this.metadataService.setPageHead({
+      title: 'RESET',
+      description: 'RESET',
+    });
   }
 
   async getStates() {
@@ -69,9 +74,11 @@ class StateListPage extends Component {
 
           <div className="seo-list">
             {this.state.stateList &&
-              this.state.stateList.map((res) => {
+              this.state.stateList.map((res,i) => {
                 return (
-                  <Link to={`/locations/${res.name}`}>
+                  <Link
+                    key={i}
+                    to={`/locations/${res.name}`}>
                     {res.name} ({res.total})
                   </Link>
                 );
