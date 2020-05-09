@@ -130,8 +130,6 @@ export function withVerification(authType, onVerification, onCodeResent, display
         return this.props.history.push('/sign-in');
       }
 
-      debugger;
-
       const response = await onCodeResent(authPayload);
 
       this.setState({ loading: false });
