@@ -1,3 +1,4 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a77435d2b6364fee9ef5385de8f25982)](https://app.codacy.com/gh/allcleardev/allclear-app?utm_source=github.com&utm_medium=referral&utm_content=allcleardev/allclear-app&utm_campaign=Badge_Grade_Dashboard)
 [![allclear](public/android-chrome-192x192.png)](https://allclear.app)
 
 [![Version](https://badgen.net/github/tag/allcleardev/allclear-app)](https://github.com/allcleardev/allclear-app/tags)
