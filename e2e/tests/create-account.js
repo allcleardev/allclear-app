@@ -16,7 +16,7 @@ try {
 }
 
 const client = require('twilio')(account, auth);
-var code = '';
+let code = '';
 
 async function getVerificationCode() {
   let messages = await client.messages.list({ limit: 20, to: '+1' + phone });
