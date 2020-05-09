@@ -5,6 +5,10 @@ export default class GAService {
 
   constructor() {
     this.isLocalDevBuild = process.env.NODE_ENV === 'development';
+
+    if (!this.isLocalDevBuild) {
+      ga('set', 'appName', 'allclear');
+    }
   }
 
   static getInstance() {
@@ -17,13 +21,13 @@ export default class GAService {
 
   setScreenName(name) {
     if (!this.isLocalDevBuild) {
-      ReactGA.ga('set', 'screen_class', name);
+      ga('screen_class', {screenName: name});
     }
   }
 
   sendEvent(name, params) {
     if (!this.isLocalDevBuild) {
-      ReactGA.ga('event', name, params);
+      ga('event', name, params);
     }
   }
 }
