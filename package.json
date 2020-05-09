@@ -7,7 +7,7 @@
     "deploy": "yarn build && surge build --domain allclear.surge.sh",
     "eject": "react-app-rewired eject",
     "lint": "eslint src --max-warnings=0",
-    "postbuild": "react-snap",
+    "zpostbuildz:todo": "react-snap",
     "start": "npm i && node stampBuild.js && react-app-rewired start",
     "test": "jest --colors --verbose",
     "test:inspect": "node --inspect-brk node_modules/.bin/jest --runInBand --watch"
