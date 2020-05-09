@@ -1,63 +1,54 @@
 import React from 'react';
+import LinkButton from '@general/buttons/link-button';
 import DirectionsIcon from '@material-ui/icons/Directions';
 import WebIcon from '@material-ui/icons/Web';
 import CallIcon from '@material-ui/icons/Call';
 import ShareIcon from '@material-ui/icons/Share';
 
 export default function ExternalItemLinks(props) {
+  const buttons = [
+    {
+      id: props.description,
+      href: `https://www.google.com/maps/dir/?api=1&destination=${props.description}`,
+      text: 'Directions',
+      icon: <DirectionsIcon />
+    },
+    {
+      id: props.phone,
+      href: 'tel:' + props.phone,
+      text: 'Call',
+      icon: <CallIcon />
+    },
+    {
+      id: props.website,
+      href: props.website,
+      text: 'Website',
+      icon: <WebIcon />
+    },
+    {
+      id: 'Share',
+      href: '/home',
+      text: 'Share',
+      icon: <ShareIcon />
+    },
+  ].filter((btn) => btn.id);
+
   return (
     <div className={`list-item-buttons ${props.display}`} style={props.margin}>
-      <div className="link-button">
-        <a
-          href={'https://www.google.com/maps/dir/?api=1&destination=' + props.description}
-          rel="noopener noreferrer"
-          target="_blank"
-          onClick={(evt) => props.onClick(evt, 'directions')}
-        >
-          <DirectionsIcon classes={{root: 'link-button-icon'}} />
-          <p>Directions</p>
-        </a>
-      </div>
-
-      {props.phone && (
-        <div className="link-button">
-          <a
-            href={'tel:' + props.phone}
-            rel="noopener noreferrer"
-            target="_blank"
-            onClick={(evt) => props.onClick(evt, 'call')}
-          >
-            <CallIcon classes={{root: 'link-button-icon'}} />
-            <p>Call</p>
-          </a>
-        </div>
-      )}
-
-      {props.website && (
-        <div className="link-button">
-          <a
-            href={props.website}
-            rel="noopener noreferrer"
-            target="_blank"
-            onClick={(evt) => evt.stopPropagation()}
-          >
-            <WebIcon classes={{root: 'link-button-icon'}} />
-            <p>Website</p>
-          </a>
-        </div>
-      )}
-
-      <div className="link-button">
-        <a
-          href="/home"
-          rel="noopener noreferrer"
-          target="_self"
-          onClick={(evt) => evt.stopPropagation()}
-        >
-          <ShareIcon classes={{root: 'link-button-icon'}} />
-          <p>Share</p>
-        </a>
-      </div>
+      {
+        buttons.map((btn) =>
+          <div key={btn.text} className="link-button">
+            <LinkButton
+              href={btn.href}
+              text={btn.text}
+              theme="round-icon"
+              onClick={(evt) => props.onClick(evt, btn.text)}
+            >
+              {btn.icon}
+            </LinkButton>
+          </div>
+        )
+      }
     </div>
   );
 }

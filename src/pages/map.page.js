@@ -7,7 +7,7 @@ import clsx from 'clsx';
 import qs from 'qs';
 
 // components / icons
-import SolidHeader from '@general/headers/header-solid';
+import Header from '@general/headers/header';
 import UpdateCriteriaModal from '@general/modals/update-criteria-modal';
 import GoogleMapsAutocomplete from '@general/inputs/google-maps-autocomplete';
 import SnackbarMessage from '@general/alerts/snackbar-message';
@@ -265,7 +265,7 @@ export default function MapPage() {
           onFilterClick={onEditFiltersBtnClick}
         ></MobileTopBar>
       ) : (
-        <SolidHeader isLoggedIn={isLoggedIn}></SolidHeader>
+        <Header />
       )}
       <Drawer
         anchor={mobileView ? 'bottom' : 'left'}

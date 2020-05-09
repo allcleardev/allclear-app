@@ -8,7 +8,6 @@ import { AppContext } from '@contexts/app.context';
 import Header from '@general/headers/header';
 import OnboardingNavigation from '@general/navs/onboarding-navigation';
 import ProgressBottom from '@general/navs/progress-bottom';
-import { ONBOARDING_NAV_ITEMS } from '@general/headers/header.constants';
 import { Container } from '@material-ui/core';
 
 export default class SplashPage extends Component {
@@ -23,7 +22,7 @@ export default class SplashPage extends Component {
   render() {
     return (
       <div className="splash-page onboarding-page">
-        <Header navItems={ONBOARDING_NAV_ITEMS} enableBackBtn={true}></Header>
+        <Header enableBackBtn={true}></Header>
         <Container className="onboarding-body">
           <Container maxWidth="lg">
             <div className="onboarding-body">
