@@ -165,8 +165,8 @@ class SiteBuilder {
   }
 }
 
-function dashStr(str) {
-  return str.replace(/ /g, '-');
-}
+// function dashStr(str) {
+//   return str.replace(/ /g, '-');
+// }
 
-const builder = new SiteBuilder();
+new SiteBuilder();

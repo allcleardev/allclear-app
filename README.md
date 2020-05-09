@@ -51,9 +51,7 @@ You can install
 You'll need to pull a session token from the admin app, and supply an
 env variable for some of the tests to run:
 
-```
-  SESSION_ID='GOD-SESSION-TOKEN'
-```
+`SESSION_ID='GOD-SESSION-TOKEN'`
 
 ## Building the Project
 
