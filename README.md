@@ -1,9 +1,15 @@
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a77435d2b6364fee9ef5385de8f25982)](https://app.codacy.com/gh/allcleardev/allclear-app?utm_source=github.com&utm_medium=referral&utm_content=allcleardev/allclear-app&utm_campaign=Badge_Grade_Dashboard)
 [![allclear](public/android-chrome-192x192.png)](https://allclear.app)
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a77435d2b6364fee9ef5385de8f25982)](https://app.codacy.com/gh/allcleardev/allclear-app?utm_source=github.com&utm_medium=referral&utm_content=allcleardev/allclear-app&utm_campaign=Badge_Grade_Dashboard)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=allcleardev_allclear-app&metric=security_rating)](https://sonarcloud.io/dashboard?id=allcleardev_allclear-app)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=allcleardev_allclear-app&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=allcleardev_allclear-app)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=allcleardev_allclear-app&metric=alert_status)](https://sonarcloud.io/dashboard?id=allcleardev_allclear-app)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=allcleardev_allclear-app&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=allcleardev_allclear-app)
 
 [![Version](https://badgen.net/github/tag/allcleardev/allclear-app)](https://github.com/allcleardev/allclear-app/tags)
 [![Release](https://badgen.net/github/release/allcleardev/allclear-app)](https://github.com/allcleardev/allclear-app/releases)
 [![Commits](https://badgen.net/github/commits/allcleardev/allclear-app)](https://github.com/allcleardev/allclear-app/commits/master)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=allcleardev_allclear-app&metric=ncloc)](https://sonarcloud.io/dashboard?id=allcleardev_allclear-app)
 
 [![All
 PRs](https://badgen.net/github/prs/allcleardev/allclear-app)](https://github.com/allcleardev/allclear-app/pulls) [![Build Status](https://badgen.net/github/open-prs/allcleardev/allclear-app)](https://github.com/allcleardev/allclear-app/pulls?q=is%3Aopen+is%3Apr)
