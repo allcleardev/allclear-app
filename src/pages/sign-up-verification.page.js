@@ -10,7 +10,6 @@ import { AppContext } from '@contexts/app.context';
 import { withVerification } from '@hocs/verification';
 
 import Header from '@components/general/headers/header';
-import { ONBOARDING_NAV_ITEMS } from '@components/general/headers/header.constants';
 import { Button, Container, TextField, FormControl, CircularProgress } from '@material-ui/core';
 
 const peopleService = PeopleService.getInstance();
@@ -176,7 +175,7 @@ export default class SignUpVerificationPage extends Component {
   render() {
     return (
       <div className="verification onboarding-page">
-        <Header navItems={ONBOARDING_NAV_ITEMS} enableBackBtn={true}>
+        <Header enableBackBtn={true}>
           <h1>Verification Code</h1>
           <h2>We texted a verification code to your phone. Please enter the code to continue.</h2>
         </Header>

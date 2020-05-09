@@ -3,7 +3,6 @@ import Header from '../components/general/headers/header';
 import BottomNav from '../components/general/navs/bottom-nav';
 import Container from '@material-ui/core/Container';
 import GAService from '@services/ga.service';
-import { DEFAULT_NAV_ITEMS } from '@components/general/headers/header.constants';
 import {AppContext} from '@contexts/app.context';
 import {bindAll} from 'lodash';
 import FacilityService from '@services/facility.service';
@@ -50,7 +49,7 @@ class StateListPage extends Component {
   render() {
     return (
       <div className="tracing">
-        <Header navItems={DEFAULT_NAV_ITEMS} enableBackBtn={true}></Header>
+        <Header enableBackBtn={true}></Header>
         <Container className="content">
           <h1>
             COVID-19 Testing Centers by State | AllClear

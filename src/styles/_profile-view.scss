@@ -22,7 +22,7 @@
     color: #fff;
 
     @media (min-width: $md) {
-      top: -120px;
+      top: -140px;
       right: 10px;
     }
 
@@ -65,10 +65,8 @@
 
   .cards-container {
     position: relative;
-    margin-top: -10px;
 
     @media (min-width: $md) {
-      margin-top: 0;
       max-width: 80%;
     }
 

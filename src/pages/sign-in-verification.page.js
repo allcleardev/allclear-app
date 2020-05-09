@@ -172,7 +172,7 @@ export class SignInVerificationPage extends Component {
   render() {
     return (
       <div className="verification onboarding-page">
-        <Header navItems={ONBOARDING_NAV_ITEMS} enableBackBtn={true}>
+        <Header enableBackBtn={true}>
           <h1>Verification Code</h1>
           <h2>We texted a verification code to your phone. Please enter the code to continue.</h2>
         </Header>

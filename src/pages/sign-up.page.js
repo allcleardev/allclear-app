@@ -11,7 +11,6 @@ import ProgressBottom from '@general/navs/progress-bottom';
 import OnboardingNavigation from '@general/navs/onboarding-navigation';
 import PhoneNumberInput from '@general/inputs/phone-number-input';
 import { AppContext } from '@contexts/app.context';
-import { ONBOARDING_NAV_ITEMS } from '@components/general/headers/header.constants';
 
 import Alert from '@material-ui/lab/Alert';
 import { Checkbox, Container, Snackbar, FormControlLabel, CircularProgress } from '@material-ui/core';
@@ -288,7 +287,7 @@ export default class SignUpPage extends Component {
   render() {
     return (
       <div className="sign-up onboarding-page">
-        <Header navItems={ONBOARDING_NAV_ITEMS} enableBackBtn={true}>
+        <Header enableBackBtn={true}>
           <h1>Phone Number Registration</h1>
           <h2>Enter your phone number to register your account.</h2>
         </Header>

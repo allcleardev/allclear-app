@@ -7,7 +7,6 @@ import { AppContext } from '@contexts/app.context';
 
 import Header from '@components/general/headers/header';
 import OnboardingNavigation from '@components/general/navs/onboarding-navigation';
-import { ONBOARDING_NAV_ITEMS } from '@components/general/headers/header.constants';
 import { Container } from '@material-ui/core';
 
 export default class AccountCreated extends Component {
@@ -36,7 +35,7 @@ export default class AccountCreated extends Component {
   render() {
     return (
       <div className="account-created-page onboarding-page">
-        <Header navItems={ONBOARDING_NAV_ITEMS} enableBackBtn={true}></Header>
+        <Header enableBackBtn={true}></Header>
         <Container className="onboarding-body">
           <Container maxWidth="md">
             <div className="onboarding-body">

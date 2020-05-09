@@ -1,10 +1,7 @@
 .test-center-page {
-  width: 100%;
-  height: 100vh;
+  flex: 1 0 auto;
 
-  &__top-background {
-    @include responsive-gradient;
-    box-shadow: $header-shadow;
+  .color-block {
     height: 180px;
 
     @media (min-width: $md) {
@@ -12,49 +9,25 @@
     }
   }
 
-  .header-solid-fullscreen {
-    background: none;
-    box-shadow: none;
-    // desktop specific styling
+  .heading {
+    text-align: center;
+    line-height: 22px;
+    font-weight: 600;
+    font-size: 17px;
+    color: #fff;
+
     @media (min-width: $md) {
-      // padding-bottom: 300px;
+      visibility: hidden;
     }
   }
 
   &__content {
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: -150px;
-
-    @media (min-width: $md) {
-      width: 65%;
-    }
-
     .back-btn {
       margin-bottom: 18px;
       color: white;
 
       &--mobile {
         font-size: 17px;
-      }
-    }
-
-    .mobile-header {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      padding: 0px 50px;
-      margin-bottom: 40px;
-      color: white;
-      font-size: 17px;
-      
-
-      .mobile-back-btn {
-        color: white;
-        position: absolute;
-        left: 0;
       }
     }
 
@@ -66,7 +39,7 @@
       border: 0;
       box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
       margin-bottom: 50px;
-      
+
       @media (min-width: $md) {
         padding: 23px 30px;
       }
@@ -75,7 +48,7 @@
         font-size: 18px;
         letter-spacing: 0.374px;
         margin-bottom: 7px;
-        
+
         @media (min-width: $md) {
           font-size: 24px;
           line-height: 41px;
@@ -86,12 +59,12 @@
       &__content {
         display: flex;
         flex-direction: column;
-        
+
         .info-line {
           font-size: 15px;
           margin-bottom: 4px;
-          color: #4F4F4F;
-          
+          color: #4f4f4f;
+
           @media (min-width: $md) {
             font-size: 16px;
             margin-bottom: 8px;
@@ -123,7 +96,7 @@
     .detail-row {
       font-size: 16px;
       line-height: 22px;
-      color: #4F4F4F;
+      color: #4f4f4f;
       margin-bottom: 8px;
     }
   }
