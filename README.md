@@ -1,32 +1,36 @@
 [![allclear](public/android-chrome-192x192.png)](https://allclear.app)
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a77435d2b6364fee9ef5385de8f25982)](https://app.codacy.com/gh/allcleardev/allclear-app?utm_source=github.com&utm_medium=referral&utm_content=allcleardev/allclear-app&utm_campaign=Badge_Grade_Dashboard)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=allcleardev_allclear-app&metric=security_rating)](https://sonarcloud.io/dashboard?id=allcleardev_allclear-app)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=allcleardev_allclear-app&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=allcleardev_allclear-app)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=allcleardev_allclear-app&metric=alert_status)](https://sonarcloud.io/dashboard?id=allcleardev_allclear-app)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=allcleardev_allclear-app&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=allcleardev_allclear-app)
+
 [![Version](https://badgen.net/github/tag/allcleardev/allclear-app)](https://github.com/allcleardev/allclear-app/tags)
 [![Release](https://badgen.net/github/release/allcleardev/allclear-app)](https://github.com/allcleardev/allclear-app/releases)
 [![Commits](https://badgen.net/github/commits/allcleardev/allclear-app)](https://github.com/allcleardev/allclear-app/commits/master)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=allcleardev_allclear-app&metric=ncloc)](https://sonarcloud.io/dashboard?id=allcleardev_allclear-app)
 
 [![All
 PRs](https://badgen.net/github/prs/allcleardev/allclear-app)](https://github.com/allcleardev/allclear-app/pulls) [![Build Status](https://badgen.net/github/open-prs/allcleardev/allclear-app)](https://github.com/allcleardev/allclear-app/pulls?q=is%3Aopen+is%3Apr)
 [![Closed
 PRs](https://badgen.net/github/closed-prs/allcleardev/allclear-app)](https://github.com/allcleardev/allclear-app/pulls?q=is%3Apr+is%3Aclosed)
 
-AllClear Front End Application
-==============================
+# AllClear Front End Application
 
--   [General Info](#general-info)
--   [Running the Project](#running-the-project)
--   [Testing the Project](#testing-the-project)
--   [Building the Project](#building-the-project)
--   [Further Reading](#further-reading)
+- [General Info](#general-info)
+- [Running the Project](#running-the-project)
+- [Testing the Project](#testing-the-project)
+- [Building the Project](#building-the-project)
+- [Further Reading](#further-reading)
 
-General Info
-------------
+## General Info
 
-This is the web version of [AllClear](http://go.allclear.app). 
+This is the web version of [AllClear](http://go.allclear.app).
 
 AllClear has the largest database of COVID-19 test centers in the country. Each listing is manually verified and regularly checked for updates and changes.
 
-Running the Project
--------------------
+## Running the Project
 
 In the project directory, run:
 
@@ -39,8 +43,7 @@ browser.
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
 
-Testing the Project
--------------------
+## Testing the Project
 
 In the project directory, run:
 
@@ -55,12 +58,9 @@ You can install
 You'll need to pull a session token from the admin app, and supply an
 env variable for some of the tests to run:
 
-```
-  SESSION_ID='GOD-SESSION-TOKEN'
-```
+`SESSION_ID='GOD-SESSION-TOKEN'`
 
-Building the Project
---------------------
+## Building the Project
 
 In the project directory, run:
 
@@ -73,14 +73,17 @@ for the best performance.
 The build is minified and the filenames include the hashes.<br />
 Your app is ready to be deployed!
 
-Further Reading
----------------
+## Further Reading
 
--   [Naming Conventions](./docs/naming-conventions.md)
--   [Contributing](./docs/CONTRIBUTING.md)
+- [Naming Conventions](./docs/naming-conventions.md)
+- [Code of Conduct](./docs/code_of_conduct.md)
+- [Contributing](./docs/contributing.md)
+- [Bug Report Issue Templates](./.github/ISSUE_TEMPLATE/bug_report.md)
+- [Feature Request Issue Template](./.github/ISSUE_TEMPLATE/feature_request.md)
+- [Feature Request Issue Template](./.github/ISSUE_TEMPLATE/feature_request.md)
+- [Pull Request Issue Template](./docs/pull_request_template.md)
 
-Contact
--------
+## Contact
 
 General inquiries: [info@allclear.app](mailto:info@allclear.app)
 
