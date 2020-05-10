@@ -60,7 +60,7 @@ export default class ProfileViewPage extends Component {
           <SettingsIcon className="settings-option__icon" />
         </IconButton>
 
-        <Header enableBackBtn={true}>
+        <Header>
           <div className="header-content">
             <h1 className="header-content__heading">Your Profile</h1>
 

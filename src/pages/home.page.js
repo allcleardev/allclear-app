@@ -179,7 +179,7 @@ export default class HomePage extends Component {
           <SettingsIcon className="settings-option__icon" />
         </IconButton>
 
-        <Header enableBackBtn={true}>
+        <Header>
           <Container className="header-content" maxWidth="md">
             <h1 className="header-content__heading">Home</h1>
 

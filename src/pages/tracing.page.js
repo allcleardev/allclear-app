@@ -16,7 +16,7 @@ class TracingPage extends Component {
   render() {
     return (
       <div className="tracing">
-        <Header enableBackBtn={true}></Header>
+        <Header />
         <Container className="content">
           <h1>
             Trace with us. <br /> Beat the virus.
