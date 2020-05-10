@@ -7,7 +7,7 @@ import GoogleMapsAutocomplete from '@general/inputs/google-maps-autocomplete';
 export default function MobileTopBar(props) {
   return (
     <div className="mobile-top-bar">
-      <MobileMenu isLoggedIn={props.isLoggedIn} btnStyle={props.btnStyle}></MobileMenu>
+      <MobileMenu btnStyle={props.btnStyle}></MobileMenu>
       <div className="location-search">
         <GoogleMapsAutocomplete
           locationSelected={props.onLocationSelected}

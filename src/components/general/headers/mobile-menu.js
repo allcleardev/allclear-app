@@ -1,25 +1,26 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import IconButton from '@material-ui/core/IconButton';
 import Logo from '@assets/images/logo-navy.svg';
+import { AppContext } from '@contexts/app.context';
 import { IS_LOGGED_IN_HEADER_LINKS, IS_LOGGED_OUT_HEADER_LINKS } from '@util/general.constants';
-import { cloneDeep, get } from 'lodash';
+import { cloneDeep } from 'lodash';
 
 export default function MobileMenu(props) {
+  const { appState } = useContext(AppContext);
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
 
   // checking if user is logged in for nav options logic
   // (note: recently moved this logic into this component; todo: remove references to props.isLoggedIn from app)
-  const isLoggedIn = get(this, ['context', 'appState', 'sessionId']);
-  console.log('logged in?', isLoggedIn);
+  const isLoggedIn = appState.sessionId ? true : false;
 
   let loggedOutLinks = cloneDeep(IS_LOGGED_OUT_HEADER_LINKS);
   loggedOutLinks.push({ name: 'Get Alerts', to: '/create-account' });
-  const links = props.isLoggedIn ? IS_LOGGED_IN_HEADER_LINKS : loggedOutLinks;
+  const links = isLoggedIn ? IS_LOGGED_IN_HEADER_LINKS : loggedOutLinks;
 
   function onMenuToggle() {
     setOpen((prevOpen) => !prevOpen);
