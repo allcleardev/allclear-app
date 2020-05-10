@@ -29,7 +29,7 @@ export default function Header({ enableBackBtn = false, enableColorBlock = true,
           <ArrowBackIosRounded></ArrowBackIosRounded>
         </IconButton>
       ) : (
-        <div className="hide-desktop" style={{ zIndex: 10 }}>
+        <div className="mobile-menu-container hide-desktop" style={{ zIndex: 10 }}>
           <MobileMenu></MobileMenu>
         </div>
       )}
