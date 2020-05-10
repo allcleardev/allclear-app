@@ -1,14 +1,13 @@
 import React, { Fragment } from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-// import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
+import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import { boolToEng, isNullOrUndefined, getFeedbackButtonURL } from '@util/general.helpers';
 import ExternalItemLinks from './external-item-links';
 import CustomizedExpansionPanel, { ExpansionPanelSummary, ExpansionPanelDetails } from './expansion-panel';
 import { Link } from 'react-router-dom';
 
 export default function TestingLocationListItem(props) {
-  // const { id, index, title, description, service_time, driveThru, phone, website, createdAt } = props; // values
-  const { id, index, title, description, service_time, driveThru, phone, website } = props;
+  const { id, index, title, description, service_time, driveThru, phone, website, createdAt } = props;
   const { onActionClick, onTestingLocationExpand } = props; // events
   const updatedAt = new Date(props.updatedAt);
 
@@ -23,13 +22,13 @@ export default function TestingLocationListItem(props) {
     onTestingLocationExpand(id, itemIndex, title, isExpanded);
   };
 
-  // const isNewLocation = (date) => {
-  //   const oneHour = 60 * 60 * 1000; /* milliseconds */
-  //   const createdAt = new Date(date);
-  //   const currentDate = new Date();
-  //
-  //   return (currentDate - createdAt) < (oneHour * 72);
-  // };
+  const isNewLocation = (date) => {
+    const oneHour = 60 * 60 * 1000; /* milliseconds */
+    const createdAt = new Date(date);
+    const currentDate = new Date();
+
+    return currentDate - createdAt < oneHour * 72;
+  };
 
   const summary = (
     <ExpansionPanelSummary
@@ -43,12 +42,14 @@ export default function TestingLocationListItem(props) {
           <span className="title-text">
             {index + 1}. {title}
           </span>
-          {/*{isNewLocation(createdAt) && (*/}
-          {/*  <div className="new-test-center-display">*/}
-          {/*    <span><FiberManualRecordIcon /></span>*/}
-          {/*    <span style={{ marginTop: '2px' }}>New</span>*/}
-          {/*  </div>*/}
-          {/*)}*/}
+          {isNewLocation(createdAt) && (
+            <div className="new-test-center-display">
+              <span>
+                <FiberManualRecordIcon />
+              </span>
+              <span style={{ marginTop: '2px' }}>New</span>
+            </div>
+          )}
         </h2>
 
         <dl className="summary d-none d-md-block">
@@ -83,12 +84,7 @@ export default function TestingLocationListItem(props) {
           <dd className="detsummaryails__item">{driveThru.toString() === 'true' ? 'Drive Through' : ''}</dd>
           <dd className="summary__item summary__item--semibold">{phone}</dd>
         </dl>
-        <ExternalItemLinks
-          display={'d-flex d-md-none'}
-          description={description}
-          phone={phone}
-          website={website}
-        />
+        <ExternalItemLinks display={'d-flex d-md-none'} description={description} phone={phone} website={website} />
         <h4>Test Center Details:</h4>
         <dl className="details">
           {!isNullOrUndefined(props.testCriteria) && (
@@ -151,14 +147,11 @@ export default function TestingLocationListItem(props) {
               <dd>{boolToEng(props.freeOrLowCost)}</dd>
             </Fragment>
           )}
-          <Link
-            to={`/test-centers/${props.id}`}>
-            View Full Test Center Detail
-          </Link>
+          <Link to={`/test-centers/${props.id}`}>View Full Test Center Detail</Link>
           <div className="mt-3">
-            <a href={changeURL}
-              target='_blank'
-              rel='noopener noreferrer'>Suggest Change To Test Center Information</a>
+            <a href={changeURL} target="_blank" rel="noopener noreferrer">
+              Suggest Change To Test Center Information
+            </a>
             <p className="fontsize-12">
               <i>Last update: {updatedAt.toLocaleString()}</i>
             </p>

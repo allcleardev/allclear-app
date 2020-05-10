@@ -34,7 +34,6 @@ export default function GoogleMapsAutocomplete(props) {
   const inputRef = React.createRef();
   const mapService = MapService.getInstance();
 
-
   useEffect(() => {
     mapService.autocompleteRef = inputRef;
     mapService.onLocationCleared = onInputChanged;
@@ -45,13 +44,12 @@ export default function GoogleMapsAutocomplete(props) {
     }
 
     // set default if its there
-    if(props.initialValue){
+    if (props.initialValue) {
       setInputValue(props.initialValue);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
 
   // only for clears
   function onInputChanged(evt, value, reason) {
@@ -95,7 +93,8 @@ export default function GoogleMapsAutocomplete(props) {
             ...request,
             // only send back location results that are in US
             componentRestrictions: {
-              country: 'us',
+              // allows up to 5 ISO-3166 codes.
+              country: ['as', 'gu', 'pr', 'us', 'vi'],
             },
           },
           callback,

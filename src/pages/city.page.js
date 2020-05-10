@@ -3,10 +3,10 @@ import Header from '../components/general/headers/header';
 import BottomNav from '../components/general/navs/bottom-nav';
 import Container from '@material-ui/core/Container';
 import GAService from '@services/ga.service';
-import {AppContext} from '@contexts/app.context';
-import {bindAll} from 'lodash';
+import { AppContext } from '@contexts/app.context';
+import { bindAll } from 'lodash';
 import FacilityService from '@services/facility.service';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class CityPage extends Component {
   static contextType = AppContext;
@@ -14,7 +14,7 @@ class CityPage extends Component {
   state = {
     stateName: '',
     cityName: '',
-    centerList: []
+    centerList: [],
   };
 
   constructor() {
@@ -36,13 +36,13 @@ class CityPage extends Component {
     const stateParam = this.props.match.params.state;
     const cityParam = this.props.match.params.city;
 
-    const response = await this.facilityService.search({state: stateParam, city: cityParam});
+    const response = await this.facilityService.search({ state: stateParam, city: cityParam });
 
     if (!response.err) {
       this.setState({
         stateName: stateParam,
         cityName: cityParam,
-        centerList: response.data.records
+        centerList: response.data.records,
       });
     } else {
       this.setState({
@@ -68,13 +68,13 @@ class CityPage extends Component {
 
           <div className="seo-list">
             {this.state.centerList &&
-            this.state.centerList.map((res) => {
-              return (
-                <Link
-                  key={res.id}
-                  to={`/test-centers/${res.id}`}>{res.name}</Link>
-              );
-            })}
+              this.state.centerList.map((res) => {
+                return (
+                  <Link key={res.id} to={`/test-centers/${res.id}`}>
+                    {res.name}
+                  </Link>
+                );
+              })}
           </div>
         </Container>
         <BottomNav active={2}></BottomNav>

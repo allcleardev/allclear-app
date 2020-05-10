@@ -68,7 +68,7 @@ export default class SignUpVerificationPage extends Component {
     }
 
     return phone;
-  }
+  };
 
   // Function to make call backend service to confirm the magic link
   async verifyPhoneNumber() {

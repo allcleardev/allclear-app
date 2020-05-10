@@ -152,12 +152,7 @@ export default class ProfileViewPage extends Component {
           </article>
 
           <Link to="/logout">
-            <DefaultButton
-              fullWidth
-              color="primary"
-              variant="outlined"
-              className="default-button"
-            >
+            <DefaultButton fullWidth color="primary" variant="outlined" className="default-button">
               Logout
             </DefaultButton>
           </Link>

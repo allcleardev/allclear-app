@@ -1,15 +1,14 @@
-const {SitemapStream} = require('sitemap');
-const {createWriteStream} = require('fs');
-const {resolve} = require('path');
+const { SitemapStream } = require('sitemap');
+const { createWriteStream } = require('fs');
+const { resolve } = require('path');
 const axios = require('axios');
-const {set, keys, forEach, bindAll} = require('lodash');
+const { set, keys, forEach, bindAll } = require('lodash');
 const rateLimit = require('axios-rate-limit');
 // const { execSync } = require('child_process');
 
 class SiteBuilder {
-
   constructor() {
-    this.api = rateLimit(axios.create(), {maxRequests: 75, perMilliseconds: 1000});
+    this.api = rateLimit(axios.create(), { maxRequests: 75, perMilliseconds: 1000 });
     // const currBranch = execSync(`git rev-parse --abbrev-ref HEAD`);
     const currBranch = process.env.GIT_BRANCH;
     console.log(`==== branch: ${currBranch} ====`);
@@ -28,23 +27,17 @@ class SiteBuilder {
       this.appUrl = 'https://app-staging.allclear.app';
     }
 
-    console.log('--- Creating Sitemap With These URLs: ---')
+    console.log('--- Creating Sitemap With These URLs: ---');
     console.log('baseURL', this.baseURL);
     console.log('appUrl', this.appUrl);
 
     this.failures = {};
 
-    bindAll(this, [
-      'getStates',
-      'getCities',
-      'build',
-      'populateCities',
-      'populateAllSitesInCity',
-    ]);
-    if(currBranch === 'staging' || currBranch === 'master' || currBranch === 'dev'){
+    bindAll(this, ['getStates', 'getCities', 'build', 'populateCities', 'populateAllSitesInCity']);
+    if (currBranch === 'staging' || currBranch === 'master' || currBranch === 'dev') {
       console.log(`Building on branch: ${currBranch}`);
       this.build();
-    }else{
+    } else {
       console.log(`Skipping build on branch: ${currBranch}`);
     }
   }
@@ -52,11 +45,11 @@ class SiteBuilder {
   async getLocations(body) {
     return this.api({
       method: 'POST',
-      headers: {'content-type': 'application/json'},
+      headers: { 'content-type': 'application/json' },
       url: `${this.baseURL}/facilities/search`,
       data: {
         ...body,
-        pageSize: 500 // todo: maybe this is not enough in the future
+        pageSize: 500, // todo: maybe this is not enough in the future
       },
     });
   }
@@ -64,8 +57,8 @@ class SiteBuilder {
   async getStates() {
     return this.api({
       method: 'GET',
-      headers: {'content-type': 'application/json'},
-      url: `${this.baseURL}/facilities/states`
+      headers: { 'content-type': 'application/json' },
+      url: `${this.baseURL}/facilities/states`,
     });
   }
 
@@ -73,7 +66,7 @@ class SiteBuilder {
     return this.api({
       method: 'GET',
       url: `${this.baseURL}/facilities/cities`,
-      params: {state}
+      params: { state },
     });
   }
 
@@ -82,109 +75,98 @@ class SiteBuilder {
 
     // loop thru states
     forEach(this.stateMap, async (e, state) => {
-
       // loop thru cities
       forEach(this.stateMap[state].cities, (e, city) => {
-
         // call a search for all facilities within a city
-        const currPromise = this.getLocations({city, state})
-          .then(({data}) => {
-            const {records} = data;
+        const currPromise = this.getLocations({ city, state })
+          .then(({ data }) => {
+            const { records } = data;
             // const dashedCity = dashStr(city);
             // const dashedState = dashStr(state);
-            set(this, `stateMap.${state}.cities.${city}`, {...e, records});
-            console.log(`==SETTING locations for: ${city}, ${state}`)
+            set(this, `stateMap.${state}.cities.${city}`, { ...e, records });
+            console.log(`==SETTING locations for: ${city}, ${state}`);
 
             // finally, write out this facility route to the sitemap
             forEach(records, (facility) => {
               // const dashedName = dashStr(facility.name);
-              const {id} = facility;
+              const { id } = facility;
               // todo: comment this in for both name and id
               // this.smStream.write({url: `/locations/${dashedState}/${dashedCity}/${dashedName}`});
-              this.smStream.write({url: `/locations/${state}/${city}/${id}`});
+              this.smStream.write({ url: `/locations/${state}/${city}/${id}` });
             });
-
           })
           .catch((err) => {
-            this.failures[city] = {...err, location: `${state},${city}` };
+            this.failures[city] = { ...err, location: `${state},${city}` };
           });
         allPromises.push(currPromise);
-
       });
     });
 
-    Promise.all(allPromises)
-      .then(() => {
-        console.log('-------------------');
-        console.log('Sitemap Completed!');
-        console.log('-------------------');
-        console.log(`${keys(this.failures).length} Failures ⬇`);
+    Promise.all(allPromises).then(() => {
+      console.log('-------------------');
+      console.log('Sitemap Completed!');
+      console.log('-------------------');
+      console.log(`${keys(this.failures).length} Failures ⬇`);
 
-        forEach(this.failures, (e) => {
-          console.log(e.location);
-        });
-
-        this.smStream.end();
-        this.smStream.pipe(createWriteStream(resolve('./public/sitemap.xml')));
+      forEach(this.failures, (e) => {
+        console.log(e.location);
       });
+
+      this.smStream.end();
+      this.smStream.pipe(createWriteStream(resolve('./public/sitemap.xml')));
+    });
   }
 
   populateCities() {
     let allPromises = [];
     forEach(this.stateMap, async (e, state) => {
-      const currPromise = this.getCities(state).then(({data}) => {
+      const currPromise = this.getCities(state).then(({ data }) => {
         forEach(data, (city) => {
           const cityName = city.name;
           // const dashedCity = dashStr(cityName);
           // const dashedState = dashStr(state);
-          set(this, `stateMap.${state}.cities.${cityName}`, {total: city.total});
-          this.smStream.write({url: `/locations/${state}/${cityName}`});
+          set(this, `stateMap.${state}.cities.${cityName}`, { total: city.total });
+          this.smStream.write({ url: `/locations/${state}/${cityName}` });
         });
       });
       allPromises.push(currPromise);
     });
 
     Promise.all(allPromises).then(() => {
-      console.log('=== Populating Centers Per City . Please Hold... ===')
+      console.log('=== Populating Centers Per City . Please Hold... ===');
       this.populateAllSitesInCity();
     });
   }
 
   async build() {
     try {
-      this.smStream = new SitemapStream({hostname: this.appUrl});
+      this.smStream = new SitemapStream({ hostname: this.appUrl });
 
-      this.smStream.write({url: '/map'});
-      this.smStream.write({url: '/contact-tracing'});
-      this.smStream.write({url: '/create-account'});
-      this.smStream.write({url: '/state-list'});
+      this.smStream.write({ url: '/map' });
+      this.smStream.write({ url: '/contact-tracing' });
+      this.smStream.write({ url: '/create-account' });
+      this.smStream.write({ url: '/state-list' });
 
       this.stateMap = {};
       console.log('Populating States');
       await this.getStates()
         .then((resp) => {
-
           forEach(resp.data, (e2) => {
             this.stateMap[e2.name] = {};
           });
 
           console.log('Populating Cities');
           this.populateCities();
-
         })
-        .catch((e, i) => {
-
-        });
-
+        .catch((e, i) => {});
     } catch (e) {
       console.error(e);
     }
   }
-
 }
 
-function dashStr(str) {
-  return str.replace(/ /g, '-');
-}
+// function dashStr(str) {
+//   return str.replace(/ /g, '-');
+// }
 
-const builder = new SiteBuilder();
+new SiteBuilder();

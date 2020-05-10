@@ -14,38 +14,25 @@ export default function LinkButton(props) {
   // round-icon
 
   return (
-    <a
-      href={props.href}
-      rel="noopener noreferrer"
-      target="_blank"
-      onClick={onClick}
-    >
-      {
-        props.theme === 'rectangle-text' && (
-          <Button className="link-button primary-color primary-outline">
-            {props.text}
-          </Button>
-        )
-      }
-      {
-        props.theme === 'rectangle-icon' && (
-          <IconButton
-            aria-label="call"
-            className="link-icon-button primary-color primary-outline d-lg-none"
-            color="primary"
-          >
-            {props.children}
-          </IconButton>
-        )
-      }
-      {
-        props.theme === 'round-icon' && (
-          <>
-            {React.cloneElement(props.children, { className: 'link-button-icon' })}
-            <p>{props.text}</p>
-          </>
-        )
-      }
+    <a href={props.href} rel="noopener noreferrer" target="_blank" onClick={onClick}>
+      {props.theme === 'rectangle-text' && (
+        <Button className="link-button primary-color primary-outline">{props.text}</Button>
+      )}
+      {props.theme === 'rectangle-icon' && (
+        <IconButton
+          aria-label="call"
+          className="link-icon-button primary-color primary-outline d-lg-none"
+          color="primary"
+        >
+          {props.children}
+        </IconButton>
+      )}
+      {props.theme === 'round-icon' && (
+        <>
+          {React.cloneElement(props.children, { className: 'link-button-icon' })}
+          <p>{props.text}</p>
+        </>
+      )}
     </a>
   );
 }

@@ -44,11 +44,13 @@ export default class PeopleService {
   }
 
   logout(currSession) {
-    const headers = (currSession) ? {
-      'X-AllClear-SessionID': currSession,
-    } : {
-      ...this.headers.headers
-    };
+    const headers = currSession
+      ? {
+          'X-AllClear-SessionID': currSession,
+        }
+      : {
+          ...this.headers.headers,
+        };
 
     return Axios({
       method: 'DELETE',
