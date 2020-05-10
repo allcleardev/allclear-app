@@ -33,7 +33,7 @@ export default function MobileMenu(props) {
   }
 
   return (
-    <div className="mobile-menu">
+    <div className={props.btnStyle === 'white' ? 'mobile-menu mobile-menu--white' : 'mobile-menu'}>
       <IconButton
         disableRipple
         ref={anchorRef}

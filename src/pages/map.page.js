@@ -263,6 +263,7 @@ export default function MapPage() {
           onLocationSelected={onLocationSelected}
           onLocationCleared={onLocationCleared}
           onFilterClick={onEditFiltersBtnClick}
+          btnStyle={'white'}
         ></MobileTopBar>
       ) : (
         <Header />

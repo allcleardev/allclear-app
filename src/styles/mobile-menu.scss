@@ -1,6 +1,5 @@
 .mobile-menu {
-  $min-height: 695px; // specific to this component only
-
+  $min-height: 805px; // specific to this component only
   z-index: 10;
 
   @media (min-width: $md) {
@@ -63,7 +62,6 @@
     height: 44px;
     width: 44px;
     padding: 10px;
-    box-shadow: 0px 5px 32px rgba(0, 0, 0, 0.08), 0px 10px 20px rgba(0, 0, 0, 0.15);
     transition: all ease 2.5s;
 
     &:before,
@@ -76,7 +74,6 @@
       border-radius: 50%;
       height: 100%;
       width: 100%;
-      background-color: #fff;
       transition-property: transform;
     }
     &:before {
@@ -123,7 +120,7 @@
       width: 18px;
       height: 2px;
       border-radius: 10px;
-      background-color: #000;
+      background-color: #fff;
 
       &:before,
       &:after {
@@ -148,9 +145,9 @@
   }
 
   .circle {
-    position: absolute;
-    top: 40px;
-    left: 40px;
+    position: fixed;
+    top: 32px;
+    left: 32px;
     width: 0;
     height: 0;
     border-radius: 100%;
@@ -163,6 +160,31 @@
       width: 500%;
       padding-top: 500%;
       transition-duration: 0.7s;
+    }
+  }
+
+  // for 'map' style button
+  &--white {
+    .icon-button {
+      box-shadow: 0px 5px 32px rgba(0, 0, 0, 0.08), 0px 10px 20px rgba(0, 0, 0, 0.15);
+
+      &:before,
+      &:after {
+        background-color: #fff;
+      }
+
+      .icon {
+        background-color: #000;
+
+        &:before,
+        &:after {
+          background-color: #000;
+        }
+      }
+    }
+
+    .circle {
+      background-color: rgba(255, 255, 255, 0.95);
     }
   }
 }
