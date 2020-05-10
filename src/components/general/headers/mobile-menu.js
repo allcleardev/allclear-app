@@ -13,14 +13,10 @@ export default function MobileMenu(props) {
   const { appState } = useContext(AppContext);
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
-
-  // checking if user is logged in for nav options logic
-  // (note: recently moved this logic into this component; todo: remove references to props.isLoggedIn from app)
   const isLoggedIn = appState.sessionId ? true : false;
-
-  let loggedOutLinks = cloneDeep(IS_LOGGED_OUT_HEADER_LINKS);
-  loggedOutLinks.push({ name: 'Get Alerts', to: '/create-account' });
+  const loggedOutLinks = cloneDeep(IS_LOGGED_OUT_HEADER_LINKS);
   const links = isLoggedIn ? IS_LOGGED_IN_HEADER_LINKS : loggedOutLinks;
+  loggedOutLinks.push({ name: 'Get Alerts', to: '/create-account' });
 
   function onMenuToggle() {
     setOpen((prevOpen) => !prevOpen);
