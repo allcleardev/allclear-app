@@ -13,8 +13,6 @@ import { ReactComponent as MapPin } from '@assets/images/map-pin.svg';
 import { ReactComponent as HealthIcon } from '@assets/images/health-icon.svg';
 
 import Header from '@components/general/headers/header';
-import BottomNav from '@components/general/navs/bottom-nav';
-
 import SnackbarMessage from '@general/alerts/snackbar-message';
 import { triggerShareAction } from '@util/social.helpers';
 import { AppContext } from '@contexts/app.context';
@@ -181,7 +179,7 @@ export default class HomePage extends Component {
           <SettingsIcon className="settings-option__icon" />
         </IconButton>
 
-        <Header enableBackBtn={true}>
+        <Header>
           <Container className="header-content" maxWidth="md">
             <h1 className="header-content__heading">Home</h1>
 
@@ -317,8 +315,6 @@ export default class HomePage extends Component {
           message={this.state.snackbarMessage}
           onClose={this.handleSnackbarClose}
         />
-
-        <BottomNav active={0}></BottomNav>
       </section>
     );
   }
