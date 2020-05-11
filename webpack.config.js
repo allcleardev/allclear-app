@@ -6,6 +6,7 @@ module.exports = {
       '@root': path.resolve(__dirname, './'),
       '@components': path.resolve(__dirname, './src/components'),
       '@general': path.resolve(__dirname, './src/components/general'),
+      '@hocs': path.resolve(__dirname, './src/components/higher-order-components'),
       '@svg': path.resolve(__dirname, './src/components/svg'),
       '@pages': path.resolve(__dirname, './src/pages'),
       '@routes': path.resolve(__dirname, './src/routes'),
