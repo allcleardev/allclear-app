@@ -78,6 +78,7 @@
     "@root": "./",
     "@components": "./src/components",
     "@general": "./src/components/general",
+    "@hocs": "./src/components/higher-order-components",
     "@svg": "./src/components/svg",
     "@pages": "./src/pages",
     "@routes": "./src/routes",

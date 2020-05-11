@@ -8,6 +8,7 @@ import React, { useContext } from 'react';
 import { Link, NavLink, useHistory } from 'react-router-dom';
 
 import Logo from '@assets/images/logo-white.svg';
+import MobileMenu from '@general/headers/mobile-menu';
 import { AppContext } from '@contexts/app.context';
 import { IS_LOGGED_IN_HEADER_LINKS, IS_LOGGED_OUT_HEADER_LINKS } from '@util/general.constants';
 
@@ -28,7 +29,9 @@ export default function Header({ enableBackBtn = false, enableColorBlock = true,
           <ArrowBackIosRounded></ArrowBackIosRounded>
         </IconButton>
       ) : (
-        ''
+        <div className="mobile-menu-container hide-desktop" style={{ zIndex: 10 }}>
+          <MobileMenu></MobileMenu>
+        </div>
       )}
 
       <div className="desktop-navigation">
