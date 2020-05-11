@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import Header from '../components/general/headers/header';
-import BottomNav from '../components/general/navs/bottom-nav';
 import Container from '@material-ui/core/Container';
-import GAService from '@services/ga.service';
-import { AppContext } from '@contexts/app.context';
-import { bindAll } from 'lodash';
-import FacilityService from '@services/facility.service';
+import {bindAll, startCase} from 'lodash';
 import { Link } from 'react-router-dom';
+
+import { AppContext } from '@contexts/app.context';
+import GAService from '@services/ga.service';
+import FacilityService from '@services/facility.service';
+import MetadataService from '@services/metadata.service';
+import Header from '@components/general/headers/header';
+import BottomNav from '@components/general/navs/bottom-nav';
 
 class StatePage extends Component {
   static contextType = AppContext;
@@ -20,15 +22,30 @@ class StatePage extends Component {
     super();
 
     this.gaService = GAService.getInstance();
+    this.metadataService = MetadataService.getInstance();
+    this.facilityService = FacilityService.getInstance();
     this.gaService.setScreenName('cities');
 
     bindAll(this, ['getCities']);
 
-    this.facilityService = FacilityService.getInstance();
   }
 
   async componentDidMount() {
-    this.getCities();
+    await this.getCities();
+    let {stateName} = this.state;
+    stateName = startCase(stateName);
+    this.metadataService.setPageHead({
+      title: `${stateName} COVID-19 Testing Centers | AllClear`,
+      description: `Find a COVID-19 testing centers in ${stateName} by selecting your city. AllClear is your guide to find where to get
+      tested, quickly. Please contact your nearest center with any questions.`,
+    });
+  }
+
+  componentWillUnmount() {
+    this.metadataService.setPageHead({
+      title: 'RESET',
+      description: 'RESET',
+    });
   }
 
   async getCities() {
@@ -54,7 +71,7 @@ class StatePage extends Component {
       <div className="tracing">
         <Header enableBackBtn={true}></Header>
         <Container className="content">
-          <h1>{this.state.stateName} COVID-19 Testing Centers | AllClear</h1>
+          <h1>{startCase(this.state.stateName)} COVID-19 Testing Centers | AllClear</h1>
           <h2>
             Find a COVID-19 testing center in {this.state.stateName} by selecting your city. AllClear is your guide to
             find where to get tested, quickly. Please contact your nearest center with any questions.
@@ -62,9 +79,11 @@ class StatePage extends Component {
 
           <div className="seo-list">
             {this.state.cityList &&
-              this.state.cityList.map((res) => {
+              this.state.cityList.map((res,i) => {
                 return (
-                  <Link to={`/locations/${this.state.stateName}/${res.name}`}>
+                  <Link
+                    key={i}
+                    to={`/locations/${this.state.stateName}/${res.name}`}>
                     {res.name} ({res.total})
                   </Link>
                 );
