@@ -109,7 +109,6 @@ export default class PeopleService {
   }
 
   async verifyAuthRequest(payload) {
-    console.log('payload', payload);
     return Axios.put('/peoples/auth', payload, {})
       .then((response) => {
         return response;
