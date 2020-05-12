@@ -6,7 +6,7 @@
     padding: 3px 20px;
     margin-right: 10px;
     font-size: 13px;
-    
+
     @media (min-width: $md) {
       margin-right: 15px;
       font-size: 14px;
@@ -18,10 +18,11 @@
   &.MuiIconButton-root {
     padding: 5px 26px;
     border-radius: 14px;
-    
+
     .MuiSvgIcon-root {
       width: 16px;
       height: 16px;
     }
   }
 }
+

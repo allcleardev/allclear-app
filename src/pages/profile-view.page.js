@@ -8,7 +8,6 @@ import { ReactComponent as SettingsIcon } from '@assets/images/settings-icon.svg
 import { AppContext } from '@contexts/app.context';
 
 import Header from '@components/general/headers/header';
-import BottomNav from '@components/general/navs/bottom-nav';
 import { Button, IconButton, Chip, Container, withStyles } from '@material-ui/core';
 
 export default class ProfileViewPage extends Component {
@@ -61,7 +60,7 @@ export default class ProfileViewPage extends Component {
           <SettingsIcon className="settings-option__icon" />
         </IconButton>
 
-        <Header enableBackBtn={true}>
+        <Header>
           <div className="header-content">
             <h1 className="header-content__heading">Your Profile</h1>
 
@@ -153,17 +152,11 @@ export default class ProfileViewPage extends Component {
           </article>
 
           <Link to="/logout">
-            <DefaultButton
-              fullWidth
-              color="primary"
-              variant="outlined"
-              className="default-button"
-            >
+            <DefaultButton fullWidth color="primary" variant="outlined" className="default-button">
               Logout
             </DefaultButton>
           </Link>
         </Container>
-        <BottomNav active={3}></BottomNav>
       </section>
     );
   }

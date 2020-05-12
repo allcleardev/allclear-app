@@ -1,17 +1,17 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import {hydrate, render} from 'react-dom';
 import {colorLog, loadScript} from '@util/general.helpers';
 import LogRocket from 'logrocket';
 import setupLogRocketReact from 'logrocket-react';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { ThemeProvider } from '@material-ui/core/styles';
+import {ThemeProvider} from '@material-ui/core/styles';
 
 import theme from './theme';
 import Router from './Router';
 
 import * as serviceWorker from './service-worker';
-import { bootstrapAxios } from '@util/bootstrap.helpers';
+import {bootstrapAxios} from '@util/bootstrap.helpers';
 
 import 'typeface-heebo';
 
@@ -25,10 +25,12 @@ if (!isLocalDevBuild) {
 
   //eslint-disable-next-line
   window.dataLayer = window.dataLayer || [];
-  function gtag(){
+
+  function gtag() {
     //eslint-disable-next-line
     dataLayer.push(arguments);
   }
+
   gtag('js', new Date());
   gtag('config', 'G-W6BW925QD6');
 
@@ -47,14 +49,18 @@ el && el.parentNode.removeChild(el);
 const appRoot = document.getElementById('root');
 appRoot.style.display = 'flex';
 
-ReactDOM.render(
+const rootElement = document.getElementById('root');
+const app = (
   <ThemeProvider theme={theme}>
     {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-    <CssBaseline />
-    <Router />
-  </ThemeProvider>,
-  document.getElementById('root'),
-);
+    <CssBaseline/>
+    <Router/>
+  </ThemeProvider>);
+if (rootElement.hasChildNodes()) {
+  hydrate(app, rootElement);
+} else {
+  render(app, rootElement);
+}
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

@@ -61,6 +61,8 @@ class BackgroundPage extends Component {
       if (navigator && navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(this._onLocationAccepted, this._onLocationDeclined);
       }
+    } else {
+      this.setState({ location: false });
     }
   }
 

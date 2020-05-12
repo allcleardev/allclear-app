@@ -31,11 +31,11 @@ export default class PeopleService {
   getById(id, currSession) {
     currSession = currSession
       ? {
-          'X-AllClear-SessionID': currSession,
-        }
+        'X-AllClear-SessionID': currSession,
+      }
       : {
-          ...this.headers.headers,
-        };
+        ...this.headers.headers,
+      };
     return Axios({
       method: 'GET',
       url: `${this.baseURL}/${id}`,
@@ -44,11 +44,13 @@ export default class PeopleService {
   }
 
   logout(currSession) {
-    const headers = (currSession) ? {
-      'X-AllClear-SessionID': currSession,
-    } : {
-      ...this.headers.headers
-    };
+    const headers = currSession
+      ? {
+        'X-AllClear-SessionID': currSession,
+      }
+      : {
+        ...this.headers.headers,
+      };
 
     return Axios({
       method: 'DELETE',
@@ -60,11 +62,11 @@ export default class PeopleService {
   async editProfile(postData, currSession) {
     currSession = currSession
       ? {
-          'X-AllClear-SessionID': currSession,
-        }
+        'X-AllClear-SessionID': currSession,
+      }
       : {
-          ...this.headers.headers,
-        };
+        ...this.headers.headers,
+      };
     return Axios.put(`${this.baseURL}`, postData, currSession)
       .then((response) => {
         return response;
