@@ -6,29 +6,32 @@ const time = date.toLocaleString('en-US', {hour: 'numeric', minute: 'numeric', h
 
 let baseURL;
 
-if (process.env.GIT_BRANCH === 'master') {
-  baseURL = 'https://api.allclear.app';
-} else if (process.env.GIT_BRANCH === 'staging') {
-  baseURL = 'https://api-staging.allclear.app';
-  generateRobots();
-} else {
-  baseURL = 'https://api-dev.allclear.app';
-  generateRobots();
-}
-
 // read env file
 const envfile = require('envfile');
 let envFileParsed = envfile.parseFileSync('.env');
+
+if (process.env.GIT_BRANCH === 'master') {
+  baseURL = 'https://api.allclear.app';
+  generateRobots(false);
+} else if (process.env.GIT_BRANCH === 'staging') {
+  baseURL = 'https://api-staging.allclear.app';
+  generateRobots(true);
+} else {
+  baseURL = 'https://api-dev.allclear.app';
+  generateRobots(true);
+}
+
 
 // write new variables to env file for FE consumption
 envFileParsed.REACT_APP_BUILT_AT = `${fullDate} - ${time}`;
 envFileParsed.REACT_APP_BASE_URL = baseURL;
 fs.writeFileSync('./.env', envfile.stringifySync(envFileParsed));
 
-function generateRobots() {
+function generateRobots(shouldIgnore) {
   const robotsTxt =
     `User-agent: *
 Disallow: /`;
-  fs.writeFileSync('./public/robots.txt', robotsTxt);
+  shouldIgnore && fs.writeFileSync('./public/robots.txt', robotsTxt);
+  envFileParsed.REACT_APP_ROBOTS_DIRECTIVE = (shouldIgnore) ? 'noindex, nofollow' : 'index, follow';
 }
 
