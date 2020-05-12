@@ -6,12 +6,14 @@
 /.pnp
 .pnp.js
 package-lock.json
+robots.txt
 
 # testing
 /coverage
 
 # production
 /build
+public/robots.txt
 
 # misc
 .DS_Store
