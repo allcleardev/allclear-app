@@ -1,15 +1,24 @@
-import React, { Component } from 'react';
-import { AppContext } from '@contexts/app.context';
-import { bindAll, get, debounce } from 'lodash';
-import Header from '@components/general/headers/header';
-import FacilityService from '@services/facility.service';
+import React, {Component} from 'react';
 import Button from '@material-ui/core/Button';
+import {bindAll, get, debounce} from 'lodash';
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import PhoneIcon from '@material-ui/icons/Phone';
-import { getFacilityDetailsMap, convertToReadableDate, getFeedbackButtonURL } from '@util/general.helpers';
+import {withRouter} from 'react-router';
+import {Container} from '@material-ui/core';
+
+import {AppContext} from '@contexts/app.context';
+import Header from '@components/general/headers/header';
+import FacilityService from '@services/facility.service';
+import {
+  getFacilityDetailsMap,
+  convertToReadableDate,
+  getFeedbackButtonURL,
+  isTaggableLocation,
+  addDays,
+  loadDynamicScript
+} from '@util/general.helpers';
 import LinkButton from '@general/buttons/link-button';
-import { withRouter } from 'react-router';
-import { Container } from '@material-ui/core';
+
 
 class TestCenterPage extends Component {
   static contextType = AppContext;
@@ -20,9 +29,8 @@ class TestCenterPage extends Component {
 
   constructor(props) {
     super(props);
-    bindAll(this, ['componentDidMount', 'onWindowResize', 'onBackClick', 'componentWillUnmount']);
+    bindAll(this, ['componentDidMount', 'onWindowResize', 'onBackClick', 'componentWillUnmount', 'applyCovidTag']);
     this.id = props.match.params.id;
-    this.isLoading = true;
     this.facilityService = FacilityService.getInstance();
   }
 
@@ -31,19 +39,53 @@ class TestCenterPage extends Component {
     window.addEventListener('resize', debounce(this.onWindowResize, 400));
     const sessionId = get(this, ['context', 'appState', 'sessionId']);
     this.isLoggedIn = sessionId ? true : false;
-    const facility = await this.facilityService.getFacility(this.id).then((res) => {
-      const facility = res.data;
-      this.loading = false;
-      this.facilityDetailsMap = getFacilityDetailsMap(facility);
-      this.feedbackURL = getFeedbackButtonURL(facility);
-      facility.lastUpdated = convertToReadableDate(facility.updatedAt);
-      return facility;
-    });
-    this.setState({ facility });
+    const facility = await this.facilityService.getFacility(this.id)
+      .then((res) => {
+        const facility = res.data;
+        this.loading = false;
+        this.facilityDetailsMap = getFacilityDetailsMap(facility);
+        this.feedbackURL = getFeedbackButtonURL(facility);
+        facility.lastUpdated = convertToReadableDate(facility.updatedAt);
+        return facility;
+      });
+    this.setState({facility});
+
+    // stamp page with covid tag if its new
+    isTaggableLocation(facility.lastUpdated) && this.applyCovidTag();
+  }
+
+  applyCovidTag() {
+    console.log('applying tag!');
+    const {name, city, state, address, id, lastUpdated} = this.state.facility;
+    const thisUrl = `${process.env.REACT_APP_BASE_URL}/test-centers/${id}`;
+    const tag = {
+      '@context': 'https://schema.org',
+      '@type': 'SpecialAnnouncement',
+      name: 'Get Tested for COVID-19',
+      text: `${name} is offering testing for COVID-19!`,
+      datePosted: new Date(lastUpdated).toISOString(),
+      expires: addDays(new Date(lastUpdated), 30).toISOString(),
+      gettingTestedInfo: thisUrl,
+      category: 'https://www.wikidata.org/wiki/Q81068910',
+      announcementLocation: {
+        '@type': 'CivicStructure',
+        name,
+        url: thisUrl,
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: address,
+          addressLocality: city,
+          // postalCode: '56308', // we dont have an attribute for this
+          addressRegion: state,
+          addressCountry: 'US'
+        }
+      }
+    };
+    loadDynamicScript('application/ld+json', JSON.stringify(tag));
   }
 
   onWindowResize() {
-    this.setState({ mobileView: window.innerWidth < 960 });
+    this.setState({mobileView: window.innerWidth < 960});
   }
 
   onBackClick() {
@@ -63,7 +105,7 @@ class TestCenterPage extends Component {
           <h1 className="heading">Test Center Details</h1>
         </Header>
         <Container className="test-center-page__content" maxWidth="md">
-          <Button className="back-btn hide-mobile" startIcon={<KeyboardArrowLeftIcon />} onClick={this.onBackClick}>
+          <Button className="back-btn hide-mobile" startIcon={<KeyboardArrowLeftIcon/>} onClick={this.onBackClick}>
             Back
           </Button>
           {facility && (
@@ -77,27 +119,27 @@ class TestCenterPage extends Component {
                   <div className="info-line">{facility.hours}</div>
                 </div>
                 <div className="card__actions">
-                  {facility.url && <LinkButton href={facility.url} theme="rectangle-text" text="Website" />}
+                  {facility.url && <LinkButton href={facility.url} theme="rectangle-text" text="Website"/>}
                   <LinkButton
                     href={'https://www.google.com/maps/dir/?api=1&destination=' + facility.address}
                     theme="rectangle-text"
                     text="Directions"
                   />
                   <LinkButton href={'tel:' + facility.phone} theme="rectangle-icon" text="Call">
-                    <PhoneIcon />
+                    <PhoneIcon/>
                   </LinkButton>
                 </div>
               </article>
 
               {/* Details Card */}
               <article className="card test-center-page__details-card">
-                <div style={{ marginBottom: '30px' }}>
+                <div style={{marginBottom: '30px'}}>
                   {this.facilityDetailsMap.map((row) => (
-                    <DetailRow key={row.field} field={row.field} value={row.value} />
+                    <DetailRow key={row.field} field={row.field} value={row.value}/>
                   ))}
                 </div>
                 {facility.lastUpdated && (
-                  <DetailRow field="Last Updated" value={facility.lastUpdated} textSize="small" color="primary" />
+                  <DetailRow field="Last Updated" value={facility.lastUpdated} textSize="small" color="primary"/>
                 )}
               </article>
 
