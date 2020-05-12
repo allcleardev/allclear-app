@@ -26,7 +26,6 @@ export default function TestingLocationListItem(props) {
     const oneHour = 60 * 60 * 1000; /* milliseconds */
     const createdAt = new Date(date);
     const currentDate = new Date();
-
     return currentDate - createdAt < oneHour * 72;
   };
 
