@@ -92,7 +92,7 @@ export function withVerification(authType, onVerification, onCodeResent, display
         localStorage.setItem('sessionId', response.data.id);
         localStorage.setItem('session', JSON.stringify(response.data));
 
-        this.props.history.push('/map');
+        this.props.history.push('/home');
       } else {
         const error = response;
 
