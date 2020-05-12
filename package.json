@@ -32,7 +32,6 @@
     "react-animate-height": "^2.0.20",
     "react-cookie": "^4.0.3",
     "react-dom": "^16.13.1",
-    "react-ga": "^2.7.0",
     "react-hammerjs": "^1.0.1",
     "react-places-autocomplete": "^7.2.1",
     "react-router": "^5.1.2",

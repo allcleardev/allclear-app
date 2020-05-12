@@ -1,6 +1,4 @@
 import React from 'react';
-// todo: init w library instead
-// import ReactGA from 'react-ga';
 import ReactDOM from 'react-dom';
 import {colorLog, loadScript} from '@util/general.helpers';
 import LogRocket from 'logrocket';
@@ -23,8 +21,6 @@ const isLocalDevBuild = process.env.NODE_ENV === 'development';
 if (!isLocalDevBuild) {
 
   //Initialize GA
-
-  // ReactGA.initialize('G-W6BW925QD6');
   loadScript('https://www.googletagmanager.com/gtag/js?id=G-W6BW925QD6');
 
   //eslint-disable-next-line

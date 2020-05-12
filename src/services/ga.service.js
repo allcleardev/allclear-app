@@ -1,12 +1,11 @@
-import ReactGA from 'react-ga';
-
 export default class GAService {
   static serviceInstance = null;
 
   constructor() {
-    this.isLocalDevBuild = process.env.NODE_ENV === 'development';
+    this.gaEnabled = false;
 
-    if (!this.isLocalDevBuild) {
+    if (process.env.NODE_ENV !== 'development' && ga) {
+      this.gaEnabled = true;
       ga('set', 'appName', 'allclear');
     }
   }
@@ -20,13 +19,13 @@ export default class GAService {
   }
 
   setScreenName(name) {
-    if (!this.isLocalDevBuild) {
+    if (this.gaEnabled) {
       ga('screen_class', {screenName: name});
     }
   }
 
   sendEvent(name, params) {
-    if (!this.isLocalDevBuild) {
+    if (this.gaEnabled) {
       ga('event', name, params);
     }
   }
