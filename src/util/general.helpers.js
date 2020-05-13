@@ -13,6 +13,19 @@ export function isNullOrUndefined(value) {
   return isUndefined(value) || isNull(value);
 }
 
+export function isTaggableLocation(updatedDate) {
+  const oneHour = 60 * 60 * 1000; /* milliseconds */
+  const createdAt = new Date(updatedDate);
+  const currentDate = new Date();
+  return currentDate - createdAt < oneHour * 720;
+}
+
+export function addDays(date,days) {
+  const copy = new Date(Number(date));
+  copy.setDate(date.getDate() + days);
+  return copy;
+}
+
 export function getNumActiveFilters(searchCriteria) {
   return reduce(
     searchCriteria,
@@ -38,10 +51,17 @@ export function getActiveFilters(searchCriteria) {
 }
 
 export function loadScript(file) {
-  var script = document.createElement('script');
+  let script = document.createElement('script');
   script.type = 'text/javascript';
   script.async = true;
   script.src = file;
+  document.head.appendChild(script);
+}
+
+export function loadDynamicScript(type, content) {
+  let script = document.createElement('script');
+  script.type = type;
+  script.textContent = content;
   document.head.appendChild(script);
 }
 

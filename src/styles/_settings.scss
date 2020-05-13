@@ -3,7 +3,6 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding-bottom: 80px; // making space for bottom navigation bar
 
   @media (min-width: $md) {
     padding-bottom: 30px;
@@ -35,7 +34,6 @@
 
   .card {
     visibility: hidden; // This is Temporary -- TODO: Remove when other features are added back
-
     margin-bottom: 34px;
     padding: 15px 14px;
     border-radius: 6px;
