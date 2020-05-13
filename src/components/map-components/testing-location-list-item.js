@@ -109,7 +109,7 @@ export default function TestingLocationListItem(props) {
 
         <div className="icons-container d-none d-md-flex">
           <ExternalItemLinks
-            display={'d-none d-md-flex'}
+            display={'d-md-flex'}
             description={description}
             phone={phone}
             website={website}
@@ -134,7 +134,7 @@ export default function TestingLocationListItem(props) {
           <dd className="summary__item summary__item--semibold">{phone}</dd>
         </dl>
         <div className="icons-container d-flex d-md-none">
-          <ExternalItemLinks display={'d-flex d-md-none'} description={description} phone={phone} website={website} />
+          <ExternalItemLinks display={'d-flex'} description={description} phone={phone} website={website} />
           <div onClick={(e) => onShareClicked(e, id)} className="share-container">
             <ShareIcon className="link-button-icon" />
             <p>Share</p>
