@@ -105,15 +105,9 @@
   }
 }
 
-.list-item-buttons {
-  width: 330px;
-}
-
 .link-button {
   text-align: center;
-  margin-right: auto;
-  margin-left: auto;
-  font-size: 12px;
+  margin-right: 40px;
 }
 
 .link-button-icon {
@@ -122,4 +116,19 @@
   padding: 5px;
   font-size: 30px !important;
   margin-bottom: 3px;
+}
+
+.icons-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  width: 330px;
+  color: $primary-color;
+
+  a {
+    // need to include this for 'share' icon
+    cursor: pointer;
+    text-align: center;
+  }
 }
