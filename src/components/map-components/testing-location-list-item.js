@@ -1,15 +1,60 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import { boolToEng, isNullOrUndefined, getFeedbackButtonURL } from '@util/general.helpers';
 import ExternalItemLinks from './external-item-links';
 import CustomizedExpansionPanel, { ExpansionPanelSummary, ExpansionPanelDetails } from './expansion-panel';
 import { Link } from 'react-router-dom';
+import LinkButton from '@general/buttons/link-button';
+import { triggerShareAction } from '@util/social.helpers';
+import ShareIcon from '@material-ui/icons/Share';
+import SnackbarMessage from '@general/alerts/snackbar-message';
 
 export default function TestingLocationListItem(props) {
   const { id, index, title, description, service_time, driveThru, phone, website, createdAt } = props;
   const { onActionClick, onTestingLocationExpand } = props; // events
   const updatedAt = new Date(props.updatedAt);
+  const initialSnackbarState = {
+    snackbarMessage: '',
+    snackbarSeverity: '',
+    snackbarOpen: false,
+  };
+  const [snackbarState, setSnackbarState] = useState(initialSnackbarState);
+
+  const onShareClicked = (id) => {
+    const props = { url: `https://go.allclear.app/map?selection=${id}` };
+    triggerShareAction(props).then((response) => {
+      let snackbarMessage;
+      let snackbarSeverity;
+
+      if (response.success) {
+        snackbarMessage = response.message;
+        snackbarSeverity = 'success';
+      } else if (response.error) {
+        snackbarMessage = response.error;
+        snackbarSeverity = 'warning';
+      } else {
+        snackbarMessage = 'An error occured. Please try again later';
+        snackbarSeverity = 'error';
+      }
+
+      setSnackbarState({
+        ...snackbarState,
+        snackbarMessage,
+        snackbarSeverity,
+        snackbarOpen: true,
+      });
+    });
+  };
+
+  const handleSnackbarClose = () => {
+    setSnackbarState({
+      ...snackbarState,
+      snackbarOpen: false,
+    });
+  };
+
+  const { snackbarOpen, snackbarMessage, snackbarSeverity } = snackbarState;
 
   const onClick = (evt, buttonName) => {
     evt.stopPropagation();
@@ -62,14 +107,18 @@ export default function TestingLocationListItem(props) {
           <dd className="summary__item summary__item--grey">{service_time}</dd>
         </dl>
 
-        <ExternalItemLinks
-          display={'d-none d-md-flex'}
-          margin={{ marginTop: '15px' }}
-          description={description}
-          phone={phone}
-          website={website}
-          onClick={onClick}
-        />
+        <div className="icons-container d-none d-md-flex">
+          <ExternalItemLinks
+            display={'d-none d-md-flex'}
+            description={description}
+            phone={phone}
+            website={website}
+            onClick={onClick}
+          />
+          <LinkButton text={'Share'} theme="round-icon" onClick={() => onShareClicked(id)}>
+            <ShareIcon />
+          </LinkButton>
+        </div>
       </div>
     </ExpansionPanelSummary>
   );
@@ -83,7 +132,12 @@ export default function TestingLocationListItem(props) {
           <dd className="detsummaryails__item">{driveThru.toString() === 'true' ? 'Drive Through' : ''}</dd>
           <dd className="summary__item summary__item--semibold">{phone}</dd>
         </dl>
-        <ExternalItemLinks display={'d-flex d-md-none'} description={description} phone={phone} website={website} />
+        <div className="icons-container d-flex d-md-none">
+          <ExternalItemLinks display={'d-flex d-md-none'} description={description} phone={phone} website={website} />
+          <LinkButton text={'Share'} theme="round-icon" onClick={() => onShareClicked(id)}>
+            <ShareIcon />
+          </LinkButton>
+        </div>
         <h4>Test Center Details:</h4>
         <dl className="details">
           {!isNullOrUndefined(props.testCriteria) && (
@@ -161,11 +215,20 @@ export default function TestingLocationListItem(props) {
   );
 
   return (
-    <CustomizedExpansionPanel
-      index={index}
-      summary={summary}
-      details={details}
-      onExpandedChange={onExpandedChange}
-    ></CustomizedExpansionPanel>
+    <Fragment>
+      <CustomizedExpansionPanel
+        index={index}
+        summary={summary}
+        details={details}
+        onExpandedChange={onExpandedChange}
+      ></CustomizedExpansionPanel>
+      <SnackbarMessage
+        snackbarClass={'snackbar--map'}
+        isOpen={snackbarOpen}
+        severity={snackbarSeverity}
+        message={snackbarMessage}
+        onClose={handleSnackbarClose}
+      />
+    </Fragment>
   );
 }
