@@ -1,43 +1,45 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
+import LinkButton from '@general/buttons/link-button';
+import DirectionsIcon from '@material-ui/icons/Directions';
+import WebIcon from '@material-ui/icons/Web';
+import CallIcon from '@material-ui/icons/Call';
 
 export default function ExternalItemLinks(props) {
+  const buttons = [
+    {
+      id: props.description,
+      href: `https://www.google.com/maps/dir/?api=1&destination=${props.description}`,
+      text: 'Directions',
+      icon: <DirectionsIcon />,
+    },
+    {
+      id: props.phone,
+      href: 'tel:' + props.phone,
+      text: 'Call',
+      icon: <CallIcon />,
+    },
+    {
+      id: props.website,
+      href: props.website,
+      text: 'Website',
+      icon: <WebIcon />,
+    },
+  ].filter((btn) => btn.id);
+
   return (
-    <div className={`buttons ${props.display}`} style={props.margin}>
-      <a
-        href={'https://www.google.com/maps/dir/?api=1&destination=' + props.description}
-        rel="noopener noreferrer"
-        target="_blank"
-        onClick={(evt) => props.onClick(evt, 'directions')}
-      >
-        <Button className="btn primary-color primary-outline">Directions</Button>
-      </a>
-
-      {props.phone && (
-        <a
-          href={'tel:' + props.phone}
-          rel="noopener noreferrer"
-          target="_blank"
-          onClick={(evt) => props.onClick(evt, 'call')}
-        >
-          <Button className="btn primary-color primary-outline d-lg-none" style={{ marginLeft: '10px' }}>
-            Call
-          </Button>
-        </a>
-      )}
-
-      {props.website && (
-        <a
-          href={props.website}
-          rel="noopener noreferrer"
-          target="_blank"
-          onClick={(evt) => evt.stopPropagation()}
-        >
-          <Button className="btn primary-color primary-outline website-btn">
-            Website
-          </Button>
-        </a>
-      )}
+    <div className={`list-item-buttons ${props.display}`} style={props.margin}>
+      {buttons.map((btn) => (
+        <div key={btn.text} className="link-button">
+          <LinkButton
+            href={btn.href}
+            text={btn.text}
+            theme="round-icon"
+            onClick={(evt) => props.onClick(evt, btn.text)}
+          >
+            {btn.icon}
+          </LinkButton>
+        </div>
+      ))}
     </div>
   );
 }

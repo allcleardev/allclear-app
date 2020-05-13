@@ -1,26 +1,28 @@
 import React, { Component } from 'react';
-import Header from '../components/general/headers/header';
-import BottomNav from '../components/general/navs/bottom-nav';
-import Container from '@material-ui/core/Container';
-import GAService from '@services/ga.service';
-import { DEFAULT_NAV_ITEMS } from '@components/general/headers/header.constants';
-import {AppContext} from '@contexts/app.context';
 import {bindAll} from 'lodash';
+import { Link } from 'react-router-dom';
+import Container from '@material-ui/core/Container';
+
+import Header from '@components/general/headers/header';
+import BottomNav from '@components/general/navs/bottom-nav';
+import GAService from '@services/ga.service';
+import { AppContext } from '@contexts/app.context';
 import FacilityService from '@services/facility.service';
-import {Link} from 'react-router-dom';
+import MetadataService from '@services/metadata.service';
 
 class StateListPage extends Component {
   static contextType = AppContext;
 
   state = {
-    stateList: []
+    stateList: [],
   };
 
   constructor() {
     super();
 
     this.gaService = GAService.getInstance();
-    this.gaService.setScreenName('tracing');
+    this.metadataService = MetadataService.getInstance();
+    this.gaService.setScreenName('state list');
 
     bindAll(this, ['getStates']);
 
@@ -28,7 +30,19 @@ class StateListPage extends Component {
   }
 
   async componentDidMount() {
-    this.getStates();
+    this.metadataService.setPageHead({
+      title: `COVID-19 Testing Centers by State | AllClear`,
+      description: `Find a COVID-19 testing center near you by selecting your state. AllClear is your guide to find where to get
+      tested, quickly. Please contact your nearest center with any questions.`,
+    });
+    await this.getStates();
+  }
+
+  componentWillUnmount() {
+    this.metadataService.setPageHead({
+      title: 'RESET',
+      description: 'RESET',
+    });
   }
 
   async getStates() {
@@ -36,7 +50,7 @@ class StateListPage extends Component {
 
     if (!response.err) {
       this.setState({
-        stateList: response.data
+        stateList: response.data,
       });
     } else {
       this.setState({
@@ -50,11 +64,9 @@ class StateListPage extends Component {
   render() {
     return (
       <div className="tracing">
-        <Header navItems={DEFAULT_NAV_ITEMS} enableBackBtn={true}></Header>
+        <Header enableBackBtn={true}></Header>
         <Container className="content">
-          <h1>
-            COVID-19 Testing Centers by State | AllClear
-          </h1>
+          <h1>COVID-19 Testing Centers by State | AllClear</h1>
           <h2>
             Find a COVID-19 testing center near you by selecting your state. AllClear is your guide to find where to get
             tested, quickly. Please contact your nearest center with any questions.
@@ -62,11 +74,15 @@ class StateListPage extends Component {
 
           <div className="seo-list">
             {this.state.stateList &&
-            this.state.stateList.map((res) => {
-              return (
-                <Link to={`/locations/${res.name}`}>{res.name} ({res.total})</Link>
-              );
-            })}
+              this.state.stateList.map((res,i) => {
+                return (
+                  <Link
+                    key={i}
+                    to={`/locations/${res.name}`}>
+                    {res.name} ({res.total})
+                  </Link>
+                );
+              })}
           </div>
         </Container>
         <BottomNav active={2}></BottomNav>

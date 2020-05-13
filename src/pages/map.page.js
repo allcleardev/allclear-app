@@ -1,34 +1,35 @@
 // external
 import React, { useState, useContext, useEffect, Fragment } from 'react';
-import clsx from 'clsx';
+import { useHistory } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
 import { get, pick } from 'lodash';
+import clsx from 'clsx';
 import qs from 'qs';
 
 // components / icons
-import SolidHeader from '@general/headers/header-solid';
+import Header from '@general/headers/header';
 import UpdateCriteriaModal from '@general/modals/update-criteria-modal';
+import GoogleMapsAutocomplete from '@general/inputs/google-maps-autocomplete';
+import SnackbarMessage from '@general/alerts/snackbar-message';
 import GoogleMap from '@components/map-components/google-map';
+import ListLoadingSpinner from '@components/map-components/list-loading-spinner';
 import TestingLocationListItem from '@components/map-components/testing-location-list-item';
 import MobileTopBar from '@components/map-components/mobile-top-bar';
 import Container from '@material-ui/core/Container';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import SettingsSVG from '@svg/svg-settings';
-import SnackbarMessage from '@general/alerts/snackbar-message';
 import ShareIcon from '@material-ui/icons/Share';
+import SettingsSVG from '@svg/svg-settings';
 
 // other
 import ModalService from '@services/modal.service';
 import { AppContext } from '@contexts/app.context';
 import { useWindowResize } from '@hooks/general.hooks';
 import { getActiveFilters, getRouteQueryParams } from '@util/general.helpers';
+import { triggerShareAction } from '@util/social.helpers';
 import GAService, { MAP_PAGE_GA_EVENTS, GA_EVENT_MAP } from '@services/ga.service';
-import GoogleMapsAutocomplete from '@general/inputs/google-maps-autocomplete';
 import MapService from '@services/map.service';
-import ListLoadingSpinner from '../components/map-components/list-loading-spinner';
-import { useHistory } from 'react-router';
 
 export default function MapPage() {
   const mapService = MapService.getInstance();
@@ -50,13 +51,17 @@ export default function MapPage() {
     didClear: false,
     mobileView: false,
   };
+  const initialSnackbarState = {
+    snackbarMessage: '',
+    snackbarSeverity: '',
+    snackbarOpen: false,
+  };
   const [mapState, setMapState] = useState(initialState);
+  const [snackbarState, setSnackbarState] = useState(initialSnackbarState);
   const [drawerOpen, setDrawerOpenState] = useState(false);
-  const [snackBarOpen, setSnackBarOpenState] = useState(false);
   const locations = get(appState, 'map.locations') || [];
   // NOTE: Removed `getNumActiveFilters` for ALLCLEAR-516 (TODO: add back in to work with new layout?)
   // const numActiveFilters = getNumActiveFilters(get(appState, 'searchCriteria'));
-  const isLoggedIn = appState.sessionId ? true : false;
   let initialSearchVal;
 
   // get modal service so we can toggle it open
@@ -187,14 +192,35 @@ export default function MapPage() {
   }
 
   function onShareClicked() {
-    if (navigator && navigator.clipboard) {
-      navigator.clipboard.writeText('https://go.allclear.app');
-      setSnackBarOpenState(true);
-    }
+    triggerShareAction().then((response) => {
+      let snackbarMessage;
+      let snackbarSeverity;
+
+      if (response.success) {
+        snackbarMessage = response.message;
+        snackbarSeverity = 'success';
+      } else if (response.error) {
+        snackbarMessage = response.error;
+        snackbarSeverity = 'warning';
+      } else {
+        snackbarMessage = 'An error occured. Please try again later';
+        snackbarSeverity = 'error';
+      }
+
+      setSnackbarState({
+        ...snackbarState,
+        snackbarMessage,
+        snackbarSeverity,
+        snackbarOpen: true,
+      });
+    });
   }
 
   function handleSnackbarClose() {
-    setSnackBarOpenState(false);
+    setSnackbarState({
+      ...snackbarState,
+      snackbarOpen: false,
+    });
   }
 
   /******************************************************************
@@ -226,18 +252,19 @@ export default function MapPage() {
   }
 
   const { mobileView } = mapState;
+  const { snackbarOpen, snackbarMessage, snackbarSeverity } = snackbarState;
 
   return (
     <div className={clsx(classes.root, 'map-page')}>
       {mobileView ? (
         <MobileTopBar
-          isLoggedIn={isLoggedIn}
           onLocationSelected={onLocationSelected}
           onLocationCleared={onLocationCleared}
           onFilterClick={onEditFiltersBtnClick}
+          btnStyle={'white'}
         ></MobileTopBar>
       ) : (
-        <SolidHeader isLoggedIn={isLoggedIn}></SolidHeader>
+        <Header />
       )}
       <Drawer
         anchor={mobileView ? 'bottom' : 'left'}
@@ -332,10 +359,10 @@ export default function MapPage() {
         </div>
         <SnackbarMessage
           snackbarClass={'snackbar--map'}
-          isOpen={snackBarOpen}
+          isOpen={snackbarOpen}
+          severity={snackbarSeverity}
+          message={snackbarMessage}
           onClose={handleSnackbarClose}
-          severity={'success'}
-          message={`Link Copied to Clipboard!`}
         />
       </Drawer>
       <main className={classes.content}>

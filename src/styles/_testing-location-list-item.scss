@@ -104,3 +104,35 @@
     }
   }
 }
+
+.link-button {
+  text-align: center;
+  margin-right: 40px;
+}
+
+.link-button-icon {
+  border: 1px solid $primary-color;
+  border-radius: 50%;
+  padding: 5px;
+  font-size: 30px !important;
+  margin-bottom: 3px;
+}
+
+.icons-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  width: 330px;
+  color: $primary-color;
+}
+
+.share-container {
+  cursor: pointer;
+  text-align: center;
+
+  &:hover {
+    // matches default browser hex for a:hover
+    color: #0056b3;
+  }
+}

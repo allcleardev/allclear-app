@@ -3,11 +3,11 @@ import Header from '../components/general/headers/header';
 import BottomNav from '../components/general/navs/bottom-nav';
 import Container from '@material-ui/core/Container';
 import GAService from '@services/ga.service';
-import { DEFAULT_NAV_ITEMS } from '@components/general/headers/header.constants';
-import {AppContext} from '@contexts/app.context';
-import {bindAll} from 'lodash';
+import { AppContext } from '@contexts/app.context';
+import {bindAll, startCase} from 'lodash';
 import FacilityService from '@services/facility.service';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import MetadataService from '@services/metadata.service';
 
 class CityPage extends Component {
   static contextType = AppContext;
@@ -15,7 +15,7 @@ class CityPage extends Component {
   state = {
     stateName: '',
     cityName: '',
-    centerList: []
+    centerList: [],
   };
 
   constructor() {
@@ -27,23 +27,40 @@ class CityPage extends Component {
     bindAll(this, ['getCenters']);
 
     this.facilityService = FacilityService.getInstance();
+    this.metadataService = MetadataService.getInstance();
   }
 
   async componentDidMount() {
-    this.getCenters();
+    await this.getCenters();
+    let {stateName, cityName} = this.state;
+    this.metadataService.setPageHead({
+      title: `${cityName}, ${stateName} COVID-19 Testing Centers | AllClear`,
+      description: `View all COVID-19 testing centers in ${cityName}, ${stateName}. AllClear is your guide to find where to get tested,
+      quickly. Please contact your nearest center with any questions.`,
+    });
+  }
+
+  componentWillUnmount() {
+    this.metadataService.setPageHead({
+      title: 'RESET',
+      description: 'RESET',
+    });
   }
 
   async getCenters() {
     const stateParam = this.props.match.params.state;
     const cityParam = this.props.match.params.city;
-
-    const response = await this.facilityService.search({state: stateParam, city: cityParam});
+    const response = await this.facilityService.search({
+      state: stateParam,
+      city: cityParam,
+      pageSize: 500
+    });
 
     if (!response.err) {
       this.setState({
-        stateName: stateParam,
-        cityName: cityParam,
-        centerList: response.data.records
+        stateName: startCase(stateParam),
+        cityName: startCase(cityParam),
+        centerList: response.data.records,
       });
     } else {
       this.setState({
@@ -57,7 +74,7 @@ class CityPage extends Component {
   render() {
     return (
       <div className="tracing">
-        <Header navItems={DEFAULT_NAV_ITEMS} enableBackBtn={true}></Header>
+        <Header enableBackBtn={true}></Header>
         <Container className="content">
           <h1>
             {this.state.cityName}, {this.state.stateName} COVID-19 Testing Centers | AllClear
@@ -69,13 +86,13 @@ class CityPage extends Component {
 
           <div className="seo-list">
             {this.state.centerList &&
-            this.state.centerList.map((res) => {
-              return (
-                <Link
-                  key={res.id}
-                  to={`/test-centers/${res.id}`}>{res.name}</Link>
-              );
-            })}
+              this.state.centerList.map((res) => {
+                return (
+                  <Link key={res.id} to={`/test-centers/${res.id}`}>
+                    {res.name}
+                  </Link>
+                );
+              })}
           </div>
         </Container>
         <BottomNav active={2}></BottomNav>

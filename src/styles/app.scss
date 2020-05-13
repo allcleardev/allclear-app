@@ -1,15 +1,15 @@
+
 /* Note: Must keep in this order */
 /* Todo: Clean up shared files */
+
 @import 'variable';
 @import 'global';
 @import 'shared';
+
 /**********************************************/
 
 /* "'Component" styles below */
 @import 'header';
-@import 'header-clear';
-@import 'header-solid';
-@import 'header-homescreen';
 @import 'mobile-menu';
 @import 'buttons';
 
@@ -42,7 +42,6 @@
 @import 'trace';
 
 @import 'update-criteria';
-
 
 @import 'bottom-navigation';
 

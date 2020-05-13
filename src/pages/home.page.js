@@ -11,13 +11,11 @@ import { ReactComponent as PinIcon } from '@assets/images/pin-icon.svg';
 import { ReactComponent as SettingsIcon } from '@assets/images/settings-icon.svg';
 import { ReactComponent as MapPin } from '@assets/images/map-pin.svg';
 import { ReactComponent as HealthIcon } from '@assets/images/health-icon.svg';
-import { AppContext } from '@contexts/app.context';
 
 import Header from '@components/general/headers/header';
-import BottomNav from '@components/general/navs/bottom-nav';
-import { DEFAULT_NAV_ITEMS } from '@components/general/headers/header.constants';
-
 import SnackbarMessage from '@general/alerts/snackbar-message';
+import { triggerShareAction } from '@util/social.helpers';
+import { AppContext } from '@contexts/app.context';
 
 import Container from '@material-ui/core/Container';
 import WarningRoundedIcon from '@material-ui/icons/WarningRounded';
@@ -33,7 +31,9 @@ export default class HomePage extends Component {
     testLocationsExpanded: false,
     symptomatic: false,
     prioritized: false,
-    isSnackbarOpen: false,
+    snackbarOpen: false,
+    snackbarMessage: '',
+    snackbarSeverity: '',
   };
 
   constructor(props) {
@@ -118,14 +118,31 @@ export default class HomePage extends Component {
   }
 
   onShareClicked() {
-    if (navigator && navigator.clipboard) {
-      navigator.clipboard.writeText('https://go.allclear.app');
-      this.setState({ isSnackbarOpen: true });
-    }
+    triggerShareAction().then((response) => {
+      let snackbarMessage;
+      let snackbarSeverity;
+
+      if (response.success) {
+        snackbarMessage = response.message;
+        snackbarSeverity = 'success';
+      } else if (response.error) {
+        snackbarMessage = response.error;
+        snackbarSeverity = 'warning';
+      } else {
+        snackbarMessage = 'An error occured. Please try again later';
+        snackbarSeverity = 'error';
+      }
+
+      this.setState({
+        snackbarMessage,
+        snackbarSeverity,
+        snackbarOpen: true,
+      });
+    });
   }
 
   handleSnackbarClose() {
-    this.setState({ isSnackbarOpen: false });
+    this.setState({ snackbarOpen: false });
   }
 
   async updateUserProfile(pinnedLocation) {
@@ -162,7 +179,7 @@ export default class HomePage extends Component {
           <SettingsIcon className="settings-option__icon" />
         </IconButton>
 
-        <Header navItems={DEFAULT_NAV_ITEMS} enableBackBtn={true}>
+        <Header>
           <Container className="header-content" maxWidth="md">
             <h1 className="header-content__heading">Home</h1>
 
@@ -223,10 +240,7 @@ export default class HomePage extends Component {
           <article className="locations article">
             <h2 className="sub-heading">
               Test Locations Near You
-              <LightTooltip
-                title="Below are test locations that you qualify for followed by test locations that you
-                currently don’t qualify for based on your profile. Contact the test locations for more details."
-              >
+              <LightTooltip title="Below are test locations nearest to the location associated with your profile.">
                 <InfoOutlinedIcon className="info-icon"></InfoOutlinedIcon>
               </LightTooltip>
             </h2>
@@ -296,13 +310,11 @@ export default class HomePage extends Component {
         </Container>
 
         <SnackbarMessage
-          severity="success"
-          isOpen={this.state.isSnackbarOpen}
+          isOpen={this.state.snackbarOpen}
+          severity={this.state.snackbarSeverity}
+          message={this.state.snackbarMessage}
           onClose={this.handleSnackbarClose}
-          message={'Link Copied to Clipboard!'}
         />
-
-        <BottomNav active={0}></BottomNav>
       </section>
     );
   }

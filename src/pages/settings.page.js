@@ -7,9 +7,7 @@ import GAService from '@services/ga.service';
 import { AppContext } from '@contexts/app.context';
 
 import Header from '@general/headers/header';
-import BottomNav from '@general/navs/bottom-nav';
 import AlertSwitch from '@general/buttons/toggle';
-import { DEFAULT_NAV_ITEMS } from '@general/headers/header.constants';
 
 import ArrowBackIosRounded from '@material-ui/icons/ArrowBackIosRounded';
 import { Button, Container, Dialog, DialogTitle, DialogContent, withStyles } from '@material-ui/core';
@@ -52,7 +50,7 @@ export default class SettingsPage extends Component {
   render() {
     return (
       <section className="settings">
-        <Header navItems={DEFAULT_NAV_ITEMS} enableBackBtn={true}>
+        <Header enableBackBtn={true}>
           <h1 className="heading">Settings</h1>
         </Header>
 
@@ -80,7 +78,6 @@ export default class SettingsPage extends Component {
             </DefaultButton>
           </div>
         </Container>
-        <BottomNav active={3}></BottomNav>
 
         <Dialog
           open={this.state.open}
