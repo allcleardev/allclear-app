@@ -1,17 +1,17 @@
-import React, { Fragment, useState } from 'react';
+import React, {Fragment, useState} from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
-import { boolToEng, isNullOrUndefined, getFeedbackButtonURL } from '@util/general.helpers';
+import {boolToEng, isNullOrUndefined, getFeedbackButtonURL} from '@util/general.helpers';
 import ExternalItemLinks from './external-item-links';
-import CustomizedExpansionPanel, { ExpansionPanelSummary, ExpansionPanelDetails } from './expansion-panel';
-import { Link } from 'react-router-dom';
-import { triggerShareAction } from '@util/social.helpers';
+import CustomizedExpansionPanel, {ExpansionPanelSummary, ExpansionPanelDetails} from './expansion-panel';
+import {Link} from 'react-router-dom';
+import {triggerShareAction} from '@util/social.helpers';
 import ShareIcon from '@material-ui/icons/Share';
 import SnackbarMessage from '@general/alerts/snackbar-message';
 
 export default function TestingLocationListItem(props) {
-  const { id, index, title, description, service_time, driveThru, phone, website, createdAt } = props;
-  const { onActionClick, onTestingLocationExpand } = props; // events
+  const {id, index, title, description, service_time, driveThru, phone, website, createdAt} = props;
+  const {onActionClick, onTestingLocationExpand} = props; // events
   const updatedAt = new Date(props.updatedAt);
   const initialSnackbarState = {
     snackbarMessage: '',
@@ -22,29 +22,31 @@ export default function TestingLocationListItem(props) {
 
   const onShareClicked = (e, id) => {
     e.stopPropagation();
-    const props = { url: `https://go.allclear.app/map?selection=${id}` };
-    triggerShareAction(props).then((response) => {
-      let snackbarMessage;
-      let snackbarSeverity;
+    const currLocation = window.location.origin;
+    const props = {url: `${currLocation}/map?selection=${id}`};
+    triggerShareAction(props)
+      .then((response) => {
+        let snackbarMessage;
+        let snackbarSeverity;
 
-      if (response.success) {
-        snackbarMessage = response.message;
-        snackbarSeverity = 'success';
-      } else if (response.error) {
-        snackbarMessage = response.error;
-        snackbarSeverity = 'warning';
-      } else {
-        snackbarMessage = 'An error occured. Please try again later';
-        snackbarSeverity = 'error';
-      }
+        if (response.success) {
+          snackbarMessage = response.message;
+          snackbarSeverity = 'success';
+        } else if (response.error) {
+          snackbarMessage = response.error;
+          snackbarSeverity = 'warning';
+        } else {
+          snackbarMessage = 'An error occured. Please try again later';
+          snackbarSeverity = 'error';
+        }
 
-      setSnackbarState({
-        ...snackbarState,
-        snackbarMessage,
-        snackbarSeverity,
-        snackbarOpen: true,
+        setSnackbarState({
+          ...snackbarState,
+          snackbarMessage,
+          snackbarSeverity,
+          snackbarOpen: true,
+        });
       });
-    });
   };
 
   const handleSnackbarClose = () => {
@@ -54,7 +56,7 @@ export default function TestingLocationListItem(props) {
     });
   };
 
-  const { snackbarOpen, snackbarMessage, snackbarSeverity } = snackbarState;
+  const {snackbarOpen, snackbarMessage, snackbarSeverity} = snackbarState;
 
   const onClick = (evt, buttonName) => {
     evt.stopPropagation();
@@ -79,7 +81,7 @@ export default function TestingLocationListItem(props) {
       aria-controls={`panel${index}-content`}
       id={`panel${index}-header`}
       className="testing-location-list-item"
-      expandIcon={<ExpandMoreIcon />}
+      expandIcon={<ExpandMoreIcon/>}
     >
       <div className="my-auto">
         <h2 className="card-title">
@@ -89,9 +91,9 @@ export default function TestingLocationListItem(props) {
           {isNewLocation(createdAt) && (
             <div className="new-test-center-display">
               <span>
-                <FiberManualRecordIcon />
+                <FiberManualRecordIcon/>
               </span>
-              <span style={{ marginTop: '2px' }}>New</span>
+              <span style={{marginTop: '2px'}}>New</span>
             </div>
           )}
         </h2>
@@ -116,7 +118,7 @@ export default function TestingLocationListItem(props) {
             onClick={onClick}
           />
           <div onClick={(e) => onShareClicked(e, id)} className="share-container">
-            <ShareIcon className="link-button-icon" />
+            <ShareIcon className="link-button-icon"/>
             <p>Share</p>
           </div>
         </div>
@@ -134,9 +136,9 @@ export default function TestingLocationListItem(props) {
           <dd className="summary__item summary__item--semibold">{phone}</dd>
         </dl>
         <div className="icons-container d-flex d-md-none">
-          <ExternalItemLinks display={'d-flex'} description={description} phone={phone} website={website} />
+          <ExternalItemLinks display={'d-flex'} description={description} phone={phone} website={website}/>
           <div onClick={(e) => onShareClicked(e, id)} className="share-container">
-            <ShareIcon className="link-button-icon" />
+            <ShareIcon className="link-button-icon"/>
             <p>Share</p>
           </div>
         </div>
