@@ -7,7 +7,7 @@ import CustomizedExpansionPanel, { ExpansionPanelSummary, ExpansionPanelDetails 
 import { Link } from 'react-router-dom';
 
 export default function TestingLocationListItem(props) {
-  const { id, index, title, description, service_time, driveThru, phone, website, createdAt } = props;
+  const { id, index, title, description, service_time, driveThru, phone, website, createdAt, expandedItemId } = props;
   const { onActionClick, onTestingLocationExpand } = props; // events
   const updatedAt = new Date(props.updatedAt);
 
@@ -165,6 +165,7 @@ export default function TestingLocationListItem(props) {
       index={index}
       summary={summary}
       details={details}
+      expanded={expandedItemId && expandedItemId === id}
       onExpandedChange={onExpandedChange}
     ></CustomizedExpansionPanel>
   );

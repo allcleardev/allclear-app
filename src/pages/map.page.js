@@ -50,6 +50,7 @@ export default function MapPage() {
     didInitSearch: false,
     didClear: false,
     mobileView: false,
+    expandedItemId: null
   };
   const initialSnackbarState = {
     snackbarMessage: '',
@@ -66,7 +67,7 @@ export default function MapPage() {
 
   // get modal service so we can toggle it open
   let modalService = ModalService.getInstance();
-  let searchParams = getRouteQueryParams(history.location);
+  const searchParams = getRouteQueryParams(history.location);
 
   // for setting initial search in autocomplete
   initialSearchVal = get(searchParams, 'search.description');
@@ -235,6 +236,10 @@ export default function MapPage() {
     const eventKey = drawerOpen ? 'expand' : 'contract';
     handleGAEvent(eventKey, itemId, itemIndex, itemName);
     const selection = itemId;
+    setMapState({
+      ...mapState,
+      expandedItemId: drawerOpen ? itemId : null
+    });
     history.push({
       pathname: '/map',
       search: qs.stringify({
@@ -264,8 +269,8 @@ export default function MapPage() {
           btnStyle={'white'}
         ></MobileTopBar>
       ) : (
-        <Header />
-      )}
+          <Header />
+        )}
       <Drawer
         anchor={mobileView ? 'bottom' : 'left'}
         variant="permanent"
@@ -332,27 +337,28 @@ export default function MapPage() {
           {appState.map.isListLoading === true ? (
             <ListLoadingSpinner />
           ) : (
-            <Fragment>
-              {locations &&
-                locations.map((result, index) => (
-                  <TestingLocationListItem
-                    id={result.id}
-                    key={index}
-                    index={index}
-                    title={result.name}
-                    description={result.address}
-                    city_state={result.city + ', ' + result.state}
-                    service_time={result.hours}
-                    driveThru={result.driveThru}
-                    phone={result.phone}
-                    website={result.url}
-                    {...result}
-                    onActionClick={onActionClick}
-                    onTestingLocationExpand={onTestingLocationExpand}
-                  ></TestingLocationListItem>
-                ))}
-            </Fragment>
-          )}
+              <Fragment>
+                {locations &&
+                  locations.map((result, index) => (
+                    <TestingLocationListItem
+                      id={result.id}
+                      key={index}
+                      index={index}
+                      title={result.name}
+                      description={result.address}
+                      city_state={result.city + ', ' + result.state}
+                      service_time={result.hours}
+                      driveThru={result.driveThru}
+                      phone={result.phone}
+                      website={result.url}
+                      expandedItemId={mapState.expandedItemId}
+                      {...result}
+                      onActionClick={onActionClick}
+                      onTestingLocationExpand={onTestingLocationExpand}
+                    ></TestingLocationListItem>
+                  ))}
+              </Fragment>
+            )}
           {locations.length === 0 && appState.map.isListLoading === false && (
             <p style={{ margin: 20, textAlign: 'center', fontSize: '1.7em' }}>No Results Found</p>
           )}

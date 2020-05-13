@@ -55,17 +55,14 @@ export const ExpansionPanelDetails = withStyles((theme) => ({
 }))(MuiExpansionPanelDetails);
 
 export default function CustomizedExpansionPanel(props) {
-  const [expanded, setExpanded] = React.useState('');
-
   const handleChange = (index) => (event, newExpanded) => {
-    setExpanded(newExpanded ? index : false);
     props.onExpandedChange(index, newExpanded);
   };
 
   return (
     <ExpansionPanel
       square
-      expanded={expanded === props.index}
+      expanded={props.expanded}
       onChange={handleChange(props.index)}
     >
       {props.summary}
