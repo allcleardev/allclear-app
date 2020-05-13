@@ -5,7 +5,6 @@ import { boolToEng, isNullOrUndefined, getFeedbackButtonURL } from '@util/genera
 import ExternalItemLinks from './external-item-links';
 import CustomizedExpansionPanel, { ExpansionPanelSummary, ExpansionPanelDetails } from './expansion-panel';
 import { Link } from 'react-router-dom';
-import LinkButton from '@general/buttons/link-button';
 import { triggerShareAction } from '@util/social.helpers';
 import ShareIcon from '@material-ui/icons/Share';
 import SnackbarMessage from '@general/alerts/snackbar-message';
@@ -21,7 +20,8 @@ export default function TestingLocationListItem(props) {
   };
   const [snackbarState, setSnackbarState] = useState(initialSnackbarState);
 
-  const onShareClicked = (id) => {
+  const onShareClicked = (e, id) => {
+    e.stopPropagation();
     const props = { url: `https://go.allclear.app/map?selection=${id}` };
     triggerShareAction(props).then((response) => {
       let snackbarMessage;
@@ -115,9 +115,10 @@ export default function TestingLocationListItem(props) {
             website={website}
             onClick={onClick}
           />
-          <LinkButton text={'Share'} theme="round-icon" onClick={() => onShareClicked(id)}>
-            <ShareIcon />
-          </LinkButton>
+          <div onClick={(e) => onShareClicked(e, id)} className="share-container">
+            <ShareIcon className="link-button-icon" />
+            <p>Share</p>
+          </div>
         </div>
       </div>
     </ExpansionPanelSummary>
@@ -134,9 +135,10 @@ export default function TestingLocationListItem(props) {
         </dl>
         <div className="icons-container d-flex d-md-none">
           <ExternalItemLinks display={'d-flex d-md-none'} description={description} phone={phone} website={website} />
-          <LinkButton text={'Share'} theme="round-icon" onClick={() => onShareClicked(id)}>
-            <ShareIcon />
-          </LinkButton>
+          <div onClick={(e) => onShareClicked(e, id)} className="share-container">
+            <ShareIcon className="link-button-icon" />
+            <p>Share</p>
+          </div>
         </div>
         <h4>Test Center Details:</h4>
         <dl className="details">
