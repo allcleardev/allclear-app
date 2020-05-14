@@ -11,7 +11,7 @@ import GAService from '@services/ga.service';
 import MapService from '@services/map.service';
 import {withRouter} from 'react-router';
 import {G_MAP_DEFAULTS, G_MAP_OPTIONS} from '@util/map.constants';
-import {clickMapMarker, getRouteQueryParams} from '@util/general.helpers';
+import {clickMapMarker, getRouteQueryParams, metersToMiles, milesToMeters} from '@util/general.helpers';
 
 class GoogleMap extends Component {
   static contextType = AppContext;
@@ -24,7 +24,7 @@ class GoogleMap extends Component {
       snackbarMessage: 'Browser location declined. Using location from your profile instead.',
       snackbarSeverity: 'warning',
       circle: undefined,
-      zoom: G_MAP_DEFAULTS.zoom
+      searchRadius: undefined,
     };
 
     bindAll(this, [
@@ -39,6 +39,7 @@ class GoogleMap extends Component {
       '_search',
       'handleSnackbarClose',
       '_zoomToResults',
+      '_getMapRadiusInMiles',
     ]);
     this.gMapRef = React.createRef();
     this.facilityService = FacilityService.getInstance();
@@ -124,34 +125,6 @@ class GoogleMap extends Component {
 
   }
 
-  _zoomToResults(results) {
-
-    // clear current circle
-    this.state.circle && this.state.circle.setMap(null);
-
-    // find furthest distance in results set
-    const furthestIndex = get(results, 'length') - 1;
-    const furthestMeters = get(results, `[${furthestIndex}].meters`);
-
-    const map = get(this, 'gMapRef.current.map_');
-
-    //eslint-disable-next-line
-    const circle = new google.maps.Circle({
-      center: map.center,
-      radius: furthestMeters,
-      fillOpacity: 0,
-      // strokeOpacity: 0.2,
-      strokeOpacity: 0,
-      map
-    });
-    map.fitBounds(circle.getBounds());
-    this.setState({
-      ...this.state,
-      circle
-    });
-
-  }
-
   handleSnackbarClose() {
     this.setState({
       isSnackbarOpen: false,
@@ -169,10 +142,15 @@ class GoogleMap extends Component {
     this._search(latitude, longitude);
   }
 
-  onZoomChanged(miles, z, t) {
-    // console.log('zoom changed', ...arguments)
-    // todo: major work here bro
-    // https://stackoverflow.com/questions/52411378/google-maps-api-calculate-zoom-based-of-miles
+  onZoomChanged(zoomLevel) {
+    console.log('zoom changed', zoomLevel);
+    console.log('new zoom radius', this._getMapRadiusInMiles());
+    // console.log('new zoom radius - meters', milesToMeters(this._getMapRadiusInMiles()) );
+    this._getMapRadiusInMiles();
+
+    const lat = get(this, 'gMapRef.current.map_.center').lat();
+    const lng = get(this, 'gMapRef.current.map_.center').lng();
+    this._search(lat, lng);
   }
 
   onMyLocationClicked() {
@@ -194,6 +172,67 @@ class GoogleMap extends Component {
       this.gMapRef.current.map_.panTo(currBrowserLocation);
     }
   }
+
+  _zoomToResults(results) {
+    console.log('zooming to results')
+    // clear current circle
+    this.state.circle && this.state.circle.setMap(null);
+
+    // find furthest distance in results set
+    const furthestIndex = get(results, 'length') - 1;
+    const furthestMeters = get(results, `[${furthestIndex}].meters`);
+    console.log('furtherst meters', furthestMeters)
+    console.log('furtherst miles', metersToMiles(furthestMeters))
+
+    const map = get(this, 'gMapRef.current.map_');
+
+    //eslint-disable-next-line
+    const circle = new google.maps.Circle({
+      center: map.center,
+      radius: furthestMeters,
+      fillOpacity: 0,
+      strokeOpacity: 0.2,
+      // strokeOpacity: 0,
+      map
+    });
+    map.fitBounds(circle.getBounds());
+    this.setState({
+      ...this.state,
+      circle
+    });
+
+  }
+
+  _getMapRadiusInMiles() {
+    const map = get(this, 'gMapRef.current.map_');
+    const bounds = map.getBounds();
+
+    const center = bounds.getCenter();
+    const ne = bounds.getNorthEast();
+
+    // r = radius of the earth in statute miles
+    const earthRadius = 3963.0;
+
+    // Convert lat or lng from decimal degrees into radians (divide by 57.2958)
+    const lat1 = center.lat() / 57.2958;
+    const lon1 = center.lng() / 57.2958;
+    const lat2 = ne.lat() / 57.2958;
+    const lon2 = ne.lng() / 57.2958;
+
+    // distance = circle radius from center to Northeast corner of bounds
+    const radius = earthRadius * Math.acos(Math.sin(lat1) * Math.sin(lat2) +
+      Math.cos(lat1) * Math.cos(lat2) * Math.cos(lon2 - lon1));
+
+    this.setState({
+      ...this.state,
+      searchRadius: radius,
+    });
+
+    return radius;
+    // todo: decide if double or not
+    // return radius*2;
+  }
+
 
   _setLocations(locations) {
     // update context state (for other components in map page)
@@ -249,7 +288,7 @@ class GoogleMap extends Component {
       from: {
         latitude,
         longitude,
-        miles: 100,
+        miles: this.state.searchRadius || 100,
       },
     };
   }
@@ -284,10 +323,9 @@ class GoogleMap extends Component {
           bootstrapURLKeys={{key: 'AIzaSyAPB7ER1lGxDSZICjq9lmqgxvnlSJCIuYw'}}
           defaultCenter={G_MAP_DEFAULTS.center}
           defaultZoom={G_MAP_DEFAULTS.zoom}
-          zoom={this.state.zoom}
+          zoom={G_MAP_DEFAULTS.zoom}
           yesIWantToUseGoogleMapApiInternals
           onDragEnd={(evt) => this.onMapDragEnd(evt)}
-          onZoomChanged={(evt) => this.onMapDragEnd(evt)}
           onZoomAnimationEnd={(evt) => this.onZoomChanged(evt)}
         >
           {locations.map((data, index) => (
