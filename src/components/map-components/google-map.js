@@ -23,6 +23,7 @@ class GoogleMap extends Component {
       isSnackbarOpen: false,
       snackbarMessage: 'Browser location declined. Using location from your profile instead.',
       snackbarSeverity: 'warning',
+      circle: undefined,
       zoom: G_MAP_DEFAULTS.zoom
     };
 
@@ -111,7 +112,7 @@ class GoogleMap extends Component {
     latitude && longitude && this._panTo(latitude, longitude);
 
     // zoom to the appropriate level that matches the current result set
-    this._zoomToResults(locations, latitude, longitude);
+    this._zoomToResults(locations);
 
     // finally, select a pin if its in the url
     if (urlID) {
@@ -124,18 +125,30 @@ class GoogleMap extends Component {
   }
 
   _zoomToResults(results) {
+
+    // clear current circle
+    this.state.circle && this.state.circle.setMap(null);
+
+    // find furthest distance in results set
     const furthestIndex = get(results, 'length') - 1;
     const furthestMeters = get(results, `[${furthestIndex}].meters`);
 
     const map = get(this, 'gMapRef.current.map_');
+
+    //eslint-disable-next-line
     const circle = new google.maps.Circle({
       center: map.center,
       radius: furthestMeters,
       fillOpacity: 0,
-      strokeOpacity: 0.2,
+      // strokeOpacity: 0.2,
+      strokeOpacity: 0,
       map
     });
     map.fitBounds(circle.getBounds());
+    this.setState({
+      ...this.state,
+      circle
+    });
 
   }
 
@@ -212,6 +225,8 @@ class GoogleMap extends Component {
       longitude,
     });
     this._panTo(latitude, longitude);
+    const locations = get(result, 'data.records');
+    this._zoomToResults(locations);
 
   };
 
