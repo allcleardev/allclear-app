@@ -6,7 +6,7 @@ export default class GAService {
   constructor() {
     this.gaEnabled = false;
 
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV !== 'development') {
       this.gaEnabled = true;
     }
   }
