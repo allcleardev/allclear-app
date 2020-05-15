@@ -1,27 +1,7 @@
 const puppeteer = require('puppeteer');
-
-let phone = '';
-let account = '';
-let auth = '';
-
-try {
-  const config = require('dotenv').config({ path: '.env.test.local' });
-  phone = config.parsed.E2E_PHONE_NUMBER;
-  account = config.parsed.TWILIO_SID;
-  auth = config.parsed.TWILIO_AUTH;
-} catch (e) {
-  phone = '6466030984';
-  account = process.env.TWILIO_SID;
-  auth = process.env.TWILIO_AUTH;
-}
-
-const client = require('twilio')(account, auth);
-let code = '';
-
-async function getVerificationCode() {
-  let messages = await client.messages.list({ limit: 20, to: '+1' + phone });
-  code = messages[0].body.match(/[0-9]{6}/g)[0];
-}
+const clipboardy = require('clipboardy');
+const twilio = require('../utils/twilio.js');
+const config = require('../utils/config.js');
 
 const test = async () => {
   //Initialize the puppeteer instance
@@ -42,11 +22,11 @@ const test = async () => {
   //Put in location and click next
   await page.waitForSelector('#google-maps-autocomplete');
   await page.type('#google-maps-autocomplete', '08050');
-  await page.waitFor(500);
+  await page.waitFor(3000);
   await page.keyboard.press('ArrowDown');
   await page.keyboard.press('Enter');
 
-  await page.waitFor(1000);
+  await page.waitFor(2000);
   let locationNext = await page.$x('//*[@id="root"]/div/div[2]/div[2]/span/button');
   await locationNext[0].click();
 
@@ -77,7 +57,7 @@ const test = async () => {
   );
   await page.type(
     '#root > div > div.MuiContainer-root.onboarding-body.MuiContainer-maxWidthLg > div.content-container > form > div > div > input',
-    phone,
+    config.E2E_PHONE_NUMBER,
   );
 
   await page.waitForXPath('//*[@id="root"]/div/div[2]/div[2]/div/label[1]/span[1]/span[1]/input');
@@ -101,7 +81,7 @@ const test = async () => {
   //Enter verification code and verify the new account
   await page.waitForSelector('#token');
   await page.waitFor(1000);
-  getVerificationCode();
+  let code = await twilio.getCode();
   await page.waitFor(1000);
   await page.type('#token', code);
 
@@ -110,8 +90,8 @@ const test = async () => {
 
   //At map page
   //Press logout button and close browser session
-  await page.waitForXPath('//*[@id="root"]/div/div[1]/div/nav/a[6]');
-  let logout = await page.$x('//*[@id="root"]/div/div[1]/div/nav/a[6]');
+  await page.waitForXPath('//*[@id="root"]/section/div[1]/div[3]/nav/a[6]');
+  let logout = await page.$x('//*[@id="root"]/section/div[1]/div[3]/nav/a[6]');
   await logout[0].click();
   await browser.close();
 };
