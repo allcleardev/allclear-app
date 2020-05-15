@@ -23,6 +23,7 @@ class GoogleMap extends Component {
       isSnackbarOpen: false,
       snackbarMessage: 'Browser location declined. Using location from your profile instead.',
       snackbarSeverity: 'warning',
+      circle: undefined,
       zoom: G_MAP_DEFAULTS.zoom
     };
 
@@ -37,6 +38,7 @@ class GoogleMap extends Component {
       '_createSearchPayload',
       '_search',
       'handleSnackbarClose',
+      '_zoomToResults',
     ]);
     this.gMapRef = React.createRef();
     this.facilityService = FacilityService.getInstance();
@@ -63,7 +65,7 @@ class GoogleMap extends Component {
     const urlID = get(params, 'selection');
 
     // deep link from facility
-    if(urlID){
+    if (urlID) {
       const resp = await this.facilityService.getFacility(urlID);
       latitude = get(resp, 'data.latitude');
       longitude = get(resp, 'data.longitude');
@@ -99,24 +101,54 @@ class GoogleMap extends Component {
         latitude = G_MAP_DEFAULTS.center.lat;
         longitude = G_MAP_DEFAULTS.center.lng;
       }
-    }else{
+    } else {
       // logged in profile stuff will go here
     }
 
     const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude}));
 
-    // finally, select a pin if its in the url
-    //  selection = get(params, 'selection');
     const locations = get(result, 'data.records');
     this._setLocations(locations, {latitude, longitude});
     latitude && longitude && this._panTo(latitude, longitude);
 
+    // zoom to the appropriate level that matches the current result set
+    this._zoomToResults(locations);
+
+    // finally, select a pin if its in the url
     if (urlID) {
       const index = findIndex(locations, ['id', Number(urlID)]);
       if (index !== -1) {
         clickMapMarker(appState, index, this.props.history, locations);
       }
     }
+
+  }
+
+  _zoomToResults(results) {
+
+    // clear current circle
+    this.state.circle && this.state.circle.setMap(null);
+
+    // find furthest distance in results set
+    const furthestIndex = get(results, 'length') - 1;
+    const furthestMeters = get(results, `[${furthestIndex}].meters`);
+
+    const map = get(this, 'gMapRef.current.map_');
+
+    //eslint-disable-next-line
+    const circle = new google.maps.Circle({
+      center: map.center,
+      radius: furthestMeters,
+      fillOpacity: 0,
+      // strokeOpacity: 0.2,
+      strokeOpacity: 0,
+      map
+    });
+    map.fitBounds(circle.getBounds());
+    this.setState({
+      ...this.state,
+      circle
+    });
 
   }
 
@@ -131,14 +163,13 @@ class GoogleMap extends Component {
    ******************************************************************/
 
   onMapDragEnd(evt) {
-    // todo: this clear may need to change for deeplinking
-    // this.mapService.onLocationCleared(null,null,'clear');
+    this.mapService.onLocationCleared(null, null, 'clear');
     const latitude = evt.center.lat();
     const longitude = evt.center.lng();
     this._search(latitude, longitude);
   }
 
-  onZoomChanged(miles,z,t) {
+  onZoomChanged(miles, z, t) {
     // console.log('zoom changed', ...arguments)
     // todo: major work here bro
     // https://stackoverflow.com/questions/52411378/google-maps-api-calculate-zoom-based-of-miles
@@ -194,6 +225,8 @@ class GoogleMap extends Component {
       longitude,
     });
     this._panTo(latitude, longitude);
+    const locations = get(result, 'data.records');
+    this._zoomToResults(locations);
 
   };
 
@@ -236,7 +269,7 @@ class GoogleMap extends Component {
     const homeIndex = locations.length;
 
     return (
-      <div className="google-map" style={{ height: '100%', width: '100%' }} onClick={this.props.onMapClick}>
+      <div className="google-map" style={{height: '100%', width: '100%'}} onClick={this.props.onMapClick}>
         <SnackbarMessage
           snackbarClass={'snackbar--map'}
           isOpen={this.state.isSnackbarOpen}
@@ -248,7 +281,7 @@ class GoogleMap extends Component {
         <GoogleMapReact
           ref={this.gMapRef}
           options={G_MAP_OPTIONS}
-          bootstrapURLKeys={{ key: 'AIzaSyAPB7ER1lGxDSZICjq9lmqgxvnlSJCIuYw' }}
+          bootstrapURLKeys={{key: 'AIzaSyAPB7ER1lGxDSZICjq9lmqgxvnlSJCIuYw'}}
           defaultCenter={G_MAP_DEFAULTS.center}
           defaultZoom={G_MAP_DEFAULTS.zoom}
           zoom={this.state.zoom}
@@ -267,10 +300,10 @@ class GoogleMap extends Component {
               text={index + 1}
             />
           ))}
-          <MyLocationMapMarker key={homeIndex} lat={homeLat} lng={homeLng} />
+          <MyLocationMapMarker key={homeIndex} lat={homeLat} lng={homeLng}/>
         </GoogleMapReact>
         {this.isLoggedIn && (
-          <MyLocationBtn aria-label="Go to Profile Location" onClick={() => this.onMyLocationClicked()} />
+          <MyLocationBtn aria-label="Go to Profile Location" onClick={() => this.onMyLocationClicked()}/>
         )}
       </div>
     );
