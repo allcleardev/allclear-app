@@ -11,6 +11,7 @@ import { AppContext } from '@contexts/app.context';
 
 import PhoneNumberInput from '@components/general/inputs/phone-number-input';
 import { Button, Container, CircularProgress, withStyles } from '@material-ui/core';
+import SnackbarMessage from '@general/alerts/snackbar-message';
 
 const DefaultButton = withStyles((theme) => ({
   root: {
@@ -113,10 +114,18 @@ export default class SignInPage extends Component {
             </div>
           </Container>
         ) : (
-          <Container className="onboarding-body">
-            <CircularProgress color="primary" size={108} />
-          </Container>
-        )}
+            <Container className="onboarding-body">
+              <CircularProgress color="primary" size={108} />
+            </Container>
+          )}
+        <SnackbarMessage
+          isOpen={true}
+          severity={'info'}
+          duration={1500000}
+          message={`Didn't receive a code?`}
+          action="Resend Code"
+          onAction={() => console.log('hello')}
+        />
       </div>
     );
   }

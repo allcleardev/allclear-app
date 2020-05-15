@@ -1,14 +1,15 @@
 // external
 import React, { Component } from 'react';
 import { bindAll, get } from 'lodash';
-import ProgressBottom from '@general/navs/progress-bottom';
+import { Button, Container, TextField, FormControl, CircularProgress } from '@material-ui/core';
 
 // internal
+import ProgressBottom from '@general/navs/progress-bottom';
 import GAService from '@services/ga.service';
 import { AppContext } from '@contexts/app.context';
 import OnboardingNavigation from '@general/navs/onboarding-navigation';
 import Header from '@general/headers/header';
-import { Button, Container, TextField, FormControl, CircularProgress } from '@material-ui/core';
+import SnackbarMessage from '@general/alerts/snackbar-message';
 
 
 export function withVerification(authType, onVerification, onCodeResent, displayProgressBar) {
@@ -20,6 +21,7 @@ export function withVerification(authType, onVerification, onCodeResent, display
       code: undefined,
       smsTimeoutEnabled: false,
       error: false,
+      isResendCodeSnackbarOpen: false
     };
 
     constructor(props) {
@@ -46,8 +48,8 @@ export function withVerification(authType, onVerification, onCodeResent, display
       this.setState({ smsTimeoutEnabled: false });
 
       setTimeout(() => {
-        this.setState({ smsTimeoutEnabled: true });
-      }, 20000);
+        this.setState({ smsTimeoutEnabled: true, isResendCodeSnackbarOpen: true });
+      }, 1000);
     }
 
     validateState() {
@@ -225,6 +227,17 @@ export function withVerification(authType, onVerification, onCodeResent, display
                 <CircularProgress color="primary" size={108} />
               </Container>
             )}
+          {/* {this.state.smsTimeoutEnabled === true &&
+            (
+              <SnackbarMessage
+                isOpen={this.state.isResendCodeSnackbarOpen}
+                severity={'info'}
+                duration={1500000}
+                message={`Didn't receive a code?`}
+                action="Resend Code"
+                onAction={() => this.resendCode()}
+              />
+            )} */}
           {this.state.loading === false && displayProgressBar ? <ProgressBottom progress="75%"></ProgressBottom> : null}
         </div>
       );

@@ -1,0 +1,17 @@
+.snackbar {
+  .MuiPaper-root {
+    min-width: 60%;
+    font-size: .95rem;
+    color: rgb(30, 70, 32);
+    background-color: rgb(237, 247, 237);
+    padding: 5px 10px;
+
+    .MuiSnackbarContent-message {
+      padding: 0px;
+    }
+
+    .MuiSnackbarContent-action {
+      margin-right: 0px;
+    }
+  }
+}

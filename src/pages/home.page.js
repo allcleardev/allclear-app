@@ -220,8 +220,8 @@ export default class HomePage extends Component {
               {this.state.prioritized ? (
                 <CheckRoundedIcon className="banner__icon" />
               ) : (
-                <WarningRoundedIcon className="banner__icon" />
-              )}
+                  <WarningRoundedIcon className="banner__icon" />
+                )}
               <span>
                 Your profile
                 {this.state.prioritized ? ' may be prioritized ' : ' may not be prioritized '}
@@ -265,11 +265,11 @@ export default class HomePage extends Component {
                 </section>
               ))
             ) : (
-              <section className="card card--no-results">
-                <p>No exact match locations found. </p>
-                <p>You may not be eligible for testing at locations listed below.</p>
-              </section>
-            )}
+                <section className="card card--no-results">
+                  <p>No exact match locations found. </p>
+                  <p>You may not be eligible for testing at locations listed below.</p>
+                </section>
+              )}
 
             {testLocations && testLocations.length && this.locations && this.locations.length > 5 ? (
               <Button
@@ -282,8 +282,8 @@ export default class HomePage extends Component {
                 {this.state.testLocationsExpanded ? 'View Less' : 'View More'}
               </Button>
             ) : (
-              ''
-            )}
+                ''
+              )}
           </article>
 
           <article className="share article">
@@ -314,6 +314,7 @@ export default class HomePage extends Component {
           severity={this.state.snackbarSeverity}
           message={this.state.snackbarMessage}
           onClose={this.handleSnackbarClose}
+          duration={100000000}
         />
       </section>
     );
