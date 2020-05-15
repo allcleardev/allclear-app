@@ -1,6 +1,6 @@
 {
   "name": "allclear-pwa-2",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "license": "AGPL-3.0-only",
   "scripts": {
     "build": "node stampBuild.js && node sm.js && react-app-rewired build",
@@ -47,7 +47,6 @@
     "react-animate-height": "^2.0.20",
     "react-cookie": "^4.0.3",
     "react-dom": "^16.13.1",
-    "react-ga": "^2.7.0",
     "react-hammerjs": "^1.0.1",
     "react-helmet": "^6.0.0",
     "react-places-autocomplete": "^7.2.1",

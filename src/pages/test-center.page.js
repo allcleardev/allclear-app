@@ -56,8 +56,9 @@ class TestCenterPage extends Component {
 
   applyCovidTag() {
     console.log('applying tag!');
-    const {name, city, state, address, id, lastUpdated} = this.state.facility;
-    const thisUrl = `${process.env.REACT_APP_BASE_URL}/test-centers/${id}`;
+    const {name, city, state, address, id, lastUpdated, type} = this.state.facility;
+    const currType = (type.id === 'pd') ? 'CivicStructure' : 'LocalBusiness';
+    const thisUrl = `${window.location.origin}/test-centers/${id}`;
     const tag = {
       '@context': 'https://schema.org',
       '@type': 'SpecialAnnouncement',
@@ -68,7 +69,7 @@ class TestCenterPage extends Component {
       gettingTestedInfo: thisUrl,
       category: 'https://www.wikidata.org/wiki/Q81068910',
       announcementLocation: {
-        '@type': 'CivicStructure',
+        '@type': currType,
         name,
         url: thisUrl,
         address: {

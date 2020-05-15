@@ -3,7 +3,6 @@ import LinkButton from '@general/buttons/link-button';
 import DirectionsIcon from '@material-ui/icons/Directions';
 import WebIcon from '@material-ui/icons/Web';
 import CallIcon from '@material-ui/icons/Call';
-import ShareIcon from '@material-ui/icons/Share';
 
 export default function ExternalItemLinks(props) {
   const buttons = [
@@ -24,12 +23,6 @@ export default function ExternalItemLinks(props) {
       href: props.website,
       text: 'Website',
       icon: <WebIcon />,
-    },
-    {
-      id: 'Share',
-      href: '/home',
-      text: 'Share',
-      icon: <ShareIcon />,
     },
   ].filter((btn) => btn.id);
 
