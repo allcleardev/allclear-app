@@ -1,10 +1,14 @@
-import ReactGA from 'react-ga';
+import {loadScript} from '@util/general.helpers';
 
 export default class GAService {
   static serviceInstance = null;
 
   constructor() {
-    this.isLocalDevBuild = process.env.NODE_ENV === 'development';
+    this.gaEnabled = false;
+
+    if (process.env.NODE_ENV !== 'development') {
+      this.gaEnabled = true;
+    }
   }
 
   static getInstance() {
@@ -15,15 +19,36 @@ export default class GAService {
     return this.serviceInstance;
   }
 
+  gtag() {
+    //eslint-disable-next-line
+    window.dataLayer.push(arguments);
+  }
+
+  initialize() {
+    //Initialize GA
+    if (this.gaEnabled) {
+      loadScript('https://www.googletagmanager.com/gtag/js?id=G-W6BW925QD6');
+
+      //eslint-disable-next-line
+      window.dataLayer = window.dataLayer || [];
+
+      this.gtag('js', new Date());
+      this.gtag('config', 'G-W6BW925QD6');
+    }
+  }
+
   setScreenName(name) {
-    if (!this.isLocalDevBuild) {
-      ReactGA.ga('set', 'screen_class', name);
+    if (this.gaEnabled) {
+      this.gtag('event', 'screen_view', {
+        app_name: 'allclear',
+        screen_name : name
+      });
     }
   }
 
   sendEvent(name, params) {
-    if (!this.isLocalDevBuild) {
-      ReactGA.ga('event', name, params);
+    if (this.gaEnabled) {
+      this.gtag('event', name, params);
     }
   }
 }
