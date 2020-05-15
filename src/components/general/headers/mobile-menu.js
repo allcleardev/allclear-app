@@ -1,20 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import IconButton from '@material-ui/core/IconButton';
 import Logo from '@assets/images/logo-navy.svg';
+import { AppContext } from '@contexts/app.context';
 import { IS_LOGGED_IN_HEADER_LINKS, IS_LOGGED_OUT_HEADER_LINKS } from '@util/general.constants';
 import { cloneDeep } from 'lodash';
 
 export default function MobileMenu(props) {
+  const { appState } = useContext(AppContext);
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
-
-  let loggedOutLinks = cloneDeep(IS_LOGGED_OUT_HEADER_LINKS);
+  const isLoggedIn = appState.sessionId ? true : false;
+  const loggedOutLinks = cloneDeep(IS_LOGGED_OUT_HEADER_LINKS);
+  const links = isLoggedIn ? IS_LOGGED_IN_HEADER_LINKS : loggedOutLinks;
   loggedOutLinks.push({ name: 'Get Alerts', to: '/create-account' });
-  const links = props.isLoggedIn ? IS_LOGGED_IN_HEADER_LINKS : loggedOutLinks;
 
   function onMenuToggle() {
     setOpen((prevOpen) => !prevOpen);
@@ -28,7 +30,7 @@ export default function MobileMenu(props) {
   }
 
   return (
-    <div className="mobile-menu">
+    <div className={props.btnStyle === 'white' ? 'mobile-menu mobile-menu--white' : 'mobile-menu'}>
       <IconButton
         disableRipple
         ref={anchorRef}

@@ -3,7 +3,6 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding-bottom: 80px; // making space for bottom navigation bar
 
   @media (min-width: $md) {
     padding-bottom: 30px;
@@ -76,6 +75,7 @@
     // Adjusting button-container from global styles
     display: flex;
     flex-direction: column;
+    margin-bottom: 27px;
 
     button:first-child {
       margin-bottom: 14px;

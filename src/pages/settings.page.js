@@ -7,7 +7,6 @@ import GAService from '@services/ga.service';
 import { AppContext } from '@contexts/app.context';
 
 import Header from '@general/headers/header';
-import BottomNav from '@general/navs/bottom-nav';
 import AlertSwitch from '@general/buttons/toggle';
 
 import ArrowBackIosRounded from '@material-ui/icons/ArrowBackIosRounded';
@@ -79,7 +78,6 @@ export default class SettingsPage extends Component {
             </DefaultButton>
           </div>
         </Container>
-        <BottomNav active={3}></BottomNav>
 
         <Dialog
           open={this.state.open}

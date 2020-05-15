@@ -62,7 +62,6 @@ export default function MapPage() {
   const locations = get(appState, 'map.locations') || [];
   // NOTE: Removed `getNumActiveFilters` for ALLCLEAR-516 (TODO: add back in to work with new layout?)
   // const numActiveFilters = getNumActiveFilters(get(appState, 'searchCriteria'));
-  const isLoggedIn = appState.sessionId ? true : false;
   let initialSearchVal;
 
   // get modal service so we can toggle it open
@@ -259,10 +258,10 @@ export default function MapPage() {
     <div className={clsx(classes.root, 'map-page')}>
       {mobileView ? (
         <MobileTopBar
-          isLoggedIn={isLoggedIn}
           onLocationSelected={onLocationSelected}
           onLocationCleared={onLocationCleared}
           onFilterClick={onEditFiltersBtnClick}
+          btnStyle={'white'}
         ></MobileTopBar>
       ) : (
         <Header />

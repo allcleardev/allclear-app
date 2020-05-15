@@ -43,7 +43,7 @@ export default class AccountCreated extends Component {
               <h1>Account Created</h1>
             </div>
           </Container>
-          <OnboardingNavigation forwardRoute={'/map'} forwardText={'Continue to Home'}></OnboardingNavigation>
+          <OnboardingNavigation forwardRoute={'/home'} forwardText={'Continue to Home'}></OnboardingNavigation>
         </Container>
       </div>
     );
