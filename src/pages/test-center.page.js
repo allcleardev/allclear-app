@@ -55,7 +55,6 @@ class TestCenterPage extends Component {
   }
 
   applyCovidTag() {
-    console.log('applying tag!');
     const {name, city, state, address, id, lastUpdated, type} = this.state.facility;
     const currType = (type.id === 'pd') ? 'CivicStructure' : 'LocalBusiness';
     const thisUrl = `${window.location.origin}/test-centers/${id}`;
