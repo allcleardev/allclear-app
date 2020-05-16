@@ -3,7 +3,7 @@
   "version": "1.8.0",
   "license": "AGPL-3.0-only",
   "scripts": {
-    "build": "node stampBuild.js && node sm.js && react-app-rewired build",
+    "build": "node stampBuild.js && react-app-rewired build",
     "deploy": "yarn build && surge build --domain allclear.surge.sh",
     "eject": "react-app-rewired eject",
     "lint": "eslint src --max-warnings=0",
