@@ -136,6 +136,7 @@ class GoogleMap extends Component {
    ******************************************************************/
 
   onMapDragEnd(evt) {
+    // clear search input + query params on pan
     this.mapService.onLocationCleared(null, null, 'clear');
     const latitude = evt.center.lat();
     const longitude = evt.center.lng();
