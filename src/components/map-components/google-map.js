@@ -146,9 +146,9 @@ class GoogleMap extends Component {
     this._search(latitude, longitude);
   }
 
-  onZoomChanged(zoomLevel) {
-    console.log('zoom changed', zoomLevel);
-    console.log('new zoom radius', this._getMapRadiusInMiles());
+  onZoomChanged() {
+    // console.log('zoom changed', zoomLevel);
+    // console.log('new zoom radius', this._getMapRadiusInMiles());
     // console.log('new zoom radius - meters', milesToMeters(this._getMapRadiusInMiles()) );
     this._getMapRadiusInMiles();
 
