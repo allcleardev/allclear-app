@@ -11,7 +11,7 @@ import GAService from '@services/ga.service';
 import MapService from '@services/map.service';
 import {withRouter} from 'react-router';
 import {G_MAP_DEFAULTS, G_MAP_OPTIONS} from '@util/map.constants';
-import {clickMapMarker, getRouteQueryParams, metersToMiles, milesToMeters} from '@util/general.helpers';
+import {clickMapMarker, getRouteQueryParams} from '@util/general.helpers';
 
 class GoogleMap extends Component {
   static contextType = AppContext;
@@ -25,10 +25,11 @@ class GoogleMap extends Component {
       snackbarSeverity: 'warning',
       circle: undefined,
       searchRadius: undefined,
+      mapInitDidComplete: false,
     };
 
     bindAll(this, [
-      'componentDidMount',
+      'onMapReady',
       'onMapDragEnd',
       'onZoomChanged',
       'onMyLocationClicked',
@@ -51,7 +52,8 @@ class GoogleMap extends Component {
     this.mapService.onLocationAccepted = this.onLocationAccepted;
   }
 
-  async componentDidMount() {
+  async onMapReady() {
+
     const {appState} = this.context;
     let latitude = get(appState, 'person.latitude');
     let longitude = get(appState, 'person.longitude');
@@ -106,6 +108,7 @@ class GoogleMap extends Component {
       // logged in profile stuff will go here
     }
 
+    this._getMapRadiusInMiles();
     const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude}));
 
     const locations = get(result, 'data.records');
@@ -151,7 +154,18 @@ class GoogleMap extends Component {
 
     const lat = get(this, 'gMapRef.current.map_.center').lat();
     const lng = get(this, 'gMapRef.current.map_.center').lng();
-    this._search(lat, lng);
+
+    // skip search if happening on mount
+    const {mapInitDidComplete} = this.state;
+    if(mapInitDidComplete){
+      this._search(lat, lng);
+    }else{
+      this.setState({
+        ...this.state,
+        mapInitDidComplete: true
+      });
+    }
+
   }
 
   onMyLocationClicked() {
@@ -175,16 +189,13 @@ class GoogleMap extends Component {
   }
 
   _zoomToResults(results) {
-    console.log('zooming to results')
+
     // clear current circle
     this.state.circle && this.state.circle.setMap(null);
 
     // find furthest distance in results set
     const furthestIndex = get(results, 'length') - 1;
     const furthestMeters = get(results, `[${furthestIndex}].meters`);
-    console.log('furtherst meters', furthestMeters)
-    console.log('furtherst miles', metersToMiles(furthestMeters))
-
     const map = get(this, 'gMapRef.current.map_');
 
     //eslint-disable-next-line
@@ -328,6 +339,7 @@ class GoogleMap extends Component {
           yesIWantToUseGoogleMapApiInternals
           onDragEnd={(evt) => this.onMapDragEnd(evt)}
           onZoomAnimationEnd={(evt) => this.onZoomChanged(evt)}
+          onGoogleApiLoaded={() => this.onMapReady()}
         >
           {locations.map((data, index) => (
             <MapMarker
