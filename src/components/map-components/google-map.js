@@ -203,8 +203,8 @@ class GoogleMap extends Component {
       center: map.center,
       radius: furthestMeters,
       fillOpacity: 0,
-      strokeOpacity: 0.2,
-      // strokeOpacity: 0,
+      // strokeOpacity: 0.2,
+      strokeOpacity: 0,
       map
     });
     map.fitBounds(circle.getBounds());
