@@ -38,7 +38,7 @@ const test = async () => {
   await page.type(
     '#root>div>div.MuiContainer-root.onboarding-body.MuiContainer-maxWidthLg>div.content-container>form>div>div>input',
     config.E2E_PHONE_NUMBER,
-  )
+  );
 
   await page.click(
     '#root>div>div.MuiContainer-root.onboarding-body.MuiContainer-maxWidthLg>div:nth-child(2)>div>span>button'
