@@ -2,12 +2,7 @@ import React, { Fragment, useState } from 'react';
 import styled from 'styled-components';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
-import {
-  boolToEng,
-  isNullOrUndefined,
-  getFeedbackButtonURL,
-  isTaggableLocation,
-} from '@util/general.helpers';
+import { boolToEng, isNullOrUndefined, getFeedbackButtonURL, isTaggableLocation } from '@util/general.helpers';
 import ExternalItemLinks from './external-item-links';
 import CustomizedExpansionPanel, { ExpansionPanelSummary, ExpansionPanelDetails } from './expansion-panel';
 import { Link } from 'react-router-dom';
@@ -104,8 +99,7 @@ export default function TestingLocationListItem(props) {
             {testTypes &&
               testTypes.map((type, i) => (
                 <TestTypeLabel type={type.id} key={i}>
-                  {/* changing name of Nasal Test until backend is updated */}
-                  {type.id === 'rp' ? 'Viral Test' : type.name}
+                  {type.name}
                 </TestTypeLabel>
               ))}
           </dd>
@@ -118,8 +112,7 @@ export default function TestingLocationListItem(props) {
             {testTypes &&
               testTypes.map((type, i) => (
                 <TestTypeLabel type={type.id} key={i}>
-                  {/* changing name of Nasal Test until backend is updated */}
-                  {type.id === 'rp' ? 'Viral Test' : type.name}
+                  {type.name}
                 </TestTypeLabel>
               ))}
           </dd>
