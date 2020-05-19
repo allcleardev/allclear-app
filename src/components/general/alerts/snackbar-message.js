@@ -2,13 +2,13 @@ import React from 'react';
 import Alert from '@material-ui/lab/Alert';
 import { Button, Snackbar, Slide } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
 
 const useStyles = makeStyles((theme) => ({
   message: {
-    minWidth: '60%',
     fontSize: '.95rem',
     [theme.breakpoints.up('sm')]: {
-      minWidth: 400,
+      minWidth: 300,
     },
   },
 }));
@@ -31,6 +31,7 @@ export default function SnackbarMessage(props) {
           {props.message}
         </Alert>
       }
+      classes={{ root: clsx(props.severity) }}
       className={`snackbar ${(props.snackbarClass || 'snackbar__error')}`}
       action={<Button onClick={props.onAction}>{props.action}</Button>}
     >

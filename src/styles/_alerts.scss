@@ -1,6 +1,11 @@
 .snackbar {
+
+  &.info .MuiPaper-root {
+    background-color: red;
+    color: white;
+  }
+
   .MuiPaper-root {
-    min-width: 60%;
     font-size: .95rem;
     color: rgb(30, 70, 32);
     background-color: rgb(237, 247, 237);
@@ -8,6 +13,7 @@
 
     .MuiSnackbarContent-message {
       padding: 0px;
+      background-color: transparent;
     }
 
     .MuiSnackbarContent-action {

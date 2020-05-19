@@ -120,7 +120,7 @@ export default class SignInPage extends Component {
           )}
         <SnackbarMessage
           isOpen={true}
-          severity={'info'}
+          severity={'error'}
           duration={1500000}
           message={`Didn't receive a code?`}
           action="Resend Code"
