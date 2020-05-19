@@ -17,7 +17,7 @@ export function isTaggableLocation(updatedDate) {
   const oneHour = 60 * 60 * 1000; /* milliseconds */
   const createdAt = new Date(updatedDate);
   const currentDate = new Date();
-  return currentDate - createdAt < oneHour * 720;
+  return currentDate - createdAt < oneHour * 72;
 }
 
 export function addDays(date,days) {

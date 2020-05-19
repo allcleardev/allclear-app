@@ -1,17 +1,17 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import MapMarker from './map-marker.js';
 import MyLocationBtn from './my-location-btn';
 import FacilityService from '../../services/facility.service.js';
-import {bindAll, findIndex, get} from 'lodash';
-import {AppContext} from '@contexts/app.context';
+import { bindAll, findIndex, get } from 'lodash';
+import { AppContext } from '@contexts/app.context';
 import MyLocationMapMarker from './my-location-map-marker.js';
 import SnackbarMessage from '@general/alerts/snackbar-message';
 import GAService from '@services/ga.service';
 import MapService from '@services/map.service';
-import {withRouter} from 'react-router';
-import {G_MAP_DEFAULTS, G_MAP_OPTIONS} from '@util/map.constants';
-import {clickMapMarker, getRouteQueryParams} from '@util/general.helpers';
+import { withRouter } from 'react-router';
+import { G_MAP_DEFAULTS, G_MAP_OPTIONS } from '@util/map.constants';
+import { clickMapMarker, getRouteQueryParams, isTaggableLocation } from '@util/general.helpers';
 
 class GoogleMap extends Component {
   static contextType = AppContext;
@@ -24,7 +24,7 @@ class GoogleMap extends Component {
       snackbarMessage: 'Browser location declined. Using location from your profile instead.',
       snackbarSeverity: 'warning',
       circle: undefined,
-      zoom: G_MAP_DEFAULTS.zoom
+      zoom: G_MAP_DEFAULTS.zoom,
     };
 
     bindAll(this, [
@@ -51,7 +51,7 @@ class GoogleMap extends Component {
   }
 
   async componentDidMount() {
-    const {appState} = this.context;
+    const { appState } = this.context;
     let latitude = get(appState, 'person.latitude');
     let longitude = get(appState, 'person.longitude');
 
@@ -75,18 +75,16 @@ class GoogleMap extends Component {
       latitude = urlLat;
       longitude = urlLong;
     } else if (!latitude || !longitude) {
-
       // if IP check succeeded, use that
-      let ipData = await this.mapService.ipCheck()
-        .catch(() => {
-          this.setState({
-            isSnackbarOpen: true,
-            snackbarMessage: 'Enter your location to see results near you.',
-            snackbarSeverity: 'info'
-          });
-          latitude = G_MAP_DEFAULTS.center.lat;
-          longitude = G_MAP_DEFAULTS.center.lng;
+      let ipData = await this.mapService.ipCheck().catch(() => {
+        this.setState({
+          isSnackbarOpen: true,
+          snackbarMessage: 'Enter your location to see results near you.',
+          snackbarSeverity: 'info',
         });
+        latitude = G_MAP_DEFAULTS.center.lat;
+        longitude = G_MAP_DEFAULTS.center.lng;
+      });
 
       latitude = get(ipData, 'data.lat');
       longitude = get(ipData, 'data.lon');
@@ -105,10 +103,10 @@ class GoogleMap extends Component {
       // logged in profile stuff will go here
     }
 
-    const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude}));
+    const result = await this.facilityService.search(this._createSearchPayload({ latitude, longitude }));
 
     const locations = get(result, 'data.records');
-    this._setLocations(locations, {latitude, longitude});
+    this._setLocations(locations, { latitude, longitude });
     latitude && longitude && this._panTo(latitude, longitude);
 
     // zoom to the appropriate level that matches the current result set
@@ -121,11 +119,9 @@ class GoogleMap extends Component {
         clickMapMarker(appState, index, this.props.history, locations);
       }
     }
-
   }
 
   _zoomToResults(results) {
-
     // clear current circle
     this.state.circle && this.state.circle.setMap(null);
 
@@ -142,14 +138,13 @@ class GoogleMap extends Component {
       fillOpacity: 0,
       // strokeOpacity: 0.2,
       strokeOpacity: 0,
-      map
+      map,
     });
     map.fitBounds(circle.getBounds());
     this.setState({
       ...this.state,
-      circle
+      circle,
     });
-
   }
 
   handleSnackbarClose() {
@@ -163,6 +158,7 @@ class GoogleMap extends Component {
    ******************************************************************/
 
   onMapDragEnd(evt) {
+    // clear search input + query params on pan
     this.mapService.onLocationCleared(null, null, 'clear');
     const latitude = evt.center.lat();
     const longitude = evt.center.lng();
@@ -176,7 +172,7 @@ class GoogleMap extends Component {
   }
 
   onMyLocationClicked() {
-    const {appState} = this.context;
+    const { appState } = this.context;
     const latitude = get(appState, 'person.latitude');
     const longitude = get(appState, 'person.longitude');
     this._panTo(latitude, longitude);
@@ -197,7 +193,7 @@ class GoogleMap extends Component {
 
   _setLocations(locations) {
     // update context state (for other components in map page)
-    const {setAppState, appState} = this.context;
+    const { setAppState, appState } = this.context;
 
     this.mapService.mapRef = this.gMapRef;
 
@@ -216,10 +212,9 @@ class GoogleMap extends Component {
    ******************************************************************/
 
   async onLocationAccepted(pos) {
-
     const latitude = pos.coords.latitude;
     const longitude = pos.coords.longitude;
-    const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude}));
+    const result = await this.facilityService.search(this._createSearchPayload({ latitude, longitude }));
     this._setLocations(result.data.records, {
       latitude,
       longitude,
@@ -227,11 +222,10 @@ class GoogleMap extends Component {
     this._panTo(latitude, longitude);
     const locations = get(result, 'data.records');
     this._zoomToResults(locations);
+  }
 
-  };
-
-  _createSearchPayload({latitude, longitude, shouldIgnoreFilters = false}) {
-    const {appState, setAppState} = this.context;
+  _createSearchPayload({ latitude, longitude, shouldIgnoreFilters = false }) {
+    const { appState, setAppState } = this.context;
     const searchCriteria = shouldIgnoreFilters ? {} : appState.searchCriteria;
 
     setAppState({
@@ -240,8 +234,8 @@ class GoogleMap extends Component {
         ...appState.map,
         isListLoading: true,
         latitude,
-        longitude
-      }
+        longitude,
+      },
     });
 
     return {
@@ -255,7 +249,7 @@ class GoogleMap extends Component {
   }
 
   async _search(latitude, longitude) {
-    const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude}));
+    const result = await this.facilityService.search(this._createSearchPayload({ latitude, longitude }));
     this._setLocations(result.data.records, {
       latitude,
       longitude,
@@ -269,7 +263,7 @@ class GoogleMap extends Component {
     const homeIndex = locations.length;
 
     return (
-      <div className="google-map" style={{height: '100%', width: '100%'}} onClick={this.props.onMapClick}>
+      <div className="google-map" style={{ height: '100%', width: '100%' }} onClick={this.props.onMapClick}>
         <SnackbarMessage
           snackbarClass={'snackbar--map'}
           isOpen={this.state.isSnackbarOpen}
@@ -281,7 +275,7 @@ class GoogleMap extends Component {
         <GoogleMapReact
           ref={this.gMapRef}
           options={G_MAP_OPTIONS}
-          bootstrapURLKeys={{key: 'AIzaSyAPB7ER1lGxDSZICjq9lmqgxvnlSJCIuYw'}}
+          bootstrapURLKeys={{ key: 'AIzaSyAPB7ER1lGxDSZICjq9lmqgxvnlSJCIuYw' }}
           defaultCenter={G_MAP_DEFAULTS.center}
           defaultZoom={G_MAP_DEFAULTS.zoom}
           zoom={this.state.zoom}
@@ -290,20 +284,25 @@ class GoogleMap extends Component {
           onZoomChanged={(evt) => this.onMapDragEnd(evt)}
           onZoomAnimationEnd={(evt) => this.onZoomChanged(evt)}
         >
-          {locations.map((data, index) => (
-            <MapMarker
-              key={index}
-              index={index}
-              length={locations.length}
-              lat={data.latitude}
-              lng={data.longitude}
-              text={index + 1}
-            />
-          ))}
-          <MyLocationMapMarker key={homeIndex} lat={homeLat} lng={homeLng}/>
+          {locations.map((data, index) => {
+            const isNew = isTaggableLocation(data.updatedAt);
+            return (
+              <MapMarker
+                key={index}
+                index={index}
+                length={locations.length}
+                lat={data.latitude}
+                lng={data.longitude}
+                text={index + 1}
+                type={data.testTypes}
+                isNew={isNew}
+              />
+            );
+          })}
+          <MyLocationMapMarker key={homeIndex} lat={homeLat} lng={homeLng} />
         </GoogleMapReact>
         {this.isLoggedIn && (
-          <MyLocationBtn aria-label="Go to Profile Location" onClick={() => this.onMyLocationClicked()}/>
+          <MyLocationBtn aria-label="Go to Profile Location" onClick={() => this.onMyLocationClicked()} />
         )}
       </div>
     );
