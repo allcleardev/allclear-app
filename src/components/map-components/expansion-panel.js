@@ -38,6 +38,7 @@ export const ExpansionPanelSummary = withStyles({
   },
   content: {
     marginBottom: -1,
+    overflow: 'hidden', // need this to preserve card layout on small screens
     '&$expanded': {
       marginBottom: -1
     },
