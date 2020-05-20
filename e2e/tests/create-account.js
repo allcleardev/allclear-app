@@ -16,10 +16,12 @@ const test = async () => {
 
   //Click the get-started button
   await page.waitForSelector(
-    '#root>div>div.MuiContainer-root.content.MuiContainer-maxWidthMd>div>button.MuiButtonBase-root.MuiButton-root.jss77.MuiButton-contained.jss78.signup'
+    `#root>div>div.MuiContainer-root.content.MuiContainer-maxWidthMd
+    >div>button.MuiButtonBase-root.MuiButton-root.jss77.MuiButton-contained.jss78.signup`
     );
   await page.click(
-    '#root>div>div.MuiContainer-root.content.MuiContainer-maxWidthMd>div>button.MuiButtonBase-root.MuiButton-root.jss77.MuiButton-contained.jss78.signup'
+    `#root>div>div.MuiContainer-root.content.MuiContainer-maxWidthMd>div
+    >button.MuiButtonBase-root.MuiButton-root.jss77.MuiButton-contained.jss78.signup`
     );
 
   //On the location page
