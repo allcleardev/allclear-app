@@ -80,16 +80,15 @@ class GoogleMap extends Component {
     } else if (!latitude || !longitude) {
 
       // if IP check succeeded, use that
-      let ipData = await this.mapService.ipCheck()
-        .catch(() => {
-          this.setState({
-            isSnackbarOpen: true,
-            snackbarMessage: 'Enter your location to see results near you.',
-            snackbarSeverity: 'info'
-          });
-          latitude = G_MAP_DEFAULTS.center.lat;
-          longitude = G_MAP_DEFAULTS.center.lng;
+      let ipData = await this.mapService.ipCheck().catch(() => {
+        this.setState({
+          isSnackbarOpen: true,
+          snackbarMessage: 'Enter your location to see results near you.',
+          snackbarSeverity: 'info',
         });
+        latitude = G_MAP_DEFAULTS.center.lat;
+        longitude = G_MAP_DEFAULTS.center.lng;
+      });
 
       latitude = get(ipData, 'data.lat');
       longitude = get(ipData, 'data.lon');
@@ -125,7 +124,6 @@ class GoogleMap extends Component {
         clickMapMarker(appState, index, this.props.history, locations);
       }
     }
-
   }
 
   handleSnackbarClose() {
@@ -306,7 +304,7 @@ class GoogleMap extends Component {
   }
 
   async _search(latitude, longitude) {
-    const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude}));
+    const result = await this.facilityService.search(this._createSearchPayload({ latitude, longitude }));
     this._setLocations(result.data.records, {
       latitude,
       longitude,
@@ -320,7 +318,7 @@ class GoogleMap extends Component {
     const homeIndex = locations.length;
 
     return (
-      <div className="google-map" style={{height: '100%', width: '100%'}} onClick={this.props.onMapClick}>
+      <div className="google-map" style={{ height: '100%', width: '100%' }} onClick={this.props.onMapClick}>
         <SnackbarMessage
           snackbarClass={'snackbar--map'}
           isOpen={this.state.isSnackbarOpen}
@@ -341,16 +339,21 @@ class GoogleMap extends Component {
           onZoomAnimationEnd={(evt) => this.onZoomChanged(evt)}
           onGoogleApiLoaded={() => this.onMapReady()}
         >
-          {locations.map((data, index) => (
-            <MapMarker
-              key={index}
-              index={index}
-              length={locations.length}
-              lat={data.latitude}
-              lng={data.longitude}
-              text={index + 1}
-            />
-          ))}
+          {locations.map((data, index) => {
+            const isNew = isTaggableLocation(data.updatedAt);
+            return (
+              <MapMarker
+                key={index}
+                index={index}
+                length={locations.length}
+                lat={data.latitude}
+                lng={data.longitude}
+                text={index + 1}
+                type={data.testTypes}
+                isNew={isNew}
+              />
+            );
+          })}
           <MyLocationMapMarker key={homeIndex} lat={homeLat} lng={homeLng}/>
         </GoogleMapReact>
         {this.isLoggedIn && (

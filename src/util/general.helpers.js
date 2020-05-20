@@ -17,10 +17,10 @@ export function isTaggableLocation(updatedDate) {
   const oneHour = 60 * 60 * 1000; /* milliseconds */
   const createdAt = new Date(updatedDate);
   const currentDate = new Date();
-  return currentDate - createdAt < oneHour * 720;
+  return currentDate - createdAt < oneHour * 72;
 }
 
-export function addDays(date,days) {
+export function addDays(date, days) {
   const copy = new Date(Number(date));
   copy.setDate(date.getDate() + days);
   return copy;
@@ -96,7 +96,9 @@ export function clickMapMarker(appState, index, currHistory, inLocations) {
       elemToOpen.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }, 300);
   } else {
-    elemToOpen.scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => {
+      elemToOpen.scrollIntoView({ behavior: 'smooth' });
+    }, 400);
   }
 }
 
