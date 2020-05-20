@@ -11,7 +11,7 @@ import ShareIcon from '@material-ui/icons/Share';
 import SnackbarMessage from '@general/alerts/snackbar-message';
 
 export default function TestingLocationListItem(props) {
-  const { id, index, title, description, service_time, driveThru, phone, website, testTypes } = props;
+  const { id, index, title, description, service_time, driveThru, phone, website, testTypes, expandedItemId } = props;
   const { onActionClick, onTestingLocationExpand } = props; // events
   const updatedAt = new Date(props.updatedAt);
   const initialSnackbarState = {
@@ -233,6 +233,7 @@ export default function TestingLocationListItem(props) {
         index={index}
         summary={summary}
         details={details}
+        expanded={expandedItemId && expandedItemId === id}
         onExpandedChange={onExpandedChange}
       ></CustomizedExpansionPanel>
       <SnackbarMessage
