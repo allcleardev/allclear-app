@@ -11,7 +11,7 @@ import GAService from '@services/ga.service';
 import MapService from '@services/map.service';
 import {withRouter} from 'react-router';
 import {G_MAP_DEFAULTS, G_MAP_OPTIONS} from '@util/map.constants';
-import {clickMapMarker, getRouteQueryParams} from '@util/general.helpers';
+import {clickMapMarker, getRouteQueryParams, isTaggableLocation} from '@util/general.helpers';
 
 class GoogleMap extends Component {
   static contextType = AppContext;
