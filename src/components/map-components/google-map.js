@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import GoogleMapReact from 'google-map-react';
 import MapMarker from './map-marker.js';
 import MyLocationBtn from './my-location-btn';
 import FacilityService from '../../services/facility.service.js';
-import { bindAll, findIndex, get } from 'lodash';
-import { AppContext } from '@contexts/app.context';
+import {bindAll, findIndex, get} from 'lodash';
+import {AppContext} from '@contexts/app.context';
 import MyLocationMapMarker from './my-location-map-marker.js';
 import SnackbarMessage from '@general/alerts/snackbar-message';
 import GAService from '@services/ga.service';
 import MapService from '@services/map.service';
-import { withRouter } from 'react-router';
-import { G_MAP_DEFAULTS, G_MAP_OPTIONS } from '@util/map.constants';
-import { clickMapMarker, getRouteQueryParams, isTaggableLocation } from '@util/general.helpers';
+import {withRouter} from 'react-router';
+import {G_MAP_DEFAULTS, G_MAP_OPTIONS} from '@util/map.constants';
+import {clickMapMarker, getRouteQueryParams, isTaggableLocation} from '@util/general.helpers';
 
 class GoogleMap extends Component {
   static contextType = AppContext;
@@ -24,11 +24,12 @@ class GoogleMap extends Component {
       snackbarMessage: 'Browser location declined. Using location from your profile instead.',
       snackbarSeverity: 'warning',
       circle: undefined,
-      zoom: G_MAP_DEFAULTS.zoom,
+      searchRadius: undefined,
+      mapInitDidComplete: false,
     };
 
     bindAll(this, [
-      'componentDidMount',
+      'onMapReady',
       'onMapDragEnd',
       'onZoomChanged',
       'onMyLocationClicked',
@@ -39,6 +40,7 @@ class GoogleMap extends Component {
       '_search',
       'handleSnackbarClose',
       '_zoomToResults',
+      '_getMapRadiusInMiles',
     ]);
     this.gMapRef = React.createRef();
     this.facilityService = FacilityService.getInstance();
@@ -50,8 +52,9 @@ class GoogleMap extends Component {
     this.mapService.onLocationAccepted = this.onLocationAccepted;
   }
 
-  async componentDidMount() {
-    const { appState } = this.context;
+  async onMapReady() {
+
+    const {appState} = this.context;
     let latitude = get(appState, 'person.latitude');
     let longitude = get(appState, 'person.longitude');
 
@@ -75,6 +78,7 @@ class GoogleMap extends Component {
       latitude = urlLat;
       longitude = urlLong;
     } else if (!latitude || !longitude) {
+
       // if IP check succeeded, use that
       let ipData = await this.mapService.ipCheck().catch(() => {
         this.setState({
@@ -103,10 +107,11 @@ class GoogleMap extends Component {
       // logged in profile stuff will go here
     }
 
-    const result = await this.facilityService.search(this._createSearchPayload({ latitude, longitude }));
+    this._getMapRadiusInMiles();
+    const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude}));
 
     const locations = get(result, 'data.records');
-    this._setLocations(locations, { latitude, longitude });
+    this._setLocations(locations, {latitude, longitude});
     latitude && longitude && this._panTo(latitude, longitude);
 
     // zoom to the appropriate level that matches the current result set
@@ -119,32 +124,6 @@ class GoogleMap extends Component {
         clickMapMarker(appState, index, this.props.history, locations);
       }
     }
-  }
-
-  _zoomToResults(results) {
-    // clear current circle
-    this.state.circle && this.state.circle.setMap(null);
-
-    // find furthest distance in results set
-    const furthestIndex = get(results, 'length') - 1;
-    const furthestMeters = get(results, `[${furthestIndex}].meters`);
-
-    const map = get(this, 'gMapRef.current.map_');
-
-    //eslint-disable-next-line
-    const circle = new google.maps.Circle({
-      center: map.center,
-      radius: furthestMeters,
-      fillOpacity: 0,
-      // strokeOpacity: 0.2,
-      strokeOpacity: 0,
-      map,
-    });
-    map.fitBounds(circle.getBounds());
-    this.setState({
-      ...this.state,
-      circle,
-    });
   }
 
   handleSnackbarClose() {
@@ -165,14 +144,30 @@ class GoogleMap extends Component {
     this._search(latitude, longitude);
   }
 
-  onZoomChanged(miles, z, t) {
-    // console.log('zoom changed', ...arguments)
-    // todo: major work here bro
-    // https://stackoverflow.com/questions/52411378/google-maps-api-calculate-zoom-based-of-miles
+  onZoomChanged() {
+    // console.log('zoom changed', zoomLevel);
+    // console.log('new zoom radius', this._getMapRadiusInMiles());
+    // console.log('new zoom radius - meters', milesToMeters(this._getMapRadiusInMiles()) );
+    this._getMapRadiusInMiles();
+
+    const lat = get(this, 'gMapRef.current.map_.center').lat();
+    const lng = get(this, 'gMapRef.current.map_.center').lng();
+
+    // skip search if happening on mount
+    const {mapInitDidComplete} = this.state;
+    if(mapInitDidComplete){
+      this._search(lat, lng);
+    }else{
+      this.setState({
+        ...this.state,
+        mapInitDidComplete: true
+      });
+    }
+
   }
 
   onMyLocationClicked() {
-    const { appState } = this.context;
+    const {appState} = this.context;
     const latitude = get(appState, 'person.latitude');
     const longitude = get(appState, 'person.longitude');
     this._panTo(latitude, longitude);
@@ -191,9 +186,67 @@ class GoogleMap extends Component {
     }
   }
 
+  _zoomToResults(results) {
+
+    // clear current circle
+    this.state.circle && this.state.circle.setMap(null);
+
+    // find furthest distance in results set
+    const furthestIndex = get(results, 'length') - 1;
+    const furthestMeters = get(results, `[${furthestIndex}].meters`);
+    const map = get(this, 'gMapRef.current.map_');
+
+    //eslint-disable-next-line
+    const circle = new google.maps.Circle({
+      center: map.center,
+      radius: furthestMeters,
+      fillOpacity: 0,
+      // strokeOpacity: 0.2,
+      strokeOpacity: 0,
+      map
+    });
+    map.fitBounds(circle.getBounds());
+    this.setState({
+      ...this.state,
+      circle
+    });
+
+  }
+
+  _getMapRadiusInMiles() {
+    const map = get(this, 'gMapRef.current.map_');
+    const bounds = map.getBounds();
+
+    const center = bounds.getCenter();
+    const ne = bounds.getNorthEast();
+
+    // r = radius of the earth in statute miles
+    const earthRadius = 3963.0;
+
+    // Convert lat or lng from decimal degrees into radians (divide by 57.2958)
+    const lat1 = center.lat() / 57.2958;
+    const lon1 = center.lng() / 57.2958;
+    const lat2 = ne.lat() / 57.2958;
+    const lon2 = ne.lng() / 57.2958;
+
+    // distance = circle radius from center to Northeast corner of bounds
+    const radius = earthRadius * Math.acos(Math.sin(lat1) * Math.sin(lat2) +
+      Math.cos(lat1) * Math.cos(lat2) * Math.cos(lon2 - lon1));
+
+    this.setState({
+      ...this.state,
+      searchRadius: radius,
+    });
+
+    return radius;
+    // todo: decide if double or not
+    // return radius*2;
+  }
+
+
   _setLocations(locations) {
     // update context state (for other components in map page)
-    const { setAppState, appState } = this.context;
+    const {setAppState, appState} = this.context;
 
     this.mapService.mapRef = this.gMapRef;
 
@@ -212,9 +265,10 @@ class GoogleMap extends Component {
    ******************************************************************/
 
   async onLocationAccepted(pos) {
+
     const latitude = pos.coords.latitude;
     const longitude = pos.coords.longitude;
-    const result = await this.facilityService.search(this._createSearchPayload({ latitude, longitude }));
+    const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude}));
     this._setLocations(result.data.records, {
       latitude,
       longitude,
@@ -222,10 +276,11 @@ class GoogleMap extends Component {
     this._panTo(latitude, longitude);
     const locations = get(result, 'data.records');
     this._zoomToResults(locations);
-  }
 
-  _createSearchPayload({ latitude, longitude, shouldIgnoreFilters = false }) {
-    const { appState, setAppState } = this.context;
+  };
+
+  _createSearchPayload({latitude, longitude, shouldIgnoreFilters = false}) {
+    const {appState, setAppState} = this.context;
     const searchCriteria = shouldIgnoreFilters ? {} : appState.searchCriteria;
 
     setAppState({
@@ -234,8 +289,8 @@ class GoogleMap extends Component {
         ...appState.map,
         isListLoading: true,
         latitude,
-        longitude,
-      },
+        longitude
+      }
     });
 
     return {
@@ -243,7 +298,7 @@ class GoogleMap extends Component {
       from: {
         latitude,
         longitude,
-        miles: 100,
+        miles: this.state.searchRadius || 100,
       },
     };
   }
@@ -275,14 +330,14 @@ class GoogleMap extends Component {
         <GoogleMapReact
           ref={this.gMapRef}
           options={G_MAP_OPTIONS}
-          bootstrapURLKeys={{ key: 'AIzaSyAPB7ER1lGxDSZICjq9lmqgxvnlSJCIuYw' }}
+          bootstrapURLKeys={{key: 'AIzaSyAPB7ER1lGxDSZICjq9lmqgxvnlSJCIuYw'}}
           defaultCenter={G_MAP_DEFAULTS.center}
           defaultZoom={G_MAP_DEFAULTS.zoom}
-          zoom={this.state.zoom}
+          zoom={G_MAP_DEFAULTS.zoom}
           yesIWantToUseGoogleMapApiInternals
           onDragEnd={(evt) => this.onMapDragEnd(evt)}
-          onZoomChanged={(evt) => this.onMapDragEnd(evt)}
           onZoomAnimationEnd={(evt) => this.onZoomChanged(evt)}
+          onGoogleApiLoaded={() => this.onMapReady()}
         >
           {locations.map((data, index) => {
             const isNew = isTaggableLocation(data.updatedAt);
@@ -299,10 +354,10 @@ class GoogleMap extends Component {
               />
             );
           })}
-          <MyLocationMapMarker key={homeIndex} lat={homeLat} lng={homeLng} />
+          <MyLocationMapMarker key={homeIndex} lat={homeLat} lng={homeLng}/>
         </GoogleMapReact>
         {this.isLoggedIn && (
-          <MyLocationBtn aria-label="Go to Profile Location" onClick={() => this.onMyLocationClicked()} />
+          <MyLocationBtn aria-label="Go to Profile Location" onClick={() => this.onMyLocationClicked()}/>
         )}
       </div>
     );
