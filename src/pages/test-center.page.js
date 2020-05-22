@@ -6,10 +6,12 @@ import PhoneIcon from '@material-ui/icons/Phone';
 import { withRouter } from 'react-router';
 import { Container } from '@material-ui/core';
 import { ReactComponent as ShareIcon } from '@assets/images/buttons/share.svg';
+import SnackbarMessage from '@general/alerts/snackbar-message';
 
 import { AppContext } from '@contexts/app.context';
 import Header from '@components/general/headers/header';
 import FacilityService from '@services/facility.service';
+import { triggerShareAction, getShareActionSnackbar } from '@util/social.helpers';
 import {
   getFacilityDetailsMap,
   convertToReadableDate,
@@ -26,6 +28,9 @@ class TestCenterPage extends Component {
 
   state = {
     facility: null,
+    snackbarOpen: false,
+    snackbarMessage: '',
+    snackbarSeverity: '',
   };
 
   constructor(props) {
@@ -94,7 +99,14 @@ class TestCenterPage extends Component {
   }
 
   onShareClick() {
-
+    triggerShareAction().then((response) => {
+      const { snackbarMessage, snackbarSeverity } = getShareActionSnackbar(response);
+      this.setState({
+        snackbarMessage,
+        snackbarSeverity,
+        snackbarOpen: true,
+      });
+    });
   }
 
   componentWillUnmount() {
@@ -136,10 +148,10 @@ class TestCenterPage extends Component {
                   <LinkButton
                     text="Share"
                     theme="rectangle-icon"
-                    showDesktop={false}
+                    showDesktop={true}
                     onClick={(evt) => this.onShareClick(evt)}
                   >
-                    <ShareIcon className="link-button-icon" />
+                    <ShareIcon />
                   </LinkButton>
                 </div>
               </article>
@@ -172,6 +184,12 @@ class TestCenterPage extends Component {
             </>
           )}
         </Container>
+        <SnackbarMessage
+          isOpen={this.state.snackbarOpen}
+          severity={this.state.snackbarSeverity}
+          message={this.state.snackbarMessage}
+          onClose={this.handleSnackbarClose}
+        />
       </div>
     );
   }
