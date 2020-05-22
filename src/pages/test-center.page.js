@@ -1,12 +1,12 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
-import {bindAll, get, debounce} from 'lodash';
+import { bindAll, get, debounce } from 'lodash';
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import PhoneIcon from '@material-ui/icons/Phone';
-import {withRouter} from 'react-router';
-import {Container} from '@material-ui/core';
+import { withRouter } from 'react-router';
+import { Container } from '@material-ui/core';
 
-import {AppContext} from '@contexts/app.context';
+import { AppContext } from '@contexts/app.context';
 import Header from '@components/general/headers/header';
 import FacilityService from '@services/facility.service';
 import {
@@ -18,6 +18,7 @@ import {
   loadDynamicScript
 } from '@util/general.helpers';
 import LinkButton from '@general/buttons/link-button';
+import GradientButton from '@general/buttons/gradient-button';
 
 
 class TestCenterPage extends Component {
@@ -48,14 +49,14 @@ class TestCenterPage extends Component {
         facility.lastUpdated = convertToReadableDate(facility.updatedAt);
         return facility;
       });
-    this.setState({facility});
+    this.setState({ facility });
 
     // stamp page with covid tag if its new
     isTaggableLocation(facility.lastUpdated) && this.applyCovidTag();
   }
 
   applyCovidTag() {
-    const {name, city, state, address, id, lastUpdated, type} = this.state.facility;
+    const { name, city, state, address, id, lastUpdated, type } = this.state.facility;
     const currType = (type.id === 'pd') ? 'CivicStructure' : 'LocalBusiness';
     const thisUrl = `${window.location.origin}/test-centers/${id}`;
     const tag = {
@@ -85,7 +86,7 @@ class TestCenterPage extends Component {
   }
 
   onWindowResize() {
-    this.setState({mobileView: window.innerWidth < 960});
+    this.setState({ mobileView: window.innerWidth < 960 });
   }
 
   onBackClick() {
@@ -105,7 +106,7 @@ class TestCenterPage extends Component {
           <h1 className="heading">Test Center Details</h1>
         </Header>
         <Container className="test-center-page__content" maxWidth="md">
-          <Button className="back-btn hide-mobile" startIcon={<KeyboardArrowLeftIcon/>} onClick={this.onBackClick}>
+          <Button className="back-btn hide-mobile" startIcon={<KeyboardArrowLeftIcon />} onClick={this.onBackClick}>
             Back
           </Button>
           {facility && (
@@ -119,34 +120,36 @@ class TestCenterPage extends Component {
                   <div className="info-line">{facility.hours}</div>
                 </div>
                 <div className="card__actions">
-                  {facility.url && <LinkButton href={facility.url} theme="rectangle-text" text="Website"/>}
+                  {facility.url && <LinkButton href={facility.url} theme="rectangle-text" text="Website" />}
                   <LinkButton
                     href={'https://www.google.com/maps/dir/?api=1&destination=' + facility.address}
                     theme="rectangle-text"
                     text="Directions"
                   />
                   <LinkButton href={'tel:' + facility.phone} theme="rectangle-icon" text="Call">
-                    <PhoneIcon/>
+                    <PhoneIcon />
                   </LinkButton>
                 </div>
               </article>
 
               {/* Details Card */}
               <article className="card test-center-page__details-card">
-                <div style={{marginBottom: '30px'}}>
+                <div style={{ marginBottom: '30px' }}>
                   {this.facilityDetailsMap.map((row) => (
-                    <DetailRow key={row.field} field={row.field} value={row.value}/>
+                    <DetailRow key={row.field} field={row.field} value={row.value} />
                   ))}
                 </div>
                 {facility.lastUpdated && (
-                  <DetailRow field="Last Updated" value={facility.lastUpdated} textSize="small" color="primary"/>
+                  <DetailRow field="Last Updated" value={facility.lastUpdated} textSize="small" color="primary" />
                 )}
               </article>
 
               <div className="test-center-page__feedback">
                 <span>Want to help us improve our data?</span>
                 <a href={this.feedbackURL} target="_blank" rel="noopener noreferrer">
-                  Suggest Change To Test Center Information
+                  <GradientButton variant="contained" className="feedback-button">
+                    Leave Feedback
+                  </GradientButton>
                 </a>
               </div>
             </>
