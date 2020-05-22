@@ -5,6 +5,7 @@ import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import PhoneIcon from '@material-ui/icons/Phone';
 import { withRouter } from 'react-router';
 import { Container } from '@material-ui/core';
+import { ReactComponent as ShareIcon } from '@assets/images/buttons/share.svg';
 
 import { AppContext } from '@contexts/app.context';
 import Header from '@components/general/headers/header';
@@ -92,6 +93,10 @@ class TestCenterPage extends Component {
     this.props.history.push(`/map?selection=${this.id}`);
   }
 
+  onShareClick() {
+
+  }
+
   componentWillUnmount() {
     window.removeEventListener('resize', debounce(this.onWindowResize, 400));
   }
@@ -127,6 +132,14 @@ class TestCenterPage extends Component {
                   />
                   <LinkButton href={'tel:' + facility.phone} theme="rectangle-icon" text="Call">
                     <PhoneIcon />
+                  </LinkButton>
+                  <LinkButton
+                    text="Share"
+                    theme="rectangle-icon"
+                    showDesktop={false}
+                    onClick={(evt) => this.onShareClick(evt)}
+                  >
+                    <ShareIcon className="link-button-icon" />
                   </LinkButton>
                 </div>
               </article>

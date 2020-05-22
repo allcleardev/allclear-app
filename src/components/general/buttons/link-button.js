@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
+import clsx from 'clsx';
 import IconButton from '@material-ui/core/IconButton';
 
 export default function LinkButton(props) {
@@ -21,7 +22,7 @@ export default function LinkButton(props) {
       {props.theme === 'rectangle-icon' && (
         <IconButton
           aria-label="call"
-          className="link-icon-button primary-color primary-outline d-lg-none"
+          className={clsx(props.showDesktop ? '' : 'd-lg-none', 'link-icon-button', 'primary-color', 'primary-outline')}
           color="primary"
         >
           {props.children}
