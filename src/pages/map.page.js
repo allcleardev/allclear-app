@@ -27,7 +27,7 @@ import ModalService from '@services/modal.service';
 import { AppContext } from '@contexts/app.context';
 import { useWindowResize } from '@hooks/general.hooks';
 import { getActiveFilters, getRouteQueryParams } from '@util/general.helpers';
-import { triggerShareAction } from '@util/social.helpers';
+import { triggerShareAction, getShareActionSnackbar } from '@util/social.helpers';
 import GAService, { MAP_PAGE_GA_EVENTS, GA_EVENT_MAP } from '@services/ga.service';
 import MapService from '@services/map.service';
 
@@ -194,19 +194,7 @@ export default function MapPage() {
 
   function onShareClicked() {
     triggerShareAction().then((response) => {
-      let snackbarMessage;
-      let snackbarSeverity;
-
-      if (response.success) {
-        snackbarMessage = response.message;
-        snackbarSeverity = 'success';
-      } else if (response.error) {
-        snackbarMessage = response.error;
-        snackbarSeverity = 'warning';
-      } else {
-        snackbarMessage = 'An error occured. Please try again later';
-        snackbarSeverity = 'error';
-      }
+      const { snackbarMessage, snackbarSeverity } = getShareActionSnackbar(response);
 
       setSnackbarState({
         ...snackbarState,

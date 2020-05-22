@@ -1,14 +1,22 @@
-import React, {Component} from 'react';
-import Button from '@material-ui/core/Button';
-import {bindAll, get, debounce} from 'lodash';
-import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
+// external
+import React, { Component } from 'react';
+import {bindAll, get, debounce, delay} from 'lodash';
+import { withRouter } from 'react-router';
+import { Container, Button } from '@material-ui/core';
 import PhoneIcon from '@material-ui/icons/Phone';
-import {withRouter} from 'react-router';
-import {Container} from '@material-ui/core';
+import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 
-import {AppContext} from '@contexts/app.context';
+// components
+import LinkButton from '@general/buttons/link-button';
+import SnackbarMessage from '@general/alerts/snackbar-message';
+import ExternalItemLinks from '@components/map-components/external-item-links';
 import Header from '@components/general/headers/header';
+import { ReactComponent as ShareIcon } from '@assets/images/buttons/share.svg';
+
+// other
+import { AppContext } from '@contexts/app.context';
 import FacilityService from '@services/facility.service';
+import { triggerShareAction, getShareActionSnackbar } from '@util/social.helpers';
 import {
   getFacilityDetailsMap,
   convertToReadableDate,
@@ -16,7 +24,6 @@ import {
   isTaggableLocation,
   applyCovidTag
 } from '@util/general.helpers';
-import LinkButton from '@general/buttons/link-button';
 
 
 class TestCenterPage extends Component {
@@ -24,11 +31,22 @@ class TestCenterPage extends Component {
 
   state = {
     facility: null,
+    snackbarOpen: false,
+    snackbarMessage: '',
+    snackbarSeverity: '',
   };
 
   constructor(props) {
     super(props);
-    bindAll(this, ['componentDidMount', 'onWindowResize', 'onBackClick', 'componentWillUnmount', 'prepCovidTag']);
+    bindAll(this, [
+      'componentDidMount',
+      'onWindowResize',
+      'onBackClick',
+      'componentWillUnmount',
+      'prepCovidTag',
+      'onShareClick',
+      'onItemLinkClick'
+    ]);
     this.id = props.match.params.id;
     this.facilityService = FacilityService.getInstance();
   }
@@ -47,14 +65,14 @@ class TestCenterPage extends Component {
         facility.lastUpdated = convertToReadableDate(facility.updatedAt);
         return facility;
       });
-    this.setState({facility});
+    this.setState({ facility });
 
     // stamp page with covid tag if its new
     isTaggableLocation(facility.lastUpdated) && this.prepCovidTag();
   }
 
   prepCovidTag() {
-    const {name, city, state, address, id, lastUpdated, type} = this.state.facility;
+    const { name, city, state, address, id, lastUpdated, type } = this.state.facility;
     const currType = (type?.id === 'pd') ? 'CivicStructure' : 'LocalBusiness';
     const thisUrl = `${window.location.origin}/test-centers/${id}`;
     const text = `${name} is offering testing for COVID-19!`;
@@ -71,11 +89,37 @@ class TestCenterPage extends Component {
   }
 
   onWindowResize() {
-    this.setState({mobileView: window.innerWidth < 960});
+    this.setState({ mobileView: window.innerWidth < 960 });
   }
 
   onBackClick() {
     this.props.history.push(`/map?selection=${this.id}`);
+  }
+
+  onShareClick() {
+    triggerShareAction({url: window.location.href}).then((response) => {
+      const { snackbarMessage, snackbarSeverity } = getShareActionSnackbar(response);
+      this.setState({
+        ...this.state,
+        snackbarMessage,
+        snackbarSeverity,
+        snackbarOpen: true,
+      });
+
+      // close snackbar after 3 seconds
+      delay((e, i) => {
+        this.setState({
+          ...this.state,
+          snackbarOpen: false,
+        });
+      }, 3000);
+
+    });
+
+  }
+
+  onItemLinkClick(evt, item) {
+    item === 'Share' && this.onShareClick();
   }
 
   componentWillUnmount() {
@@ -84,6 +128,7 @@ class TestCenterPage extends Component {
 
   render() {
     const facility = this.state.facility;
+    const mobileView = this.state.mobileView;
 
     return (
       <div className="test-center-page">
@@ -91,7 +136,7 @@ class TestCenterPage extends Component {
           <h1 className="heading">Test Center Details</h1>
         </Header>
         <Container className="test-center-page__content" maxWidth="md">
-          <Button className="back-btn hide-mobile" startIcon={<KeyboardArrowLeftIcon/>} onClick={this.onBackClick}>
+          <Button className="back-btn hide-mobile" startIcon={<KeyboardArrowLeftIcon />} onClick={this.onBackClick}>
             Back
           </Button>
           {facility && (
@@ -105,39 +150,72 @@ class TestCenterPage extends Component {
                   <div className="info-line">{facility.hours}</div>
                 </div>
                 <div className="card__actions">
-                  {facility.url && <LinkButton href={facility.url} theme="rectangle-text" text="Website"/>}
-                  <LinkButton
-                    href={'https://www.google.com/maps/dir/?api=1&destination=' + facility.address}
-                    theme="rectangle-text"
-                    text="Directions"
-                  />
-                  <LinkButton href={'tel:' + facility.phone} theme="rectangle-icon" text="Call">
-                    <PhoneIcon/>
-                  </LinkButton>
+                  {mobileView
+                    ? <ExternalItemLinks
+                      display={'d-flex'}
+                      description={facility.address}
+                      phone={facility.phone}
+                      website={facility.url}
+                      onClick={(evt, text) => this.onItemLinkClick(evt, text)}
+                    />
+                    : <>
+                      {facility.url && <LinkButton href={facility.url} theme="rectangle-text" text="Website" />}
+                      <LinkButton
+                        href={'https://www.google.com/maps/dir/?api=1&destination=' + facility.address}
+                        theme="rectangle-text"
+                        text="Directions"
+                      />
+                      <LinkButton href={'tel:' + facility.phone} theme="rectangle-icon" text="Call">
+                        <PhoneIcon />
+                      </LinkButton>
+                      <LinkButton
+                        text="Share"
+                        theme="rectangle-icon"
+                        showDesktop={true}
+                        onClick={(evt) => this.onShareClick(evt)}
+                      >
+                        <ShareIcon />
+                      </LinkButton>
+                    </>
+                  }
+
                 </div>
               </article>
 
               {/* Details Card */}
               <article className="card test-center-page__details-card">
-                <div style={{marginBottom: '30px'}}>
+                <div style={{ marginBottom: '30px' }}>
                   {this.facilityDetailsMap.map((row) => (
-                    <DetailRow key={row.field} field={row.field} value={row.value}/>
+                    <DetailRow key={row.field} field={row.field} value={row.value} />
                   ))}
                 </div>
                 {facility.lastUpdated && (
-                  <DetailRow field="Last Updated" value={facility.lastUpdated} textSize="small" color="primary"/>
+                  <DetailRow field="Last Updated" value={facility.lastUpdated} textSize="small" color="primary" />
                 )}
               </article>
 
               <div className="test-center-page__feedback">
                 <span>Want to help us improve our data?</span>
                 <a href={this.feedbackURL} target="_blank" rel="noopener noreferrer">
-                  Suggest Change To Test Center Information
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    className="feedback-button"
+                    style={{ background: 'linear-gradient(to right, #11BCF1, #007AFF)' }}
+                  >
+                    Leave Feedback
+                </Button>
                 </a>
               </div>
             </>
           )}
         </Container>
+        <SnackbarMessage
+          isOpen={this.state.snackbarOpen}
+          severity={this.state.snackbarSeverity}
+          message={this.state.snackbarMessage}
+          onClose={this.handleSnackbarClose}
+        />
       </div>
     );
   }
