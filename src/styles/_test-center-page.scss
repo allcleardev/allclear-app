@@ -129,6 +129,21 @@
       @media (min-width: $md) {
         width: unset;
       }
+
+      .feedback-button {
+        background: 'linear-gradient(to right, #11BCF1, #007AFF)' !important;
+        font-size: 17px;
+        font-weight: 500;
+        padding: 13px 48px;
+        border-radius: 10px;
+        min-height: 48px;
+        color: white;
+    
+        @media (min-width: $md) {
+          border: 0 !important;
+          margin-top: 15px;
+        }
+      }
     }
   }
 }

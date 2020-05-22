@@ -18,7 +18,6 @@ import {
   loadDynamicScript
 } from '@util/general.helpers';
 import LinkButton from '@general/buttons/link-button';
-import GradientButton from '@general/buttons/gradient-button';
 
 
 class TestCenterPage extends Component {
@@ -147,9 +146,14 @@ class TestCenterPage extends Component {
               <div className="test-center-page__feedback">
                 <span>Want to help us improve our data?</span>
                 <a href={this.feedbackURL} target="_blank" rel="noopener noreferrer">
-                  <GradientButton variant="contained" className="feedback-button">
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    className="feedback-button"
+                    style={{ background: 'linear-gradient(to right, #11BCF1, #007AFF)' }}
+                  >
                     Leave Feedback
-                  </GradientButton>
+                </Button>
                 </a>
               </div>
             </>
