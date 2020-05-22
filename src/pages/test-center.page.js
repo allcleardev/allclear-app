@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import { bindAll, get, debounce } from 'lodash';
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
-import PhoneIcon from '@material-ui/icons/Phone';
 import { withRouter } from 'react-router';
 import { Container } from '@material-ui/core';
-import { ReactComponent as ShareIcon } from '@assets/images/buttons/share.svg';
 import SnackbarMessage from '@general/alerts/snackbar-message';
+import ExternalItemLinks from '@components/map-components/external-item-links';
+import LinkButton from '@general/buttons/link-button';
+import { ReactComponent as ShareIcon } from '@assets/images/buttons/share.svg';
+import PhoneIcon from '@material-ui/icons/Phone';
 
 import { AppContext } from '@contexts/app.context';
 import Header from '@components/general/headers/header';
@@ -19,7 +21,6 @@ import {
   isTaggableLocation,
   applyCovidTag
 } from '@util/general.helpers';
-import LinkButton from '@general/buttons/link-button';
 
 
 class TestCenterPage extends Component {
@@ -34,7 +35,7 @@ class TestCenterPage extends Component {
 
   constructor(props) {
     super(props);
-    bindAll(this, ['componentDidMount', 'onWindowResize', 'onBackClick', 'componentWillUnmount', 'prepCovidTag']);
+    bindAll(this, ['componentDidMount', 'onWindowResize', 'onBackClick', 'componentWillUnmount', 'prepCovidTag', 'onShareClick', 'onItemLinkClick']);
     this.id = props.match.params.id;
     this.facilityService = FacilityService.getInstance();
   }
@@ -95,12 +96,17 @@ class TestCenterPage extends Component {
     });
   }
 
+  onItemLinkClick(evt, item) {
+    item === 'Share' && this.onShareClick();
+  }
+
   componentWillUnmount() {
     window.removeEventListener('resize', debounce(this.onWindowResize, 400));
   }
 
   render() {
     const facility = this.state.facility;
+    const mobileView = this.state.mobileView;
 
     return (
       <div className="test-center-page">
@@ -122,23 +128,35 @@ class TestCenterPage extends Component {
                   <div className="info-line">{facility.hours}</div>
                 </div>
                 <div className="card__actions">
-                  {facility.url && <LinkButton href={facility.url} theme="rectangle-text" text="Website" />}
-                  <LinkButton
-                    href={'https://www.google.com/maps/dir/?api=1&destination=' + facility.address}
-                    theme="rectangle-text"
-                    text="Directions"
-                  />
-                  <LinkButton href={'tel:' + facility.phone} theme="rectangle-icon" text="Call">
-                    <PhoneIcon />
-                  </LinkButton>
-                  <LinkButton
-                    text="Share"
-                    theme="rectangle-icon"
-                    showDesktop={true}
-                    onClick={(evt) => this.onShareClick(evt)}
-                  >
-                    <ShareIcon />
-                  </LinkButton>
+                  {mobileView
+                    ? <ExternalItemLinks
+                      display={'d-flex'}
+                      description={facility.address}
+                      phone={facility.phone}
+                      website={facility.url}
+                      onClick={(evt, text) => this.onItemLinkClick(evt, text)}
+                    />
+                    : <>
+                      {facility.url && <LinkButton href={facility.url} theme="rectangle-text" text="Website" />}
+                      <LinkButton
+                        href={'https://www.google.com/maps/dir/?api=1&destination=' + facility.address}
+                        theme="rectangle-text"
+                        text="Directions"
+                      />
+                      <LinkButton href={'tel:' + facility.phone} theme="rectangle-icon" text="Call">
+                        <PhoneIcon />
+                      </LinkButton>
+                      <LinkButton
+                        text="Share"
+                        theme="rectangle-icon"
+                        showDesktop={true}
+                        onClick={(evt) => this.onShareClick(evt)}
+                      >
+                        <ShareIcon />
+                      </LinkButton>
+                    </>
+                  }
+
                 </div>
               </article>
 

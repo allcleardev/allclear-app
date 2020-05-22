@@ -83,6 +83,16 @@
       &__actions {
         margin-top: 12px;
 
+        .list-item-buttons {
+          .link-button {
+            margin-right: 30px;
+            
+            p {
+              margin-bottom: 0px;
+            }
+          }
+        }
+
         @media (min-width: $md) {
           margin-top: 23px;
         }
