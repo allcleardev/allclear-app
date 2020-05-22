@@ -1,6 +1,6 @@
 // external
 import React, { Component } from 'react';
-import { bindAll, get, debounce } from 'lodash';
+import {bindAll, get, debounce, delay} from 'lodash';
 import { withRouter } from 'react-router';
 import { Container, Button } from '@material-ui/core';
 import PhoneIcon from '@material-ui/icons/Phone';
@@ -97,14 +97,25 @@ class TestCenterPage extends Component {
   }
 
   onShareClick() {
-    triggerShareAction().then((response) => {
+    triggerShareAction({url: window.location.href}).then((response) => {
       const { snackbarMessage, snackbarSeverity } = getShareActionSnackbar(response);
       this.setState({
+        ...this.state,
         snackbarMessage,
         snackbarSeverity,
         snackbarOpen: true,
       });
+
+      // close snackbar after 3 seconds
+      delay((e, i) => {
+        this.setState({
+          ...this.state,
+          snackbarOpen: false,
+        });
+      }, 3000);
+
     });
+
   }
 
   onItemLinkClick(evt, item) {
