@@ -17,8 +17,7 @@ import {
   convertToReadableDate,
   getFeedbackButtonURL,
   isTaggableLocation,
-  addDays,
-  loadDynamicScript
+  applyCovidTag
 } from '@util/general.helpers';
 import LinkButton from '@general/buttons/link-button';
 
@@ -35,7 +34,7 @@ class TestCenterPage extends Component {
 
   constructor(props) {
     super(props);
-    bindAll(this, ['componentDidMount', 'onWindowResize', 'onBackClick', 'componentWillUnmount', 'applyCovidTag']);
+    bindAll(this, ['componentDidMount', 'onWindowResize', 'onBackClick', 'componentWillUnmount', 'prepCovidTag']);
     this.id = props.match.params.id;
     this.facilityService = FacilityService.getInstance();
   }
@@ -57,37 +56,24 @@ class TestCenterPage extends Component {
     this.setState({ facility });
 
     // stamp page with covid tag if its new
-    isTaggableLocation(facility.lastUpdated) && this.applyCovidTag();
+    isTaggableLocation(facility.lastUpdated) && this.prepCovidTag();
   }
 
-  applyCovidTag() {
+  prepCovidTag() {
     const { name, city, state, address, id, lastUpdated, type } = this.state.facility;
-    const currType = (type.id === 'pd') ? 'CivicStructure' : 'LocalBusiness';
+    const currType = (type?.id === 'pd') ? 'CivicStructure' : 'LocalBusiness';
     const thisUrl = `${window.location.origin}/test-centers/${id}`;
-    const tag = {
-      '@context': 'https://schema.org',
-      '@type': 'SpecialAnnouncement',
-      name: 'Get Tested for COVID-19',
-      text: `${name} is offering testing for COVID-19!`,
-      datePosted: new Date(lastUpdated).toISOString(),
-      expires: addDays(new Date(lastUpdated), 30).toISOString(),
-      gettingTestedInfo: thisUrl,
-      category: 'https://www.wikidata.org/wiki/Q81068910',
-      announcementLocation: {
-        '@type': currType,
-        name,
-        url: thisUrl,
-        address: {
-          '@type': 'PostalAddress',
-          streetAddress: address,
-          addressLocality: city,
-          // postalCode: '56308', // we dont have an attribute for this
-          addressRegion: state,
-          addressCountry: 'US'
-        }
-      }
-    };
-    loadDynamicScript('application/ld+json', JSON.stringify(tag));
+    const text = `${name} is offering testing for COVID-19!`;
+    applyCovidTag({
+      name,
+      city,
+      state,
+      address,
+      lastUpdated,
+      text,
+      url: thisUrl,
+      type: currType,
+    });
   }
 
   onWindowResize() {

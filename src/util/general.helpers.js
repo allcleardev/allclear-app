@@ -150,3 +150,31 @@ export function getFeedbackButtonURL(facility) {
     &prefill_This location required an appointment=${boolToEng(facility.appointmentRequired) || ''}
     &prefill_Address=${facility.description || facility.address || ''}`;
 }
+
+export function applyCovidTag({name, city, state, address, lastUpdated, text, url, type}) {
+  const tag = {
+    '@context': 'https://schema.org',
+    '@type': 'SpecialAnnouncement',
+    name: 'Get Tested for COVID-19',
+    text,
+    datePosted: new Date(lastUpdated).toISOString(),
+    expires: addDays(new Date(lastUpdated), 30).toISOString(),
+    gettingTestedInfo: url,
+    category: 'https://www.wikidata.org/wiki/Q81068910',
+    announcementLocation: {
+      '@type': type,
+      name,
+      url,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: address,
+        addressLocality: city,
+        // postalCode: '56308', // we dont have an attribute for this
+        addressRegion: state,
+        addressCountry: 'US'
+      }
+    }
+  };
+  loadDynamicScript('application/ld+json', JSON.stringify(tag));
+  console.log('Covid tag applied');
+}

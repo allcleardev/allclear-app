@@ -87,6 +87,7 @@
     "@styles": "./src/styles",
     "@util": "./src/util",
     "@hooks": "./src/hooks",
+    "@constants": "./src/constants",
     "@assets": "./src/assets"
   },
   "reactSnap": {
