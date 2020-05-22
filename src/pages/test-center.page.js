@@ -1,17 +1,20 @@
+// external
 import React, { Component } from 'react';
-import Button from '@material-ui/core/Button';
 import { bindAll, get, debounce } from 'lodash';
-import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import { withRouter } from 'react-router';
-import { Container } from '@material-ui/core';
+import { Container, Button } from '@material-ui/core';
+import PhoneIcon from '@material-ui/icons/Phone';
+import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
+
+// components
+import LinkButton from '@general/buttons/link-button';
 import SnackbarMessage from '@general/alerts/snackbar-message';
 import ExternalItemLinks from '@components/map-components/external-item-links';
-import LinkButton from '@general/buttons/link-button';
-import { ReactComponent as ShareIcon } from '@assets/images/buttons/share.svg';
-import PhoneIcon from '@material-ui/icons/Phone';
-
-import { AppContext } from '@contexts/app.context';
 import Header from '@components/general/headers/header';
+import { ReactComponent as ShareIcon } from '@assets/images/buttons/share.svg';
+
+// other
+import { AppContext } from '@contexts/app.context';
 import FacilityService from '@services/facility.service';
 import { triggerShareAction, getShareActionSnackbar } from '@util/social.helpers';
 import {
@@ -35,7 +38,15 @@ class TestCenterPage extends Component {
 
   constructor(props) {
     super(props);
-    bindAll(this, ['componentDidMount', 'onWindowResize', 'onBackClick', 'componentWillUnmount', 'prepCovidTag', 'onShareClick', 'onItemLinkClick']);
+    bindAll(this, [
+      'componentDidMount',
+      'onWindowResize',
+      'onBackClick',
+      'componentWillUnmount',
+      'prepCovidTag',
+      'onShareClick',
+      'onItemLinkClick'
+    ]);
     this.id = props.match.params.id;
     this.facilityService = FacilityService.getInstance();
   }
