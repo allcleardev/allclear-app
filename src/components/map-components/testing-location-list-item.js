@@ -48,6 +48,9 @@ export default function TestingLocationListItem(props) {
 
   const onClick = (evt, buttonName) => {
     evt.stopPropagation();
+    if(buttonName === 'Share'){
+      onShareClicked(evt, id);
+    }
     onActionClick(buttonName, id, index, title);
   };
 
