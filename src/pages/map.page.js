@@ -146,8 +146,6 @@ export default function MapPage() {
   }
 
   async function onLocationCleared() {
-    const latitude = get(appState, 'person.latitude');
-    const longitude = get(appState, 'person.longitude');
 
     // set a temp flag for lifecycle hook to know a clear happened
     setMapState({
@@ -163,14 +161,19 @@ export default function MapPage() {
       },
     });
 
-    latitude &&
-      longitude &&
-      (await mapService.onLocationAccepted({
-        coords: {
-          latitude,
-          longitude,
-        },
-      }));
+    // todo: this may have been here for a filter reason. it auto-pans logged in users
+
+    // const latitude = get(appState, 'person.latitude');
+    // const longitude = get(appState, 'person.longitude');
+    // latitude &&
+    //   longitude &&
+    //   (await mapService.onLocationAccepted({
+    //     coords: {
+    //       latitude,
+    //       longitude,
+    //     },
+    //   }));
+
   }
 
   function onEditFiltersBtnClick() {
