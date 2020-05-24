@@ -41,7 +41,9 @@ export default function ExternalItemLinks(props) {
             href={btn.href}
             text={btn.text}
             theme="round-icon"
-            onClick={(evt) => props.onClick(evt, btn.text)}
+            onClick={(evt) =>  {
+              props.onClick(evt, btn.text);
+            }}
           >
             {btn.icon}
           </LinkButton>
