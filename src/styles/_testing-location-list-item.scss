@@ -2,14 +2,19 @@
   $black: #151522;
   $grey: #999;
 
+  .my-auto {
+    width: 100%;
+  }
+
   .card-title {
+    display: flex;
+
     .title-text {
       line-height: 22px;
       font-weight: 600;
       font-size: 16px;
       color: $black;
       display: inline-block;
-      max-width: 305px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -20,9 +25,9 @@
       color: #ff771a;
       font-size: 14px;
       margin-left: 10px;
-      position: absolute;
       font-weight: 500;
       display: inline-flex;
+      align-items: center;
 
       .MuiSvgIcon-root {
         font-size: 1.3rem;
@@ -119,11 +124,8 @@
 }
 
 .icons-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin: 0 20px;
   font-size: 12px;
-  width: 330px;
   color: $primary-color;
 }
 

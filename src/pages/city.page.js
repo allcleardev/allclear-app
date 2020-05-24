@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import Header from '../components/general/headers/header';
-import BottomNav from '../components/general/navs/bottom-nav';
+import { Link } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
+import {bindAll, startCase, get} from 'lodash';
+
+import Header from '@general/headers/header';
+import BottomNav from '@general/navs/bottom-nav';
 import GAService from '@services/ga.service';
 import { AppContext } from '@contexts/app.context';
-import {bindAll, startCase} from 'lodash';
 import FacilityService from '@services/facility.service';
-import { Link } from 'react-router-dom';
 import MetadataService from '@services/metadata.service';
+import {applyCovidTag, isTaggableLocation} from '@util/general.helpers';
 
 class CityPage extends Component {
   static contextType = AppContext;
@@ -24,7 +26,7 @@ class CityPage extends Component {
     this.gaService = GAService.getInstance();
     this.gaService.setScreenName('test-centers');
 
-    bindAll(this, ['getCenters']);
+    bindAll(this, ['getCenters', 'prepCovidTag']);
 
     this.facilityService = FacilityService.getInstance();
     this.metadataService = MetadataService.getInstance();
@@ -53,7 +55,9 @@ class CityPage extends Component {
     const response = await this.facilityService.search({
       state: stateParam,
       city: cityParam,
-      pageSize: 500
+      pageSize: 500,
+      sortOn: 'updatedAt',
+      sortDir: 'DESC'
     });
 
     if (!response.err) {
@@ -69,6 +73,25 @@ class CityPage extends Component {
         loading: false,
       });
     }
+    const [latestCenter] = this.state.centerList;
+    isTaggableLocation(latestCenter.updatedAt) && this.prepCovidTag();
+  }
+
+  prepCovidTag() {
+    const {stateName, cityName} = this.state;
+    const thisUrl = `${window.location.origin}/location/${stateName}/${cityName}`;
+    const name = `COVID-19 Test Centers in ${cityName}, ${stateName}`;
+    const [latestCenter] = this.state.centerList;
+    const {updatedAt} = latestCenter;
+    applyCovidTag({
+      text: `Get tested in ${cityName}, ${stateName} for SARS-CoV-2, the coronavirus that causes COVID-19.`,
+      name,
+      city: cityName,
+      state: stateName,
+      lastUpdated: updatedAt,
+      url: thisUrl,
+      type: 'LocalBusiness'
+    });
   }
 
   render() {
@@ -80,8 +103,9 @@ class CityPage extends Component {
             {this.state.cityName}, {this.state.stateName} COVID-19 Testing Centers | AllClear
           </h1>
           <h2>
-            View all COVID-19 testing centers in {this.state.cityName}, {this.state.stateName}. AllClear is your guide
-            to find where to get tested, quickly. Please contact your nearest center with any questions.
+            View {get(this,'state.centerList.length') || 'all'} COVID-19 testing centers in
+            {this.state.cityName}, {this.state.stateName}. AllClear is your guide to find where to get tested, quickly.
+            Please contact your nearest center with any questions.
           </h2>
 
           <div className="seo-list">

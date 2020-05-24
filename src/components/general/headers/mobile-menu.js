@@ -6,7 +6,7 @@ import MenuList from '@material-ui/core/MenuList';
 import IconButton from '@material-ui/core/IconButton';
 import Logo from '@assets/images/logo-navy.svg';
 import { AppContext } from '@contexts/app.context';
-import { IS_LOGGED_IN_HEADER_LINKS, IS_LOGGED_OUT_HEADER_LINKS } from '@util/general.constants';
+import { IS_LOGGED_IN_HEADER_LINKS, IS_LOGGED_OUT_HEADER_LINKS } from '@constants/general.constants';
 import { cloneDeep } from 'lodash';
 
 export default function MobileMenu(props) {

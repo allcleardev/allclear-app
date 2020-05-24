@@ -2,10 +2,10 @@
   flex: 1 0 auto;
 
   .color-block {
-    height: 180px;
+    height: 250px;
 
     @media (min-width: $md) {
-      height: 300px;
+      height: 309px;
     }
   }
 
@@ -17,11 +17,13 @@
     color: #fff;
 
     @media (min-width: $md) {
-      visibility: hidden;
+      display: none;
     }
   }
 
   &__content {
+    margin-top: 33px;
+
     .back-btn {
       margin-bottom: 18px;
       color: white;
@@ -33,25 +35,26 @@
 
     // todo: make shared mixin
     .card {
-      border-radius: 30px;
-      padding: 17px 19px;
-      border: 0;
-      box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
       margin-bottom: 50px;
+      padding: 20px 19px;
+      border: 0;
+      border-radius: 15px;
+      box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.15);
 
       @media (min-width: $md) {
-        padding: 23px 30px;
+        padding: 23px 31px;
+        border-radius: 30px;
       }
 
       &__title {
-        font-size: 18px;
-        letter-spacing: 0.374px;
         margin-bottom: 7px;
+        letter-spacing: 0.2px;
+        font-size: 18px;
+        font-weight: 700;
 
         @media (min-width: $md) {
           font-size: 24px;
-          line-height: 41px;
-          margin-bottom: 14px;
+          margin-bottom: 10px;
         }
       }
 
@@ -80,6 +83,16 @@
       &__actions {
         margin-top: 12px;
 
+        .list-item-buttons {
+          .link-button {
+            margin-right: 30px;
+            
+            p {
+              margin-bottom: 0px;
+            }
+          }
+        }
+
         @media (min-width: $md) {
           margin-top: 23px;
         }
@@ -98,6 +111,19 @@
       color: #4f4f4f;
       margin-bottom: 8px;
     }
+
+    b {
+      font-weight: 500;
+    }
+
+    &.card {
+      border-radius: 6px;
+      box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15);
+
+      @media (min-width: $md) {
+        border-radius: 15px;
+      }
+    }
   }
 
   &__feedback {
@@ -105,5 +131,29 @@
     flex-direction: column;
     align-items: center;
     padding-bottom: 50px;
+
+    a {
+      margin-top: 12px;
+      width: 100%;
+
+      @media (min-width: $md) {
+        width: unset;
+      }
+
+      .feedback-button {
+        background: 'linear-gradient(to right, #11BCF1, #007AFF)' !important;
+        font-size: 17px;
+        font-weight: 500;
+        padding: 13px 48px;
+        border-radius: 10px;
+        min-height: 48px;
+        color: white;
+    
+        @media (min-width: $md) {
+          border: 0 !important;
+          margin-top: 15px;
+        }
+      }
+    }
   }
 }
