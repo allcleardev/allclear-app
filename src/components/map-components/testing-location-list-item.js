@@ -6,7 +6,7 @@ import { boolToEng, isNullOrUndefined, getFeedbackButtonURL, isTaggableLocation 
 import ExternalItemLinks from './external-item-links';
 import CustomizedExpansionPanel, { ExpansionPanelSummary, ExpansionPanelDetails } from './expansion-panel';
 import { Link } from 'react-router-dom';
-import { triggerShareAction } from '@util/social.helpers';
+import { triggerShareAction, getShareActionSnackbar } from '@util/social.helpers';
 import ShareIcon from '@material-ui/icons/Share';
 import SnackbarMessage from '@general/alerts/snackbar-message';
 
@@ -26,19 +26,7 @@ export default function TestingLocationListItem(props) {
     const currLocation = window.location.origin;
     const props = { url: `${currLocation}/map?selection=${id}` };
     triggerShareAction(props).then((response) => {
-      let snackbarMessage;
-      let snackbarSeverity;
-
-      if (response.success) {
-        snackbarMessage = response.message;
-        snackbarSeverity = 'success';
-      } else if (response.error) {
-        snackbarMessage = response.error;
-        snackbarSeverity = 'warning';
-      } else {
-        snackbarMessage = 'An error occured. Please try again later';
-        snackbarSeverity = 'error';
-      }
+      const { snackbarMessage, snackbarSeverity } = getShareActionSnackbar(response);
 
       setSnackbarState({
         ...snackbarState,
@@ -60,6 +48,9 @@ export default function TestingLocationListItem(props) {
 
   const onClick = (evt, buttonName) => {
     evt.stopPropagation();
+    if(buttonName === 'Share'){
+      onShareClicked(evt, id);
+    }
     onActionClick(buttonName, id, index, title);
   };
 

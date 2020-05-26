@@ -1,6 +1,6 @@
 {
   "name": "allclear-pwa-2",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "license": "AGPL-3.0-only",
   "scripts": {
     "build": "node stampBuild.js && react-app-rewired build",
@@ -87,6 +87,7 @@
     "@styles": "./src/styles",
     "@util": "./src/util",
     "@hooks": "./src/hooks",
+    "@constants": "./src/constants",
     "@assets": "./src/assets"
   },
   "reactSnap": {

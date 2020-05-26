@@ -8,7 +8,7 @@ export async function triggerShareAction({
   title = 'AllClear',
   url = 'https://go.allclear.app',
   text = document.querySelector('meta[name="description"]') &&
-    document.querySelector('meta[name="description"]').content,
+  document.querySelector('meta[name="description"]').content,
 } = {}) {
   if (navigator && navigator.share) {
     // safari browser + safari ios + chrome android
@@ -65,4 +65,22 @@ function _fallbackShareAction(copyText) {
   }
   document.body.removeChild(textArea);
   return defaultShareSuccess;
+}
+
+export function getShareActionSnackbar(shareActionResponse) {
+  const response = shareActionResponse;
+  let snackbarMessage;
+  let snackbarSeverity;
+
+  if (response.success) {
+    snackbarMessage = response.message;
+    snackbarSeverity = 'success';
+  } else if (response.error) {
+    snackbarMessage = response.error;
+    snackbarSeverity = 'warning';
+  } else {
+    snackbarMessage = 'An error occured. Please try again later';
+    snackbarSeverity = 'error';
+  }
+  return { snackbarMessage, snackbarSeverity };
 }

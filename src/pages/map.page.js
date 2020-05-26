@@ -24,10 +24,10 @@ import SettingsSVG from '@svg/svg-settings';
 
 // other
 import ModalService from '@services/modal.service';
-import { AppContext } from '@contexts/app.context';
-import { useWindowResize } from '@hooks/general.hooks';
+import { AppContext, INITIAL_APP_STATE } from '@contexts/app.context';
+import { useWindowResize, checkValidSession } from '@hooks/general.hooks';
 import { getActiveFilters, getRouteQueryParams } from '@util/general.helpers';
-import { triggerShareAction } from '@util/social.helpers';
+import { triggerShareAction, getShareActionSnackbar } from '@util/social.helpers';
 import GAService, { MAP_PAGE_GA_EVENTS, GA_EVENT_MAP } from '@services/ga.service';
 import MapService from '@services/map.service';
 
@@ -77,6 +77,24 @@ export default function MapPage() {
    * LIFECYCLE HOOKS
    ******************************************************************/
   useEffect(() => {
+    async function checkValidSessionFunction() {
+      // Checks if there is a client side session.  If so, make sure its valid by checking the service
+      if (typeof appState.sessionId !== 'undefined') {
+        const r = await checkValidSession(appState.sessionId);
+        return r;
+      }
+    }
+
+    checkValidSessionFunction().then((response) => {
+      if (response && response.status === 200) {
+        console.log('valid session');
+      } else {
+        console.log('invalid session');
+        localStorage.clear();
+        setAppState(INITIAL_APP_STATE);
+      }
+    });
+
     const mobileView = window.innerWidth < 960;
     setMapState({
       ...mapState,
@@ -85,6 +103,7 @@ export default function MapPage() {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  
 
   // to reset URL params after the waterfall of URL updates (this will be the final update in the chain)
   useEffect(() => {
@@ -146,8 +165,6 @@ export default function MapPage() {
   }
 
   async function onLocationCleared() {
-    const latitude = get(appState, 'person.latitude');
-    const longitude = get(appState, 'person.longitude');
 
     // set a temp flag for lifecycle hook to know a clear happened
     setMapState({
@@ -163,14 +180,19 @@ export default function MapPage() {
       },
     });
 
-    latitude &&
-      longitude &&
-      (await mapService.onLocationAccepted({
-        coords: {
-          latitude,
-          longitude,
-        },
-      }));
+    // todo: this may have been here for a filter reason. it auto-pans logged in users
+
+    // const latitude = get(appState, 'person.latitude');
+    // const longitude = get(appState, 'person.longitude');
+    // latitude &&
+    //   longitude &&
+    //   (await mapService.onLocationAccepted({
+    //     coords: {
+    //       latitude,
+    //       longitude,
+    //     },
+    //   }));
+
   }
 
   function onEditFiltersBtnClick() {
@@ -194,19 +216,7 @@ export default function MapPage() {
 
   function onShareClicked() {
     triggerShareAction().then((response) => {
-      let snackbarMessage;
-      let snackbarSeverity;
-
-      if (response.success) {
-        snackbarMessage = response.message;
-        snackbarSeverity = 'success';
-      } else if (response.error) {
-        snackbarMessage = response.error;
-        snackbarSeverity = 'warning';
-      } else {
-        snackbarMessage = 'An error occured. Please try again later';
-        snackbarSeverity = 'error';
-      }
+      const { snackbarMessage, snackbarSeverity } = getShareActionSnackbar(response);
 
       setSnackbarState({
         ...snackbarState,
@@ -226,7 +236,7 @@ export default function MapPage() {
 
   /******************************************************************
    * ANALYTICS
-   ******************************************************************/
+   ******************************************x************************/
 
   function onActionClick(action, itemId, itemIndex, itemName) {
     handleGAEvent(action, itemId, itemIndex, itemName);

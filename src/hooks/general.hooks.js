@@ -1,5 +1,7 @@
 import { useLayoutEffect, useState } from 'react';
 import { debounce } from 'lodash';
+import PeopleService from '@services/people.service';
+
 
 export function useWindowResize(updateFunc) {
   const [size, setSize] = useState([0, 0]);
@@ -23,4 +25,8 @@ export function useForceUpdate() {
   // eslint-disable-next-line
   const [value, setValue] = useState(0); // integer state
   return () => setValue((value) => ++value); // update the state to force render
+}
+
+export async function checkValidSession(sessionId) {
+  return (sessionId = await PeopleService.getInstance().getBySessionId(sessionId));
 }

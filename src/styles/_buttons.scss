@@ -1,4 +1,7 @@
 .link-button {
+  color: $primary-color;
+  cursor: pointer;
+
   &.MuiButton-root {
     margin-bottom: 0px;
     box-sizing: border-box !important;
@@ -11,6 +14,10 @@
       margin-right: 15px;
       font-size: 14px;
     }
+
+  }
+  .MuiSvgIcon-root {
+    fill: $primary-color;
   }
 }
 
@@ -22,9 +29,11 @@
     .MuiSvgIcon-root {
       width: 16px;
       height: 16px;
+      fill: $primary-color;
     }
   }
 }
+
 
 
 

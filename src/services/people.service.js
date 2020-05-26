@@ -5,7 +5,7 @@ export default class PeopleService {
 
   constructor() {
     this.baseURL = '/peoples';
-    this.logoutURL = '/sessions';
+    this.sessionURL = '/sessions';
     this._setAuthHeaders();
   }
 
@@ -43,6 +43,25 @@ export default class PeopleService {
     });
   }
 
+  getBySessionId(sessionId) {
+    sessionId = sessionId
+      ? {
+        'X-AllClear-SessionID': sessionId,
+      }
+      : {
+        ...this.headers.headers,
+      };
+    return Axios({
+      method: 'GET',
+      url: `${this.sessionURL}`,
+      headers: sessionId,
+    }).then((response) => {
+      return response;
+    }).catch((error) => {
+      return error;
+    });
+  }
+
   logout(currSession) {
     const headers = currSession
       ? {
@@ -54,7 +73,7 @@ export default class PeopleService {
 
     return Axios({
       method: 'DELETE',
-      url: this.logoutURL,
+      url: this.sessionURL,
       headers,
     });
   }

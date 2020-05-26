@@ -4,6 +4,8 @@ import { bindAll, get } from 'lodash';
 
 import PeopleService from '@services/people.service';
 import FacilityService from '@services/facility.service.js';
+import {checkValidSession } from '@hooks/general.hooks';
+
 
 import UserAvatar from '@assets/images/defaultProfile.svg';
 import PersonShareIcon from '@assets/images/person-share-icon.svg';
@@ -14,7 +16,7 @@ import { ReactComponent as HealthIcon } from '@assets/images/health-icon.svg';
 
 import Header from '@components/general/headers/header';
 import SnackbarMessage from '@general/alerts/snackbar-message';
-import { triggerShareAction } from '@util/social.helpers';
+import { triggerShareAction, getShareActionSnackbar } from '@util/social.helpers';
 import { AppContext } from '@contexts/app.context';
 
 import Container from '@material-ui/core/Container';
@@ -54,6 +56,22 @@ export default class HomePage extends Component {
 
   async componentDidMount() {
     const { appState } = this.context;
+
+
+    if (typeof appState.sessionId !== 'undefined') {
+      await checkValidSession(appState.sessionId).then((response) => {
+        if (response && response.status === 200) {
+          console.log('valid session');
+        } else {
+          console.log('invalid session');
+          localStorage.clear();
+        }
+      });
+    }
+
+
+
+
     const symptoms = get(appState, 'person.symptoms');
     const latitude = get(appState, 'person.latitude');
     const longitude = get(appState, 'person.longitude');
@@ -119,19 +137,7 @@ export default class HomePage extends Component {
 
   onShareClicked() {
     triggerShareAction().then((response) => {
-      let snackbarMessage;
-      let snackbarSeverity;
-
-      if (response.success) {
-        snackbarMessage = response.message;
-        snackbarSeverity = 'success';
-      } else if (response.error) {
-        snackbarMessage = response.error;
-        snackbarSeverity = 'warning';
-      } else {
-        snackbarMessage = 'An error occured. Please try again later';
-        snackbarSeverity = 'error';
-      }
+      const { snackbarMessage, snackbarSeverity } = getShareActionSnackbar(response);
 
       this.setState({
         snackbarMessage,
@@ -220,8 +226,8 @@ export default class HomePage extends Component {
               {this.state.prioritized ? (
                 <CheckRoundedIcon className="banner__icon" />
               ) : (
-                <WarningRoundedIcon className="banner__icon" />
-              )}
+                  <WarningRoundedIcon className="banner__icon" />
+                )}
               <span>
                 Your profile
                 {this.state.prioritized ? ' may be prioritized ' : ' may not be prioritized '}
@@ -265,11 +271,11 @@ export default class HomePage extends Component {
                 </section>
               ))
             ) : (
-              <section className="card card--no-results">
-                <p>No exact match locations found. </p>
-                <p>You may not be eligible for testing at locations listed below.</p>
-              </section>
-            )}
+                <section className="card card--no-results">
+                  <p>No exact match locations found. </p>
+                  <p>You may not be eligible for testing at locations listed below.</p>
+                </section>
+              )}
 
             {testLocations && testLocations.length && this.locations && this.locations.length > 5 ? (
               <Button
@@ -282,8 +288,8 @@ export default class HomePage extends Component {
                 {this.state.testLocationsExpanded ? 'View Less' : 'View More'}
               </Button>
             ) : (
-              ''
-            )}
+                ''
+              )}
           </article>
 
           <article className="share article">
