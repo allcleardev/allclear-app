@@ -24,8 +24,8 @@ import SettingsSVG from '@svg/svg-settings';
 
 // other
 import ModalService from '@services/modal.service';
-import { AppContext } from '@contexts/app.context';
-import { useWindowResize } from '@hooks/general.hooks';
+import { AppContext, INITIAL_APP_STATE } from '@contexts/app.context';
+import { useWindowResize, checkValidSession } from '@hooks/general.hooks';
 import { getActiveFilters, getRouteQueryParams } from '@util/general.helpers';
 import { triggerShareAction, getShareActionSnackbar } from '@util/social.helpers';
 import GAService, { MAP_PAGE_GA_EVENTS, GA_EVENT_MAP } from '@services/ga.service';
@@ -77,6 +77,24 @@ export default function MapPage() {
    * LIFECYCLE HOOKS
    ******************************************************************/
   useEffect(() => {
+    async function checkValidSessionFunction() {
+      // Checks if there is a client side session.  If so, make sure its valid by checking the service
+      if (typeof appState.sessionId !== 'undefined') {
+        const r = await checkValidSession(appState.sessionId);
+        return r;
+      }
+    }
+
+    checkValidSessionFunction().then((response) => {
+      if (response && response.status === 200) {
+        console.log('valid session');
+      } else {
+        console.log('invalid session');
+        localStorage.clear();
+        setAppState(INITIAL_APP_STATE);
+      }
+    });
+
     const mobileView = window.innerWidth < 960;
     setMapState({
       ...mapState,
@@ -85,6 +103,7 @@ export default function MapPage() {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  
 
   // to reset URL params after the waterfall of URL updates (this will be the final update in the chain)
   useEffect(() => {
@@ -217,7 +236,7 @@ export default function MapPage() {
 
   /******************************************************************
    * ANALYTICS
-   ******************************************************************/
+   ******************************************x************************/
 
   function onActionClick(action, itemId, itemIndex, itemName) {
     handleGAEvent(action, itemId, itemIndex, itemName);
