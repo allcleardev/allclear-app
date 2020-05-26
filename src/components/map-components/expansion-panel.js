@@ -38,6 +38,7 @@ export const ExpansionPanelSummary = withStyles({
   },
   content: {
     marginBottom: -1,
+    overflow: 'hidden', // need this to preserve card layout on small screens
     '&$expanded': {
       marginBottom: -1
     },
@@ -55,17 +56,14 @@ export const ExpansionPanelDetails = withStyles((theme) => ({
 }))(MuiExpansionPanelDetails);
 
 export default function CustomizedExpansionPanel(props) {
-  const [expanded, setExpanded] = React.useState('');
-
   const handleChange = (index) => (event, newExpanded) => {
-    setExpanded(newExpanded ? index : false);
     props.onExpandedChange(index, newExpanded);
   };
 
   return (
     <ExpansionPanel
       square
-      expanded={expanded === props.index}
+      expanded={props.expanded}
       onChange={handleChange(props.index)}
     >
       {props.summary}

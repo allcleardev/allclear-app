@@ -27,7 +27,7 @@ import ModalService from '@services/modal.service';
 import { AppContext, INITIAL_APP_STATE } from '@contexts/app.context';
 import { useWindowResize, checkValidSession } from '@hooks/general.hooks';
 import { getActiveFilters, getRouteQueryParams } from '@util/general.helpers';
-import { triggerShareAction } from '@util/social.helpers';
+import { triggerShareAction, getShareActionSnackbar } from '@util/social.helpers';
 import GAService, { MAP_PAGE_GA_EVENTS, GA_EVENT_MAP } from '@services/ga.service';
 import MapService from '@services/map.service';
 
@@ -50,6 +50,7 @@ export default function MapPage() {
     didInitSearch: false,
     didClear: false,
     mobileView: false,
+    expandedItemId: null
   };
   const initialSnackbarState = {
     snackbarMessage: '',
@@ -66,7 +67,7 @@ export default function MapPage() {
 
   // get modal service so we can toggle it open
   let modalService = ModalService.getInstance();
-  let searchParams = getRouteQueryParams(history.location);
+  const searchParams = getRouteQueryParams(history.location);
 
   // for setting initial search in autocomplete
   initialSearchVal = get(searchParams, 'search.description');
@@ -164,8 +165,6 @@ export default function MapPage() {
   }
 
   async function onLocationCleared() {
-    const latitude = get(appState, 'person.latitude');
-    const longitude = get(appState, 'person.longitude');
 
     // set a temp flag for lifecycle hook to know a clear happened
     setMapState({
@@ -181,14 +180,19 @@ export default function MapPage() {
       },
     });
 
-    latitude &&
-      longitude &&
-      (await mapService.onLocationAccepted({
-        coords: {
-          latitude,
-          longitude,
-        },
-      }));
+    // todo: this may have been here for a filter reason. it auto-pans logged in users
+
+    // const latitude = get(appState, 'person.latitude');
+    // const longitude = get(appState, 'person.longitude');
+    // latitude &&
+    //   longitude &&
+    //   (await mapService.onLocationAccepted({
+    //     coords: {
+    //       latitude,
+    //       longitude,
+    //     },
+    //   }));
+
   }
 
   function onEditFiltersBtnClick() {
@@ -212,19 +216,7 @@ export default function MapPage() {
 
   function onShareClicked() {
     triggerShareAction().then((response) => {
-      let snackbarMessage;
-      let snackbarSeverity;
-
-      if (response.success) {
-        snackbarMessage = response.message;
-        snackbarSeverity = 'success';
-      } else if (response.error) {
-        snackbarMessage = response.error;
-        snackbarSeverity = 'warning';
-      } else {
-        snackbarMessage = 'An error occured. Please try again later';
-        snackbarSeverity = 'error';
-      }
+      const { snackbarMessage, snackbarSeverity } = getShareActionSnackbar(response);
 
       setSnackbarState({
         ...snackbarState,
@@ -254,6 +246,10 @@ export default function MapPage() {
     const eventKey = drawerOpen ? 'expand' : 'contract';
     handleGAEvent(eventKey, itemId, itemIndex, itemName);
     const selection = itemId;
+    setMapState({
+      ...mapState,
+      expandedItemId: drawerOpen ? itemId : null
+    });
     history.push({
       pathname: '/map',
       search: qs.stringify({
@@ -283,8 +279,8 @@ export default function MapPage() {
           btnStyle={'white'}
         ></MobileTopBar>
       ) : (
-        <Header />
-      )}
+          <Header />
+        )}
       <Drawer
         anchor={mobileView ? 'bottom' : 'left'}
         variant="permanent"
@@ -351,27 +347,28 @@ export default function MapPage() {
           {appState.map.isListLoading === true ? (
             <ListLoadingSpinner />
           ) : (
-            <Fragment>
-              {locations &&
-                locations.map((result, index) => (
-                  <TestingLocationListItem
-                    id={result.id}
-                    key={index}
-                    index={index}
-                    title={result.name}
-                    description={result.address}
-                    city_state={result.city + ', ' + result.state}
-                    service_time={result.hours}
-                    driveThru={result.driveThru}
-                    phone={result.phone}
-                    website={result.url}
-                    {...result}
-                    onActionClick={onActionClick}
-                    onTestingLocationExpand={onTestingLocationExpand}
-                  ></TestingLocationListItem>
-                ))}
-            </Fragment>
-          )}
+              <Fragment>
+                {locations &&
+                  locations.map((result, index) => (
+                    <TestingLocationListItem
+                      id={result.id}
+                      key={index}
+                      index={index}
+                      title={result.name}
+                      description={result.address}
+                      city_state={result.city + ', ' + result.state}
+                      service_time={result.hours}
+                      driveThru={result.driveThru}
+                      phone={result.phone}
+                      website={result.url}
+                      expandedItemId={mapState.expandedItemId}
+                      {...result}
+                      onActionClick={onActionClick}
+                      onTestingLocationExpand={onTestingLocationExpand}
+                    ></TestingLocationListItem>
+                  ))}
+              </Fragment>
+            )}
           {locations.length === 0 && appState.map.isListLoading === false && (
             <p style={{ margin: 20, textAlign: 'center', fontSize: '1.7em' }}>No Results Found</p>
           )}

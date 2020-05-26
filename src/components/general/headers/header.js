@@ -10,7 +10,7 @@ import { Link, NavLink, useHistory } from 'react-router-dom';
 import Logo from '@assets/images/logo-white.svg';
 import MobileMenu from '@general/headers/mobile-menu';
 import { AppContext } from '@contexts/app.context';
-import { IS_LOGGED_IN_HEADER_LINKS, IS_LOGGED_OUT_HEADER_LINKS } from '@util/general.constants';
+import { IS_LOGGED_IN_HEADER_LINKS, IS_LOGGED_OUT_HEADER_LINKS } from '@constants/general.constants';
 
 import ArrowBackIosRounded from '@material-ui/icons/ArrowBackIosRounded';
 import { IconButton, Button } from '@material-ui/core';

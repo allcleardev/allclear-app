@@ -83,6 +83,16 @@
       &__actions {
         margin-top: 12px;
 
+        .list-item-buttons {
+          .link-button {
+            margin-right: 30px;
+            
+            p {
+              margin-bottom: 0px;
+            }
+          }
+        }
+
         @media (min-width: $md) {
           margin-top: 23px;
         }
@@ -121,5 +131,29 @@
     flex-direction: column;
     align-items: center;
     padding-bottom: 50px;
+
+    a {
+      margin-top: 12px;
+      width: 100%;
+
+      @media (min-width: $md) {
+        width: unset;
+      }
+
+      .feedback-button {
+        background: 'linear-gradient(to right, #11BCF1, #007AFF)' !important;
+        font-size: 17px;
+        font-weight: 500;
+        padding: 13px 48px;
+        border-radius: 10px;
+        min-height: 48px;
+        color: white;
+    
+        @media (min-width: $md) {
+          border: 0 !important;
+          margin-top: 15px;
+        }
+      }
+    }
   }
 }
