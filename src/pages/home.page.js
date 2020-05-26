@@ -4,6 +4,8 @@ import { bindAll, get } from 'lodash';
 
 import PeopleService from '@services/people.service';
 import FacilityService from '@services/facility.service.js';
+import {checkValidSession } from '@hooks/general.hooks';
+
 
 import UserAvatar from '@assets/images/defaultProfile.svg';
 import PersonShareIcon from '@assets/images/person-share-icon.svg';
@@ -54,6 +56,22 @@ export default class HomePage extends Component {
 
   async componentDidMount() {
     const { appState } = this.context;
+
+
+    if (typeof appState.sessionId !== 'undefined') {
+      await checkValidSession(appState.sessionId).then((response) => {
+        if (response && response.status === 200) {
+          console.log('valid session');
+        } else {
+          console.log('invalid session');
+          localStorage.clear();
+        }
+      });
+    }
+
+
+
+
     const symptoms = get(appState, 'person.symptoms');
     const latitude = get(appState, 'person.latitude');
     const longitude = get(appState, 'person.longitude');

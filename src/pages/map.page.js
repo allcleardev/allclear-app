@@ -86,7 +86,7 @@ export default function MapPage() {
     }
 
     checkValidSessionFunction().then((response) => {
-      if (response && response.status == 200) {
+      if (response && response.status === 200) {
         console.log('valid session');
       } else {
         console.log('invalid session');

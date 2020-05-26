@@ -56,9 +56,9 @@ export default class PeopleService {
       url: `${this.sessionURL}`,
       headers: sessionId,
     }).then((response) => {
-      return response
+      return response;
     }).catch((error) => {
-      return error
+      return error;
     });
   }
 
