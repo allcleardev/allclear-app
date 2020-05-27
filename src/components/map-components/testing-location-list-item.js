@@ -7,7 +7,6 @@ import ExternalItemLinks from './external-item-links';
 import CustomizedExpansionPanel, { ExpansionPanelSummary, ExpansionPanelDetails } from './expansion-panel';
 import { Link } from 'react-router-dom';
 import { triggerShareAction, getShareActionSnackbar } from '@util/social.helpers';
-import ShareIcon from '@material-ui/icons/Share';
 import SnackbarMessage from '@general/alerts/snackbar-message';
 
 export default function TestingLocationListItem(props) {
@@ -117,10 +116,6 @@ export default function TestingLocationListItem(props) {
             website={website}
             onClick={onClick}
           />
-          <div onClick={(e) => onShareClicked(e, id)} className="share-container">
-            <ShareIcon className="link-button-icon" />
-            <p>Share</p>
-          </div>
         </div>
       </div>
     </ExpansionPanelSummary>
@@ -137,10 +132,6 @@ export default function TestingLocationListItem(props) {
         </dl>
         <div className="icons-container d-flex d-md-none">
           <ExternalItemLinks display={'d-flex'} description={description} phone={phone} website={website} />
-          <div onClick={(e) => onShareClicked(e, id)} className="share-container">
-            <ShareIcon className="link-button-icon" />
-            <p>Share</p>
-          </div>
         </div>
         <h4>Test Center Details:</h4>
         <dl className="details">
