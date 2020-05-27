@@ -127,14 +127,9 @@
   margin: 0 20px;
   font-size: 12px;
   color: $primary-color;
-}
 
-.share-container {
-  cursor: pointer;
-  text-align: center;
-
-  &:hover {
-    // matches default browser hex for a:hover
+  a:hover {
+    // mainly for Share button since it is not an actual link
     color: #0056b3;
   }
 }
