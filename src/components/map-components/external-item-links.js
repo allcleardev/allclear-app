@@ -3,6 +3,7 @@ import LinkButton from '@general/buttons/link-button';
 import DirectionsIcon from '@material-ui/icons/Directions';
 import WebIcon from '@material-ui/icons/Web';
 import CallIcon from '@material-ui/icons/Call';
+import ShareIcon from '@material-ui/icons/Share';
 
 export default function ExternalItemLinks(props) {
   const buttons = [
@@ -24,6 +25,14 @@ export default function ExternalItemLinks(props) {
       text: 'Website',
       icon: <WebIcon />,
     },
+    // TODO: pull Share out of external-item-links (or give it a separate treatment here)
+    // since it is not an external link and will mess up accessibility
+    {
+      id: 'share',
+      href: null,
+      text: 'Share',
+      icon: <ShareIcon />,
+    },
   ].filter((btn) => btn.id);
 
   return (
@@ -34,7 +43,9 @@ export default function ExternalItemLinks(props) {
             href={btn.href}
             text={btn.text}
             theme="round-icon"
-            onClick={(evt) => props.onClick(evt, btn.text)}
+            onClick={(evt) => {
+              props.onClick(evt, btn.text);
+            }}
           >
             {btn.icon}
           </LinkButton>
