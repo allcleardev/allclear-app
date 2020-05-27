@@ -7,7 +7,6 @@ import ExternalItemLinks from './external-item-links';
 import CustomizedExpansionPanel, { ExpansionPanelSummary, ExpansionPanelDetails } from './expansion-panel';
 import { Link } from 'react-router-dom';
 import { triggerShareAction, getShareActionSnackbar } from '@util/social.helpers';
-import ShareIcon from '@material-ui/icons/Share';
 import SnackbarMessage from '@general/alerts/snackbar-message';
 
 export default function TestingLocationListItem(props) {
