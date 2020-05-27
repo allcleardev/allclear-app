@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, {useContext, useEffect, useMemo, useState} from 'react';
 
 import throttle from 'lodash/throttle';
 import parse from 'autosuggest-highlight/parse';
@@ -11,6 +11,7 @@ import { TextField, Grid, Typography, makeStyles } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import clsx from 'clsx';
 import MapService from '@services/map.service';
+import {AppContext} from '@contexts/app.context';
 
 const autocompleteService = { current: null };
 
@@ -33,6 +34,7 @@ export default function GoogleMapsAutocomplete(props) {
   const [options, setOptions] = useState([]);
   const inputRef = React.createRef();
   const mapService = MapService.getInstance();
+  const { setAppState, appState } = useContext(AppContext);
 
   useEffect(() => {
     mapService.autocompleteRef = inputRef;
@@ -52,7 +54,16 @@ export default function GoogleMapsAutocomplete(props) {
   }, []);
 
   // only for clears
-  function onInputChanged(evt, value, reason) {
+  function onInputChanged(evt, value, reason, searchCriteria) {
+
+    // preserve search criteria if called from map
+    if(searchCriteria){
+      setAppState({
+        ...appState,
+        searchCriteria
+      });
+    }
+
     if (reason === 'clear') {
       setInputValue('');
       props.onClear && props.onClear();
