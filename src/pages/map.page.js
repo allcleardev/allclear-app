@@ -103,7 +103,7 @@ export default function MapPage() {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  
+
 
   // to reset URL params after the waterfall of URL updates (this will be the final update in the chain)
   useEffect(() => {
@@ -164,7 +164,7 @@ export default function MapPage() {
     }
   }
 
-  async function onLocationCleared() {
+  async function onLocationCleared(searchCriteria = {}) {
 
     // set a temp flag for lifecycle hook to know a clear happened
     setMapState({
@@ -175,13 +175,18 @@ export default function MapPage() {
     // clear route app state
     setAppState({
       ...appState,
+      searchCriteria: {
+        ...appState.searchCriteria,
+        // preserve search criteria if called from map
+        ...searchCriteria
+      },
+
       route: {
         params: {},
       },
     });
 
     // todo: this may have been here for a filter reason. it auto-pans logged in users
-
     // const latitude = get(appState, 'person.latitude');
     // const longitude = get(appState, 'person.longitude');
     // latitude &&

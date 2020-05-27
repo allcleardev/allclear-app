@@ -56,17 +56,9 @@ export default function GoogleMapsAutocomplete(props) {
   // only for clears
   function onInputChanged(evt, value, reason, searchCriteria) {
 
-    // preserve search criteria if called from map
-    if(searchCriteria){
-      setAppState({
-        ...appState,
-        searchCriteria
-      });
-    }
-
     if (reason === 'clear') {
       setInputValue('');
-      props.onClear && props.onClear();
+      props.onClear && props.onClear(searchCriteria);
     }
   }
 
