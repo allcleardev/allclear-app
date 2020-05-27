@@ -25,12 +25,14 @@ export default function ExternalItemLinks(props) {
       text: 'Website',
       icon: <WebIcon />,
     },
+    // TODO: pull Share out of external-item-links (or give it a separate treatment here)
+    // since it is not an external link and will mess up accessibility
     {
       id: 'share',
       href: null,
       text: 'Share',
-      icon: <ShareIcon />
-    }
+      icon: <ShareIcon />,
+    },
   ].filter((btn) => btn.id);
 
   return (
@@ -41,7 +43,7 @@ export default function ExternalItemLinks(props) {
             href={btn.href}
             text={btn.text}
             theme="round-icon"
-            onClick={(evt) =>  {
+            onClick={(evt) => {
               props.onClick(evt, btn.text);
             }}
           >

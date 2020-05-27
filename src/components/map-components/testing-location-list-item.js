@@ -117,10 +117,6 @@ export default function TestingLocationListItem(props) {
             website={website}
             onClick={onClick}
           />
-          <div onClick={(e) => onShareClicked(e, id)} className="share-container">
-            <ShareIcon className="link-button-icon" />
-            <p>Share</p>
-          </div>
         </div>
       </div>
     </ExpansionPanelSummary>
@@ -137,10 +133,6 @@ export default function TestingLocationListItem(props) {
         </dl>
         <div className="icons-container d-flex d-md-none">
           <ExternalItemLinks display={'d-flex'} description={description} phone={phone} website={website} />
-          <div onClick={(e) => onShareClicked(e, id)} className="share-container">
-            <ShareIcon className="link-button-icon" />
-            <p>Share</p>
-          </div>
         </div>
         <h4>Test Center Details:</h4>
         <dl className="details">
