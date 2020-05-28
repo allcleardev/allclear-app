@@ -10,7 +10,7 @@ import GAService from '@services/ga.service';
 import MapService from '@services/map.service';
 import FacilityService from '@services/facility.service.js';
 import {withRouter} from 'react-router';
-import {G_MAP_DEFAULTS, G_MAP_OPTIONS} from '@constants/map.constants';
+import {G_MAP_DEFAULTS, G_MAP_OPTIONS, NON_STATES} from '@constants/map.constants';
 import {clickMapMarker, getRouteQueryParams, isTaggableLocation} from '@util/general.helpers';
 import {geocodeByAddress} from 'react-places-autocomplete';
 
@@ -78,7 +78,10 @@ class GoogleMap extends Component {
       selection = resp.data;
     } else if (state) {
       // state in url
-      const results = await geocodeByAddress(state)
+
+      // check if its actually a state, it will change the necessary search term
+      const searchTerm = (NON_STATES.includes(state.toLowerCase())) ? state : `state of ${state}`;
+      const results = await geocodeByAddress(searchTerm)
         .catch((error) => {
           console.error('GEOCODE ERROR', error);
           return new Error(error);
