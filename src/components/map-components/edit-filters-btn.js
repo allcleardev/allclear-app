@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import SettingsSVG from '@svg/svg-settings';
 import Badge from '@material-ui/core/Badge';
 
@@ -13,7 +13,6 @@ export default function EditFiltersBtn(props) {
       ref={badgeRef}
       badgeContent={numActiveFilters}
       overlap={'rectangle'}
-      style={{ width: '100%' }}
     >
       <EditFiltersButton onClick={onClick} />
     </Badge>
@@ -22,15 +21,14 @@ export default function EditFiltersBtn(props) {
 
 function EditFiltersButton(props) {
   return (
-    <Button
-      className={'edit-filters-btn'}
-      variant="contained"
-      color="primary"
-      fullWidth
-      startIcon={SettingsSVG()}
+    <IconButton
+      aria-label="edit filters"
+      aria-haspopup="true"
+      className="edit-filters-icon-button"
+      size="small"
       onClick={props.onClick}
     >
-      Edit Search Filters
-    </Button>
+      {SettingsSVG({ color: '#666666' })}
+    </IconButton>
   );
 }
