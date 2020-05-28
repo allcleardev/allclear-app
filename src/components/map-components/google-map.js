@@ -2,16 +2,17 @@ import React, {Component} from 'react';
 import GoogleMapReact from 'google-map-react';
 import MapMarker from './map-marker.js';
 import MyLocationBtn from './my-location-btn';
-import FacilityService from '../../services/facility.service.js';
-import {bindAll, findIndex, get} from 'lodash';
+import {bindAll, findIndex, get, isError} from 'lodash';
 import {AppContext} from '@contexts/app.context';
 import MyLocationMapMarker from './my-location-map-marker.js';
 import SnackbarMessage from '@general/alerts/snackbar-message';
 import GAService from '@services/ga.service';
 import MapService from '@services/map.service';
+import FacilityService from '@services/facility.service.js';
 import {withRouter} from 'react-router';
 import {G_MAP_DEFAULTS, G_MAP_OPTIONS} from '@constants/map.constants';
 import {clickMapMarker, getRouteQueryParams, isTaggableLocation} from '@util/general.helpers';
+import {geocodeByAddress, getLatLng} from 'react-places-autocomplete';
 
 class GoogleMap extends Component {
   static contextType = AppContext;
@@ -62,6 +63,8 @@ class GoogleMap extends Component {
     const urlLat = get(params, 'search.latitude');
     const urlLong = get(params, 'search.longitude');
     this.isLoggedIn = get(appState, 'person.id');
+    const state = this.props.match.params.state;
+
 
     // eslint-disable-next-line
     let selection;
@@ -73,6 +76,26 @@ class GoogleMap extends Component {
       latitude = get(resp, 'data.latitude');
       longitude = get(resp, 'data.longitude');
       selection = resp.data;
+    } else if (state) {
+      // state in url
+      const results = await geocodeByAddress(`${state}`)
+        .catch((error) => {
+          console.error('GEOCODE ERROR', error);
+          return new Error(error);
+        });
+
+      const map = get(this, 'gMapRef.current.map_');
+      const stateViewport = get(results, '[0].geometry.viewport');
+
+      if(!isError(results)){
+        // const latlng = await getLatLng(results[0])
+        //   .catch((error) => console.error('LATLNG ERROR', error));
+        // latitude = latlng.lat;
+        // longitude = latlng.lng;
+        map.fitBounds(stateViewport);
+        // const currRadius = this._getMapRadiusInMiles();
+      }
+
     } else if (urlLat && urlLong) {
       // deep link from search term
       latitude = urlLat;
@@ -108,7 +131,7 @@ class GoogleMap extends Component {
     }
 
     this._getMapRadiusInMiles();
-    const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude}));
+    const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude, state}));
 
     const locations = get(result, 'data.records');
     this._setLocations(locations, {latitude, longitude});
@@ -156,9 +179,9 @@ class GoogleMap extends Component {
 
     // skip search if happening on mount
     const {mapInitDidComplete} = this.state;
-    if(mapInitDidComplete){
+    if (mapInitDidComplete) {
       this._search(lat, lng);
-    }else{
+    } else {
       this.setState({
         ...this.state,
         mapInitDidComplete: true
@@ -197,21 +220,14 @@ class GoogleMap extends Component {
     const furthestMeters = get(results, `[${furthestIndex}].meters`);
     const map = get(this, 'gMapRef.current.map_');
 
-    //eslint-disable-next-line
-    const circle = new google.maps.Circle({
-      center: map.center,
-      radius: furthestMeters,
-      fillOpacity: 0,
-      // strokeOpacity: 0.2,
-      strokeOpacity: 0,
-      map
-    });
-    map.fitBounds(circle.getBounds());
-    this.setState({
-      ...this.state,
-      circle
-    });
-
+    if (furthestMeters) {
+      const circle = this._createCircle(furthestMeters);
+      map.fitBounds(circle.getBounds());
+      this.setState({
+        ...this.state,
+        circle
+      });
+    }
   }
 
   _getMapRadiusInMiles() {
@@ -244,6 +260,19 @@ class GoogleMap extends Component {
     // return radius*2;
   }
 
+  _createCircle(radius,) {
+    const map = get(this, 'gMapRef.current.map_');
+
+    //eslint-disable-next-line
+    return new google.maps.Circle({
+      center: map.center,
+      radius,
+      fillOpacity: 0,
+      // strokeOpacity: 0.2,
+      strokeOpacity: 0,
+      map
+    });
+  }
 
   _setLocations(locations) {
     // update context state (for other components in map page)
@@ -280,7 +309,7 @@ class GoogleMap extends Component {
 
   };
 
-  _createSearchPayload({latitude, longitude, shouldIgnoreFilters = false}) {
+  _createSearchPayload({latitude, longitude, state, shouldIgnoreFilters = false}) {
     const {appState, setAppState} = this.context;
     const searchCriteria = shouldIgnoreFilters ? {} : appState.searchCriteria;
 
@@ -296,6 +325,7 @@ class GoogleMap extends Component {
 
     return {
       ...searchCriteria,
+      state,
       from: {
         latitude,
         longitude,
@@ -305,7 +335,7 @@ class GoogleMap extends Component {
   }
 
   async _search(latitude, longitude) {
-    const result = await this.facilityService.search(this._createSearchPayload({ latitude, longitude }));
+    const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude}));
     this._setLocations(result.data.records, {
       latitude,
       longitude,
@@ -319,7 +349,7 @@ class GoogleMap extends Component {
     const homeIndex = locations.length;
 
     return (
-      <div className="google-map" style={{ height: '100%', width: '100%' }} onClick={this.props.onMapClick}>
+      <div className="google-map" style={{height: '100%', width: '100%'}} onClick={this.props.onMapClick}>
         <SnackbarMessage
           snackbarClass={'snackbar--map'}
           isOpen={this.state.isSnackbarOpen}

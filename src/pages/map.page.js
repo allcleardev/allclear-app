@@ -95,8 +95,6 @@ export default function MapPage(props) {
     });
 
     const mobileView = window.innerWidth < 960;
-    const state = props.match.params.state;
-    console.log('zzz', state);
     setMapState({
       ...mapState,
       mobileView,
@@ -104,7 +102,6 @@ export default function MapPage(props) {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
 
   // to reset URL params after the waterfall of URL updates (this will be the final update in the chain)
   useEffect(() => {
