@@ -18,9 +18,8 @@ import MobileTopBar from '@components/map-components/mobile-top-bar';
 import Container from '@material-ui/core/Container';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
 import ShareIcon from '@material-ui/icons/Share';
-import SettingsSVG from '@svg/svg-settings';
+import EditFiltersBtn from '@components/map-components/edit-filters-btn';
 
 // other
 import ModalService from '@services/modal.service';
@@ -30,6 +29,7 @@ import { getActiveFilters, getRouteQueryParams } from '@util/general.helpers';
 import { triggerShareAction, getShareActionSnackbar } from '@util/social.helpers';
 import GAService, { MAP_PAGE_GA_EVENTS, GA_EVENT_MAP } from '@services/ga.service';
 import MapService from '@services/map.service';
+import { getNumActiveFilters } from '../util/general.helpers';
 
 export default function MapPage() {
   const mapService = MapService.getInstance();
@@ -103,7 +103,7 @@ export default function MapPage() {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  
+
 
   // to reset URL params after the waterfall of URL updates (this will be the final update in the chain)
   useEffect(() => {
@@ -164,7 +164,7 @@ export default function MapPage() {
     }
   }
 
-  async function onLocationCleared() {
+  async function onLocationCleared(searchCriteria = {}) {
 
     // set a temp flag for lifecycle hook to know a clear happened
     setMapState({
@@ -175,13 +175,18 @@ export default function MapPage() {
     // clear route app state
     setAppState({
       ...appState,
+      searchCriteria: {
+        ...appState.searchCriteria,
+        // preserve search criteria if called from map
+        ...searchCriteria
+      },
+
       route: {
         params: {},
       },
     });
 
     // todo: this may have been here for a filter reason. it auto-pans logged in users
-
     // const latitude = get(appState, 'person.latitude');
     // const longitude = get(appState, 'person.longitude');
     // latitude &&
@@ -268,15 +273,17 @@ export default function MapPage() {
 
   const { mobileView } = mapState;
   const { snackbarOpen, snackbarMessage, snackbarSeverity } = snackbarState;
+  const numActiveFilters = getNumActiveFilters(appState.searchCriteria);
 
   return (
     <div className={clsx(classes.root, 'map-page')}>
       {mobileView ? (
         <MobileTopBar
+          btnStyle={'white'}
+          numActiveFilters={numActiveFilters}
           onLocationSelected={onLocationSelected}
           onLocationCleared={onLocationCleared}
           onFilterClick={onEditFiltersBtnClick}
-          btnStyle={'white'}
         ></MobileTopBar>
       ) : (
           <Header />
@@ -318,16 +325,11 @@ export default function MapPage() {
                   onClear={onLocationCleared}
                   noOptionsText={'Please Enter a Search Term to View Results'}
                 ></GoogleMapsAutocomplete>
-                <IconButton
-                  aria-label="edit filters"
-                  aria-haspopup="true"
-                  className="edit-filters-icon-button"
-                  size="small"
-                  style={{ padding: '12px', margin: '5px' }}
+                <EditFiltersBtn
+                  numActiveFilters={numActiveFilters}
                   onClick={onEditFiltersBtnClick}
                 >
-                  {SettingsSVG({ color: '#666666' })}
-                </IconButton>
+                </EditFiltersBtn>
               </div>
 
               <Container style={{ padding: '20px 24px' }}>

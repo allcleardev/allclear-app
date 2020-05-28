@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState} from 'react';
 
 import throttle from 'lodash/throttle';
 import parse from 'autosuggest-highlight/parse';
@@ -52,10 +52,11 @@ export default function GoogleMapsAutocomplete(props) {
   }, []);
 
   // only for clears
-  function onInputChanged(evt, value, reason) {
+  function onInputChanged(evt, value, reason, searchCriteria) {
+
     if (reason === 'clear') {
       setInputValue('');
-      props.onClear && props.onClear();
+      props.onClear && props.onClear(searchCriteria);
     }
   }
 
