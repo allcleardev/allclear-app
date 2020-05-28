@@ -78,7 +78,7 @@ class GoogleMap extends Component {
       selection = resp.data;
     } else if (state) {
       // state in url
-      const results = await geocodeByAddress(`${state}`)
+      const results = await geocodeByAddress(state)
         .catch((error) => {
           console.error('GEOCODE ERROR', error);
           return new Error(error);
