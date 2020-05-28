@@ -56,7 +56,9 @@ class TestCenterPage extends Component {
     window.addEventListener('resize', debounce(this.onWindowResize, 400));
     const sessionId = get(this, ['context', 'appState', 'sessionId']);
     this.isLoggedIn = sessionId ? true : false;
-    const facility = await this.facilityService.getFacility(this.id)
+    const isActualID = !isNaN(Number(this.id));
+    const method = (isActualID) ? 'getFacility' : 'getFacilityByName';
+    const facility = await this.facilityService[method](this.id)
       .then((res) => {
         const facility = res.data;
         this.loading = false;
@@ -64,7 +66,18 @@ class TestCenterPage extends Component {
         this.feedbackURL = getFeedbackButtonURL(facility);
         facility.lastUpdated = convertToReadableDate(facility.updatedAt);
         return facility;
+      })
+      .catch((err) => {
+        this.loading = false;
+        return {
+          name: 'Facility Not Found',
+          address: 'Nowhere, USA',
+          phone: 'No Phone',
+          hours: 'No Hours',
+          url: 'https://www.google.com/search?q=do+a+barrel+roll',
+        };
       });
+
     this.setState({ facility });
 
     // stamp page with covid tag if its new
@@ -93,6 +106,9 @@ class TestCenterPage extends Component {
   }
 
   onBackClick() {
+    if(this.state.facility.name === 'Facility Not Found'){
+      window.location.href = `${window.location.origin}/map`
+    }
     this.props.history.push(`/map?selection=${this.id}`);
   }
 
@@ -183,16 +199,17 @@ class TestCenterPage extends Component {
               </article>
 
               {/* Details Card */}
-              <article className="card test-center-page__details-card">
-                <div style={{ marginBottom: '30px' }}>
-                  {this.facilityDetailsMap.map((row) => (
-                    <DetailRow key={row.field} field={row.field} value={row.value} />
+
+              {(this.facilityDetailsMap || this.lastUpdated) && <article className="card test-center-page__details-card">
+                <div style={{marginBottom: '30px'}}>
+                  {this.facilityDetailsMap && this.facilityDetailsMap.map((row) => (
+                    <DetailRow key={row.field} field={row.field} value={row.value}/>
                   ))}
                 </div>
                 {facility.lastUpdated && (
-                  <DetailRow field="Last Updated" value={facility.lastUpdated} textSize="small" color="primary" />
+                  <DetailRow field="Last Updated" value={facility.lastUpdated} textSize="small" color="primary"/>
                 )}
-              </article>
+              </article>}
 
               <div className="test-center-page__feedback">
                 <span>Want to help us improve our data?</span>
