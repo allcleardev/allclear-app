@@ -12,7 +12,7 @@ import FacilityService from '@services/facility.service.js';
 import {withRouter} from 'react-router';
 import {G_MAP_DEFAULTS, G_MAP_OPTIONS} from '@constants/map.constants';
 import {clickMapMarker, getRouteQueryParams, isTaggableLocation} from '@util/general.helpers';
-import {geocodeByAddress, getLatLng} from 'react-places-autocomplete';
+import {geocodeByAddress} from 'react-places-autocomplete';
 
 class GoogleMap extends Component {
   static contextType = AppContext;
@@ -88,12 +88,7 @@ class GoogleMap extends Component {
       const stateViewport = get(results, '[0].geometry.viewport');
 
       if(!isError(results)){
-        // const latlng = await getLatLng(results[0])
-        //   .catch((error) => console.error('LATLNG ERROR', error));
-        // latitude = latlng.lat;
-        // longitude = latlng.lng;
         map.fitBounds(stateViewport);
-        // const currRadius = this._getMapRadiusInMiles();
       }
 
     } else if (urlLat && urlLong) {
@@ -220,6 +215,7 @@ class GoogleMap extends Component {
     const furthestMeters = get(results, `[${furthestIndex}].meters`);
     const map = get(this, 'gMapRef.current.map_');
 
+    // this will fail if state is in the url
     if (furthestMeters) {
       const circle = this._createCircle(furthestMeters);
       map.fitBounds(circle.getBounds());
