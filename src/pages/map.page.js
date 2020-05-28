@@ -18,9 +18,8 @@ import MobileTopBar from '@components/map-components/mobile-top-bar';
 import Container from '@material-ui/core/Container';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
 import ShareIcon from '@material-ui/icons/Share';
-import SettingsSVG from '@svg/svg-settings';
+import EditFiltersBtn from '@components/map-components/edit-filters-btn';
 
 // other
 import ModalService from '@services/modal.service';
@@ -30,6 +29,7 @@ import { getActiveFilters, getRouteQueryParams } from '@util/general.helpers';
 import { triggerShareAction, getShareActionSnackbar } from '@util/social.helpers';
 import GAService, { MAP_PAGE_GA_EVENTS, GA_EVENT_MAP } from '@services/ga.service';
 import MapService from '@services/map.service';
+import { getNumActiveFilters } from '../util/general.helpers';
 
 export default function MapPage() {
   const mapService = MapService.getInstance();
@@ -273,15 +273,17 @@ export default function MapPage() {
 
   const { mobileView } = mapState;
   const { snackbarOpen, snackbarMessage, snackbarSeverity } = snackbarState;
+  const numActiveFilters = getNumActiveFilters(appState.searchCriteria);
 
   return (
     <div className={clsx(classes.root, 'map-page')}>
       {mobileView ? (
         <MobileTopBar
+          btnStyle={'white'}
+          numActiveFilters={numActiveFilters}
           onLocationSelected={onLocationSelected}
           onLocationCleared={onLocationCleared}
           onFilterClick={onEditFiltersBtnClick}
-          btnStyle={'white'}
         ></MobileTopBar>
       ) : (
           <Header />
@@ -323,16 +325,11 @@ export default function MapPage() {
                   onClear={onLocationCleared}
                   noOptionsText={'Please Enter a Search Term to View Results'}
                 ></GoogleMapsAutocomplete>
-                <IconButton
-                  aria-label="edit filters"
-                  aria-haspopup="true"
-                  className="edit-filters-icon-button"
-                  size="small"
-                  style={{ padding: '12px', margin: '5px' }}
+                <EditFiltersBtn
+                  numActiveFilters={numActiveFilters}
                   onClick={onEditFiltersBtnClick}
                 >
-                  {SettingsSVG({ color: '#666666' })}
-                </IconButton>
+                </EditFiltersBtn>
               </div>
 
               <Container style={{ padding: '20px 24px' }}>
