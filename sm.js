@@ -24,8 +24,8 @@ class SiteBuilder {
       this.baseURL = 'https://api-dev.allclear.app';
       this.appUrl = 'https://app-dev.allclear.app';
     } else {
-      this.baseURL = 'https://api-staging.allclear.app';
-      this.appUrl = 'https://app-staging.allclear.app';
+      this.baseURL = 'https://api.allclear.app';
+      this.appUrl = 'https://go.allclear.app';
     }
 
     console.log('--- Creating Sitemap With These URLs: ---');
@@ -39,7 +39,8 @@ class SiteBuilder {
       console.log(`Building on branch: ${currBranch}`);
       this.build();
     } else {
-      console.log(`Skipping build on branch: ${currBranch}`);
+      console.log(`No local branch, using prod: ${currBranch}`);
+      this.build();
     }
   }
 
