@@ -107,7 +107,7 @@ class TestCenterPage extends Component {
 
   onBackClick() {
     if(this.state.facility.name === 'Facility Not Found'){
-      window.location.href = `${window.location.origin}/map`
+      window.location.href = `${window.location.origin}/map`;
     }
     this.props.history.push(`/map?selection=${this.id}`);
   }
