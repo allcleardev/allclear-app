@@ -31,7 +31,7 @@ import GAService, { MAP_PAGE_GA_EVENTS, GA_EVENT_MAP } from '@services/ga.servic
 import MapService from '@services/map.service';
 import { getNumActiveFilters } from '../util/general.helpers';
 
-export default function MapPage() {
+export default function MapPage(props) {
   const mapService = MapService.getInstance();
   const gaService = GAService.getInstance();
   gaService.setScreenName('map');
@@ -89,7 +89,6 @@ export default function MapPage() {
       if (response && response.status === 200) {
         console.log('valid session');
       } else {
-        console.log('invalid session');
         localStorage.clear();
         setAppState(INITIAL_APP_STATE);
       }
@@ -103,7 +102,6 @@ export default function MapPage() {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
 
   // to reset URL params after the waterfall of URL updates (this will be the final update in the chain)
   useEffect(() => {

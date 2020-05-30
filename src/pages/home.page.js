@@ -63,7 +63,6 @@ export default class HomePage extends Component {
         if (response && response.status === 200) {
           console.log('valid session');
         } else {
-          console.log('invalid session');
           localStorage.clear();
         }
       });
