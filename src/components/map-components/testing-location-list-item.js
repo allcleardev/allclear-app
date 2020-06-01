@@ -8,6 +8,7 @@ import CustomizedExpansionPanel, { ExpansionPanelSummary, ExpansionPanelDetails 
 import { Link } from 'react-router-dom';
 import { triggerShareAction, getShareActionSnackbar } from '@util/social.helpers';
 import SnackbarMessage from '@general/alerts/snackbar-message';
+import PinLocation from '@general/pin-location';
 
 export default function TestingLocationListItem(props) {
   const { id, index, title, description, service_time, driveThru, phone, website, testTypes, expandedItemId } = props;
@@ -47,7 +48,7 @@ export default function TestingLocationListItem(props) {
 
   const onClick = (evt, buttonName) => {
     evt.stopPropagation();
-    if(buttonName === 'Share'){
+    if (buttonName === 'Share') {
       onShareClicked(evt, id);
     }
     onActionClick(buttonName, id, index, title);
@@ -80,6 +81,10 @@ export default function TestingLocationListItem(props) {
             </div>
           )}
         </h2>
+
+        <div onClick={(e) => e.stopPropagation()}>
+          <PinLocation location={props} />
+        </div>
 
         <dl className="summary d-none d-md-block">
           <dd className="summary__item summary__item--semibold">{description}</dd>
