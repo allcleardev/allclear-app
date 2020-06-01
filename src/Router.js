@@ -124,6 +124,7 @@ export default function Router() {
           <Route exact path="/locations/:state/:city/:id" component={TestCenterPage}/>
 
           {/* Map */}
+          <Route path="/map/:state" component={MapPage}/>
           <Route path="/map" component={MapPage}/>
 
           {/* 404 */}

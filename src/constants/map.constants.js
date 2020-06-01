@@ -81,3 +81,10 @@ export const G_MAP_DEFAULTS = {
   },
   zoom: 12,
 };
+
+export const NON_STATES = [
+  'american samoa',
+  'guam',
+  'puerto rico',
+  'virgin islands',
+];
