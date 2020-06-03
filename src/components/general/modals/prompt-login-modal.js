@@ -80,6 +80,7 @@ const Title = styled(DialogTitle)`
 `;
 
 const Content = styled(DialogContent)`
+  overflow-y: hidden;
   margin-bottom: 46px;
   padding: 0 24px;
   text-align: center;
