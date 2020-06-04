@@ -101,7 +101,7 @@ export default class PeopleService {
         return response;
       })
       .catch((error) => {
-        return error;
+        return error && error.response;
       });
   }
 
@@ -111,7 +111,7 @@ export default class PeopleService {
         return response;
       })
       .catch((error) => {
-        return error;
+        return error && error.response;
       });
   }
 
