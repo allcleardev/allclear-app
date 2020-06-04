@@ -1,18 +1,18 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import MapMarker from './map-marker.js';
 import MyLocationBtn from './my-location-btn';
-import {bindAll, findIndex, get, isError} from 'lodash';
-import {AppContext} from '@contexts/app.context';
+import { bindAll, findIndex, get, isError } from 'lodash';
+import { AppContext } from '@contexts/app.context';
 import MyLocationMapMarker from './my-location-map-marker.js';
 import SnackbarMessage from '@general/alerts/snackbar-message';
 import GAService from '@services/ga.service';
 import MapService from '@services/map.service';
 import FacilityService from '@services/facility.service.js';
-import {withRouter} from 'react-router';
-import {G_MAP_DEFAULTS, G_MAP_OPTIONS, NON_STATES} from '@constants/map.constants';
-import {clickMapMarker, getRouteQueryParams, isTaggableLocation} from '@util/general.helpers';
-import {geocodeByAddress} from 'react-places-autocomplete';
+import { withRouter } from 'react-router';
+import { G_MAP_DEFAULTS, G_MAP_OPTIONS, NON_STATES, US_STATES } from '@constants/map.constants';
+import { clickMapMarker, getRouteQueryParams, isTaggableLocation } from '@util/general.helpers';
+import { geocodeByAddress } from 'react-places-autocomplete';
 
 class GoogleMap extends Component {
   static contextType = AppContext;
@@ -54,8 +54,7 @@ class GoogleMap extends Component {
   }
 
   async onMapReady() {
-
-    const {appState} = this.context;
+    const { appState } = this.context;
     let latitude = get(appState, 'person.latitude');
     let longitude = get(appState, 'person.longitude');
 
@@ -63,11 +62,14 @@ class GoogleMap extends Component {
     const urlLat = get(params, 'search.latitude');
     const urlLong = get(params, 'search.longitude');
     this.isLoggedIn = get(appState, 'person.id');
-    const state = this.props.match.params.state;
-
+    let state = this.props.match.params.state;
 
     // eslint-disable-next-line
     let selection;
+    let isNonState;
+    let isState;
+    let notAStateAtAll = false;
+
     const urlID = get(params, 'selection');
 
     // deep link from facility
@@ -80,26 +82,37 @@ class GoogleMap extends Component {
       // state in url
 
       // check if its actually a state, it will change the necessary search term
-      const searchTerm = (NON_STATES.includes(state.toLowerCase())) ? state : `state of ${state}`;
-      const results = await geocodeByAddress(searchTerm)
-        .catch((error) => {
-          console.error('GEOCODE ERROR', error);
-          return new Error(error);
-        });
+      isNonState = NON_STATES.includes(state.toLowerCase());
+      isState = US_STATES.includes(state.toLowerCase());
+
+      let searchTerm;
+      if (isNonState) {
+        searchTerm = state;
+      } else if (isState) {
+        searchTerm = `state of ${state}`;
+        isState = true;
+      } else {
+        // other search terms
+        searchTerm = state;
+        notAStateAtAll = true;
+      }
+
+      const results = await geocodeByAddress(searchTerm).catch((error) => {
+        console.error('GEOCODE ERROR', error);
+        return new Error(error);
+      });
 
       const map = get(this, 'gMapRef.current.map_');
       const stateViewport = get(results, '[0].geometry.viewport');
 
-      if(!isError(results)){
+      if (!isError(results)) {
         map.fitBounds(stateViewport);
       }
-
     } else if (urlLat && urlLong) {
       // deep link from search term
       latitude = urlLat;
       longitude = urlLong;
     } else if (!latitude || !longitude) {
-
       // if IP check succeeded, use that
       let ipData = await this.mapService.ipCheck().catch(() => {
         this.setState({
@@ -129,10 +142,22 @@ class GoogleMap extends Component {
     }
 
     this._getMapRadiusInMiles();
-    const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude, state}));
+
+    // only send states or non states to BE, other search terms are not supported
+    state = isNonState || isState ? state : undefined;
+
+    // counties etc
+    if(notAStateAtAll){
+      const map = get(this, 'gMapRef.current.map_');
+      const center = map.getCenter();
+      latitude = center.lat();
+      longitude = center.lng();
+    }
+
+    const result = await this.facilityService.search(this._createSearchPayload({ latitude, longitude, state }));
 
     const locations = get(result, 'data.records');
-    this._setLocations(locations, {latitude, longitude});
+    this._setLocations(locations, { latitude, longitude });
     latitude && longitude && this._panTo(latitude, longitude);
 
     // zoom to the appropriate level that matches the current result set
@@ -158,7 +183,7 @@ class GoogleMap extends Component {
    ******************************************************************/
 
   onMapDragEnd(evt) {
-    const {searchCriteria} = this.context.appState;
+    const { searchCriteria } = this.context.appState;
     // clear search input + query params on pan
     this.mapService.onLocationCleared(null, null, 'clear', searchCriteria);
     const latitude = evt.center.lat();
@@ -176,20 +201,19 @@ class GoogleMap extends Component {
     const lng = get(this, 'gMapRef.current.map_.center').lng();
 
     // skip search if happening on mount
-    const {mapInitDidComplete} = this.state;
+    const { mapInitDidComplete } = this.state;
     if (mapInitDidComplete) {
       this._search(lat, lng);
     } else {
       this.setState({
         ...this.state,
-        mapInitDidComplete: true
+        mapInitDidComplete: true,
       });
     }
-
   }
 
   onMyLocationClicked() {
-    const {appState} = this.context;
+    const { appState } = this.context;
     const latitude = get(appState, 'person.latitude');
     const longitude = get(appState, 'person.longitude');
     this._panTo(latitude, longitude);
@@ -209,7 +233,6 @@ class GoogleMap extends Component {
   }
 
   _zoomToResults(results) {
-
     // clear current circle
     this.state.circle && this.state.circle.setMap(null);
 
@@ -224,7 +247,7 @@ class GoogleMap extends Component {
       map.fitBounds(circle.getBounds());
       this.setState({
         ...this.state,
-        circle
+        circle,
       });
     }
   }
@@ -246,8 +269,9 @@ class GoogleMap extends Component {
     const lon2 = ne.lng() / 57.2958;
 
     // distance = circle radius from center to Northeast corner of bounds
-    const radius = earthRadius * Math.acos(Math.sin(lat1) * Math.sin(lat2) +
-      Math.cos(lat1) * Math.cos(lat2) * Math.cos(lon2 - lon1));
+    const radius =
+      earthRadius *
+      Math.acos(Math.sin(lat1) * Math.sin(lat2) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(lon2 - lon1));
 
     this.setState({
       ...this.state,
@@ -259,7 +283,7 @@ class GoogleMap extends Component {
     // return radius*2;
   }
 
-  _createCircle(radius,) {
+  _createCircle(radius) {
     const map = get(this, 'gMapRef.current.map_');
 
     //eslint-disable-next-line
@@ -269,13 +293,13 @@ class GoogleMap extends Component {
       fillOpacity: 0,
       // strokeOpacity: 0.2,
       strokeOpacity: 0,
-      map
+      map,
     });
   }
 
   _setLocations(locations) {
     // update context state (for other components in map page)
-    const {setAppState, appState} = this.context;
+    const { setAppState, appState } = this.context;
 
     this.mapService.mapRef = this.gMapRef;
 
@@ -294,10 +318,9 @@ class GoogleMap extends Component {
    ******************************************************************/
 
   async onLocationAccepted(pos) {
-
     const latitude = pos.coords.latitude;
     const longitude = pos.coords.longitude;
-    const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude}));
+    const result = await this.facilityService.search(this._createSearchPayload({ latitude, longitude }));
     this._setLocations(result.data.records, {
       latitude,
       longitude,
@@ -305,11 +328,10 @@ class GoogleMap extends Component {
     this._panTo(latitude, longitude);
     const locations = get(result, 'data.records');
     this._zoomToResults(locations);
+  }
 
-  };
-
-  _createSearchPayload({latitude, longitude, state, shouldIgnoreFilters = false}) {
-    const {appState, setAppState} = this.context;
+  _createSearchPayload({ latitude, longitude, state, shouldIgnoreFilters = false }) {
+    const { appState, setAppState } = this.context;
     const searchCriteria = shouldIgnoreFilters ? {} : appState.searchCriteria;
 
     setAppState({
@@ -318,8 +340,8 @@ class GoogleMap extends Component {
         ...appState.map,
         isListLoading: true,
         latitude,
-        longitude
-      }
+        longitude,
+      },
     });
 
     return {
@@ -334,7 +356,7 @@ class GoogleMap extends Component {
   }
 
   async _search(latitude, longitude) {
-    const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude}));
+    const result = await this.facilityService.search(this._createSearchPayload({ latitude, longitude }));
     this._setLocations(result.data.records, {
       latitude,
       longitude,
@@ -348,7 +370,7 @@ class GoogleMap extends Component {
     const homeIndex = locations.length;
 
     return (
-      <div className="google-map" style={{height: '100%', width: '100%'}} onClick={this.props.onMapClick}>
+      <div className="google-map" style={{ height: '100%', width: '100%' }} onClick={this.props.onMapClick}>
         <SnackbarMessage
           snackbarClass={'snackbar--map'}
           isOpen={this.state.isSnackbarOpen}
@@ -360,7 +382,7 @@ class GoogleMap extends Component {
         <GoogleMapReact
           ref={this.gMapRef}
           options={G_MAP_OPTIONS}
-          bootstrapURLKeys={{key: 'AIzaSyAPB7ER1lGxDSZICjq9lmqgxvnlSJCIuYw'}}
+          bootstrapURLKeys={{ key: 'AIzaSyAPB7ER1lGxDSZICjq9lmqgxvnlSJCIuYw' }}
           defaultCenter={G_MAP_DEFAULTS.center}
           defaultZoom={G_MAP_DEFAULTS.zoom}
           zoom={G_MAP_DEFAULTS.zoom}
@@ -384,10 +406,10 @@ class GoogleMap extends Component {
               />
             );
           })}
-          <MyLocationMapMarker key={homeIndex} lat={homeLat} lng={homeLng}/>
+          <MyLocationMapMarker key={homeIndex} lat={homeLat} lng={homeLng} />
         </GoogleMapReact>
         {this.isLoggedIn && (
-          <MyLocationBtn aria-label="Go to Profile Location" onClick={() => this.onMyLocationClicked()}/>
+          <MyLocationBtn aria-label="Go to Profile Location" onClick={() => this.onMyLocationClicked()} />
         )}
       </div>
     );
