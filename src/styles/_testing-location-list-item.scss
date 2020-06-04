@@ -69,7 +69,7 @@
       }
     }
 
-    .details {
+    .detail-list {
       font-size: 13px;
 
       dt {
@@ -78,6 +78,48 @@
         margin-right: 7px;
         color: #808080;
       }
+    }
+
+    .experiences {
+      display: flex;
+      font-size: 13px;
+      margin-left: -8px;
+      margin-bottom: 8px;
+
+      &__left{
+        width: 65%;
+      }
+
+      &__left-label{
+        color: #808080;
+        margin-left: 7px;
+      }
+
+      &__right{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin-left: 5%;
+        width: 35%;
+      }
+
+      &__percent{
+        font-size: 40px;
+        color: #808080;
+      }
+      &__label{
+        color: #808080;
+        margin-top: -8px;
+        font-size: 15px;
+      }
+      &__total{
+        color: #808080;
+        margin-top: 5px;
+        font-size: 12px;
+      }
+
     }
   }
 }

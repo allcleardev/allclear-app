@@ -1,20 +1,20 @@
-import React, { Fragment, useState } from 'react';
+import React, {Fragment, useState} from 'react';
 import styled from 'styled-components';
-import { get } from 'lodash';
+import {get} from 'lodash';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
-import { boolToEng, isNullOrUndefined, getFeedbackButtonURL, isTaggableLocation } from '@util/general.helpers';
+import {boolToEng, isNullOrUndefined, getFeedbackButtonURL, isTaggableLocation} from '@util/general.helpers';
 import ExternalItemLinks from './external-item-links';
-import CustomizedExpansionPanel, { ExpansionPanelSummary, ExpansionPanelDetails } from './expansion-panel';
-import { Link } from 'react-router-dom';
-import { triggerShareAction, getShareActionSnackbar } from '@util/social.helpers';
+import CustomizedExpansionPanel, {ExpansionPanelSummary, ExpansionPanelDetails} from './expansion-panel';
+import {Link} from 'react-router-dom';
+import {triggerShareAction, getShareActionSnackbar} from '@util/social.helpers';
 import SnackbarMessage from '@general/alerts/snackbar-message';
 import PinLocation from '@general/pin-location';
 import ProgressBar from '@general/progress-bars/progress-bar';
 
 export default function TestingLocationListItem(props) {
-  const { id, index, title, description, service_time, driveThru, phone, website, testTypes, expandedItemId } = props;
-  const { onActionClick, onTestingLocationExpand } = props; // events
+  const {id, index, title, description, service_time, driveThru, phone, website, testTypes, expandedItemId} = props;
+  const {onActionClick, onTestingLocationExpand} = props; // events
   const updatedAt = new Date(props.updatedAt);
   const initialSnackbarState = {
     snackbarMessage: '',
@@ -26,9 +26,9 @@ export default function TestingLocationListItem(props) {
   const onShareClicked = (e, id) => {
     e.stopPropagation();
     const currLocation = window.location.origin;
-    const props = { url: `${currLocation}/map?selection=${id}` };
+    const props = {url: `${currLocation}/map?selection=${id}`};
     triggerShareAction(props).then((response) => {
-      const { snackbarMessage, snackbarSeverity } = getShareActionSnackbar(response);
+      const {snackbarMessage, snackbarSeverity} = getShareActionSnackbar(response);
 
       setSnackbarState({
         ...snackbarState,
@@ -46,7 +46,7 @@ export default function TestingLocationListItem(props) {
     });
   };
 
-  const { snackbarOpen, snackbarMessage, snackbarSeverity } = snackbarState;
+  const {snackbarOpen, snackbarMessage, snackbarSeverity} = snackbarState;
 
   const onClick = (evt, buttonName) => {
     evt.stopPropagation();
@@ -67,7 +67,7 @@ export default function TestingLocationListItem(props) {
       aria-controls={`panel${index}-content`}
       id={`panel${index}-header`}
       className="testing-location-list-item"
-      expandIcon={<ExpandMoreIcon />}
+      expandIcon={<ExpandMoreIcon/>}
     >
       <div className="my-auto">
         <h2 className="card-title">
@@ -77,21 +77,21 @@ export default function TestingLocationListItem(props) {
           {isTaggableLocation(updatedAt) && (
             <div className="new-test-center-display">
               <span>
-                <FiberManualRecordIcon />
+                <FiberManualRecordIcon/>
               </span>
-              <span style={{ marginTop: '1px' }}>New</span>
+              <span style={{marginTop: '1px'}}>New</span>
             </div>
           )}
         </h2>
 
         <div onClick={(e) => e.stopPropagation()}>
-          <PinLocation location={props} />
+          <PinLocation location={props}/>
         </div>
 
         <dl className="summary d-none d-md-block">
           <dd className="summary__item summary__item--semibold">{description}</dd>
 
-          {!isNullOrUndefined(get(props,'type.name')) && (
+          {!isNullOrUndefined(get(props, 'type.name')) && (
             <Fragment>
               <dd className="detsummaryails__item">{props.type.name}</dd>
             </Fragment>
@@ -100,22 +100,22 @@ export default function TestingLocationListItem(props) {
 
           <dd className="summary__item">
             {testTypes &&
-              testTypes.map((type, i) => (
-                <TestTypeLabel type={type.id} key={i}>
-                  {type.name}
-                </TestTypeLabel>
-              ))}
+            testTypes.map((type, i) => (
+              <TestTypeLabel type={type.id} key={i}>
+                {type.name}
+              </TestTypeLabel>
+            ))}
           </dd>
         </dl>
         <dl className="summary d-md-none mb-0">
           <dd className="summary__item summary__item--semibold">{description}</dd>
           <dd className="summary__item">
             {testTypes &&
-              testTypes.map((type, i) => (
-                <TestTypeLabel type={type.id} key={i}>
-                  {type.name}
-                </TestTypeLabel>
-              ))}
+            testTypes.map((type, i) => (
+              <TestTypeLabel type={type.id} key={i}>
+                {type.name}
+              </TestTypeLabel>
+            ))}
           </dd>
         </dl>
       </div>
@@ -141,7 +141,7 @@ export default function TestingLocationListItem(props) {
           <dd className="summary__item summary__item--semibold">{phone}</dd>
         </dl>
         <div className="icons-container d-flex d-md-none">
-          <ExternalItemLinks display={'d-flex'} description={description} phone={phone} website={website} />
+          <ExternalItemLinks display={'d-flex'} description={description} phone={phone} website={website}/>
         </div>
         <h4>Test Center Details:</h4>
         {/*cdc criteria*/}
@@ -154,7 +154,7 @@ export default function TestingLocationListItem(props) {
         {/*full details link*/}
 
 
-        <dl className="details">
+        <dl className="detail-list">
           {!isNullOrUndefined(phone) && (
             <Fragment>
               <dt>Phone Number:</dt>
@@ -236,18 +236,40 @@ export default function TestingLocationListItem(props) {
               <i>Last update: {updatedAt.toLocaleString()}</i>
             </p>
           </div>
-
-          <div className="mt-3">
-
-            <>
-              Positive Experiences: 5
-              <ProgressBar
-                value={60}
-              />
-
-            </>
-          </div>
         </dl>
+
+        <div className="experiences">
+          <div className='experiences__left'>
+            <span className='experiences__left-label'>
+              Positive Experiences: 5
+            </span>
+            <ProgressBar
+              barColor='#35ccb8'
+              value={60}
+            />
+            <span className='experiences__left-label'>
+            Neutral Experiences: 1
+              </span>
+            <ProgressBar
+              barColor='#808080'
+              value={10}
+            />
+            <span className='experiences__left-label'>
+            Negative Experiences: 3
+              </span>
+            <ProgressBar
+              barColor='#fd6263'
+              value={30}
+            />
+          </div>
+
+          <div className='experiences__right'>
+            <h3 className='experiences__percent'> 60% </h3>
+            <div className='experiences__label'> Positive Experiences</div>
+            <div className='experiences__total'>9 Total Reviews</div>
+          </div>
+        </div>
+
       </section>
     </ExpansionPanelDetails>
   );
@@ -283,9 +305,9 @@ const TestTypeLabel = styled.span`
   color: white;
   background-color: #002c83;
 
-  ${({ type }) =>
-    type === 'ii' &&
-    `
+  ${({type}) =>
+  type === 'ii' &&
+  `
     background-color: #11BCF1;
   `}
 `;
