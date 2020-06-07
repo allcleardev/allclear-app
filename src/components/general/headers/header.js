@@ -15,14 +15,14 @@ import { IS_LOGGED_IN_HEADER_LINKS, IS_LOGGED_OUT_HEADER_LINKS } from '@constant
 import ArrowBackIosRounded from '@material-ui/icons/ArrowBackIosRounded';
 import { IconButton, Button } from '@material-ui/core';
 
-export default function Header({ enableBackBtn = false, enableColorBlock = true, children }) {
+export default function Header({ enableBackBtn = false, enableColorBlock = true, className , children }) {
   const { appState } = useContext(AppContext);
   const isLoggedIn = appState.sessionId ? true : false;
   const navLinks = isLoggedIn ? IS_LOGGED_IN_HEADER_LINKS : IS_LOGGED_OUT_HEADER_LINKS;
   const history = useHistory();
 
   return (
-    <div className="header main">
+    <div className={`header main ${className}`}>
       {enableColorBlock && <div className="color-block"></div>}
       {enableBackBtn ? (
         <IconButton className="icon-button hide-desktop" aria-label="back" onClick={() => history.goBack()}>
