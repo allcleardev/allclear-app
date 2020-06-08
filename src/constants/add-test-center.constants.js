@@ -11,11 +11,11 @@ import Swab from '@assets/images/add-testcenter-swab.svg';
 import Transportation from '@assets/images/add-testcenter-transportation.svg';
 import Users from '@assets/images/add-testcenter-users.svg';
 
-export const LOCATION_PROFILE_RADIO_OPTIONS = [
+export const GOT_TESTED_OPTIONS = [
   {
     displayName: 'Yes',
     key: 'yes',
-    value: false,
+    value: true,
   },
   {
     displayName: 'No',
@@ -25,7 +25,7 @@ export const LOCATION_PROFILE_RADIO_OPTIONS = [
   {
     displayName: 'Did not try',
     key: 'not_applicable',
-    value: false,
+    value: undefined,
   },
 ];
 
@@ -106,3 +106,24 @@ export const SCREENING_METHODS = [
     value: false,
   },
 ];
+
+export const POST_DATA_STATE = {
+  name: '',
+  address: '',
+  driveThru: false,
+  teleScreeningAvailable: false,
+  freeOrLowCost: false,
+  acceptsInsurance: false,
+  governmentIdRequired: false,
+  referralRequired: false,
+  firstResponderFriendly: false,
+  appointmentRequired: false,
+  notes: '',
+  gotTested: undefined,
+  type: { id: 'none' },
+  testTypes: [],
+  minimumAge: '', // TODO: clarify since type should be number but mock shows use as boolean
+  // city: '', // NOTE: not currently used in UI
+  // state: '', // NOTE: not currently used in UI
+  // typeId: '', // NOTE: not currently used in UI
+};
