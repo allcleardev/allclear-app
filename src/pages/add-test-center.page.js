@@ -217,16 +217,14 @@ export default class AddTestCenterPage extends Component {
                   <Checkboxes>
                     {this.state.offerings.map((option, index) => (
                       // TODO: Make checkbox partial
-                      <Checkbox key={option.key} className={option.value && 'checked'}>
+                      <Checkbox
+                        key={option.key}
+                        className={option.value && 'checked'}
+                        onClick={this.onCheckboxSelected.bind(this, option)}
+                      >
                         <img src={option.icon} alt={`Select ${option.displayName}`} style={{ margin: 'auto' }} />
-                        <label htmlFor={option.key}>{option.displayName}</label>
-                        <input
-                          type="checkbox"
-                          id={option.key}
-                          checked={!!option.value}
-                          onChange={this.onCheckboxSelected.bind(this, option)}
-                          hidden
-                        ></input>
+                        <label>{option.displayName}</label>
+                        <input readOnly hidden type="checkbox" id={option.key} checked={!!option.value}></input>
                       </Checkbox>
                     ))}
                   </Checkboxes>
@@ -236,16 +234,14 @@ export default class AddTestCenterPage extends Component {
                   <Checkboxes>
                     {this.state.screening.map((option, index) => (
                       // TODO: Make checkbox partial
-                      <Checkbox key={option.key} className={option.value && 'checked'}>
+                      <Checkbox
+                        key={option.key}
+                        className={option.value && 'checked'}
+                        onClick={this.onCheckboxSelected.bind(this, option)}
+                      >
                         <img src={option.icon} alt={`Select ${option.displayName}`} style={{ margin: 'auto' }} />
-                        <label htmlFor={option.key}>{option.displayName}</label>
-                        <input
-                          type="checkbox"
-                          id={option.key}
-                          checked={!!option.value}
-                          onChange={this.onCheckboxSelected.bind(this, option)}
-                          hidden
-                        ></input>
+                        <label>{option.displayName}</label>
+                        <input readOnly hidden type="checkbox" id={option.key} checked={!!option.value}></input>
                       </Checkbox>
                     ))}
                   </Checkboxes>
@@ -331,6 +327,10 @@ const Checkbox = styled.div`
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.5);
   cursor: pointer;
+
+  * {
+    cursor: inherit;
+  }
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.1);
