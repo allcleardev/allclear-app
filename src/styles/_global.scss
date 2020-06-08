@@ -126,7 +126,7 @@ button {
       color: #000;
     }
 
-    &:not(.Mui-disabled) {
+    &:not(.Mui-disabled):not(.Mui-error) {
       .MuiOutlinedInput-notchedOutline {
         border-color: #fff;
       }
@@ -136,7 +136,7 @@ button {
     }
   }
 
-  .MuiFormHelperText-root {
+  .MuiFormHelperText-root:not(.Mui-error) {
     color: rgba(255, 255, 255, 0.9);
   }
 }
