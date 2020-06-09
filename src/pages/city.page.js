@@ -1,12 +1,15 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import {bindAll, startCase, get} from 'lodash';
+import MapIcon from '@material-ui/icons/Map';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import Header from '@general/headers/header';
 import BottomNav from '@general/navs/bottom-nav';
 import GAService from '@services/ga.service';
-import { AppContext } from '@contexts/app.context';
+import {AppContext} from '@contexts/app.context';
 import FacilityService from '@services/facility.service';
 import MetadataService from '@services/metadata.service';
 import {applyCovidTag, isTaggableLocation} from '@util/general.helpers';
@@ -96,32 +99,50 @@ class CityPage extends Component {
 
   render() {
     return (
-      <div className="tracing">
+      <section className="tracing city-page">
         <Header enableBackBtn={true}></Header>
         <Container className="content">
           <h1>
-            {this.state.cityName}, {this.state.stateName} COVID-19 Testing Centers ({get(this,'state.centerList.length', 0)}) | AllClear
+            {this.state.cityName}, {this.state.stateName} COVID-19 Testing Centers ({get(this, 'state.centerList.length', 0)}) | AllClear
           </h1>
           <h2>
-            View {get(this,'state.centerList.length') || 'all'} COVID-19 testing centers in {this.state.cityName},
+            View {get(this, 'state.centerList.length') || 'all'} COVID-19 testing centers in {this.state.cityName},
             {this.state.stateName}. AllClear is your guide to find where to get tested, quickly.
             Please contact your nearest center with any questions.
           </h2>
 
           <div className="seo-list">
             {this.state.centerList &&
-              this.state.centerList.map((res) => {
-                return (
-                  <Link key={res.id} to={`/test-centers/${res.id}`}>
+            this.state.centerList.map((res) => {
+              return (
+                <div
+                  key={res.id}
+                  className='city-page__row'
+                >
+                  <Link to={`/test-centers/${res.id}`}>
                     {res.name}
                   </Link>
-                );
-              })}
+
+                  <Link to={`/map?selection=${res.id}`}>
+                    <Tooltip
+                      placement="right"
+                      title="Open Facility in Map">
+                      <IconButton
+                        aria-label="Open Facility in Map">
+                        <MapIcon/>
+                      </IconButton>
+                    </Tooltip>
+                  </Link>
+
+                </div>
+              );
+            })}
           </div>
         </Container>
         <BottomNav active={2}></BottomNav>
-      </div>
+      </section>
     );
   }
 }
+
 export default CityPage;
