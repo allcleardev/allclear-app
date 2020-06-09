@@ -331,6 +331,7 @@ const Checkbox = styled.div`
   text-align: center;
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.5);
+  transition: background-color ease .5s;
   cursor: pointer;
 
   * {
@@ -374,4 +375,8 @@ const CancelButton = styled(PrimaryButton)`
 const SubmitButton = styled(PrimaryButton)`
   color: ${(props) => props.theme.palette.primary.main};
   background-color: #fff;
+
+  &:hover {
+    background-color: #e1efff;
+  }
 `;
