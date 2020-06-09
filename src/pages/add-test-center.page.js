@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { bindAll } from 'lodash';
+import { bindAll, cloneDeep } from 'lodash';
 import styled from 'styled-components';
 
 import {
@@ -28,11 +28,12 @@ import FacilitateService from '@services/facilitate.service.js';
 
 export default class AddTestCenterPage extends Component {
   static contextType = AppContext;
-  state = {
-    postData: { ...POST_DATA_STATE },
-    gotTested: [...GOT_TESTED_OPTIONS],
-    offerings: [...OFFERINGS],
-    screening: [...SCREENING_METHODS],
+
+  initialState = {
+    postData: POST_DATA_STATE,
+    gotTested: GOT_TESTED_OPTIONS,
+    offerings: OFFERINGS,
+    screening: SCREENING_METHODS,
     snackbarOpen: false,
     snackbarSeverity: '',
     snackbarMessage: '',
@@ -40,9 +41,10 @@ export default class AddTestCenterPage extends Component {
 
   constructor(props) {
     super(props);
-    bindAll(this, ['onCheckboxSelected', 'handleSubmit', 'handleSnackbarClose']);
+    bindAll(this, ['onCheckboxSelected', 'onCancelClicked', 'handleSubmit', 'handleSnackbarClose']);
     this.typesService = TypesService.getInstance();
     this.facilitateService = FacilitateService.getInstance();
+    this.state = cloneDeep(this.initialState);
   }
 
   async componentDidMount() {
@@ -77,6 +79,10 @@ export default class AddTestCenterPage extends Component {
     }
   }
 
+  onCancelClicked() {
+    this.setState(cloneDeep(this.initialState));
+  }
+
   async handleSubmit(e) {
     e.preventDefault();
 
@@ -95,9 +101,8 @@ export default class AddTestCenterPage extends Component {
           snackbarOpen: true,
         });
       } else {
-        // TODO: RESET gotTested, offerings, screenings
         this.setState({
-          postData: { ...POST_DATA_STATE },
+          ...cloneDeep(this.initialState),
           snackbarMessage: 'Success! New Test Center has been submitted',
           snackbarSeverity: 'success',
           snackbarOpen: true,
@@ -248,7 +253,7 @@ export default class AddTestCenterPage extends Component {
                 </div>
               </Article>
               <ButtonContainer>
-                <CancelButton>Cancel</CancelButton>
+                <CancelButton onClick={this.onCancelClicked}>Cancel</CancelButton>
                 <SubmitButton color="primary" type="submit">
                   Submit Test Center
                 </SubmitButton>
