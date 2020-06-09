@@ -5,15 +5,16 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AddBox from '@material-ui/icons/AddBox';
 import DriveEtaIcon from '@material-ui/icons/DriveEta';
 import VideocamIcon from '@material-ui/icons/Videocam';
-import DescriptionIcon from '@material-ui/icons/Description';
+// import DescriptionIcon from '@material-ui/icons/Description';
 import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import MoneyOffIcon from '@material-ui/icons/MoneyOff';
 import PhoneIcon from '@material-ui/icons/Phone';
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import ScheduleIcon from '@material-ui/icons/Schedule';
-import PhoneForwardedIcon from '@material-ui/icons/PhoneForwarded';
+import PeopleIcon from '@material-ui/icons/People';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
+import EventIcon from '@material-ui/icons/Event';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import {boolToEng, isNullOrUndefined, getFeedbackButtonURL, isTaggableLocation} from '@util/general.helpers';
 import ExternalItemLinks from './external-item-links';
@@ -105,7 +106,7 @@ export default function TestingLocationListItem(props) {
 
           {!isNullOrUndefined(get(props, 'type.name')) && (
             <Fragment>
-              <dd className="detsummaryails__item">{props.type.name}</dd>
+              <dd className="summary__item">{props.type.name}</dd>
             </Fragment>
           )}
 
@@ -148,8 +149,10 @@ export default function TestingLocationListItem(props) {
             onClick={onClick}
           />
         </div>
+
+        <hr/>
         <dl className="summary d-md-none">
-          <dd className="detsummaryails__item">{driveThru.toString() === 'true' ? 'Drive Through' : ''}</dd>
+          <dd className="summary__item">{driveThru.toString() === 'true' ? 'Drive Through' : ''}</dd>
           <dd className="summary__item summary__item--semibold">{phone}</dd>
         </dl>
         <div className="icons-container d-flex d-md-none">
@@ -157,7 +160,6 @@ export default function TestingLocationListItem(props) {
         </div>
 
         <div className="detail-wrapper">
-          <h4>Test Center Overview</h4>
           {/*cdc criteria*/}
           {/*location type*/}
           {/*hours*/}
@@ -191,7 +193,7 @@ export default function TestingLocationListItem(props) {
               <div
                 className={`details details--test-criteria`}
               >
-                <CheckBoxIcon/>
+                <AssignmentIndIcon/>
                 <dt>Known Test Criteria:</dt>
                 <dd>{props.testCriteria.name}</dd>
               </div>
@@ -209,7 +211,7 @@ export default function TestingLocationListItem(props) {
               <div
                 className={`details details--appointment details--${props.appointmentRequired}`}
               >
-                <PhoneForwardedIcon/>
+                <EventIcon/>
                 <dt>Appointment Required:</dt>
                 <dd>{boolToEng(props.appointmentRequired)}</dd>
               </div>
@@ -245,7 +247,7 @@ export default function TestingLocationListItem(props) {
               <div
                 className={`details details--referral-required details--${props.referralRequired}`}
               >
-                <DescriptionIcon/>
+                <PeopleIcon/>
                 <dt>Doctor Referral Required:</dt>
                 <dd>{boolToEng(props.referralRequired)}</dd>
               </div>
@@ -278,7 +280,7 @@ export default function TestingLocationListItem(props) {
               </div>
             )}
             <Link to={`/test-centers/${props.id}`}>View Full Test Center Detail</Link>
-            <div className="mt-3">
+            <div className="mt-2">
               <a href={changeURL} target="_blank" rel="noopener noreferrer">
                 Suggest Change To Test Center Information
               </a>
@@ -288,6 +290,7 @@ export default function TestingLocationListItem(props) {
             </div>
           </dl>
         </div>
+        <hr/>
         <div className="experiences">
           <div className='experiences__left'>
             <span className='experiences__left-label'>

@@ -38,6 +38,7 @@
   .summary {
     font-size: 13px;
     color: $black;
+    margin-bottom: 0px;
 
     &__item {
       line-height: 16px;
@@ -56,6 +57,11 @@
   &__details {
     width: 100%;
     color: $black;
+    background-color: #FAFAFA;
+
+    hr{
+      width: 90%;
+    }
 
     h4 {
       margin: 0;
@@ -78,19 +84,20 @@
         font-weight: 400;
         float: left;
         margin-right: 7px;
-        color: #808080;
+        //color: #808080;
       }
     }
 
     .detail-wrapper {
       padding: 0px 16px;
-      background-color: #F2F2F2;
+      //background-color: #FAFAFA;
     }
 
     .details {
       display: flex;
 
       svg {
+        color: #007aff;
         width: 15px;
         height: 15px;
       }
@@ -101,21 +108,22 @@
         margin-left: 8px;
       }
 
+      //todo: this will color the test center overview icons
       &--true {
         svg {
-          fill: #22AF3A
+          //fill: #22AF3A
         }
       }
 
       &--false {
         svg {
-          fill: #C7C7C7
+          //fill: #C7C7C7
         }
       }
 
       &--mid {
         svg {
-          fill: #E8D000
+          //fill: #E8D000
         }
       }
 
@@ -127,7 +135,7 @@
       font-size: 13px;
       margin-left: -8px;
       margin-bottom: 8px;
-      background-color: white;
+      //background-color: #FAFAFA;
       padding: 0px 16px;
 
       &__left {
@@ -230,6 +238,8 @@
   .list-item-buttons{
     justify-content: space-between;
     width: 80%;
+    padding-top: 18px;
+    margin: -8px 0px;
   }
 
   a:hover {
