@@ -48,7 +48,10 @@ export default class AddTestCenterPage extends Component {
   }
 
   async componentDidMount() {
-    this.testCenterTypes = await this.typesService.getFacilities();
+    const testCenterTypes = await this.typesService.getFacilities();
+    if (testCenterTypes?.length) {
+      this.setState({ testCenterTypes });
+    }
   }
 
   onCheckboxSelected(selected) {
@@ -174,8 +177,8 @@ export default class AddTestCenterPage extends Component {
                     <MenuItem value="none" disabled>
                       Select Test Center Type
                     </MenuItem>
-                    {this.testCenterTypes &&
-                      this.testCenterTypes.map((type) => (
+                    {this.state.testCenterTypes &&
+                      this.state.testCenterTypes.map((type) => (
                         <MenuItem value={type.id} key={type.id}>
                           {type.name}
                         </MenuItem>
@@ -331,7 +334,7 @@ const Checkbox = styled.div`
   text-align: center;
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.5);
-  transition: background-color ease .5s;
+  transition: background-color ease 0.5s;
   cursor: pointer;
 
   * {
