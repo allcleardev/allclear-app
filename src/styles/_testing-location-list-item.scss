@@ -208,7 +208,6 @@
 
 .link-button {
   text-align: center;
-  margin-right: 40px;
 }
 
 .link-button-icon {
@@ -220,9 +219,18 @@
 }
 
 .icons-container {
-  margin: 2px 20px;
+  display: flex;
+  justify-content: space-evenly;
+  margin: 2px 0px;
   font-size: 12px;
+  width: 100%;
+
   color: $primary-color;
+
+  .list-item-buttons{
+    justify-content: space-between;
+    width: 80%;
+  }
 
   a:hover {
     // mainly for Share button since it is not an actual link
