@@ -61,8 +61,10 @@
       margin: 0;
       line-height: 22px;
       padding: 0px 0 10px;
-      font-size: 13px;
-      font-weight: 400;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: bold;
+      padding-top: 15px;
 
       span {
         color: $grey;
@@ -80,22 +82,64 @@
       }
     }
 
+    .detail-wrapper {
+      padding: 0px 16px;
+      background-color: #F2F2F2;
+    }
+
+    .details {
+      display: flex;
+
+      svg {
+        width: 15px;
+        height: 15px;
+      }
+
+      dt {
+        font-size: 13px;
+        font-weight: bold;
+        margin-left: 8px;
+      }
+
+      &--true {
+        svg {
+          fill: #22AF3A
+        }
+      }
+
+      &--false {
+        svg {
+          fill: #C7C7C7
+        }
+      }
+
+      &--mid {
+        svg {
+          fill: #E8D000
+        }
+      }
+
+
+    }
+
     .experiences {
       display: flex;
       font-size: 13px;
       margin-left: -8px;
       margin-bottom: 8px;
+      background-color: white;
+      padding: 0px 16px;
 
-      &__left{
+      &__left {
         width: 65%;
       }
 
-      &__left-label{
+      &__left-label {
         color: #808080;
         margin-left: 7px;
       }
 
-      &__right{
+      &__right {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -105,16 +149,18 @@
         width: 35%;
       }
 
-      &__percent{
+      &__percent {
         font-size: 40px;
         color: #808080;
       }
-      &__label{
+
+      &__label {
         color: #808080;
         margin-top: -8px;
         font-size: 15px;
       }
-      &__total{
+
+      &__total {
         color: #808080;
         margin-top: 5px;
         font-size: 12px;
@@ -154,6 +200,10 @@
       overflow: hidden;
     }
   }
+}
+
+.MuiExpansionPanelDetails-root {
+  padding: 0 !important;
 }
 
 .link-button {

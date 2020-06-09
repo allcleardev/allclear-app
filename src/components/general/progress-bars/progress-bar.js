@@ -6,7 +6,7 @@ const BorderLinearProgress = withStyles({
   root: {
     height: 10,
     borderRadius: 8,
-    backgroundColor: (props) => lighten('#808080', 0.85)
+    backgroundColor: () => lighten('#808080', 0.85)
   },
   bar: {
     borderRadius: 20,
@@ -25,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ProgressBar({children, ...props}) {
-  console.log('zzz', props);
   const classes = useStyles(props);
   return (
     <div className={classes.root}>

@@ -2,6 +2,18 @@ import React, {Fragment, useState} from 'react';
 import styled from 'styled-components';
 import {get} from 'lodash';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import AddBox from '@material-ui/icons/AddBox';
+import DriveEtaIcon from '@material-ui/icons/DriveEta';
+import VideocamIcon from '@material-ui/icons/Videocam';
+import DescriptionIcon from '@material-ui/icons/Description';
+import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
+import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
+import MoneyOffIcon from '@material-ui/icons/MoneyOff';
+import PhoneIcon from '@material-ui/icons/Phone';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import ScheduleIcon from '@material-ui/icons/Schedule';
+import PhoneForwardedIcon from '@material-ui/icons/PhoneForwarded';
+import LocalMallIcon from '@material-ui/icons/LocalMall';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import {boolToEng, isNullOrUndefined, getFeedbackButtonURL, isTaggableLocation} from '@util/general.helpers';
 import ExternalItemLinks from './external-item-links';
@@ -143,101 +155,139 @@ export default function TestingLocationListItem(props) {
         <div className="icons-container d-flex d-md-none">
           <ExternalItemLinks display={'d-flex'} description={description} phone={phone} website={website}/>
         </div>
-        <h4>Test Center Details:</h4>
-        {/*cdc criteria*/}
-        {/*location type*/}
-        {/*hours*/}
-        {/*appointment*/}
-        {/*drivethru*/}
-        {/*dr referal*/}
-        {/*telescreening*/}
-        {/*full details link*/}
+
+        <div className="detail-wrapper">
+          <h4>Test Center Overview</h4>
+          {/*cdc criteria*/}
+          {/*location type*/}
+          {/*hours*/}
+          {/*appointment*/}
+          {/*drivethru*/}
+          {/*dr referal*/}
+          {/*telescreening*/}
+          {/*full details link*/}
 
 
-        <dl className="detail-list">
-          {!isNullOrUndefined(phone) && (
-            <Fragment>
-              <dt>Phone Number:</dt>
-              <dd>{phone}</dd>
-            </Fragment>
-          )}
-          {!isNullOrUndefined(props.testCriteria) && (
-            <Fragment>
-              <dt>Known Test Criteria:</dt>
-              <dd>{props.testCriteria.name}</dd>
-            </Fragment>
-          )}
-          {!isNullOrUndefined(props.type) && (
-            <Fragment>
-              <dt>Location Type:</dt>
-              <dd> {props.type.name}</dd>
-            </Fragment>
-          )}
-          {!isNullOrUndefined(service_time) && (
-            <Fragment>
-              <dt>Hours of Operation:</dt>
-              <dd>{service_time}</dd>
-            </Fragment>
-          )}
-          {!isNullOrUndefined(props.appointmentRequired) && (
-            <Fragment>
-              <dt>Appointment Required:</dt>
-              <dd>{boolToEng(props.appointmentRequired)}</dd>
-            </Fragment>
-          )}
-          {!isNullOrUndefined(props.driveThru) && (
-            <Fragment>
-              <dt>Drive-Through:</dt>
-              <dd>{boolToEng(props.driveThru)}</dd>
-            </Fragment>
-          )}
-          {props.telescreeningAvailable && (
-            <Fragment>
-              <dt>Telescreening Available:</dt>
-              <dd>{boolToEng(props.telescreeningAvailable)}</dd>
-            </Fragment>
-          )}
-          {!isNullOrUndefined(props.acceptsThirdParty) && (
-            <Fragment>
-              <dt>Accepts Third Party Orders:</dt>
-              <dd>{boolToEng(props.acceptsThirdParty)}</dd>
-            </Fragment>
-          )}
-          {!isNullOrUndefined(props.referralRequired) && props.referralRequired && (
-            <Fragment>
-              <dt>Doctor Referral Required:</dt>
-              <dd>{boolToEng(props.referralRequired)}</dd>
-            </Fragment>
-          )}
-          {!isNullOrUndefined(props.referralRequired) && (
-            <Fragment>
-              <dt>Doctor Referral Criteria:</dt>
-              <dd>{props.doctorReferralCriteria ? props.doctorReferralCriteria : 'None'}</dd>
-            </Fragment>
-          )}
-          {!isNullOrUndefined(props.acceptsInsurance) && props.acceptsInsurance && (
-            <Fragment>
-              <dt>Accepts Insurance:</dt>
-              <dd>{boolToEng(props.acceptsInsurance)}</dd>
-            </Fragment>
-          )}
-          {!isNullOrUndefined(props.freeOrLowCost) && props.freeOrLowCost && (
-            <Fragment>
-              <dt>Free or Very Low Cost:</dt>
-              <dd>{boolToEng(props.freeOrLowCost)}</dd>
-            </Fragment>
-          )}
-          <Link to={`/test-centers/${props.id}`}>View Full Test Center Detail</Link>
-          <div className="mt-3">
-            <a href={changeURL} target="_blank" rel="noopener noreferrer">
-              Suggest Change To Test Center Information
-            </a>
-            <p className="fontsize-12">
-              <i>Last update: {updatedAt.toLocaleString()}</i>
-            </p>
-          </div>
-        </dl>
-
+          <dl className="detail-list">
+            {!isNullOrUndefined(props.type) && (
+              <div
+                className={`details details--location details--mid details--${props.type}`}
+              >
+                <AddBox/>
+                <dt>Location Type:</dt>
+                <dd> {props.type.name}</dd>
+              </div>
+            )}
+            {!isNullOrUndefined(phone) && (
+              <div
+                className={`details details--phone`}
+              >
+                <PhoneIcon/>
+                <dt>Phone Number:</dt>
+                <dd>{phone}</dd>
+              </div>
+            )}
+            {!isNullOrUndefined(props.testCriteria) && (
+              <div
+                className={`details details--test-criteria`}
+              >
+                <CheckBoxIcon/>
+                <dt>Known Test Criteria:</dt>
+                <dd>{props.testCriteria.name}</dd>
+              </div>
+            )}
+            {!isNullOrUndefined(service_time) && (
+              <div
+                className={`details details--hours`}
+              >
+                <ScheduleIcon/>
+                <dt>Hours of Operation:</dt>
+                <dd>{service_time}</dd>
+              </div>
+            )}
+            {!isNullOrUndefined(props.appointmentRequired) && (
+              <div
+                className={`details details--appointment details--${props.appointmentRequired}`}
+              >
+                <PhoneForwardedIcon/>
+                <dt>Appointment Required:</dt>
+                <dd>{boolToEng(props.appointmentRequired)}</dd>
+              </div>
+            )}
+            {!isNullOrUndefined(props.driveThru) && (
+              <div
+                className={`details details--drive-thru details--${props.driveThru}`}
+              >
+                <DriveEtaIcon/>
+                <dt>Drive-Through:</dt>
+                <dd>{boolToEng(props.driveThru)}</dd>
+              </div>
+            )}
+            {props.telescreeningAvailable && (
+              <div
+                className={`details details--telescreening details--${props.telescreeningAvailable}`}
+              >
+                <VideocamIcon/>
+                <dt>Telescreening Available:</dt>
+                <dd>{boolToEng(props.telescreeningAvailable)}</dd>
+              </div>
+            )}
+            {!isNullOrUndefined(props.acceptsThirdParty) && (
+              <div
+                className={`details details--third-party details--${props.acceptsThirdParty}`}
+              >
+                <LocalMallIcon/>
+                <dt>Accepts Third Party Orders:</dt>
+                <dd>{boolToEng(props.acceptsThirdParty)}</dd>
+              </div>
+            )}
+            {!isNullOrUndefined(props.referralRequired) && props.referralRequired && (
+              <div
+                className={`details details--referral-required details--${props.referralRequired}`}
+              >
+                <DescriptionIcon/>
+                <dt>Doctor Referral Required:</dt>
+                <dd>{boolToEng(props.referralRequired)}</dd>
+              </div>
+            )}
+            {!isNullOrUndefined(props.referralRequired) && (
+              <div
+                className={`details details--referral-criteria details--${props.referralRequired}`}
+              >
+                <FormatListNumberedIcon/>
+                <dt>Doctor Referral Criteria:</dt>
+                <dd>{props.doctorReferralCriteria ? props.doctorReferralCriteria : 'None'}</dd>
+              </div>
+            )}
+            {!isNullOrUndefined(props.acceptsInsurance) && props.acceptsInsurance && (
+              <div
+                className={`details details--insurance details--${props.acceptsInsurance}`}
+              >
+                <AssignmentTurnedInIcon/>
+                <dt>Accepts Insurance:</dt>
+                <dd>{boolToEng(props.acceptsInsurance)}</dd>
+              </div>
+            )}
+            {!isNullOrUndefined(props.freeOrLowCost) && props.freeOrLowCost && (
+              <div
+                className={`details details--cost details--${props.freeOrLowCost}`}
+              >
+                <MoneyOffIcon/>
+                <dt>Free or Very Low Cost:</dt>
+                <dd>{boolToEng(props.freeOrLowCost)}</dd>
+              </div>
+            )}
+            <Link to={`/test-centers/${props.id}`}>View Full Test Center Detail</Link>
+            <div className="mt-3">
+              <a href={changeURL} target="_blank" rel="noopener noreferrer">
+                Suggest Change To Test Center Information
+              </a>
+              <p className="fontsize-12">
+                <i>Last update: {updatedAt.toLocaleString()}</i>
+              </p>
+            </div>
+          </dl>
+        </div>
         <div className="experiences">
           <div className='experiences__left'>
             <span className='experiences__left-label'>
