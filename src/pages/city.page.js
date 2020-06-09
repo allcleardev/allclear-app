@@ -100,11 +100,11 @@ class CityPage extends Component {
         <Header enableBackBtn={true}></Header>
         <Container className="content">
           <h1>
-            {this.state.cityName}, {this.state.stateName} COVID-19 Testing Centers | AllClear
+            {this.state.cityName}, {this.state.stateName} COVID-19 Testing Centers ({get(this,'state.centerList.length', 0)}) | AllClear
           </h1>
           <h2>
-            View {get(this,'state.centerList.length') || 'all'} COVID-19 testing centers in
-            {this.state.cityName}, {this.state.stateName}. AllClear is your guide to find where to get tested, quickly.
+            View {get(this,'state.centerList.length') || 'all'} COVID-19 testing centers in {this.state.cityName},
+            {this.state.stateName}. AllClear is your guide to find where to get tested, quickly.
             Please contact your nearest center with any questions.
           </h2>
 

@@ -347,6 +347,7 @@ class GoogleMap extends Component {
     return {
       ...searchCriteria,
       state,
+      // pageSize: 50, // todo: for bigger results sets
       from: {
         latitude,
         longitude,
