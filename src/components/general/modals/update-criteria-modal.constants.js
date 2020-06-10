@@ -10,7 +10,7 @@ export const CRITERIA_FORM_DATA = [
       },
       {
         id: true,
-        name: 'Drive Through Only',
+        name: 'Drive Through',
       },
       {
         id: false,
@@ -30,12 +30,64 @@ export const CRITERIA_FORM_DATA = [
       },
       {
         id: true,
-        name: 'Appointment only',
+        name: 'Appointment',
       },
       {
         id: false,
         name: 'No Appointment',
       },
+    ],
+    placeholder: false
+  },
+  {
+    title: 'Show Only Free Testing Centers',
+    key: 'freeOrLowCost',
+    inputType: 'select',
+    options: [
+      {
+        id: 'Any',
+        name: 'Show All Centers',
+      },
+      {
+        id: true,
+        name: 'Free Centers',
+      }
+    ],
+    placeholder: false
+  },
+  {
+    title: 'Test Types',
+    key: 'includeTestTypes',
+    inputType: 'select',
+    options: [
+      {
+        id: 'Any',
+        name: 'Show All Centers',
+      },
+      {
+        id: 'ii',
+        name: 'Antibody Tests',
+      },
+      {
+        id: 'rp',
+        name: 'Nasal Swab',
+      }
+    ],
+    placeholder: false
+  },
+  {
+    title: 'Test Location Type',
+    key: 'typeId',
+    inputType: 'select',
+    options: [
+      { id: null, name: 'Show All Centers' },
+      { id: 'ch', name: 'Community Health Clinic' },
+      { id: 'ho', name: 'Hospital' },
+      { id: 'mc', name: 'Medical Center' },
+      { id: 'pu', name: 'Pop-up/Mobile Site' },
+      { id: 'pv', name: 'Private Doctor\'s Office' },
+      { id: 'pd', name: 'Public Health Department' },
+      { id: 'uc', name: 'Urgent Care' }
     ],
     placeholder: false
   },

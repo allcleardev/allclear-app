@@ -66,8 +66,8 @@ export default function UpdateCriteriaModal() {
         aria-describedby="scroll-dialog-description"
         style={{ zIndex: '5' }}
       >
-        <DialogTitle id="scroll-dialog-title" style={{ padding: '15px 20px 8px' }}>Update Search Criteria</DialogTitle>
-        <DialogContent dividers={scroll === 'paper'} classes={{ root: 'update-criteria-modal' }} style={{ padding: '8px 20px' }}>
+        <DialogTitle id="scroll-dialog-title" style={{ padding: '25px 30px 8px' }}>Update Search Criteria</DialogTitle>
+        <DialogContent dividers={scroll === 'paper'} classes={{ root: 'update-criteria-modal' }} style={{ padding: '8px 30px' }}>
           {/*<Button*/}
           {/*  onClick={_onResetClicked}*/}
           {/*  className="btn-big bg-primary color-white fontsize-16"*/}
@@ -177,7 +177,7 @@ function UpdateCriteria({ onClose, onSubmit }) {
     return (
       <>
         <h5 className="body-sub-title">{title}</h5>
-        <FormControl variant="outlined" className="form-control">
+        <FormControl variant="outlined" style={{ width: '100%' }}>
           <Select
             labelId="demo-simple-select-outlined-label"
             displayEmpty
