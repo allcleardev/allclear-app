@@ -95,7 +95,13 @@ export default class AddTestCenterPage extends Component {
 
   onCancelClicked() {
     this.setState(cloneDeep(this.initialState), () => {
-      this.props.history.goBack();
+      if (this.props.history.length > 2) {
+        // if history is not empty, go back:
+        this.props.history.goBack();
+      } else {
+        // else go to Map page
+        this.props.history.push('/map');
+      }
     });
   }
 
