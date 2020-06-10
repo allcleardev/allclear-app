@@ -48,14 +48,6 @@ export default function UpdateCriteriaModal() {
 
   return (
     <>
-      <BottomFab
-        handle_name={() => {
-          toggleModal(true, 'body');
-        }}
-        class_name="btn-blue-bottom hide-mobile"
-      >
-        {SettingsSVG()}
-      </BottomFab>
       <Dialog
         open={open}
         onClose={() => {
