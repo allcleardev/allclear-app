@@ -5,10 +5,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import { get, pick } from 'lodash';
 import clsx from 'clsx';
 import qs from 'qs';
+import styled from 'styled-components';
 
 // components / icons
 import Header from '@general/headers/header';
-import UpdateCriteriaModal from '@general/modals/update-criteria-modal';
 import GoogleMapsAutocomplete from '@general/inputs/google-maps-autocomplete';
 import SnackbarMessage from '@general/alerts/snackbar-message';
 import GoogleMap from '@components/map-components/google-map';
@@ -384,10 +384,25 @@ export default function MapPage(props) {
       <main className={classes.content}>
         <GoogleMap onMapClick={onMapClick}></GoogleMap>
       </main>
-      <UpdateCriteriaModal></UpdateCriteriaModal>
+      <AddTestCenterButton onClick={() => history.push('/add-test-center')}>Suggest New Test Center</AddTestCenterButton>
     </div>
   );
 }
+
+const AddTestCenterButton = styled(Button)`
+  position: fixed;
+  bottom: 30px;
+  right: 65px;
+  padding: 13px 28px;
+  border-radius: 55px;
+  background: #ffffff;
+  box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.15);
+  color: ${(props) => props.theme.palette.primary.main};
+
+  &:hover {
+    background-color: #e1efff;
+  }
+`;
 
 const collapseHeight = 40;
 const expandHeight = 85;
