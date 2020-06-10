@@ -163,6 +163,15 @@ class GoogleMap extends Component {
     // zoom to the appropriate level that matches the current result set
     this._zoomToResults(locations);
 
+    // message about state zoom if applicable
+    if(isState){
+      this.setState({
+        isSnackbarOpen: true,
+        snackbarMessage: 'Move the map to view more results in your state',
+        snackbarSeverity: 'info',
+      });
+    }
+
     // finally, select a pin if its in the url
     if (urlID) {
       const index = findIndex(locations, ['id', Number(urlID)]);
