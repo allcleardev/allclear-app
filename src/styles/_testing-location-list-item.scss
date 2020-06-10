@@ -57,9 +57,9 @@
   &__details {
     width: 100%;
     color: $black;
-    background-color: #FAFAFA;
+    background-color: #fafafa;
 
-    hr{
+    hr {
       width: 90%;
     }
 
@@ -132,7 +132,7 @@
 
     .experiences {
 
-      &__scores{
+      &__scores {
         display: flex;
         font-size: 13px;
         margin-left: -8px;
@@ -140,7 +140,7 @@
         padding: 0px 16px;
       }
 
-      &__tags{
+      &__tags {
         display: flex;
         padding: 16px;
       }
@@ -239,10 +239,9 @@
   margin: 2px 0px;
   font-size: 12px;
   width: 100%;
-
   color: $primary-color;
 
-  .list-item-buttons{
+  .list-item-buttons {
     justify-content: space-between;
     width: 80%;
     padding-top: 18px;
