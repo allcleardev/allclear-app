@@ -110,8 +110,5 @@ export const POST_DATA_STATE = {
   gotTested: undefined,
   type: { id: 'none' },
   testTypes: [],
-  minimumAge: '', // TODO: clarify since type should be number but mock shows use as boolean
-  // city: '', // NOTE: not currently used in UI
-  // state: '', // NOTE: not currently used in UI
-  // typeId: '', // NOTE: not currently used in UI
+  minimumAge: undefined,
 };
