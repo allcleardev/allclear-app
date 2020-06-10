@@ -1,6 +1,6 @@
 import React, {Fragment, useState} from 'react';
 import styled from 'styled-components';
-import {get} from 'lodash';
+import {get, map} from 'lodash';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AddBox from '@material-ui/icons/AddBox';
 import DriveEtaIcon from '@material-ui/icons/DriveEta';
@@ -24,17 +24,25 @@ import {triggerShareAction, getShareActionSnackbar} from '@util/social.helpers';
 import SnackbarMessage from '@general/alerts/snackbar-message';
 import PinLocation from '@general/pin-location';
 import ProgressBar from '@general/progress-bars/progress-bar';
+import ExperienceService from '@services/experience.service';
+import Pill from '@general/pill';
 
 export default function TestingLocationListItem(props) {
   const {id, index, title, description, service_time, driveThru, phone, website, testTypes, expandedItemId} = props;
   const {onActionClick, onTestingLocationExpand} = props; // events
   const updatedAt = new Date(props.updatedAt);
+  const experienceService = ExperienceService.getInstance();
+  let hasExperienceResults = false;
   const initialSnackbarState = {
     snackbarMessage: '',
     snackbarSeverity: '',
     snackbarOpen: false,
   };
   const [snackbarState, setSnackbarState] = useState(initialSnackbarState);
+  const [experienceState, setExperienceState] = useState({
+    expSection: undefined
+  });
+
 
   const onShareClicked = (e, id) => {
     e.stopPropagation();
@@ -71,6 +79,15 @@ export default function TestingLocationListItem(props) {
 
   // corresponds to the expanded state change of a single testing location in the expansion panel list
   const onExpandedChange = (itemIndex, isExpanded) => {
+    experienceService.calcByFacility(id).then((result, i) => {
+      hasExperienceResults = (get(result, 'data.total') > 0);
+
+      if (hasExperienceResults) {
+        const expSection = buildExperienceSection(result.data);
+        setExperienceState({expSection});
+      }
+    });
+
     // itemIndex is same as props.index, but keeping for readability with child component
     onTestingLocationExpand(id, itemIndex, title, isExpanded);
   };
@@ -136,6 +153,71 @@ export default function TestingLocationListItem(props) {
   );
 
   const changeURL = getFeedbackButtonURL(props);
+
+  function buildExperienceSection(experiencesData) {
+
+    const {positives, negatives, neutrals = 0, total, tags} = experiencesData;
+    const percentPostive = Math.round(positives / total) * 100;
+    const percentNegative = Math.round(negatives / total) * 100;
+    const percentNeutral = Math.round(neutrals / total) * 100;
+    return (
+      <div
+        className="experiences"
+      >
+        <div className="experiences__scores">
+          <div className='experiences__left'>
+            <span className='experiences__left-label'>
+              Positive Experiences: {positives}
+            </span>
+            <ProgressBar
+              barColor='#35ccb8'
+              value={percentPostive}
+            />
+            <span className='experiences__left-label'>
+            Neutral Experiences: {neutrals}
+              </span>
+            <ProgressBar
+              barColor='#808080'
+              value={percentNeutral}
+            />
+            <span className='experiences__left-label'>
+            Negative Experiences: {negatives}
+              </span>
+            <ProgressBar
+              barColor='#fd6263'
+              value={percentNegative}
+            />
+          </div>
+
+          <div className='experiences__right'>
+            <h3 className='experiences__percent'> {percentPostive}% </h3>
+            <div className='experiences__label'> Positive Experiences</div>
+            <div className='experiences__total'>{total} Total Reviews</div>
+          </div>
+        </div>
+
+        <div
+          className='experiences__tags'
+        >
+          {
+            map(tags, (e, i) => {
+              const {count, name} = e;
+              if(count){
+                return (<Pill
+                  key={i}
+                  text={`${name} - ${count}`}
+                />);
+              }else{
+                return (<Fragment
+                key={i}
+                />);
+              }
+            })
+          }
+        </div>
+      </div>
+    );
+  }
 
   const details = (
     <ExpansionPanelDetails>
@@ -291,37 +373,8 @@ export default function TestingLocationListItem(props) {
           </dl>
         </div>
         <hr/>
-        <div className="experiences">
-          <div className='experiences__left'>
-            <span className='experiences__left-label'>
-              Positive Experiences: 5
-            </span>
-            <ProgressBar
-              barColor='#35ccb8'
-              value={60}
-            />
-            <span className='experiences__left-label'>
-            Neutral Experiences: 1
-              </span>
-            <ProgressBar
-              barColor='#808080'
-              value={10}
-            />
-            <span className='experiences__left-label'>
-            Negative Experiences: 3
-              </span>
-            <ProgressBar
-              barColor='#fd6263'
-              value={30}
-            />
-          </div>
 
-          <div className='experiences__right'>
-            <h3 className='experiences__percent'> 60% </h3>
-            <div className='experiences__label'> Positive Experiences</div>
-            <div className='experiences__total'>9 Total Reviews</div>
-          </div>
-        </div>
+        {experienceState.expSection}
 
       </section>
     </ExpansionPanelDetails>
