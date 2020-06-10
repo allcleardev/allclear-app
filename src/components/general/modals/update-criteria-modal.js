@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react';
-import BottomFab from '../buttons/bottom-fab';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -10,7 +9,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 
 import Select from '@material-ui/core/Select';
-import SettingsSVG from '@svg/svg-settings';
 import { CRITERIA_FORM_DATA } from './update-criteria-modal.constants';
 import { AppContext } from '@contexts/app.context';
 import ModalService from '@services/modal.service';
