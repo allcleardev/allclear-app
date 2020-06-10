@@ -136,7 +136,13 @@ export default function TestingLocationListItem(props) {
           <dd className="summary__item summary__item--semibold">{phone}</dd>
         </dl>
         <div className="icons-container d-flex d-md-none">
-          <ExternalItemLinks display={'d-flex'} description={description} phone={phone} website={website} />
+          <ExternalItemLinks
+            display={'d-flex'}
+            description={description}
+            phone={phone}
+            website={website}
+            onClick={onClick}
+          />
         </div>
         <h4>Test Center Details:</h4>
         <dl className="details">
