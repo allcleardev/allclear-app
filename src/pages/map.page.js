@@ -9,6 +9,7 @@ import styled from 'styled-components';
 
 // components / icons
 import Header from '@general/headers/header';
+import UpdateCriteriaModal from '@general/modals/update-criteria-modal';
 import GoogleMapsAutocomplete from '@general/inputs/google-maps-autocomplete';
 import SnackbarMessage from '@general/alerts/snackbar-message';
 import GoogleMap from '@components/map-components/google-map';
@@ -384,6 +385,7 @@ export default function MapPage(props) {
       <main className={classes.content}>
         <GoogleMap onMapClick={onMapClick}></GoogleMap>
       </main>
+      <UpdateCriteriaModal></UpdateCriteriaModal>
       <AddTestCenterButton onClick={() => history.push('/add-test-center')}>Suggest New Test Center</AddTestCenterButton>
     </div>
   );
