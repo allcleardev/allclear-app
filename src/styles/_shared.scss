@@ -55,12 +55,6 @@ $colors: (
 }
 
 .snackbar {
-  &__error {
-    .MuiAlert-standardError {
-      background-color: white;
-    }
-  }
-
   &--map {
     position: absolute;
     @media (min-width: $lg) {

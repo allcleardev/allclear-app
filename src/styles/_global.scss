@@ -101,37 +101,43 @@ button {
       margin: 12px;
     }
   }
+}
 
-  /* .onboarding-body input*/
-  .input {
-    border-radius: 8px;
-    border-color: #fff;
+// TODO: make input into own component/styled-component
+.onboarding-body .input,
+.add-test-center-page .input {
+  border-radius: 8px;
+  border-color: #fff;
+
+  input,
+  textarea {
+    line-height: normal; // safari fix
+    color: #fff;
+  }
+  button {
+    color: #fff;
+  }
+
+  .MuiOutlinedInput-root {
+    border-radius: inherit;
     background: rgba(255, 255, 255, 0.2);
 
-    input {
-      line-height: normal; // safari fix
-      color: #fff;
-    }
-    button {
-      color: #fff;
+    &.Mui-disabled input {
+      color: #000;
     }
 
-    .MuiOutlinedInput-root {
-      border-radius: inherit;
-
-      &.Mui-disabled input {
-        color: #000;
+    &:not(.Mui-disabled):not(.Mui-error) {
+      .MuiOutlinedInput-notchedOutline {
+        border-color: #fff;
       }
-
-      &:not(.Mui-disabled) {
-        .MuiOutlinedInput-notchedOutline {
-          border-color: #fff;
-        }
-        .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
-          border-color: #fff;
-        }
+      .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+        border-color: #fff;
       }
     }
+  }
+
+  .MuiFormHelperText-root:not(.Mui-error) {
+    color: rgba(255, 255, 255, 0.9);
   }
 }
 
