@@ -94,7 +94,9 @@ export default class AddTestCenterPage extends Component {
   }
 
   onCancelClicked() {
-    this.setState(cloneDeep(this.initialState));
+    this.setState(cloneDeep(this.initialState), () => {
+      this.props.history.goBack();
+    });
   }
 
   async handleSubmit(e) {
