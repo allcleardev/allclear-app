@@ -75,6 +75,17 @@ export default class AddTestCenterPage extends Component {
           },
         }));
       }
+    } else if (selected.key === 'minimumAge') {
+      if (selected.value) {
+        // converting minimumAge boolean to actual minimum age value
+        this.setState((prevState) => ({
+          postData: { ...prevState.postData, [selected.key]: 18 },
+        }));
+      } else {
+        this.setState((prevState) => ({
+          postData: { ...prevState.postData, [selected.key]: undefined },
+        }));
+      }
     } else {
       this.setState((prevState) => ({
         postData: { ...prevState.postData, [selected.key]: selected.value },

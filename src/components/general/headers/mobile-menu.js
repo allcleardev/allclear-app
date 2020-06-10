@@ -66,6 +66,10 @@ export default function MobileMenu(props) {
                 </MenuItem>
               ),
             )}
+            {/* mobile-only menu item */}
+            <MenuItem className="menu__item" component={Link} to={'/add-test-center'} onClick={onMenuToggle}>
+              Suggest New Test Center
+            </MenuItem>
           </MenuList>
         </ClickAwayListener>
         <a

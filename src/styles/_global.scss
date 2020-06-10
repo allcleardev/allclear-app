@@ -35,6 +35,7 @@ button {
   flex: 1 0 auto; // safari fix
   display: flex;
   flex-direction: column;
+  align-items: center;
   color: #fff;
   @include responsive-gradient;
 
