@@ -156,10 +156,11 @@ export default function TestingLocationListItem(props) {
 
   function buildExperienceSection(experiencesData) {
 
-    const {positives, negatives, neutrals = 0, total, tags} = experiencesData;
+    const {positives, negatives, total, tags} = experiencesData;
+    // const {positives, negatives, neutrals = 0, total, tags} = experiencesData;
     const percentPostive = Math.round(positives / total) * 100;
     const percentNegative = Math.round(negatives / total) * 100;
-    const percentNeutral = Math.round(neutrals / total) * 100;
+    // const percentNeutral = Math.round(neutrals / total) * 100;
     return (
       <div
         className="experiences"
@@ -173,13 +174,13 @@ export default function TestingLocationListItem(props) {
               barColor='#35ccb8'
               value={percentPostive}
             />
-            <span className='experiences__left-label'>
-            Neutral Experiences: {neutrals}
-              </span>
-            <ProgressBar
-              barColor='#808080'
-              value={percentNeutral}
-            />
+            {/*<span className='experiences__left-label'>*/}
+            {/*Neutral Experiences: {neutrals}*/}
+            {/*  </span>*/}
+            {/*<ProgressBar*/}
+            {/*  barColor='#808080'*/}
+            {/*  value={percentNeutral}*/}
+            {/*/>*/}
             <span className='experiences__left-label'>
             Negative Experiences: {negatives}
               </span>
@@ -202,12 +203,12 @@ export default function TestingLocationListItem(props) {
           {
             map(tags, (e, i) => {
               const {count, name} = e;
-              if(count){
+              if (count) {
                 return (<Pill
                   key={i}
-                  text={`${name} - ${count}`}
+                  text={`${name} (${count})`}
                 />);
-              }else{
+              } else {
                 return (<Fragment
                   key={i}
                 />);
