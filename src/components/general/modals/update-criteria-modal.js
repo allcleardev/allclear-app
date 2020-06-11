@@ -54,10 +54,11 @@ export default function UpdateCriteriaModal() {
         scroll={scroll}
         aria-labelledby="scroll-dialog-title"
         aria-describedby="scroll-dialog-description"
+        className="update-criteria-modal"
         style={{ zIndex: '5' }}
       >
         <DialogTitle id="scroll-dialog-title" style={{ padding: '25px 30px 8px' }}>Update Search Criteria</DialogTitle>
-        <DialogContent dividers={scroll === 'paper'} classes={{ root: 'update-criteria-modal' }} style={{ padding: '8px 30px' }}>
+        <DialogContent dividers={scroll === 'paper'} classes={{ root: 'update-criteria-modal__content' }} style={{ padding: '8px 30px' }}>
           {/*<Button*/}
           {/*  onClick={_onResetClicked}*/}
           {/*  className="btn-big bg-primary color-white fontsize-16"*/}
