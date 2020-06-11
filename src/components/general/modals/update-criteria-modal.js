@@ -111,6 +111,7 @@ function UpdateCriteria({ onClose, onSubmit }) {
 
   async function _onSubmitClicked() {
     let { latitude, longitude } = appState.person;
+    const includeTestTypes = formValues.includeTestTypes ? [formValues.includeTestTypes] : null;
 
     // default to last submitted search
     latitude = latitude ? latitude : appState.map.latitude;
@@ -119,6 +120,7 @@ function UpdateCriteria({ onClose, onSubmit }) {
     // call API
     const result = await facilityService.search({
       ...formValues,
+      includeTestTypes,
       from: {
         latitude,
         longitude,
