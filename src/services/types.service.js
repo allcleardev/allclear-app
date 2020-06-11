@@ -44,4 +44,14 @@ export default class TypesService {
         return error;
       });
   }
+
+  async getFacilities() {
+    return Axios.get(`${this.baseURL}/facilityTypes`)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        return error;
+      });
+  }
 }
