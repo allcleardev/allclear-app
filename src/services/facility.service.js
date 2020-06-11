@@ -55,6 +55,14 @@ export default class FacilityService {
     });
   }
 
+  getFacilityByName(name) {
+    return Axios({
+      method: 'GET',
+      url: `${this.baseURL}/name`,
+      params: {name}
+    });
+  }
+
   getStates() {
     return Axios({
       method: 'GET',

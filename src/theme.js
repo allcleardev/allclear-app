@@ -18,6 +18,10 @@ const theme = createMuiTheme({
     background: {
       default: '#fff',
     },
+    gradient: {
+      mobile: 'linear-gradient(157.73deg, #007cff 0%, #002c83 117.55%)',
+      desktop: 'linear-gradient(159.42deg, #007cff 1.48%, #002c83 172.68%)',
+    },
   },
   typography: {
     fontFamily: ['Heebo', 'sans-serif'].join(','),

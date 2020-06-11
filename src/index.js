@@ -5,7 +5,8 @@ import LogRocket from 'logrocket';
 import setupLogRocketReact from 'logrocket-react';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
-import {ThemeProvider} from '@material-ui/core/styles';
+import { MuiThemeProvider, StylesProvider } from '@material-ui/core/styles';
+import { ThemeProvider } from 'styled-components';
 
 import theme from './theme';
 import Router from './Router';
@@ -39,11 +40,19 @@ appRoot.style.display = 'flex';
 
 const rootElement = document.getElementById('root');
 const app = (
-  <ThemeProvider theme={theme}>
-    {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-    <CssBaseline/>
-    <Router/>
-  </ThemeProvider>);
+  // Placing Material stylesheet above all others to allow additional styles to overwrite it (aka giving Material lowest specificity)
+  <StylesProvider injectFirst>
+    {/* Using theme in the ThemeProvider for Material-UI so themes are available to style Material-UI components */}
+    <MuiThemeProvider theme={theme}>
+      {/* Using also ThemeProvider for Styled-Components so themes are available to style Styled-Components */}
+      <ThemeProvider theme={theme}>
+        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+        <CssBaseline />
+        <Router />
+      </ThemeProvider>
+    </MuiThemeProvider>
+  </StylesProvider>
+);
 if (rootElement.hasChildNodes()) {
   hydrate(app, rootElement);
 } else {

@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { get, pick } from 'lodash';
 import clsx from 'clsx';
 import qs from 'qs';
+import styled from 'styled-components';
 
 // components / icons
 import Header from '@general/headers/header';
@@ -18,9 +19,8 @@ import MobileTopBar from '@components/map-components/mobile-top-bar';
 import Container from '@material-ui/core/Container';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
 import ShareIcon from '@material-ui/icons/Share';
-import SettingsSVG from '@svg/svg-settings';
+import EditFiltersBtn from '@components/map-components/edit-filters-btn';
 
 // other
 import ModalService from '@services/modal.service';
@@ -30,8 +30,9 @@ import { getActiveFilters, getRouteQueryParams } from '@util/general.helpers';
 import { triggerShareAction, getShareActionSnackbar } from '@util/social.helpers';
 import GAService, { MAP_PAGE_GA_EVENTS, GA_EVENT_MAP } from '@services/ga.service';
 import MapService from '@services/map.service';
+import { getNumActiveFilters } from '../util/general.helpers';
 
-export default function MapPage() {
+export default function MapPage(props) {
   const mapService = MapService.getInstance();
   const gaService = GAService.getInstance();
   gaService.setScreenName('map');
@@ -89,7 +90,6 @@ export default function MapPage() {
       if (response && response.status === 200) {
         console.log('valid session');
       } else {
-        console.log('invalid session');
         localStorage.clear();
         setAppState(INITIAL_APP_STATE);
       }
@@ -103,7 +103,6 @@ export default function MapPage() {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
 
   // to reset URL params after the waterfall of URL updates (this will be the final update in the chain)
   useEffect(() => {
@@ -273,15 +272,17 @@ export default function MapPage() {
 
   const { mobileView } = mapState;
   const { snackbarOpen, snackbarMessage, snackbarSeverity } = snackbarState;
+  const numActiveFilters = getNumActiveFilters(appState.searchCriteria);
 
   return (
     <div className={clsx(classes.root, 'map-page')}>
       {mobileView ? (
         <MobileTopBar
+          btnStyle={'white'}
+          numActiveFilters={numActiveFilters}
           onLocationSelected={onLocationSelected}
           onLocationCleared={onLocationCleared}
           onFilterClick={onEditFiltersBtnClick}
-          btnStyle={'white'}
         ></MobileTopBar>
       ) : (
           <Header />
@@ -323,16 +324,11 @@ export default function MapPage() {
                   onClear={onLocationCleared}
                   noOptionsText={'Please Enter a Search Term to View Results'}
                 ></GoogleMapsAutocomplete>
-                <IconButton
-                  aria-label="edit filters"
-                  aria-haspopup="true"
-                  className="edit-filters-icon-button"
-                  size="small"
-                  style={{ padding: '12px', margin: '5px' }}
+                <EditFiltersBtn
+                  numActiveFilters={numActiveFilters}
                   onClick={onEditFiltersBtnClick}
                 >
-                  {SettingsSVG({ color: '#666666' })}
-                </IconButton>
+                </EditFiltersBtn>
               </div>
 
               <Container style={{ padding: '20px 24px' }}>
@@ -390,9 +386,25 @@ export default function MapPage() {
         <GoogleMap onMapClick={onMapClick}></GoogleMap>
       </main>
       <UpdateCriteriaModal></UpdateCriteriaModal>
+      <AddTestCenterButton onClick={() => history.push('/add-test-center')}>Suggest New Test Center</AddTestCenterButton>
     </div>
   );
 }
+
+const AddTestCenterButton = styled(Button)`
+  position: fixed;
+  bottom: 30px;
+  right: 65px;
+  padding: 13px 28px;
+  border-radius: 55px;
+  background: #ffffff;
+  box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.15);
+  color: ${(props) => props.theme.palette.primary.main};
+
+  &:hover {
+    background-color: #e1efff;
+  }
+`;
 
 const collapseHeight = 40;
 const expandHeight = 85;

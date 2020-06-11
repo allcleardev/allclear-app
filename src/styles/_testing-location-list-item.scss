@@ -82,6 +82,10 @@
   }
 }
 
+.MuiExpansionPanelSummary-expandIcon {
+  visibility: hidden; // hidden to preserve grid
+}
+
 .MuiButtonBase-root.MuiButton-root.MuiButton-text.btn.primary-color.primary-outline.website-btn {
   @media (min-width: 360px) {
     position: absolute;
