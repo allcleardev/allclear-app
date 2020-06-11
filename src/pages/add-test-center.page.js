@@ -75,6 +75,17 @@ export default class AddTestCenterPage extends Component {
           },
         }));
       }
+    } else if (selected.key === 'minimumAge') {
+      if (selected.value) {
+        // converting minimumAge boolean to actual minimum age value
+        this.setState((prevState) => ({
+          postData: { ...prevState.postData, [selected.key]: 18 },
+        }));
+      } else {
+        this.setState((prevState) => ({
+          postData: { ...prevState.postData, [selected.key]: undefined },
+        }));
+      }
     } else {
       this.setState((prevState) => ({
         postData: { ...prevState.postData, [selected.key]: selected.value },
@@ -83,7 +94,15 @@ export default class AddTestCenterPage extends Component {
   }
 
   onCancelClicked() {
-    this.setState(cloneDeep(this.initialState));
+    this.setState(cloneDeep(this.initialState), () => {
+      if (this.props.history.length > 2) {
+        // if history is not empty, go back:
+        this.props.history.goBack();
+      } else {
+        // else go to Map page
+        this.props.history.push('/map');
+      }
+    });
   }
 
   async handleSubmit(e) {

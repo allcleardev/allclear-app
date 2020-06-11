@@ -1,0 +1,18 @@
+.city-page {
+  background-color: white !important;
+
+  h1 {
+    // todo: reduce margin on all listing pages, not just here
+    //margin-top: 8vh !important;
+  }
+
+  &__row {
+    height: 28px;
+
+    button {
+      color: white;
+      transform: scale(0.8);
+    }
+  }
+
+}
