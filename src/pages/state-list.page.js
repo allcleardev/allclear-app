@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {bindAll} from 'lodash';
+import { bindAll } from 'lodash';
 import { Link } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 
@@ -74,7 +74,7 @@ class StateListPage extends Component {
 
           <div className="seo-list">
             {this.state.stateList &&
-              this.state.stateList.map((res,i) => {
+              this.state.stateList.map((res, i) => {
                 return (
                   <Link
                     key={i}
