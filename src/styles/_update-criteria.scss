@@ -1,18 +1,23 @@
 .update-criteria-modal {
   @media (min-width: $md) {
-    min-width: 600px;
-    width: 40%;
-    padding-top: 0px;
-    margin-top: -10px;
-  }
-
-  &__title {
-
-    h2 {
-      font-size: 22px;
-      margin-left: 22px;
+    .MuiPaper-root {
+      top: 20px;
     }
-
   }
 
+  &__content {
+    @media (min-width: $md) {
+      min-width: 600px;
+      width: 40%;
+      padding-top: 0px;
+      margin-top: -10px;
+    }
+  
+    &__title {
+      h2 {
+        font-size: 22px;
+        margin-left: 22px;
+      }
+    }
+  }
 }
