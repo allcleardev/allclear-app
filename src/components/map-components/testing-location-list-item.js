@@ -165,6 +165,7 @@ export default function TestingLocationListItem(props) {
       <div
         className="experiences"
       >
+        <hr/>
         <div className="experiences__scores">
           <div className='experiences__left'>
             <span className='experiences__left-label'>
@@ -379,7 +380,6 @@ export default function TestingLocationListItem(props) {
             </div>
           </dl>
         </div>
-        <hr/>
 
         {experienceState.expSection}
 
