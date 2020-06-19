@@ -237,7 +237,7 @@ export default function TestingLocationListItem(props) {
         <hr/>
         <dl className="summary d-md-none">
           <dd className="summary__item">{driveThru.toString() === 'true' ? 'Drive Through' : ''}</dd>
-          <dd className="summary__item summary__item--semibold">{phone}</dd>
+          {/*<dd className="summary__item summary__item--semibold">{phone}</dd>*/}
         </dl>
         <div className="icons-container d-flex d-md-none">
           <ExternalItemLinks

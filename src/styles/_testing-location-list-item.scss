@@ -239,10 +239,14 @@
   justify-content: space-evenly;
   margin: 2px 0px;
   font-size: 12px;
-  width: 100%;
   color: $primary-color;
+  /* border: 1px solid red; */
+  /* margin: 0 auto; */
+  width: 90%;
+  margin-left: 10px;
 
   .list-item-buttons {
+    display: flex;
     justify-content: space-between;
     width: 80%;
     padding-top: 18px;
