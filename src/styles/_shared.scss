@@ -79,5 +79,12 @@ $colors: (
   a {
     color: white;
     font-size: 16px;
+    @media screen and (min-width: 1440px) {
+      width: 33%;
+    }
+  }
+  @media screen and (min-width: 1440px) {
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 }
