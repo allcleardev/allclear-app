@@ -1,18 +1,18 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import GoogleMapReact from 'google-map-react';
 import MapMarker from './map-marker.js';
 import MyLocationBtn from './my-location-btn';
-import { bindAll, findIndex, get, isError } from 'lodash';
-import { AppContext } from '@contexts/app.context';
+import {bindAll, findIndex, get, isError} from 'lodash';
+import {AppContext} from '@contexts/app.context';
 import MyLocationMapMarker from './my-location-map-marker.js';
 import SnackbarMessage from '@general/alerts/snackbar-message';
 import GAService from '@services/ga.service';
 import MapService from '@services/map.service';
 import FacilityService from '@services/facility.service.js';
-import { withRouter } from 'react-router';
-import { G_MAP_DEFAULTS, G_MAP_OPTIONS, NON_STATES, US_STATES } from '@constants/map.constants';
-import { clickMapMarker, getRouteQueryParams, isTaggableLocation } from '@util/general.helpers';
-import { geocodeByAddress } from 'react-places-autocomplete';
+import {withRouter} from 'react-router';
+import {G_MAP_DEFAULTS, G_MAP_OPTIONS, NON_STATES, US_STATES} from '@constants/map.constants';
+import {clickMapMarker, getRouteQueryParams, isTaggableLocation} from '@util/general.helpers';
+import {geocodeByAddress} from 'react-places-autocomplete';
 
 class GoogleMap extends Component {
   static contextType = AppContext;
@@ -54,7 +54,7 @@ class GoogleMap extends Component {
   }
 
   async onMapReady() {
-    const { appState } = this.context;
+    const {appState} = this.context;
     let latitude = get(appState, 'person.latitude');
     let longitude = get(appState, 'person.longitude');
 
@@ -147,24 +147,32 @@ class GoogleMap extends Component {
     state = isNonState || isState ? state : undefined;
 
     // counties etc
-    if(notAStateAtAll){
+    if (notAStateAtAll) {
       const map = get(this, 'gMapRef.current.map_');
       const center = map.getCenter();
       latitude = center.lat();
       longitude = center.lng();
     }
 
-    const result = await this.facilityService.search(this._createSearchPayload({ latitude, longitude, state }));
+    // TODO: make this use _search instead, check ?selection parameter still works when doing so
+    const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude, state}))
+      .catch((err) => {
+        this.setState({
+          isSnackbarOpen: true,
+          snackbarMessage: 'Test Center Search Failed. Please Try Again.',
+          snackbarSeverity: 'error',
+        });
+      });
 
     const locations = get(result, 'data.records');
-    this._setLocations(locations, { latitude, longitude });
+    this._setLocations(locations, {latitude, longitude});
     latitude && longitude && this._panTo(latitude, longitude);
 
     // zoom to the appropriate level that matches the current result set
     this._zoomToResults(locations);
 
     // message about state zoom if applicable
-    if(isState){
+    if (isState) {
       this.setState({
         isSnackbarOpen: true,
         snackbarMessage: 'Move the map to view more results in your state',
@@ -192,7 +200,7 @@ class GoogleMap extends Component {
    ******************************************************************/
 
   onMapDragEnd(evt) {
-    const { searchCriteria } = this.context.appState;
+    const {searchCriteria} = this.context.appState;
     // clear search input + query params on pan
     this.mapService.onLocationCleared(null, null, 'clear', searchCriteria);
     const latitude = evt.center.lat();
@@ -210,7 +218,7 @@ class GoogleMap extends Component {
     const lng = get(this, 'gMapRef.current.map_.center').lng();
 
     // skip search if happening on mount
-    const { mapInitDidComplete } = this.state;
+    const {mapInitDidComplete} = this.state;
     if (mapInitDidComplete) {
       this._search(lat, lng);
     } else {
@@ -222,7 +230,7 @@ class GoogleMap extends Component {
   }
 
   onMyLocationClicked() {
-    const { appState } = this.context;
+    const {appState} = this.context;
     const latitude = get(appState, 'person.latitude');
     const longitude = get(appState, 'person.longitude');
     this._panTo(latitude, longitude);
@@ -308,7 +316,7 @@ class GoogleMap extends Component {
 
   _setLocations(locations) {
     // update context state (for other components in map page)
-    const { setAppState, appState } = this.context;
+    const {setAppState, appState} = this.context;
 
     this.mapService.mapRef = this.gMapRef;
 
@@ -329,7 +337,7 @@ class GoogleMap extends Component {
   async onLocationAccepted(pos) {
     const latitude = pos.coords.latitude;
     const longitude = pos.coords.longitude;
-    const result = await this.facilityService.search(this._createSearchPayload({ latitude, longitude }));
+    const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude}));
     this._setLocations(result.data.records, {
       latitude,
       longitude,
@@ -339,9 +347,15 @@ class GoogleMap extends Component {
     this._zoomToResults(locations);
   }
 
-  _createSearchPayload({ latitude, longitude, state, shouldIgnoreFilters = false }) {
-    const { appState, setAppState } = this.context;
+  _createSearchPayload({latitude, longitude, state, shouldIgnoreFilters = false}) {
+    const {appState, setAppState} = this.context;
     const searchCriteria = shouldIgnoreFilters ? {} : appState.searchCriteria;
+
+    // lastAlertedAt comes from alert auto-login, use it in search if it exists (and is already unencoded)
+    let {lastAlertedAt: createdAtFrom} = getRouteQueryParams(this.props.location);
+    if(createdAtFrom){
+      createdAtFrom = createdAtFrom.replace(' ', '+');
+    }
 
     setAppState({
       ...appState,
@@ -357,6 +371,7 @@ class GoogleMap extends Component {
       ...searchCriteria,
       state,
       // pageSize: 50, // todo: for bigger results sets
+      createdAtFrom,
       from: {
         latitude,
         longitude,
@@ -365,8 +380,15 @@ class GoogleMap extends Component {
     };
   }
 
-  async _search(latitude, longitude) {
-    const result = await this.facilityService.search(this._createSearchPayload({ latitude, longitude }));
+  async _search(latitude, longitude, state) {
+    const result = await this.facilityService.search(this._createSearchPayload({latitude, longitude, state}))
+      .catch((err) => {
+        this.setState({
+          isSnackbarOpen: true,
+          snackbarMessage: 'Test Center Search Failed. Please Try Again.',
+          snackbarSeverity: 'error',
+        });
+      });
     this._setLocations(result.data.records, {
       latitude,
       longitude,
@@ -380,7 +402,7 @@ class GoogleMap extends Component {
     const homeIndex = locations.length;
 
     return (
-      <div className="google-map" style={{ height: '100%', width: '100%' }} onClick={this.props.onMapClick}>
+      <div className="google-map" style={{height: '100%', width: '100%'}} onClick={this.props.onMapClick}>
         <SnackbarMessage
           snackbarClass={'snackbar--map'}
           isOpen={this.state.isSnackbarOpen}
@@ -392,7 +414,7 @@ class GoogleMap extends Component {
         <GoogleMapReact
           ref={this.gMapRef}
           options={G_MAP_OPTIONS}
-          bootstrapURLKeys={{ key: 'AIzaSyAPB7ER1lGxDSZICjq9lmqgxvnlSJCIuYw' }}
+          bootstrapURLKeys={{key: 'AIzaSyAPB7ER1lGxDSZICjq9lmqgxvnlSJCIuYw'}}
           defaultCenter={G_MAP_DEFAULTS.center}
           defaultZoom={G_MAP_DEFAULTS.zoom}
           zoom={G_MAP_DEFAULTS.zoom}
@@ -416,10 +438,10 @@ class GoogleMap extends Component {
               />
             );
           })}
-          <MyLocationMapMarker key={homeIndex} lat={homeLat} lng={homeLng} />
+          <MyLocationMapMarker key={homeIndex} lat={homeLat} lng={homeLng}/>
         </GoogleMapReact>
         {this.isLoggedIn && (
-          <MyLocationBtn aria-label="Go to Profile Location" onClick={() => this.onMyLocationClicked()} />
+          <MyLocationBtn aria-label="Go to Profile Location" onClick={() => this.onMyLocationClicked()}/>
         )}
       </div>
     );

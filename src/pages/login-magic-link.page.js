@@ -1,15 +1,16 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import Header from '@general/headers/header';
-import { CircularProgress } from '@material-ui/core';
-import { Container } from '@material-ui/core';
+import {CircularProgress} from '@material-ui/core';
+import {Container} from '@material-ui/core';
 
-import { bindAll } from 'lodash';
+import {bindAll} from 'lodash';
 
 import PeopleService from '@services/people.service';
-import { AppContext } from '@contexts/app.context';
+import {AppContext} from '@contexts/app.context';
 import GAService from '@services/ga.service';
-import { getRouteQueryParams } from '@util/general.helpers';
+import {getRouteQueryParams} from '@util/general.helpers';
+import SnackbarMessage from '@general/alerts/snackbar-message';
 
 export default class LoginMagicLinkPage extends Component {
   static contextType = AppContext;
@@ -29,7 +30,7 @@ export default class LoginMagicLinkPage extends Component {
       error: false,
     };
 
-    bindAll(this, ['verifyMagicLink']);
+    bindAll(this, ['verifyMagicLink', 'handleSnackbarClose']);
   }
 
   componentDidMount() {
@@ -38,12 +39,12 @@ export default class LoginMagicLinkPage extends Component {
 
   // Function to make call backend service to confirm the magic link
   async verifyMagicLink() {
-    const { appState, setAppState } = this.context;
-    let searchParams = getRouteQueryParams(this.props.location);
+    const {appState, setAppState} = this.context;
+    let {phone, token, lastAlertedAt} = getRouteQueryParams(this.props.location);
 
     const response = await this.peopleService.verifyAuthRequest({
-      phone: searchParams.phone,
-      token: searchParams.token,
+      phone,
+      token,
     });
 
     if (!response.err) {
@@ -56,7 +57,10 @@ export default class LoginMagicLinkPage extends Component {
       localStorage.setItem('sessionId', response.data.id);
       localStorage.setItem('session', JSON.stringify(response.data));
 
-      this.props.history.push('/map');
+      // if coming from alert, maintain lastAlertedAt
+      const mapRoute = (lastAlertedAt) ? `/map?lastAlertedAt=${lastAlertedAt}` : '/map';
+      this.props.history.push(mapRoute);
+
     } else {
       const error = response;
 
@@ -68,6 +72,13 @@ export default class LoginMagicLinkPage extends Component {
     }
   }
 
+  handleSnackbarClose() {
+    this.setState({
+      error: false,
+    });
+  }
+
+
   render() {
     return (
       <div className="sign-up onboarding-page">
@@ -75,17 +86,23 @@ export default class LoginMagicLinkPage extends Component {
           <h1>Verifying Phone Number</h1>
           <h2>
             We are verifying your phone number.
-            <br />
+            <br/>
             After verifying it, you will advance to complete your profile.
           </h2>
         </Header>
 
         <Container className="onboarding-body">
           {this.state.error ? (
-            <p className="error">{this.state.message}</p>
+            <SnackbarMessage
+              isOpen={this.state.error}
+              onClose={this.handleSnackbarClose}
+              message={this.state.message}
+              severity={'error'}
+              duration={4000}
+            />
           ) : (
-            <CircularProgress color="primary" size={108} />
-          )}
+             <CircularProgress color="primary" size={108}/>
+           )}
         </Container>
       </div>
     );
