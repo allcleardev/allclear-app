@@ -1,0 +1,14 @@
+.seo-list {
+
+  a {
+    color: white;
+    font-size: 16px;
+    @media (min-width: $lg) {
+      width: 33%;
+    }
+  }
+  @media (min-width: $lg) {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
