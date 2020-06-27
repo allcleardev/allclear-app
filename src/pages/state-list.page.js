@@ -66,7 +66,7 @@ class StateListPage extends Component {
       <div className="tracing">
         <Header enableBackBtn={true}></Header>
         <Container className="content">
-          <h1>COVID-19 Testing Centers by State</h1>
+          <h1>COVID-19 Testing Centers by State | AllClear</h1>
           <h2>
             Find a COVID-19 testing center near you by selecting your state. AllClear is your guide to find where to get
             tested, quickly. Please contact your nearest center with any questions.
