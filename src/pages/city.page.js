@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import Container from '@material-ui/core/Container';
-import { bindAll, startCase, get } from 'lodash';
+import {bindAll, startCase, get} from 'lodash';
 import MapIcon from '@material-ui/icons/Map';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -9,10 +9,10 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Header from '@general/headers/header';
 import BottomNav from '@general/navs/bottom-nav';
 import GAService from '@services/ga.service';
-import { AppContext } from '@contexts/app.context';
+import {AppContext} from '@contexts/app.context';
 import FacilityService from '@services/facility.service';
 import MetadataService from '@services/metadata.service';
-import { applyCovidTag, isTaggableLocation } from '@util/general.helpers';
+import {applyCovidTag, isTaggableLocation} from '@util/general.helpers';
 
 class CityPage extends Component {
   static contextType = AppContext;
@@ -37,7 +37,7 @@ class CityPage extends Component {
 
   async componentDidMount() {
     await this.getCenters();
-    let { stateName, cityName } = this.state;
+    let {stateName, cityName} = this.state;
     this.metadataService.setPageHead({
       title: `${cityName}, ${stateName} COVID-19 Testing Centers | AllClear`,
       description: `View all COVID-19 testing centers in ${cityName}, ${stateName}. AllClear is your guide to find where to get tested,
@@ -81,11 +81,11 @@ class CityPage extends Component {
   }
 
   prepCovidTag() {
-    const { stateName, cityName } = this.state;
+    const {stateName, cityName} = this.state;
     const thisUrl = `${window.location.origin}/location/${stateName}/${cityName}`;
     const name = `COVID-19 Test Centers in ${cityName}, ${stateName}`;
     const [latestCenter] = this.state.centerList;
-    const { updatedAt } = latestCenter;
+    const {updatedAt} = latestCenter;
     applyCovidTag({
       text: `Get tested in ${cityName}, ${stateName} for SARS-CoV-2, the coronavirus that causes COVID-19.`,
       name,
@@ -103,7 +103,7 @@ class CityPage extends Component {
         <Header enableBackBtn={true}></Header>
         <Container className="content">
           <h1>
-            {this.state.cityName}, {this.state.stateName} COVID-19 Testing Centers ({get(this, 'state.centerList.length', 0)})
+            {this.state.cityName}, {this.state.stateName} COVID-19 Testing Centers ({get(this, 'state.centerList.length', 0)}) | AllClear
           </h1>
           <h2>
             View {get(this, 'state.centerList.length') || 'all'} COVID-19 testing centers in {this.state.cityName},
@@ -113,30 +113,30 @@ class CityPage extends Component {
 
           <div className="seo-list">
             {this.state.centerList &&
-              this.state.centerList.map((res) => {
-                return (
-                  <div
-                    key={res.id}
-                    className='city-page__row'
-                  >
-                    <Link to={`/test-centers/${res.id}`}>
-                      {res.name}
-                    </Link>
+            this.state.centerList.map((res) => {
+              return (
+                <div
+                  key={res.id}
+                  className='city-page__row'
+                >
+                  <Link to={`/test-centers/${res.id}`}>
+                    {res.name}
+                  </Link>
 
-                    <Link to={`/map?selection=${res.id}`}>
-                      <Tooltip
-                        placement="right"
-                        title="Open Facility in Map">
-                        <IconButton
-                          aria-label="Open Facility in Map">
-                          <MapIcon />
-                        </IconButton>
-                      </Tooltip>
-                    </Link>
+                  <Link to={`/map?selection=${res.id}`}>
+                    <Tooltip
+                      placement="right"
+                      title="Open Facility in Map">
+                      <IconButton
+                        aria-label="Open Facility in Map">
+                        <MapIcon/>
+                      </IconButton>
+                    </Tooltip>
+                  </Link>
 
-                  </div>
-                );
-              })}
+                </div>
+              );
+            })}
           </div>
         </Container>
         <BottomNav active={2}></BottomNav>
