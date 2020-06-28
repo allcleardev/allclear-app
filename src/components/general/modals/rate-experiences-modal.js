@@ -1,18 +1,15 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { Dialog, DialogTitle, DialogContent, DialogActions, IconButton } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 
-import { ReactComponent as LockIcon } from '@assets/images/lock.svg';
 import PrimaryButton from '@general/buttons/primary-button';
-import ModalService from '@services/modal.service';
+import ModalService from '@services/modal.service'; 
 
-export default function PromptLoginModal() {
-  const history = useHistory();
+export default function RateExperiencesModal() {
   const modalService = ModalService.getInstance();
-  modalService.registerModal('promptLogin', toggleModal);
+  modalService.registerModal('promptRateExperiences', toggleModal);
 
   const [open, setOpen] = useState(false);
   const [scroll, setScroll] = useState('paper');
@@ -25,7 +22,7 @@ export default function PromptLoginModal() {
   }
 
   return (
-    <>
+    <> 
       <Modal
         open={open}
         onClose={() => {
@@ -36,21 +33,17 @@ export default function PromptLoginModal() {
         aria-describedby="scroll-dialog-description"
       >
         <Title>
-          <LockIcon />
-          You are not logged in
+          Rate You Experience
         </Title>
         <CloseButton aria-label="close" onClick={() => toggleModal(false)}>
           <CloseIcon />
         </CloseButton>
         <Content dividers={scroll === 'paper'}>
-          You need to be logged in to AllClear to access this feature. Please login or create an account to continue.
+          Coming Soon
         </Content>
         <Actions disableSpacing={true}>
-          <PrimaryButton color={'primary'} variant={'contained'} onClick={() => history.push('/sign-in')}>
-            Login
-          </PrimaryButton>
-          <PrimaryButton style={{ marginTop: 10 }} onClick={() => history.push('/sign-up')}>
-            Create Account
+          <PrimaryButton color={'primary'} variant={'contained'} onClick={() => toggleModal(false)}>
+            Back
           </PrimaryButton>
         </Actions>
       </Modal>

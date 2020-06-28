@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { Dialog, DialogTitle, DialogContent, DialogActions, IconButton } from '@material-ui/core';
@@ -9,10 +8,9 @@ import { ReactComponent as LockIcon } from '@assets/images/lock.svg';
 import PrimaryButton from '@general/buttons/primary-button';
 import ModalService from '@services/modal.service';
 
-export default function PromptLoginModal() {
-  const history = useHistory();
+export default function WaitExperiencesModal() {
   const modalService = ModalService.getInstance();
-  modalService.registerModal('promptLogin', toggleModal);
+  modalService.registerModal('promptWaitExperiences', toggleModal);
 
   const [open, setOpen] = useState(false);
   const [scroll, setScroll] = useState('paper');
@@ -25,7 +23,7 @@ export default function PromptLoginModal() {
   }
 
   return (
-    <>
+    <> 
       <Modal
         open={open}
         onClose={() => {
@@ -37,20 +35,17 @@ export default function PromptLoginModal() {
       >
         <Title>
           <LockIcon />
-          You are not logged in
+          You must wait!
         </Title>
         <CloseButton aria-label="close" onClick={() => toggleModal(false)}>
           <CloseIcon />
         </CloseButton>
         <Content dividers={scroll === 'paper'}>
-          You need to be logged in to AllClear to access this feature. Please login or create an account to continue.
+          You must wait 24 hours before submitting another review of a Testing Site.
         </Content>
         <Actions disableSpacing={true}>
-          <PrimaryButton color={'primary'} variant={'contained'} onClick={() => history.push('/sign-in')}>
-            Login
-          </PrimaryButton>
-          <PrimaryButton style={{ marginTop: 10 }} onClick={() => history.push('/sign-up')}>
-            Create Account
+          <PrimaryButton color={'primary'} variant={'contained'} onClick={() => toggleModal(false)}>
+            Back
           </PrimaryButton>
         </Actions>
       </Modal>

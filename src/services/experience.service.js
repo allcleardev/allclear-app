@@ -15,19 +15,19 @@ export default class ExperienceService {
     return this.serviceInstance;
   }
 
-  search(body) {
-    // cleanup filters before sending
+  search(sessionId, body){ 
     forEach(body, (value, key) => {
       // remove filter from both places
       if (value === 'Any') {
         delete body[key];
       }
-    });
+    });  
 
     return Axios({
       method: 'POST',
       url: `${this.baseURL}/search`,
-      data: body,
+      headers: { 'X-AllClear-SessionID': sessionId }, 
+      data: body
     });
   }
 
