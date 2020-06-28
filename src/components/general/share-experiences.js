@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 
 import PromptLoginModal from '@general/modals/prompt-login-modal';  
 import WaitExperiencesModal from '@general/modals/wait-experiences-modal'; 
-import RateExperiencesModal from '@general/modals/rate-experiences-modal';
+import ShareExperiencesModal from '@general/modals/share-experiences-modal';
 
 import ModalService from '@services/modal.service'; 
 import ExperienceService from '@services/experience.service';   
@@ -39,11 +39,11 @@ export default function RateExperience() {
             style={{ borderRadius:15 }}
             onClick={handleRateExperience.bind(this)}
         >
-            Rate Experience
+            Share Experience
         </Button>  
         <PromptLoginModal /> 
         <WaitExperiencesModal /> 
-        <RateExperiencesModal />
+        <ShareExperiencesModal />
     </>
   );
 }

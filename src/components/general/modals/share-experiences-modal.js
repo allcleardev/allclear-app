@@ -33,7 +33,7 @@ export default function RateExperiencesModal() {
         aria-describedby="scroll-dialog-description"
       >
         <Title>
-          Rate You Experience
+          Share You Experience
         </Title>
         <CloseButton aria-label="close" onClick={() => toggleModal(false)}>
           <CloseIcon />

@@ -23,7 +23,7 @@ import {Link} from 'react-router-dom';
 import {triggerShareAction, getShareActionSnackbar} from '@util/social.helpers';
 import SnackbarMessage from '@general/alerts/snackbar-message';
 import PinLocation from '@general/pin-location'; 
-import RateExperiences from '@general/rate-experiences';
+import ShareExperiences from '@general/share-experiences';
 import ProgressBar from '@general/progress-bars/progress-bar';
 import ExperienceService from '@services/experience.service';
 import Pill from '@general/pill';
@@ -261,7 +261,7 @@ export default function TestingLocationListItem(props) {
           {/*full details link*/}
 
           <div className="experiences-container">  
-            <RateExperiences />  
+            <ShareExperiences />  
           </div>
 
           <dl className="detail-list">
