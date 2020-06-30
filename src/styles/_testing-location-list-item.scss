@@ -224,6 +224,7 @@
 
 .link-button {
   text-align: center;
+  width: 25%;
 }
 
 .link-button-icon {
@@ -247,7 +248,7 @@
 
   .list-item-buttons {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     width: 80%;
     padding-top: 18px;
     margin: -8px 0px;
