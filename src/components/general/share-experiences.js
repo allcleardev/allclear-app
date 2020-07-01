@@ -2,8 +2,7 @@ import React, { useContext } from 'react';
 import Button from '@material-ui/core/Button'; 
 import Tooltip from '@material-ui/core/Tooltip';
 
-import PromptLoginModal from '@general/modals/prompt-login-modal';  
-import WaitExperiencesModal from '@general/modals/wait-experiences-modal'; 
+import PromptLoginModal from '@general/modals/prompt-login-modal';   
 import ShareExperiencesModal from '@general/modals/share-experiences-modal';
 
 import ModalService from '@services/modal.service';  
@@ -36,8 +35,7 @@ export default function RateExperience() {
                 Share Experience
             </Button>   
         </Tooltip>
-        <PromptLoginModal /> 
-        <WaitExperiencesModal /> 
+        <PromptLoginModal />  
         <ShareExperiencesModal />
     </>
   );
