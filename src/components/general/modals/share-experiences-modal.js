@@ -7,9 +7,9 @@ import CloseIcon from '@material-ui/icons/Close';
 import PrimaryButton from '@general/buttons/primary-button';
 import ModalService from '@services/modal.service'; 
 
-export default function RateExperiencesModal() {
+export default function ShareExperiencesModal() {
   const modalService = ModalService.getInstance();
-  modalService.registerModal('promptRateExperiences', toggleModal);
+  modalService.registerModal('promptShareExperiences', toggleModal);
 
   const [open, setOpen] = useState(false);
   const [scroll, setScroll] = useState('paper');
@@ -22,8 +22,7 @@ export default function RateExperiencesModal() {
   }
 
   return (
-    <> 
-      <Modal
+      <ShareExperienceContainer
         open={open}
         onClose={() => {
           toggleModal(false);
@@ -46,12 +45,11 @@ export default function RateExperiencesModal() {
             Back
           </PrimaryButton>
         </Actions>
-      </Modal>
-    </>
+      </ShareExperienceContainer>
   );
 }
 
-const Modal = styled(Dialog)`
+const ShareExperienceContainer = styled(Dialog)`
   .MuiPaper-rounded {
     border-radius: 30px;
     padding: 30px;

@@ -9,17 +9,17 @@ import ModalService from '@services/modal.service';
 
 import { AppContext } from '@contexts/app.context';
 
-export default function RateExperience() {   
+export default function ShareExperience() {   
     const { appState } = useContext(AppContext);  
     const isLoggedIn = appState.sessionId ? true : false;
 
     const modalService = ModalService.getInstance();  
 
-    const handleRateExperience = async () => {     
+    const handleShareExperience = async () => {     
         if(!isLoggedIn){  
             modalService.toggleModal('promptLogin', true); 
         } else {   
-            modalService.toggleModal('promptRateExperiences', true);       
+            modalService.toggleModal('promptShareExperiences', true);       
         }    
       };
 
@@ -30,7 +30,7 @@ export default function RateExperience() {
                 variant="contained"
                 color="primary"
                 style={{ borderRadius:15 }}
-                onClick={handleRateExperience.bind(this)}
+                onClick={handleShareExperience.bind(this)}
             >
                 Share Experience
             </Button>   
