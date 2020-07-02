@@ -2,17 +2,16 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Dialog, DialogTitle, DialogContent, DialogActions, IconButton } from '@material-ui/core';
+import { Dialog, DialogTitle, DialogActions, IconButton } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 
-import { ReactComponent as LockIcon } from '@assets/images/lock.svg';
 import PrimaryButton from '@general/buttons/primary-button';
-import ModalService from '@services/modal.service';
+import ModalService from '@services/modal.service'; 
 
-export default function PromptLoginModal() {
+export default function PromptLoginExperiencesModal() {
   const history = useHistory();
   const modalService = ModalService.getInstance();
-  modalService.registerModal('promptLogin', toggleModal);
+  modalService.registerModal('promptLoginExperiences', toggleModal);
 
   const [open, setOpen] = useState(false);
   const [scroll, setScroll] = useState('paper');
@@ -34,26 +33,29 @@ export default function PromptLoginModal() {
         scroll={scroll}
         aria-labelledby="scroll-dialog-title"
         aria-describedby="scroll-dialog-description"
-      >
+      > 
         <Title>
-          <LockIcon />
-          You are not logged in
+         To share your experience, please log in to an existing AllClear account, or create a new one. 
         </Title>
         <CloseButton aria-label="close" onClick={() => toggleModal(false)}>
           <CloseIcon />
         </CloseButton>
-        <Content dividers={scroll === 'paper'}>
-          You need to be logged in to AllClear to save pinned locations. Please login or create an account to continue.
-        </Content>
         <Actions disableSpacing={true}>
-          <PrimaryButton color={'primary'} variant={'contained'} onClick={() => history.push('/sign-in')}>
-            Login
+          <PrimaryButton  
+            color={'primary'} 
+            style={{boxShadow: '0px 0px 10px  5px lightgrey'}} 
+            variant={'contained'} onClick={() => history.push('/sign-in')} 
+          >
+            Login 
           </PrimaryButton>
-          <PrimaryButton style={{ marginTop: 10 }} onClick={() => history.push('/sign-up')}>
-            Create Account
-          </PrimaryButton>
-        </Actions>
-      </Modal>
+          <PrimaryButton  
+            style={{ marginTop: 10, boxShadow: '0px 0px 10px  5px lightgrey' }} 
+            onClick={() => history.push('/sign-up')}
+          >
+            Create Account 
+          </PrimaryButton>  
+        </Actions>   
+      </Modal> 
     </>
   );
 }
@@ -77,15 +79,6 @@ const Title = styled(DialogTitle)`
   svg {
     margin-bottom: 48px;
   }
-`;
-
-const Content = styled(DialogContent)`
-  overflow-y: hidden;
-  margin-bottom: 46px;
-  padding: 0 24px;
-  text-align: center;
-  letter-spacing: -0.41px;
-  font-size: 16px;
 `;
 
 const Actions = styled(DialogActions)`

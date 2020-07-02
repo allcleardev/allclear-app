@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import { Dialog, DialogTitle, DialogContent, DialogActions, IconButton } from '@material-ui/core';
+import { Dialog, DialogTitle, DialogContent, IconButton } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 
-import PrimaryButton from '@general/buttons/primary-button';
 import ModalService from '@services/modal.service'; 
 
 export default function ShareExperiencesModal() {
@@ -32,7 +31,7 @@ export default function ShareExperiencesModal() {
         aria-describedby="scroll-dialog-description"
       >
         <Title>
-          Share You Experience
+          Share Your Experience
         </Title>
         <CloseButton aria-label="close" onClick={() => toggleModal(false)}>
           <CloseIcon />
@@ -40,11 +39,6 @@ export default function ShareExperiencesModal() {
         <Content dividers={scroll === 'paper'}>
           Coming Soon
         </Content>
-        <Actions disableSpacing={true}>
-          <PrimaryButton color={'primary'} variant={'contained'} onClick={() => toggleModal(false)}>
-            Back
-          </PrimaryButton>
-        </Actions>
       </ShareExperienceContainer>
   );
 }
@@ -63,10 +57,7 @@ const Title = styled(DialogTitle)`
     align-items: center;
     text-align: center;
     font-size: 24px;
-  }
-
-  svg {
-    margin-bottom: 48px;
+    margin: 15px;
   }
 `;
 
@@ -76,11 +67,7 @@ const Content = styled(DialogContent)`
   padding: 0 24px;
   text-align: center;
   letter-spacing: -0.41px;
-  font-size: 16px;
-`;
-
-const Actions = styled(DialogActions)`
-  flex-direction: column;
+  font-size: 20px;
 `;
 
 const CloseButton = styled(IconButton)`

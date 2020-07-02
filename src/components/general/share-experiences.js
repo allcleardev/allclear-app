@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import Button from '@material-ui/core/Button'; 
 import Tooltip from '@material-ui/core/Tooltip';
 
-import PromptLoginModal from '@general/modals/prompt-login-modal';   
+import PromptLoginExperiencesModal from '@general/modals/prompt-login-experiences-modal.js';   
 import ShareExperiencesModal from '@general/modals/share-experiences-modal';
 
 import ModalService from '@services/modal.service';  
@@ -17,7 +17,7 @@ export default function ShareExperience() {
 
     const handleShareExperience = async () => {     
         if(!isLoggedIn){  
-            modalService.toggleModal('promptLogin', true); 
+            modalService.toggleModal('promptLoginExperiences', true); 
         } else {   
             modalService.toggleModal('promptShareExperiences', true);       
         }    
@@ -33,9 +33,9 @@ export default function ShareExperience() {
                 onClick={handleShareExperience.bind(this)}
             >
                 Share Experience
-            </Button>   
+            </Button>
         </Tooltip>
-        <PromptLoginModal />  
+        <PromptLoginExperiencesModal />  
         <ShareExperiencesModal />
     </>
   );
