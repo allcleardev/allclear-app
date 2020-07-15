@@ -260,10 +260,6 @@ export default function TestingLocationListItem(props) {
           {/*telescreening*/}
           {/*full details link*/}
 
-          <div className="experiences-container">  
-            <ShareExperiences />  
-          </div>
-
           <dl className="detail-list">
             {!isNullOrUndefined(props.type) && (
               <div
@@ -387,7 +383,12 @@ export default function TestingLocationListItem(props) {
 
         {experienceState.expSection}
 
+        <div className="experiences-container">  
+          <ShareExperiences />  
+        </div>
+        
       </section>
+
     </ExpansionPanelDetails>
   );
 

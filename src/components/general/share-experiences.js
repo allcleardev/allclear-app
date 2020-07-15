@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import Button from '@material-ui/core/Button'; 
 import Tooltip from '@material-ui/core/Tooltip';
 
-import PromptLoginExperiencesModal from '@general/modals/prompt-login-experiences-modal.js';   
+import PromptLoginModal from '@general/modals/prompt-login-modal.js';
 import ShareExperiencesModal from '@general/modals/share-experiences-modal';
 
 import ModalService from '@services/modal.service';  
@@ -15,7 +15,7 @@ export default function ShareExperience() {
 
     const modalService = ModalService.getInstance();  
 
-    const handleShareExperience = async () => {     
+    const handleShareExperience = () => {     
         if(!isLoggedIn){  
             modalService.toggleModal('promptLoginExperiences', true); 
         } else {   
@@ -35,7 +35,10 @@ export default function ShareExperience() {
                 Share Experience
             </Button>
         </Tooltip>
-        <PromptLoginExperiencesModal />  
+        <PromptLoginModal
+            titleText="To share your experience, please log in to an existing AllClear account, or create a new one." 
+            modalName="promptLoginExperiences"
+        />
         <ShareExperiencesModal />
     </>
   );

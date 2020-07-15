@@ -4,15 +4,15 @@ import styled from 'styled-components';
 
 import { Dialog, DialogTitle, DialogContent, DialogActions, IconButton } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
+import { isNullOrUndefined } from '@util/general.helpers';
 
-import { ReactComponent as LockIcon } from '@assets/images/lock.svg';
 import PrimaryButton from '@general/buttons/primary-button';
 import ModalService from '@services/modal.service';
 
-export default function PromptLoginModal() {
+export default function PromptLoginModal(props) {
   const history = useHistory();
   const modalService = ModalService.getInstance();
-  modalService.registerModal('promptLogin', toggleModal);
+  modalService.registerModal(props.modalName, toggleModal);
 
   const [open, setOpen] = useState(false);
   const [scroll, setScroll] = useState('paper');
@@ -36,22 +36,24 @@ export default function PromptLoginModal() {
         aria-describedby="scroll-dialog-description"
       >
         <Title>
-          <LockIcon />
-          You are not logged in
+          {props.icon}
+          {props.titleText}
         </Title>
         <CloseButton aria-label="close" onClick={() => toggleModal(false)}>
           <CloseIcon />
         </CloseButton>
-        <Content dividers={scroll === 'paper'}>
-          You need to be logged in to AllClear to save pinned locations. Please login or create an account to continue.
-        </Content>
+        {!isNullOrUndefined(props.contentText) && ( 
+          <Content dividers={scroll === 'paper'}>
+            {props.contentText}
+          </Content>
+        )}
         <Actions disableSpacing={true}>
-          <PrimaryButton color={'primary'} variant={'contained'} onClick={() => history.push('/sign-in')}>
+          <LoginButton color={'primary'} variant={'contained'} onClick={() => history.push('/sign-in')}>
             Login
-          </PrimaryButton>
-          <PrimaryButton style={{ marginTop: 10 }} onClick={() => history.push('/sign-up')}>
+          </LoginButton>
+          <CreateAccountButton style={{ marginTop: 10 }} onClick={() => history.push('/sign-up')}>
             Create Account
-          </PrimaryButton>
+          </CreateAccountButton>
         </Actions>
       </Modal>
     </>
@@ -98,3 +100,12 @@ const CloseButton = styled(IconButton)`
   right: 0;
   margin: 20px;
 `;
+
+const LoginButton = styled(PrimaryButton)`
+  box-shadow: 0px 0px 10px 5px lightGrey;
+`;    
+
+const CreateAccountButton = styled(PrimaryButton)`
+  box-shadow: 0px 0px 10px 5px lightGrey; 
+  margin-top: 10px;
+`; 
