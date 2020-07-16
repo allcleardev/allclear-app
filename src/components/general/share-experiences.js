@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import Button from '@material-ui/core/Button'; 
 import Tooltip from '@material-ui/core/Tooltip';
 
-import PromptLoginModal from '@general/modals/prompt-login-modal.js';
+import FormModal from '@general/modals/form-modal.js';
 import ShareExperiencesModal from '@general/modals/share-experiences-modal';
 
 import ModalService from '@services/modal.service';  
@@ -35,7 +35,7 @@ export default function ShareExperience() {
                 Share Experience
             </Button>
         </Tooltip>
-        <PromptLoginModal
+        <FormModal
             titleText="To share your experience, please log in to an existing AllClear account, or create a new one." 
             modalName="promptLoginExperiences"
         />

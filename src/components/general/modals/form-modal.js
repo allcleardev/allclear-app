@@ -9,7 +9,7 @@ import { isNullOrUndefined } from '@util/general.helpers';
 import PrimaryButton from '@general/buttons/primary-button';
 import ModalService from '@services/modal.service';
 
-export default function PromptLoginModal(props) {
+export default function FormModal(props) {
   const history = useHistory();
   const modalService = ModalService.getInstance();
   modalService.registerModal(props.modalName, toggleModal);
