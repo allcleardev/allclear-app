@@ -14,15 +14,16 @@ import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import ScheduleIcon from '@material-ui/icons/Schedule';
 import PeopleIcon from '@material-ui/icons/People';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
-import EventIcon from '@material-ui/icons/Event';
+import EventIcon from '@material-ui/icons/Event'; 
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import {boolToEng, isNullOrUndefined, getFeedbackButtonURL, isTaggableLocation} from '@util/general.helpers';
 import ExternalItemLinks from './external-item-links';
 import CustomizedExpansionPanel, {ExpansionPanelSummary, ExpansionPanelDetails} from './expansion-panel';
-import {Link} from 'react-router-dom';
+import {Link} from 'react-router-dom'; 
 import {triggerShareAction, getShareActionSnackbar} from '@util/social.helpers';
 import SnackbarMessage from '@general/alerts/snackbar-message';
-import PinLocation from '@general/pin-location';
+import PinLocation from '@general/pin-location'; 
+import ShareExperiences from '@general/share-experiences';
 import ProgressBar from '@general/progress-bars/progress-bar';
 import ExperienceService from '@services/experience.service';
 import Pill from '@general/pill';
@@ -65,7 +66,7 @@ export default function TestingLocationListItem(props) {
       ...snackbarState,
       snackbarOpen: false,
     });
-  };
+  }; 
 
   const {snackbarOpen, snackbarMessage, snackbarSeverity} = snackbarState;
 
@@ -134,8 +135,8 @@ export default function TestingLocationListItem(props) {
               <TestTypeLabel type={type.id} key={i}>
                 {type.name}
               </TestTypeLabel>
-            ))}
-          </dd>
+            ))} 
+          </dd>  
         </dl>
         <dl className="summary d-md-none mb-0">
           <dd className="summary__item summary__item--semibold">{description}</dd>
@@ -146,7 +147,7 @@ export default function TestingLocationListItem(props) {
                 {type.name}
               </TestTypeLabel>
             ))}
-          </dd>
+          </dd> 
         </dl>
       </div>
     </ExpansionPanelSummary>
@@ -258,7 +259,6 @@ export default function TestingLocationListItem(props) {
           {/*dr referal*/}
           {/*telescreening*/}
           {/*full details link*/}
-
 
           <dl className="detail-list">
             {!isNullOrUndefined(props.type) && (
@@ -383,7 +383,12 @@ export default function TestingLocationListItem(props) {
 
         {experienceState.expSection}
 
+        <div className="experiences-container">  
+          <ShareExperiences />  
+        </div>
+        
       </section>
+
     </ExpansionPanelDetails>
   );
 

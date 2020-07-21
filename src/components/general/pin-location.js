@@ -3,7 +3,8 @@ import styled, { css, keyframes } from 'styled-components';
 import { IconButton } from '@material-ui/core';
 
 import { ReactComponent as PinIcon } from '@assets/images/pin-icon.svg';
-import PromptLoginModal from '@general/modals/prompt-login-modal';
+import { ReactComponent as LockIcon } from '@assets/images/lock.svg';
+import FormModal from '@general/modals/form-modal';
 
 import PeopleService from '@services/people.service';
 import ModalService from '@services/modal.service';
@@ -43,7 +44,12 @@ export default function PinLocation({ location }) {
       <PinButton aria-label="pin" onClick={onPinClicked.bind(this, locationState.location)}>
         <Pin pinned={locationState.pinned ? 1 : 0} />
       </PinButton>
-      <PromptLoginModal />
+      <FormModal
+        titleText="You are not logged in"
+        modalName="promptLogin"
+        contentText="You need to be logged in to AllClear to save pinned locations. Please login or create an account to continue."
+        icon={<LockIcon />}
+      />
     </>
   );
 }

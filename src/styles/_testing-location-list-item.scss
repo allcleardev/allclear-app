@@ -186,6 +186,16 @@
   }
 }
 
+.experiences-container {
+  width: '100%';
+  height: 25px;
+  flex: 1;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-bottom: 15px;
+  margin-left: 15px;
+}
+
 .MuiExpansionPanelSummary-expandIcon {
   visibility: hidden; // hidden to preserve grid
 }
