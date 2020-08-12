@@ -1,0 +1,85 @@
+import React, { useState } from 'react';
+import styled from 'styled-components';
+
+import { Dialog, DialogTitle, DialogContent, IconButton } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
+
+import ModalService from '@services/modal.service';
+
+export default function WaitExperiencesModal() {
+  
+  const modalService = ModalService.getInstance();
+  modalService.registerModal('promptWaitExperiences', toggleModal);
+
+  const [open, setOpen] = useState(false);
+  const [scroll, setScroll] = useState('paper');
+
+  function toggleModal(isOpen, scrollType) {
+    setOpen(isOpen);
+    if (isOpen === true) {
+      setScroll(scrollType);
+    }
+  }
+
+  return (
+    <>
+      <Modal
+        open={open}
+        onClose={() => {
+          toggleModal(false);
+        }}
+        scroll={scroll}
+        aria-labelledby="scroll-dialog-title"
+        aria-describedby="scroll-dialog-description"
+      >
+        <Title>
+          You Must Wait
+        </Title>
+        <CloseButton aria-label="close" onClick={() => toggleModal(false)}>
+          <CloseIcon />
+        </CloseButton>
+        <Content dividers={scroll === 'paper'}>
+            You must wait at least 24 hours before creating a new 
+            review of any Testing Center.
+        </Content>
+      </Modal>
+    </>
+  );
+}
+
+const Modal = styled(Dialog)`
+  .MuiPaper-rounded {
+    border-radius: 30px;
+    padding: 30px;
+  }
+`;
+
+const Title = styled(DialogTitle)`
+  h2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    font-size: 24px;
+  }
+
+  svg {
+    margin-bottom: 48px;
+  }
+`;
+
+const Content = styled(DialogContent)`
+  overflow-y: hidden;
+  margin-bottom: 46px;
+  padding: 0 24px;
+  text-align: center;
+  letter-spacing: -0.41px;
+  font-size: 16px;
+`;
+
+const CloseButton = styled(IconButton)`
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 20px;
+`;

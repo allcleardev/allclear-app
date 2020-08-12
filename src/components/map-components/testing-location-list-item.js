@@ -384,7 +384,10 @@ export default function TestingLocationListItem(props) {
         {experienceState.expSection}
 
         <div className="experiences-container">  
-          <ShareExperiences />  
+          <ShareExperiences 
+            testTitle={title} 
+            facilityId={id}
+          />  
         </div>
         
       </section>

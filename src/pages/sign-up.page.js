@@ -378,7 +378,7 @@ export default class SignUpPage extends Component {
             <CircularProgress color="primary" size={108} />
           </Container>
         )}
-        {this.state.loading === false ? <ProgressBottom progress="60%"></ProgressBottom> : null}
+        {this.state.loading === false ? <ProgressBottom progress="60%" barColor="#fff" barStyle="progress-bottom" barWidth="25%" /> : null}
       </div>
     );
   }

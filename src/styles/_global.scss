@@ -164,6 +164,28 @@ button {
   }
 }
 
+.progress-experiences {
+  /*
+    experiences pages
+  */
+  display: none;
+
+  @media (min-width: $md) {
+    display: block;
+    align-self: center;
+    width: 80%; 
+    height: 8px; 
+    margin-top: 40px;
+    border-radius: 12px;
+    background-color: rgba(0, 123, 255, 0.4);
+
+    .progress-bottom-bar {
+      height: inherit;
+      border-radius: inherit;
+    }
+  }
+}
+
 .primary-color {
   /*
     external-item-links.js

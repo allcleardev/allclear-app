@@ -225,7 +225,7 @@ export function withVerification(authType, onVerification, onCodeResent, display
                 <CircularProgress color="primary" size={108} />
               </Container>
             )}
-          {this.state.loading === false && displayProgressBar ? <ProgressBottom progress="75%"></ProgressBottom> : null}
+          {this.state.loading === false && displayProgressBar ? <ProgressBottom progress="75%" barColor="#fff" barStyle="progress-bottom" barWidth="25%"></ProgressBottom> : null}
         </div>
       );
     }
