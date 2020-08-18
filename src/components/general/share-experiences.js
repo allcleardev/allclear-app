@@ -11,6 +11,8 @@ import ExperienceService from '@services/experience.service';
 
 import { AppContext } from '@contexts/app.context';
 
+import { getCurrentDate } from '@util/general.helpers';
+
 export default function ShareExperience(props) {
     const { appState } = useContext(AppContext);  
     const isLoggedIn = appState.sessionId ? true : false;
@@ -18,7 +20,7 @@ export default function ShareExperience(props) {
     const modalService = ModalService.getInstance();
     const experienceService = ExperienceService.getInstance();
 
-    const handleShareExperience = () => {     
+    const handleShareExperience = () => {
         if(!isLoggedIn){  
             modalService.toggleModal('promptLoginExperiences', true); 
         } else {
@@ -30,18 +32,14 @@ export default function ShareExperience(props) {
         }
       };
 
-      const getCurrentDate = () => {
-        const date = new Date();
-        return `${date.getFullYear()}-${('0'+(date.getMonth() + 1)).slice(-2)}-${date.getDate()}`;
-      };
-
       const isLessThan24 = (records, fullDate) => {
-        for(let i=0; i<records.length; i++){ 
-            if(fullDate === records[i].createdAt.slice(0, 10)) {
-                return false;
+        let showModal = true;
+        records.forEach((record) => {   
+            if(fullDate === record.createdAt.slice(0,10)){
+                showModal = false;
             }
-        } 
-        return true;
+        });
+        return showModal;
       };
 
   return (

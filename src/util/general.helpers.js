@@ -178,3 +178,8 @@ export function applyCovidTag({name, city, state, address, lastUpdated, text, ur
   loadDynamicScript('application/ld+json', JSON.stringify(tag));
   console.log('Covid tag applied');
 }
+
+export function getCurrentDate(){ 
+  const date = new Date();
+  return `${date.getFullYear()}-${('0'+(date.getMonth() + 1)).slice(-2)}-${date.getDate()}`;
+}

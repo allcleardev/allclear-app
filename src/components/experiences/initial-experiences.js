@@ -10,20 +10,20 @@ import PrimaryButton from '@general/buttons/primary-button';
 
 export default function InitialExperiences(props) {    
 
-    function handlePositive() {  
+    function handleFeedback(isPositive) { 
       props.handler({
         edited: true, 
-        positive: true, 
+        positive: isPositive, 
         tags: []
       });
     } 
 
-    function handleNegative(){  
-      props.handler({
-        edited: true, 
-        positive: false, 
-        tags: []
-      });
+    function isPosSelected(isPosative){
+      if(isPosative){   
+        return props.payload.edited && props.payload.positive ? 'contained' : 'outlined';
+      } else {
+        return props.payload.edited && !props.payload.positive ? 'contained' : 'outlined';
+      }
     } 
     
     return ( 
@@ -32,11 +32,11 @@ export default function InitialExperiences(props) {
         Please rate your overall experience with this test location:
     </Content>  
      <Actions>
-     <RateButton color={'primary'} variant={props.payload.edited && props.payload.positive ? 'contained' : 'outlined'} onClick={() => handlePositive()}> 
+     <RateButton color={'primary'} variant={isPosSelected(true)} onClick={() => handleFeedback(true)}> 
        <ThumbUpIcon style={{margin: 15}} fontSize={'large'}/> 
        Positive  
      </RateButton>  
-     <RateButton color={'primary'} variant={props.payload.edited && !props.payload.positive ? 'contained' : 'outlined'} onClick={() => handleNegative()}>
+     <RateButton color={'primary'} variant={isPosSelected(false)} onClick={() => handleFeedback(false)}>
        <ThumbDownIcon style={{margin: 15}} fontSize={'large'}/> 
        Negative
      </RateButton> 

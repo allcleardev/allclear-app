@@ -6,11 +6,8 @@ import ProgressBottom from '@general/navs/progress-bottom';
 
 import PrimaryButton from '@general/buttons/primary-button';  
 
-import {ReactComponent as HeartIcon} from '@assets/images/heart-icon.svg';
-
-export default function NegativeExperiences(props) {    
+export default function FeedbackExperiences(props) {    
  
-
     function showNextButton() { 
       if(props.payload.tags.length === 0) { 
         return false;
@@ -24,58 +21,57 @@ export default function NegativeExperiences(props) {
 
       if(arr.includes(tag)){ 
         arr = arr.filter( (item) => (!(item === tag)) );
-        props.handler({
-          edited: props.payload.edited, 
+        
+        props.handler({ 
+          edited: props.payload.edited,
           positive: props.payload.positive, 
           tags: arr
         });
       } else { 
         arr.push(tag);
-        props.handler({
-          edited: props.payload.edited, 
+        props.handler({ 
+          edited: props.payload.edited,
           positive: props.payload.positive, 
           tags: arr
         });
       }
-    }  
+    }
+
+    function renderTags() {  
+      let tagContainer = [];
+      for(let i=0; i<6; i+=2){ 
+        tagContainer.push( 
+          <Box>
+          <TagButton color={'primary'} variant={isTagSelected(props.tags[i].id)} onClick={() => handleSelection(props.tags[i].id)}> 
+            {props.tags[i].icon}
+            {props.tags[i].name}
+          </TagButton> 
+          <TagButton color={'primary'} variant={isTagSelected(props.tags[i+1].id)} onClick={() => handleSelection(props.tags[i+1].id)}> 
+            {props.tags[i+1].icon}
+            {props.tags[i+1].name}
+          </TagButton>  
+          </Box>
+        );
+      }
+      return tagContainer;
+    } 
+
+    function isTagSelected(tagId){
+      return props.payload.tags.includes(tagId) ? 'contained' : 'outlined';
+    } 
 
     return (
     <> 
     <Content>
-        What made your testing experience Negative?
-    </Content>    
-     <Actions>  
-      <Box>
-      <TagButton color={'primary'} variant={props.payload.tags.includes('ph') ? 'contained' : 'outlined'} onClick={() => handleSelection('ph')}> 
-        <HeartIcon />
-        Poor Hygiene
-      </TagButton> 
-      <TagButton color={'primary'} variant={props.payload.tags.includes('su') ? 'contained' : 'outlined'} onClick={() => handleSelection('su')}> 
-        <HeartIcon />
-        Seemed Understaffed
-      </TagButton>  
-      </Box> 
-      <Box>
-     <TagButton color={'primary'} variant={props.payload.tags.includes('ct') ? 'contained' : 'outlined'} onClick={() => handleSelection('ct')}> 
-       <HeartIcon />
-       Couldn't Get Tested
-     </TagButton> 
-     <TagButton color={'primary'} variant={props.payload.tags.includes('lt') ? 'contained' : 'outlined'} onClick={() => handleSelection('lt')}>  
-       <HeartIcon />
-       Long Wait Time
-     </TagButton>  
-     </Box> 
-     <Box>
-     <TagButton color={'primary'} variant={props.payload.tags.includes('ca') ? 'contained' : 'outlined'} onClick={() => handleSelection('ca')}>  
-      <HeartIcon />
-       Confusing Appointment Process
-     </TagButton> 
-     <TagButton color={'primary'} variant={props.payload.tags.includes('oc') ? 'contained' : 'outlined'} onClick={() => handleSelection('oc')}>  
-       <HeartIcon />
-       Overly Crowded
-     </TagButton> 
-     </Box>
+        What made your testing experience {props.payload.positive ? 'posative' : 'negative'}
+    </Content>   
+    
+     <Actions>    
+      { 
+        renderTags()   
+      }
     </Actions>  
+  
     { showNextButton() ? 
     <NextButton onClick={props.action}>
       Next

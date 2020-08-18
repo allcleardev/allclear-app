@@ -4,13 +4,15 @@ import styled from 'styled-components';
 import { Dialog, DialogTitle, IconButton } from '@material-ui/core'; 
 import CloseIcon from '@material-ui/icons/Close';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import InitialExperiences from '../../experiences/initial-experiences'; 
-import PositiveExperiences from '../../experiences/positive-experiences';  
-import NegativeExperiences from '../../experiences/negative-experiences';  
-import ThanksExperiences from '../../experiences/thanks-experiences'; 
+import InitialExperiences from '@components/experiences/initial-experiences';
+import FeedbackExperiences from '@components/experiences/feedback-experiences';
+import ThanksExperiences from '@components/experiences/thanks-experiences';
 
 import ExperienceService from '@services/experience.service';
-import ModalService from '@services/modal.service'; 
+import ModalService from '@services/modal.service';
+
+import { NEGATIVE_TAGS } from '@constants/experiences.constants'; 
+import { POSITIVE_TAGS } from '@constants/experiences.constants';
 
 import { AppContext } from '@contexts/app.context';
 
@@ -33,9 +35,14 @@ export default function ShareExperiencesModal(props) {
   });
 
   const steps = [
-    <InitialExperiences toPos={() => setCurrentScreen(1)} toNeg={() => setCurrentScreen(2)} payload={experience} handler={setExperiences}/>,  
-    <PositiveExperiences action={() => handleSubmit()} payload={experience} handler={setExperiences}/>, 
-    <NegativeExperiences action={() => handleSubmit()} payload={experience} handler={setExperiences}/>,
+    <InitialExperiences 
+      toPos={() => setCurrentScreen(1)} 
+      toNeg={() => setCurrentScreen(2)} 
+      payload={experience} 
+      handler={setExperiences}
+    />,  
+    <FeedbackExperiences action={() => handleSubmit()} payload={experience} handler={setExperiences} tags={POSITIVE_TAGS}/>,
+    <FeedbackExperiences action={() => handleSubmit()} payload={experience} handler={setExperiences} tags={NEGATIVE_TAGS}/>,
     <ThanksExperiences action={() => handleClose()} payload={experience}/>
   ];
 
@@ -59,8 +66,8 @@ export default function ShareExperiencesModal(props) {
   async function handleSubmit(){  
     experienceService.add(appState.sessionId, {facilityId: props.facilityId, positive: experience.positive, tags: experience.tags})
       .then((result, i) => {
-      setCurrentScreen(3);
-    });
+        setCurrentScreen(3);
+      });
   } 
 
   function handleBack() { 
