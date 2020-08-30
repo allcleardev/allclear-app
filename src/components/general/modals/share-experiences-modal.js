@@ -141,7 +141,7 @@ const ShareExperienceContainer = styled(Dialog)`
     border-radius: 30px;
     padding: 25px;  
     width: 70%; 
-    height: 57%;
+    height: 60%;
   }
 `;
 

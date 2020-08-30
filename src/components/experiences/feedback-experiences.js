@@ -43,11 +43,11 @@ export default function FeedbackExperiences(props) {
         tagContainer.push( 
           <Box>
           <TagButton color={'primary'} variant={isTagSelected(props.tags[i].id)} onClick={() => handleSelection(props.tags[i].id)}> 
-            {props.tags[i].icon}
+            {props.payload.tags.includes(props.tags[i].id) ? props.tags[i].whiteIcon : props.tags[i].icon}
             {props.tags[i].name}
           </TagButton> 
           <TagButton color={'primary'} variant={isTagSelected(props.tags[i+1].id)} onClick={() => handleSelection(props.tags[i+1].id)}> 
-            {props.tags[i+1].icon}
+            {props.payload.tags.includes(props.tags[i+1].id) ? props.tags[i+1].whiteIcon : props.tags[i+1].icon}
             {props.tags[i+1].name}
           </TagButton>  
           </Box>
