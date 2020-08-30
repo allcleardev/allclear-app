@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';  
+import styled from 'styled-components';
 
 import { DialogContent, DialogActions } from '@material-ui/core';
 import ProgressBottom from '@general/navs/progress-bottom'; 
@@ -63,7 +63,7 @@ export default function FeedbackExperiences(props) {
     return (
     <> 
     <Content>
-        What made your testing experience {props.payload.positive ? 'posative' : 'negative'}
+        What made your testing experience {props.payload.positive ? 'posative' : 'negative'}?
     </Content>   
     
      <Actions>    
@@ -76,7 +76,7 @@ export default function FeedbackExperiences(props) {
     <NextButton onClick={props.action}>
       Next
     </NextButton>  
-    : null
+    : <SpaceButton disabled={true}/>
     }  
     <ProgressBottom
       barColor='#007AFF' 
@@ -90,7 +90,6 @@ export default function FeedbackExperiences(props) {
 
 const Content = styled(DialogContent)`
   overflow-y: hidden;
-  margin-bottom: 46px;
   padding: 0 24px;
   text-align: center;
   letter-spacing: -0.41px;
@@ -110,8 +109,8 @@ const Box = styled(DialogActions)`
 const TagButton = styled(PrimaryButton)` 
   border-color: #007AFF;  
   border-radius: 20px;  
-  height: 60px; 
-  width: 100px;
+  height: 45px; 
+  width: 80px;
   .MuiButton-label { 
     width: 100%; 
     align-items: center;  
@@ -122,7 +121,13 @@ const TagButton = styled(PrimaryButton)`
 `;  
 
 const NextButton = styled(PrimaryButton)`
-  margin-top: 20px;  
+  margin-top: 15px;  
+  align-self: center;
+  width: 30%;
+`; 
+
+const SpaceButton = styled(PrimaryButton)`
+  margin-top: 35px;  
   align-self: center;
   width: 30%;
 `;

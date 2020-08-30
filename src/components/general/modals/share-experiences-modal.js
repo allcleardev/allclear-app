@@ -6,7 +6,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import InitialExperiences from '@components/experiences/initial-experiences';
 import FeedbackExperiences from '@components/experiences/feedback-experiences';
-import ThanksExperiences from '@components/experiences/thanks-experiences';
+import SubmitExperiences from '@components/experiences/submit-experiences';
 
 import ExperienceService from '@services/experience.service';
 import ModalService from '@services/modal.service';
@@ -32,6 +32,10 @@ export default function ShareExperiencesModal(props) {
     edited: false,
     positive: false, 
     tags: []
+  }); 
+  const [experienceResult, setExperienceResult] = useState({  
+    title: '', 
+    content: ''
   });
 
   const steps = [
@@ -43,7 +47,12 @@ export default function ShareExperiencesModal(props) {
     />,  
     <FeedbackExperiences action={() => handleSubmit()} payload={experience} handler={setExperiences} tags={POSITIVE_TAGS}/>,
     <FeedbackExperiences action={() => handleSubmit()} payload={experience} handler={setExperiences} tags={NEGATIVE_TAGS}/>,
-    <ThanksExperiences action={() => handleClose()} payload={experience}/>
+    <SubmitExperiences 
+      action={() => handleClose()} 
+      testTitle={props.testTitle} 
+      title={experienceResult.title} 
+      content={experienceResult.content}
+    />
   ];
 
   function toggleModal(isOpen, scrollType) {
@@ -63,9 +72,21 @@ export default function ShareExperiencesModal(props) {
     setCurrentScreen(0);
   }  
 
-  async function handleSubmit(){  
+  async function handleSubmit(){   
     experienceService.add(appState.sessionId, {facilityId: props.facilityId, positive: experience.positive, tags: experience.tags})
-      .then((result, i) => {
+      .then((result, i) => {   
+        setExperienceResult({
+          title: 'Thank you!', 
+          content: 'Thank you for submitting your experience at '+props.testTitle
+        });
+        setCurrentScreen(3);
+      })
+      .catch((err) => {
+        setExperienceResult({
+          title: 'Please try again tomorrow.', 
+          content: `Experiences can only be shared once per day. You left a review of `+props.testTitle+` less than 24 hours ago.
+                    Please wait 24 hours from the time you last shared an experience before sharing another. Thank you!`
+        });
         setCurrentScreen(3);
       });
   } 
@@ -88,9 +109,11 @@ export default function ShareExperiencesModal(props) {
         aria-labelledby="scroll-dialog-title"
         aria-describedby="scroll-dialog-description"
       >
+        { currentScreen !== 3 ? 
         <Title>
           {props.testTitle}
-        </Title>
+        </Title> : null
+        }
         { currentScreen !== 3 
          ?
           <CloseButton aria-label="close" onClick={() => handleClose()}>
@@ -116,7 +139,9 @@ export default function ShareExperiencesModal(props) {
 const ShareExperienceContainer = styled(Dialog)`
   .MuiPaper-rounded {
     border-radius: 30px;
-    padding: 30px; 
+    padding: 25px;  
+    width: 70%; 
+    height: 57%;
   }
 `;
 

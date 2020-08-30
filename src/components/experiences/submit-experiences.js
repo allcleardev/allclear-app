@@ -1,17 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { DialogContent, DialogActions } from '@material-ui/core';
+import { DialogContent, DialogActions, DialogTitle } from '@material-ui/core';
 import ProgressBottom from '@general/navs/progress-bottom'; 
 
 import PrimaryButton from '@general/buttons/primary-button';
 
-export default function ThanksExperiences(props) {
+export default function SubmitExperiences(props) {
 
     return (
-    <>
+    <> 
+    <Title>
+      {props.title}
+    </Title>
     <Content>
-        Thank you for leaving a Rating
+      {props.content}
     </Content>  
      <Actions>
      <DoneButton color={'primary'} variant={'contained'} onClick={props.action}>
@@ -30,11 +33,11 @@ export default function ThanksExperiences(props) {
 
 const Content = styled(DialogContent)`
   overflow-y: hidden;
-  margin-bottom: 46px;
+  margin-bottom: 15px;
   padding: 0 24px;
   text-align: center;
   letter-spacing: -0.41px;
-  font-size: 20px;
+  font-size: 20px; 
 `;  
 
 const Actions = styled(DialogActions)`
@@ -43,5 +46,17 @@ const Actions = styled(DialogActions)`
 `; 
 
 const DoneButton = styled(PrimaryButton)` 
-  border-color: #007AFF; 
+  border-color: #007AFF;  
+  margin-bottom: 30%;
+`;  
+
+const Title = styled(DialogTitle)`
+  h2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    font-size: 24px;
+    margin: 15px;
+  }
 `; 

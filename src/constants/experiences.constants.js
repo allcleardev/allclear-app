@@ -23,27 +23,27 @@ export const NEGATIVE_TAGS = [
     {  
       id: 'su', 
       name: 'Seemed Understaffed', 
-      icon: <CrowdedIcon />
+      icon: <UnderstaffedIcon />
     },  
     {  
       id: 'ct', 
       name: 'Could Not Get Tested', 
-      icon: <WaitTimeIcon />
+      icon: <NoIcon />
     },  
     {  
       id: 'lt', 
       name: 'Long Wait Time', 
-      icon: <UnderstaffedIcon />
+      icon: <WaitTimeIcon />
     },  
     {  
       id: 'ca', 
-      name: 'Confussing Appointment Process', 
+      name: 'Confusing Process', 
       icon: <QuestionIcon />
     },  
     {  
       id: 'oc', 
       name: 'Overly Crowded', 
-      icon: <NoIcon />
+      icon: <CrowdedIcon />
     }, 
   ];
 

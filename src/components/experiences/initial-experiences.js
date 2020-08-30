@@ -30,14 +30,14 @@ export default function InitialExperiences(props) {
     <> 
     <Content>
         Please rate your overall experience with this test location:
-    </Content>  
+    </Content>
      <Actions>
      <RateButton color={'primary'} variant={isPosSelected(true)} onClick={() => handleFeedback(true)}> 
-       <ThumbUpIcon style={{margin: 15}} fontSize={'large'}/> 
+       <ThumbUpIcon style={{margin: '5%'}} fontSize={'large'}/> 
        Positive  
      </RateButton>  
      <RateButton color={'primary'} variant={isPosSelected(false)} onClick={() => handleFeedback(false)}>
-       <ThumbDownIcon style={{margin: 15}} fontSize={'large'}/> 
+       <ThumbDownIcon style={{margin: '5%'}} fontSize={'large'}/> 
        Negative
      </RateButton> 
     </Actions>   
@@ -45,7 +45,7 @@ export default function InitialExperiences(props) {
     <NextButton onClick={props.payload.positive ? props.toPos : props.toNeg}>
       Next
     </NextButton>  
-    : null
+    : <SpaceButton onClick={() => {}} disabled={true} />
     }
     <ProgressBottom
       barColor='#007AFF' 
@@ -55,11 +55,10 @@ export default function InitialExperiences(props) {
     />   
    </> 
    );
-} 
+}
 
 const Content = styled(DialogContent)`
   overflow-y: hidden;
-  margin-bottom: 46px;
   padding: 0 24px;
   text-align: center;
   letter-spacing: -0.41px;
@@ -74,7 +73,8 @@ const Actions = styled(DialogActions)`
 const RateButton = styled(PrimaryButton)` 
   border-color: #007AFF;     
   .MuiButton-label { 
-    width: 100%; 
+    width: 100%;
+    height: 120px;
     align-items: center;  
     justify-content: center; 
     display: flex; 
@@ -84,6 +84,12 @@ const RateButton = styled(PrimaryButton)`
 
 const NextButton = styled(PrimaryButton)`
   margin-top: 20px;  
+  align-self: center;
+  width: 30%;
+`;
+
+const SpaceButton = styled(PrimaryButton)`
+  margin-top: 40px;
   align-self: center;
   width: 30%;
 `;
