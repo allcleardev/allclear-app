@@ -31,6 +31,15 @@ export default class ExperienceService {
     });
   }
 
+  add(sessionId, body){  
+    return Axios({ 
+      method: 'POST',  
+      url:`${this.baseURL}`,  
+      headers: { 'X-AllClear-SessionID': sessionId }, 
+      data: body
+    });
+  }
+
   calcByFacility(facilityId) {
     return Axios({
       method: 'GET',

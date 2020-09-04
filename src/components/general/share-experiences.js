@@ -5,23 +5,23 @@ import Tooltip from '@material-ui/core/Tooltip';
 import FormModal from '@general/modals/form-modal.js';
 import ShareExperiencesModal from '@general/modals/share-experiences-modal';
 
-import ModalService from '@services/modal.service';  
+import ModalService from '@services/modal.service';
 
 import { AppContext } from '@contexts/app.context';
 
-export default function ShareExperience() {   
+export default function ShareExperience(props) {
     const { appState } = useContext(AppContext);  
     const isLoggedIn = appState.sessionId ? true : false;
 
-    const modalService = ModalService.getInstance();  
+    const modalService = ModalService.getInstance();
 
-    const handleShareExperience = () => {     
+    const handleShareExperience = () => {
         if(!isLoggedIn){  
             modalService.toggleModal('promptLoginExperiences', true); 
-        } else {   
-            modalService.toggleModal('promptShareExperiences', true);       
-        }    
-      };
+        } else {
+            modalService.toggleModal('promptShareExperiences'+props.testTitle, true);
+        }
+    };
 
   return (
     <> 
@@ -39,7 +39,10 @@ export default function ShareExperience() {
             titleText="To share your experience, please log in to an existing AllClear account, or create a new one." 
             modalName="promptLoginExperiences"
         />
-        <ShareExperiencesModal />
+        <ShareExperiencesModal
+            testTitle={props.testTitle}
+            facilityId={props.facilityId}
+        />
     </>
   );
 }
