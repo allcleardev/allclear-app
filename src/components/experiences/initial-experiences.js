@@ -58,7 +58,7 @@ export default function InitialExperiences(props) {
 }
 
 const Content = styled(DialogContent)`
-  overflow-y: hidden;
+  overflow-y: visible;
   padding: 0 24px;
   text-align: center;
   letter-spacing: -0.41px;
@@ -74,7 +74,7 @@ const RateButton = styled(PrimaryButton)`
   border-color: #007AFF;     
   .MuiButton-label { 
     width: 100%;
-    height: 120px;
+    height: 60%;
     align-items: center;  
     justify-content: center; 
     display: flex; 

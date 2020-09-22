@@ -89,7 +89,7 @@ export default function FeedbackExperiences(props) {
 } 
 
 const Content = styled(DialogContent)`
-  overflow-y: hidden;
+  overflow-y: visible;
   padding: 0 24px;
   text-align: center;
   letter-spacing: -0.41px;
@@ -109,8 +109,8 @@ const Box = styled(DialogActions)`
 const TagButton = styled(PrimaryButton)` 
   border-color: #007AFF;  
   border-radius: 20px;  
-  height: 45px; 
-  width: 80px;
+  height: 60%; 
+  width: 50%;
   .MuiButton-label { 
     width: 100%; 
     align-items: center;  

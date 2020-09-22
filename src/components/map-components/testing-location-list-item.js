@@ -158,9 +158,9 @@ export default function TestingLocationListItem(props) {
   function buildExperienceSection(experiencesData) {
 
     const {positives, negatives, total, tags} = experiencesData;
-    // const {positives, negatives, neutrals = 0, total, tags} = experiencesData;
-    const percentPostive = Math.round(positives / total) * 100;
-    const percentNegative = Math.round(negatives / total) * 100;
+    // const {positives, negatives, neutrals = 0, total, tags} = experiencesData; 
+    const percentPostive = Math.round(positives / total * 100);
+    const percentNegative = Math.round(negatives / total * 100);
     // const percentNeutral = Math.round(neutrals / total) * 100;
     return (
       <div
