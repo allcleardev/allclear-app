@@ -16,7 +16,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
 import EventIcon from '@material-ui/icons/Event'; 
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
-import {boolToEng, isNullOrUndefined, getFeedbackButtonURL, isTaggableLocation} from '@util/general.helpers';
+import {boolToEng, isNullOrUndefined, getFeedbackButtonURL, isTaggableLocation, sortExperiencesTags} from '@util/general.helpers';
 import ExternalItemLinks from './external-item-links';
 import CustomizedExpansionPanel, {ExpansionPanelSummary, ExpansionPanelDetails} from './expansion-panel';
 import {Link} from 'react-router-dom'; 
@@ -158,6 +158,10 @@ export default function TestingLocationListItem(props) {
   function buildExperienceSection(experiencesData) {
 
     const {positives, negatives, total, tags} = experiencesData;
+    const tagsArr = [];
+    map(tags, (e, i) => {
+      tagsArr.push(e);
+    });
     // const {positives, negatives, neutrals = 0, total, tags} = experiencesData; 
     const percentPostive = Math.round(positives / total * 100);
     const percentNegative = Math.round(negatives / total * 100);
@@ -203,7 +207,7 @@ export default function TestingLocationListItem(props) {
           className='experiences__tags'
         >
           {
-            map(tags, (e, i) => {
+            map(tagsArr.sort((tagA, tagB) => sortExperiencesTags(tagA,tagB)).slice(0,3), (e, i) => {
               const {count, name} = e;
               if (count) {
                 return (<Pill
