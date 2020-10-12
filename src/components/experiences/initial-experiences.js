@@ -18,8 +18,8 @@ export default function InitialExperiences(props) {
       });
     } 
 
-    function isPosSelected(isPosative){
-      if(isPosative){   
+    function isPosSelected(isPositive){
+      if(isPositive){   
         return props.payload.edited && props.payload.positive ? 'contained' : 'outlined';
       } else {
         return props.payload.edited && !props.payload.positive ? 'contained' : 'outlined';
@@ -74,7 +74,7 @@ const RateButton = styled(PrimaryButton)`
   border-color: #007AFF;     
   .MuiButton-label { 
     width: 100%;
-    height: 60%;
+    height: 55%;
     align-items: center;  
     justify-content: center; 
     display: flex; 
@@ -83,9 +83,11 @@ const RateButton = styled(PrimaryButton)`
 `;  
 
 const NextButton = styled(PrimaryButton)`
-  margin-top: 20px;  
+  margin-top: 5px;
+  margin-bottom: 5px;
   align-self: center;
   width: 30%;
+  box-shadow: 0px 0px 15px 5px lightGrey;
 `;
 
 const SpaceButton = styled(PrimaryButton)`

@@ -137,11 +137,17 @@ export default function ShareExperiencesModal(props) {
 }
 
 const ShareExperienceContainer = styled(Dialog)`
+  .MuiDialogContent-root { 
+    flex: none; 
+    margin: 10px; 
+  }
   .MuiPaper-rounded {
     border-radius: 30px;
     padding: 25px;  
     width: 70%; 
     height: 60%;
+    flex: 1; 
+    justify-content: space-between;
   }
 `;
 
