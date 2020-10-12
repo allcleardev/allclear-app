@@ -63,7 +63,7 @@ export default function FeedbackExperiences(props) {
     return (
     <> 
     <Content>
-        What made your testing experience {props.payload.positive ? 'posative' : 'negative'}?
+        What made your testing experience {props.payload.positive ? 'positive' : 'negative'}?
     </Content>   
     
      <Actions>    
@@ -109,7 +109,7 @@ const Box = styled(DialogActions)`
 const TagButton = styled(PrimaryButton)` 
   border-color: #007AFF;  
   border-radius: 20px;  
-  height: 60%; 
+  height: 45px; 
   width: 50%;
   .MuiButton-label { 
     width: 100%; 
@@ -121,6 +121,7 @@ const TagButton = styled(PrimaryButton)`
 `;  
 
 const NextButton = styled(PrimaryButton)`
+  box-shadow: 0px 0px 10px 5px lightGrey; 
   margin-top: 15px;  
   align-self: center;
   width: 30%;
