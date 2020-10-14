@@ -109,7 +109,7 @@ const Box = styled(DialogActions)`
 const TagButton = styled(PrimaryButton)` 
   border-color: #007AFF;  
   border-radius: 20px;  
-  height: 45px; 
+  height: 60%; 
   width: 50%;
   .MuiButton-label { 
     width: 100%; 
