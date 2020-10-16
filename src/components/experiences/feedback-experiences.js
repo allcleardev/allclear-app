@@ -66,7 +66,7 @@ export default function FeedbackExperiences(props) {
         What made your testing experience {props.payload.positive ? 'positive' : 'negative'}?
     </Content>   
     
-     <Actions>    
+     <Actions disableSpacing>    
       { 
         renderTags()   
       }
@@ -99,11 +99,13 @@ const Content = styled(DialogContent)`
 const Actions = styled(DialogActions)`
   flex-direction: column; 
   align-self: center; 
+  .MuiDialogActions-root{
+    padding: 2px; 
+  }
 `;  
 const Box = styled(DialogActions)`
   flex-direction: row; 
   align-self: center;  
-  margin: 5px;
 `; 
 
 const TagButton = styled(PrimaryButton)` 
@@ -121,14 +123,14 @@ const TagButton = styled(PrimaryButton)`
 `;  
 
 const NextButton = styled(PrimaryButton)`
-  box-shadow: 0px 0px 10px 5px lightGrey; 
-  margin-top: 15px;  
+  box-shadow: 0px 0px 10px 5px lightGrey;
   align-self: center;
   width: 30%;
+  flex-direction: column;
 `; 
 
 const SpaceButton = styled(PrimaryButton)`
-  margin-top: 35px;  
+  margin-top: 15px;  
   align-self: center;
   width: 30%;
 `;

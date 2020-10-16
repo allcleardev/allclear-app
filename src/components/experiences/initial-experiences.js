@@ -88,6 +88,7 @@ const NextButton = styled(PrimaryButton)`
   align-self: center;
   width: 30%;
   box-shadow: 0px 0px 15px 5px lightGrey;
+  flex-direction: column;
 `;
 
 const SpaceButton = styled(PrimaryButton)`
