@@ -85,7 +85,7 @@ export default function ShareExperiencesModal(props) {
         setExperienceResult({
           title: 'Please try again tomorrow.', 
           content: `To help ensure authenticity, you'll need to wait until tomorrow
-                    to share your Experience at `+props.testTitle+` again. Thank you!`
+                    to share your Experience at ${props.testTitle} again. Thank you!`
         });
         setCurrentScreen(3);
       });
