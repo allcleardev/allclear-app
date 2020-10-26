@@ -54,10 +54,11 @@ export default function UpdateCriteriaModal() {
         scroll={scroll}
         aria-labelledby="scroll-dialog-title"
         aria-describedby="scroll-dialog-description"
+        className="update-criteria-modal"
         style={{ zIndex: '5' }}
       >
-        <DialogTitle id="scroll-dialog-title" style={{ padding: '15px 20px 8px' }}>Update Search Criteria</DialogTitle>
-        <DialogContent dividers={scroll === 'paper'} classes={{ root: 'update-criteria-modal' }} style={{ padding: '8px 20px' }}>
+        <DialogTitle id="scroll-dialog-title" style={{ padding: '25px 30px 8px' }}>Update Search Criteria</DialogTitle>
+        <DialogContent dividers={scroll === 'paper'} classes={{ root: 'update-criteria-modal__content' }} style={{ padding: '8px 30px' }}>
           {/*<Button*/}
           {/*  onClick={_onResetClicked}*/}
           {/*  className="btn-big bg-primary color-white fontsize-16"*/}
@@ -111,6 +112,7 @@ function UpdateCriteria({ onClose, onSubmit }) {
 
   async function _onSubmitClicked() {
     let { latitude, longitude } = appState.person;
+    const includeTestTypes = formValues.includeTestTypes ? [formValues.includeTestTypes] : null;
 
     // default to last submitted search
     latitude = latitude ? latitude : appState.map.latitude;
@@ -119,6 +121,7 @@ function UpdateCriteria({ onClose, onSubmit }) {
     // call API
     const result = await facilityService.search({
       ...formValues,
+      includeTestTypes,
       from: {
         latitude,
         longitude,
@@ -167,7 +170,7 @@ function UpdateCriteria({ onClose, onSubmit }) {
     return (
       <>
         <h5 className="body-sub-title">{title}</h5>
-        <FormControl variant="outlined" className="form-control">
+        <FormControl variant="outlined" style={{ width: '100%' }}>
           <Select
             labelId="demo-simple-select-outlined-label"
             displayEmpty
