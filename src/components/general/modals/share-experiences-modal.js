@@ -84,8 +84,8 @@ export default function ShareExperiencesModal(props) {
       .catch((err) => {
         setExperienceResult({
           title: 'Please try again tomorrow.', 
-          content: `Experiences can only be shared once per day. You left a review of `+props.testTitle+` less than 24 hours ago.
-                    Please wait 24 hours from the time you last shared an experience before sharing another. Thank you!`
+          content: `To help ensure authenticity, you'll need to wait until tomorrow
+                    to share your Experience at `+props.testTitle+` again. Thank you!`
         });
         setCurrentScreen(3);
       });
