@@ -40,7 +40,12 @@ export default class SplashPage extends Component {
             </Link>
           </OnboardingNavigation>
         </Container>
-        <ProgressBottom progress="0%"></ProgressBottom>
+        <ProgressBottom progress="0%" 
+          barColor="#fff" 
+          barStyle="progress-bottom" 
+          barWidth="25%"
+        >
+        </ProgressBottom>
       </div>
     );
   }

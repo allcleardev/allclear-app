@@ -254,6 +254,7 @@ export default function MapPage(props) {
       ...mapState,
       expandedItemId: drawerOpen ? itemId : null
     });
+
     history.push({
       pathname: '/map',
       search: qs.stringify({

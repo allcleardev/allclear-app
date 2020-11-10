@@ -2,13 +2,6 @@ import React from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-const BorderLinearProgress = withStyles({
-  bar: {
-    borderRadius: 20,
-    backgroundColor: '#fff',
-  },
-})(LinearProgress);
-
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -18,18 +11,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ProgressBottom({ progress }) {
-  useStyles();
+export default function ProgressBottom({ progress, barColor, barStyle, barWidth }) {
+  useStyles();  
+
+  const linearProgressStyles = { 
+    bar: { 
+      borderRadius: 20,
+      backgroundColor: barColor,
+    }
+  };
+
+  const BorderLinearProgress = withStyles(linearProgressStyles)(LinearProgress);
+  
 
   return (
-    <div className="progress-bottom">
-      <BorderLinearProgress
+    <div className={barStyle}>
+        <BorderLinearProgress
         className="progress-bottom-bar"
         variant="determinate"
         value={100}
         color="secondary"
         style={{
-          width: '25%',
+          width: barWidth,
           backgroundColor: 'transparent',
           left: progress,
         }}

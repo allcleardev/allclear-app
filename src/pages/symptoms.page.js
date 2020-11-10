@@ -145,7 +145,13 @@ class SymptomsPage extends Component {
             tooltipMessage={'Please make a selection'}
           ></OnboardingNavigation>
         </Container>
-        <ProgressBottom progress="40%"></ProgressBottom>
+        <ProgressBottom  
+          progress="40%"  
+          barColor="#fff" 
+          barStyle="progress-bottom" 
+          barWidth="25%"
+        > 
+        </ProgressBottom>
       </div>
     );
   }

@@ -102,7 +102,12 @@ class HealthWorkerStatusPage extends Component {
             tooltipMessage={'Please make a selection'}
           ></OnboardingNavigation>
         </Container>
-        <ProgressBottom progress="20%"></ProgressBottom>
+        <ProgressBottom
+          progress="20%"
+          barColor="#fff"
+          barStyle="progress-bottom"
+          barWidth="25%"
+        ></ProgressBottom>
       </div>
     );
   }

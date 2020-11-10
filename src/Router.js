@@ -92,6 +92,7 @@ export default function Router() {
           <Route path="/sign-in" component={SignInPage} />
           <Route path="/logout" component={LogoutPage} />
           <Route path="/sign-in-verification" component={SignInVerificationPage} />
+          <Route path="/alert" component={LoginMagicLinkPage} />
 
           {/* Profile Creation */}
           <Route path="/location" component={BackgroundPage} />
