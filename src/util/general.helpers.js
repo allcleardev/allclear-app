@@ -178,3 +178,11 @@ export function applyCovidTag({name, city, state, address, lastUpdated, text, ur
   loadDynamicScript('application/ld+json', JSON.stringify(tag));
   console.log('Covid tag applied');
 }
+
+export function sortExperiencesTags(tagA, tagB){
+  if((tagA.count === tagB.count) && tagA.hasOwnProperty('last')){ 
+    return Date.parse(tagB.last) - Date.parse(tagA.last);
+  } else {
+    return tagB.count - tagA.count;
+  }
+}

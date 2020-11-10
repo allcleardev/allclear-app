@@ -85,8 +85,7 @@
 
         .list-item-buttons {
           .link-button {
-            margin-right: 30px;
-            
+
             p {
               margin-bottom: 0px;
             }
@@ -148,7 +147,7 @@
         border-radius: 10px;
         min-height: 48px;
         color: white;
-    
+
         @media (min-width: $md) {
           border: 0 !important;
           margin-top: 15px;
