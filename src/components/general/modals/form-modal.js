@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { Dialog, DialogTitle, DialogContent, DialogActions, IconButton } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { isNullOrUndefined } from '@util/general.helpers';
+
+import { AppContext } from '@contexts/app.context';
 
 import PrimaryButton from '@general/buttons/primary-button';
 import ModalService from '@services/modal.service';
@@ -14,6 +16,8 @@ export default function FormModal(props) {
   const modalService = ModalService.getInstance();
   modalService.registerModal(props.modalName, toggleModal);
 
+  const { appState, setAppState } = useContext(AppContext);
+
   const [open, setOpen] = useState(false);
   const [scroll, setScroll] = useState('paper');
 
@@ -22,6 +26,20 @@ export default function FormModal(props) {
     if (isOpen === true) {
       setScroll(scrollType);
     }
+  }
+
+  function handleLogin(){    
+    if(props.deepLink){  
+      setAppState({
+        ...appState,
+        deepLink: {
+          type: props.deepLink.type,  
+          location: props.deepLink.location,
+          data: props.deepLink.data 
+        }
+      }); 
+    } 
+    history.push('/sign-in');
   }
 
   return (
@@ -48,7 +66,7 @@ export default function FormModal(props) {
           </Content>
         )}
         <Actions disableSpacing={true}>
-          <LoginButton color={'primary'} variant={'contained'} onClick={() => history.push('/sign-in')}>
+          <LoginButton color={'primary'} variant={'contained'} onClick={() => handleLogin()}>
             Login
           </LoginButton>
           <CreateAccountButton style={{ marginTop: 10 }} onClick={() => history.push('/sign-up')}>

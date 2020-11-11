@@ -92,7 +92,8 @@ export function withVerification(authType, onVerification, onCodeResent, display
         localStorage.setItem('sessionId', response.data.id);
         localStorage.setItem('session', JSON.stringify(response.data));
 
-        this.props.history.push('/home');
+        let location = appState.deepLink && appState.deepLink.location ? appState.deepLink.location : '/home';
+        this.props.history.push(location);
       } else {
         const error = response;
 

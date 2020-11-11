@@ -38,6 +38,14 @@ export default function ShareExperience(props) {
         <FormModal
             titleText="To share your experience, please log in to an existing AllClear account, or create a new one." 
             modalName="promptLoginExperiences"
+            deepLink={{
+                data: { 
+                    testTitle: props.testTitle, 
+                    facilityId: props.facilityId
+                }, 
+                location: '/map',
+                type: 'experiences'
+            }}
         />
         <ShareExperiencesModal
             testTitle={props.testTitle}
