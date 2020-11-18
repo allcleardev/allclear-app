@@ -90,10 +90,10 @@ export default function FeedbackExperiences(props) {
 
 const Content = styled(DialogContent)`
   overflow-y: visible;
-  padding: 0 24px;
+  padding: ${window.innerWidth < 960 ? '0px' : '0 24px'};
   text-align: center;
   letter-spacing: -0.41px;
-  font-size: 20px;
+  font-size: ${window.innerWidth < 960 ? '16px' : '20px'};
 `;  
 
 const Actions = styled(DialogActions)`
@@ -106,15 +106,20 @@ const Actions = styled(DialogActions)`
 const Box = styled(DialogActions)`
   flex-direction: row; 
   align-self: center;  
+  ${window.innerWidth < 960 ? 'margin: 3px' : ''};
+  .gBTTJU {
+    ${window.innerWidth < 960 ? 'min-width: 127px' : ''};  
+    ${window.innerWidth < 960 ? 'height: 40px' : ''};
+    ${window.innerWidth < 960 ? 'padding: 3px' : ''};
+  } 
 `; 
 
 const TagButton = styled(PrimaryButton)` 
   border-color: #007AFF;  
   border-radius: 20px;  
-  height: 60%; 
-  width: 50%;
+  ${window.innerWidth < 960 ? 'font-size: 10px' : ''}; 
+  height: ${window.innerWidth < 960 ? '100%' : '65%'};
   .MuiButton-label { 
-    width: 100%; 
     align-items: center;  
     justify-content: center; 
     display: flex; 
@@ -130,7 +135,7 @@ const NextButton = styled(PrimaryButton)`
 `; 
 
 const SpaceButton = styled(PrimaryButton)`
-  margin-top: 15px;  
+  margin-top: 20px;  
   align-self: center;
   width: 30%;
 `;
