@@ -144,9 +144,9 @@ const ShareExperienceContainer = styled(Dialog)`
   .MuiPaper-rounded {
     border-radius: 30px;
     padding: 25px;  
-    height: ${window.innerWidth < 960 ? '450px' : '70%'};
+    height: ${((window.innerWidth < 960) ? '450px' : '70%')};
     flex: 1; 
-    justify-content: ${window.innerWidth < 960 ? 'space-evenly' : 'space-between'};
+    justify-content: ${((window.innerWidth < 960) ? 'space-evenly' : 'space-between')};
   }
 `;
 
@@ -156,8 +156,8 @@ const Title = styled(DialogTitle)`
     flex-direction: column;
     align-items: center;
     text-align: center;
-    font-size: ${window.innerWidth < 960? '18px' : '24px'};
-    margin: ${window.innerWidth < 960 ? '5px' : '15px'};
+    font-size: ${((window.innerWidth < 960) ? '18px' : '24px')};
+    margin: ${((window.innerWidth < 960) ? '5px' : '15px')};
   }
   padding: 0px 20px;
 `; 
@@ -166,12 +166,12 @@ const CloseButton = styled(IconButton)`
   position: absolute;
   top: 0;
   right: 0;
-  margin:${window.innerWidth < 960 ? '10px' : '20px'};
+  margin:${((window.innerWidth < 960) ? '10px' : '20px')};
 `;   
 
 const BackButton = styled(IconButton)`
   position: absolute;
   top: 0;
   left: 0;
-  margin: ${window.innerWidth < 960 ? '10px' : '20px'};
+  margin: ${((window.innerWidth < 960) ? '10px' : '20px')};
 `; 

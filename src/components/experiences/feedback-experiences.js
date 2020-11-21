@@ -106,19 +106,17 @@ const Actions = styled(DialogActions)`
 const Box = styled(DialogActions)`
   flex-direction: row; 
   align-self: center;  
-  ${window.innerWidth < 960 ? 'margin: 3px' : ''};
-  .gBTTJU {
-    ${window.innerWidth < 960 ? 'min-width: 127px' : ''};  
-    ${window.innerWidth < 960 ? 'height: 40px' : ''};
-    ${window.innerWidth < 960 ? 'padding: 3px' : ''};
-  } 
+  ${((window.innerWidth < 960) ? 'margin: 3px' : '')}
 `; 
 
 const TagButton = styled(PrimaryButton)` 
   border-color: #007AFF;  
   border-radius: 20px;  
-  ${window.innerWidth < 960 ? 'font-size: 10px' : ''}; 
-  height: ${window.innerWidth < 960 ? '100%' : '65%'};
+  ${((window.innerWidth < 960) ? 'font-size: 10px' : '')}; 
+  height: ${((window.innerWidth) < 960 ? '100%' : '65%')};
+  ${((window.innerWidth < 960) ? 'min-width: 127px' : '')};
+  ${((window.innerWidth < 960) ? 'height: 40px' : '')};
+  ${((window.innerWidth < 960) ? 'padding: 3px' : '')};
   .MuiButton-label { 
     align-items: center;  
     justify-content: center; 

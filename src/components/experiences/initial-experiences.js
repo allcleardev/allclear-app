@@ -33,11 +33,11 @@ export default function InitialExperiences(props) {
     </Content>
      <Actions>
      <RateButton color={'primary'} variant={isPosSelected(true)} onClick={() => handleFeedback(true)}> 
-       <ThumbUpIcon style={{margin: '5%'}} fontSize={window.innerWidth < 960 ? 'medium' : 'large'}/> 
+       <ThumbUpIcon style={{margin: '5%'}} fontSize={((window.innerWidth < 960) ? 'medium' : 'large')}/> 
        Positive  
      </RateButton>  
      <RateButton color={'primary'} variant={isPosSelected(false)} onClick={() => handleFeedback(false)}>
-       <ThumbDownIcon style={{margin: '5%'}} fontSize={window.innerWidth < 960 ? 'medium' : 'large'}/> 
+       <ThumbDownIcon style={{margin: '5%'}} fontSize={((window.innerWidth < 960) ? 'medium' : 'large')}/> 
        Negative
      </RateButton> 
     </Actions>   
@@ -59,10 +59,10 @@ export default function InitialExperiences(props) {
 
 const Content = styled(DialogContent)`
   overflow-y: visible;
-  padding: ${window.innerWidth < 960 ? '0px' : '0 24px'};
+  padding: ${((window.innerWidth < 960) ? '0px' : '0 24px')};
   text-align: center;
   letter-spacing: -0.41px;
-  font-size: ${window.innerWidth < 960 ? '16px' : '20px'};
+  font-size: ${((window.innerWidth < 960) ? '16px' : '20px')};
 `;  
 
 const Actions = styled(DialogActions)`
@@ -72,7 +72,7 @@ const Actions = styled(DialogActions)`
 
 const RateButton = styled(PrimaryButton)` 
   border-color: #007AFF;     
-  ${window.innerWidth < 960 ? 'min-width: 110px' : ''};  
+  ${((window.innerWidth < 960) ? 'min-width: 110px' : '')};  
   .MuiButton-label { 
     width: 100%;
     height: 55%;
