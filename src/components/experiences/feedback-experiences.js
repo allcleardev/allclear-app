@@ -90,10 +90,10 @@ export default function FeedbackExperiences(props) {
 
 const Content = styled(DialogContent)`
   overflow-y: visible;
-  padding: ${window.innerWidth < 960 ? '0px' : '0 24px'};
+  padding: ${((window.innerWidth < 960) ? '0px' : '0 24px')};
   text-align: center;
   letter-spacing: -0.41px;
-  font-size: ${window.innerWidth < 960 ? '16px' : '20px'};
+  font-size: ${((window.innerWidth < 960) ? '16px' : '20px')};
 `;  
 
 const Actions = styled(DialogActions)`
