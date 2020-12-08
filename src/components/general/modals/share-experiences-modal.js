@@ -83,9 +83,9 @@ export default function ShareExperiencesModal(props) {
       })
       .catch((err) => {
         setExperienceResult({
-          title: 'Please try again tomorrow.', 
-          content: `To help ensure authenticity, you'll need to wait until tomorrow
-                    to share your Experience at ${props.testTitle} again. Thank you!`
+          title: 'An error has occured.', 
+          content: `An error has occured while trying to share your Experience.
+                    Please try again later.`
         });
         setCurrentScreen(3);
       });
