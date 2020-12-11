@@ -70,10 +70,8 @@ export default class EditTestCenterPage extends Component {
 
       this.setState((prevState) => {
         const offeringsArr = prevState.offerings.map((item, j) => {
-          if(allTestTypes.some((e) => e.id === item.key)){
+          if(allTestTypes.some((e) => e.id === item.key) || testCenterDetails.data[item.key]){
             item.value= true;
-          } else if(testCenterDetails.data[item.key]){
-            item.value=true;
           }
           return item;
         });
