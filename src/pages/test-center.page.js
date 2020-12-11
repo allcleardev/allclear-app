@@ -5,6 +5,7 @@ import { withRouter } from 'react-router';
 import { Container, Button } from '@material-ui/core';
 import PhoneIcon from '@material-ui/icons/Phone';
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
+import { Link } from 'react-router-dom';
 
 // components
 import LinkButton from '@general/buttons/link-button';
@@ -20,7 +21,6 @@ import { triggerShareAction, getShareActionSnackbar } from '@util/social.helpers
 import {
   getFacilityDetailsMap,
   convertToReadableDate,
-  getFeedbackButtonURL,
   isTaggableLocation,
   applyCovidTag
 } from '@util/general.helpers';
@@ -63,7 +63,6 @@ class TestCenterPage extends Component {
         const facility = res.data;
         this.loading = false;
         this.facilityDetailsMap = getFacilityDetailsMap(facility);
-        this.feedbackURL = getFeedbackButtonURL(facility);
         facility.lastUpdated = convertToReadableDate(facility.updatedAt);
         return facility;
       })
@@ -213,7 +212,7 @@ class TestCenterPage extends Component {
 
               <div className="test-center-page__feedback">
                 <span>Want to help us improve our data?</span>
-                <a href={this.feedbackURL} target="_blank" rel="noopener noreferrer">
+                <Link to={`/edit-test-center/${this.id}`}>
                   <Button
                     fullWidth
                     variant="contained"
@@ -222,7 +221,7 @@ class TestCenterPage extends Component {
                   >
                     Leave Feedback
                 </Button>
-                </a>
+                </Link>
               </div>
             </>
           )}
