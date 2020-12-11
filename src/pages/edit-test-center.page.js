@@ -72,30 +72,14 @@ export default class EditTestCenterPage extends Component {
         const offeringsArr = prevState.offerings.map((item, j) => {
           if(allTestTypes.some((e) => e.id === item.key)){
             item.value= true;
-          } else if(testCenterDetails.data.driveThru && item.key==='driveThru'){ 
+          } else if(testCenterDetails.data[item.key]){
             item.value=true;
-          } else if(testCenterDetails.data.freeOrLowCost && item.key==='freeOrLowCost'){ 
-            item.value=true;
-          } else if(testCenterDetails.data.teleScreeningAvailable && item.key==='teleScreeningAvailable'){ 
-            item.value=true;
-          } else if(testCenterDetails.data.canDonatePlasma && item.key==='canDonatePlasma'){ 
-            item.value=true;
-          } 
+          }
           return item;
         });
 
         const screeningArr = prevState.screening.map((item, j) => { 
-          if(testCenterDetails.data.minimumAge && item.key==='minimumAge'){ 
-            item.value=true;
-          } else if(testCenterDetails.data.appointmentRequired && item.key==='appointmentRequired'){ 
-            item.value=true;
-          } else if(testCenterDetails.data.acceptsInsurance && item.key==='acceptsInsurance'){ 
-            item.value=true;
-          } else if(testCenterDetails.data.governmentIdRequired && item.key==='governmentIdRequired'){ 
-            item.value=true;
-          } else if(testCenterDetails.data.referralRequired && item.key==='referralRequired'){ 
-            item.value=true;
-          } else if(testCenterDetails.data.firstResponderFriendly && item.key==='firstResponderFriendly'){ 
+          if(testCenterDetails.data[item.key]){
             item.value=true;
           }
           return item;
