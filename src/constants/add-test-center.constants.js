@@ -63,7 +63,7 @@ export const OFFERINGS = [
   {
     displayName: 'Online Scheduling',
     icon: Monitor,
-    key: 'teleScreeningAvailable',
+    key: 'telescreeningAvailable',
     value: false
   },
 ];
