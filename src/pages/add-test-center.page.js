@@ -12,7 +12,7 @@ import {
 import TypesService from '@services/types.service.js';
 import FacilitateService from '@services/facilitate.service.js';
 
-import TestCenterUpdate from '../components/general/test-center-update';
+import TestCenterUpdate from '@components/general/test-center-update';
 
 export default class AddTestCenterPage extends Component {
   static contextType = AppContext;
@@ -128,13 +128,13 @@ export default class AddTestCenterPage extends Component {
   render() {
     return (
         <Section className="add-test-center-page">
-          <TestCenterUpdate 
-            title={'Submit New Test Center'} 
+          <TestCenterUpdate
+            title={'Submit New Test Center'}
             content={
               `Complete the following form to propose a new test center within AllClear. All submissions will be reviewed
               by the AllClear team within 24 hours.`
             }
-            state={this.state} 
+            state={this.state}
             onCheckboxSelected={(option) => this.onCheckboxSelected.bind(this, option)}
             handleSnackbarClose={() => this.handleSnackbarClose}
             handleSubmit={(e) => this.handleSubmit(e)}
