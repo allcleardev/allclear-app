@@ -13,7 +13,7 @@ import {
 } from '@constants/add-test-center.constants';
 import TypesService from '@services/types.service.js';
 import FacilitateService from '@services/facilitate.service.js';
-import TestCenterUpdate from '../components/general/test-center-update';
+import TestCenterUpdate from '@components/general/test-center-update';
 
 export default class EditTestCenterPage extends Component {
   static contextType = AppContext;
@@ -165,9 +165,7 @@ export default class EditTestCenterPage extends Component {
         snackbarOpen: true,
       });
     } else { 
-
       const response = await this.facilitateService.changeFacilityByCitizen({ value: this.state.postData });
-
       if (response.error) {
         this.setState({
           snackbarMessage: 'An error occured. Please try again later.',
@@ -194,6 +192,10 @@ export default class EditTestCenterPage extends Component {
     }
   }
 
+  onChange(item, value) {
+    this.setState({ postData: { ...this.state.postData, [item]: value } });
+  }
+
   render() {
     return (
       <>
@@ -204,16 +206,12 @@ export default class EditTestCenterPage extends Component {
               `Edit the following form to update a test center within AllClear. All submissions will be reviewed
               by the AllClear team within 24 hours.`
             }
-            state={this.state} 
-            onCheckboxSelected={(option) => this.onCheckboxSelected.bind(this, option)} 
-            handleSnackbarClose={() => this.handleSnackbarClose} 
-            handleSubmit={(e) => this.handleSubmit(e)} 
-            onCancelClicked={() => this.onCancelClicked} 
-            onNameChange={(event) => this.setState({ postData: { ...this.state.postData, name: event.target.value } })} 
-            onAddressChange={(event) => this.setState({ postData: { ...this.state.postData, address: event.target.value } })}
-            onNotesChange={(event) => this.setState({ postData: { ...this.state.postData, notes: event.target.value } })}
-            onTypeChange={(event) => this.setState({ postData: { ...this.state.postData, type: { id: event.target.value },}, })} 
-            onGotTestedChange={(event, option) => this.setState({ postData: { ...this.state.postData, gotTested: option.value } })}
+            state={this.state}
+            onCheckboxSelected={(option) => this.onCheckboxSelected.bind(this, option)}
+            handleSnackbarClose={() => this.handleSnackbarClose}
+            handleSubmit={(e) => this.handleSubmit(e)}
+            onCancelClicked={() => this.onCancelClicked}
+            onChange={(item, value) => this.onChange(item, value)}
           />
         </Section>
       </>

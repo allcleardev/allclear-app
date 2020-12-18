@@ -125,6 +125,10 @@ export default class AddTestCenterPage extends Component {
     this.setState({ snackbarOpen: false });
   }
 
+  onChange(item, value) {
+    this.setState({ postData: { ...this.state.postData, [item]: value } });
+  }
+
   render() {
     return (
         <Section className="add-test-center-page">
@@ -139,11 +143,7 @@ export default class AddTestCenterPage extends Component {
             handleSnackbarClose={() => this.handleSnackbarClose}
             handleSubmit={(e) => this.handleSubmit(e)}
             onCancelClicked={() => this.onCancelClicked}
-            onNameChange={(event) => this.setState({ postData: { ...this.state.postData, name: event.target.value } })}
-            onAddressChange={(event) => this.setState({ postData: { ...this.state.postData, address: event.target.value } })}
-            onNotesChange={(event) => this.setState({ postData: { ...this.state.postData, notes: event.target.value } })}
-            onTypeChange={(event) => this.setState({ postData: { ...this.state.postData, type: { id: event.target.value },}, })}
-            onGotTestedChange={(event, option) => this.setState({ postData: { ...this.state.postData, gotTested: option.value } })}
+            onChange={(item, value) => this.onChange(item, value)}
           />
         </Section>
     );
