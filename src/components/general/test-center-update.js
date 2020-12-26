@@ -36,7 +36,7 @@ export default function TestCenterUpdate(props) {
                   placeholder="Test Center Name*"
                   helperText="*Required"
                   value={props.state.postData.name}
-                  onChange={(event) => props.onNameChange(event)}
+                  onChange={(event) => props.onChange('name', event.target.value)}
                 />
                 <TextField
                   required
@@ -48,7 +48,7 @@ export default function TestCenterUpdate(props) {
                   helperText="*Required"
                   rows={4}
                   value={props.state.postData.address}
-                  onChange={(event) => props.onAddressChange(event)}
+                  onChange={(event) => props.onChange('address', event.target.value)}
                 />
                 <FormControl variant="outlined" className="input">
                   <Select
@@ -56,7 +56,7 @@ export default function TestCenterUpdate(props) {
                     inputProps={{ 'aria-label': 'Without label' }}
                     value={props.state.postData.type.id}
                     style={{ color: '#fff' }}
-                    onChange={(event) => props.onTypeChange(event)}
+                    onChange={(event) => props.onChange('type', { id: event.target.value })}
                   >
                     <MenuItem value="none" disabled>
                       Select Test Center Type
@@ -77,7 +77,7 @@ export default function TestCenterUpdate(props) {
                   placeholder="Test Center Additional Notes (email, phone number, website, etc.)"
                   rows={4}
                   value={props.state.postData.notes}
-                  onChange={(event) => props.onNotesChange(event)}
+                  onChange={(event) => props.onChange('notes', event.target.value)}
                 />
                 <FormControl component="fieldset" style={{ marginTop: 20 }}>
                   <H4>Were you able to get tested at this location?</H4>
@@ -92,7 +92,7 @@ export default function TestCenterUpdate(props) {
                         value={option.key}
                         control={<StyledRadio />}
                         label={option.displayName}
-                        onChange={(event) => props.onGotTestedChange(event, option)}
+                        onChange={(event) => props.onChange('gotTested', option.value)}
                       />
                     ))}
                   </RadioGroup>
