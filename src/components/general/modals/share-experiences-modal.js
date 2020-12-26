@@ -59,6 +59,8 @@ export default function ShareExperiencesModal(props) {
     setOpen(isOpen);
     if (isOpen === true) {
       setScroll(scrollType);
+    } else if(currentScreen === 3){
+      window.location.reload();
     }
   }
 
