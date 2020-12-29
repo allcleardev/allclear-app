@@ -48,7 +48,7 @@ export default function ShareExperience(props) {
             </Button>
         </Tooltip>
         <FormModal
-            titleText="To share your experience, please log in to an existing AllClear account, or create a new one." 
+            titleText="To share your experience, please log in to an existing AllClear account or create a new one." 
             modalName="promptLoginExperiences"
             actions = {  
                 <>
