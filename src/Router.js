@@ -34,6 +34,7 @@ import StateListPage from '@pages/state-list.page';
 import StatePage from '@pages/state.page';
 import CityPage from '@pages/city.page';
 import AddTestCenterPage from '@pages/add-test-center.page';
+import EditTestCenterPage from '@pages/edit-test-center.page';
 import MetadataService from '@services/metadata.service';
 
 export const history = createBrowserHistory();
@@ -113,6 +114,7 @@ export default function Router() {
           <Route path="/test-centers/:id" component={TestCenterPage} />
           {/* /:city/:test-center-name */}
           <Route path="/add-test-center" component={AddTestCenterPage} />
+          <Route path="/edit-test-center/:id" component={EditTestCenterPage} />
 
           {/* SEO */}
           <Route path="/state-list" component={StateListPage} />

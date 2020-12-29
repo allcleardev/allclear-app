@@ -34,31 +34,37 @@ export const OFFERINGS = [
     displayName: 'Antibody Test',
     icon: DiagnosticTest,
     key: 'ii',
+    value: false
   },
   {
     displayName: 'Nasal Swab Test',
     icon: Swab,
     key: 'rp',
+    value: false
   },
   {
     displayName: 'Drivethrough',
     icon: Car,
     key: 'driveThru',
+    value: false
   },
   {
     displayName: 'Plasma Donation',
     icon: Donate,
     key: 'canDonatePlasma',
+    value: false
   },
   {
     displayName: 'Free or Low-Cost Testing',
     icon: DollarSign,
     key: 'freeOrLowCost',
+    value: false
   },
   {
     displayName: 'Online Scheduling',
     icon: Monitor,
-    key: 'teleScreeningAvailable',
+    key: 'telescreeningAvailable',
+    value: false
   },
 ];
 
@@ -67,31 +73,37 @@ export const SCREENING_METHODS = [
     displayName: 'Accepts Insurance',
     icon: InsuranceCard,
     key: 'acceptsInsurance',
+    value: false
   },
   {
     displayName: 'Government ID Required',
     icon: Id,
     key: 'governmentIdRequired',
+    value: false
   },
   {
     displayName: 'Referral Required',
     icon: Users,
     key: 'referralRequired',
+    value: false
   },
   {
     displayName: 'Appointment Required',
     icon: Calendar,
     key: 'appointmentRequired',
+    value: false
   },
   {
     displayName: 'First Responders Prioritized',
     icon: Transportation,
     key: 'firstResponderFriendly',
+    value: false
   },
   {
     displayName: 'Minimum Age',
     icon: AlertTriangle,
     key: 'minimumAge',
+    value: false
   },
 ];
 

@@ -47,4 +47,13 @@ export default class ExperienceService {
       params: {facilityId}
     });
   }
+
+ limit(sessionId, facilityId){ 
+   return Axios({
+     method: 'GET', 
+     url:`${this.baseURL}/limit`, 
+     headers: { 'X-AllClear-SessionID': sessionId }, 
+    params: {facilityId}
+   });
+ }
 }

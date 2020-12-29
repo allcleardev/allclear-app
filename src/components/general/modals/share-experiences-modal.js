@@ -59,6 +59,8 @@ export default function ShareExperiencesModal(props) {
     setOpen(isOpen);
     if (isOpen === true) {
       setScroll(scrollType);
+    } else if(currentScreen === 3){
+      window.location.reload();
     }
   }
 
@@ -83,9 +85,9 @@ export default function ShareExperiencesModal(props) {
       })
       .catch((err) => {
         setExperienceResult({
-          title: 'Please try again tomorrow.', 
-          content: `To help ensure authenticity, you'll need to wait until tomorrow
-                    to share your Experience at ${props.testTitle} again. Thank you!`
+          title: 'An error has occured.', 
+          content: `An error has occured while trying to share your Experience.
+                    Please try again later.`
         });
         setCurrentScreen(3);
       });
@@ -144,10 +146,9 @@ const ShareExperienceContainer = styled(Dialog)`
   .MuiPaper-rounded {
     border-radius: 30px;
     padding: 25px;  
-    width: 70%; 
-    height: 60%;
+    height: ${((window.innerWidth < 960) ? '450px' : '70%')};
     flex: 1; 
-    justify-content: space-between;
+    justify-content: ${((window.innerWidth < 960) ? 'space-evenly' : 'space-between')};
   }
 `;
 
@@ -157,21 +158,22 @@ const Title = styled(DialogTitle)`
     flex-direction: column;
     align-items: center;
     text-align: center;
-    font-size: 24px;
-    margin: 15px;
+    font-size: ${((window.innerWidth < 960) ? '18px' : '24px')};
+    margin: ${((window.innerWidth < 960) ? '5px' : '15px')};
   }
+  padding: 0px 20px;
 `; 
 
 const CloseButton = styled(IconButton)`
   position: absolute;
   top: 0;
   right: 0;
-  margin: 20px;
+  margin:${((window.innerWidth < 960) ? '10px' : '20px')};
 `;   
 
 const BackButton = styled(IconButton)`
   position: absolute;
   top: 0;
   left: 0;
-  margin: 20px;
+  margin: ${((window.innerWidth < 960) ? '10px' : '20px')};
 `; 

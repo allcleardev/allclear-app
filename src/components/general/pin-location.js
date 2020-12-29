@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled, { css, keyframes } from 'styled-components';
 import { IconButton } from '@material-ui/core';
 
@@ -8,10 +9,12 @@ import FormModal from '@general/modals/form-modal';
 
 import PeopleService from '@services/people.service';
 import ModalService from '@services/modal.service';
+import PrimaryButton from '@general/buttons/primary-button';
 
 export default function PinLocation({ location }) {
   const peopleService = PeopleService.getInstance();
   const modalService = ModalService.getInstance();
+  const history = useHistory();
 
   const initialLocationState = {
     location,
@@ -49,6 +52,16 @@ export default function PinLocation({ location }) {
         modalName="promptLogin"
         contentText="You need to be logged in to AllClear to save pinned locations. Please login or create an account to continue."
         icon={<LockIcon />}
+        actions = {
+          <>
+              <LoginButton color={'primary'} variant={'contained'} onClick={() => history.push('/sign-in')}>
+                  Login
+              </LoginButton>
+              <CreateAccountButton style={{ marginTop: 10 }} onClick={() => history.push('/sign-up')}>
+                  Create Account
+              </CreateAccountButton>  
+          </>
+      }
       />
     </>
   );
@@ -106,3 +119,12 @@ const pinAnimation = keyframes`
     transform: scale(1, 1) rotate(-15deg) translateY(0);
   }
 `;
+
+const LoginButton = styled(PrimaryButton)`
+  box-shadow: 0px 0px 10px 5px lightGrey;
+`;    
+
+const CreateAccountButton = styled(PrimaryButton)`
+  box-shadow: 0px 0px 10px 5px lightGrey; 
+  margin-top: 10px;
+`; 

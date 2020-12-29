@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { bindAll, cloneDeep } from 'lodash';
-import styled from 'styled-components';
+import styled from 'styled-components'; 
+
+import FacilityService from '@services/facility.service.js';
 
 import { AppContext } from '@contexts/app.context';
 import {
@@ -11,10 +13,9 @@ import {
 } from '@constants/add-test-center.constants';
 import TypesService from '@services/types.service.js';
 import FacilitateService from '@services/facilitate.service.js';
-
 import TestCenterUpdate from '@components/general/test-center-update';
 
-export default class AddTestCenterPage extends Component {
+export default class EditTestCenterPage extends Component {
   static contextType = AppContext;
 
   initialState = {
@@ -31,20 +32,81 @@ export default class AddTestCenterPage extends Component {
     super(props);
     bindAll(this, ['onCheckboxSelected', 'onCancelClicked', 'handleSubmit', 'handleSnackbarClose']);
     this.typesService = TypesService.getInstance();
-    this.facilitateService = FacilitateService.getInstance();
-    this.state = cloneDeep(this.initialState);
+    this.facilitateService = FacilitateService.getInstance(); 
+    this.facilityService = FacilityService.getInstance();
+    this.state = cloneDeep(this.initialState);  
+    this.id = props.match.params.id;
   }
 
-  async componentDidMount() {
-    const testCenterTypes = await this.typesService.getFacilities();
-    if (testCenterTypes?.length) {
-      this.setState({ testCenterTypes });
-    }
-  }
+  async componentDidMount() {  
 
-  onCheckboxSelected(selected) {
+    try {
+      const testCenterTypes = await this.typesService.getFacilities(); 
+      const testCenterDetails = await this.facilityService.getFacility(this.id);
+
+      if (testCenterTypes?.length) {
+        this.setState({ testCenterTypes });
+      }   
+
+      let allTestTypes = [];
+      if(testCenterDetails.data.testTypes) { 
+        testCenterDetails.data.testTypes.map((testType) => {
+          allTestTypes.push({id: testType.id});
+        });
+      }
+
+      this.setState((prevState) => {
+        const offeringsArr = prevState.offerings.map((item, j) => {
+          if(allTestTypes.some((e) => e.id === item.key) || testCenterDetails.data[item.key]){
+            item.value= true;
+          }
+          return item;
+        });
+
+        const screeningArr = prevState.screening.map((item, j) => { 
+          if(testCenterDetails.data[item.key]){
+            item.value=true;
+          }
+          return item;
+        });
+        return { 
+          ...prevState, 
+          postData: {  
+            id: this.id,
+            name: testCenterDetails.data.name,
+            address: testCenterDetails.data.address,
+            driveThru: testCenterDetails.data.driveThru,
+            telescreeningAvailable: testCenterDetails.data.telescreeningAvailable,
+            freeOrLowCost: testCenterDetails.data.freeOrLowCost,
+            acceptsInsurance: testCenterDetails.data.acceptsInsurance,
+            governmentIdRequired: testCenterDetails.data.governmentIdRequired,
+            referralRequired: testCenterDetails.data.referralRequired,
+            firstResponderFriendly: testCenterDetails.data.firstResponderFriendly, 
+            canDonatePlasma: testCenterDetails.data.canDonatePlasma,
+            appointmentRequired: testCenterDetails.data.appointmentRequired,
+            notes: '',
+            gotTested: undefined,
+            type: testCenterDetails.data.typeId ? { id: testCenterDetails.data.typeId } : { id: 'none' },
+            testTypes: allTestTypes,
+            minimumAge: testCenterDetails.data.minimumAge ? '18' : undefined,
+          },
+          offerings: offeringsArr, 
+          screening: screeningArr
+        };
+      });
+    } catch(err) { 
+      // display error if test center id is invalid
+      this.setState({ 
+        ...this.initialState, 
+        snackbarMessage: 'Test Center does not exist.',
+        snackbarSeverity: 'error',
+        snackbarOpen: true,
+      });
+    } 
+   }
+
+  onCheckboxSelected(selected) {  
     selected.value = !selected.value;
-
     if (selected.key === 'ii' || selected.key === 'rp') {
       if (selected.value) {
         // add to testTypes array
@@ -74,10 +136,10 @@ export default class AddTestCenterPage extends Component {
           postData: { ...prevState.postData, [selected.key]: undefined },
         }));
       }
-    } else {
+    } else { 
       this.setState((prevState) => ({
         postData: { ...prevState.postData, [selected.key]: selected.value },
-      }));
+      })); 
     }
   }
 
@@ -88,7 +150,7 @@ export default class AddTestCenterPage extends Component {
         this.props.history.goBack();
       } else {
         // else go to Map page
-        this.props.history.push('/map');
+        this.props.history.push(`/map/selection=${this.id}`);
       }
     });
   }
@@ -102,8 +164,8 @@ export default class AddTestCenterPage extends Component {
         snackbarSeverity: 'error',
         snackbarOpen: true,
       });
-    } else {
-      const response = await this.facilitateService.addFacilityByCitizen({ value: this.state.postData });
+    } else { 
+      const response = await this.facilitateService.changeFacilityByCitizen({ value: this.state.postData });
       if (response.error) {
         this.setState({
           snackbarMessage: 'An error occured. Please try again later.',
@@ -111,18 +173,23 @@ export default class AddTestCenterPage extends Component {
           snackbarOpen: true,
         });
       } else {
-        this.setState({
-          ...cloneDeep(this.initialState),
-          snackbarMessage: 'Success! New Test Center has been submitted',
+        this.setState((prevState) => ({
+          ...prevState,
+          snackbarMessage: 'Success! The edited Test Center has been submitted',
           snackbarSeverity: 'success',
           snackbarOpen: true,
-        });
+        }));
       }
     }
   }
 
   handleSnackbarClose() {
     this.setState({ snackbarOpen: false });
+
+    // return to map if test center is invalid
+    if(this.state.snackbarMessage === 'Test Center does not exist.'){
+      this.onCancelClicked();
+    }
   }
 
   onChange(item, value) {
@@ -131,11 +198,12 @@ export default class AddTestCenterPage extends Component {
 
   render() {
     return (
+      <>
         <Section className="add-test-center-page">
-          <TestCenterUpdate
-            title={'Submit New Test Center'}
+          <TestCenterUpdate 
+            title={'Edit Existing Test Center'} 
             content={
-              `Complete the following form to propose a new test center within AllClear. All submissions will be reviewed
+              `Edit the following form to update a test center within AllClear. All submissions will be reviewed
               by the AllClear team within 24 hours.`
             }
             state={this.state}
@@ -146,6 +214,7 @@ export default class AddTestCenterPage extends Component {
             onChange={(item, value) => this.onChange(item, value)}
           />
         </Section>
+      </>
     );
   }
 }

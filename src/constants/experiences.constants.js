@@ -132,38 +132,38 @@ export const NEGATIVE_TAGS = [
     {  
       id: 'ph', 
       name: 'Poor Hygiene', 
-      icon: <PoorHygieneIcon />,
-      whiteIcon: <WhitePoorHygieneIcon />
+      icon: <PoorHygieneIcon style={{height:'25px'}}/>,
+      whiteIcon: <WhitePoorHygieneIcon style={{height:'25px'}}/>
     },  
     {  
       id: 'su', 
       name: 'Seemed Understaffed', 
-      icon: <UnderstaffedIcon />,
-      whiteIcon: <WhiteUnderstaffedIcon />
+      icon: <UnderstaffedIcon style={{height:'25px'}}/>,
+      whiteIcon: <WhiteUnderstaffedIcon style={{height:'25px'}}/>
     },  
     {  
       id: 'ct', 
       name: 'Could Not Get Tested', 
-      icon: <NoIcon />,
-      whiteIcon: <WhiteNoIcon />
+      icon: <NoIcon style={{height:'25px'}}/>,
+      whiteIcon: <WhiteNoIcon style={{height:'25px'}}/>
     },  
     {  
       id: 'lt', 
       name: 'Long Wait Time', 
-      icon: <WaitTimeIcon />,
-      whiteIcon: <WhiteWaitTimeIcon />
+      icon: <WaitTimeIcon style={{height:'25px'}}/>,
+      whiteIcon: <WhiteWaitTimeIcon style={{height:'25px'}}/>
     },  
     {  
       id: 'ca', 
       name: 'Confusing Process', 
-      icon: <QuestionIcon />,
-      whiteIcon: <WhiteQuestionIcon />
+      icon: <QuestionIcon style={{height:'25px'}}/>,
+      whiteIcon: <WhiteQuestionIcon style={{height:'25px'}}/>
     },  
     {  
       id: 'oc', 
       name: 'Overly Crowded', 
-      icon: <CrowdedIcon />,
-      whiteIcon: <WhiteCrowdedIcon />
+      icon: <CrowdedIcon style={{height:'25px'}}/>,
+      whiteIcon: <WhiteCrowdedIcon style={{height:'25px'}}/>
     }, 
   ];
 
@@ -171,37 +171,37 @@ export const NEGATIVE_TAGS = [
     {  
       id: 'st', 
       name: 'Short Wait Time', 
-      icon: <TimeIcon />,
-      whiteIcon: <WhiteTimeIcon />
+      icon: <TimeIcon style={{height:'25px'}}/>,
+      whiteIcon: <WhiteTimeIcon style={{height:'25px'}}/>
     },  
     {  
       id: 'gh', 
       name: 'Good Hygiene', 
-      icon: <FlashIcon />,
-      whiteIcon: <WhiteFlashIcon />
+      icon: <FlashIcon style={{height:'25px'}}/>,
+      whiteIcon: <WhiteFlashIcon style={{height:'25px'}}/>
     },  
     {  
       id: 'fs', 
       name: 'Friendly Staff', 
-      icon: <HeartIcon />,
-      whiteIcon: <WhiteHeartIcon />
+      icon: <HeartIcon style={{width:'25px'}}/>,
+      whiteIcon: <WhiteHeartIcon style={{height:'25px'}}/>
     },  
     {  
       id: 'pp', 
       name: 'PPE Provided', 
-      icon: <MaskIcon />,
-      whiteIcon: <WhiteMaskIcon />
+      icon: <MaskIcon style={{height:'25px'}}/>,
+      whiteIcon: <WhiteMaskIcon style={{height:'25px'}}/>
     },  
     {  
       id: 'se', 
       name: 'Social Distancing', 
-      icon: <DistancingIcon />,
-      whiteIcon: <WhiteDistancingIcon />
+      icon: <DistancingIcon style={{height:'25px'}}/>,
+      whiteIcon: <WhiteDistancingIcon style={{height:'25px'}}/>
     },  
     {  
       id: 'gm', 
       name: 'Good Bedside Manner', 
-      icon: <BedIcon />,
-      whiteIcon: <WhiteBedIcon />
+      icon: <BedIcon style={{height:'25px'}}/>,
+      whiteIcon: <WhiteBedIcon style={{height:'25px'}}/>
     },
   ];
