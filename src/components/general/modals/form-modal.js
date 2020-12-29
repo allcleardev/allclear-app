@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { Dialog, DialogTitle, DialogContent, DialogActions, IconButton } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { isNullOrUndefined } from '@util/general.helpers';
 
-import PrimaryButton from '@general/buttons/primary-button';
 import ModalService from '@services/modal.service';
 
 export default function FormModal(props) {
-  const history = useHistory();
   const modalService = ModalService.getInstance();
   modalService.registerModal(props.modalName, toggleModal);
 
@@ -48,12 +45,7 @@ export default function FormModal(props) {
           </Content>
         )}
         <Actions disableSpacing={true}>
-          <LoginButton color={'primary'} variant={'contained'} onClick={() => history.push('/sign-in')}>
-            Login
-          </LoginButton>
-          <CreateAccountButton style={{ marginTop: 10 }} onClick={() => history.push('/sign-up')}>
-            Create Account
-          </CreateAccountButton>
+          {props.actions}
         </Actions>
       </Modal>
     </>
@@ -87,7 +79,7 @@ const Content = styled(DialogContent)`
   padding: 0 24px;
   text-align: center;
   letter-spacing: -0.41px;
-  font-size: 16px;
+  font-size: 18px;
 `;
 
 const Actions = styled(DialogActions)`
@@ -101,11 +93,3 @@ const CloseButton = styled(IconButton)`
   margin: 20px;
 `;
 
-const LoginButton = styled(PrimaryButton)`
-  box-shadow: 0px 0px 10px 5px lightGrey;
-`;    
-
-const CreateAccountButton = styled(PrimaryButton)`
-  box-shadow: 0px 0px 10px 5px lightGrey; 
-  margin-top: 10px;
-`; 

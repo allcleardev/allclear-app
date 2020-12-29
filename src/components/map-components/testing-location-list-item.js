@@ -16,7 +16,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
 import EventIcon from '@material-ui/icons/Event'; 
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
-import {boolToEng, isNullOrUndefined, getFeedbackButtonURL, isTaggableLocation, sortExperiencesTags} from '@util/general.helpers';
+import {boolToEng, isNullOrUndefined, isTaggableLocation, sortExperiencesTags} from '@util/general.helpers';
 import ExternalItemLinks from './external-item-links';
 import CustomizedExpansionPanel, {ExpansionPanelSummary, ExpansionPanelDetails} from './expansion-panel';
 import {Link} from 'react-router-dom'; 
@@ -152,8 +152,6 @@ export default function TestingLocationListItem(props) {
       </div>
     </ExpansionPanelSummary>
   );
-
-  const changeURL = getFeedbackButtonURL(props);
 
   function buildExperienceSection(experiencesData) {
 
@@ -375,9 +373,7 @@ export default function TestingLocationListItem(props) {
             )}
             <Link to={`/test-centers/${props.id}`}>View Full Test Center Detail</Link>
             <div className="mt-2">
-              <a href={changeURL} target="_blank" rel="noopener noreferrer">
-                Suggest Change To Test Center Information
-              </a>
+              <Link to={`/edit-test-center/${props.id}`}>Suggest Change to Test Center Information</Link>
               <p className="fontsize-12">
                 <i>Last update: {updatedAt.toLocaleString()}</i>
               </p>

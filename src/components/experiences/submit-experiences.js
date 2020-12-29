@@ -34,10 +34,10 @@ export default function SubmitExperiences(props) {
 const Content = styled(DialogContent)`
   overflow-y: hidden;
   margin-bottom: 15px;
-  padding: 0 24px;
+  padding: ${((window.innerWidth < 960) ? '0px' : '0 24px')};
   text-align: center;
   letter-spacing: -0.41px;
-  font-size: 20px; 
+  font-size:  ${((window.innerWidth < 960) ? '16px' : '20px')}; 
 `;  
 
 const Actions = styled(DialogActions)`
@@ -47,7 +47,7 @@ const Actions = styled(DialogActions)`
 
 const DoneButton = styled(PrimaryButton)` 
   border-color: #007AFF;  
-  margin-bottom: 30%;
+  margin-bottom:  ${((window.innerWidth < 960) ? '0%' : '30%')};
 `;  
 
 const Title = styled(DialogTitle)`
@@ -56,7 +56,7 @@ const Title = styled(DialogTitle)`
     flex-direction: column;
     align-items: center;
     text-align: center;
-    font-size: 24px;
-    margin: 15px;
+    font-size: ${((window.innerWidth < 960) ? '18px' : '24px')};
+    margin:  ${((window.innerWidth < 960) ? '0px' : '15px')}; 
   }
 `; 

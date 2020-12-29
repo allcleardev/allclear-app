@@ -41,4 +41,21 @@ export default class FacilitateService {
       return error;
     }
   }
+
+  async changeFacilityByCitizen(body) {
+    try {
+      const response = await Axios({
+        method: 'PUT',
+        url: `${this.baseURL}/citizen`,
+        data: body,
+      });
+      return response;
+    } catch (e) {
+      const error = {
+        error: true,
+        ...e.response,
+      };
+      return error;
+    }
+  }
 }
